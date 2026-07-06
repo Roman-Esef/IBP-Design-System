@@ -1,8 +1,9 @@
 /* =========================================================================
    Playground Kit — прогрессивное улучшение панелей «Конструктор».
    Работает поверх существующей логики страниц, ничего в ней не меняя:
-   1. Вставляет Splitter из ДС между настройками и превью (drag / dblclick /
-      Home — сброс, стрелки ← → с клавиатуры).
+   1. Вставляет Splitter из ДС между настройками (слева, 360px по умолчанию)
+      и превью (справа, гибкое) — drag / dblclick / Home — сброс, стрелки
+      ← → с клавиатуры двигают именно ширину панели настроек.
    2. Следит за шириной панели настроек: < 520px → одна колонка.
    3. Заменяет селекты из 2–4 коротких опций на SegmentControl из ДС
       (скрытый <select> остаётся источником истины — страница получает
@@ -35,20 +36,20 @@
 
     const DEFAULT_W = 360, MIN_STAGE = 240, MIN_CONTROLS = 280;
     function splW() { return spl.getBoundingClientRect().width || 11; }
-    function setStageW(w) {
-      const max = panel.getBoundingClientRect().width - MIN_CONTROLS - splW();
-      panel.style.setProperty('--pg-stage-w', Math.round(Math.min(Math.max(w, MIN_STAGE), Math.max(max, MIN_STAGE))) + 'px');
+    function setControlsW(w) {
+      const max = panel.getBoundingClientRect().width - MIN_STAGE - splW();
+      panel.style.setProperty('--pg-controls-w', Math.round(Math.min(Math.max(w, MIN_CONTROLS), Math.max(max, MIN_CONTROLS))) + 'px');
     }
-    function stageW() {
-      return parseFloat(getComputedStyle(panel).getPropertyValue('--pg-stage-w')) || DEFAULT_W;
+    function controlsW() {
+      return parseFloat(getComputedStyle(panel).getPropertyValue('--pg-controls-w')) || DEFAULT_W;
     }
     spl.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       spl.setPointerCapture(e.pointerId);
       spl.classList.add('spl--move');
       document.body.classList.add('spl-dragging');
-      const startX = e.clientX, startW = stageW();
-      function onMove(ev) { setStageW(startW + (startX - ev.clientX)); }
+      const startX = e.clientX, startW = controlsW();
+      function onMove(ev) { setControlsW(startW + (ev.clientX - startX)); }
       function onUp() {
         spl.classList.remove('spl--move');
         document.body.classList.remove('spl-dragging');
@@ -60,11 +61,11 @@
       spl.addEventListener('pointerup', onUp);
       spl.addEventListener('pointercancel', onUp);
     });
-    spl.addEventListener('dblclick', () => panel.style.removeProperty('--pg-stage-w'));
+    spl.addEventListener('dblclick', () => panel.style.removeProperty('--pg-controls-w'));
     spl.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') { setStageW(stageW() + 24); e.preventDefault(); }
-      else if (e.key === 'ArrowRight') { setStageW(stageW() - 24); e.preventDefault(); }
-      else if (e.key === 'Home') { panel.style.removeProperty('--pg-stage-w'); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { setControlsW(controlsW() - 24); e.preventDefault(); }
+      else if (e.key === 'ArrowRight') { setControlsW(controlsW() + 24); e.preventDefault(); }
+      else if (e.key === 'Home') { panel.style.removeProperty('--pg-controls-w'); e.preventDefault(); }
     });
   }
 
