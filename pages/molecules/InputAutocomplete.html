@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script>window.__DS_ROOT = '../../';</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InputAutocomplete — Дизайн-система</title>
+<link rel="stylesheet" href="../../styles/typography.css">
+<link rel="stylesheet" href="../../styles/colors.css">
+<link rel="stylesheet" href="../../styles/radius.css">
+<link rel="stylesheet" href="../../styles/ds-nav.css">
+  <link rel="stylesheet" href="../../styles/ds-toc.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; font-family: var(--font-text), system-ui, sans-serif; color: var(--text-primary); background: var(--bg-page); background-attachment: fixed; }
+  a { text-decoration: none; color: inherit; }
+  .page { max-width: 1240px; margin: 0 auto; padding: clamp(40px,7vw,96px) clamp(24px,5vw,72px) 130px; }
+  .masthead { border-bottom: 1px solid var(--border-light); padding-bottom: 30px; }
+  .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
+  .masthead .meta b { color: var(--text-secondary); font-weight:600; }
+  .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
+  .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:60ch; text-wrap:pretty; }
+  .draft { margin-top: 56px; border:1px dashed var(--border-primary); background: var(--bg-tile); border-radius: var(--radius-card); padding: clamp(28px,4vw,48px); display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+  .draft .pill { font: var(--type-button-xs); letter-spacing:.04em; color: var(--text-on-tertiary); background: var(--tertiary); padding:6px 12px; border-radius: var(--radius-pill); }
+  .draft h2 { font: var(--type-h4-strong); margin:0; color: var(--text-black); }
+  .draft p { font: var(--type-body-m); color: var(--text-secondary); margin:0; max-width:60ch; text-wrap:pretty; }
+  .draft .rel { display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; }
+  .draft .rel a { font: var(--type-body-s-strong); color: var(--primary); border:1px solid var(--border-light); border-radius: var(--radius-pill); padding:6px 14px; transition: border-color .15s ease, background .15s ease; }
+  .draft .rel a:hover { border-color: var(--border-primary); background: var(--primary-bg); }
+  footer.foot { margin-top:90px; padding-top:26px; border-top:1px solid var(--border-light); font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="InputAutocomplete">
+  <header class="masthead">
+    <div class="meta"><span>Версия: <b>—</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <p class="eyebrow">Дизайн-система · Компоненты</p>
+    <h1>InputAutocomplete</h1>
+    <p class="lead">Поле ввода с автодополнением: подсказывает варианты из списка по мере набора. Применяется, когда вариантов много (от 5 до 15) или они не помещаются в ограниченном пространстве.</p>
+  </header>
+
+  <section class="draft">
+    <span class="pill">В разработке</span>
+    <h2>Страница в подготовке</h2>
+    <p>Компонент входит в дизайн-систему. Документация, спецификации и конструктор появятся здесь позже — сейчас доступны ссылки на связанные компоненты.</p>
+    <div class="rel">
+      <a href="../atoms/Checkbox.html">Checkbox</a>
+      <a href="../atoms/Radiobutton.html">Radiobutton</a>
+      <a href="../molecules/Select.html">Выпадающий список</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Дизайн-система · Компоненты</span>
+    <span>В разработке</span>
+  </footer>
+</main>
+<script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-toc.js"></script>
+</body>
+</html>
