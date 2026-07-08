@@ -215,12 +215,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Switch">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Switch</h1>
     <p class="lead">Свитч мгновенно переключает состояние — например, включает или отключает определённую опцию. Действие применяется сразу, без подтверждения. Два состояния — Off / On — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Loading.</p>
@@ -239,7 +247,7 @@
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+    <h2>Использование</h2>
     <p class="desc tight">Используйте свитч, когда нужно:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>дать пользователю возможность мгновенно включить / выключить или показать / скрыть что-либо;</li>
@@ -247,11 +255,9 @@
     </ul>
     <p class="desc">Свитчи всегда мгновенно выполняют действие, поэтому не стоит использовать их в сценариях с кнопкой отправки данных или кнопкой сохранения — это может запутать пользователя. В этих случаях используйте <a class="inl" href="../atoms/Radiobutton.html">Radiobutton</a> или <a class="inl" href="../atoms/Checkbox.html">Checkbox</a>.</p>
     <p class="desc">Свитч нельзя использовать для выбора пунктов в списке из нескольких вариантов. Для этого используйте группу <a class="inl" href="../atoms/Checkbox.html">Checkbox</a>.</p>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="section" data-screen-label="HowItWorks">
-    <h2>Описание работы</h2>
+  
+<div class="subsec" data-screen-label="HowItWorks">
+    <h3>Описание работы</h3>
     <p class="desc">Клик по названию свитча или по самому контролу приводит к его переключению. Повторное нажатие переключает свитч обратно. Поиграйте с примером:</p>
     <div class="panel" style="margin-bottom:28px;">
       <div class="demo-card" id="how-demo" style="max-width:320px;"></div>
@@ -266,6 +272,30 @@
     <div class="panel">
       <div class="demo-card" id="multiline-demo" style="max-width:300px;"></div>
     </div>
+  </div>
+
+<div class="subsec" data-screen-label="SettingsRow">
+    <h3>Свитч в строке настроек<span class="badge-new">Новое</span></h3>
+    <p class="desc">Частый паттерн: название слева, контрол прижат к правому краю строки. Вся строка — активная область. Так свитчи легко сканировать в списке настроек, а контролы выровнены по правому краю.</p>
+    <div class="panel">
+      <div class="settings" id="settings-demo" style="max-width:520px;"></div>
+    </div>
+    <p class="desc" style="margin-top:28px;">В строке настроек контролы выравнивайте по правому краю — по общей вертикальной оси, а не по концу текста.</p>
+    <div class="guide">
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-bad1"></span>Не так</div>
+        <div class="guide-card__body" id="align-bad"></div>
+        <p class="guide-card__cap">Выравнивание по тексту ломает вертикальную ось контролов.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
+        <div class="guide-card__body" id="align-good"></div>
+        <p class="guide-card__cap">Контролы прижаты к правому краю — общая ось сохраняется.</p>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -293,6 +323,20 @@
     </div>
   </section>
 
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Composition">
+    <h3>Состав</h3>
+    <p class="desc">Вспомогательные части — название и хелпер — опциональны. Свитч рендерится без названия (например, на карточке), с названием и с хелпером. Контрол всегда выровнен по первой строке текста.</p>
+    <div class="panel">
+      <div class="compo" id="compo"></div>
+    </div>
+  </div>
+  </section>
+
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
@@ -316,64 +360,6 @@
     </div>
   </section>
 
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния</h2>
-    <p class="desc">Два состояния по вертикали — Off / On — и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Loading</b> добавлены к исходной матрице Default / Disabled.<span class="badge-new">Новое</span></p>
-    <div class="panel">
-      <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
-    </div>
-  </section>
-
-  <!-- COMPOSITION -->
-  <section class="section" data-screen-label="Composition">
-    <h2>Состав</h2>
-    <p class="desc">Вспомогательные части — название и хелпер — опциональны. Свитч рендерится без названия (например, на карточке), с названием и с хелпером. Контрол всегда выровнен по первой строке текста.</p>
-    <div class="panel">
-      <div class="compo" id="compo"></div>
-    </div>
-  </section>
-
-  <!-- LOADING / ASYNC (NEW) -->
-  <section class="section" data-screen-label="Loading">
-    <h2>Загрузка и асинхронное действие<span class="badge-new">Новое</span></h2>
-    <p class="desc">Свитч выполняет действие мгновенно. Но если переключение запускает запрос к серверу, который может занять время, покажите промежуточное состояние <b>Loading</b>: в ползунке появляется индикатор, контрол временно недоступен для повторного нажатия. Когда ответ получен — свитч фиксируется в новом состоянии; при ошибке возвращается в исходное.</p>
-    <div class="row">
-      <div class="panel" style="flex:1; min-width:280px;">
-        <p class="desc tight" style="margin-bottom:16px;">Состояние загрузки</p>
-        <div class="demo-card" id="loading-static" style="max-width:300px;"></div>
-      </div>
-      <div class="panel" style="flex:1; min-width:280px;">
-        <p class="desc tight" style="margin-bottom:16px;">Живой пример — переключение с задержкой ~1.2с</p>
-        <div class="demo-card" id="loading-live" style="max-width:300px;"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SETTINGS ROW (NEW) -->
-  <section class="section" data-screen-label="SettingsRow">
-    <h2>Свитч в строке настроек<span class="badge-new">Новое</span></h2>
-    <p class="desc">Частый паттерн: название слева, контрол прижат к правому краю строки. Вся строка — активная область. Так свитчи легко сканировать в списке настроек, а контролы выровнены по правому краю.</p>
-    <div class="panel">
-      <div class="settings" id="settings-demo" style="max-width:520px;"></div>
-    </div>
-    <p class="desc" style="margin-top:28px;">В строке настроек контролы выравнивайте по правому краю — по общей вертикальной оси, а не по концу текста.</p>
-    <div class="guide">
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-bad1"></span>Не так</div>
-        <div class="guide-card__body" id="align-bad"></div>
-        <p class="guide-card__cap">Выравнивание по тексту ломает вертикальную ось контролов.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
-        <div class="guide-card__body" id="align-good"></div>
-        <p class="guide-card__cap">Контролы прижаты к правому краю — общая ось сохраняется.</p>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTENT -->
   <section class="section" data-screen-label="Content">
     <h2>Контент</h2>
@@ -384,11 +370,9 @@
       <li>в строке настроек название слева, свитч прижат к правому краю (см. «Свитч в строке настроек»);</li>
       <li>не обрезайте название многоточием — оно может переноситься в несколько строк (см. «Описание работы»).</li>
     </ul>
-  </section>
-
-  <!-- LABEL GUIDELINES -->
-  <section class="section" data-screen-label="LabelRules">
-    <h2>Название свитча</h2>
+  
+<div class="subsec" data-screen-label="LabelRules">
+    <h3>Название свитча</h3>
     <p class="desc">Название должно быть коротким и понятным. Название должно описывать, что делает свитч в активном (On) состоянии, и пишется в положительном ключе — без отрицаний и без указания текущего состояния.</p>
     <div class="guide">
       <div class="guide-card bad">
@@ -405,11 +389,42 @@
       </div>
     </div>
     <p class="desc" style="margin-top:26px;">Если пользователю может быть не очевидно, что произойдёт при включении, объясните это дополнительным текстом-хелпером.</p>
+  </div>
+  </section>
+
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Loading">
+    <h3>Загрузка и асинхронное действие<span class="badge-new">Новое</span></h3>
+    <p class="desc">Свитч выполняет действие мгновенно. Но если переключение запускает запрос к серверу, который может занять время, покажите промежуточное состояние <b>Loading</b>: в ползунке появляется индикатор, контрол временно недоступен для повторного нажатия. Когда ответ получен — свитч фиксируется в новом состоянии; при ошибке возвращается в исходное.</p>
+    <div class="row">
+      <div class="panel" style="flex:1; min-width:280px;">
+        <p class="desc tight" style="margin-bottom:16px;">Состояние загрузки</p>
+        <div class="demo-card" id="loading-static" style="max-width:300px;"></div>
+      </div>
+      <div class="panel" style="flex:1; min-width:280px;">
+        <p class="desc tight" style="margin-bottom:16px;">Живой пример — переключение с задержкой ~1.2с</p>
+        <div class="demo-card" id="loading-live" style="max-width:300px;"></div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Два состояния по вертикали — Off / On — и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Loading</b> добавлены к исходной матрице Default / Disabled.<span class="badge-new">Новое</span></p>
+    <div class="panel">
+      <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
+    </div>
   </section>
 
   <!-- HIT AREA / A11Y (NEW) -->
   <section class="section" data-screen-label="HitArea">
-    <h2>Область клика и доступность<span class="badge-new">Новое</span></h2>
+    <h2>Доступность<span class="badge-new">Новое</span></h2>
     <p class="desc">Видимый контрол — 20×36px, но кликабельная область шире: она включает название и хелпер. В строке настроек активная область вытягивается на всю строку. Управление с клавиатуры: <b>Tab</b> ставит фокус на свитч, <b>Space</b> / <b>Enter</b> переключают его, фокус показывается обводкой <code class="tok">--primary</code>. Контролу присваивается <code class="tok">role="switch"</code> с <code class="tok">aria-checked</code>.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">

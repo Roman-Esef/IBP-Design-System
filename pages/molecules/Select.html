@@ -211,12 +211,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
   <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Select">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>03.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Select · DropdownList</h1>
     <p class="lead">Выпадающий список — всплывающая поверхность со списком опций, которая раскрывается под полем <a class="inl" href="#">Select</a> или <a class="inl" href="../molecules/InputAutocomplete.html">InputAutocomplete</a>. Служит для выбора значения из перечня: одиночного (подсветка выбранной строки), множественного (ведущие чекбоксы) или с поиском по мере набора (подсветка совпадения). В отличие от <a class="inl" href="../molecules/ContextMenu.html">Context Menu</a> — это выбор данных, а не список команд.</p>
@@ -253,11 +261,9 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- WHEN TO USE -->
-  <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+  
+<div class="subsec" data-screen-label="WhenToUse">
+    <h3>Когда использовать</h3>
     <p class="desc tight">Выпадающий список — способ выбрать значение из перечня, когда вариантов много или место ограничено. Используйте, когда нужно:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>выбрать одно значение из 5+ вариантов (валюта, контрагент, счёт) — вместо радиокнопок;</li>
@@ -265,6 +271,7 @@
       <li>найти значение в длинном справочнике по мере набора — в паре с <a class="inl" href="../molecules/InputAutocomplete.html">InputAutocomplete</a>.</li>
     </ul>
     <p class="desc">Для 2–4 взаимоисключающих вариантов на виду возьмите <a class="inl" href="../molecules/SegmentControl.html">SegmentControl</a> или <a class="inl" href="../atoms/Radiobutton.html">Radiobutton</a>. Для списка команд-действий над объектом — <a class="inl" href="../molecules/ContextMenu.html">Context Menu</a>: у него hover нейтрально-серый, выбор — галочка справа, а здесь выбор — заливка строки и (для multiselect) чекбокс.</p>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -285,15 +292,20 @@
     </div>
   </section>
 
-  <!-- VARIANTS -->
+  <!-- VARIANTS (STUB) -->
   <section class="section" data-screen-label="Variants">
-    <h2>Варианты опции <span class="badge-new">Dropdown_Item</span></h2>
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Variants">
+    <h3>Варианты опции <span class="badge-new">Dropdown_Item</span></h3>
     <p class="desc">Четыре варианта опции × пять состояний. Ведущий слот — либо иконка, либо чекбокс (для множественного выбора); helper-текст добавляет вторую строку. Матрица повторяет исходный компонент.</p>
     <div class="panel">
       <div class="vscroll">
         <div class="vgrid" id="variants-grid"></div>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- SIZES -->
@@ -324,27 +336,13 @@
     </div>
   </section>
 
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния</h2>
-    <p class="desc">Опция меняет фон при наведении и фокусе, темнеет при нажатии. Выбранная (одиночный выбор) — залита фоном «выбранной строки» и усилена начертанием. Отключённая — приглушена и не реагирует на курсор. Фокус клавиатуры (активная опция) визуально отделён от hover.</p>
-    <div class="panel">
-      <div class="states" id="states-demo"></div>
-    </div>
-  </section>
-
-  <!-- SYSTEM STATES -->
-  <section class="section" data-screen-label="SystemStates">
-    <h2>Системные состояния <span class="badge-new">Новое</span></h2>
-    <p class="desc">Когда показывать нечего, вместо списка опций выводится одна системная строка. Три случая — загрузка, пустой результат и ошибка — плюс корнер-кейс автокомплита со свободным вводом («создать»).</p>
-    <div class="panel">
-      <div class="sys" id="system-grid"></div>
-    </div>
-  </section>
-
-  <!-- POSITIONING -->
-  <section class="section" data-screen-label="Positioning">
-    <h2>Позиционирование и авто-разворот <span class="badge-new">Новое</span></h2>
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Positioning">
+    <h3>Позиционирование и авто-разворот <span class="badge-new">Новое</span></h3>
     <p class="desc">Список выравнивается по левому краю поля, его ширина равна ширине поля. Если снизу не хватает места, список разворачивается вверх. Перетащите поле к нижнему краю области.</p>
     <div class="panel">
       <div class="vp" id="flip-vp">
@@ -352,6 +350,24 @@
         <span class="hint-drag">Перетащите поле ↕↔</span>
       </div>
     </div>
+  </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Опция меняет фон при наведении и фокусе, темнеет при нажатии. Выбранная (одиночный выбор) — залита фоном «выбранной строки» и усилена начертанием. Отключённая — приглушена и не реагирует на курсор. Фокус клавиатуры (активная опция) визуально отделён от hover.</p>
+    <div class="panel">
+      <div class="states" id="states-demo"></div>
+    </div>
+  
+<div class="subsec" data-screen-label="SystemStates">
+    <h3>Системные состояния <span class="badge-new">Новое</span></h3>
+    <p class="desc">Когда показывать нечего, вместо списка опций выводится одна системная строка. Три случая — загрузка, пустой результат и ошибка — плюс корнер-кейс автокомплита со свободным вводом («создать»).</p>
+    <div class="panel">
+      <div class="sys" id="system-grid"></div>
+    </div>
+  </div>
   </section>
 
   <!-- ACCESSIBILITY -->

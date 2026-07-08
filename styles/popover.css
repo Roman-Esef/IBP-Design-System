@@ -7,20 +7,23 @@
    скрима, привязан к триггеру и закрывается кликом вне себя.
 
    Анатомия — 2 обязательные + 3 опциональные части:
-     Trigger (обязательно, вне .pop) → Header (опц.: заголовок + ✕) →
-     Body (обязательно, единственная гибкая/прокручиваемая зона) →
-     Footer (опц.: --foot-left служебное/инфо, --foot-right Secondary+Primary) →
+     Trigger (обязательно, вне .pop) → Header (опц.: 48px, заголовок Body S Strong
+     по центру + опц. чип/ссылка (gap 8px) + ✕) →
+     Body (обязательно, единственная гибкая/прокручиваемая зона — контент почти
+     любой, жёстких ограничений нет) →
+     Footer (опц.: foot-left и foot-right включаются независимо — слева
+     инфо/ссылка/кнопка, справа Secondary+Primary) →
      Arrow (опц., по умолчанию выключена — как в Menu/DropdownList)
 
    Container:  .pop            (+ --w-s/-m/-l/-xl/-max · --arrow · --floating)
-   Zones:      .pop__head · .pop__title · .pop__close
+   Zones:      .pop__head · .pop__head-main · .pop__title · .pop__close
                .pop__body (+ --flush)
                .pop__foot · .pop__foot-left · .pop__foot-right
    Arrow:      .pop__arrow (+ 4 placements × 3 aligns, как у Tooltip)
    Anchor:     .pop-anchor (position:relative обёртка вокруг триггера)
 
    Requires: typography.css, colors.css, radius.css, shadow.css, button.css,
-             icon-button.css
+             icon-button.css, chip.css, link.css
    ========================================================================= */
 
 :root {
@@ -45,16 +48,17 @@
 
   /* геометрия */
   --pop-pad-x:      16px;
-  --pop-head-pad-y: 12px;
   --pop-body-pad-y: 16px;
   --pop-foot-pad-y: 12px;
   --pop-gap:        8px;    /* зазор поповера от триггера */
   --pop-guard:      16px;   /* минимальный отступ от края viewport */
 
-  /* поверхность — как у соседних floating-поверхностей (Menu/DropdownList) */
-  --pop-radius: var(--radius-popup);  /* 12px */
-  --pop-bg:     var(--bg-popup);      /* #FFFFFF */
-  --pop-shadow: var(--elevation-2);   /* тень выпадающих поверхностей */
+  /* поверхность — компактный радиус, без обводки: единственная граница — тень верхнего уровня */
+  --pop-radius:  var(--radius-m);       /* 8px */
+  --pop-bg:      var(--bg-popup);       /* #FFFFFF */
+  --pop-shadow:  var(--elevation-5);    /* внешнего бордера нет намеренно */
+  --pop-head-h:  48px;                  /* фиксированная высота шапки, контент — по центру */
+  --pop-zone-bg: var(--bgtable-pinned); /* фон шапки и подвала — Pinned Default #F5F7F7 */
 
   /* z-index — тот же слой, что Menu/DropdownList; ниже Toast/Nav и Modal */
   --pop-z: 40;
@@ -76,7 +80,6 @@
   width: var(--pop-w-m);
   max-width: calc(100vw - (var(--pop-guard) * 2));
   background: var(--pop-bg);
-  border: 1px solid var(--border-light);
   border-radius: var(--pop-radius);
   box-shadow: var(--pop-shadow);
   z-index: var(--pop-z);
@@ -100,29 +103,41 @@
    ========================================================================= */
 .pop__head {
   flex: none;
+  height: var(--pop-head-h);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: var(--pop-head-pad-y) var(--pop-pad-x);
+  padding: 0 var(--pop-pad-x);
+  background: var(--pop-zone-bg);
   border-bottom: 1px solid var(--border-light);
+  border-radius: var(--pop-radius) var(--pop-radius) 0 0;
   position: relative;
   transition: box-shadow .15s ease;
 }
 .pop__head.is-scrolled { box-shadow: 0 6px 12px -8px rgba(40, 50, 55, .18); }
 
+/* заголовок + опц. чип/ссылка — примыкают друг к другу с зазором 8px */
+.pop__head-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
 .pop__title {
   margin: 0;
-  font: var(--type-body-m-strong);
+  font: var(--type-body-s-strong);
   color: var(--text-black);
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;      /* заголовок — одна строка (рекомендация: ≤25 символов) */
 }
 
-.pop__close { flex: none; margin-top: -1px; } /* класс-якорь; кнопка — ibtn ibtn--neutral ibtn--s */
+.pop__close { flex: none; } /* класс-якорь; кнопка — ibtn ibtn--neutral ibtn--s */
 
 /* =========================================================================
    BODY — единственная обязательная и единственная прокручиваемая зона.
@@ -156,7 +171,9 @@
   gap: 12px;
   flex-wrap: wrap;
   padding: var(--pop-foot-pad-y) var(--pop-pad-x);
+  background: var(--pop-zone-bg);
   border-top: 1px solid var(--border-light);
+  border-radius: 0 0 var(--pop-radius) var(--pop-radius);
   position: relative;
   transition: box-shadow .15s ease;
 }
@@ -224,6 +241,12 @@
 .pop--arrow.pop--right.pop--center .pop__arrow    { top: 50%; transform: translateY(-50%); }
 .pop--arrow.pop--left.pop--end .pop__arrow,
 .pop--arrow.pop--right.pop--end .pop__arrow       { bottom: 14px; }
+
+/* стрелка красится в цвет той зоны, к которой примыкает — не всегда Body:
+   arrow сверху (placement bottom) касается Header, если он есть;
+   arrow снизу (placement top) касается Footer, если он есть */
+.pop--bottom:has(.pop__head) .pop__arrow { background: var(--pop-zone-bg); }
+.pop--top:has(.pop__foot) .pop__arrow    { background: var(--pop-zone-bg); }
 
 /* transform-origin по стороне размещения — «вырастает» от триггера */
 .pop--top    { transform-origin: bottom center; }

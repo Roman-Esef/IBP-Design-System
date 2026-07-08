@@ -208,12 +208,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Link">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>04.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Link</h1>
     <p class="lead">Текстовая ссылка для навигации внутри лайаута и модальных окон, а также в Хлебных крошках. Тоны Accent / Muted / Neutral, размеры M / S, состояния Default и Hover = Focus (подчёркивание) — кроме тона Neutral (Breadcrumbs_2): у него только состояние Default, ссылка не кликабельна. Цветовое решение едино для всех видов и размеров.</p>
@@ -232,7 +240,7 @@
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+    <h2>Использование</h2>
     <p class="desc tight">Используйте ссылку, когда нужно:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>перейти на другую страницу или экран — в лайауте, шапке, Хлебных крошках;</li>
@@ -258,18 +266,21 @@
     </div>
   </section>
 
-  <!-- LAYOUT / MODAL LINKS -->
-  <section class="section" data-screen-label="LayoutLinks">
-    <h2>Ссылки лайаута и модалок</h2>
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="LayoutLinks">
+    <h3>Ссылки лайаута и модалок</h3>
     <p class="desc">Основной тип ссылок (тон <b>Accent</b>). Цветовое решение едино для всех видов и размеров. В покое — без подчёркивания, на Hover и Focus появляется подчёркивание.</p>
     <div class="panel">
       <div class="matrix" id="layout-matrix" style="grid-template-columns:130px repeat(2,1fr); min-width:auto;"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- BREADCRUMB LINKS -->
-  <section class="section" data-screen-label="Breadcrumbs">
-    <h2>Ссылки Хлебных крошек</h2>
+<div class="subsec" data-screen-label="Breadcrumbs">
+    <h3>Ссылки Хлебных крошек</h3>
     <p class="desc">Ссылки используются в Хлебных крошках (шапка страницы). Есть два цветовых решения: <b>Breadcrumbs_1</b> (тон Muted — родительские страницы) — кликабельна, подчёркивается на Hover и Focus; и <b>Breadcrumbs_2</b> (тон Neutral — выделенная текущая страница) — не кликабельна, доступно только состояние Default, без подчёркивания. Полная спецификация компонента (анатомия, авто-схлопывание, доступность) — на странице <a class="link link--accent link--inline" href="../molecules/Breadcrumbs.html">Breadcrumbs</a>.</p>
     <div class="panel" style="margin-bottom:20px;">
       <div class="matrix" id="crumb-matrix" style="grid-template-columns:130px repeat(2,1fr); min-width:auto;"></div>
@@ -284,6 +295,21 @@
     <div class="panel">
       <div class="header-mock"><nav class="crumbs" id="crumbs-collapsed" aria-label="Хлебные крошки"></nav></div>
     </div>
+  </div>
+
+<div class="subsec" data-screen-label="Inline">
+    <h3>Ссылка внутри текста<span class="badge-new">Новое</span></h3>
+    <p class="desc">Инлайн-ссылка живёт в потоке текста и наследует его размер. Чтобы её можно было отличить не только по цвету, инлайн-ссылка <b>всегда подчёркнута</b> (мягким подчёркиванием), а на Hover подчёркивание становится насыщенным. Это требование доступности (WCAG 1.4.1).</p>
+    <div class="panel">
+      <div class="prose" id="inline-prose"></div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="IconExternal">
+    <h3>С иконкой и внешние ссылки<span class="badge-new">Новое</span></h3>
+    <p class="desc">Иконка может стоять слева (например, ссылка-скачивание) или справа. Внешняя ссылка ведёт на другой ресурс — она открывается в новой вкладке (<code class="tok">target="_blank"</code>, <code class="tok">rel="noopener"</code>) и помечается иконкой со стрелкой. Иконка масштабируется относительно текста (1em).</p>
+    <div class="panel"><div class="row" id="icon-row" style="gap:36px;"></div></div>
+  </div>
   </section>
 
   <!-- SIZES -->
@@ -299,47 +325,6 @@
           <tr><td>S</td><td class="rt-tok"><code>--type-body-s</code></td><td class="num">14 / 16</td><td><a class="link link--accent link--s" href="#" data-fz>Ссылка</a></td></tr>
         </tbody>
       </table>
-    </div>
-  </section>
-
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния</h2>
-    <p class="desc">Hover и Focus оформлены одинаково (подчёркивание) — как в спецификации. Дополнительно добавлены <b>Pressed</b>, <b>Disabled</b> и опциональный <b>Visited</b>, а на клавиатурный фокус показывается обводка для доступности. Тон <b>Neutral</b> (Breadcrumbs_2) не кликабелен — для него доступно только состояние Default.<span class="badge-new">Новое</span></p>
-    <div class="panel">
-      <div class="matrix-wrap"><div class="matrix" id="states-matrix"></div></div>
-    </div>
-  </section>
-
-  <!-- INLINE -->
-  <section class="section" data-screen-label="Inline">
-    <h2>Ссылка внутри текста<span class="badge-new">Новое</span></h2>
-    <p class="desc">Инлайн-ссылка живёт в потоке текста и наследует его размер. Чтобы её можно было отличить не только по цвету, инлайн-ссылка <b>всегда подчёркнута</b> (мягким подчёркиванием), а на Hover подчёркивание становится насыщенным. Это требование доступности (WCAG 1.4.1).</p>
-    <div class="panel">
-      <div class="prose" id="inline-prose"></div>
-    </div>
-  </section>
-
-  <!-- ICON / EXTERNAL -->
-  <section class="section" data-screen-label="IconExternal">
-    <h2>С иконкой и внешние ссылки<span class="badge-new">Новое</span></h2>
-    <p class="desc">Иконка может стоять слева (например, ссылка-скачивание) или справа. Внешняя ссылка ведёт на другой ресурс — она открывается в новой вкладке (<code class="tok">target="_blank"</code>, <code class="tok">rel="noopener"</code>) и помечается иконкой со стрелкой. Иконка масштабируется относительно текста (1em).</p>
-    <div class="panel"><div class="row" id="icon-row" style="gap:36px;"></div></div>
-  </section>
-
-  <!-- WRAP / TRUNCATE -->
-  <section class="section" data-screen-label="WrapTruncate">
-    <h2>Перенос и обрезка<span class="badge-new">Новое</span></h2>
-    <p class="desc">Длинная ссылка по умолчанию переносится по словам вместе с текстом. В узких контейнерах (ячейка таблицы, чип) ссылку можно обрезать многоточием — полное значение остаётся в <code class="tok">title</code> / тултипе.</p>
-    <div class="row" style="align-items:flex-start; gap:24px;">
-      <div class="panel" style="flex:1; min-width:260px;">
-        <p class="desc tight" style="margin-bottom:14px;">Перенос по словам</p>
-        <div class="prose" style="max-width:240px;"><a class="link link--accent link--m" href="#" id="wrap-link">Очень длинное название документа, которое переносится на несколько строк</a></div>
-      </div>
-      <div class="panel" style="flex:1; min-width:260px;">
-        <p class="desc tight" style="margin-bottom:14px;">Обрезка многоточием</p>
-        <div class="trunc-box"><a class="link link--accent link--m link--truncate" href="#" title="Очень длинное название документа, которое не помещается" id="trunc-link">Очень длинное название документа, которое не помещается</a></div>
-      </div>
     </div>
   </section>
 
@@ -366,6 +351,36 @@
         <div class="guide-card__body">Выгрузите <a class="link link--accent link--inline" href="#" onclick="event.preventDefault()">отчёт за квартал</a>.</div>
         <p class="guide-card__cap">Текст ссылки сам называет действие и объект — понятен без контекста.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="WrapTruncate">
+    <h3>Перенос и обрезка<span class="badge-new">Новое</span></h3>
+    <p class="desc">Длинная ссылка по умолчанию переносится по словам вместе с текстом. В узких контейнерах (ячейка таблицы, чип) ссылку можно обрезать многоточием — полное значение остаётся в <code class="tok">title</code> / тултипе.</p>
+    <div class="row" style="align-items:flex-start; gap:24px;">
+      <div class="panel" style="flex:1; min-width:260px;">
+        <p class="desc tight" style="margin-bottom:14px;">Перенос по словам</p>
+        <div class="prose" style="max-width:240px;"><a class="link link--accent link--m" href="#" id="wrap-link">Очень длинное название документа, которое переносится на несколько строк</a></div>
+      </div>
+      <div class="panel" style="flex:1; min-width:260px;">
+        <p class="desc tight" style="margin-bottom:14px;">Обрезка многоточием</p>
+        <div class="trunc-box"><a class="link link--accent link--m link--truncate" href="#" title="Очень длинное название документа, которое не помещается" id="trunc-link">Очень длинное название документа, которое не помещается</a></div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Hover и Focus оформлены одинаково (подчёркивание) — как в спецификации. Дополнительно добавлены <b>Pressed</b>, <b>Disabled</b> и опциональный <b>Visited</b>, а на клавиатурный фокус показывается обводка для доступности. Тон <b>Neutral</b> (Breadcrumbs_2) не кликабелен — для него доступно только состояние Default.<span class="badge-new">Новое</span></p>
+    <div class="panel">
+      <div class="matrix-wrap"><div class="matrix" id="states-matrix"></div></div>
     </div>
   </section>
 

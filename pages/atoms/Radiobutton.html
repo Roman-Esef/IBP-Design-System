@@ -210,12 +210,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Radiobutton">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v2.2</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v2.2</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Radiobutton</h1>
     <p class="lead">Радиокнопка позволяет выбрать всего один пункт из списка взаимоисключающих вариантов. Используется только в составе группы. Два состояния выбора — Unselected / Selected — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Error.</p>
@@ -234,17 +242,15 @@
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+    <h2>Использование</h2>
     <p class="desc">Используется только в составе группы радиокнопок и не может использоваться как единственная доступная опция — в этом случае используйте <a class="inl" href="../atoms/Checkbox.html">Чекбокс</a>.</p>
     <p class="desc">Группу радиокнопок используют, когда вариантов выбора немного — 2–5. Может использоваться в тайлах, таблицах, модальных окнах, в формах и на стандартных страницах.</p>
     <p class="desc">Используется для переключения с одной настройки на другую. Часто может выступать в качестве механизма фильтрации.</p>
     <p class="desc">Если пунктов слишком много (от 5 до 15) или они не помещаются в ограниченном пространстве — используйте <a class="inl" href="../molecules/Select.html">Выпадающий список</a>.</p>
     <p class="desc">Если нужно дать возможность выбрать один или несколько пунктов — используйте <a class="inl" href="../atoms/Checkbox.html">Чекбокс</a>.</p>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="section" data-screen-label="HowItWorks">
-    <h2>Описание работы</h2>
+  
+<div class="subsec" data-screen-label="HowItWorks">
+    <h3>Описание работы</h3>
     <p class="desc">Клик по названию или по самой радиокнопке приводит к её выбору. Повторное нажатие не снимает выбор. Когда пользователь выбирает новый элемент, предыдущий выбор автоматически отменяется.</p>
     <p class="desc tight">Радиокнопки всегда образуют группы:</p>
     <div class="panel">
@@ -264,6 +270,7 @@
       <li>хронологически;</li>
       <li>следуя другой понятной системе.</li>
     </ul>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -296,6 +303,20 @@
     </div>
   </section>
 
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Composition">
+    <h3>Состав</h3>
+    <p class="desc">Вспомогательные части — название и хелпер — опциональны. Радиокнопка рендерится без названия (icon-only — например, в ячейке таблицы), с названием и с хелпером. Шейп всегда выровнен по первой строке текста.</p>
+    <div class="panel">
+      <div class="compo" id="compo"></div>
+    </div>
+  </div>
+  </section>
+
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
@@ -319,40 +340,6 @@
     </div>
   </section>
 
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния</h2>
-    <p class="desc">Два состояния выбора по вертикали и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Error</b> добавлены к исходной матрице Default / Disabled.<span class="badge-new">Новое</span></p>
-    <div class="panel">
-      <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
-    </div>
-  </section>
-
-  <!-- COMPOSITION -->
-  <section class="section" data-screen-label="Composition">
-    <h2>Состав</h2>
-    <p class="desc">Вспомогательные части — название и хелпер — опциональны. Радиокнопка рендерится без названия (icon-only — например, в ячейке таблицы), с названием и с хелпером. Шейп всегда выровнен по первой строке текста.</p>
-    <div class="panel">
-      <div class="compo" id="compo"></div>
-    </div>
-  </section>
-
-  <!-- ERROR / VALIDATION -->
-  <section class="section" data-screen-label="Error">
-    <h2>Ошибка и валидация<span class="badge-new">Новое</span></h2>
-    <p class="desc">Состояние Error появляется, когда обязательная группа не имеет выбранного пункта при отправке формы. Поскольку у радиокнопки нет промежуточного состояния, ошибка всегда относится к группе целиком: шейпы и сообщение окрашиваются в <code class="tok">--error</code>, рядом с заголовком обязательной группы ставится звёздочка.</p>
-    <div class="row">
-      <div class="panel" style="flex:1; min-width:280px;">
-        <p class="desc tight" style="margin-bottom:18px;">Обязательная группа без выбора — ошибка</p>
-        <div id="err-group"></div>
-      </div>
-      <div class="panel" style="flex:1; min-width:280px;">
-        <p class="desc tight" style="margin-bottom:18px;">Выбор любого пункта снимает ошибку</p>
-        <div id="err-fixed"></div>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTENT -->
   <section class="section" data-screen-label="Content">
     <h2>Контент</h2>
@@ -364,11 +351,9 @@
       <li><b>Обязательность и ошибка</b> — у обязательного заголовка группы ставится звёздочка <code class="tok">*</code>; текст ошибки группы — Body XS цвета <code class="tok">--error</code>;</li>
       <li>не давайте пересекающиеся варианты и не обрезайте название многоточием — при нехватке места переформулируйте его короче.</li>
     </ul>
-  </section>
-
-  <!-- LABEL GUIDELINES -->
-  <section class="section" data-screen-label="LabelRules">
-    <h2>Название радиокнопки</h2>
+  
+<div class="subsec" data-screen-label="LabelRules">
+    <h3>Название радиокнопки</h3>
     <p class="desc">Название пишется с заглавной буквы, без знаков пунктуации в конце, и всегда располагается справа от радиокнопки. Название каждой радиокнопки должно чётко и кратко описывать эффект от её выбора — короткие названия позволяют делать выбор быстро и уверенно.</p>
     <p class="desc">Убедитесь, что варианты не пересекаются. Например, при выборе суммы «0–100», «100–1000» неясно, что выбрать, если сумма равна 100.</p>
     <div class="guide">
@@ -386,11 +371,10 @@
       </div>
     </div>
     <p class="desc" style="margin-top:26px;">Если пользователю может быть не очевидно, что произойдёт при выборе, объясните это дополнительным текстом-хелпером.</p>
-  </section>
+  </div>
 
-  <!-- GROUP TITLE GUIDELINES -->
-  <section class="section" data-screen-label="GroupRules">
-    <h2>Заголовок группы</h2>
+<div class="subsec" data-screen-label="GroupRules">
+    <h3>Заголовок группы</h3>
     <p class="desc">Добавляйте заголовок к группе для ясности, если взаимосвязь пунктов неочевидна, или чтобы вынести в него повторяющиеся в пунктах слова. Заголовок начинается с заглавной, начертанием <b>Strong</b> того же кегля, что и название. Допустимо использование <b>H6 Strong</b>, если группа входит в состав другой группы. Формулируйте заголовок так, чтобы было понятно: можно выбрать только один вариант.</p>
     <div class="guide">
       <div class="guide-card bad">
@@ -406,11 +390,42 @@
         <p class="guide-card__cap">Общее слово вынесено в заголовок группы.</p>
       </div>
     </div>
+  </div>
+  </section>
+
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Error">
+    <h3>Ошибка и валидация<span class="badge-new">Новое</span></h3>
+    <p class="desc">Состояние Error появляется, когда обязательная группа не имеет выбранного пункта при отправке формы. Поскольку у радиокнопки нет промежуточного состояния, ошибка всегда относится к группе целиком: шейпы и сообщение окрашиваются в <code class="tok">--error</code>, рядом с заголовком обязательной группы ставится звёздочка.</p>
+    <div class="row">
+      <div class="panel" style="flex:1; min-width:280px;">
+        <p class="desc tight" style="margin-bottom:18px;">Обязательная группа без выбора — ошибка</p>
+        <div id="err-group"></div>
+      </div>
+      <div class="panel" style="flex:1; min-width:280px;">
+        <p class="desc tight" style="margin-bottom:18px;">Выбор любого пункта снимает ошибку</p>
+        <div id="err-fixed"></div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Два состояния выбора по вертикали и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Error</b> добавлены к исходной матрице Default / Disabled.<span class="badge-new">Новое</span></p>
+    <div class="panel">
+      <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
+    </div>
   </section>
 
   <!-- HIT AREA / A11Y -->
   <section class="section" data-screen-label="HitArea">
-    <h2>Область клика и доступность<span class="badge-new">Новое</span></h2>
+    <h2>Доступность<span class="badge-new">Новое</span></h2>
     <p class="desc">Видимый шейп — 16px, но кликабельная область шире: она включает название и хелпер. В группе активная область вытягивается на всю высоту строки. Клавиатура работает по правилам radio group: <b>Tab</b> переводит фокус на группу, <b>стрелками</b> ↑↓ ←→ выбор перемещается между пунктами (и сразу применяется), фокус показывается обводкой <code class="tok">--primary</code>.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">

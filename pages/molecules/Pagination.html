@@ -252,13 +252,21 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Pagination">
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>04.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Pagination</h1>
     <p class="lead">Нижняя строка многостраничной таблицы: переключение страниц, выбор количества строк на странице и счётчик диапазона. Та же строка может нести панель массового действия над выбранными строками (Action panel) или информационную сводку (Pagi counters) — но сам пагинатор всегда справа. Один фиксированный размер, совпадающий с высотой строки таблицы.</p>
@@ -322,6 +330,63 @@
     </div>
   </section>
 
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Buttons">
+    <h3>Кнопки страниц и стрелки</h3>
+    <p class="desc">Навигация пагинатора собрана из трёх типов элементов: кнопка-номер страницы, кнопка-стрелка (prev/next) и неинтерактивный «…». Раздел описывает их структуру, состояния и поведение — отдельно от композиции строки, чтобы разработчик мог собрать кнопку как самостоятельный примитив.</p>
+
+    <div class="panel">
+      <div class="btn-states" id="btn-states"></div>
+    </div>
+
+    <h4>Структура</h4>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="dev-table">
+        <thead><tr><th>Элемент</th><th>Тег</th><th>Класс / ARIA</th><th>Содержимое</th></tr></thead>
+        <tbody>
+          <tr><td>Номер страницы</td><td><code class="tok">button</code></td><td><code class="tok">.pgn__num</code>, <code class="tok">aria-current</code>, <code class="tok">aria-label="Страница N"</code></td><td class="dsc">Номер (текст, tabular-nums), квадрат 32×32 px</td></tr>
+          <tr><td>Стрелка prev/next</td><td><code class="tok">button</code></td><td><code class="tok">.pgn__arrow</code>, <code class="tok">aria-label</code>, <code class="tok">aria-disabled</code></td><td class="dsc">Иконка chevron 18 px, квадрат 32×32 px</td></tr>
+          <tr><td>Свёрнутый диапазон</td><td><code class="tok">span</code></td><td><code class="tok">.pgn__ellipsis</code>, <code class="tok">aria-hidden="true"</code></td><td class="dsc">«…» — не кнопка, не фокусируется</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Состояния</h4>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="dev-table">
+        <thead><tr><th>Состояние</th><th>Когда</th><th>Визуал</th><th>ARIA / DOM</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td class="dsc">Обычный номер / стрелка</td><td class="dsc">Текст Text_Secondary, без заливки</td><td><code class="tok">—</code></td></tr>
+          <tr><td>Hover</td><td class="dsc">Наведение (кроме current/disabled)</td><td class="dsc">Фон Tertiary_Light, текст Text_Primary</td><td><code class="tok">:hover</code></td></tr>
+          <tr><td>Focus</td><td class="dsc">Клавиатурный фокус</td><td class="dsc">Кольцо 2px Primary, offset 1px</td><td><code class="tok">:focus-visible</code></td></tr>
+          <tr><td>Current</td><td class="dsc">Текущая страница</td><td class="dsc">Фон BGTable_RowFocus, текст Text_Black, Strong</td><td><code class="tok">aria-current="page"</code></td></tr>
+          <tr><td>Disabled (стрелка)</td><td class="dsc">Граница диапазона (стр. 1 / последняя)</td><td class="dsc">Текст Text_Inactive, без реакций</td><td><code class="tok">aria-disabled="true"</code></td></tr>
+          <tr><td>Disabled (весь)</td><td class="dsc">Компонент заблокирован</td><td class="dsc">Все кнопки Text_Inactive, current — DisabledBG</td><td><code class="tok">.pgn--disabled</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Поведение</h4>
+    <div class="panel" style="padding:8px 10px; margin-bottom:24px;">
+      <table class="dev-table">
+        <thead><tr><th>Действие</th><th>Результат</th></tr></thead>
+        <tbody>
+          <tr><td>Клик по номеру</td><td class="dsc">Callback <code class="tok">onChange(page)</code> с номером этой страницы</td></tr>
+          <tr><td>Клик по текущей (current)</td><td class="dsc">Нет реакции — кнопка без обработчика</td></tr>
+          <tr><td>Клик по стрелке</td><td class="dsc"><code class="tok">onChange(page ± 1)</code>; на границе диапазона — нет реакции</td></tr>
+          <tr><td>«…»</td><td class="dsc">Не кликабелен, не получает фокус</td></tr>
+          <tr><td>Tab</td><td class="dsc">Фокус переходит по кнопкам по порядку; disabled-стрелки пропускаются</td></tr>
+          <tr><td>Enter / Space</td><td class="dsc">Активируют сфокусированную кнопку (штатное поведение <code class="tok">button</code>)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </section>
+
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
@@ -339,9 +404,27 @@
     </div>
   </section>
 
-  <!-- ADAPTIVITY -->
-  <section class="section" data-screen-label="Adaptivity">
-    <h2>Адаптивность</h2>
+  <!-- CONTENT -->
+  <section class="section" data-screen-label="Content">
+    <h2>Контент</h2>
+    <p class="desc tight">Размер страницы — фиксированный список вариантов: <b>5 · 10 · 15 · 20 · 50 · Все</b>. «Все» — отдельное состояние: выводит все строки на одной странице (при большом объёме данных предупредите пользователя, что это может быть медленно — см. «Для разработчиков»).</p>
+    <div class="panel" style="margin-bottom:20px;">
+      <p class="demo-rowlabel">Открытый список селектора размера страницы</p>
+      <div id="content-pagesize" style="min-height:220px; display:flex; align-items:flex-start;"></div>
+    </div>
+
+    <h3>Как считаются видимые номера — свёртывание в «…»</h3>
+    <p class="desc tight">Правило: всегда видны первая и последняя страница и 1 страница вокруг текущей (сосед слева/справа). Остальные номера сворачиваются в «…» — но если под «…» скрывалась бы только одна страница, она показывается вместо многоточия (не бывает «дыры» в одну страницу).</p>
+    <div class="panel" id="content-windows"></div>
+  </section>
+
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Adaptivity">
+    <h3>Адаптивность</h3>
     <p class="desc">Пагинатор перестраивается по ширине своего контейнера (не вьюпорта) — через <code class="tok">ResizeObserver</code>. По мере сужения сначала сокращается количество кнопок-номеров, затем строка перестраивается в вертикаль, а на узких уровнях номера скрываются, а счётчик «N из M» встаёт между стрелками (укороченный вариант). Инфо-сводка в левом слоте переносится по пунктам, а не обрезается.</p>
 
     <div class="panel" style="padding:8px 10px; margin-bottom:24px;">
@@ -356,26 +439,13 @@
       </table>
     </div>
 
-    <h3>Живой ресайз</h3>
+    <h4>Живой ресайз</h4>
     <p class="desc tight">Потяните за правый нижний угол рамки — пагинатор будет перестраиваться в реальном времени.</p>
     <div class="adapt-resize" id="adapt-live"></div>
 
-    <h3>Уровни</h3>
+    <h4>Уровни</h4>
     <div class="panel adapt-tiers" id="adapt-tiers"></div>
-  </section>
-
-  <!-- CONTENT -->
-  <section class="section" data-screen-label="Content">
-    <h2>Контент</h2>
-    <p class="desc tight">Размер страницы — фиксированный список вариантов: <b>5 · 10 · 15 · 20 · 50 · Все</b>. «Все» — отдельное состояние: выводит все строки на одной странице (при большом объёме данных предупредите пользователя, что это может быть медленно — см. «Для разработчиков»).</p>
-    <div class="panel" style="margin-bottom:20px;">
-      <p class="demo-rowlabel">Открытый список селектора размера страницы</p>
-      <div id="content-pagesize" style="min-height:220px; display:flex; align-items:flex-start;"></div>
-    </div>
-
-    <h3>Как считаются видимые номера — свёртывание в «…»</h3>
-    <p class="desc tight">Правило: всегда видны первая и последняя страница и 1 страница вокруг текущей (сосед слева/справа). Остальные номера сворачиваются в «…» — но если под «…» скрывалась бы только одна страница, она показывается вместо многоточия (не бывает «дыры» в одну страницу).</p>
-    <div class="panel" id="content-windows"></div>
+  </div>
   </section>
 
   <!-- STATES -->
@@ -416,63 +486,17 @@
     <div class="panel"><div id="a11y-demo"></div></div>
   </section>
 
+  <!-- TYPOGRAPHY (STUB) -->
+  <section class="section" data-screen-label="Typography">
+    <h2>Типографика</h2>
+    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+  </section>
+
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
     <p class="desc">Номер страницы по умолчанию — вторичный серо-зелёный текст без заливки; при наведении — нейтральная заливка Tertiary_Light и текст темнее. Текущая страница подсвечена тем же токеном, что и выбранная/сфокусированная строка таблицы — <code class="tok">--bgtable-row-focus</code> — чтобы визуально читаться в общей системе таблицы. Стрелки повторяют цвет номеров, на границе — StInactive. Disabled — StInactive для текста, DisabledBG для фона текущей.</p>
     <div class="color-ref" id="color-ref"></div>
-  </section>
-
-  <!-- BUTTONS (structure / states / behaviour) -->
-  <section class="section" data-screen-label="Buttons">
-    <h2>Кнопки страниц и стрелки</h2>
-    <p class="desc">Навигация пагинатора собрана из трёх типов элементов: кнопка-номер страницы, кнопка-стрелка (prev/next) и неинтерактивный «…». Раздел описывает их структуру, состояния и поведение — отдельно от композиции строки, чтобы разработчик мог собрать кнопку как самостоятельный примитив.</p>
-
-    <div class="panel">
-      <div class="btn-states" id="btn-states"></div>
-    </div>
-
-    <h3>Структура</h3>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Элемент</th><th>Тег</th><th>Класс / ARIA</th><th>Содержимое</th></tr></thead>
-        <tbody>
-          <tr><td>Номер страницы</td><td><code class="tok">button</code></td><td><code class="tok">.pgn__num</code>, <code class="tok">aria-current</code>, <code class="tok">aria-label="Страница N"</code></td><td class="dsc">Номер (текст, tabular-nums), квадрат 32×32 px</td></tr>
-          <tr><td>Стрелка prev/next</td><td><code class="tok">button</code></td><td><code class="tok">.pgn__arrow</code>, <code class="tok">aria-label</code>, <code class="tok">aria-disabled</code></td><td class="dsc">Иконка chevron 18 px, квадрат 32×32 px</td></tr>
-          <tr><td>Свёрнутый диапазон</td><td><code class="tok">span</code></td><td><code class="tok">.pgn__ellipsis</code>, <code class="tok">aria-hidden="true"</code></td><td class="dsc">«…» — не кнопка, не фокусируется</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Состояния</h3>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Состояние</th><th>Когда</th><th>Визуал</th><th>ARIA / DOM</th></tr></thead>
-        <tbody>
-          <tr><td>Default</td><td class="dsc">Обычный номер / стрелка</td><td class="dsc">Текст Text_Secondary, без заливки</td><td><code class="tok">—</code></td></tr>
-          <tr><td>Hover</td><td class="dsc">Наведение (кроме current/disabled)</td><td class="dsc">Фон Tertiary_Light, текст Text_Primary</td><td><code class="tok">:hover</code></td></tr>
-          <tr><td>Focus</td><td class="dsc">Клавиатурный фокус</td><td class="dsc">Кольцо 2px Primary, offset 1px</td><td><code class="tok">:focus-visible</code></td></tr>
-          <tr><td>Current</td><td class="dsc">Текущая страница</td><td class="dsc">Фон BGTable_RowFocus, текст Text_Black, Strong</td><td><code class="tok">aria-current="page"</code></td></tr>
-          <tr><td>Disabled (стрелка)</td><td class="dsc">Граница диапазона (стр. 1 / последняя)</td><td class="dsc">Текст Text_Inactive, без реакций</td><td><code class="tok">aria-disabled="true"</code></td></tr>
-          <tr><td>Disabled (весь)</td><td class="dsc">Компонент заблокирован</td><td class="dsc">Все кнопки Text_Inactive, current — DisabledBG</td><td><code class="tok">.pgn--disabled</code></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Поведение</h3>
-    <div class="panel" style="padding:8px 10px; margin-bottom:24px;">
-      <table class="dev-table">
-        <thead><tr><th>Действие</th><th>Результат</th></tr></thead>
-        <tbody>
-          <tr><td>Клик по номеру</td><td class="dsc">Callback <code class="tok">onChange(page)</code> с номером этой страницы</td></tr>
-          <tr><td>Клик по текущей (current)</td><td class="dsc">Нет реакции — кнопка без обработчика</td></tr>
-          <tr><td>Клик по стрелке</td><td class="dsc"><code class="tok">onChange(page ± 1)</code>; на границе диапазона — нет реакции</td></tr>
-          <tr><td>«…»</td><td class="dsc">Не кликабелен, не получает фокус</td></tr>
-          <tr><td>Tab</td><td class="dsc">Фокус переходит по кнопкам по порядку; disabled-стрелки пропускаются</td></tr>
-          <tr><td>Enter / Space</td><td class="dsc">Активируют сфокусированную кнопку (штатное поведение <code class="tok">button</code>)</td></tr>
-        </tbody>
-      </table>
-    </div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->

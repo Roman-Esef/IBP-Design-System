@@ -1,8 +1,8 @@
 ---
 component: Popover
 title: "Popover"
-version: "v1.0"
-updated: "05.07.2026"
+version: "v1.1"
+updated: "07.07.2026"
 page: pages/organisms/Popover.html
 page_js: scripts/popover.page.js
 css: styles/popover.css
@@ -17,13 +17,13 @@ Popover — нон-модальный всплывающий контейнер,
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Клик/Enter/Space открывает, контент — текст+интерактив/формы/медиа (не только строка, как у Tooltip), страницу не блокирует (в отличие от Modal). Правило переключения на Modal: ширина контенту нужна больше 560px, либо вертикальной прокрутки тела недостаточно.
-- **Анатомия** — 2 обязательные + 3 опциональные части: Trigger (обязателен, вне поповера) → Header (опц.: заголовок + ✕, **без кнопок действий**) → Body (обязателен, единственная гибкая/прокручиваемая зона) → Footer (опц.: foot-left служебное/инфо, foot-right Secondary+Primary) → Arrow (опц., по умолчанию выключена, как у Menu/DropdownList).
+- **Анатомия** — 2 обязательные + 3 опциональные части: Trigger (обязателен, вне поповера) → Header (опц.: высота 48px, содержимое по центру по вертикали, фон --bgtable-pinned; заголовок Body S Strong 14px + опц. чип/ссылка (чип примыкает с gap 8px) + ✕, **без кнопок действий**) → Body (обязателен, единственная гибкая/прокручиваемая зона; содержимое почти любое, жёстких ограничений по типу контента нет) → Footer (опц.: foot-left и foot-right — независимо включаемые группы, фон --bgtable-pinned; слева инфо/ссылка/кнопка, справа Secondary+Primary) → Arrow (опц., по умолчанию выключена, как у Menu/DropdownList).
 - **Размеры** — 5 фиксированных шагов ширины (--pop-w-s…max, 240–560px), не резиновая. Каждый шаг задаёт свой max-height тела (auto/320/440/520/600px) — дальше только тело прокручивается, Header/Footer закреплены. Свыше 560px — переключение на Modal.
 - **Контент** — Body не диктует состав (текст+ссылка, легенда/список, форма, карточка данных, таблица). Header добавляется при метке/группировке, форме с несколькими полями или ширине >320px. Footer — когда есть форма/выбор, требующий подтверждения, или деструктивное действие. Порядок кнопок Footer идентичен Modal: справа Secondary+Primary, слева — только информация/ссылки, никогда действия.
 - **Состояния** — Открытие: click/Enter/Space (primary), hover/focus — опционально и никогда единственным способом. Закрытие — 5 равнозначно обязательных способов: ✕, клик вне, Esc, Tab за последний интерактивный элемент (нет focus trap — отличие от Modal), контекстно кнопка-действие в Footer. Одновременно открыт только один поповер — новый закрывает предыдущий. Запрещено автозакрытие по таймеру и открытие при загрузке страницы. Есть loading (skeleton в Body, aria-busy) и error (role="alert") состояния тела, disabled-триггер (не открывается), тень у Header/Footer при прокрутке тела (.is-scrolled, как у Modal).
 - **Placement** — 4 стороны × 3 выравнивания = 12 позиций, приём идентичен Tooltip (ARROW_INSET-подобная логика). Авто-flip: не хватает места по предпочтительному align — перевыравнивание на противоположный край; не хватает места по стороне — пробуются противоположная и перпендикулярные стороны.
 - **Доступность** — Триггер: aria-haspopup="dialog", aria-expanded, aria-controls. Контейнер: role="dialog", aria-modal="false" (не блокирует), aria-labelledby на заголовок при наличии Header. Фокус переходит внутрь при открытии, но НЕ заперт (нет focus trap) — Tab с последнего элемента уводит из поповера и закрывает его. Esc закрывает и возвращает фокус на триггер. Контент страницы за поповером НЕ получает aria-hidden/inert (в отличие от Modal).
-- **Цвета** — Только семантические токены, поверхность и тень как у Menu/DropdownList: --bg-popup, --radius-popup (12px), --elevation-2. Не собственный rgba().
+- **Цвета** — Только семантические токены. Фон Body — --bg-popup; фон Header/Footer — --bgtable-pinned (Pinned Default, #F5F7F7); радиус --radius-m (8px); тень --elevation-5, внешнего бордера нет. Не собственный rgba().
 
 ## Для разработчиков (выжимка)
 
@@ -38,8 +38,11 @@ Popover — нон-модальный всплывающий контейнер,
 
   <div id="pop-1" class="pop pop--w-m pop--bottom pop--start pop--floating" role="dialog" aria-modal="false" aria-labelledby="pop-1-title">
     <div class="pop__head">
-      <h3 class="pop__title" id="pop-1-title">Изменить тег</h3>
-      <button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><svg…></svg></button>
+      <div class="pop__head-main">
+        <h3 class="pop__title" id="pop-1-title">Изменить тег</h3>
+        <!-- опц.: chip/link, gap 8px от заголовка -->
+      </div>
+      <span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><svg…></svg></button></span>
     </div>
     <div class="pop__body">…форма, легенда, карточка, таблица…</div>
     <div class="pop__foot">
@@ -99,16 +102,17 @@ interface PopoverProps {
 | Класс/атрибут | Назначение |
 |---|---|
 | `.pop-anchor` | position:relative обёртка вокруг триггера |
-| `.pop` | Корень: фон, радиус 12px (--radius-popup), тень --elevation-2 |
+| `.pop` | Корень: фон, радиус 8px (--radius-m), тень --elevation-5, без внешнего бордера |
 | `.pop--w-s … --w-max` | Ширина — 5 шагов (240–560px), задаёт и max-height тела |
 | `.pop--floating` / `.pop--pinned` | JS-позиционирование + `.is-open` / всегда открыт (демо) |
 | `.pop--top/-bottom/-left/-right` + `--start/-center/-end` | 12 позиций размещения |
 | `.pop--arrow` | Включает стрелку-указатель `.pop__arrow` (по умолчанию выключена) |
-| `.pop__head` / `.pop__foot` | Фиксированные зоны, тень при `.is-scrolled` |
-| `.pop__title` | Заголовок — Body M Strong, 1 строка |
+| `.pop__head` / `.pop__foot` | Фиксированные зоны, фон --bgtable-pinned; Header — 48px, центрирован по вертикали; тень при `.is-scrolled` |
+| `.pop__head-main` | Заголовок + опц. чип/ссылка, газап 8px |
+| `.pop__title` | Заголовок — Body S Strong 14px, 1 строка |
 | `.pop__close` | Обёртка ✕ — кнопка `.ibtn.ibtn--neutral.ibtn--s` |
-| `.pop__body` (+ `--flush`) | Единственная гибкая/прокручиваемая зона |
-| `.pop__foot-left` / `-right` | Служебное/инфо (опц.) и Secondary+Primary |
+| `.pop__body` (+ `--flush`) | Единственная гибкая/прокручиваемая зона; содержать может почти что угодно |
+| `.pop__foot-left` / `-right` | Независимо включаемые группы: слева инфо/ссылка/кнопка, справа Secondary+Primary |
 | `.pop__skeleton` | Loading-плейсхолдер (шиммер) |
 | `role="dialog"` / `aria-modal="false"` | Не блокирующий диалог |
 | `aria-haspopup` / `aria-expanded` / `aria-controls` | На триггере — связь с поповером |

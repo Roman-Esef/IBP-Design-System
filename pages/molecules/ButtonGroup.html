@@ -203,13 +203,21 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="ButtonGroup">
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ButtonGroup</h1>
     <p class="lead">Объединяет связанные кнопки в единый визуальный блок с общим фоном или обводкой. Поддерживает 2–5 кнопок, типы Accent / Outline, все три размера, вариант Split&nbsp;Button и сегментированный выбор. Собирается из компонентов <b>Button</b> — кнопки наследуют свои свойства.</p>
@@ -231,6 +239,23 @@
     <h2>Использование</h2>
     <p class="desc">ButtonGroup группирует кнопки, связанные общим контекстом или относящиеся к одному объекту: переключение режимов отображения, набор действий над записью, парные действия «Применить / Отмена». Группа делает связь между кнопками явной и экономит горизонтальное пространство.</p>
     <div class="panel"><div class="row" id="usage-row"></div></div>
+  
+<div class="subsec" data-screen-label="Guidelines">
+    <h3>Рекомендации</h3>
+    <p class="desc">Группируйте только связанные действия. Не смешивайте типы и размеры внутри одной группы.</p>
+    <div class="guide">
+      <div class="g do">
+        <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Делайте</span>
+        <div class="demo" id="do-demo"></div>
+        <p>Один тип, один размер, 2–5 связанных действий. Disabled — на всю группу.</p>
+      </div>
+      <div class="g dont">
+        <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>Не делайте</span>
+        <div class="demo" id="dont-demo"></div>
+        <p>Не смешивайте типы и размеры и не блокируйте отдельную кнопку внутри группы.</p>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -245,9 +270,13 @@
     </div>
   </section>
 
-  <!-- TYPES -->
-  <section class="section" data-screen-label="Types">
-    <h2>Типы</h2>
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Types">
+    <h3>Типы</h3>
     <p class="desc">Группа может содержать от двух до пяти кнопок одного типа и размера.</p>
     <div class="panel">
       <p class="subhead">Количество — от 2 до 5</p>
@@ -257,11 +286,10 @@
       <p class="subhead mt">С текстом и/или иконками</p>
       <div class="row" id="content-row"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- SPLIT BUTTON -->
-  <section class="section" data-screen-label="SplitButton">
-    <h2>Split Button</h2>
+<div class="subsec" data-screen-label="SplitButton">
+    <h3>Split Button</h3>
     <p class="desc">Отдельный вариант группы из двух кнопок: текстовой и стрелки. Клик по текстовой кнопке выполняет действие по умолчанию, клик по стрелке открывает контекстное меню с другими доступными действиями. Нажмите, чтобы открыть.</p>
     <div class="panel">
       <div class="row" id="split-row"></div>
@@ -270,18 +298,16 @@
       <p class="subhead mt">Позиционирование меню определяется на этапе проектирования — справа или слева</p>
       <div class="row" id="split-menu-row"></div>
     </div>
-  </section>
-
-  <!-- ORIENTATION (addon) -->
-  <section class="section" data-screen-label="Orientation">
-    <h2>Ориентация <span class="addon">Расширение</span></h2>
+  </div>
+  
+<div class="subsec" data-screen-label="Orientation">
+    <h3>Ориентация <span class="addon">Расширение</span></h3>
     <p class="desc">Помимо горизонтальной, группа поддерживает вертикальную раскладку — для компактных меню и боковых панелей, где действия выстраиваются в столбец. Скругление переносится на верхнюю и нижнюю кнопки, шов становится горизонтальным.</p>
     <div class="panel"><div class="row" style="gap:40px; align-items:flex-start;" id="orient-row"></div></div>
-  </section>
+  </div>
 
-  <!-- TOGGLE / SEGMENTED (addon) -->
-  <section class="section" data-screen-label="Toggle">
-    <h2>Сегментированный выбор <span class="addon">Расширение</span></h2>
+<div class="subsec" data-screen-label="Toggle">
+    <h3>Сегментированный выбор <span class="addon">Расширение</span></h3>
     <p class="desc">Группа может работать как переключатель: кнопки сохраняют выбранное состояние, выбранный сегмент заливается акцентным цветом. Поддерживается одиночный выбор (как радиокнопки — всегда выбран ровно один) и множественный (как чекбоксы). Управляется атрибутом <code class="tok">aria-pressed</code>. Попробуйте нажать.</p>
     <div class="panel">
       <div class="row" style="gap:44px;">
@@ -289,15 +315,42 @@
         <div class="blk"><p class="cap"><b>Множественный выбор</b> · форматирование</p><div id="toggle-multi"></div></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- FULLWIDTH (addon) -->
-  <section class="section" data-screen-label="Fullwidth">
-    <h2>Fullwidth и равная ширина <span class="addon">Расширение</span></h2>
+<div class="subsec" data-screen-label="Fullwidth">
+    <h3>Fullwidth и равная ширина <span class="addon">Расширение</span></h3>
     <p class="desc">Группа со свойством Fullwidth заполняет контейнер целиком; кнопки получают равную ширину. Удобно для нижних панелей действий в модальных окнах и на мобильных макетах.</p>
     <div class="panel">
       <div style="max-width:520px; display:flex; flex-direction:column; gap:18px;" id="fw-row"></div>
     </div>
+  </div>
+  </section>
+
+  <!-- SIZES -->
+  <section class="section" data-screen-label="Sizes">
+    <h2>Размеры</h2>
+    <p class="desc">Все кнопки группы используют один размер, унаследованный от Button. Высота фиксирована, ширина зависит от контента.</p>
+    <div class="panel">
+      <div class="size-grid" id="size-grid"></div>
+    </div>
+  
+<div class="subsec" data-screen-label="Spec">
+    <h3>Спецификация</h3>
+    <p class="desc">Геометрия наследуется от Button; группа управляет только скруглением внешних углов и швом между кнопками.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="spec-table">
+        <thead><tr><th>Параметр</th><th>Значение</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>Высота кнопки</td><td class="num">40 / 32 / 24</td><td><code>--btn-h</code> (M / S / XS)</td></tr>
+          <tr><td>Радиус внешних углов</td><td class="num">8 / 8 / 6</td><td><code>--btn-radius</code></td></tr>
+          <tr><td>Радиус внутренних углов</td><td class="num">0</td><td>прямые</td></tr>
+          <tr><td>Сдвиг соседних кнопок</td><td class="num">−1</td><td>collapse общей обводки</td></tr>
+          <tr><td>Толщина шва</td><td class="num">1</td><td><code>box-shadow inset</code> / border</td></tr>
+          <tr><td>Кол-во кнопок</td><td class="num">2 – 5</td><td>правило компонента</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   </section>
 
   <!-- CONTENT -->
@@ -313,9 +366,15 @@
     </ul>
   </section>
 
+  <!-- BEHAVIOR (STUB) -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+  </section>
+
   <!-- STATES & BEHAVIOR -->
   <section class="section" data-screen-label="States">
-    <h2>Состояния и поведение</h2>
+    <h2>Состояния</h2>
     <p class="desc">Кнопки внутри группы наследуют все свои свойства и ведут себя так же, как вне группы. Исключение — Outline: в группе у него <b>не меняется цвет обводки</b> на Hover / Active (иначе соседний шов «прыгал» бы).</p>
     <div class="panel"><div class="matrix" id="states-matrix"></div></div>
 
@@ -324,56 +383,16 @@
     <div class="panel"><div class="row" id="disabled-row"></div></div>
   </section>
 
-  <!-- SIZES -->
-  <section class="section" data-screen-label="Sizes">
-    <h2>Размеры</h2>
-    <p class="desc">Все кнопки группы используют один размер, унаследованный от Button. Высота фиксирована, ширина зависит от контента.</p>
-    <div class="panel">
-      <div class="size-grid" id="size-grid"></div>
-    </div>
-  </section>
-
-  <!-- SPEC -->
-  <section class="section" data-screen-label="Spec">
-    <h2>Спецификация</h2>
-    <p class="desc">Геометрия наследуется от Button; группа управляет только скруглением внешних углов и швом между кнопками.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="spec-table">
-        <thead><tr><th>Параметр</th><th>Значение</th><th>Источник</th></tr></thead>
-        <tbody>
-          <tr><td>Высота кнопки</td><td class="num">40 / 32 / 24</td><td><code>--btn-h</code> (M / S / XS)</td></tr>
-          <tr><td>Радиус внешних углов</td><td class="num">8 / 8 / 6</td><td><code>--btn-radius</code></td></tr>
-          <tr><td>Радиус внутренних углов</td><td class="num">0</td><td>прямые</td></tr>
-          <tr><td>Сдвиг соседних кнопок</td><td class="num">−1</td><td>collapse общей обводки</td></tr>
-          <tr><td>Толщина шва</td><td class="num">1</td><td><code>box-shadow inset</code> / border</td></tr>
-          <tr><td>Кол-во кнопок</td><td class="num">2 – 5</td><td>правило компонента</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
   <!-- ACCESSIBILITY (addon) -->
   <section class="section" data-screen-label="A11y">
     <h2>Доступность <span class="addon">Расширение</span></h2>
     <p class="desc">Контейнер группы получает <code class="tok">role="group"</code> и осмысленный <code class="tok">aria-label</code> (например «Режим отображения»). В сегментированном выборе используется <code class="tok">aria-pressed</code> на кнопках; одиночный выбор удобно навигировать стрелками с roving&nbsp;tabindex. Split Button: текстовая кнопка — основное действие, у стрелки <code class="tok">aria-haspopup="menu"</code> и <code class="tok">aria-expanded</code>.</p>
   </section>
 
-  <!-- GUIDELINES -->
-  <section class="section" data-screen-label="Guidelines">
-    <h2>Рекомендации</h2>
-    <p class="desc">Группируйте только связанные действия. Не смешивайте типы и размеры внутри одной группы.</p>
-    <div class="guide">
-      <div class="g do">
-        <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Делайте</span>
-        <div class="demo" id="do-demo"></div>
-        <p>Один тип, один размер, 2–5 связанных действий. Disabled — на всю группу.</p>
-      </div>
-      <div class="g dont">
-        <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>Не делайте</span>
-        <div class="demo" id="dont-demo"></div>
-        <p>Не смешивайте типы и размеры и не блокируйте отдельную кнопку внутри группы.</p>
-      </div>
-    </div>
+  <!-- TYPOGRAPHY (STUB) -->
+  <section class="section" data-screen-label="Typography">
+    <h2>Типографика</h2>
+    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
   </section>
 
   <!-- COLORS -->

@@ -218,12 +218,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="LabelHelper">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>03.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты подкачки</p>
     <h1>Label / Helper</h1>
     <p class="lead">Общие вспомогательные текстовые слоты, вынесенные из нескольких родительских компонентов в отдельную группу. <b>Label</b> подписывает поле ввода, <b>Helper</b> поясняет назначение или ограничение контрола. Оба переиспользуются в разных компонентах, но не имеют собственного визуального контейнера.</p>
@@ -255,11 +263,9 @@
       <li>выравнивание (left/right) — общее свойство пары: Label и Helper одного поля всегда выровнены одинаково — не бывает так, чтобы Helper был справа, а Label слева;</li>
       <li>Label и Helper не публикуются отдельно от родителя — см. «Правило зависимости» ниже.</li>
     </ul>
-  </section>
-
-  <!-- DEPENDENCY RULE -->
-  <section class="section" data-screen-label="Rule">
-    <h2>Правило зависимости</h2>
+  
+<div class="subsec" data-screen-label="Rule">
+    <h3>Правило зависимости</h3>
     <p class="desc">Label и Helper — не самостоятельные компоненты дизайн-системы. У них нет собственного узнаваемого контейнера: вне контекста родителя их невозможно опознать на экране. Публикуются только как часть композиции Checkbox, Radiobutton, Switch или полей ввода.</p>
     <div class="guide">
       <div class="guide-card bad">
@@ -280,11 +286,10 @@
         <p class="guide-card__cap">Helper всегда встроен в конкретный компонент — здесь в Checkbox, в паре с его названием.</p>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- USAGE MAP -->
-  <section class="section" data-screen-label="UsageMap">
-    <h2>Используется в компонентах</h2>
+<div class="subsec" data-screen-label="UsageMap">
+    <h3>Используется в компонентах</h3>
     <p class="desc">Каждый слот переиспользуется независимо — компонент может задействовать только Helper, только Label, или ни одного из них.</p>
     <div class="panel" style="padding:8px 10px;">
       <table class="ref-table" id="usage-table">
@@ -292,6 +297,13 @@
         <tbody></tbody>
       </table>
     </div>
+  </div>
+
+<div class="subsec" data-screen-label="Composition">
+    <h3>Композиция с родителем</h3>
+    <p class="desc">Одни и те же слоты выглядят одинаково независимо от родителя — меняется только то, что их окружает.</p>
+    <div class="compo-grid" id="compo-grid"></div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -319,6 +331,12 @@
     </div>
   </section>
 
+  <!-- VARIANTS (STUB) -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Не применимо: компонент существует в единственной конфигурации, отдельных вариантов нет.</p>
+  </section>
+
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
@@ -331,9 +349,19 @@
     </div>
   </section>
 
-  <!-- LABEL -->
-  <section class="section" data-screen-label="LabelDetail">
-    <h2>Label</h2>
+  <!-- CONTENT -->
+  <section class="section" data-screen-label="Content">
+    <h2>Контент</h2>
+    <p class="desc tight">Текстовые правила для обоих слотов:</p>
+    <ul class="bullets">
+      <li><b>Label</b> — короткое существительное или номинативная фраза, называющая поле («ИНН контрагента», а не «Введите ИНН контрагента»); без двоеточия в конце; не переносится — при нехватке ширины обрезается многоточием;</li>
+      <li><b>Helper</b> — короткое пояснение к формату или ограничению значения («10 или 12 цифр»), не дублирует Label; может занимать несколько строк — переносится свободно, без обрезания;</li>
+      <li><b>Helper · Error</b> — конкретная причина ошибки («Нужно выбрать хотя бы один вариант»), а не общее «Ошибка» без пояснения;</li>
+      <li>иконки в Label — редкий кейс: добавляйте одну или две иконки, только если одной подписи недостаточно для контекста; если иконка интерактивна (действие) — обязателен <code class="tok">aria-label</code> (см. «Доступность»).</li>
+    </ul>
+  
+<div class="subsec" data-screen-label="LabelDetail">
+    <h3>Label</h3>
     <p class="desc tight">Подпись над полем ввода. Используется в <b>InputText</b>, <b>InputAutocomplete</b>, <b>InputDate</b>, <b>ReadOnlyField</b>. Может содержать одну или две дополнительные иконки любого назначения (информирование, действие, статус и т.п.) — редкий кейс, только когда одной подписи недостаточно для контекста.</p>
     <div class="panel">
       <div class="row">
@@ -351,11 +379,10 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- HELPER -->
-  <section class="section" data-screen-label="HelperDetail">
-    <h2>Helper</h2>
+<div class="subsec" data-screen-label="HelperDetail">
+    <h3>Helper</h3>
     <p class="desc tight">Пояснительный текст под контролом или полем. Используется в <b>Checkbox</b>, <b>Radiobutton</b>, <b>Switch</b>, <b>InputText</b>, <b>InputAutocomplete</b>, <b>InputDate</b>, <b>ReadOnlyField</b>, а также как вторая строка опции в <b>Select · DropdownList</b>. Выравнивание задаётся одной настройкой на всю пару — Label и Helper одного поля всегда идут в одной ориентации: left — базовое, right — когда этого требует ориентация родителя (например, поле с выравниванием значения по правому краю).</p>
     <div class="panel">
       <div class="row">
@@ -382,6 +409,13 @@
         </div>
       </div>
     </div>
+  </div>
+  </section>
+
+  <!-- BEHAVIOR (STUB) -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
   </section>
 
   <!-- STATES -->
@@ -391,23 +425,19 @@
     <div id="state-specs"></div>
   </section>
 
-  <!-- CONTENT -->
-  <section class="section" data-screen-label="Content">
-    <h2>Контент</h2>
-    <p class="desc tight">Текстовые правила для обоих слотов:</p>
-    <ul class="bullets">
-      <li><b>Label</b> — короткое существительное или номинативная фраза, называющая поле («ИНН контрагента», а не «Введите ИНН контрагента»); без двоеточия в конце; не переносится — при нехватке ширины обрезается многоточием;</li>
-      <li><b>Helper</b> — короткое пояснение к формату или ограничению значения («10 или 12 цифр»), не дублирует Label; может занимать несколько строк — переносится свободно, без обрезания;</li>
-      <li><b>Helper · Error</b> — конкретная причина ошибки («Нужно выбрать хотя бы один вариант»), а не общее «Ошибка» без пояснения;</li>
-      <li>иконки в Label — редкий кейс: добавляйте одну или две иконки, только если одной подписи недостаточно для контекста; если иконка интерактивна (действие) — обязателен <code class="tok">aria-label</code> (см. «Доступность»).</li>
-    </ul>
-  </section>
-
-  <!-- COMPOSITION -->
-  <section class="section" data-screen-label="Composition">
-    <h2>Композиция с родителем</h2>
-    <p class="desc">Одни и те же слоты выглядят одинаково независимо от родителя — меняется только то, что их окружает.</p>
-    <div class="compo-grid" id="compo-grid"></div>
+  <!-- ACCESSIBILITY -->
+  <section class="section" data-screen-label="A11y">
+    <h2>Доступность</h2>
+    <p class="desc">Label и Helper — вспомогательный текст, который должен быть программно связан с элементом управления, а не просто визуально расположен рядом.</p>
+    <div class="panel">
+      <ul class="bullets">
+        <li>Label связывается с полем через <code class="tok">&lt;label for="…"&gt;</code> (либо оборачивая инпут) — клик по подписи должен фокусировать поле;</li>
+        <li>Helper связывается через <code class="tok">aria-describedby</code>, указывающий на id текста Helper — иначе скрин-ридер озвучит только значение поля без пояснения;</li>
+        <li>Helper в состоянии Error дополнительно получает <code class="tok">role="alert"</code> (или <code class="tok">aria-live="polite"</code>), чтобы сообщение об ошибке озвучивалось сразу при появлении, а не только при переходе фокуса;</li>
+        <li>иконка предупреждения в Helper — декоративна (<code class="tok">aria-hidden="true"</code>), сам смысл ошибки несёт текст;</li>
+        <li>иконки в Label (редкий кейс, до двух) — если иконка интерактивна (действие) — обязателен <code class="tok">aria-label</code> с названием действия («Удалить», «Изменить»), а не название иконки; если иконка информационная — связывается с <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> тем же способом, что и любой другой информационный тултип.</li>
+      </ul>
+    </div>
   </section>
 
   <!-- TYPOGRAPHY -->
@@ -427,21 +457,6 @@
     <h2>Цвета</h2>
     <p class="desc">Компонент использует только семантические токены текста и ситуативные токены ошибки.</p>
     <div class="color-ref" id="color-ref"></div>
-  </section>
-
-  <!-- ACCESSIBILITY -->
-  <section class="section" data-screen-label="A11y">
-    <h2>Доступность</h2>
-    <p class="desc">Label и Helper — вспомогательный текст, который должен быть программно связан с элементом управления, а не просто визуально расположен рядом.</p>
-    <div class="panel">
-      <ul class="bullets">
-        <li>Label связывается с полем через <code class="tok">&lt;label for="…"&gt;</code> (либо оборачивая инпут) — клик по подписи должен фокусировать поле;</li>
-        <li>Helper связывается через <code class="tok">aria-describedby</code>, указывающий на id текста Helper — иначе скрин-ридер озвучит только значение поля без пояснения;</li>
-        <li>Helper в состоянии Error дополнительно получает <code class="tok">role="alert"</code> (или <code class="tok">aria-live="polite"</code>), чтобы сообщение об ошибке озвучивалось сразу при появлении, а не только при переходе фокуса;</li>
-        <li>иконка предупреждения в Helper — декоративна (<code class="tok">aria-hidden="true"</code>), сам смысл ошибки несёт текст;</li>
-        <li>иконки в Label (редкий кейс, до двух) — если иконка интерактивна (действие) — обязателен <code class="tok">aria-label</code> с названием действия («Удалить», «Изменить»), а не название иконки; если иконка информационная — связывается с <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> тем же способом, что и любой другой информационный тултип.</li>
-      </ul>
-    </div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->

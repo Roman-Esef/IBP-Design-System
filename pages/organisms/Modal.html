@@ -188,12 +188,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
   <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Modal">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>04.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Modal</h1>
     <p class="lead">Modal — не отдельный компонент, а свод правил построения модальных форм. Обязательны две части с фиксированной анатомией — шапка (<b>Modal_Top</b>: заголовок + крестик) и подвал (<b>Modal_Bottom</b>: опциональные кнопки слева, кнопки действий справа). Между ними — контентная область, которая может содержать что угодно: форму, таблицу, пустое состояние.</p>
@@ -227,6 +235,37 @@
       <p class="dev-note">Все четыре кнопки подвала одновременно не используются — Изменить и Удалить принадлежат разным режимам одной формы.</p>
     </div>
     <div class="use-grid" id="use-foot-combos"></div>
+  
+<div class="subsec" data-screen-label="Guidelines">
+    <h3>Рекомендации</h3>
+    <p class="desc">Модалка — прерывание, а не самостоятельная страница. Не усложняйте то, что можно решить проще.</p>
+    <div class="guide">
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
+        <div class="guide-card__body">Модалка внутри модалки для обычного шага формы (не для подтверждения) — пользователь теряет счёт открытым слоям.</div>
+        <p class="guide-card__cap">Вложенные модалки — только для короткого решения (confirm/alert), не для продолжения того же сценария.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
+        <div class="guide-card__body">Многошаговый сценарий — Tab внутри одной модалки или отдельная страница, вложенная модалка — только под confirm/alert.</div>
+        <p class="guide-card__cap">Один слой поверх страницы + один компактный confirm поверх него — предел вложенности.</p>
+      </div>
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
+        <div class="guide-card__body">Крестик убран, потому что «внизу и так есть Закрыть» — пользователь ищет привычное место в правом верхнем углу.</div>
+        <p class="guide-card__cap">Крестик в шапке обязателен всегда, независимо от состава подвала.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
+        <div class="guide-card__body">Крестик остаётся всегда, даже если внизу уже есть Primary «Закрыть» для формы в режиме просмотра.</div>
+        <p class="guide-card__cap">Два равнозначных способа закрыть — крестик и, если применимо, кнопка подвала.</p>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -245,6 +284,12 @@
         </ul>
       </div>
     </div>
+  </section>
+
+  <!-- VARIANTS (STUB) -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Не применимо: компонент существует в единственной конфигурации, отдельных вариантов нет.</p>
   </section>
 
   <!-- SIZES -->
@@ -288,6 +333,12 @@
     </div>
   </section>
 
+  <!-- BEHAVIOR (STUB) -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+  </section>
+
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
@@ -309,38 +360,6 @@
       <p class="subhead" style="margin-bottom:10px;">Диалог подтверждения удаления<span class="badge-new">Новое</span></p>
       <p class="desc tight">Клик по «Удалить» в подвале не удаляет напрямую — открывает вложенный модальный диалог поверх текущей модалки (<code class="tok">--modal-z-nested</code>, скрим складывается с уже открытым и темнеет сильнее). Диалог — компактная ширина (2–4 шаг шкалы), Primary в тоне <code class="tok">.btn--danger</code>.</p>
       <div id="danger-demo" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;"></div>
-    </div>
-  </section>
-
-  <!-- GUIDELINES -->
-  <section class="section" data-screen-label="Guidelines">
-    <h2>Рекомендации</h2>
-    <p class="desc">Модалка — прерывание, а не самостоятельная страница. Не усложняйте то, что можно решить проще.</p>
-    <div class="guide">
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
-        <div class="guide-card__body">Модалка внутри модалки для обычного шага формы (не для подтверждения) — пользователь теряет счёт открытым слоям.</div>
-        <p class="guide-card__cap">Вложенные модалки — только для короткого решения (confirm/alert), не для продолжения того же сценария.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
-        <div class="guide-card__body">Многошаговый сценарий — Tab внутри одной модалки или отдельная страница, вложенная модалка — только под confirm/alert.</div>
-        <p class="guide-card__cap">Один слой поверх страницы + один компактный confirm поверх него — предел вложенности.</p>
-      </div>
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
-        <div class="guide-card__body">Крестик убран, потому что «внизу и так есть Закрыть» — пользователь ищет привычное место в правом верхнем углу.</div>
-        <p class="guide-card__cap">Крестик в шапке обязателен всегда, независимо от состава подвала.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
-        <div class="guide-card__body">Крестик остаётся всегда, даже если внизу уже есть Primary «Закрыть» для формы в режиме просмотра.</div>
-        <p class="guide-card__cap">Два равнозначных способа закрыть — крестик и, если применимо, кнопка подвала.</p>
-      </div>
     </div>
   </section>
 
@@ -367,6 +386,12 @@
         </ul>
       </div>
     </div>
+  </section>
+
+  <!-- TYPOGRAPHY (STUB) -->
+  <section class="section" data-screen-label="Typography">
+    <h2>Типографика</h2>
+    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
   </section>
 
   <!-- COLORS -->

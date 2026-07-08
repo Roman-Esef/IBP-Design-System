@@ -206,12 +206,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Checkbox">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Checkbox</h1>
     <p class="lead">Чекбокс используется, когда доступен список опций и пользователю нужно выбрать одну или несколько из них. Три состояния выбора — Unselected / Selected / Indeterminate — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Error.</p>
@@ -230,17 +238,15 @@
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+    <h2>Использование</h2>
     <p class="desc">Используйте чекбокс для обозначения и управления состоянием или свойством параметра, которое требует дополнительного подтверждения (например, кнопкой «Отправить» в формах).</p>
     <p class="desc">Используйте группу чекбоксов, если нужно дать пользователю возможность выбрать один или несколько пунктов из короткого списка.</p>
     <p class="desc">Если действие необходимо выполнить сразу, предпочтительнее использовать <a class="inl" href="../atoms/Switch.html">Switch</a>.</p>
     <p class="desc">Если пунктов слишком много (от 5 до 15) или они не помещаются в ограниченном пространстве — используйте <a class="inl" href="../molecules/InputAutocomplete.html">InputAutocomplete</a>. Исключением являются группы в модальном окне.</p>
     <p class="desc">Если нужно дать пользователю возможность выбрать только один вариант из нескольких — используйте <a class="inl" href="../atoms/Radiobutton.html">Radiobutton</a>.</p>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="section" data-screen-label="HowItWorks">
-    <h2>Описание работы</h2>
+  
+<div class="subsec" data-screen-label="HowItWorks">
+    <h3>Описание работы</h3>
     <p class="desc">Клик по названию или по самому чекбоксу приводит к его выбору или снятию выбора.</p>
     <p class="desc tight">Чекбоксы могут объединяться в группы:</p>
     <div class="panel">
@@ -252,6 +258,7 @@
       <p class="desc" style="margin-bottom:24px; max-width:80ch;">Группа чекбоксов может зависеть от родительского чекбокса. Когда родительский чекбокс выбран, все дочерние так же выбраны. Когда с родительского снят выбор — все дочерние сняты. Если в дочерних выбрана только часть пунктов, родительский чекбокс находится в состоянии <b>Indeterminate</b> — частично выбран. Поиграйте с примером:</p>
       <div class="demo-card" id="parent-demo" style="max-width:280px;"></div>
     </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -271,6 +278,20 @@
         </ul>
       </div>
     </div>
+  </section>
+
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Composition">
+    <h3>Состав</h3>
+    <p class="desc">Чекбокс рендерится с названием, без названия (icon-only — например, в шапке таблицы) и с хелпером. Бокс всегда выровнен по первой строке текста.</p>
+    <div class="panel">
+      <div class="compo" id="compo"></div>
+    </div>
+  </div>
   </section>
 
   <!-- SIZES -->
@@ -296,40 +317,6 @@
     </div>
   </section>
 
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния</h2>
-    <p class="desc">Три состояния выбора по вертикали и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Error</b> добавлены к исходной матрице Default / Disabled<span class="badge-new">Новое</span></p>
-    <div class="panel">
-      <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
-    </div>
-  </section>
-
-  <!-- COMPOSITION -->
-  <section class="section" data-screen-label="Composition">
-    <h2>Состав</h2>
-    <p class="desc">Чекбокс рендерится с названием, без названия (icon-only — например, в шапке таблицы) и с хелпером. Бокс всегда выровнен по первой строке текста.</p>
-    <div class="panel">
-      <div class="compo" id="compo"></div>
-    </div>
-  </section>
-
-  <!-- ERROR / VALIDATION -->
-  <section class="section" data-screen-label="Error">
-    <h2>Ошибка и валидация<span class="badge-new">Новое</span></h2>
-    <p class="desc">Состояние Error появляется, когда обязательный чекбокс не выбран при отправке формы, или когда группа не прошла валидацию. Бокс и хелпер окрашиваются в <code class="tok">--error</code>; рядом с обязательным названием ставится звёздочка.</p>
-    <div class="row">
-      <div class="panel" style="flex:1; min-width:280px;">
-        <p class="desc tight" style="margin-bottom:18px;">Обязательный чекбокс — согласие</p>
-        <div id="err-required"></div>
-      </div>
-      <div class="panel" style="flex:1; min-width:280px;">
-        <p class="desc tight" style="margin-bottom:18px;">Ошибка на уровне группы</p>
-        <div id="err-group"></div>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTENT -->
   <section class="section" data-screen-label="Content">
     <h2>Контент</h2>
@@ -341,11 +328,9 @@
       <li><b>Обязательность и ошибка</b> — у обязательного названия ставится звёздочка <code class="tok">*</code>; текст ошибки — Body XS цвета <code class="tok">--error</code>;</li>
       <li>не обрезайте название многоточием — при нехватке места переформулируйте его короче.</li>
     </ul>
-  </section>
-
-  <!-- LABEL GUIDELINES -->
-  <section class="section" data-screen-label="LabelRules">
-    <h2>Название чекбокса</h2>
+  
+<div class="subsec" data-screen-label="LabelRules">
+    <h3>Название чекбокса</h3>
     <p class="desc">Название пишется с заглавной буквы, без знаков пунктуации в конце, и всегда располагается справа от чекбокса.</p>
     <p class="desc">Формулируйте название в положительном ключе: отрицательная формулировка заставляет пользователя выполнять в голове логическую операцию с двумя «не».</p>
     <div class="guide">
@@ -363,11 +348,10 @@
       </div>
     </div>
     <p class="desc" style="margin-top:26px;">Если пользователю может быть не очевидно, что произойдёт при включении чекбокса, объясните это дополнительным текстом-хелпером. Старайтесь делать названия короткими; при нехватке места меняйте формулировку, но не обрезайте название многоточием.</p>
-  </section>
+  </div>
 
-  <!-- GROUP TITLE GUIDELINES -->
-  <section class="section" data-screen-label="GroupRules">
-    <h2>Заголовок группы</h2>
+<div class="subsec" data-screen-label="GroupRules">
+    <h3>Заголовок группы</h3>
     <p class="desc">Добавляйте заголовок к группе для ясности, если взаимосвязь пунктов неочевидна, или чтобы вынести в него повторяющиеся в пунктах слова. Заголовок пишется с заглавной буквы, начертанием Strong того же кегля, что и название.</p>
     <div class="guide">
       <div class="guide-card bad">
@@ -383,11 +367,42 @@
         <p class="guide-card__cap">Общее слово вынесено в заголовок группы.</p>
       </div>
     </div>
+  </div>
+  </section>
+
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Error">
+    <h3>Ошибка и валидация<span class="badge-new">Новое</span></h3>
+    <p class="desc">Состояние Error появляется, когда обязательный чекбокс не выбран при отправке формы, или когда группа не прошла валидацию. Бокс и хелпер окрашиваются в <code class="tok">--error</code>; рядом с обязательным названием ставится звёздочка.</p>
+    <div class="row">
+      <div class="panel" style="flex:1; min-width:280px;">
+        <p class="desc tight" style="margin-bottom:18px;">Обязательный чекбокс — согласие</p>
+        <div id="err-required"></div>
+      </div>
+      <div class="panel" style="flex:1; min-width:280px;">
+        <p class="desc tight" style="margin-bottom:18px;">Ошибка на уровне группы</p>
+        <div id="err-group"></div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Три состояния выбора по вертикали и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Error</b> добавлены к исходной матрице Default / Disabled<span class="badge-new">Новое</span></p>
+    <div class="panel">
+      <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
+    </div>
   </section>
 
   <!-- HIT AREA / A11Y -->
   <section class="section" data-screen-label="HitArea">
-    <h2>Область клика и доступность<span class="badge-new">Новое</span></h2>
+    <h2>Доступность<span class="badge-new">Новое</span></h2>
     <p class="desc">Видимый бокс — 16px, но кликабельная область шире: она включает название и хелпер. В группе активная область чекбокса вытягивается на всю высоту строки, чтобы её было легче нажать. Управление возможно с клавиатуры: фокус показывается обводкой <code class="tok">--primary</code>, переключение — пробелом.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">

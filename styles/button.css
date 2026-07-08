@@ -66,7 +66,7 @@
 
 /* ---------- type: OUTLINE -------------------------------------------------- */
 .btn--outline {
-  background: var(--bg-tile);
+  background: transparent;
   color: var(--primary);
   border-color: var(--primary);
 }
@@ -96,7 +96,7 @@
 .btn--accent:disabled svg,  .btn--accent.btn--disabled svg { color: var(--text-on-dark); }
 
 .btn--outline:disabled,     .btn--outline.btn--disabled {
-  background: var(--bg-tile); border-color: var(--disabled); color: var(--text-inactive);
+  background: transparent; border-color: var(--disabled); color: var(--text-inactive);
 }
 .btn--outline:disabled svg, .btn--outline.btn--disabled svg { color: var(--text-inactive); }
 

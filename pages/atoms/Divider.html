@@ -229,12 +229,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Divider">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v2.0</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v2.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Divider</h1>
     <p class="lead">Разделительная черта — тонкая линия, которая визуально отделяет одни части интерфейса от других. Используется как часть молекул (заголовки и подвалы модальных окон, списки, меню) и как самостоятельный компонент. Горизонтальный или вертикальный; цвет и толщина при смене ориентации сохраняются.</p>
@@ -274,11 +282,9 @@
         <div id="ex-toolbar" style="display:flex; justify-content:center; align-items:center; min-height:90px;"></div>
       </div>
     </div>
-  </section>
-
-  <!-- WHEN TO USE -->
-  <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+  
+<div class="subsec" data-screen-label="WhenToUse">
+    <h3>Когда использовать</h3>
     <p class="desc tight">Используйте разделитель, когда нужно:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>отделить независимые блоки контента, между которыми мало смыслового зазора;</li>
@@ -286,22 +292,26 @@
       <li>разграничить колонки или панели по горизонтали — вертикальной линией.</li>
     </ul>
     <p class="desc">Разделитель — вспомогательный, неинтерактивный элемент. Если блоки уже разнесены отступами или заключены в карточки, линия не нужна — лишние разделители создают визуальный шум. Сначала пробуйте разделить контент пробелом, и только потом — линией.</p>
-  </section>
+  </div>
 
-  <!-- ORIENTATION -->
-  <section class="section" data-screen-label="Orientation">
-    <h2>Ориентация</h2>
-    <p class="desc">Разделитель может быть горизонтальным или вертикальным. Цвет и толщина линии при смене ориентации сохраняются. Горизонтальный тянется на всю ширину контейнера, вертикальный — на всю высоту строки (минимум 16px).</p>
-    <div class="row">
-      <div class="panel" style="flex:1; min-width:280px;">
-        <p class="desc tight" style="margin-bottom:18px;">Горизонтальный — <code class="tok">.dvd--h</code></p>
-        <div id="orient-h" style="display:flex; justify-content:center;"></div>
+<div class="subsec" data-screen-label="Guidelines">
+    <h3>Рекомендации</h3>
+    <p class="desc">Не ставьте разделитель между каждой строкой — это создаёт «забор» и снижает читаемость. Группируйте связанные строки пробелом и разделяйте линией только сами группы.</p>
+    <div class="guide">
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-bad2"></span>Не так</div>
+        <div class="guide-card__body" id="over-bad"></div>
+        <p class="guide-card__cap">Линия после каждой строки дробит контент и мешает сканированию.</p>
       </div>
-      <div class="panel" style="flex:1; min-width:280px;">
-        <p class="desc tight" style="margin-bottom:18px;">Вертикальный — <code class="tok">.dvd--v</code></p>
-        <div id="orient-v" style="display:flex; justify-content:center;"></div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-good2"></span>Так</div>
+        <div class="guide-card__body" id="over-good"></div>
+        <p class="guide-card__cap">Строки сгруппированы пробелом, линия делит только группы.</p>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -320,6 +330,55 @@
     </div>
   </section>
 
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Orientation">
+    <h3>Ориентация</h3>
+    <p class="desc">Разделитель может быть горизонтальным или вертикальным. Цвет и толщина линии при смене ориентации сохраняются. Горизонтальный тянется на всю ширину контейнера, вертикальный — на всю высоту строки (минимум 16px).</p>
+    <div class="row">
+      <div class="panel" style="flex:1; min-width:280px;">
+        <p class="desc tight" style="margin-bottom:18px;">Горизонтальный — <code class="tok">.dvd--h</code></p>
+        <div id="orient-h" style="display:flex; justify-content:center;"></div>
+      </div>
+      <div class="panel" style="flex:1; min-width:280px;">
+        <p class="desc tight" style="margin-bottom:18px;">Вертикальный — <code class="tok">.dvd--v</code></p>
+        <div id="orient-v" style="display:flex; justify-content:center;"></div>
+      </div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Variants">
+    <h3>Варианты отступов<span class="badge-new">Новое</span></h3>
+    <p class="desc">Для горизонтального разделителя есть три варианта по отступам — по аналогии с Material Design. <b>Full</b> делит независимые блоки на всю ширину; <b>Inset</b> сдвигает линию вправо, выравнивая её по тексту строки с иконкой или аватаром; <b>Middle</b> отступает с обеих сторон для лёгкого деления внутри блока.</p>
+    <div class="panel">
+      <div class="vgrid" id="variants"></div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="WithText">
+    <h3>Разделитель с подписью<span class="badge-new">Новое</span></h3>
+    <p class="desc">Линия может нести короткую подпись — название группы, дату в ленте или «или» между альтернативными действиями. Подпись выравнивается по центру или прижимается к краю.</p>
+    <div class="panel">
+      <div class="tgrid" id="with-text"></div>
+    </div>
+    <p class="desc" style="margin-top:28px;">Частый случай — разделитель «или» между основным и альтернативным действием.</p>
+    <div class="panel" style="display:flex; justify-content:center; padding:40px 34px;">
+      <div id="with-text-or"></div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Weight">
+    <h3>Толщина и контраст<span class="badge-new">Новое</span></h3>
+    <p class="desc">По умолчанию линия — 1px на светлом токене <code class="tok">--border-light</code>. Для более заметной границы между крупными зонами используйте контрастную линию <code class="tok">--border-primary</code>. Для деления длинной страницы на независимые разделы — толстый блок-секцию 8px.</p>
+    <div class="panel">
+      <div class="wgrid" id="weight"></div>
+    </div>
+  </div>
+  </section>
+
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
@@ -330,42 +389,9 @@
         <tbody></tbody>
       </table>
     </div>
-  </section>
-
-  <!-- VARIANTS / INSET -->
-  <section class="section" data-screen-label="Variants">
-    <h2>Варианты отступов<span class="badge-new">Новое</span></h2>
-    <p class="desc">Для горизонтального разделителя есть три варианта по отступам — по аналогии с Material Design. <b>Full</b> делит независимые блоки на всю ширину; <b>Inset</b> сдвигает линию вправо, выравнивая её по тексту строки с иконкой или аватаром; <b>Middle</b> отступает с обеих сторон для лёгкого деления внутри блока.</p>
-    <div class="panel">
-      <div class="vgrid" id="variants"></div>
-    </div>
-  </section>
-
-  <!-- WITH TEXT -->
-  <section class="section" data-screen-label="WithText">
-    <h2>Разделитель с подписью<span class="badge-new">Новое</span></h2>
-    <p class="desc">Линия может нести короткую подпись — название группы, дату в ленте или «или» между альтернативными действиями. Подпись выравнивается по центру или прижимается к краю.</p>
-    <div class="panel">
-      <div class="tgrid" id="with-text"></div>
-    </div>
-    <p class="desc" style="margin-top:28px;">Частый случай — разделитель «или» между основным и альтернативным действием.</p>
-    <div class="panel" style="display:flex; justify-content:center; padding:40px 34px;">
-      <div id="with-text-or"></div>
-    </div>
-  </section>
-
-  <!-- WEIGHT / THICKNESS -->
-  <section class="section" data-screen-label="Weight">
-    <h2>Толщина и контраст<span class="badge-new">Новое</span></h2>
-    <p class="desc">По умолчанию линия — 1px на светлом токене <code class="tok">--border-light</code>. Для более заметной границы между крупными зонами используйте контрастную линию <code class="tok">--border-primary</code>. Для деления длинной страницы на независимые разделы — толстый блок-секцию 8px.</p>
-    <div class="panel">
-      <div class="wgrid" id="weight"></div>
-    </div>
-  </section>
-
-  <!-- SPACING -->
-  <section class="section" data-screen-label="Spacing">
-    <h2>Отступы</h2>
+  
+<div class="subsec" data-screen-label="Spacing">
+    <h3>Отступы</h3>
     <p class="desc">Разделитель сам по себе не задаёт вертикальный ритм — отступы до контента задаёт окружение. Держите зазор сверху и снизу симметричным, иначе линия «прилипает» к одному из блоков и связь читается неверно.</p>
     <div class="guide">
       <div class="guide-card bad">
@@ -381,6 +407,7 @@
         <p class="guide-card__cap">Симметричные отступы — линия одинаково отделяет оба блока.</p>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- CONTENT -->
@@ -395,50 +422,22 @@
     </ul>
   </section>
 
-  <!-- GUIDELINES -->
-  <section class="section" data-screen-label="Guidelines">
-    <h2>Рекомендации</h2>
-    <p class="desc">Не ставьте разделитель между каждой строкой — это создаёт «забор» и снижает читаемость. Группируйте связанные строки пробелом и разделяйте линией только сами группы.</p>
-    <div class="guide">
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-bad2"></span>Не так</div>
-        <div class="guide-card__body" id="over-bad"></div>
-        <p class="guide-card__cap">Линия после каждой строки дробит контент и мешает сканированию.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-good2"></span>Так</div>
-        <div class="guide-card__body" id="over-good"></div>
-        <p class="guide-card__cap">Строки сгруппированы пробелом, линия делит только группы.</p>
-      </div>
-    </div>
+  <!-- BEHAVIOR (STUB) -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+  </section>
+
+    <!-- Состояния (STUB) -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Не применимо: у компонента нет интерактивных состояний.</p>
   </section>
 
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
     <h2>Доступность<span class="badge-new">Новое</span></h2>
     <p class="desc">Горизонтальный разделитель — это нативный <code class="tok">&lt;hr&gt;</code>, который уже имеет роль <code class="tok">separator</code>. Вертикальному и текстовому разделителю на <code class="tok">&lt;div&gt;</code> присваивается <code class="tok">role="separator"</code>, а вертикальному — ещё и <code class="tok">aria-orientation="vertical"</code>. Чисто декоративную линию (например, фоновую границу карточки) можно скрыть от скринридера через <code class="tok">aria-hidden="true"</code>, чтобы не засорять навигацию.</p>
-  </section>
-
-  <!-- TOKENS -->
-  <section class="section" data-screen-label="Tokens">
-    <h2>Токены</h2>
-    <p class="desc">Компонент настраивается через CSS-переменные. Все значения по умолчанию ссылаются на семантические токены дизайн-системы.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="tok-table">
-        <thead><tr><th>Токен</th><th>Назначение</th><th>Значение</th></tr></thead>
-        <tbody>
-          <tr><td><code>--dvd-color</code></td><td>Цвет линии по умолчанию</td><td><code>--border-light</code></td></tr>
-          <tr><td><code>--dvd-color-strong</code></td><td>Контрастная линия</td><td><code>--border-primary</code></td></tr>
-          <tr><td><code>--dvd-thickness</code></td><td>Толщина линии</td><td class="rt-num">1px</td></tr>
-          <tr><td><code>--dvd-section</code></td><td>Толщина блока-секции</td><td class="rt-num">8px</td></tr>
-          <tr><td><code>--dvd-inset</code></td><td>Отступ Inset / Middle</td><td class="rt-num">16px</td></tr>
-          <tr><td><code>--dvd-label-gap</code></td><td>Зазор у подписи</td><td class="rt-num">12px</td></tr>
-          <tr><td><code>--dvd-vmin</code></td><td>Мин. длина вертикальной линии</td><td class="rt-num">16px</td></tr>
-        </tbody>
-      </table>
-    </div>
   </section>
 
   <!-- TYPOGRAPHY -->
@@ -458,6 +457,25 @@
     <h2>Цвета</h2>
     <p class="desc">Компонент использует только семантические токены границ и текста. Никаких собственных цветов.</p>
     <div class="color-ref" id="color-ref"></div>
+  
+<div class="subsec" data-screen-label="Tokens">
+    <h3>Токены</h3>
+    <p class="desc">Компонент настраивается через CSS-переменные. Все значения по умолчанию ссылаются на семантические токены дизайн-системы.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="tok-table">
+        <thead><tr><th>Токен</th><th>Назначение</th><th>Значение</th></tr></thead>
+        <tbody>
+          <tr><td><code>--dvd-color</code></td><td>Цвет линии по умолчанию</td><td><code>--border-light</code></td></tr>
+          <tr><td><code>--dvd-color-strong</code></td><td>Контрастная линия</td><td><code>--border-primary</code></td></tr>
+          <tr><td><code>--dvd-thickness</code></td><td>Толщина линии</td><td class="rt-num">1px</td></tr>
+          <tr><td><code>--dvd-section</code></td><td>Толщина блока-секции</td><td class="rt-num">8px</td></tr>
+          <tr><td><code>--dvd-inset</code></td><td>Отступ Inset / Middle</td><td class="rt-num">16px</td></tr>
+          <tr><td><code>--dvd-label-gap</code></td><td>Зазор у подписи</td><td class="rt-num">12px</td></tr>
+          <tr><td><code>--dvd-vmin</code></td><td>Мин. длина вертикальной линии</td><td class="rt-num">16px</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->

@@ -230,12 +230,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="IconButton">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>IconButton</h1>
     <p class="lead">Безрамочная кнопка с одной иконкой и круглым стейт-слоем (риплом). Цвет рипла соответствует цвету иконки. Тоны Neutral / Primary / Danger / Contrast, размеры L / M / S, состояния Default / Hover / Pressed / Focus / Disabled / Loading, режим-переключатель и встроенный вариант для полей ввода.</p>
@@ -254,7 +262,7 @@
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+    <h2>Использование</h2>
     <p class="desc tight">IconButton подходит, когда:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>действие очевидно из иконки и не требует подписи — закрыть, удалить, редактировать, открыть меню;</li>
@@ -262,6 +270,14 @@
       <li>нужно собрать ряд однотипных действий, не перегружая интерфейс текстом.</li>
     </ul>
     <p class="desc">Если действие основное или его смысл не считывается с иконки — используйте обычную <a class="inl" href="../atoms/Buttons.html">Button</a> с текстом. Иконка без подписи всегда должна сопровождаться <code class="tok">aria-label</code> и, как правило, <a class="inl" href="../molecules/Tooltip.html">Tooltip</a>.</p>
+  
+<div class="subsec" data-screen-label="Toolbar">
+    <h3>В тулбаре</h3>
+    <p class="desc">Типовой паттерн: ряд IconButton одного тона и размера, сгруппированный с разделителями. Деструктивное действие выделяется тоном Danger.</p>
+    <div class="panel">
+      <div class="toolbar" id="toolbar"></div>
+    </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -282,6 +298,51 @@
     </div>
   </section>
 
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Tones">
+    <h3>Тоны</h3>
+    <p class="desc">Тон задаёт цвет иконки, а стейт-слой автоматически берёт полупрозрачный оттенок этого же цвета. <b>Neutral</b> — нейтральные действия, иконка <code class="tok">--secondary</code> (Active · Secondary, Emerald_200); <b>Primary</b> — акцентные (<code class="tok">--primary</code>); <b>Danger</b> — деструктивные, например удалить (<code class="tok">--error</code>); <b>Contrast</b> — для тёмных поверхностей (<code class="tok">--text-on-dark</code>).</p>
+    <div class="panel">
+      <div class="tonegrid" id="tonegrid"></div>
+    </div>
+    <div class="panel" style="margin-top:20px; background:var(--c-cgrey-800); border-color:var(--c-cgrey-800);">
+      <div class="row" id="contrast-row" style="gap:20px;"></div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Toggle">
+    <h3>Режим-переключатель<span class="badge-new">Новое</span></h3>
+    <p class="desc">IconButton может работать как переключатель (toggle): нажатие фиксирует состояние Selected. В выбранном состоянии иконка окрашивается в Primary и остаётся лёгкий стейт-слой; чаще всего контурная иконка заменяется на залитую. Подходит для «в избранное», «закрепить», «показать пароль». Нажмите на пример:</p>
+    <div class="panel">
+      <div class="row" id="toggle-row" style="gap:36px;"></div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Embedded">
+    <h3>Встроенный вариант (поля и тулбары)<span class="badge-new">Новое</span></h3>
+    <p class="desc">В полях ввода и плотных тулбарах круглый стейт-слой избыточен. Встроенный вариант (<code class="tok">ibtn--embedded</code>) убирает рипл: в покое иконка нейтральная, на Hover она окрашивается в Primary. Это и есть состояние «Hover (Input)». Наведите на иконку очистки:</p>
+    <div class="panel" style="margin-bottom:20px;">
+      <div class="row" id="field-row" style="gap:28px;"></div>
+    </div>
+    <p class="desc">Сравнение поведения на Hover — обычный (со стейт-слоем) и встроенный (смена цвета):</p>
+    <div class="panel">
+      <div class="tonegrid" id="embed-compare" style="grid-template-columns:130px repeat(2,1fr);"></div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Badge">
+    <h3>С бейджем<span class="badge-new">Новое</span></h3>
+    <p class="desc">IconButton может нести индикатор-<a class="inl" href="../atoms/Badge.html">Badge</a> — счётчик непрочитанного или точку-индикатор. Бейдж прижимается к правому верхнему углу иконки и не перехватывает клики.</p>
+    <div class="panel">
+      <div class="row" id="badge-row" style="gap:32px;"></div>
+    </div>
+  </div>
+  </section>
+
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
@@ -300,16 +361,33 @@
     </div>
   </section>
 
-  <!-- TONES -->
-  <section class="section" data-screen-label="Tones">
-    <h2>Тоны</h2>
-    <p class="desc">Тон задаёт цвет иконки, а стейт-слой автоматически берёт полупрозрачный оттенок этого же цвета. <b>Neutral</b> — нейтральные действия, иконка <code class="tok">--secondary</code> (Active · Secondary, Emerald_200); <b>Primary</b> — акцентные (<code class="tok">--primary</code>); <b>Danger</b> — деструктивные, например удалить (<code class="tok">--error</code>); <b>Contrast</b> — для тёмных поверхностей (<code class="tok">--text-on-dark</code>).</p>
-    <div class="panel">
-      <div class="tonegrid" id="tonegrid"></div>
+  <!-- CONTENT -->
+  <section class="section" data-screen-label="Content">
+    <h2>Контент</h2>
+    <p class="desc tight">У IconButton нет видимого текста — контент компонента это иконка и её текстовое описание:</p>
+    <ul class="bullets">
+      <li>иконка — только из <a class="inl" href="../foundations/Icons.html">библиотеки ДС</a> (24×24, заливка <code class="tok">currentColor</code>); метафора должна быть общепринятой: корзина — удалить, карандаш — редактировать;</li>
+      <li><code class="tok">aria-label</code> — глагол действия, 1–3 слова: «Удалить», «Скачать PDF»; не название иконки («Корзина»);</li>
+      <li>текст <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> совпадает с aria-label;</li>
+      <li>в режиме-переключателе подпись отражает текущее состояние: «В избранное» ↔ «В избранном».</li>
+    </ul>
+  
+<div class="subsec" data-screen-label="Iconography">
+    <h3>Иконография</h3>
+    <p class="desc">Иконки берутся из библиотеки ДС (24×24, заливка <code class="tok">currentColor</code>) и масштабируются под размер кнопки. Никаких эмодзи или юникод-символов.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table" id="icon-table">
+        <thead><tr><th>Размер кнопки</th><th>Размер иконки</th><th>Образцы</th></tr></thead>
+        <tbody></tbody>
+      </table>
     </div>
-    <div class="panel" style="margin-top:20px; background:var(--c-cgrey-800); border-color:var(--c-cgrey-800);">
-      <div class="row" id="contrast-row" style="gap:20px;"></div>
-    </div>
+  </div>
+  </section>
+
+  <!-- BEHAVIOR (STUB) -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
   </section>
 
   <!-- STATES -->
@@ -321,61 +399,9 @@
     </div>
   </section>
 
-  <!-- TOGGLE -->
-  <section class="section" data-screen-label="Toggle">
-    <h2>Режим-переключатель<span class="badge-new">Новое</span></h2>
-    <p class="desc">IconButton может работать как переключатель (toggle): нажатие фиксирует состояние Selected. В выбранном состоянии иконка окрашивается в Primary и остаётся лёгкий стейт-слой; чаще всего контурная иконка заменяется на залитую. Подходит для «в избранное», «закрепить», «показать пароль». Нажмите на пример:</p>
-    <div class="panel">
-      <div class="row" id="toggle-row" style="gap:36px;"></div>
-    </div>
-  </section>
-
-  <!-- EMBEDDED / INPUT -->
-  <section class="section" data-screen-label="Embedded">
-    <h2>Встроенный вариант (поля и тулбары)<span class="badge-new">Новое</span></h2>
-    <p class="desc">В полях ввода и плотных тулбарах круглый стейт-слой избыточен. Встроенный вариант (<code class="tok">ibtn--embedded</code>) убирает рипл: в покое иконка нейтральная, на Hover она окрашивается в Primary. Это и есть состояние «Hover (Input)». Наведите на иконку очистки:</p>
-    <div class="panel" style="margin-bottom:20px;">
-      <div class="row" id="field-row" style="gap:28px;"></div>
-    </div>
-    <p class="desc">Сравнение поведения на Hover — обычный (со стейт-слоем) и встроенный (смена цвета):</p>
-    <div class="panel">
-      <div class="tonegrid" id="embed-compare" style="grid-template-columns:130px repeat(2,1fr);"></div>
-    </div>
-  </section>
-
-  <!-- BADGE -->
-  <section class="section" data-screen-label="Badge">
-    <h2>С бейджем<span class="badge-new">Новое</span></h2>
-    <p class="desc">IconButton может нести индикатор-<a class="inl" href="../atoms/Badge.html">Badge</a> — счётчик непрочитанного или точку-индикатор. Бейдж прижимается к правому верхнему углу иконки и не перехватывает клики.</p>
-    <div class="panel">
-      <div class="row" id="badge-row" style="gap:32px;"></div>
-    </div>
-  </section>
-
-  <!-- TOOLBAR EXAMPLE -->
-  <section class="section" data-screen-label="Toolbar">
-    <h2>В тулбаре</h2>
-    <p class="desc">Типовой паттерн: ряд IconButton одного тона и размера, сгруппированный с разделителями. Деструктивное действие выделяется тоном Danger.</p>
-    <div class="panel">
-      <div class="toolbar" id="toolbar"></div>
-    </div>
-  </section>
-
-  <!-- CONTENT -->
-  <section class="section" data-screen-label="Content">
-    <h2>Контент</h2>
-    <p class="desc tight">У IconButton нет видимого текста — контент компонента это иконка и её текстовое описание:</p>
-    <ul class="bullets">
-      <li>иконка — только из <a class="inl" href="../foundations/Icons.html">библиотеки ДС</a> (24×24, заливка <code class="tok">currentColor</code>); метафора должна быть общепринятой: корзина — удалить, карандаш — редактировать;</li>
-      <li><code class="tok">aria-label</code> — глагол действия, 1–3 слова: «Удалить», «Скачать PDF»; не название иконки («Корзина»);</li>
-      <li>текст <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> совпадает с aria-label;</li>
-      <li>в режиме-переключателе подпись отражает текущее состояние: «В избранное» ↔ «В избранном».</li>
-    </ul>
-  </section>
-
   <!-- ACCESSIBILITY / HIT AREA -->
   <section class="section" data-screen-label="Accessibility">
-    <h2>Доступность и область клика</h2>
+    <h2>Доступность</h2>
     <p class="desc">У иконки нет видимого текста, поэтому каждому IconButton обязателен <code class="tok">aria-label</code>, описывающий действие, и, как правило, <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> по наведению. Управление с клавиатуры: <b>Tab</b> ставит фокус, <b>Space</b> / <b>Enter</b> активируют, фокус показывается обводкой <code class="tok">--primary</code>.</p>
     <p class="desc">Минимальная рекомендованная область нажатия — 44×44px. Размеры S (24) и M (32) меньше неё, поэтому в тач-сценариях либо берите размер L, либо расширяйте кликабельную зону невидимым отступом, оставляя видимый стейт-слой прежнего размера.</p>
     <div class="guide">
@@ -394,16 +420,10 @@
     </div>
   </section>
 
-  <!-- ICONOGRAPHY -->
-  <section class="section" data-screen-label="Iconography">
-    <h2>Иконография</h2>
-    <p class="desc">Иконки берутся из библиотеки ДС (24×24, заливка <code class="tok">currentColor</code>) и масштабируются под размер кнопки. Никаких эмодзи или юникод-символов.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table" id="icon-table">
-        <thead><tr><th>Размер кнопки</th><th>Размер иконки</th><th>Образцы</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
+  <!-- TYPOGRAPHY (STUB) -->
+  <section class="section" data-screen-label="Typography">
+    <h2>Типографика</h2>
+    <p class="desc">Не применимо: компонент не содержит текста.</p>
   </section>
 
   <!-- COLORS -->

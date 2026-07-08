@@ -206,12 +206,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Splitter">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>03.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Splitter</h1>
     <p class="lead">Функциональный разделитель контейнера: пользователь тащит сплиттер и регулирует размеры соседних панелей. При наведении курсор меняется на <code class="tok">col-resize</code> / <code class="tok">ew-resize</code>, а сам сплиттер переходит в состояние Hover. Перемещается по одной оси; в момент перетаскивания вид и курсор сохраняются.</p>
@@ -230,13 +238,40 @@
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+    <h2>Использование</h2>
     <p class="desc tight">Используйте сплиттер, когда нужно:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>дать пользователю самому распределить пространство между двумя областями — список и карточку, дерево и контент, редактор и превью;</li>
       <li>сохранить обе области видимыми, но позволить расширить ту, что важнее в текущей задаче.</li>
     </ul>
     <p class="desc">Сплиттер — интерактивный элемент, в отличие от <a class="inl" href="../atoms/Divider.html">Divider</a>, который только визуально отделяет блоки и не двигается. Если менять размеры не нужно — используйте обычный разделитель.</p>
+  
+<div class="subsec" data-screen-label="Example">
+    <h3>Пример использования</h3>
+    <p class="desc">Раздел «Пользователи»: слева — таблица-мастер, справа — карточка деталей. Сплиттер позволяет расширить нужную сторону. Потяните разделитель внутри макета.</p>
+    <div class="panel" style="padding:20px;">
+      <div id="ex-master"></div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Guidelines">
+    <h3>Рекомендации</h3>
+    <p class="desc">Сплиттер должен читаться как перетаскиваемый: оставляйте ручку-грип и состояние Hover. Невидимый разделитель без аффорданса пользователь не найдёт.</p>
+    <div class="guide">
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-bad1"></span>Не так</div>
+        <div class="guide-card__body" id="guide-bad"></div>
+        <p class="guide-card__cap">Нет ручки и подсветки — выглядит как обычная граница, перетаскивание неочевидно.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
+        <div class="guide-card__body" id="guide-good"></div>
+        <p class="guide-card__cap">Грип и подсветка зоны явно сообщают, что границу можно тащить.</p>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -255,43 +290,13 @@
     </div>
   </section>
 
-  <!-- SIZES -->
-  <section class="section" data-screen-label="Sizes">
-    <h2>Размеры</h2>
-    <p class="desc">У сплиттера нет масштабной линейки размеров (M/S/…) — геометрия задана фиксированными токенами — одними и теми же для любой ориентации. Значения ниже измерены на живом экземпляре компонента (<code class="tok">getComputedStyle</code>).</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="tok-table" id="size-table">
-        <thead><tr><th>Параметр</th><th>Значение</th><th>Токен</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния<span class="badge-new">Новое</span></h2>
-    <p class="desc">Исходная пара Default / Hover дополнена состояниями Move (перетаскивание), Focus и Disabled. В Move сплиттер сохраняет вид Hover и курсор <code class="tok">col-resize</code> на всём документе, пока кнопка мыши зажата.</p>
-    <div class="panel">
-      <div class="sgrid" id="states"></div>
-    </div>
-  </section>
-
-  <!-- BEHAVIOR -->
-  <section class="section" data-screen-label="Behavior">
-    <h2>Поведение и ограничения</h2>
-    <p class="desc">Сплиттер перемещается только по своей оси. Размеры панелей ограничены минимумом и максимумом (здесь 25% / 75%), чтобы ни одна панель не схлопнулась полностью. Перетащите разделитель — соотношение обновляется в реальном времени.</p>
-    <div class="panel">
-      <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:18px;">
-        <span style="font:var(--type-body-s-strong); color:var(--text-secondary);">Соотношение панелей</span>
-        <span class="readout">Лево / Право: <b id="behavior-read">50% / 50%</b></span>
-      </div>
-      <div id="behavior"></div>
-    </div>
-  </section>
-
-  <!-- ORIENTATION -->
-  <section class="section" data-screen-label="Orientation">
-    <h2>Ориентация<span class="badge-new">Новое</span></h2>
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Orientation">
+    <h3>Ориентация<span class="badge-new">Новое</span></h3>
     <p class="desc">Вертикальный сплиттер регулирует ширину колонок (курсор <code class="tok">col-resize</code>) — основной сценарий. Горизонтальный регулирует высоту строк (курсор <code class="tok">row-resize</code>) — например, делит контент и панель деталей по высоте. Грип разворачивается вдоль оси перетаскивания.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:300px;">
@@ -303,14 +308,18 @@
         <div id="orient-h"></div>
       </div>
     </div>
+  </div>
   </section>
 
-  <!-- USAGE EXAMPLE -->
-  <section class="section" data-screen-label="Example">
-    <h2>Пример использования</h2>
-    <p class="desc">Раздел «Пользователи»: слева — таблица-мастер, справа — карточка деталей. Сплиттер позволяет расширить нужную сторону. Потяните разделитель внутри макета.</p>
-    <div class="panel" style="padding:20px;">
-      <div id="ex-master"></div>
+  <!-- SIZES -->
+  <section class="section" data-screen-label="Sizes">
+    <h2>Размеры</h2>
+    <p class="desc">У сплиттера нет масштабной линейки размеров (M/S/…) — геометрия задана фиксированными токенами — одними и теми же для любой ориентации. Значения ниже измерены на живом экземпляре компонента (<code class="tok">getComputedStyle</code>).</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="tok-table" id="size-table">
+        <thead><tr><th>Параметр</th><th>Значение</th><th>Токен</th></tr></thead>
+        <tbody></tbody>
+      </table>
     </div>
   </section>
 
@@ -326,35 +335,53 @@
     </ul>
   </section>
 
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Behavior">
+    <h3>Поведение и ограничения</h3>
+    <p class="desc">Сплиттер перемещается только по своей оси. Размеры панелей ограничены минимумом и максимумом (здесь 25% / 75%), чтобы ни одна панель не схлопнулась полностью. Перетащите разделитель — соотношение обновляется в реальном времени.</p>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <span style="font:var(--type-body-s-strong); color:var(--text-secondary);">Соотношение панелей</span>
+        <span class="readout">Лево / Право: <b id="behavior-read">50% / 50%</b></span>
+      </div>
+      <div id="behavior"></div>
+    </div>
+  </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния<span class="badge-new">Новое</span></h2>
+    <p class="desc">Исходная пара Default / Hover дополнена состояниями Move (перетаскивание), Focus и Disabled. В Move сплиттер сохраняет вид Hover и курсор <code class="tok">col-resize</code> на всём документе, пока кнопка мыши зажата.</p>
+    <div class="panel">
+      <div class="sgrid" id="states"></div>
+    </div>
+  </section>
+
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
     <h2>Доступность<span class="badge-new">Новое</span></h2>
     <p class="desc">Сплиттеру присваивается <code class="tok">role="separator"</code>, <code class="tok">aria-orientation</code> и значения <code class="tok">aria-valuemin</code> / <code class="tok">aria-valuemax</code> / <code class="tok">aria-valuenow</code> (в процентах). Он фокусируется по <b>Tab</b>; стрелки <b>←/→</b> (или <b>↑/↓</b> для горизонтального) сдвигают границу с шагом 2%, с <b>Shift</b> — 10%, <b>Home</b> / <b>End</b> — в минимум / максимум. Сфокусируйте сплиттер в примерах выше и подвигайте стрелками.</p>
   </section>
 
-  <!-- GUIDELINES -->
-  <section class="section" data-screen-label="Guidelines">
-    <h2>Рекомендации</h2>
-    <p class="desc">Сплиттер должен читаться как перетаскиваемый: оставляйте ручку-грип и состояние Hover. Невидимый разделитель без аффорданса пользователь не найдёт.</p>
-    <div class="guide">
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-bad1"></span>Не так</div>
-        <div class="guide-card__body" id="guide-bad"></div>
-        <p class="guide-card__cap">Нет ручки и подсветки — выглядит как обычная граница, перетаскивание неочевидно.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
-        <div class="guide-card__body" id="guide-good"></div>
-        <p class="guide-card__cap">Грип и подсветка зоны явно сообщают, что границу можно тащить.</p>
-      </div>
-    </div>
+  <!-- TYPOGRAPHY (STUB) -->
+  <section class="section" data-screen-label="Typography">
+    <h2>Типографика</h2>
+    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
   </section>
 
-  <!-- TOKENS -->
-  <section class="section" data-screen-label="Tokens">
-    <h2>Токены</h2>
+  <!-- COLORS -->
+  <section class="section" data-screen-label="Colors">
+    <h2>Цвета</h2>
+    <p class="desc">Компонент использует только семантические токены границ, текста и подсветки. Собственных цветов нет.</p>
+    <div class="color-ref" id="color-ref"></div>
+  
+<div class="subsec" data-screen-label="Tokens">
+    <h3>Токены</h3>
     <p class="desc">Компонент настраивается через CSS-переменные. Значения по умолчанию ссылаются на семантические токены дизайн-системы.</p>
     <div class="panel" style="padding:8px 10px;">
       <table class="tok-table">
@@ -370,13 +397,7 @@
         </tbody>
       </table>
     </div>
-  </section>
-
-  <!-- COLORS -->
-  <section class="section" data-screen-label="Colors">
-    <h2>Цвета</h2>
-    <p class="desc">Компонент использует только семантические токены границ, текста и подсветки. Собственных цветов нет.</p>
-    <div class="color-ref" id="color-ref"></div>
+  </div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->

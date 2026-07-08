@@ -227,12 +227,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
   <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="ContextMenu">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>03.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Context Menu</h1>
     <p class="lead">Контекстное меню — всплывающий список действий над объектом. Возникает по нажатию на кнопку действий (kebab «три точки» или дропдаун) в заголовке таблицы, строке таблицы или карточке. Ширина зависит от контента, набор пунктов — от объекта.</p>
@@ -297,11 +305,9 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- WHEN TO USE -->
-  <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+  
+<div class="subsec" data-screen-label="WhenToUse">
+    <h3>Когда использовать</h3>
     <p class="desc tight">Контекстное меню группирует вторичные действия над объектом, чтобы не засорять интерфейс кнопками. Используйте, когда нужно:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>собрать 2+ действий над строкой, карточкой или таблицей за одной кнопкой ⋮;</li>
@@ -309,6 +315,26 @@
       <li>дать выбор из взаимоисключающих вариантов (сортировка, режим) — с галочкой у активного.</li>
     </ul>
     <p class="desc">Одно частое действие лучше вынести отдельной кнопкой или <a class="inl" href="../atoms/IconButton.html">IconButton</a>, а не прятать в меню. Для выбора значения из длинного перечня в форме используйте <a class="inl" href="../molecules/Select.html">Select</a>. Меню не место для сложного контента, полей ввода и длинного текста — для этого подходит поповер или модальное окно.</p>
+  </div>
+
+<div class="subsec" data-screen-label="Guidelines">
+    <h3>Рекомендации</h3>
+    <p class="desc">Держите подписи короткими и в форме действия. Меню — список команд, а не место для пояснений.</p>
+    <div class="guide">
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-bad1"></span>Не так</div>
+        <div class="guide-card__body" id="copy-bad"></div>
+        <p class="guide-card__cap">Длинные фразы-предложения превращают меню в текст. Пункт должен читаться за долю секунды.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
+        <div class="guide-card__body" id="copy-good"></div>
+        <p class="guide-card__cap">Глагол-действие в одно-два слова; деструктивное — снизу, за разделителем.</p>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -329,30 +355,24 @@
     </div>
   </section>
 
-  <!-- ITEM TYPES -->
-  <section class="section" data-screen-label="ItemTypes">
-    <h2>Типы пунктов</h2>
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="ItemTypes">
+    <h3>Типы пунктов</h3>
     <p class="desc">Пункт меню бывает текстовым или с ведущей иконкой; справа — горячая клавиша, каретка подменю или (для меню-выбора) галочка. Деструктивные действия окрашиваются в красный.</p>
     <div class="panel">
       <div class="types" id="types-demo"></div>
     </div>
+  </div>
   </section>
 
-  <!-- HOTKEYS -->
-  <section class="section" data-screen-label="Hotkeys">
-    <h2>Горячие клавиши</h2>
-    <p class="desc">Горячая клавиша (шорткат) — сочетание клавиш, дублирующее действие пункта. Отображается серым текстом справа от подписи и служит подсказкой-напоминанием: пользователь видит, что то же действие доступно с клавиатуры без открытия меню.</p>
-    <div class="panel">
-      <div class="row" style="gap:44px; align-items:center;">
-        <div class="stack"><span class="th">Пункты с шорткатами</span><div id="hotkeys-demo"></div></div>
-        <ul class="bullets" style="max-width:46ch;">
-          <li>показывайте шорткат только для действий, у которых он реально назначен в продукте;</li>
-          <li>формат — по платформе (⌘C / Ctrl+C, ⌦ / Del); в пределах одного меню — единообразно;</li>
-          <li>это подсказка, а не кнопка — сам пункт остаётся кликабельным, клик по шорткату ничего не запускает;</li>
-          <li>не перегружайте: шорткаты уместны для частых операций (создать, копировать, удалить), не для всех подряд.</li>
-        </ul>
-      </div>
-    </div>
+  <!-- SIZES (STUB) -->
+  <section class="section" data-screen-label="Sizes">
+    <h2>Размеры</h2>
+    <p class="desc">Не применимо: размерного ряда у компонента нет.</p>
   </section>
 
   <!-- CONTENT -->
@@ -371,20 +391,31 @@
         <div class="stack"><span class="th">Перенос <span class="badge-new">.--wrap</span></span><div id="content-wrap"></div></div>
       </div>
     </div>
-  </section>
-
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния</h2>
-    <p class="desc">Пункт меняет фон при наведении и фокусе, темнеет при нажатии. Выбранный пункт помечается галочкой и усиленным начертанием. Отключённый — приглушён и не реагирует на курсор.</p>
+  
+<div class="subsec" data-screen-label="Hotkeys">
+    <h3>Горячие клавиши</h3>
+    <p class="desc">Горячая клавиша (шорткат) — сочетание клавиш, дублирующее действие пункта. Отображается серым текстом справа от подписи и служит подсказкой-напоминанием: пользователь видит, что то же действие доступно с клавиатуры без открытия меню.</p>
     <div class="panel">
-      <div class="states" id="states-demo"></div>
+      <div class="row" style="gap:44px; align-items:center;">
+        <div class="stack"><span class="th">Пункты с шорткатами</span><div id="hotkeys-demo"></div></div>
+        <ul class="bullets" style="max-width:46ch;">
+          <li>показывайте шорткат только для действий, у которых он реально назначен в продукте;</li>
+          <li>формат — по платформе (⌘C / Ctrl+C, ⌦ / Del); в пределах одного меню — единообразно;</li>
+          <li>это подсказка, а не кнопка — сам пункт остаётся кликабельным, клик по шорткату ничего не запускает;</li>
+          <li>не перегружайте: шорткаты уместны для частых операций (создать, копировать, удалить), не для всех подряд.</li>
+        </ul>
+      </div>
     </div>
+  </div>
   </section>
 
-  <!-- POSITIONING -->
-  <section class="section" data-screen-label="Positioning">
-    <h2>Позиционирование и авто-разворот<span class="badge-new">Новое</span></h2>
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Positioning">
+    <h3>Позиционирование и авто-разворот<span class="badge-new">Новое</span></h3>
     <p class="desc">Меню открывается под триггером и выравнивается по его краю (start / end). Если снизу не хватает места, оно разворачивается вверх, а по горизонтали смещается, чтобы не выходить за границы экрана. Перетащите триггер к краям области.</p>
     <div class="panel">
       <div class="row" style="margin-bottom:18px; gap:18px; align-items:center;">
@@ -401,17 +432,26 @@
         <span class="hint-drag">Перетащите триггер ↕↔</span>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- SUBMENU + SCROLL -->
-  <section class="section" data-screen-label="EdgeCases">
-    <h2>Подменю и переполнение<span class="badge-new">Новое</span></h2>
+<div class="subsec" data-screen-label="EdgeCases">
+    <h3>Подменю и переполнение<span class="badge-new">Новое</span></h3>
     <p class="desc">Вложенное меню (flyout) раскрывается вправо по наведению на пункт с кареткой. Когда пунктов больше, чем помещается по высоте, контейнер прокручивается, сохраняя видимой шапку экрана — избегайте меню длиннее ~10 пунктов, группируйте или используйте подменю.</p>
     <div class="panel">
       <div class="row" style="gap:56px;">
         <div class="stack"><span class="th">Подменю (наведите на «Экспорт»)</span><div id="submenu-demo" style="min-height:200px;"></div></div>
         <div class="stack"><span class="th">Прокрутка при переполнении</span><div id="scroll-demo"></div></div>
       </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Пункт меняет фон при наведении и фокусе, темнеет при нажатии. Выбранный пункт помечается галочкой и усиленным начертанием. Отключённый — приглушён и не реагирует на курсор.</p>
+    <div class="panel">
+      <div class="states" id="states-demo"></div>
     </div>
   </section>
 
@@ -430,26 +470,6 @@
       </div>
     </div>
     <p class="desc" style="margin-top:26px;">Не полагайтесь только на цвет: деструктивный пункт помечается не только красным, но и позицией (снизу, за разделителем) и, при возможности, иконкой корзины.</p>
-  </section>
-
-  <!-- GUIDELINES -->
-  <section class="section" data-screen-label="Guidelines">
-    <h2>Рекомендации</h2>
-    <p class="desc">Держите подписи короткими и в форме действия. Меню — список команд, а не место для пояснений.</p>
-    <div class="guide">
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-bad1"></span>Не так</div>
-        <div class="guide-card__body" id="copy-bad"></div>
-        <p class="guide-card__cap">Длинные фразы-предложения превращают меню в текст. Пункт должен читаться за долю секунды.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
-        <div class="guide-card__body" id="copy-good"></div>
-        <p class="guide-card__cap">Глагол-действие в одно-два слова; деструктивное — снизу, за разделителем.</p>
-      </div>
-    </div>
   </section>
 
   <!-- TYPOGRAPHY -->

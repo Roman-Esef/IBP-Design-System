@@ -240,12 +240,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Button">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>04.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Button</h1>
     <p class="lead">Кнопка инициирует действие. Три типа, три размера, состояния Default / Hover / Active / Disabled, лоадер и режим Fullwidth. Модификатор <code class="tok">--danger</code> комбинируется с любым типом — для деструктивных действий (диалог подтверждения удаления). Текст кнопок набран токенами Button&nbsp;M&nbsp;/&nbsp;S&nbsp;/&nbsp;XS (SB Sans Screen).</p>
@@ -278,32 +286,41 @@
     </div>
   </section>
 
-  <!-- TYPE -->
-  <section class="section" data-screen-label="Type">
-    <h2>Type</h2>
-    <p class="desc">Свойство Type определяет общий вид кнопки: <b>Accent</b>, <b>Outline</b>, <b>Transparent</b>.</p>
-    <div class="panel"><div class="row" id="type-row"></div></div>
-  </section>
-
-  <!-- DANGER -->
-  <section class="section" data-screen-label="Danger">
-    <h2>Danger<span class="badge-new">Новое</span></h2>
-    <p class="desc">Модификатор, а не отдельный тип — комбинируется с Accent / Outline / Transparent и меняет только цвет на токены <code class="tok">Error</code>. Используется для деструктивного действия в диалоге подтверждения (например «Удалить» в confirm-модалке, см. <a class="inl" href="../organisms/Modal.html">Modal</a>). Не применяйте Danger к обычному «Удалить» в подвале формы — там кнопка остаётся Transparent, деструктивность подтверждает отдельный диалог, а не цвет.</p>
-    <div class="panel"><div class="row" id="danger-row"></div></div>
-  </section>
-
-  <!-- MENU / CHEVRON -->
-  <section class="section" data-screen-label="Menu">
-    <h2>Кнопка с меню (chevron)</h2>
-    <p class="desc">Если кнопка содержит шеврон — она открывает контекстное меню. Клик по самой кнопке только показывает меню; действия выполняются исключительно по пунктам меню. Справа может быть либо шеврон, либо иконка — но не одновременно. Нажмите, чтобы открыть.</p>
-    <div class="panel"><div class="row" id="menu-row"></div></div>
-  </section>
-
   <!-- STRUCTURE -->
   <section class="section" data-screen-label="Anatomy">
     <h2>Анатомия</h2>
     <p class="desc">Кнопка может содержать иконку слева и/или справа от текста, и/или сам текст. Иконки допускаются с обеих сторон одновременно.</p>
     <div class="panel"><div class="row" id="struct-row"></div></div>
+  </section>
+
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Type">
+    <h3>Type</h3>
+    <p class="desc">Свойство Type определяет общий вид кнопки: <b>Accent</b>, <b>Outline</b>, <b>Transparent</b>.</p>
+    <div class="panel"><div class="row" id="type-row"></div></div>
+  </div>
+
+<div class="subsec" data-screen-label="Danger">
+    <h3>Danger<span class="badge-new">Новое</span></h3>
+    <p class="desc">Модификатор, а не отдельный тип — комбинируется с Accent / Outline / Transparent и меняет только цвет на токены <code class="tok">Error</code>. Используется для деструктивного действия в диалоге подтверждения (например «Удалить» в confirm-модалке, см. <a class="inl" href="../organisms/Modal.html">Modal</a>). Не применяйте Danger к обычному «Удалить» в подвале формы — там кнопка остаётся Transparent, деструктивность подтверждает отдельный диалог, а не цвет.</p>
+    <div class="panel"><div class="row" id="danger-row"></div></div>
+  </div>
+
+<div class="subsec" data-screen-label="Menu">
+    <h3>Кнопка с меню (chevron)</h3>
+    <p class="desc">Если кнопка содержит шеврон — она открывает контекстное меню. Клик по самой кнопке только показывает меню; действия выполняются исключительно по пунктам меню. Справа может быть либо шеврон, либо иконка — но не одновременно. Нажмите, чтобы открыть.</p>
+    <div class="panel"><div class="row" id="menu-row"></div></div>
+  </div>
+
+<div class="subsec" data-screen-label="Fullwidth">
+    <h3>Fullwidth</h3>
+    <p class="desc">Кнопки со свойством Fullwidth заполняют весь контейнер: боковые паддинги убираются, контент центрируется. Кнопки, содержащие только иконку, не растягиваются.</p>
+    <div class="panel"><div class="fw-grid" id="fw-row"></div></div>
+  </div>
   </section>
 
   <!-- SIZES -->
@@ -312,11 +329,9 @@
     <p class="desc tight">Три размера. Ширина зависит от контента, высота фиксирована.<br>
       <b>M&nbsp;— 40</b> · кнопки в модальных окнах &nbsp;·&nbsp; <b>S&nbsp;— 32</b> · в таблицах, на тайлах &nbsp;·&nbsp; <b>XS&nbsp;— 24</b> · фильтры и экшены на одном уровне с фильтром.</p>
     <div class="panel"><div class="sizes" id="sizes-row"></div></div>
-  </section>
-
-  <!-- PADDING -->
-  <section class="section" data-screen-label="Padding">
-    <h2>Отступы</h2>
+  
+<div class="subsec" data-screen-label="Padding">
+    <h3>Отступы</h3>
     <p class="desc">Отступы внутри кнопок разного типа, но одного состава — идентичны. Все значения в пикселях.</p>
     <div class="panel" style="padding:8px 10px;">
       <table class="spec-table">
@@ -330,6 +345,7 @@
         </tbody>
       </table>
     </div>
+  </div>
   </section>
 
   <!-- CONTENT -->
@@ -347,23 +363,13 @@
     </div>
   </section>
 
-  <!-- FULLWIDTH -->
-  <section class="section" data-screen-label="Fullwidth">
-    <h2>Fullwidth</h2>
-    <p class="desc">Кнопки со свойством Fullwidth заполняют весь контейнер: боковые паддинги убираются, контент центрируется. Кнопки, содержащие только иконку, не растягиваются.</p>
-    <div class="panel"><div class="fw-grid" id="fw-row"></div></div>
-  </section>
-
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния</h2>
-    <p class="desc">Default, Hover, Active, Disabled — для каждого типа.</p>
-    <div class="panel"><div class="matrix" id="matrix"></div></div>
-  </section>
-
-  <!-- LOADER -->
-  <section class="section" data-screen-label="Loader">
-    <h2>Loader</h2>
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Loader">
+    <h3>Loader</h3>
     <p class="desc">Сообщает, что идёт процесс, вызванный кликом. На время процесса кнопка переходит в Disabled. Если в кнопке есть иконка — лоадер заменяет её (при иконках с обеих сторон заменяется левая). Если иконок нет — лоадер появляется слева от текста и увеличивает ширину. В IconOnly иконка заменяется лоадером. Нажмите на любую кнопку, чтобы увидеть.</p>
     <div class="panel">
       <div class="loader-demo">
@@ -374,6 +380,20 @@
       </div>
       <p class="hint">hasLoader=Yes удерживает кнопку в Disabled, пока процесс не завершится.</p>
     </div>
+  </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Default, Hover, Active, Disabled — для каждого типа.</p>
+    <div class="panel"><div class="matrix" id="matrix"></div></div>
+  </section>
+
+  <!-- ACCESSIBILITY -->
+  <section class="section" data-screen-label="A11y">
+    <h2>Доступность <span class="addon">Расширение</span></h2>
+    <p class="desc">Кнопка — нативный <code class="tok">&lt;button type="button"&gt;</code>: Enter и Space работают из коробки. Фокус — <code class="tok">outline: 2px var(--primary)</code> с отступом 2px, только по <code class="tok">:focus-visible</code>. Disabled задаётся атрибутом <code class="tok">disabled</code>. В состоянии Loader кнопка не интерактивна (<code class="tok">pointer-events: none</code>) — дополнительно ставьте <code class="tok">aria-busy="true"</code> и держите её disabled до конца процесса. Icon-only обязана иметь <code class="tok">aria-label</code>. Кнопка с шевроном получает <code class="tok">aria-haspopup="menu"</code> и <code class="tok">aria-expanded</code>; меню — <code class="tok">role="menu"</code> с пунктами <code class="tok">role="menuitem"</code>, Esc закрывает меню и возвращает фокус на кнопку. Спиннер замедляется при <code class="tok">prefers-reduced-motion</code>.</p>
   </section>
 
   <!-- TYPOGRAPHY -->
@@ -386,12 +406,6 @@
         <tbody></tbody>
       </table>
     </div>
-  </section>
-
-  <!-- ACCESSIBILITY -->
-  <section class="section" data-screen-label="A11y">
-    <h2>Доступность <span class="addon">Расширение</span></h2>
-    <p class="desc">Кнопка — нативный <code class="tok">&lt;button type="button"&gt;</code>: Enter и Space работают из коробки. Фокус — <code class="tok">outline: 2px var(--primary)</code> с отступом 2px, только по <code class="tok">:focus-visible</code>. Disabled задаётся атрибутом <code class="tok">disabled</code>. В состоянии Loader кнопка не интерактивна (<code class="tok">pointer-events: none</code>) — дополнительно ставьте <code class="tok">aria-busy="true"</code> и держите её disabled до конца процесса. Icon-only обязана иметь <code class="tok">aria-label</code>. Кнопка с шевроном получает <code class="tok">aria-haspopup="menu"</code> и <code class="tok">aria-expanded</code>; меню — <code class="tok">role="menu"</code> с пунктами <code class="tok">role="menuitem"</code>, Esc закрывает меню и возвращает фокус на кнопку. Спиннер замедляется при <code class="tok">prefers-reduced-motion</code>.</p>
   </section>
 
   <!-- COLORS -->

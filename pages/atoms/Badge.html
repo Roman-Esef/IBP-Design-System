@@ -225,12 +225,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Badge">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Badge</h1>
     <p class="lead">Бейдж — небольшой дочерний элемент, который накладывается на родительский компонент или ставится рядом с ним. Тип <b>Counter</b> показывает количество (счётчик), тип <b>Dot</b> — статус без числа. Пять размеров — M / S / XS / XXS / Dot — и семантические тона.</p>
@@ -270,133 +278,9 @@
       <div class="tabs" id="use-tabs"></div>
       <div class="clist" id="use-list" style="margin-top:8px; max-width:340px;"></div>
     </div>
-  </section>
-
-  <!-- ANATOMY -->
-  <section class="section" data-screen-label="Anatomy">
-    <h2>Анатомия</h2>
-    <p class="desc">Бейдж — это контейнер-капсула со значением внутри. Ширина зависит от контента, высота фиксирована по размеру. При наложении на родителя бейдж позиционируется в правом верхнем углу и выступает за его границу.</p>
-    <div class="panel">
-      <div class="anat">
-        <div class="anat__stage"><div class="anat-dia" id="anat-diagram"></div></div>
-        <ul class="anat__legend">
-          <li><span class="n"></span><span class="t"><span class="k">Контейнер</span><span class="d">капсула со скруглением 999px; высота фиксирована, ширина тянется по контенту</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Значение</span><span class="d">число, SB Sans Text Semibold, tabular-nums; центрировано</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Индикатор переполнения</span><span class="d">«+» при значении больше максимума</span></span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- TYPES -->
-  <section class="section" data-screen-label="Types">
-    <h2>Типы</h2>
-    <p class="desc">Два типа по содержимому. Counter несёт число — точное количество непрочитанного, элементов в табе, товаров в корзине. Dot не несёт числа — это компактный индикатор наличия события или статуса.</p>
-    <div class="row">
-      <div class="panel" style="flex:1; min-width:280px;">
-        <div style="display:flex; align-items:center; gap:18px; margin-bottom:16px;" id="type-counter"></div>
-        <p style="font:var(--type-h5-strong); color:var(--text-black); margin:0 0 6px;">Counter</p>
-        <p class="desc" style="margin:0;">Числовой счётчик. Поддерживает переполнение «99+». Скрывается при значении 0.</p>
-      </div>
-      <div class="panel" style="flex:1; min-width:280px;">
-        <div style="display:flex; align-items:center; gap:18px; margin-bottom:16px; height:32px;" id="type-dot"></div>
-        <p style="font:var(--type-h5-strong); color:var(--text-black); margin:0 0 6px;">Dot</p>
-        <p class="desc" style="margin:0;">Точка 8px без числа. Сигнализирует о новом событии или статусе родителя.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SIZES -->
-  <section class="section" data-screen-label="Sizes">
-    <h2>Размеры</h2>
-    <p class="desc">Четыре размера счётчика и фиксированный Dot. Размер выбирается по габаритам родителя и плотности интерфейса. Однозначное число даёт круг (min-width = высота), многозначное — капсулу с горизонтальными отступами.</p>
-    <div class="panel">
-      <div class="matrix-wrap">
-        <div class="sizes-grid" id="sizes-grid"></div>
-      </div>
-    </div>
-    <div class="panel" style="padding:8px 10px; margin-top:20px;">
-      <table class="ref-table" id="sizes-table">
-        <thead><tr><th>Размер</th><th>Высота</th><th>Мин. ширина</th><th>Кегль значения</th><th>Применение</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- TONE -->
-  <section class="section" data-screen-label="Tone">
-    <h2>Тон</h2>
-    <p class="desc">Тон передаёт смысл, а не просто цвет. <b>Neutral</b> — нейтральный счётчик без эмоциональной окраски (количество в табах, списках). <b>Accent</b> — привлекает внимание к новому (непрочитанное). Статусные тона — для индикации состояния родителя.</p>
-    <div class="panel">
-      <div class="tone-grid" id="tone-grid"></div>
-    </div>
-  </section>
-
-  <!-- OVERFLOW -->
-  <section class="section" data-screen-label="Overflow">
-    <h2>Переполнение и формат<span class="badge-new">Новое</span></h2>
-    <p class="desc">У счётчика есть максимум (по умолчанию 99). Если значение его превышает, бейдж показывает <code class="tok">max+</code> — например «99+», чтобы капсула не растягивалась бесконтрольно. В компактных местах (счётчик скрытых элементов, «ещё N») используется безфоновый текстовый вариант <code class="tok">badge--text</code> в формате «+99».</p>
-    <div class="row">
-      <div class="panel" style="flex:1; min-width:260px;">
-        <p class="desc tight" style="margin-bottom:18px;">Рост значения и переполнение при max = 99</p>
-        <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;" id="overflow-demo"></div>
-      </div>
-      <div class="panel" style="flex:1; min-width:260px;">
-        <p class="desc tight" style="margin-bottom:18px;">Текстовый вариант «+N» (без фона)</p>
-        <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap;" id="overflow-text"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- POSITIONING -->
-  <section class="section" data-screen-label="Positioning">
-    <h2>Позиционирование<span class="badge-new">Новое</span></h2>
-    <p class="desc">Counter накладывается на правый верхний угол родителя и центрируется на его границе. Dot для статуса ставится в правый нижний угол (например, индикатор «онлайн» на аватаре). На цветном или фото-фоне у бейджа появляется белая обводка (<code class="tok">badge--bordered</code>), чтобы он читался отдельно от подложки.</p>
-    <div class="panel">
-      <div class="row" style="align-items:center; gap:48px; justify-content:center; padding:18px 0;" id="pos-demo"></div>
-    </div>
-  </section>
-
-  <!-- STATES & BEHAVIOR -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния и поведение<span class="badge-new">Новое</span></h2>
-    <p class="desc">Поведение бейджа определяется значением и состоянием родителя.</p>
-    <div class="row">
-      <div class="panel" style="flex:1; min-width:260px;">
-        <p class="desc tight" style="margin-bottom:18px;">Значение 0 — бейдж скрывается</p>
-        <div style="display:flex; align-items:center; gap:22px;" id="state-zero"></div>
-        <p class="desc" style="margin:18px 0 0; font:var(--type-body-s); color:var(--text-inactive);">При count = 0 счётчик не отображается; исключение — явный режим «показывать ноль».</p>
-      </div>
-      <div class="panel" style="flex:1; min-width:260px;">
-        <p class="desc tight" style="margin-bottom:18px;">Родитель disabled — бейдж приглушается</p>
-        <div style="display:flex; align-items:center; gap:22px;" id="state-muted"></div>
-        <p class="desc" style="margin:18px 0 0; font:var(--type-body-s); color:var(--text-inactive);">Тон сбрасывается в серый <code class="tok">--disabled</code>, чтобы не конкурировать с неактивным родителем.</p>
-      </div>
-    </div>
-    <div class="panel" style="margin-top:20px;">
-      <p class="desc tight" style="margin-bottom:18px;">Тултип при переполнении — наведите, чтобы увидеть точное значение</p>
-      <div style="display:flex; align-items:center; gap:28px;" id="state-tooltip"></div>
-    </div>
-  </section>
-
-  </section>
-
-  <!-- CONTENT -->
-  <section class="section" data-screen-label="Content">
-    <h2>Контент</h2>
-    <p class="desc tight">Содержимое бейджа — число (Counter) или его отсутствие (Dot). Краткий свод правил (подробно — в «Переполнение и формат» выше):</p>
-    <ul class="bullets" style="margin-bottom:26px;">
-      <li><b>Counter</b> несёт только целое неотрицательное число — никакого текста, букв или знаков препинания внутри (для этого есть Tag/Chip);</li>
-      <li>у каждого счётчика есть порог переполнения (<code class="tok">max</code>, по умолчанию 99) — при превышении показывается <code class="tok">max+</code> (например, «99+»), точное значение — в тултипе;</li>
-      <li>для компактных второстепенных счётчиков («ещё N») используется безфоновый текстовый вариант <code class="tok">badge--text</code> в формате «+99»;</li>
-      <li><b>Dot</b> не несёт никакого текста или числа — это только индикатор наличия события/статуса; если нужно число — используйте Counter;</li>
-      <li>при <code class="tok">value = 0</code> счётчик скрывается по умолчанию — не показывайте пустой бейдж вместо того, чтобы его скрыть.</li>
-    </ul>
-  </section>
-
-  <!-- GUIDELINES -->
-  <section class="section" data-screen-label="Guidelines">
-    <h2>Правила</h2>
+  
+<div class="subsec" data-screen-label="Guidelines">
+    <h3>Правила</h3>
     <p class="desc">Бейдж дополняет родителя, а не заменяет его. Не помещайте в счётчик длинные строки и не используйте его как самостоятельную метку-«пилюлю».</p>
     <div class="guide">
       <div class="guide-card bad">
@@ -423,6 +307,135 @@
         <div class="guide-card__body" id="guide-good2"></div>
         <p class="guide-card__cap">Нужно число — берём Counter; нужен статус — Dot.</p>
       </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- ANATOMY -->
+  <section class="section" data-screen-label="Anatomy">
+    <h2>Анатомия</h2>
+    <p class="desc">Бейдж — это контейнер-капсула со значением внутри. Ширина зависит от контента, высота фиксирована по размеру. При наложении на родителя бейдж позиционируется в правом верхнем углу и выступает за его границу.</p>
+    <div class="panel">
+      <div class="anat">
+        <div class="anat__stage"><div class="anat-dia" id="anat-diagram"></div></div>
+        <ul class="anat__legend">
+          <li><span class="n"></span><span class="t"><span class="k">Контейнер</span><span class="d">капсула со скруглением 999px; высота фиксирована, ширина тянется по контенту</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Значение</span><span class="d">число, SB Sans Text Semibold, tabular-nums; центрировано</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Индикатор переполнения</span><span class="d">«+» при значении больше максимума</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Types">
+    <h3>Типы</h3>
+    <p class="desc">Два типа по содержимому. Counter несёт число — точное количество непрочитанного, элементов в табе, товаров в корзине. Dot не несёт числа — это компактный индикатор наличия события или статуса.</p>
+    <div class="row">
+      <div class="panel" style="flex:1; min-width:280px;">
+        <div style="display:flex; align-items:center; gap:18px; margin-bottom:16px;" id="type-counter"></div>
+        <p style="font:var(--type-h5-strong); color:var(--text-black); margin:0 0 6px;">Counter</p>
+        <p class="desc" style="margin:0;">Числовой счётчик. Поддерживает переполнение «99+». Скрывается при значении 0.</p>
+      </div>
+      <div class="panel" style="flex:1; min-width:280px;">
+        <div style="display:flex; align-items:center; gap:18px; margin-bottom:16px; height:32px;" id="type-dot"></div>
+        <p style="font:var(--type-h5-strong); color:var(--text-black); margin:0 0 6px;">Dot</p>
+        <p class="desc" style="margin:0;">Точка 8px без числа. Сигнализирует о новом событии или статусе родителя.</p>
+      </div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Tone">
+    <h3>Тон</h3>
+    <p class="desc">Тон передаёт смысл, а не просто цвет. <b>Neutral</b> — нейтральный счётчик без эмоциональной окраски (количество в табах, списках). <b>Accent</b> — привлекает внимание к новому (непрочитанное). Статусные тона — для индикации состояния родителя.</p>
+    <div class="panel">
+      <div class="tone-grid" id="tone-grid"></div>
+    </div>
+  </div>
+  </section>
+
+  <!-- SIZES -->
+  <section class="section" data-screen-label="Sizes">
+    <h2>Размеры</h2>
+    <p class="desc">Четыре размера счётчика и фиксированный Dot. Размер выбирается по габаритам родителя и плотности интерфейса. Однозначное число даёт круг (min-width = высота), многозначное — капсулу с горизонтальными отступами.</p>
+    <div class="panel">
+      <div class="matrix-wrap">
+        <div class="sizes-grid" id="sizes-grid"></div>
+      </div>
+    </div>
+    <div class="panel" style="padding:8px 10px; margin-top:20px;">
+      <table class="ref-table" id="sizes-table">
+        <thead><tr><th>Размер</th><th>Высота</th><th>Мин. ширина</th><th>Кегль значения</th><th>Применение</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="section" data-screen-label="Content">
+    <h2>Контент</h2>
+    <p class="desc tight">Содержимое бейджа — число (Counter) или его отсутствие (Dot). Краткий свод правил (подробно — в «Переполнение и формат» выше):</p>
+    <ul class="bullets" style="margin-bottom:26px;">
+      <li><b>Counter</b> несёт только целое неотрицательное число — никакого текста, букв или знаков препинания внутри (для этого есть Tag/Chip);</li>
+      <li>у каждого счётчика есть порог переполнения (<code class="tok">max</code>, по умолчанию 99) — при превышении показывается <code class="tok">max+</code> (например, «99+»), точное значение — в тултипе;</li>
+      <li>для компактных второстепенных счётчиков («ещё N») используется безфоновый текстовый вариант <code class="tok">badge--text</code> в формате «+99»;</li>
+      <li><b>Dot</b> не несёт никакого текста или числа — это только индикатор наличия события/статуса; если нужно число — используйте Counter;</li>
+      <li>при <code class="tok">value = 0</code> счётчик скрывается по умолчанию — не показывайте пустой бейдж вместо того, чтобы его скрыть.</li>
+    </ul>
+  </section>
+
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Overflow">
+    <h3>Переполнение и формат<span class="badge-new">Новое</span></h3>
+    <p class="desc">У счётчика есть максимум (по умолчанию 99). Если значение его превышает, бейдж показывает <code class="tok">max+</code> — например «99+», чтобы капсула не растягивалась бесконтрольно. В компактных местах (счётчик скрытых элементов, «ещё N») используется безфоновый текстовый вариант <code class="tok">badge--text</code> в формате «+99».</p>
+    <div class="row">
+      <div class="panel" style="flex:1; min-width:260px;">
+        <p class="desc tight" style="margin-bottom:18px;">Рост значения и переполнение при max = 99</p>
+        <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;" id="overflow-demo"></div>
+      </div>
+      <div class="panel" style="flex:1; min-width:260px;">
+        <p class="desc tight" style="margin-bottom:18px;">Текстовый вариант «+N» (без фона)</p>
+        <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap;" id="overflow-text"></div>
+      </div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Positioning">
+    <h3>Позиционирование<span class="badge-new">Новое</span></h3>
+    <p class="desc">Counter накладывается на правый верхний угол родителя и центрируется на его границе. Dot для статуса ставится в правый нижний угол (например, индикатор «онлайн» на аватаре). На цветном или фото-фоне у бейджа появляется белая обводка (<code class="tok">badge--bordered</code>), чтобы он читался отдельно от подложки.</p>
+    <div class="panel">
+      <div class="row" style="align-items:center; gap:48px; justify-content:center; padding:18px 0;" id="pos-demo"></div>
+    </div>
+  </div>
+  </section>
+
+  <!-- STATES & BEHAVIOR -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния<span class="badge-new">Новое</span></h2>
+    <p class="desc">Поведение бейджа определяется значением и состоянием родителя.</p>
+    <div class="row">
+      <div class="panel" style="flex:1; min-width:260px;">
+        <p class="desc tight" style="margin-bottom:18px;">Значение 0 — бейдж скрывается</p>
+        <div style="display:flex; align-items:center; gap:22px;" id="state-zero"></div>
+        <p class="desc" style="margin:18px 0 0; font:var(--type-body-s); color:var(--text-inactive);">При count = 0 счётчик не отображается; исключение — явный режим «показывать ноль».</p>
+      </div>
+      <div class="panel" style="flex:1; min-width:260px;">
+        <p class="desc tight" style="margin-bottom:18px;">Родитель disabled — бейдж приглушается</p>
+        <div style="display:flex; align-items:center; gap:22px;" id="state-muted"></div>
+        <p class="desc" style="margin:18px 0 0; font:var(--type-body-s); color:var(--text-inactive);">Тон сбрасывается в серый <code class="tok">--disabled</code>, чтобы не конкурировать с неактивным родителем.</p>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:20px;">
+      <p class="desc tight" style="margin-bottom:18px;">Тултип при переполнении — наведите, чтобы увидеть точное значение</p>
+      <div style="display:flex; align-items:center; gap:28px;" id="state-tooltip"></div>
     </div>
   </section>
 

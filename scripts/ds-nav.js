@@ -45,6 +45,8 @@
             { label: 'Tab',              href: 'pages/molecules/Tab.html' },
             { label: 'SegmentControl',   href: 'pages/molecules/SegmentControl.html' },
             { label: 'Splitter',         href: 'pages/molecules/Splitter.html' },
+            { label: 'InputText',        href: 'pages/molecules/InputText.html' },
+            { label: 'InputDate',        href: 'pages/molecules/InputDate.html' },
             { label: 'InputAutocomplete', href: 'pages/molecules/InputAutocomplete.html' },
             { label: 'Select',           href: 'pages/molecules/Select.html' },
             { label: 'ReadOnlyField',    href: 'pages/molecules/ReadOnlyField.html' },
@@ -56,12 +58,17 @@
           group: 'Организмы',
           items: [
             { label: 'Modal',    href: 'pages/organisms/Modal.html' },
-            { label: 'Popover',  href: 'pages/organisms/Popover.html' }
+            { label: 'Popover',  href: 'pages/organisms/Popover.html' },
+            { label: 'RiskMetric', href: 'pages/organisms/RiskMetric.html' },
+            { label: 'SnackBar',   href: 'pages/organisms/SnackBar.html' },
+            { label: 'Entity',     href: 'pages/organisms/Entity.html' },
+            { label: 'TableCell',  href: 'pages/organisms/TableCell.html' }
           ]
         },
         {
           group: 'Компоненты подкачки',
           items: [
+            { label: 'Alert',         href: 'pages/loading/Alert.html' },
             { label: 'Label / Helper', href: 'pages/loading/LabelHelper.html' }
           ]
         }
@@ -70,6 +77,7 @@
     {
       cat: 'Правила и паттерны',
       items: [
+        { label: 'Аудит разделов',        href: 'pages/patterns/SectionsAudit.html' },
         { label: 'Редполитика',           soon: true },
         { label: 'Тон оф войс',           soon: true },
         { label: 'Паттерны интерфейса',   soon: true }

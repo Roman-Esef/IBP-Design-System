@@ -106,7 +106,7 @@
     controls.appendChild(select('Тип', [['edit', 'Edit'], ['readonly', 'ReadOnly']], () => state.type, v => state.type = v));
     controls.appendChild(select('Стиль', [['fill', 'Fill (Border + Fill)'], ['outline', 'Outline (Border)']], () => state.style, v => state.style = v));
     controls.appendChild(select('Размер', [['l', 'L · 40'], ['m', 'M · 32'], ['s', 'S · 24'], ['xs', 'XS · 20']], () => state.size, v => state.size = v));
-    controls.appendChild(select('Тон', [['system', 'System'], ['accent', 'Accent'], ['success', 'Success'], ['info', 'Info'], ['warning', 'Warning'], ['error', 'Error']], () => state.tone, v => state.tone = v));
+    controls.appendChild(select('Тон', [['system', 'System'], ['accent', 'Accent'], ['success', 'Success'], ['info', 'Info'], ['warning', 'Warning'], ['error', 'Error'], ['dark', 'Dark'], ['success-solid', 'Success solid'], ['warning-solid', 'Warning solid'], ['error-solid', 'Error solid'], ['dark-solid', 'Dark solid']], () => state.tone, v => state.tone = v));
     controls.appendChild(select('Дополнительный элемент', [['none', 'Нет'], ['marker', 'Маркер'], ['icon', 'Иконка'], ['badge', 'Бейдж'], ['avatar', 'Аватар']], () => state.leading, v => state.leading = v));
     controls.appendChild(select('Состояние', [['default', 'Default'], ['selected', 'Selected'], ['focus', 'Focus'], ['loading', 'Loading'], ['invalid', 'Invalid'], ['disabled', 'Disabled']], () => state.chipState, v => state.chipState = v));
 
@@ -386,10 +386,13 @@
       ['info', 'Info', 'Информационный статус: в работе, новое'],
       ['warning', 'Warning', 'Требует внимания: ожидает, на проверке'],
       ['error', 'Error', 'Ошибка: просрочено, отклонено, заблокировано'],
+      ['dark', 'Dark', 'Нейтрально-«чёрный» статус на рампе StGrey (например, Чёрная зона в RiskMetric)'],
+      ['error-solid', 'Error solid', 'Solid-заливка: базовый StRed + белый текст — критичный акцент (Красная зона)'],
+      ['dark-solid', 'Dark solid', 'Solid-заливка: базовый StGrey + белый текст — нейтрально-«чёрная» (Чёрная зона)'],
     ];
     tones.forEach(([tone, nm, rl]) => {
       const c = document.createElement('div'); c.className = 'tone-cell';
-      const isStatus = ['success', 'info', 'warning', 'error'].includes(tone);
+      const isStatus = ['success', 'info', 'warning', 'error', 'dark', 'success-solid', 'warning-solid', 'error-solid', 'dark-solid'].includes(tone);
       c.appendChild(makeChip({ type: 'edit', size: 'm', tone, label: nm, leading: 'marker', removable: true, rounded: isStatus }));
       const n = document.createElement('div'); n.className = 'nm'; n.textContent = nm; c.appendChild(n);
       const r = document.createElement('div'); r.className = 'rl'; r.textContent = rl; c.appendChild(r);

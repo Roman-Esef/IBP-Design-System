@@ -233,12 +233,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Tooltip">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v2.1</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v2.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Tooltip</h1>
     <p class="lead">Всплывающая подсказка при наведении или фокусе на объект — иконку, IconButton, обрезанный текст или поле с ошибкой. Контент — строка, тултип не может быть пустым. Хинт может быть со стрелкой или без неё, в любом из 12 краевых положений.</p>
@@ -279,11 +287,9 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- WHEN TO USE -->
-  <section class="section" data-screen-label="WhenToUse">
-    <h2>Когда использовать</h2>
+  
+<div class="subsec" data-screen-label="WhenToUse">
+    <h3>Когда использовать</h3>
     <p class="desc tight">Используйте тултип, когда нужно:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>пояснить назначение иконки или <a class="inl" href="../atoms/IconButton.html">IconButton</a> без подписи;</li>
@@ -291,6 +297,26 @@
       <li>дать короткое уточнение или сообщение об ошибке рядом с полем.</li>
     </ul>
     <p class="desc">Тултип — вспомогательный, временный слой. Не размещайте в нём контент, без которого нельзя выполнить задачу, и интерактивные элементы (ссылки, кнопки) — для этого подходят поповер или модальное окно. Текст должен быть коротким; тултип не может быть пустым.</p>
+  </div>
+
+<div class="subsec" data-screen-label="Guidelines">
+    <h3>Рекомендации</h3>
+    <p class="desc">Держите текст коротким и по делу. Тултип поясняет объект, а не дублирует видимую подпись и не содержит длинных инструкций.</p>
+    <div class="guide">
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-bad2"></span>Не так</div>
+        <div class="guide-card__body" id="copy-bad"></div>
+        <p class="guide-card__cap">Длинный абзац перегружает временную подсказку.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-good2"></span>Так</div>
+        <div class="guide-card__body" id="copy-good"></div>
+        <p class="guide-card__cap">Одна короткая фраза — суть подсказки.</p>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -315,6 +341,20 @@
         <p class="spec__cap">Паддинги контентной области — <b>8 / 12 / 8 / 12</b>. Расстояние от стрелки до края тултипа при краевом размещении — <b>6px</b>. Стрелка выносится за контейнер на <b>7px</b>.</p>
       </div>
     </div>
+  </section>
+
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Types">
+    <h3>Типы</h3>
+    <p class="desc">Виды тултипа отличаются между собой цветом фона. <b>Main</b> — нейтральные подсказки, <b>Error</b> — сообщения об ошибке рядом с полем или контролом.</p>
+    <div class="panel">
+      <div class="types" id="types-demo"></div>
+    </div>
+  </div>
   </section>
 
   <!-- SIZES -->
@@ -349,18 +389,13 @@
     </ul>
   </section>
 
-  <!-- TYPES -->
-  <section class="section" data-screen-label="Types">
-    <h2>Типы</h2>
-    <p class="desc">Виды тултипа отличаются между собой цветом фона. <b>Main</b> — нейтральные подсказки, <b>Error</b> — сообщения об ошибке рядом с полем или контролом.</p>
-    <div class="panel">
-      <div class="types" id="types-demo"></div>
-    </div>
-  </section>
-
-  <!-- PLACEMENT & ARROW -->
-  <section class="section" data-screen-label="Placement">
-    <h2>Размещение и стрелка</h2>
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Placement">
+    <h3>Размещение и стрелка</h3>
     <p class="desc">Тултип размещается с одной из 4 сторон объекта (<code class="tok">top</code> · <code class="tok">bottom</code> · <code class="tok">left</code> · <code class="tok">right</code>), а стрелка выравнивается вдоль края по одному из 3 положений (<code class="tok">start</code> · <code class="tok">center</code> · <code class="tok">end</code>) — всего 12 комбинаций. Стрелка всегда направлена на объект подсказки.</p>
     <div class="panel">
       <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:26px;">
@@ -376,11 +411,10 @@
         <div id="noarrow-without"></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- COLLISION / AUTO-FLIP -->
-  <section class="section" data-screen-label="AutoFlip">
-    <h2>Авто-разворот и смещение<span class="badge-new">Новое</span></h2>
+<div class="subsec" data-screen-label="AutoFlip">
+    <h3>Авто-разворот и смещение<span class="badge-new">Новое</span></h3>
     <p class="desc">Если у предпочтительной стороны не хватает места, тултип разворачивается на противоположную сторону, а вдоль края смещается, чтобы не выходить за границы экрана — при этом стрелка остаётся направленной на объект. Перетащите цель к краям области, чтобы увидеть поведение.</p>
     <div class="panel">
       <div class="row" style="margin-bottom:18px; gap:18px; align-items:center;">
@@ -401,11 +435,10 @@
         <span class="hint-drag">Перетащите цель ↕↔</span>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- TRIGGERS & TIMING -->
-  <section class="section" data-screen-label="Triggers">
-    <h2>Триггеры и тайминги<span class="badge-new">Новое</span></h2>
+<div class="subsec" data-screen-label="Triggers">
+    <h3>Триггеры и тайминги<span class="badge-new">Новое</span></h3>
     <p class="desc">Тултип появляется при наведении курсора и при фокусе с клавиатуры, скрывается при уходе курсора, потере фокуса или нажатии <b>Esc</b>. Чтобы случайные пересечения курсора не вызывали мелькания, появление задерживается на ~400&nbsp;мс, скрытие — мгновенное. На тач-устройствах тултип вызывается долгим нажатием.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">
@@ -421,6 +454,13 @@
         </table>
       </div>
     </div>
+  </div>
+  </section>
+
+    <!-- Состояния (STUB) -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Не применимо: у компонента нет интерактивных состояний.</p>
   </section>
 
   <!-- ACCESSIBILITY -->
@@ -439,26 +479,6 @@
         <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
         <div class="guide-card__body" id="a11y-good"></div>
         <p class="guide-card__cap">Короткое пояснение, продублированное в <code class="tok">aria-describedby</code>; объект остаётся доступным.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- DO / DON'T -->
-  <section class="section" data-screen-label="Guidelines">
-    <h2>Рекомендации</h2>
-    <p class="desc">Держите текст коротким и по делу. Тултип поясняет объект, а не дублирует видимую подпись и не содержит длинных инструкций.</p>
-    <div class="guide">
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-bad2"></span>Не так</div>
-        <div class="guide-card__body" id="copy-bad"></div>
-        <p class="guide-card__cap">Длинный абзац перегружает временную подсказку.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-good2"></span>Так</div>
-        <div class="guide-card__body" id="copy-good"></div>
-        <p class="guide-card__cap">Одна короткая фраза — суть подсказки.</p>
       </div>
     </div>
   </section>

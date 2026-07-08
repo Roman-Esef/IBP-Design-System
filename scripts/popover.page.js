@@ -103,7 +103,7 @@ const POP_CONTENT = {
 /* ---------- сборка поповера: голова + тело + подвал ---------- */
 function buildPopover(o = {}) {
   const {
-    width = 'm', title = 'Заголовок поповера', header = true,
+    width = 'm', title = 'Заголовок поповера', header = true, headerAccessory = 'none',
     footLeft = 'none', footRight = 'primary', content = 'text',
     arrow = false, placement = 'bottom', align = 'start',
     floating = false, pinned = false, flush = false,
@@ -122,8 +122,25 @@ function buildPopover(o = {}) {
     pop.setAttribute('aria-labelledby', titleId);
     const head = document.createElement('div');
     head.className = 'pop__head';
-    head.innerHTML = `<h3 class="pop__title" id="${titleId}">${title}</h3>
-      <span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span>`;
+    const main = document.createElement('div');
+    main.className = 'pop__head-main';
+    main.innerHTML = `<h3 class="pop__title" id="${titleId}">${title}</h3>`;
+    if (headerAccessory === 'chip') {
+      main.innerHTML += `<span class="chip chip--readonly chip--s"><span class="chip__label">Черновик</span></span>`;
+    }
+    head.appendChild(main);
+    if (headerAccessory === 'link') {
+      const link = document.createElement('a');
+      link.className = 'link link--accent link--s';
+      link.href = '#';
+      link.style.flex = 'none';
+      link.textContent = 'Сбросить';
+      head.appendChild(link);
+    }
+    const closeWrap = document.createElement('span');
+    closeWrap.className = 'pop__close';
+    closeWrap.innerHTML = `<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button>`;
+    head.appendChild(closeWrap);
     pop.appendChild(head);
   }
 
@@ -137,6 +154,7 @@ function buildPopover(o = {}) {
     const left = document.createElement('div'); left.className = 'pop__foot-left';
     if (footLeft === 'info') left.textContent = 'Найдено: 24';
     if (footLeft === 'link') left.innerHTML = '<a class="link link--accent link--m" href="#">Подробнее</a>';
+    if (footLeft === 'button') left.innerHTML = '<button type="button" class="btn btn--transparent btn--s"><span class="btn__label">Сбросить</span></button>';
     const right = document.createElement('div'); right.className = 'pop__foot-right';
     if (footRight === 'both') right.innerHTML += `<button type="button" class="btn btn--transparent btn--s"><span class="btn__label">Отмена</span></button>`;
     if (footRight !== 'none') right.innerHTML += `<button type="button" class="btn btn--accent btn--s"><span class="btn__label">Применить</span></button>`;
@@ -211,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const controls = document.getElementById('pg-controls');
     const stage = document.getElementById('pg-stage');
     if (!controls || !stage) return;
-    const state = { trigger: 'button', width: 'm', header: 'yes', footer: 'primary', content: 'text', arrow: 'no' };
+    const state = { trigger: 'button', width: 'm', header: 'title', footLeft: 'none', footRight: 'primary', content: 'text', arrow: 'no' };
 
     function ctl(labelText, options, get, set) {
       const wrap = document.createElement('div'); wrap.className = 'ctl';
@@ -233,12 +251,16 @@ document.addEventListener('DOMContentLoaded', () => {
     ], () => state.width, v => state.width = v));
 
     controls.appendChild(ctl('Header', [
-      ['yes', 'Есть'], ['no', 'Нет'],
+      ['no', 'Нет'], ['title', 'Заголовок'], ['chip', '+ Чип'], ['link', '+ Ссылка'],
     ], () => state.header, v => state.header = v));
 
-    controls.appendChild(ctl('Footer', [
-      ['none', 'Нет'], ['primary', 'Только Primary'], ['both', 'Secondary + Primary'], ['info', 'Инфо + Primary'],
-    ], () => state.footer, v => state.footer = v));
+    controls.appendChild(ctl('Footer · слева', [
+      ['none', 'Нет'], ['info', 'Инфо-текст'], ['link', 'Ссылка'], ['button', 'Кнопка'],
+    ], () => state.footLeft, v => state.footLeft = v));
+
+    controls.appendChild(ctl('Footer · справа', [
+      ['none', 'Нет'], ['primary', 'Primary'], ['both', 'Secondary + Primary'],
+    ], () => state.footRight, v => state.footRight = v));
 
     controls.appendChild(ctl('Контент', [
       ['text', 'Текст + ссылка'], ['legend', 'Легенда'], ['form', 'Форма'],
@@ -254,10 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const wrap = document.createElement('div');
       wrap.style.cssText = 'display:flex; flex-direction:column; align-items:flex-start; gap:' + (state.arrow === 'yes' ? '0' : '10') + 'px;';
       wrap.innerHTML = makeTrigger(state.trigger, true);
-      const footRight = state.footer === 'none' ? 'none' : (state.footer === 'both' ? 'both' : 'primary');
-      const footLeft = state.footer === 'info' ? 'info' : 'none';
+      const headerOn = state.header !== 'no';
+      const headerAccessory = state.header === 'chip' ? 'chip' : state.header === 'link' ? 'link' : 'none';
       const { pop } = buildPopover({
-        width: state.width, header: state.header === 'yes', footLeft, footRight,
+        width: state.width, header: headerOn, headerAccessory, footLeft: state.footLeft, footRight: state.footRight,
         content: state.content, arrow: state.arrow === 'yes', placement: 'bottom', align: 'start',
       });
       if (state.arrow === 'yes') pop.style.marginTop = '8px';
@@ -279,19 +301,21 @@ document.addEventListener('DOMContentLoaded', () => {
     host.appendChild(wrap);
   })();
 
-  /* ---------------- HEADER: варианты (заголовок / +тег / +ссылка) ---------------- */
+  /* ---------------- HEADER: варианты (заголовок / +чип / +ссылка) ---------------- */
   (function () {
     const host = document.getElementById('header-variants');
     if (!host) return;
     const variants = [
-      { html: `<h3 class="pop__title">Заголовок поповера</h3><span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span>`, cap: 'Базовый — заголовок + ✕' },
-      { html: `<h3 class="pop__title">Заголовок</h3><span style="display:flex; align-items:center; gap:8px; flex:none;"><span class="chip chip--readonly chip--s"><span class="chip__label">Черновик</span></span><span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span></span>`, cap: 'С меткой состояния — служебная, не действие' },
-      { html: `<h3 class="pop__title">Заголовок</h3><span style="display:flex; align-items:center; gap:12px; flex:none;"><a class="link link--accent link--s" href="#" style="font:var(--type-body-s);">Сбросить</a><span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span></span>`, cap: 'Со служебной ссылкой — не primary-действие' },
+      { accessory: 'none', title: 'Заголовок поповера', cap: 'Базовый — заголовок + ✕' },
+      { accessory: 'chip', title: 'Заголовок', cap: 'С чипом — метка состояния, примыкает к заголовку с отступом 8px' },
+      { accessory: 'link', title: 'Заголовок', cap: 'Со служебной ссылкой — не primary-действие' },
     ];
     variants.forEach(v => {
+      const { pop } = buildPopover({ width: 'm', header: true, headerAccessory: v.accessory, title: v.title, footLeft: 'none', footRight: 'none', content: 'text' });
+      const head = pop.querySelector('.pop__head');
+      head.style.borderBottom = 'none';
       const card = document.createElement('div');
-      card.style.cssText = 'border:1px solid var(--border-light); border-radius:12px; overflow:hidden; background:var(--bg-tile); width:280px;';
-      const head = document.createElement('div'); head.className = 'pop__head'; head.style.borderBottom = 'none'; head.innerHTML = v.html;
+      card.style.cssText = 'border:1px solid var(--border-light); border-radius: var(--pop-radius); overflow:hidden; background:var(--bg-tile); width:280px;';
       const cap = document.createElement('div'); cap.style.cssText = 'padding:12px 16px; border-top:1px solid var(--border-light); font:var(--type-body-xs); color:var(--text-inactive);'; cap.textContent = v.cap;
       card.appendChild(head); card.appendChild(cap);
       host.appendChild(card);
@@ -308,6 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
       { footLeft: 'none', footRight: 'both', caption: 'Secondary + Primary — есть отказ/отмена рядом с основным' },
       { footLeft: 'info', footRight: 'primary', caption: 'Инфо слева («Найдено: 24») + Primary справа' },
       { footLeft: 'link', footRight: 'none', caption: 'Только служебная ссылка слева — без формы' },
+      { footLeft: 'button', footRight: 'both', caption: 'Кнопка слева («Сбросить») + Secondary/Primary справа — обе группы включаются независимо' },
+      { footLeft: 'info', footRight: 'both', caption: 'Инфо слева + Secondary/Primary справа — любая комбинация сторон возможна' },
     ].forEach(cfg => {
       const card = document.createElement('div'); card.className = 'use-block';
       const stageEl = document.createElement('div'); stageEl.className = 'use-block__stage';
@@ -334,18 +360,25 @@ document.addEventListener('DOMContentLoaded', () => {
       ['left', 'start'], ['left', 'center'], ['left', 'end'],
       ['right', 'start'], ['right', 'center'], ['right', 'end'],
     ];
+    const items = [];
     order.forEach(([p, a]) => {
       const cell = document.createElement('div'); cell.className = 'pcell';
       const cap = document.createElement('span'); cap.className = 'cap'; cap.textContent = p + ' · ' + a;
       const box = document.createElement('div'); box.className = 'popbox';
-      if (p === 'left' || p === 'right') box.style.padding = '0 60px';
-      if (p === 'top') box.style.alignItems = 'flex-end';
-      if (p === 'bottom') box.style.alignItems = 'flex-start';
-      const { pop } = buildPopover({ width: 's', header: false, footLeft: 'none', footRight: 'none', content: 'text', arrow: true, placement: p, align: a });
+      const target = document.createElement('span'); target.className = 'pcell-target';
+      const tx = (p === 'top' || p === 'bottom') ? (a === 'start' ? '22%' : a === 'end' ? '78%' : '50%') : (p === 'left' ? '78%' : '22%');
+      const ty = (p === 'left' || p === 'right') ? (a === 'start' ? '22%' : a === 'end' ? '78%' : '50%') : (p === 'top' ? '80%' : '20%');
+      target.style.left = tx; target.style.top = ty;
+      const { pop } = buildPopover({ width: 's', header: false, footLeft: 'none', footRight: 'none', content: 'text', arrow: true, placement: p, align: a, floating: true, pinned: true });
       pop.querySelector('.pop__body').innerHTML = '<p style="margin:0;">Текст</p>';
-      box.appendChild(pop);
+      box.appendChild(target); box.appendChild(pop);
       cell.appendChild(cap); cell.appendChild(box); grid.appendChild(cell);
+      items.push({ box, pop, target, p, a });
     });
+    function reflow() { items.forEach(it => placePop(it.box, it.pop, it.target, it.p, it.a, 8)); }
+    reflow();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(reflow);
+    window.addEventListener('resize', reflow);
   })();
 
   /* ---------------- АВТО-FLIP у края контейнера ---------------- */
@@ -356,14 +389,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const target = document.createElement('button');
     target.type = 'button'; target.className = 'ibtn ibtn--neutral ibtn--m'; target.setAttribute('aria-label', 'Информация');
     target.style.position = 'absolute'; target.style.top = '50%'; target.style.marginTop = '-16px';
+    target.style.touchAction = 'none'; target.style.cursor = 'grab';
     target.innerHTML = '<i data-icon="info-circle"></i>';
     vp.appendChild(target);
     const { pop } = buildPopover({ width: 'm', header: true, title: 'Пояснение', footLeft: 'none', footRight: 'primary', content: 'text', arrow: true, floating: true, pinned: true, placement: 'bottom', align: 'start' });
     vp.appendChild(pop);
 
-    function update() {
-      const posVal = select.value;
-      target.style.left = posVal === 'left' ? '12px' : posVal === 'right' ? 'calc(100% - 44px)' : 'calc(50% - 16px)';
+    function reposition() {
       const br = vp.getBoundingClientRect();
       const tr = target.getBoundingClientRect();
       const pw = pop.offsetWidth;
@@ -373,11 +405,32 @@ document.addEventListener('DOMContentLoaded', () => {
       pop.className = 'pop pop--w-m pop--bottom pop--' + align + ' pop--arrow pop--floating pop--pinned';
       placePop(vp, pop, target, 'bottom', align, 8);
     }
-    select.addEventListener('change', update);
+    function applyPreset(posVal) {
+      target.style.left = posVal === 'left' ? '12px' : posVal === 'right' ? 'calc(100% - 44px)' : 'calc(50% - 16px)';
+      reposition();
+    }
+    select.addEventListener('change', () => applyPreset(select.value));
+
+    /* перетаскивание триггера вручную по горизонтали */
+    let dragging = false, startX = 0, startLeft = 0;
+    target.addEventListener('pointerdown', (e) => {
+      dragging = true; target.setPointerCapture(e.pointerId); target.style.cursor = 'grabbing';
+      startX = e.clientX; startLeft = target.getBoundingClientRect().left - vp.getBoundingClientRect().left;
+    });
+    target.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const maxLeft = Math.max(0, vp.clientWidth - target.offsetWidth);
+      const left = Math.max(0, Math.min(maxLeft, startLeft + dx));
+      target.style.left = left + 'px';
+      reposition();
+    });
+    target.addEventListener('pointerup', (e) => { dragging = false; target.style.cursor = 'grab'; target.releasePointerCapture(e.pointerId); });
+
     window.dsIcons && window.dsIcons.apply(vp);
-    update();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
-    window.addEventListener('resize', update);
+    applyPreset('center');
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposition);
+    window.addEventListener('resize', reposition);
   })();
 
   /* ---------------- ОДИН ПОПОВЕР ОДНОВРЕМЕННО ---------------- */
@@ -402,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
       function close() { pop.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); if (openPop === pop) { openPop = null; openBtn = null; } }
       function open() {
         if (openPop && openPop !== pop) { openPop.classList.remove('is-open'); openBtn.setAttribute('aria-expanded', 'false'); }
-        placePop(host, pop, btn, 'bottom', 'start', 8);
+        placePop(anchor, pop, btn, 'bottom', 'start', 8);
         pop.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
         openPop = pop; openBtn = btn;
       }
@@ -451,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!root) return;
     const groups = [
       { name: 'Поверхность', rows: [
-        ['Фон', '--bg-popup'], ['Граница', '--border-light'], ['Тень', '--elevation-2 (не свой rgba)'],
+        ['Фон Body', '--bg-popup'], ['Фон Header/Footer', '--bgtable-pinned'], ['Тень', '--elevation-5 (без внешнего бордера)'],
       ]},
       { name: 'Типографика', rows: [
         ['Заголовок', '--text-black'], ['Текст контента', '--text-primary'], ['Служебный текст в футере', '--text-secondary'],
@@ -486,7 +539,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const r = n => Math.round(parseFloat(n) * 10) / 10;
     const rows = [
       ['Радиус контейнера', r(csPop.borderTopLeftRadius) + ' px'],
-      ['Паддинг шапки (Y / X)', r(csHead.paddingTop) + ' / ' + r(csHead.paddingLeft) + ' px'],
+      ['Высота шапки', r(csHead.height) + ' px'],
+      ['Паддинг шапки (X)', r(csHead.paddingLeft) + ' px'],
       ['Паддинг тела (Y / X)', r(csBody.paddingTop) + ' / ' + r(csBody.paddingLeft) + ' px'],
       ['Паддинг подвала (Y / X)', r(csFoot.paddingTop) + ' / ' + r(csFoot.paddingLeft) + ' px'],
       ['Зазор в подвале между кнопками', r(getComputedStyle(pop.querySelector('.pop__foot-right')).columnGap) + ' px'],

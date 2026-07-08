@@ -215,12 +215,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Avatar">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Avatar</h1>
     <p class="lead">Аватар — компактное визуальное представление пользователя или сущности. Содержит инициалы (Text), запасную иконку (Icon) или фотографию (Image). Две формы — Circular и Rounded — четыре размера и опциональный бейдж: счётчик или индикатор статуса.</p>
@@ -279,9 +287,13 @@
     </div>
   </section>
 
-  <!-- CONTENT TYPES -->
-  <section class="section" data-screen-label="ContentTypes">
-    <h2>Типы содержимого</h2>
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="ContentTypes">
+    <h3>Типы содержимого</h3>
     <p class="desc">Тип определяется доступными данными. Приоритет — изображение; если его нет, показываем инициалы; если нет и имени — нейтральную иконку.</p>
     <div class="type-cards">
       <div class="type-card">
@@ -300,46 +312,28 @@
         <div class="ds">Фотография, обрезанная по форме (object-fit: cover). Перетащите изображение в область выше.</div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- SHAPE -->
-  <section class="section" data-screen-label="Shape">
-    <h2>Форма</h2>
+<div class="subsec" data-screen-label="Shape">
+    <h3>Форма</h3>
     <p class="desc"><b>Circular</b> — для людей (инициалы, фото). <b>Rounded</b> (скруглённый квадрат) — для сущностей, организаций, ботов. Радиус скругления у Rounded пропорционален размеру: 28 / 12 / 10 / 8 px для XL / L / M / S.</p>
     <div class="panel">
       <div class="row" style="gap:48px; justify-content:center; align-items:flex-end; padding:8px 0;" id="shape-demo"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- SIZES -->
-  <section class="section" data-screen-label="Sizes">
-    <h2>Размеры</h2>
-    <p class="desc">Четыре размера. Выбирайте по контексту: XL — карточка профиля, L — строки списков и шапки, M — таблицы и навигация, S — плотные перечисления и инлайн-упоминания.</p>
-    <div class="panel">
-      <div class="matrix-wrap"><div class="size-matrix" id="size-matrix"></div></div>
-    </div>
-    <div class="panel" style="padding:8px 10px; margin-top:20px;">
-      <table class="ref-table" id="sizes-table">
-        <thead><tr><th>Размер</th><th>Сторона</th><th>Инициалы</th><th>Иконка</th><th>Радиус Rounded</th><th>Применение</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- BADGE ON AVATAR -->
-  <section class="section" data-screen-label="Badge">
-    <h2>Бейдж на аватаре<span class="badge-new">Новое</span></h2>
+<div class="subsec" data-screen-label="Badge">
+    <h3>Бейдж на аватаре<span class="badge-new">Новое</span></h3>
     <p class="desc">Аватар может нести дочерний <a class="inl" href="../atoms/Badge.html">Badge</a>. <b>Counter</b> ставится в правый верхний угол — непрочитанные сообщения, количество задач. <b>Dot</b> ставится в правый нижний угол как индикатор присутствия. На фото у бейджа всегда белая обводка (<code class="tok">badge--bordered</code>).</p>
     <div class="panel">
       <div class="row" style="gap:44px; justify-content:center; align-items:center; padding:8px 0 28px;" id="badge-demo"></div>
       <p class="desc tight" style="margin:0 0 18px;">Индикатор присутствия — соответствие тона и статуса:</p>
       <div class="presence" id="presence"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- AVATAR GROUP -->
-  <section class="section" data-screen-label="Group">
-    <h2>Группа аватаров<span class="badge-new">Новое</span></h2>
+<div class="subsec" data-screen-label="Group">
+    <h3>Группа аватаров<span class="badge-new">Новое</span></h3>
     <p class="desc">Несколько участников показываются перекрывающимся стеком: левый аватар лежит поверх следующего, между ними — белое кольцо. Если участников больше лимита, остаток сворачивается в нейтральный чип «+N». Рекомендуемый лимит — 3–5 видимых аватаров.</p>
     <div class="panel">
       <div class="row" style="flex-direction:column; gap:26px; align-items:flex-start;" id="group-sizes"></div>
@@ -360,14 +354,21 @@
         </div>
       </div>
     </div>
+  </div>
   </section>
 
-  <!-- FALLBACK -->
-  <section class="section" data-screen-label="Fallback">
-    <h2>Заглушки и фолбэк<span class="badge-new">Новое</span></h2>
-    <p class="desc">Содержимое выбирается по цепочке деградации: если есть фотография — показываем её; если фото нет или не загрузилось — инициалы; если нет и имени — нейтральную иконку. Это гарантирует, что аватар никогда не остаётся пустым.</p>
+  <!-- SIZES -->
+  <section class="section" data-screen-label="Sizes">
+    <h2>Размеры</h2>
+    <p class="desc">Четыре размера. Выбирайте по контексту: XL — карточка профиля, L — строки списков и шапки, M — таблицы и навигация, S — плотные перечисления и инлайн-упоминания.</p>
     <div class="panel">
-      <div class="fallback" id="fallback"></div>
+      <div class="matrix-wrap"><div class="size-matrix" id="size-matrix"></div></div>
+    </div>
+    <div class="panel" style="padding:8px 10px; margin-top:20px;">
+      <table class="ref-table" id="sizes-table">
+        <thead><tr><th>Размер</th><th>Сторона</th><th>Инициалы</th><th>Иконка</th><th>Радиус Rounded</th><th>Применение</th></tr></thead>
+        <tbody></tbody>
+      </table>
     </div>
   </section>
 
@@ -382,6 +383,20 @@
       <li><b>Группа «+N»</b> — только целое число оставшихся участников, без знака «людей» или подписи;</li>
       <li>полное имя выносите рядом текстом (см. Entity) — сам аватар не заменяет подпись, а дополняет её.</li>
     </ul>
+  </section>
+
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Fallback">
+    <h3>Заглушки и фолбэк<span class="badge-new">Новое</span></h3>
+    <p class="desc">Содержимое выбирается по цепочке деградации: если есть фотография — показываем её; если фото нет или не загрузилось — инициалы; если нет и имени — нейтральную иконку. Это гарантирует, что аватар никогда не остаётся пустым.</p>
+    <div class="panel">
+      <div class="fallback" id="fallback"></div>
+    </div>
+  </div>
   </section>
 
   <!-- STATES -->

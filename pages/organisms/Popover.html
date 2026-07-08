@@ -81,7 +81,6 @@
   .anat { display:grid; grid-template-columns: minmax(320px,1fr) minmax(260px,380px); gap:44px; align-items:center; }
   @media (max-width:820px){ .anat { grid-template-columns:1fr; } }
   .anat__stage { background: var(--tertiary-light); border:1px solid var(--border-light); border-radius:14px; padding:44px; display:flex; justify-content:center; position:relative; overflow:auto; }
-  .anat__stage .pop { box-shadow:0 10px 30px rgba(40,50,55,.14); }
   .anat__legend { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; counter-reset:a; }
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
@@ -116,12 +115,13 @@
   .content-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
 
   /* ---------- placement grid ---------- */
-  .pgrid { display:grid; grid-template-columns: repeat(4, 1fr); gap:36px 22px; }
+  .pgrid { display:grid; grid-template-columns: repeat(3, 1fr); gap:40px 24px; }
   @media (max-width:900px){ .pgrid { grid-template-columns: repeat(2,1fr); } }
-  @media (max-width:520px){ .pgrid { grid-template-columns: 1fr; } }
-  .pcell { display:flex; flex-direction:column; align-items:flex-start; gap:10px; }
+  @media (max-width:560px){ .pgrid { grid-template-columns: 1fr; } }
+  .pcell { display:flex; flex-direction:column; align-items:flex-start; gap:10px; width:100%; }
   .pcell .cap { font: var(--type-body-xs); color: var(--text-inactive); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .popbox { display:flex; align-items:center; justify-content:flex-start; min-height:60px; width:100%; }
+  .popbox { position:relative; width:100%; height:190px; border:1px solid var(--border-light); border-radius:12px; background: var(--tertiary-light); overflow:hidden; }
+  .pcell-target { position:absolute; transform:translate(-50%,-50%); width:10px; height:10px; border-radius:50%; background: var(--primary); box-shadow:0 0 0 4px var(--primary-bg); }
 
   /* ---------- trigger: text-link ---------- */
   .pop-trigger-link { display:inline-flex; align-items:center; gap:6px; border:0; background:none; padding:0; cursor:pointer; }
@@ -215,12 +215,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
   <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Popover">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>05.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Popover</h1>
     <p class="lead">Popover — нон-модальный всплывающий контейнер, привязанный к триггеру. Показывает расширенный контекстный контент (текст с форматированием, интерактивные элементы, формы, легенды, списки). В отличие от <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> — требует клика для открытия и не закрывается при уходе курсора; в отличие от <b>Modal</b> — не блокирует страницу, не имеет скрима и закрывается кликом вне себя.</p>
@@ -265,6 +273,37 @@
       </table>
     </div>
     <div class="use-grid" id="use-foot-combos"></div>
+  
+<div class="subsec" data-screen-label="Guidelines">
+    <h3>Рекомендации</h3>
+    <p class="desc">Поповер — лёгкая контекстная надстройка над триггером, а не самостоятельный экран.</p>
+    <div class="guide">
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
+        <div class="guide-card__body">Кнопка «Сохранить» размещена в Header рядом с заголовком — пользователь не понимает, действие это или метка.</div>
+        <p class="guide-card__cap">Header — только заголовок и ✕. Все действия — в Footer.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
+        <div class="guide-card__body">Заголовок и ✕ в Header, кнопки «Отмена» и «Применить» — в Footer справа.</div>
+        <p class="guide-card__cap">Однозначное разделение: контекст сверху, действия снизу.</p>
+      </div>
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
+        <div class="guide-card__body">Форма из 8 полей с обязательной валидацией — засунута в поповер шириной 400px с прокруткой на 3 экрана.</div>
+        <p class="guide-card__cap">Обязательная многошаговая форма — это Modal, а не Popover.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
+        <div class="guide-card__body">Поповер — быстрое редактирование 1–3 полей (тег, срок, статус); полноценное редактирование сущности — в Modal.</div>
+        <p class="guide-card__cap">Poповер — для лёгких, необязательных к завершению действий.</p>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -276,7 +315,7 @@
         <div class="anat__stage" id="anat-stage"></div>
         <ul class="anat__legend">
           <li><span class="n"></span><span class="t"><span class="k">Trigger</span><span class="d"> — вне поповера. Любой интерактивный элемент: кнопка, иконка, ссылка, чип. Обязателен</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Header</span><span class="d"> — заголовок + ✕, ничего больше. Опционален</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Header</span><span class="d"> — заголовок + ✕, опционально примыкающий чип/ссылка (не действие). Опционален</span></span></li>
           <li><span class="n"></span><span class="t"><span class="k">Body</span><span class="d"> — произвольный контент, единственная прокручиваемая зона. Обязателен</span></span></li>
           <li><span class="n"></span><span class="t"><span class="k">Footer</span><span class="d"> — foot-left служебное/инфо, foot-right Secondary+Primary. Опционален</span></span></li>
           <li><span class="n"></span><span class="t"><span class="k">Arrow</span><span class="d"> — указывает на триггер. Опциональна, по умолчанию выключена</span></span></li>
@@ -286,6 +325,12 @@
     <p class="subhead mt" style="margin-top:30px;">Варианты Header</p>
     <p class="desc tight">Заголовок и ✕ — обязательный минимум. Справа от заголовка можно разместить служебную метку состояния или ссылку — но не действие.</p>
     <div class="hvariants" id="header-variants"></div>
+  </section>
+
+  <!-- VARIANTS (STUB) -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Не применимо: компонент существует в единственной конфигурации, отдельных вариантов нет.</p>
   </section>
 
   <!-- SIZES -->
@@ -309,10 +354,12 @@
       <table class="dev-table">
         <thead><tr><th>Зона</th><th>Значение</th><th>Примечание</th></tr></thead>
         <tbody>
-          <tr><td>Паддинг Header/Footer (Y / X)</td><td class="num">12 / 16px</td><td class="dsc">—</td></tr>
+          <tr><td>Паддинг Header/Footer (X)</td><td class="num">16px</td><td class="dsc">Горизонтальный отступ обеих фиксированных зон</td></tr>
+          <tr><td>Высота Header</td><td class="num">48px</td><td class="dsc">Фиксированная, содержимое выровнено по центру по вертикали</td></tr>
+          <tr><td>Паддинг Footer (Y)</td><td class="num">12px</td><td class="dsc">Вертикальный отступ подвала (высота растёт по контенту)</td></tr>
           <tr><td>Паддинг Body</td><td class="num">16px</td><td class="dsc">Внутренний отступ контентной области</td></tr>
           <tr><td>Зазор от триггера</td><td class="num">8px</td><td class="dsc">Между поповером и триггером в любом placement</td></tr>
-          <tr><td>Скругление углов</td><td class="num">12px</td><td class="dsc"><code class="tok">--radius-popup</code> — тот же токен, что у Menu/DropdownList</td></tr>
+          <tr><td>Скругление углов</td><td class="num">8px</td><td class="dsc"><code class="tok">--radius-m</code> — компактный радиус, без внешнего бордера</td></tr>
           <tr><td>Охранное поле от края viewport</td><td class="num">16px</td><td class="dsc">Минимальное расстояние при позиционировании</td></tr>
         </tbody>
       </table>
@@ -322,10 +369,10 @@
   <!-- CONTENT -->
   <section class="section" data-screen-label="Content">
     <h2>Контент</h2>
-    <p class="desc tight">Body — единственная обязательная зона; поповер не диктует состав. Header и Footer добавляются по контенту:</p>
+    <p class="desc tight">Body — единственная обязательная зона; поповер не диктует состав и не ограничивает тип контента — содержать может почти что угодно, если это умещается в шкалу ширины и разумную высоту (см. «Размеры»). Таблица ниже — не исчерпывающий перечень и не ограничение, а ориентир по частым случаям, когда добавляются Header и Footer:</p>
     <div class="panel" style="margin-bottom:20px;">
       <table class="content-table">
-        <thead><tr><th>Тип контента</th><th>Примеры</th><th>Header</th><th>Footer</th></tr></thead>
+        <thead><tr><th>Тип контента (примеры)</th><th>Примеры</th><th>Header</th><th>Footer</th></tr></thead>
         <tbody>
           <tr><td><b>Текст + ссылка</b></td><td class="dsc">Пояснение к полю, help-текст, определение термина</td><td class="dsc">—</td><td class="dsc">—</td></tr>
           <tr><td><b>Список / легенда</b></td><td class="dsc">Легенда чарта, набор статусов</td><td class="dsc">Опционально</td><td class="dsc">—</td></tr>
@@ -335,7 +382,8 @@
         </tbody>
       </table>
     </div>
-    <div class="panel">
+    <p class="dev-note" style="margin:-6px 0 20px;">Это примеры, а не закрытый список: жёстких ограничений по типу контента у Body нет — единственное требование — укладываться в шкалу ширины и разумную высоту с прокруткой.</p>
+    <div class="panel" style="margin-bottom:20px;">
       <ul class="rules">
         <li><b>Header добавляется</b>, когда контенту нужна метка/группировка, форма содержит несколько полей, или ширина поповера больше 320px.</li>
         <li><b>Footer добавляется</b>, когда внутри есть форма или выбор, требующий подтверждения, либо деструктивное действие. Только информационный контент — без Footer.</li>
@@ -344,6 +392,35 @@
         <li><b>Поповер — контейнер-примитив.</b> Конкретные содержательные варианты (Popover/Легенда, Popover/Форма правки) стоит документировать отдельными паттернами, а не плодить новые компоненты.</li>
       </ul>
     </div>
+  </section>
+
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Placement">
+    <h3>Позиционирование</h3>
+    <p class="desc tight">4 стороны × 3 выравнивания стрелки = 12 позиций — тот же приём, что у Tooltip. Стрелка (опциональна, см. «Анатомия») всегда направлена на триггер.</p>
+    <div class="panel">
+      <div class="pgrid" id="placement-grid"></div>
+    </div>
+    <p class="subhead mt" style="margin-top:30px;">Авто-flip у края контейнера<span class="badge-new">Новое</span></p>
+    <p class="desc tight">Если предпочтительному выравниванию не хватает места по горизонтали до края — поповер перевыравнивается на противоположный край (start ↔ end), стрелка остаётся направленной на триггер. Переключите положение триггера.</p>
+    <div class="panel">
+      <div class="flip-controls">
+        <span style="font: var(--type-body-s-strong); color: var(--text-secondary);">Триггер у:</span>
+        <div class="pg-select" style="width:200px;">
+          <select id="flip-pos">
+            <option value="left">Левого края</option>
+            <option value="center" selected>Центра</option>
+            <option value="right">Правого края</option>
+          </select>
+        </div>
+      </div>
+      <div class="flip-vp" id="flip-vp"></div>
+    </div>
+  </div>
   </section>
 
   <!-- STATES -->
@@ -374,62 +451,6 @@
     <div class="states" id="states-demo"></div>
   </section>
 
-  <!-- PLACEMENT -->
-  <section class="section" data-screen-label="Placement">
-    <h2>Позиционирование</h2>
-    <p class="desc tight">4 стороны × 3 выравнивания стрелки = 12 позиций — тот же приём, что у Tooltip. Стрелка (опциональна, см. «Анатомия») всегда направлена на триггер.</p>
-    <div class="panel">
-      <div class="pgrid" id="placement-grid"></div>
-    </div>
-    <p class="subhead mt" style="margin-top:30px;">Авто-flip у края контейнера<span class="badge-new">Новое</span></p>
-    <p class="desc tight">Если предпочтительному выравниванию не хватает места по горизонтали до края — поповер перевыравнивается на противоположный край (start ↔ end), стрелка остаётся направленной на триггер. Переключите положение триггера.</p>
-    <div class="panel">
-      <div class="flip-controls">
-        <span style="font: var(--type-body-s-strong); color: var(--text-secondary);">Триггер у:</span>
-        <div class="pg-select" style="width:200px;">
-          <select id="flip-pos">
-            <option value="left">Левого края</option>
-            <option value="center" selected>Центра</option>
-            <option value="right">Правого края</option>
-          </select>
-        </div>
-      </div>
-      <div class="flip-vp" id="flip-vp"></div>
-    </div>
-  </section>
-
-  <!-- GUIDELINES -->
-  <section class="section" data-screen-label="Guidelines">
-    <h2>Рекомендации</h2>
-    <p class="desc">Поповер — лёгкая контекстная надстройка над триггером, а не самостоятельный экран.</p>
-    <div class="guide">
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
-        <div class="guide-card__body">Кнопка «Сохранить» размещена в Header рядом с заголовком — пользователь не понимает, действие это или метка.</div>
-        <p class="guide-card__cap">Header — только заголовок и ✕. Все действия — в Footer.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
-        <div class="guide-card__body">Заголовок и ✕ в Header, кнопки «Отмена» и «Применить» — в Footer справа.</div>
-        <p class="guide-card__cap">Однозначное разделение: контекст сверху, действия снизу.</p>
-      </div>
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
-        <div class="guide-card__body">Форма из 8 полей с обязательной валидацией — засунута в поповер шириной 400px с прокруткой на 3 экрана.</div>
-        <p class="guide-card__cap">Обязательная многошаговая форма — это Modal, а не Popover.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
-        <div class="guide-card__body">Поповер — быстрое редактирование 1–3 полей (тег, срок, статус); полноценное редактирование сущности — в Modal.</div>
-        <p class="guide-card__cap">Poповер — для лёгких, необязательных к завершению действий.</p>
-      </div>
-    </div>
-  </section>
-
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
     <h2>Доступность</h2>
@@ -455,10 +476,16 @@
     </div>
   </section>
 
+  <!-- TYPOGRAPHY (STUB) -->
+  <section class="section" data-screen-label="Typography">
+    <h2>Типографика</h2>
+    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+  </section>
+
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
-    <p class="desc">Компонент использует только семантические токены. Поверхность и тень — те же, что у соседних floating-поверхностей (Menu, DropdownList): <code class="tok">--bg-popup</code>, <code class="tok">--radius-popup</code>, тень <code class="tok">--elevation-2</code>.</p>
+    <p class="desc">Компонент использует только семантические токены. Поверхность — <code class="tok">--bg-popup</code> (тело), <code class="tok">--radius-m</code> (8px, без внешнего бордера), тень <code class="tok">--elevation-5</code>. Фон Header и Footer — <code class="tok">--bgtable-pinned</code> (Pinned Default, #F5F7F7), отличая эти зоны от белого Body.</p>
     <div class="color-ref" id="color-ref"></div>
   </section>
 
@@ -484,6 +511,8 @@
       <code class="tok">styles/shadow.css</code>
       <code class="tok">styles/button.css</code>
       <code class="tok">styles/icon-button.css</code>
+      <code class="tok">styles/link.css</code>
+      <code class="tok">styles/chip.css</code>
       <code class="tok">styles/popover.css</code>
     </div>
 
@@ -500,10 +529,13 @@
   <span class="tk-cm">&lt;!-- контейнер: не модальный — aria-modal="false", клик вне себя закрывает --&gt;</span>
   <span class="tk-tag">&lt;div</span> <span class="tk-attr">id=</span><span class="tk-val">"pop-1"</span> <span class="tk-attr">class=</span><span class="tk-val">"pop pop--w-m pop--bottom pop--start pop--floating"</span> <span class="tk-attr">role=</span><span class="tk-val">"dialog"</span> <span class="tk-attr">aria-modal=</span><span class="tk-val">"false"</span> <span class="tk-attr">aria-labelledby=</span><span class="tk-val">"pop-1-title"</span><span class="tk-tag">&gt;</span>
 
-    <span class="tk-cm">&lt;!-- Header: заголовок + ✕, БЕЗ кнопок действий --&gt;</span>
+    <span class="tk-cm">&lt;!-- Header: заголовок (+ опц. чип/ссылка) + ✕, БЕЗ кнопок действий --&gt;</span>
     <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__head"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;h3</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__title"</span> <span class="tk-attr">id=</span><span class="tk-val">"pop-1-title"</span><span class="tk-tag">&gt;</span>Изменить тег<span class="tk-tag">&lt;/h3&gt;</span>
-      <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--neutral ibtn--s"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Закрыть"</span><span class="tk-tag">&gt;</span>&lt;svg…&gt;&lt;/svg&gt;<span class="tk-tag">&lt;/button&gt;</span>
+      <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__head-main"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-tag">&lt;h3</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__title"</span> <span class="tk-attr">id=</span><span class="tk-val">"pop-1-title"</span><span class="tk-tag">&gt;</span>Изменить тег<span class="tk-tag">&lt;/h3&gt;</span>
+        <span class="tk-cm">&lt;!-- опц.: chip/link, gap 8px от заголовка --&gt;</span>
+      <span class="tk-tag">&lt;/div&gt;</span>
+      <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__close"</span><span class="tk-tag">&gt;</span><span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--neutral ibtn--s"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Закрыть"</span><span class="tk-tag">&gt;</span>&lt;svg…&gt;&lt;/svg&gt;<span class="tk-tag">&lt;/button&gt;</span><span class="tk-tag">&lt;/span&gt;</span>
     <span class="tk-tag">&lt;/div&gt;</span>
 
     <span class="tk-cm">&lt;!-- Body: единственная гибкая/прокручиваемая зона, контент произвольный --&gt;</span>
@@ -617,19 +649,20 @@ onBodyScroll():
         <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
         <tbody>
           <tr><td><code class="tok">.pop-anchor</code></td><td>span</td><td class="dsc">position:relative обёртка вокруг триггера — точка отсчёта для floating-позиционирования</td></tr>
-          <tr><td><code class="tok">.pop</code></td><td>div</td><td class="dsc">Контейнер: фон, радиус 12px, тень Elevation_2, flex-колонка из Header/Body/Footer</td></tr>
+          <tr><td><code class="tok">.pop</code></td><td>div</td><td class="dsc">Контейнер: фон, радиус 8px (--radius-m), тень --elevation-5, без внешнего бордера, flex-колонка из Header/Body/Footer</td></tr>
           <tr><td><code class="tok">.pop--w-s … --w-max</code></td><td>div</td><td class="dsc">Ширина — 5 шагов (240–560px), одновременно задаёт max-height тела</td></tr>
           <tr><td><code class="tok">.pop--floating</code></td><td>div</td><td class="dsc">JS-позиционирование относительно триггера; показ/скрытие через <code class="tok">.is-open</code></td></tr>
           <tr><td><code class="tok">.pop--pinned</code></td><td>div</td><td class="dsc">Всегда открытый поповер — только для демонстраций в документации</td></tr>
           <tr><td><code class="tok">.pop--top / --bottom / --left / --right</code></td><td>div</td><td class="dsc">Сторона размещения относительно триггера</td></tr>
           <tr><td><code class="tok">.pop--start / --center / --end</code></td><td>div</td><td class="dsc">Выравнивание стрелки/поповера вдоль края триггера</td></tr>
           <tr><td><code class="tok">.pop--arrow</code></td><td>div</td><td class="dsc">Включает стрелку-указатель (<code class="tok">.pop__arrow</code>); по умолчанию выключена</td></tr>
-          <tr><td><code class="tok">.pop__head / .pop__foot</code></td><td>div</td><td class="dsc">Фиксированные зоны; тень — при <code class="tok">.is-scrolled</code>, как у Modal</td></tr>
-          <tr><td><code class="tok">.pop__title</code></td><td>h3</td><td class="dsc">Заголовок — Body M Strong, одна строка с многоточием (≤25 символов)</td></tr>
+          <tr><td><code class="tok">.pop__head / .pop__foot</code></td><td>div</td><td class="dsc">Фиксированные зоны, фон --bgtable-pinned; Header — высота 48px, содержимое по центру; тень — при <code class="tok">.is-scrolled</code>, как у Modal</td></tr>
+          <tr><td><code class="tok">.pop__head-main</code></td><td>div</td><td class="dsc">Заголовок + опц. чип/ссылка внутри Header, примыкают с зазором 8px</td></tr>
+          <tr><td><code class="tok">.pop__title</code></td><td>h3</td><td class="dsc">Заголовок — Body S Strong 14px, одна строка с многоточием (≤25 символов)</td></tr>
           <tr><td><code class="tok">.pop__close</code></td><td>span</td><td class="dsc">Обёртка ✕ — сама кнопка это <code class="tok">.ibtn.ibtn--neutral.ibtn--s</code></td></tr>
           <tr><td><code class="tok">.pop__body</code></td><td>div</td><td class="dsc">Единственная гибкая/прокручиваемая зона; контент произвольный</td></tr>
           <tr><td><code class="tok">.pop__body--flush</code></td><td>div</td><td class="dsc">Без внутреннего паддинга — контент сам управляет отступами (таблица)</td></tr>
-          <tr><td><code class="tok">.pop__foot-left / -right</code></td><td>div</td><td class="dsc">Служебная информация/ссылки (опц.) и Secondary+Primary (Primary обязателен, если Footer есть)</td></tr>
+          <tr><td><code class="tok">.pop__foot-left / -right</code></td><td>div</td><td class="dsc">Независимо включаемые группы: слева — информация/ссылка/кнопка, справа — Secondary+Primary; могут присутствовать одновременно</td></tr>
           <tr><td><code class="tok">.pop__skeleton</code></td><td>span</td><td class="dsc">Loading-плейсхолдер — тот же приём шиммера, что у Modal/ReadOnlyField</td></tr>
           <tr><td><code class="tok">role="dialog"</code> / <code class="tok">aria-modal="false"</code></td><td>.pop</td><td class="dsc">Не блокирующий диалог — в отличие от Modal (<code class="tok">aria-modal="true"</code>)</td></tr>
           <tr><td><code class="tok">aria-haspopup</code> / <code class="tok">aria-expanded</code> / <code class="tok">aria-controls</code></td><td>триггер</td><td class="dsc">Связь триггера с поповером и его состоянием</td></tr>

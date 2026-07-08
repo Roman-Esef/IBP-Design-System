@@ -6,6 +6,32 @@ purpose: Чит-шит по всем компонентам для сборки 
 
 Подключение на экране: один `<link rel="stylesheet" href="ds.css">` (всё включено). Иконки: `<i data-icon="имя"></i>` + `icons-data.js` + `ds-icons.js` в конце body (имена — specs/Icons.md). Токены: цвета — specs/Colors.md, типографика — specs/Typography.md, радиусы — specs/Radius.md, тени — specs/Elevation.md. Начинай экран с копии `_template/Screen.html`.
 
+## Alert
+css: `styles/alert.css` · deps: [button, link]
+
+Инлайновое сообщение о состоянии в потоке контента (не всплывает, статично). Тоны info/warning/error/success, размеры M/S; опциональные иконка, заголовок, текст, кнопки, действия (свернуть/закрыть).
+
+```html
+<!-- глиф иконки по тону: Info-circle-filled | alert-triangle-filled | alert-circle-filled | check-circle-filled -->
+<div class="alert alert--info alert--m" role="status" aria-live="polite">
+  <span class="alert__icon" aria-hidden="true"><i data-icon="Info-circle-filled"></i></span>
+  <div class="alert__body">
+    <p class="alert__title">Заголовок компонента</p>
+    <p class="alert__text">Добавление холдинга в разработке…</p>
+    <div class="alert__buttons">
+      <button class="btn btn--outline btn--xs"><span class="btn__label">Завести сделку</span></button>
+      <a class="link link--accent link--s" href="#">Подробнее</a>
+    </div>
+  </div>
+  <div class="alert__actions">
+    <button class="alert__act alert__collapse" aria-label="Свернуть" aria-expanded="true"><i data-icon="chevron-up"></i></button>
+    <button class="alert__act alert__close" aria-label="Закрыть"><i data-icon="close"></i></button>
+  </div>
+</div>
+```
+
+Тоны — заливка/акцент: `--info-bg/--info` · `--warning-bg/--warning` · `--error-bg-light/--error` · `--success-bg/--success`. role/aria-live: error·warning → alert/assertive, info·success → status/polite. Кнопки и ссылки перекрашиваются в тон (переопределение `--primary`/`--link` на `.alert`). Свёрнуто — `.alert--collapsed`. Полная анатомия: specs/Alert.md.
+
 ## Avatar
 css: `styles/avatar.css` · deps: [badge]
 
@@ -154,6 +180,8 @@ css: `styles/chip.css` · deps: [label-helper]
 <div class="chiplist" role="group" aria-label="Фильтры">…</div>
 ```
 
+Тона: `--accent/--success/--info/--warning/--error/--dark` (светлая заливка + *-dark текст) · solid: `--success-solid/--warning-solid/--error-solid/--dark-solid` (базовый тон + белый текст). `--rounded` = pill. Trailing `.chip__info` (button) — открывает Popover.
+
 ## ContextMenu
 css: `styles/context-menu.css` · deps: [button]
 
@@ -214,10 +242,70 @@ css: `styles/icon-button.css` · deps: [badge]
 </button>
 ```
 
-## InputAutocomplete
-css: `—`
+## InputText
+css: `styles/input.css` · deps: [label-helper, tooltip, chip]
 
-Поле ввода с автодополнением: подсказывает варианты из списка по мере набора.
+Базовое поле ввода текста. База `.inp` (метка + поле Input_Content + хелпер), общая для InputText / InputDate / InputAutocomplete. Текстовый слой: иконка поиска, префикс, значение, постфикс. Действия справа: крестик очистки, информер. Размеры M (40px) / S (32px, только Table Edit). Многострочный (`--multiline`, textarea) и числовой InputAmount. Состояния: Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled.
+
+```html
+<div class="inp inp--m">
+  <label class="ds-label ds-label--left" for="inn"><span class="ds-label__text">ИНН</span></label>
+  <div class="inp__field">
+    <span class="inp__lead">…search…</span>
+    <span class="inp__prefix">От</span>
+    <input class="inp__control" id="inn" placeholder="Например, 7707083893" aria-describedby="inn-h">
+    <span class="inp__postfix">₽</span>
+    <span class="inp__acts">
+      <button class="inp__act" aria-label="Очистить поле">…✕…</button>
+      <button class="inp__act inp__act--static" aria-label="Подсказка">…ⓘ…</button>
+    </span>
+  </div>
+  <span class="ds-helper ds-helper--left" id="inn-h">10 или 12 цифр</span>
+</div>
+<!-- многострочный: .inp--multiline + textarea.inp__control -->
+```
+
+## InputDate
+css: `styles/input.css` · deps: [label-helper, tooltip]
+
+Поле ввода даты: маска ММ.ДД.ГГГГ (в placeholder) + кнопка-календарь, поднимающая DatePicker (отдельный компонент, TBD). База `.inp` общая с InputText. Действия: крестик очистки · информер (опц.) · календарь (фиксированный, всегда последний). `input[inputmode="numeric"]`, разделители подставляются автоматически. Размеры и состояния — как у InputText.
+
+```html
+<div class="inp inp--m">
+  <label class="ds-label ds-label--left" for="d1"><span class="ds-label__text">Дата подписания</span></label>
+  <div class="inp__field">
+    <input class="inp__control" id="d1" placeholder="ММ.ДД.ГГГГ" inputmode="numeric">
+    <span class="inp__acts">
+      <button class="inp__act" aria-label="Очистить поле">…✕…</button>
+      <button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">…📅…</button>
+    </span>
+  </div>
+  <span class="ds-helper ds-helper--left">Не раньше даты договора</span>
+</div>
+```
+
+## InputAutocomplete
+css: `styles/input.css` · deps: [label-helper, checkbox, chip, tooltip, dropdown-list]
+
+Поле-триггер + DropdownList под ним. Список: текстовые опции (одиночный выбор) ИЛИ опции с чекбоксами (`ddl__item--checkbox`, множественный). Показ выбора — три способа: сводка `.inp__summary` («Value 1, +4»), чипы в поле `.inp__chips` (при переполнении чип-счётчик «+N» — без крестика удаления), внешний стек чипов `.inp-ext` под полем. Чип берётся на размер меньше поля (M→S, S→XS). Обязательный шеврон `.inp__act--chev` (поворот в `.is-open`). Фильтрация по вводу с подсветкой `.ddl__match`. Устройство списка — см. Select · DropdownList. Размеры M / S (Table Edit — только сводкой). Состояния — как у InputText.
+
+```html
+<div class="inp inp--m is-open">
+  <label class="ds-label ds-label--left" for="ac"><span class="ds-label__text">Контрагент</span></label>
+  <div class="inp__field" role="combobox" aria-expanded="true" aria-controls="ac-list">
+    <span class="inp__chips"><span class="chip chip--edit chip--s"><span class="chip__label">Value 1</span><span class="chip__remove" role="button">…✕…</span></span></span>
+    <input class="inp__control" id="ac" placeholder="Поиск…">
+    <span class="inp__acts">
+      <button class="inp__act" aria-label="Очистить">…✕…</button>
+      <button class="inp__act inp__act--chev" aria-label="Показать список">…⌄…</button>
+    </span>
+  </div>
+  <div id="ac-list" class="ddl ddl--floating ddl--scroll" role="listbox" aria-multiselectable="true">
+    <button class="ddl__item ddl__item--checkbox" role="option" aria-checked="true">…</button>
+  </div>
+  <!-- вариант Chips Ext: <div class="inp-ext" role="group">…чипы…</div> вместо .inp__chips -->
+</div>
+```
 
 ## LabelHelper
 css: `styles/label-helper.css` · deps: [checkbox, radio, switch]
@@ -321,17 +409,20 @@ css: `styles/pagination.css` · deps: [dropdown-list, checkbox, label-helper, bu
 ## Popover
 css: `styles/popover.css` · deps: [button, icon-button, link, chip, label-helper]
 
-Нон-модальный всплывающий контейнер, привязанный к триггеру: расширенный контекстный контент (текст, интерактив, формы, легенды). В отличие от Tooltip — открывается по клику; в отличие от Modal — не блокирует страницу. Header — только заголовок+✕ (без кнопок действий), Footer — foot-left служебное/инфо + foot-right Secondary+Primary. 5 ширин (240–560px), 12 позиций размещения, опциональная стрелка (по умолчанию выключена).
+Нон-модальный всплывающий контейнер, привязанный к триггеру: расширенный контекстный контент — почти любой, без жёстких ограничений (текст, интерактив, формы, легенды), лишь бы умещался в шкалу ширины/высоты. В отличие от Tooltip — открывается по клику; в отличие от Modal — не блокирует страницу. Header — высота 48px, фон Pinned Default (--bgtable-pinned), заголовок Body S Strong 14px по центру вертикали + опц. чип/ссылка (gap 8px) + ✕ (без кнопок действий). Footer — тот же фон, foot-left и foot-right включаются независимо (инфо/ссылка/кнопка слева, Secondary+Primary справа). 5 ширин (240–560px), 12 позиций размещения, опциональная стрелка (по умолчанию выключена). Радиус 8px (--radius-m), тень --elevation-5, без внешнего бордера.
 
 ```html
 <span class="pop-anchor">
   <button type="button" aria-haspopup="dialog" aria-expanded="true" aria-controls="pop-1">…</button>
   <div id="pop-1" class="pop pop--w-m pop--bottom pop--start pop--floating" role="dialog" aria-modal="false" aria-labelledby="pop-1-title">
     <div class="pop__head">
-      <h3 class="pop__title" id="pop-1-title">Изменить тег</h3>
-      <button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть">…</button>
+      <div class="pop__head-main">
+        <h3 class="pop__title" id="pop-1-title">Изменить тег</h3>
+        <!-- опц.: chip/link, gap 8px -->
+      </div>
+      <span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть">…</button></span>
     </div>
-    <div class="pop__body">…форма, легенда, карточка, таблица…</div>
+    <div class="pop__body">…почти любой контент…</div>
     <div class="pop__foot">
       <div class="pop__foot-left"></div>
       <div class="pop__foot-right">
@@ -343,6 +434,132 @@ css: `styles/popover.css` · deps: [button, icon-button, link, chip, label-helpe
   </div>
 </span>
 <!-- … полная анатомия: specs/Popover.md -->
+```
+
+## SnackBar
+css: `styles/snackbar.css` · deps: [button, link]
+Стек уведомлений в правом верхнем углу (fixed, z-9900, 320px, top/right 24px). Поверх Modal/ToastBar, ниже ToastLoader.
+Авто-скрытие: без кнопок — 5 с, с кнопками — persistent. Hover/focus — пауза. Esc — закрыть верхний. Лимит 5; overflow → `.snack-more` «+N». Дедупликация — счётчик ×N в `.snack__dupe`.
+
+```html
+<!-- слой-контейнер: 1 раз на уровне app -->
+<div class="snackbar-layer" aria-label="Уведомления">
+
+  <!-- тон: info | warning | error | success -->
+  <!-- role=alert (error/warning) | role=status (info/success) -->
+  <div class="snack snack--error" role="alert" aria-live="assertive">
+    <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
+    <div class="snack__body">
+      <div class="snack__title">Ошибка <span class="snack__dupe">×2</span></div>
+      <div class="snack__text">Плановая дата подписания просрочена.</div><!-- опционально -->
+      <div class="snack__buttons"><!-- опционально -->
+        <button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Изменить</span></button>
+        <button type="button" class="btn btn--transparent btn--xs"><span class="btn__label">Отмена</span></button>
+      </div>
+    </div>
+    <button type="button" class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
+  </div>
+
+  <!-- overflow при > 5 снеков -->
+  <div class="snack-more">
+    Ещё <span class="snack-more__count">3</span> уведомл.
+    <div class="snack-more__actions">
+      <button class="snack-more__btn" aria-label="Развернуть"><i data-icon="chevron-down"></i></button>
+      <button class="snack-more__btn" aria-label="Закрыть все"><i data-icon="close"></i></button>
+    </div>
+  </div>
+
+</div>
+```
+
+Тона — фон/иконка/кнопки: `--info-bg/--info` · `--warning-bg/--warning` · `--error-bg-light/--error` · `--success-bg/--success`. Заголовок: Body S 400 `--text-primary`. Текст: Body XS `--text-secondary`. Кнопки перекрашиваются через переопределение `--primary` в `.snack__buttons`.
+
+## Entity
+css: `styles/entity.css` · deps: [avatar, chip, icon-button, button, badge]
+
+Отображение объектов (компании, люди, файлы, метрики) в тайлах, списках и формах. Ведущий элемент + Header · Label · Subheaders + Chips + IconButton-группа + действия. Собственного фона нет, тянется на ширину контейнера. Размеры: `--s` 32 · `--m` 40 · `--l` 96.
+
+```html
+<div class="entity entity--m">
+  <div class="entity__lead"><span class="entity__icon" aria-hidden="true"><i data-icon="bank"></i></span></div>
+  <div class="entity__main">
+    <div class="entity__titles">
+      <p class="entity__header">Контрагент</p>
+      <div class="entity__labelrow">
+        <span class="entity__label entity__label--truncate">ООО ЮгСтрой</span>
+        <span class="entity__postfix">Postf</span>
+        <button class="entity__bookmark" aria-label="В избранное"><i data-icon="bookmark-add"></i></button>
+      </div>
+    </div>
+    <div class="entity__subs">
+      <span class="entity__subs-icon"><i data-icon="check-circle"></i></span>
+      <span class="entity__subs-list">Subheader, Subheader, Subheader</span>
+      <span class="entity__subs-more">+99</span>
+    </div>
+    <div class="entity__chips"><span class="chip chip--readonly chip--s"><span class="chip__label">Text</span></span></div>
+    <div class="entity__icons"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Позвонить"><i data-icon="phone"></i></button></div>
+  </div>
+  <div class="entity__actions">
+    <button class="btn btn--outline btn--xs" aria-haspopup="menu"><span class="btn__label">Button</span><i data-icon="chevron-down"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--s" aria-label="Убрать"><i data-icon="close"></i></button>
+  </div>
+</div>
+```
+
+Ведущий: `.entity__icon` (тон `--accent`/`--neutral`) или `.av` из ДС. Состояния: `--interactive` (hover-тайл) · `--selected` (--primary-bg) · `--skeleton` (загрузка + шиммер, aria-busy) · `--empty` (Label «—») · `--error` (объект удалён, зачёркнут). Label усекается (`--truncate`) + Tooltip. Действий max 2 → иначе кебаб. Полная анатомия: specs/Entity.md.
+
+## TableCell
+css: `styles/table-cell.css` · deps: [checkbox, chip, icon-button, button, tooltip]
+
+Ячейка таблицы (`.tc`) и ячейка шапки (`.th`, TableHeader). Универсальный контейнер контента строки: текст, дерево, чипы, контролы, редактируемые поля. Фона нет — наследует фон строки; скругления даёт контейнер таблицы. Нет плотностей — высота строки фикс. **48px**, растёт только у `.tc--wrap` (перенос текста вместо усечения). Каждая строка начинается/заканчивается структурной ячейкой-разделителем `.tc--separator`/`.th--separator` (8px, всегда, не выбирается как тип контента).
+
+```html
+<!-- в проде — нативные table/th/td; .tc/.th — оформление -->
+<div class="tbl">
+  <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 96px 8px;">
+    <div class="th--separator"></div>
+    <div class="th"><span class="th__label">Контрагент</span><button class="th__sort" aria-label="Сортировать"><i data-icon="sort"></i></button></div>
+    <div class="th th--right th--sorted"><span class="th__label">Сумма, ₽</span><button class="th__sort"><i data-icon="sort-down"></i></button></div>
+    <div class="th th--center"><span class="th__label">Действия</span></div>
+    <div class="th--separator"></div>
+  </div>
+  <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 96px 8px;">
+    <div class="tc--separator"></div>
+    <div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">ООО ЮгСтрой</span><span class="tc__icon tc__icon--warning"><i data-icon="alert-triangle"></i></span></span></div>
+    <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">1 240 500</span></span></div>
+    <div class="tc"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить"><i data-icon="edit"></i></button></div></div>
+    <div class="tc--separator"></div>
+  </div>
+</div>
+```
+
+Значение всегда обёрнуто в `.tc__row` (prefix · text · postfix · icon — каждый независимая опция). Выравнивание: слева (по умолч.) / справа (без «по центру» — не поддерживается для текста). Числа: toggle "numeric" → `.tc--numbers` (справа, tabular-nums). Вторая строка — опция для ЛЮБОГО типа: `.tc__body` > `.tc__row` + `.tc__subtext` (Body XS), работает и при выравнивании справа. Дерево: `--tree` (`.tc__twisty` + `--tc-level`, лист `.tc__twisty--leaf`). Чипы/кнопки в `.tc__controls` (чипы — тон `chip--success/warning/error/info` + `chip--rounded`, кол-во произвольное). Input: `--input` (`.tc__field` + `.tc__field-input/-icon/-clear`). `.tc__hidden` — действия по hover, сочетаются с truncate+tooltip. Усечение по умолчанию вкл. (`.tc__text--truncate` + Tooltip floating `tip--multiline` по scrollWidth>clientWidth, показывает полный текст без обрезки); выкл. → `.tc--wrap` (перенос, растёт высота). Фон колонки: `--accent`/`--pinned`. Состояния: `--hover`/`--focus`/`--selected`/`--disabled`/`--error`(+`--error-bg`)/`--skeleton`. EditMark — `--edited`, угловой маркер **в правом верхнем углу**. Separator (`.tc.tc--separator`/`.th.th--separator`) — ОБЯЗАТЕЛЬНО с базовым классом `.tc`/`.th`: это обычная ячейка (фон/бордер/состояния как у всех), просто без контента и шириной 8px, всегда первая/последняя в строке. Шапка — Body S (не strong): `.th__label` · `.th__sort` (sort/sort-up/sort-down, активн. `--sorted`) · `.th__action` (кебаб по hover), `aria-sort`. Полная анатомия: specs/TableCell.md.
+
+## RiskMetric
+css: — (композиция) · deps: [chip, popover, icon-button, divider]
+
+Рейтинг + зона проблемности контрагента. Chip (ReadOnly, S, pill), тон — по зоне: зелёная=success, watchlist=warning (светлые); красная=error-solid, чёрная=dark-solid (белый текст); без зоны — outline. Клик по `.chip__info` открывает Popover_RiskMetric (w-m, без Footer) — неотъемлемая часть компонента. Body: 2 серых блока (Зона/Рейтинг + дата расчёта) + Риск-сегмент/Риск-профиль. Нет данных ни по рейтингу, ни по зоне → информер отсутствует.
+
+```html
+<span class="pop-anchor">
+  <span class="chip chip--readonly chip--rounded chip--s chip--error-solid" aria-label="Риск-метрика. Рейтинг 26, зона проблемности — красная.">
+    <span class="chip__label">26</span>
+    <button type="button" class="chip__info" aria-haspopup="dialog" aria-expanded="false" aria-controls="rm-pop-1" aria-label="Показать детали риск-метрики"><i data-icon="info-circle"></i></button>
+  </span>
+  <div id="rm-pop-1" class="pop pop--w-m pop--bottom pop--start pop--floating" role="dialog" aria-modal="false" aria-labelledby="rm-pop-1-title">
+    <div class="pop__head">
+      <h3 class="pop__title" id="rm-pop-1-title">Рейтинг и зона проблемности</h3>
+      <button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть">…</button>
+    </div>
+    <div class="pop__body">
+      <div class="rm-block"><div class="rm-block__row"><span class="rm-block__label">Зона проблемности</span><span class="rm-block__value rm-block__value--strong">Красная</span></div><div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">24.10.2025</span></div></div>
+      <div class="rm-block"><!-- Рейтинг контрагента + дата --></div>
+      <div class="rm-field"><p class="rm-field__label">Риск-сегмент</p><p class="rm-field__value">…</p></div>
+      <div class="rm-field"><p class="rm-field__label">Риск-профиль</p><p class="rm-field__value">Непроектный</p></div>
+    </div>
+  </div>
+</span>
+<!-- полная анатомия: specs/RiskMetric.md -->
 ```
 
 ## ProgressBar

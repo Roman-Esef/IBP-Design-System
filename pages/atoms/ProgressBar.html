@@ -216,12 +216,20 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="ProgressBar">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>04.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ProgressBar</h1>
     <p class="lead">Линейный индикатор прогресса: заполнение трека отражает долю значения от максимума. Определённый режим (значение известно) и неопределённый (длительность неизвестна); шесть тональных вариантов на локальных статусных токенах; три размера.</p>
@@ -268,6 +276,18 @@
     </div>
   </section>
 
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Composition">
+    <h3>Состав</h3>
+    <p class="desc">Заголовок, значение и хелпер добавляются независимо друг от друга. Плавающее значение — расширенный вариант, решающий частную задачу (величина без формы), добавлен поверх исходного материала.<span class="badge-new">Новое</span></p>
+    <div class="panel"><div class="compo-list" id="compo-list"></div></div>
+  </div>
+  </section>
+
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
@@ -291,26 +311,24 @@
     </div>
   </section>
 
-  <!-- COMPOSITION -->
-  <section class="section" data-screen-label="Composition">
-    <h2>Состав</h2>
-    <p class="desc">Заголовок, значение и хелпер добавляются независимо друг от друга. Плавающее значение — расширенный вариант, решающий частную задачу (величина без формы), добавлен поверх исходного материала.<span class="badge-new">Новое</span></p>
-    <div class="panel"><div class="compo-list" id="compo-list"></div></div>
+  <!-- CONTENT -->
+  <section class="section" data-screen-label="Content">
+    <h2>Контент</h2>
+    <ul class="bullets">
+      <li><b>Заголовок</b> — короткое существительное или словосочетание (1–4 слова), описывающее, что именно измеряется («Вероятность сделки», «Заполнено анкетой»); без указания текущего значения в тексте — значение выводится отдельным слотом.</li>
+      <li><b>Значение</b> — всегда число: процент («50%») или дробь текущее/максимум («50/100»); формат выбирается один раз для всего экрана, не смешивайте оба на одной странице.</li>
+      <li><b>Хелпер</b> — поясняет контекст или следующий шаг («Осталось 2 поля», «Обновляется каждую минуту»); опционален, не дублирует заголовок.</li>
+      <li>Не обрезайте значение и не переносите его на вторую строку — заголовок обрезается многоточием первым.</li>
+    </ul>
   </section>
 
-  <!-- STATES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния</h2>
-    <p class="desc">Состояния описывают поведение самого индикатора — независимо от них выбирается тон (см. «Цвета»). <b>Indeterminate</b> и явная граница «сливера» на малых значениях добавлены поверх исходного материала.<span class="badge-new">Новое</span></p>
-    <div class="panel"><div class="matrix-wrap"><div class="matrix" id="matrix"></div></div></div>
-
-    <p class="desc" style="margin-top:34px;">Тон — независимая от состояния настройка на локальных статусных токенах. Нейтральный тон <code class="tok">system</code> соответствует референсному материалу («Вероятность сделки»); остальные — расширение под ситуативную семантику success/warning/error/info.</p>
-    <div class="panel"><div class="tone-grid" id="tone-grid"></div></div>
-  </section>
-
-  <!-- AUTO TONE -->
-  <section class="section" data-screen-label="AutoTone">
-    <h2>Авто-подбор тона по порогам<span class="badge-new">Новое</span></h2>
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="AutoTone">
+    <h3>Авто-подбор тона по порогам<span class="badge-new">Новое</span></h3>
     <p class="desc">Опциональный helper вычисляет тон автоматически из значения по процентным порогам — вместо ручного выбора тона. Направление по умолчанию — «выше — лучше» (прогресс к цели); для метрик, где высокое значение означает риск (просрочка, нагрузка), передайте свои пороги с обратным порядком тонов — компонент не диктует направление, это делает конфигурация.</p>
     <div class="panel">
       <div id="autotone-demo"></div>
@@ -326,24 +344,23 @@
       </table>
     </div>
     <p class="desc" style="margin-top:20px;">Пороги и тона на них — предложенные значения по умолчанию, а не жёсткое требование ДС: продукт задаёт свою шкалу и направление под конкретную метрику.</p>
-  </section>
+  </div>
 
-  <!-- CORNER CASES -->
-  <section class="section" data-screen-label="CornerCases">
-    <h2>Корнер-кейсы</h2>
+<div class="subsec" data-screen-label="CornerCases">
+    <h3>Корнер-кейсы</h3>
     <p class="desc">Случаи, не покрытые исходным референсом, но важные для корректной реализации.<span class="badge-new">Новое</span></p>
     <div class="cc-grid" id="cc-grid"></div>
+  </div>
   </section>
 
-  <!-- CONTENT -->
-  <section class="section" data-screen-label="Content">
-    <h2>Контент</h2>
-    <ul class="bullets">
-      <li><b>Заголовок</b> — короткое существительное или словосочетание (1–4 слова), описывающее, что именно измеряется («Вероятность сделки», «Заполнено анкетой»); без указания текущего значения в тексте — значение выводится отдельным слотом.</li>
-      <li><b>Значение</b> — всегда число: процент («50%») или дробь текущее/максимум («50/100»); формат выбирается один раз для всего экрана, не смешивайте оба на одной странице.</li>
-      <li><b>Хелпер</b> — поясняет контекст или следующий шаг («Осталось 2 поля», «Обновляется каждую минуту»); опционален, не дублирует заголовок.</li>
-      <li>Не обрезайте значение и не переносите его на вторую строку — заголовок обрезается многоточием первым.</li>
-    </ul>
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Состояния описывают поведение самого индикатора — независимо от них выбирается тон (см. «Цвета»). <b>Indeterminate</b> и явная граница «сливера» на малых значениях добавлены поверх исходного материала.<span class="badge-new">Новое</span></p>
+    <div class="panel"><div class="matrix-wrap"><div class="matrix" id="matrix"></div></div></div>
+
+    <p class="desc" style="margin-top:34px;">Тон — независимая от состояния настройка на локальных статусных токенах. Нейтральный тон <code class="tok">system</code> соответствует референсному материалу («Вероятность сделки»); остальные — расширение под ситуативную семантику success/warning/error/info.</p>
+    <div class="panel"><div class="tone-grid" id="tone-grid"></div></div>
   </section>
 
   <!-- ACCESSIBILITY -->
@@ -375,17 +392,6 @@
     <h2>Цвета</h2>
     <p class="desc">Трек — всегда нейтральный <code class="tok">--border-light</code> независимо от тона. Заливка — базовый цвет локальной статусной рампы; Disabled переопределяет и трек, и заливку токенами <code class="tok">--disabled-*</code>.</p>
     <div class="color-ref" id="color-ref"></div>
-  </section>
-
-  <!-- PROPOSALS -->
-  <section class="section" data-screen-label="Proposals">
-    <h2>Что предлагаем добавить<span class="badge-proposal">Предложение</span></h2>
-    <p class="desc">Референс из исходной ДС покрывал только два статичных варианта (форма с Label/Value и вариант с плавающим значением). Ниже — идеи, сверенные с практиками Material Design, Ant Design, Carbon и Polaris, которые в этой версии <b>не реализованы</b> и требуют отдельного решения перед стартом.</p>
-    <ul class="bullets">
-      <li><b>Круговой / радиальный прогресс</b> — кольцевой индикатор для аватаров с загрузкой, миниатюр файлов и виджетов дашборда (аналог Material CircularProgress, Ant <code class="tok">Progress type="circle"</code>). Другая геометрия и разметка — отдельный компонент, не модификатор линейного.</li>
-      <li><b>Составной Upload-прогресс</b> — карточка с именем файла, размером/скоростью/ETA и действиями «Отменить» / «Повторить» (аналог Carbon FileUploader, Ant Upload). Требует состояний ошибки загрузки и повторной попытки — лучше собрать как отдельный организм поверх текущего ProgressBar, а не расширять его API.</li>
-      <li><b>Анимированный счётчик значения</b> — плавный count-up текста значения синхронно с ростом заливки; микро-интеракция для отчётов и результатов, не критична для форм.</li>
-    </ul>
   </section>
 
   <!-- DEVELOPER HANDOFF -->
@@ -537,6 +543,17 @@ widthPercent = (value / max) * 100;
         </tbody>
       </table>
     </div>
+  </section>
+
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Proposals">
+    <h2>Бэклог<span class="badge-proposal">Предложение</span></h2>
+    <p class="desc">Референс из исходной ДС покрывал только два статичных варианта (форма с Label/Value и вариант с плавающим значением). Ниже — идеи, сверенные с практиками Material Design, Ant Design, Carbon и Polaris, которые в этой версии <b>не реализованы</b> и требуют отдельного решения перед стартом.</p>
+    <ul class="bullets">
+      <li><b>Круговой / радиальный прогресс</b> — кольцевой индикатор для аватаров с загрузкой, миниатюр файлов и виджетов дашборда (аналог Material CircularProgress, Ant <code class="tok">Progress type="circle"</code>). Другая геометрия и разметка — отдельный компонент, не модификатор линейного.</li>
+      <li><b>Составной Upload-прогресс</b> — карточка с именем файла, размером/скоростью/ETA и действиями «Отменить» / «Повторить» (аналог Carbon FileUploader, Ant Upload). Требует состояний ошибки загрузки и повторной попытки — лучше собрать как отдельный организм поверх текущего ProgressBar, а не расширять его API.</li>
+      <li><b>Анимированный счётчик значения</b> — плавный count-up текста значения синхронно с ростом заливки; микро-интеракция для отчётов и результатов, не критична для форм.</li>
+    </ul>
   </section>
 
   <footer class="page-foot">

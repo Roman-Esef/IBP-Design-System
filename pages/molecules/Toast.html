@@ -239,13 +239,21 @@
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
   <link rel="stylesheet" href="../../styles/pg-kit.css">
+<style>
+/* unified-template: бывшие h2-разделы, понижены до подразделов */
+.section .subsec{margin-top:48px;}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+.section .subsec>p.desc.tight{margin-bottom:20px;}
+.section .subsec>p.desc+p.desc{margin-top:-16px;}
+</style>
 </head>
 <body>
 <main class="page" data-screen-label="Toast">
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>03.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Toast</h1>
     <p class="lead">Тёмная пилюля-уведомление, всплывающая у верхней границы рабочей области по центру, — индикатор запуска <b>фонового</b> или <b>блокирующего</b> процесса. Два режима: <b>ToastBar</b> (фоновый, авто-скрытие, стек до трёх) и <b>ToastLoader</b> (блокирующий, со спиннером и затемнением). Ведущий слот — спиннер или статус-иконка (взаимоисключающие); тоны Neutral · Success · Error · Info.</p>
@@ -286,11 +294,9 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- DIFFERENTIATION -->
-  <section class="section" data-screen-label="BarVsLoader">
-    <h2>ToastBar и ToastLoader — в чём разница</h2>
+  
+<div class="subsec" data-screen-label="BarVsLoader">
+    <h3>ToastBar и ToastLoader — в чём разница</h3>
     <p class="desc">Один компонент, два режима. Выбор — по тому, блокирует ли процесс работу пользователя.</p>
     <div class="diff">
       <div class="diff__card">
@@ -304,6 +310,7 @@
         <div class="diff__stage" id="diff-loader"></div>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- ANATOMY -->
@@ -323,21 +330,13 @@
     </div>
   </section>
 
-  <!-- SIZE / WIDTH / WRAPPING -->
-  <section class="section" data-screen-label="Width">
-    <h2>Ширина и перенос текста</h2>
-    <p class="desc">Ширина зависит от контента, высота фиксирована для одной строки. Максимум — <b>60%</b> от ширины рабочей области; при достижении предела текст переносится, а ведущий слот прижимается к верхней строке.</p>
-    <div class="panel">
-      <p class="demo-rowlabel">Короткий текст — ширина по контенту</p>
-      <div id="width-short" style="margin-bottom:26px;"></div>
-      <p class="demo-rowlabel">Длинный текст — упирается в 60% и переносится (слот сверху слева)</p>
-      <div class="worksurface" id="width-wrap" style="min-height:150px;"></div>
-    </div>
-  </section>
-
-  <!-- LEADING SLOT / CONTENT -->
-  <section class="section" data-screen-label="Content">
-    <h2>Ведущий слот</h2>
+  <!-- ВАРИАНТЫ -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
+  
+<div class="subsec" data-screen-label="Content">
+    <h3>Ведущий слот</h3>
     <p class="desc">Слева от текста — необязательный слот: спиннер, статус-иконка или ничего. Спиннер и иконка <b>взаимоисключают</b> друг друга — одновременно показывается только одно. Переход «процесс → результат» — это замена спиннера на иконку во времени (см. «Переход Loading → Success»), а не оба глифа сразу.</p>
     <div class="panel">
       <div class="cols2" style="gap:26px 20px;">
@@ -346,98 +345,28 @@
         <div><p class="demo-rowlabel">Статус-иконка — результат процесса</p><div id="content-icon"></div></div>
       </div>
     </div>
+  </div>
   </section>
 
-  <!-- STATES / TONES -->
-  <section class="section" data-screen-label="States">
-    <h2>Состояния и тоны</h2>
-    <p class="desc">Тост не реагирует на наведение и фокус — он информативный, не интерактивный. «Состояние» здесь — это тон результата процесса. Neutral и Loading были в исходной документации; Success и Error добавлены как недостающие финальные состояния фонового процесса.</p>
-    <div id="state-specs"></div>
-
-    <p class="subhead mt">Переход Loading → Success <span class="addon">Добавлено</span></p>
-    <p class="desc tight">Тост с лоадером по завершении процесса не исчезает резко: спиннер сменяется галочкой Success, тост держится ещё ~1&nbsp;сек и уходит фейдом вниз. Так пользователь успевает считать результат.</p>
+  <!-- РАЗМЕРЫ -->
+  <section class="section" data-screen-label="Sizes">
+    <h2>Размеры</h2>
+  
+<div class="subsec" data-screen-label="Width">
+    <h3>Ширина и перенос текста</h3>
+    <p class="desc">Ширина зависит от контента, высота фиксирована для одной строки. Максимум — <b>60%</b> от ширины рабочей области; при достижении предела текст переносится, а ведущий слот прижимается к верхней строке.</p>
     <div class="panel">
-      <div class="row" style="gap:16px;">
-        <div id="transition-demo"></div>
-        <button class="replay" type="button" id="transition-replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Проиграть переход</button>
-      </div>
+      <p class="demo-rowlabel">Короткий текст — ширина по контенту</p>
+      <div id="width-short" style="margin-bottom:26px;"></div>
+      <p class="demo-rowlabel">Длинный текст — упирается в 60% и переносится (слот сверху слева)</p>
+      <div class="worksurface" id="width-wrap" style="min-height:150px;"></div>
     </div>
-  </section>
-
-  <!-- STACK + OVERFLOW -->
-  <section class="section" data-screen-label="Stack">
-    <h2>Стек и переполнение</h2>
-    <p class="desc">Тосты добавляются по одному — новый появляется <b>сверху</b>. Одновременно показывается <b>не более трёх</b>. Что происходит с четвёртым при лимите — в исходной документации не описано; ниже — предлагаемое поведение.</p>
-    <div class="panel">
-      <div class="cols2">
-        <div>
-          <p class="demo-col__title">Single</p>
-          <p class="demo-col__sub">Один тост.</p>
-          <div id="stack-single"></div>
-        </div>
-        <div>
-          <p class="demo-col__title">Stack — до трёх</p>
-          <p class="demo-col__sub">Новые добавляются сверху, самый ранний — снизу.</p>
-          <div id="stack-multi"></div>
-        </div>
-      </div>
-      <p class="subhead mt">Переполнение стека <span class="addon">Добавлено</span></p>
-      <p class="desc tight">Когда в стеке уже три тоста, а приходит четвёртый — он добавляется <b>сверху</b>, а самый ранний (<b>нижний</b>) уходит фейдом вниз (принцип FIFO, «окно» из трёх). Тосты с лоадером не вытесняются по таймауту — они ждут события с сервера, поэтому в очередь на вытеснение попадают только тосты без лоадера.</p>
-      <div class="worksurface worksurface--tall" id="stack-overflow"></div>
-      <div class="row" style="margin-top:16px; gap:12px;">
-        <button class="replay" type="button" id="overflow-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Добавить тост</button>
-        <button class="replay" type="button" id="overflow-reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Сбросить</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- POSITIONING + SCRIM -->
-  <section class="section" data-screen-label="Position">
-    <h2>Позиционирование и затемнение</h2>
-    <p class="desc">Тост появляется в отдельном слое, горизонтально — по центру рабочей области, по вертикали — у верхней границы. Вокруг всего компонента — <b>охранное поле 24&nbsp;px</b> (сверху и по бокам), чтобы тост не касался краёв. ToastBar живёт в слое под снэкбаром и <b>не затемняет</b> подложку; ToastLoader — в слое над снэкбаром с затемнением 25%.</p>
-    <div class="panel">
-      <div class="cols2">
-        <div>
-          <p class="demo-col__title">ToastBar — без затемнения</p>
-          <p class="demo-col__sub">Слой с ToastBar не затемняем. Пользователь продолжает работать.</p>
-          <div class="worksurface" id="pos-bar"></div>
-        </div>
-        <div>
-          <p class="demo-col__title">ToastLoader — затемнение 25%</p>
-          <p class="demo-col__sub">Охранное поле 24&nbsp;px, подложка затемнена на 25%.</p>
-          <div class="worksurface" id="pos-loader"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ANIMATION -->
-  <section class="section" data-screen-label="Animation">
-    <h2>Анимация</h2>
-    <p class="desc">Тосты добавляются в бар по одному — линейной анимацией сверху. Удаляются фейдом вниз. При <code class="tok">prefers-reduced-motion: reduce</code> остаётся только смена прозрачности, спиннер замедляется до 1.6&nbsp;с.</p>
-    <div class="panel">
-      <div class="row" style="gap:16px;">
-        <div id="anim-demo" style="min-width:230px; min-height:44px; display:flex; align-items:center;"></div>
-        <button class="replay" type="button" id="anim-replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Проиграть заново</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- TIMING -->
-  <section class="section" data-screen-label="Timing">
-    <h2>Тайминги <span class="addon">Добавлено</span></h2>
-    <p class="desc">Явные значения длительностей и кривых — чтобы поведение было воспроизводимо в коде.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table" id="timing-table">
-        <thead><tr><th>Событие</th><th>Длительность</th><th>Кривая</th><th>Примечание</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
+  </div>
   </section>
 
   <!-- TEXTOVKA -->
   <section class="section" data-screen-label="Textovka">
-    <h2>Текстовка</h2>
+    <h2>Контент</h2>
     <p class="desc">Название короткое и понятное, однозначно описывает суть процесса. Формулируйте так, чтобы вид глагола отражал режим тоста.</p>
     <div class="guide">
       <div class="guide-card bad">
@@ -475,6 +404,95 @@
     </div>
   </section>
 
+  <!-- ПОВЕДЕНИЕ -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
+  
+<div class="subsec" data-screen-label="Stack">
+    <h3>Стек и переполнение</h3>
+    <p class="desc">Тосты добавляются по одному — новый появляется <b>сверху</b>. Одновременно показывается <b>не более трёх</b>. Что происходит с четвёртым при лимите — в исходной документации не описано; ниже — предлагаемое поведение.</p>
+    <div class="panel">
+      <div class="cols2">
+        <div>
+          <p class="demo-col__title">Single</p>
+          <p class="demo-col__sub">Один тост.</p>
+          <div id="stack-single"></div>
+        </div>
+        <div>
+          <p class="demo-col__title">Stack — до трёх</p>
+          <p class="demo-col__sub">Новые добавляются сверху, самый ранний — снизу.</p>
+          <div id="stack-multi"></div>
+        </div>
+      </div>
+      <p class="subhead mt">Переполнение стека <span class="addon">Добавлено</span></p>
+      <p class="desc tight">Когда в стеке уже три тоста, а приходит четвёртый — он добавляется <b>сверху</b>, а самый ранний (<b>нижний</b>) уходит фейдом вниз (принцип FIFO, «окно» из трёх). Тосты с лоадером не вытесняются по таймауту — они ждут события с сервера, поэтому в очередь на вытеснение попадают только тосты без лоадера.</p>
+      <div class="worksurface worksurface--tall" id="stack-overflow"></div>
+      <div class="row" style="margin-top:16px; gap:12px;">
+        <button class="replay" type="button" id="overflow-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Добавить тост</button>
+        <button class="replay" type="button" id="overflow-reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Сбросить</button>
+      </div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Position">
+    <h3>Позиционирование и затемнение</h3>
+    <p class="desc">Тост появляется в отдельном слое, горизонтально — по центру рабочей области, по вертикали — у верхней границы. Вокруг всего компонента — <b>охранное поле 24&nbsp;px</b> (сверху и по бокам), чтобы тост не касался краёв. ToastBar живёт в слое под снэкбаром и <b>не затемняет</b> подложку; ToastLoader — в слое над снэкбаром с затемнением 25%.</p>
+    <div class="panel">
+      <div class="cols2">
+        <div>
+          <p class="demo-col__title">ToastBar — без затемнения</p>
+          <p class="demo-col__sub">Слой с ToastBar не затемняем. Пользователь продолжает работать.</p>
+          <div class="worksurface" id="pos-bar"></div>
+        </div>
+        <div>
+          <p class="demo-col__title">ToastLoader — затемнение 25%</p>
+          <p class="demo-col__sub">Охранное поле 24&nbsp;px, подложка затемнена на 25%.</p>
+          <div class="worksurface" id="pos-loader"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Animation">
+    <h3>Анимация</h3>
+    <p class="desc">Тосты добавляются в бар по одному — линейной анимацией сверху. Удаляются фейдом вниз. При <code class="tok">prefers-reduced-motion: reduce</code> остаётся только смена прозрачности, спиннер замедляется до 1.6&nbsp;с.</p>
+    <div class="panel">
+      <div class="row" style="gap:16px;">
+        <div id="anim-demo" style="min-width:230px; min-height:44px; display:flex; align-items:center;"></div>
+        <button class="replay" type="button" id="anim-replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Проиграть заново</button>
+      </div>
+    </div>
+  </div>
+  
+<div class="subsec" data-screen-label="Timing">
+    <h3>Тайминги <span class="addon">Добавлено</span></h3>
+    <p class="desc">Явные значения длительностей и кривых — чтобы поведение было воспроизводимо в коде.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table" id="timing-table">
+        <thead><tr><th>Событие</th><th>Длительность</th><th>Кривая</th><th>Примечание</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  </section>
+
+  <!-- STATES / TONES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Тост не реагирует на наведение и фокус — он информативный, не интерактивный. «Состояние» здесь — это тон результата процесса. Neutral и Loading были в исходной документации; Success и Error добавлены как недостающие финальные состояния фонового процесса.</p>
+    <div id="state-specs"></div>
+
+    <p class="subhead mt">Переход Loading → Success <span class="addon">Добавлено</span></p>
+    <p class="desc tight">Тост с лоадером по завершении процесса не исчезает резко: спиннер сменяется галочкой Success, тост держится ещё ~1&nbsp;сек и уходит фейдом вниз. Так пользователь успевает считать результат.</p>
+    <div class="panel">
+      <div class="row" style="gap:16px;">
+        <div id="transition-demo"></div>
+        <button class="replay" type="button" id="transition-replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Проиграть переход</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
     <h2>Доступность <span class="addon">Добавлено</span></h2>
@@ -493,6 +511,12 @@
         <li>Тост не должен нести критическую информацию, которую нельзя пропустить: он исчезает сам и недоступен после скрытия.</li>
       </ul>
     </div>
+  </section>
+
+  <!-- TYPOGRAPHY (STUB) -->
+  <section class="section" data-screen-label="Typography">
+    <h2>Типографика</h2>
+    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
   </section>
 
   <!-- COLORS -->
