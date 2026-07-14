@@ -242,6 +242,13 @@ css: `styles/icon-button.css` · deps: [badge]
 </button>
 ```
 
+## Illustrations (Иллюстрации)
+css: styles/illustration.css · deps: — · v1.1
+Слот продуктовой иллюстрации; scripts/ds-illustrations.js подставляет реальный SVG из assets/illustrations/<data-illu>.svg (32 тайловых 195×140 + 4 состояния + 1 фоновая). Размер = width/height слота, object-fit:contain. Неизвестное имя → штриховая заглушка (.illu:empty)dth/height слота (дефолт 96×96). Всегда aria-hidden. Имена: deals, partners, reports, tasks, admin, empty-search.
+```
+<span class="illu" data-illu="deals" aria-hidden="true"></span>
+```
+
 ## InputText
 css: `styles/input.css` · deps: [label-helper, tooltip, chip]
 
@@ -462,18 +469,32 @@ css: `styles/nav-panel.css` · deps: [icon-button, badge, avatar]
 
 Пункт: Default текст/иконка `--text-secondary`; Hover заливка `--bgtable-row-hover`; Selected заливка `--bgtable-row-focus` + подпись Strong; Disabled `--text-inactive` + бейдж `badge--muted`. Высота пункта 44px, иконка 24, badge XS accent. Полная анатомия: specs/NavPanel.md.
 
+## NavTile
+css: styles/nav-tile.css · deps: illustration, link · v1.0
+Навигационная плитка главной страницы: слева название (H5 Strong) + описание (Body S), справа иллюстрация 96×96 (absolute, вертикальный центр). Клик — переход в раздел. Один размер: span 3 из 12 колонок сетки .ntile-grid (gap 24, до 4 в ряд на полной ширине; адаптив — @container от ширины сетки, не окна: span 4/6/12 при ≤1100/≤700/≤450px), мин. высота 140, паддинг 24, радиус --radius-card. Состояния: hover (рамка --border-primary + elevation-2), focus (outline --primary), disabled (.is-disabled: текст --text-inactive, illu grayscale). Вариант --links: контейнер div (не <a> в <a>), название-ссылка .ntile__title-link + до 4 ссылок .link--s внизу. НЕ дашборд — без данных и графиков.
+```
+<a class="ntile" href="/deals">
+  <span class="illu ntile__illu" data-illu="deals" aria-hidden="true"></span>
+  <h3 class="ntile__title">Сделки</h3>
+  <p class="ntile__desc">Кредитные линии, договоры и график платежей</p>
+</a>
+<div class="ntile-grid"> …плитки… </div>
+```
+
 ## PageHeader
 css: `styles/page-header.css` · deps: [button, icon-button, chip, badge, context-menu, tooltip, breadcrumbs]
 
-Заголовок страницы рабочей области: наименование сущности (h1) + основные действия. Части независимы и опциональны: IconLeft, Edit, Chips, Return, Subtitle (стандартный/кастомный), Actions (max 3 кнопки) + MenuButton. Ставится под Breadcrumbs. Варианты: `--dashboard` (подложка), `--stack` (мобильная раскладка).
+Заголовок страницы рабочей области: наименование сущности (h1) + основные действия. Части независимы и опциональны: IconLeft, Edit, Chips, Return, Subtitle (стандартный/кастомный), Actions (max 3 кнопки) + MenuButton. Ставится под Breadcrumbs. Варианты: `--dashboard` (белая подложка `--bg-tile`), `--stack` (мобильная раскладка).
 
 ```html
 <div class="phead">
   <div class="phead__main">
     <div class="phead__title-row">
-      <span class="phead__title-ico" aria-hidden="true"><i data-icon="drag-dots"></i></span><!-- опц. -->
-      <h1 class="phead__title">D-007. ПАО «Газпром»</h1>
-      <button class="ibtn ibtn--neutral ibtn--s phead__edit" aria-label="Переименовать"><i data-icon="edit"></i></button><!-- опц. -->
+      <div class="phead__title-group"><!-- неразрывная группа: IconLeft + Title + Edit -->
+        <span class="phead__title-ico" aria-hidden="true"><i data-icon="drag-dots"></i></span><!-- опц. -->
+        <h1 class="phead__title">D-007. ПАО «Газпром»</h1>
+        <button class="ibtn ibtn--neutral ibtn--s phead__edit" aria-label="Переименовать"><i data-icon="edit"></i></button><!-- опц. -->
+      </div>
       <div class="phead__chips"><span class="chip chip--readonly chip--s"><span class="chip__label">Черновик</span></span></div><!-- опц. -->
       <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">В сделку</span></button></span><!-- опц. -->
     </div>
@@ -490,7 +511,7 @@ css: `styles/page-header.css` · deps: [button, icon-button, chip, badge, contex
 </div>
 ```
 
-Title `--type-h3-strong` (28/32), усечение + Tooltip; Subtitle Body S; мета Body XS `--text-inactive`. Адаптивность: <1024 второстепенные actions → MenuButton; <720 `.phead--stack`. Полная анатомия: specs/PageHeader.md.
+Title `--type-h3-strong` (28/32), усечение + Tooltip; Subtitle Body S; мета Body XS `--text-inactive`. Адаптивность: <1024 второстепенные actions → MenuButton, чипы и Return — отдельной строкой под Subtitle (`.phead__extras`); <720 `.phead--stack`. Полная анатомия: specs/PageHeader.md.
 
 ## Pagination
 css: `styles/pagination.css` · deps: [dropdown-list, checkbox, label-helper, button, splitter]

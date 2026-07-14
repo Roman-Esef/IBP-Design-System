@@ -72,8 +72,9 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .pg-toggle__sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:.15s;}
 .pg-toggle input:checked~.pg-toggle__sw{background:var(--primary);}
 .pg-toggle input:checked~.pg-toggle__sw::after{transform:translateX(16px);}
-.pg-stage-frame{flex:1;display:flex;align-items:flex-start;justify-content:center;background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:28px;min-height:260px;overflow:auto;}
-.pg-viewport{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:10px;padding:20px 24px;transition:width .2s;flex:none;max-width:100%;}
+.pg-stage-frame{flex:1;display:flex;align-items:flex-start;justify-content:flex-start;background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:28px;min-height:260px;overflow:hidden;}
+.pg-scale{flex:none;transform-origin:top left;}
+.pg-viewport{padding:0;flex:none;}
 .ws-cap{font:var(--type-body-xs);color:var(--text-inactive);margin:12px 0 0;text-wrap:pretty;}
 /* demo helpers */
 .demo-stack{display:flex;flex-direction:column;gap:28px;}
@@ -83,12 +84,12 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .stagebg{background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:20px 24px;min-width:0;}
 .stagebg--white{background:var(--bg-tile);}
 /* anatomy */
-.anat{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start;}
-@media(max-width:860px){.anat{grid-template-columns:1fr;}}
-.anat__stage{background:color-mix(in srgb,var(--primary) 5%,#fff);border:1px solid var(--border-light);border-radius:14px;padding:52px 40px;}
-.anat-dia{position:relative;width:100%;}
+.anat{display:flex;flex-direction:column;gap:28px;}
+.anat__stage{background:color-mix(in srgb,var(--primary) 5%,#fff);border:1px solid var(--border-light);border-radius:14px;padding:52px 40px;overflow-x:auto;}
+.anat-dia{position:relative;width:100%;min-width:820px;}
 .mk{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--text-primary);color:#fff;font:700 12px/24px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:5;pointer-events:none;}
-.anat__legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.anat__legend{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:18px 28px;}
+@media(max-width:760px){.anat__legend{grid-template-columns:1fr;}}
 .anat__legend li{display:flex;gap:12px;align-items:flex-start;}
 .anat__legend li .n{width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font:700 12px/24px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px;}
 .anat__legend li .k{font:var(--type-body-m-strong);color:var(--text-primary);display:block;}
@@ -138,7 +139,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.0</b></span>
+    <span>Версия <b>v1.4</b></span>
     <span>Обновлено <b>14.07.2026</b></span>
     <span>CSS <b>styles/page-header.css</b></span>
     <span>Зависимости <b>button, icon-button, chip, badge, context-menu, tooltip, breadcrumbs</b></span>
@@ -181,7 +182,8 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
         <div class="lbl">Подзаголовок</div>
         <div class="pg-select"><select id="ctl-sub">
           <option value="none">Нет</option>
-          <option value="std">Стандартный (иконка + текст)</option>
+          <option value="text">Просто текст</option>
+          <option value="std">Текст с иконкой</option>
           <option value="custom" selected>Кастомный (мета-элементы)</option>
         </select></div>
       </div>
@@ -214,11 +216,13 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     <div class="pg__stage">
       <div class="pg__stagebox">
         <div class="pg-stage-frame">
-          <div class="pg-viewport" id="demo-viewport" style="width:1100px;">
-            <div id="demo-phead"></div>
+          <div class="pg-scale" id="demo-scale">
+            <div class="pg-viewport" id="demo-viewport" style="width:1100px;">
+              <div id="demo-phead"></div>
+            </div>
           </div>
         </div>
-        <p class="ws-cap">На ширине Mobile компонент переключается в раскладку <code class="tok">.phead--stack</code>: actions переносятся вниз на всю ширину, Title переносится максимум в две строки.</p>
+        <p class="ws-cap">На ширине Tablet чипы и кнопка возврата переносятся отдельной строкой под подзаголовок (<code class="tok">.phead__extras</code>); на Mobile компонент переключается в раскладку <code class="tok">.phead--stack</code>: actions переносятся вниз на всю ширину, Title переносится максимум в две строки.</p>
       </div>
     </div>
   </div>
@@ -249,15 +253,6 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   </div>
 
   <div class="subsec">
-    <h3>Сравнение с соседними компонентами</h3>
-    <ul class="bullets">
-      <li><b>Breadcrumbs</b> — путь до страницы; отдельный компонент строкой над PageHeader, в состав не входит.</li>
-      <li><b>TileHeader</b> — заголовок блока внутри страницы: токен на два шага меньше (H5 Strong), действия — IconButton, а не Button M.</li>
-      <li><b>TableFilter</b> — панель фильтра; ставится ниже PageHeader, над таблицей.</li>
-    </ul>
-  </div>
-
-  <div class="subsec">
     <h3>Примеры в интерфейсе</h3>
     <p class="desc">Типовые страницы продукта: список сущностей (Title + Actions), карточка сделки (Title + Edit + Chips + Actions + MenuButton), вложенная страница (Title + Return).</p>
     <div class="panel demo-stack">
@@ -280,7 +275,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
 <!-- 3. АНАТОМИЯ -->
 <section class="section" id="anatomy" data-screen-label="Анатомия">
   <h2>Анатомия</h2>
-  <p class="desc">Все части, кроме Title, опциональны и включаются независимо. Слева — колонка Header_Title + Header_Subtitle, справа — Header_Actions.</p>
+  <p class="desc">Все части, кроме Title, опциональны и включаются независимо. Диаграмма показывает максимальный состав; ниже — расшифровка всех восьми частей.</p>
   <div class="panel">
     <div class="anat">
       <div class="anat__stage">
@@ -334,9 +329,10 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
 
   <div class="subsec">
     <h3>Подзаголовок</h3>
-    <p class="desc">Стандартный — текст Body S с опциональной иконкой слева или справа. Кастомный — встроенные мета-элементы (иконка + значение, Body XS), например количество документов и версия.</p>
+    <p class="desc">Три вида: просто текст (Body S), текст с иконкой слева/справа, или кастомный — встроенные мета-элементы (иконка + значение, Body XS), например количество документов и версия.</p>
     <div class="panel demo-stack">
-      <div class="demo-item"><div class="cap">Стандартный · иконка + текст</div><div class="stagebg" id="v-sub-std"></div></div>
+      <div class="demo-item"><div class="cap">Просто текст</div><div class="stagebg" id="v-sub-text"></div></div>
+      <div class="demo-item"><div class="cap">Текст с иконкой</div><div class="stagebg" id="v-sub-std"></div></div>
       <div class="demo-item"><div class="cap">Кастомный · мета-элементы</div><div class="stagebg" id="v-sub-custom"></div></div>
     </div>
   </div>
@@ -353,9 +349,9 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
 
   <div class="subsec">
     <h3>Dashboard · на подложке</h3>
-    <p class="desc">На дашборд-страницах заголовок ставится на подложку <code class="tok">--bgtable-pinned</code> (радиус 8, паддинг 12/16), чтобы отделить его от плотного контента виджетов. Состав частей тот же.</p>
+    <p class="desc">Заголовок ставится на белую подложку <code class="tok">--bg-tile</code> (радиус 8, паддинг 12/16) — на дашбордах и в кейсах, когда заголовок размещается на отдельной белой панели, отдельно от плотного контента. Состав частей тот же.</p>
     <div class="panel demo-stack">
-      <div class="demo-item"><div class="cap">Dashboard = Yes</div><div class="stagebg stagebg--white" id="v-dash"></div></div>
+      <div class="demo-item"><div class="cap">Dashboard = Yes</div><div class="stagebg" id="v-dash"></div></div>
     </div>
   </div>
 </section>
@@ -370,7 +366,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
       <tbody>
         <tr><td>Title</td><td>28/32 · H3 Strong</td><td>одна строка, усечение ellipsis</td></tr>
         <tr><td>Иконка слева</td><td>24×24</td><td>--text-inactive</td></tr>
-        <tr><td>Edit</td><td>IconButton S · 32×32</td><td>глиф 20</td></tr>
+        <tr><td>Edit</td><td>IconButton S · 24×24</td><td>глиф 20</td></tr>
         <tr><td>Чип</td><td>Chip ReadOnly S · 24</td><td>gap между чипами 8</td></tr>
         <tr><td>Return</td><td>Button Outline XS · 24</td><td>иконка 16 + подпись</td></tr>
         <tr><td>Subtitle</td><td>14/16 · Body S</td><td>иконка 16</td></tr>
@@ -421,10 +417,10 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
 
   <div class="subsec">
     <h3>Адаптивность</h3>
-    <p class="desc">Компонент адаптируется к ширине контентной области вплоть до мобильной версии: сначала второстепенные кнопки Actions сворачиваются в MenuButton, затем блок Actions переносится под заголовок на всю ширину, Title получает право на перенос максимум в две строки.</p>
+    <p class="desc">Компонент адаптируется к ширине контентной области вплоть до мобильной версии: сначала второстепенные кнопки Actions сворачиваются в MenuButton, а чипы и кнопка возврата переносятся отдельной строкой под подзаголовок (<code class="tok">.phead__extras</code>); затем блок Actions переносится под заголовок на всю ширину, Title получает право на перенос максимум в две строки.</p>
     <div class="panel demo-stack">
       <div class="demo-item"><div class="cap">≥ 1024 · полный ряд</div><div class="stagebg" id="b-ad-desktop"></div></div>
-      <div class="demo-item"><div class="cap">&lt; 1024 · второстепенные действия в меню</div><div class="stagebg" id="b-ad-tablet" style="max-width:720px;"></div></div>
+      <div class="demo-item"><div class="cap">&lt; 1024 · чипы и Return отдельной строкой, второстепенные действия в меню</div><div class="stagebg" id="b-ad-tablet" style="max-width:720px;"></div></div>
       <div class="demo-item"><div class="cap">&lt; 720 · мобильная раскладка .phead--stack</div><div class="stagebg" id="b-ad-mobile" style="max-width:375px;"></div></div>
     </div>
   </div>
@@ -483,7 +479,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     </div>
     <div class="cref-group">
       <h3>Вариант Dashboard</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable-pinned);"></span><b>--bgtable-pinned</b><span>Подложка</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bg-tile);"></span><b>--bg-tile</b><span>Белая подложка</span></div>
     </div>
   </div>
 </section>
@@ -505,7 +501,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
         <tr><td>Зазор main ↔ actions</td><td id="rl-rootgap">—</td><td>16px</td></tr>
         <tr><td>Зазор кнопок Actions</td><td id="rl-actgap">—</td><td>8px</td></tr>
         <tr><td>Мин. высота title-row</td><td id="rl-rowh">—</td><td>32px (строка H3)</td></tr>
-        <tr><td>Паддинг Dashboard-подложки</td><td id="rl-dash">—</td><td>12px / 16px · радиус <code class="tok">--radius-m</code></td></tr>
+        <tr><td>Паддинг Dashboard-подложки</td><td id="rl-dash">—</td><td>12px / 16px · фон <code class="tok">--bg-tile</code> · радиус <code class="tok">--radius-m</code></td></tr>
       </tbody>
     </table>
   </div>

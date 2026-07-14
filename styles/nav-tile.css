@@ -1,0 +1,111 @@
+/* ============================================================
+   NAVTILE — навигационная плитка главной страницы платформы.
+   Клик по плитке ведёт на страницу раздела. Вариант --links
+   добавляет список быстрых ссылок; кликабелен только заголовок.
+   Ширина: 3 колонки сетки из 12 (до 4 плиток в ряд).
+   Только токены ДС. Зависимости: colors, radius, shadow,
+   typography, link (вариант --links), illustration (слот).
+   ============================================================ */
+
+/* ---------- сетка плиток ----------
+   Контейнерные запросы: адаптив считается от РЕАЛЬНОЙ ширины сетки
+   (а не ширины окна) — корректно и на полноширинной главной странице,
+   и в узкой демо-панели документации. */
+.ntile-grid {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+.ntile-grid > .ntile { grid-column: span 3; }
+
+@container (max-width: 1100px) { .ntile-grid > .ntile { grid-column: span 4; } }
+@container (max-width: 700px)  { .ntile-grid > .ntile { grid-column: span 6; } }
+@container (max-width: 450px)  { .ntile-grid > .ntile { grid-column: span 12; } }
+
+/* ---------- плитка ----------
+   Горизонтальная раскладка: текст слева, иллюстрация справа. */
+.ntile {
+  --ntile-pad: 24px;
+  --ntile-illu: 96px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: 140px;
+  padding: var(--ntile-pad);
+  padding-right: calc(var(--ntile-pad) + var(--ntile-illu) + 16px);
+  background: var(--bg-tile);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+
+/* ---------- части ---------- */
+.ntile__illu {
+  position: absolute;
+  right: var(--ntile-pad);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--ntile-illu);
+  height: var(--ntile-illu);
+}
+.ntile__title {
+  font: var(--type-h5-strong);
+  color: var(--text-primary);
+  margin: 0;
+}
+.ntile__desc {
+  font: var(--type-body-s);
+  color: var(--text-secondary);
+  margin: 0;
+}
+.ntile__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+/* заголовок-ссылка в варианте --links */
+.ntile__title-link {
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-xs);
+}
+.ntile__title-link:hover .ntile__title { color: var(--primary); }
+.ntile__title-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ---------- состояния (кликабельная плитка) ---------- */
+a.ntile:hover,
+a.ntile.is-hover {
+  border-color: var(--border-primary);
+  box-shadow: var(--elevation-2);
+}
+a.ntile:focus-visible,
+a.ntile.is-focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Disabled — раздел недоступен (нет прав / не подключён) */
+.ntile.is-disabled,
+.ntile[aria-disabled="true"] {
+  pointer-events: none;
+  border-color: var(--border-light);
+  box-shadow: none;
+}
+.ntile.is-disabled .ntile__title,
+.ntile[aria-disabled="true"] .ntile__title { color: var(--text-inactive); }
+.ntile.is-disabled .ntile__desc,
+.ntile[aria-disabled="true"] .ntile__desc { color: var(--text-inactive); }
+.ntile.is-disabled .ntile__illu,
+.ntile[aria-disabled="true"] .ntile__illu { filter: grayscale(1); opacity: .4; }

@@ -9,6 +9,7 @@
       cat: 'Основы',
       items: [
         { label: 'Иконки',      href: 'pages/foundations/Icons.html' },
+        { label: 'Иллюстрации', href: 'pages/foundations/Illustrations.html' },
         { label: 'Скругления',  href: 'pages/foundations/Radius.html' },
         { label: 'Тени',        href: 'pages/foundations/Elevation.html' },
         { label: 'Типографика', href: 'pages/foundations/Typography.html' },
@@ -46,6 +47,7 @@
             { label: 'InputDate',        href: 'pages/molecules/InputDate.html' },
             { label: 'InputDateRange',   href: 'pages/molecules/InputDateRange.html' },
             { label: 'InputText',        href: 'pages/molecules/InputText.html' },
+            { label: 'NavTile',          href: 'pages/molecules/NavTile.html' },
             { label: 'Pagination',       href: 'pages/molecules/Pagination.html' },
             { label: 'ReadOnlyField',    href: 'pages/molecules/ReadOnlyField.html' },
             { label: 'SegmentControl',   href: 'pages/molecules/SegmentControl.html' },

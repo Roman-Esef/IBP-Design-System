@@ -21,6 +21,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | Entity | specs/Entity.md | styles/entity.css | avatar, chip, icon-button, button, badge | v1.1 |
 | IconButton | specs/IconButton.md | styles/icon-button.css | badge | v1.2 |
 | Icons | specs/Icons.md | — | — | v1.0 |
+| Illustrations | specs/Illustrations.md | styles/illustration.css | — | v1.0 |
 | InputAmountRange | specs/InputAmountRange.md | styles/input-range.css | input, label-helper, tooltip | v1.3 |
 | InputAutocomplete | specs/InputAutocomplete.md | styles/input.css | label-helper, checkbox, chip, tooltip, dropdown-list | v1.7 |
 | InputDate | specs/InputDate.md | styles/input.css | label-helper, tooltip | v1.5 |
@@ -30,6 +31,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | Link | specs/Link.md | styles/link.css | breadcrumbs | v1.4 |
 | Modal | specs/Modal.md | styles/modal.css | button, icon-button, label-helper, checkbox | v1.1 |
 | NavPanel | specs/NavPanel.md | styles/nav-panel.css | icon-button, badge, avatar | v1.4 |
+| NavTile | specs/NavTile.md | styles/nav-tile.css | illustration, link | v1.0 |
 | Pagination | specs/Pagination.md | styles/pagination.css | dropdown-list, checkbox, label-helper, button, splitter | v1.4 |
 | Popover | specs/Popover.md | styles/popover.css | button, icon-button, link, chip, label-helper | v1.1 |
 | ProgressBar | specs/ProgressBar.md | styles/progress-bar.css | label-helper | v1.1 |

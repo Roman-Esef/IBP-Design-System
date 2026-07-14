@@ -25,6 +25,7 @@
 .phead__title-row{
   display:flex;
   align-items:center;
+  flex-wrap:wrap;
   gap:8px;
   min-width:0;
   min-height:32px;
@@ -36,12 +37,20 @@
   color:var(--text-inactive);
 }
 .phead__title-ico svg{width:24px;height:24px;}
+/* IconLeft + Title + Edit — неразрывная группа: не переносятся отдельно от заголовка */
+.phead__title-group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  flex:0 1 auto;
+}
 .phead__title{
   font:var(--type-h3-strong);
   letter-spacing:0;
   color:var(--text-primary);
   margin:0;
-  min-width:0;
+  min-width:120px;
   overflow:hidden;
   white-space:nowrap;
   text-overflow:ellipsis;
@@ -102,9 +111,20 @@
   margin-left:auto;
 }
 
-/* ---- Вариант: Dashboard (на подложке) ---- */
+/* ---- Extras: чипы и Return отдельной строкой (tablet/mobile) ---- */
+.phead__extras{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:2px;
+}
+.phead__extras .phead__chips,
+.phead__extras .phead__return{margin-left:0;}
+
+/* ---- Вариант: Dashboard (на белой подложке) ---- */
 .phead--dashboard{
-  background:var(--bgtable-pinned);
+  background:var(--bg-tile);
   border-radius:var(--radius-m);
   padding:12px 16px;
 }

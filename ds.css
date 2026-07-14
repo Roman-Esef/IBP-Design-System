@@ -10,6 +10,7 @@
 @import url("styles/colors.css");
 @import url("styles/radius.css");
 @import url("styles/shadow.css");
+@import url("styles/illustration.css");
 
 /* Атомы */
 @import url("styles/button.css");
@@ -39,6 +40,7 @@
 @import url("styles/splitter.css");
 @import url("styles/input.css");
 @import url("styles/input-range.css");
+@import url("styles/nav-tile.css");
 
 /* Организмы */
 @import url("styles/modal.css");

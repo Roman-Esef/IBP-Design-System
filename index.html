@@ -125,7 +125,9 @@
   footer.foot { margin-top:90px; padding-top:26px; border-top:1px solid var(--border-light);
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 </style>
-  <link rel="stylesheet" href="styles/ds-nav.css">
+  <link rel="stylesheet" href="styles/illustration.css">
+<link rel="stylesheet" href="styles/nav-tile.css">
+<link rel="stylesheet" href="styles/ds-nav.css">
 </head>
 <body>
 <main class="page" data-screen-label="DS Home">
@@ -136,7 +138,7 @@
     <p class="lead">Единый источник правды: токены типографики и цвета, на которых собраны все компоненты. Гарнитуры SB Sans, семантическая палитра, библиотека UI.</p>
     <div class="meta">
       <div class="m"><p class="k">Основы</p><p class="v">Типографика · Цвета</p></div>
-      <div class="m"><p class="k">Компоненты</p><p class="v">27 компонентов · 11 атомов · 14 молекул · 2 организма</p></div>
+      <div class="m"><p class="k">Компоненты</p><p class="v">28 компонентов · 11 атомов · 15 молекул · 2 организма</p></div>
       <div class="m"><p class="k">Шрифты</p><p class="v">SB Sans Display · Text · Screen</p></div>
     </div>
     <div class="stripe" id="stripe"></div>
@@ -144,7 +146,7 @@
 
   <!-- FOUNDATIONS -->
   <section class="sec" data-screen-label="Foundations">
-    <div class="sec-head"><h2>Основы</h2><span class="n">5 разделов</span></div>
+    <div class="sec-head"><h2>Основы</h2><span class="n">6 разделов</span></div>
     <div class="grid">
       <a class="card" href="pages/foundations/Icons.html">
         <div class="card__preview">
@@ -154,6 +156,21 @@
           <h3 class="card__title">Иконки</h3>
           <p class="card__desc">Набор иконок 24×24 для компонентов и интерфейсов. Стиль Outline, заливка <code>currentColor</code>.</p>
           <div class="card__meta"><span class="tag">Foundations</span><span class="tag file">Icons.html</span></div>
+          <span class="card__go">Открыть раздел <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="pages/foundations/Illustrations.html">
+        <div class="card__preview">
+          <div style="display:flex; gap:14px; align-items:center;">
+            <span class="illu" data-illu="deals" style="width:64px; height:64px;"></span>
+            <span class="illu" data-illu="reports" style="width:64px; height:64px;"></span>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Иллюстрации</h3>
+          <p class="card__desc">Библиотека продуктовых иллюстраций: 32 тайловых, 4 состояния ошибок и фоновая — для NavTile, пустых состояний и онбординга.</p>
+          <div class="card__meta"><span class="tag">Foundations</span><span class="tag file">Illustrations.html</span></div>
           <span class="card__go">Открыть раздел <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
@@ -365,7 +382,7 @@
 
   <!-- MOLECULES -->
   <section class="sec" data-screen-label="Molecules">
-    <div class="sec-head"><h2>Молекулы</h2><span class="n">16 компонентов</span></div>
+    <div class="sec-head"><h2>Молекулы</h2><span class="n">17 компонентов</span></div>
     <div class="grid">
       <a class="card" href="pages/molecules/Breadcrumbs.html">
         <div class="card__preview">
@@ -513,6 +530,22 @@
           <h3 class="card__title">InputText</h3>
           <p class="card__desc">Базовое поле ввода текста: префикс/постфикс, иконка поиска, очистка, многострочный режим и числовой InputAmount. Размеры M / S, все состояния. Конструктор внутри.</p>
           <div class="card__meta"><span class="tag">Молекулы</span><span class="tag file">InputText.html</span></div>
+          <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="pages/molecules/NavTile.html">
+        <div class="card__preview">
+          <div class="ntile" style="width:230px; min-height:96px; padding:16px; padding-right:84px; gap:6px; pointer-events:none;">
+            <span class="illu ntile__illu" data-illu="deals" style="width:56px; height:56px; right:14px;"></span>
+            <h3 class="ntile__title" style="font:var(--type-h6-strong);">Сделки</h3>
+            <p class="ntile__desc" style="font:var(--type-body-xs);">Кредитные линии и договоры</p>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">NavTile</h3>
+          <p class="card__desc">Навигационная плитка главной страницы: иллюстрация, название раздела, описание. Базовая и со ссылками на подразделы. Ширина — 3 колонки из 12. Конструктор внутри.</p>
+          <div class="card__meta"><span class="tag">Молекулы</span><span class="tag file">NavTile.html</span></div>
           <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
