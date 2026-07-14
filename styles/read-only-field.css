@@ -119,12 +119,11 @@ div.rof__value.rof__value--muted { color: var(--text-inactive); }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/* overflow: N lines → line-clamp (N supplied via --rof-clamp) */
+/* overflow: N lines → line-clamp (N supplied inline via --rof-clamp; default 2) */
 .rof__value--clamp-n {
-  --rof-clamp: 2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: var(--rof-clamp);
+  -webkit-line-clamp: var(--rof-clamp, 2);
   overflow: hidden;
   text-wrap: pretty;
 }

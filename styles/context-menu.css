@@ -154,7 +154,7 @@
 .menu__item[aria-checked="true"] .menu__item-check,
 .menu__item--selected .menu__item-check { opacity: 1; }
 .menu__item[aria-checked="true"] .menu__item-label,
-.menu__item--selected .menu__item-label { color: var(--text-black); font: var(--type-body-m-strong); }
+.menu__item--selected .menu__item-label { color: var(--text-primary); font: var(--type-body-m-strong); }
 
 /* ---------- danger (деструктивное действие) ------------------------------- */
 .menu__item--danger { color: var(--error-dark); }

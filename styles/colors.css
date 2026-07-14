@@ -113,8 +113,6 @@
   --text-primary:     var(--c-cgrey-600);
   --text-secondary:   var(--c-cgrey-500);
   --text-inactive:    var(--c-cgrey-300);
-  --text-black:       var(--c-cgrey-800);
-  --text-on-tertiary: var(--c-swamp-500);
   --text-on-dark:     var(--c-mgrey-50);
 
   /* BGTable */

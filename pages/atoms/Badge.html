@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Badge" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -26,13 +26,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:64ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:78ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -105,7 +105,7 @@
   .tone-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap:18px; }
   .tone-cell { border:1px solid var(--border-light); border-radius:12px; padding:20px 18px; display:flex; flex-direction:column; align-items:center; gap:14px; background:var(--bg-tile); }
   .tone-cell .swrow { display:flex; align-items:center; gap:12px; height:32px; }
-  .tone-cell .nm { font:var(--type-body-m-strong); color:var(--text-black); }
+  .tone-cell .nm { font:var(--type-body-m-strong); color:var(--text-primary); }
   .tone-cell .rl { font:var(--type-body-xs); color:var(--text-secondary); text-align:center; text-wrap:pretty; }
 
   /* ---------- usage tiles ---------- */
@@ -119,12 +119,12 @@
   .navcell { width:56px; height:56px; border-radius:14px; background:var(--bg-tile); border:1px solid var(--border-light); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); box-shadow:0 4px 14px rgba(40,50,55,.06); }
   .navcell svg { width:26px; height:26px; }
   /* avatar mock */
-  .avatar { width:48px; height:48px; border-radius:50%; background:var(--c-swamp-100); color:var(--text-on-tertiary); display:flex; align-items:center; justify-content:center; font:var(--type-body-m-strong); }
+  .avatar { width:48px; height:48px; border-radius:50%; background:var(--c-swamp-100); color:var(--text-primary); display:flex; align-items:center; justify-content:center; font:var(--type-body-m-strong); }
 
   /* tabs mock */
   .tabs { display:flex; gap:4px; border-bottom:1px solid var(--border-light); }
   .tab { display:inline-flex; align-items:center; gap:8px; padding:12px 14px 14px; font:var(--type-body-m); color:var(--text-secondary); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; }
-  .tab[aria-selected="true"] { color:var(--text-black); font-weight:600; border-bottom-color:var(--primary); }
+  .tab[aria-selected="true"] { color:var(--text-primary); font-weight:600; border-bottom-color:var(--primary); }
   .tab:hover { color:var(--text-primary); }
 
   /* list with trailing counts */
@@ -132,7 +132,7 @@
   .clist__row { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 14px; border-left:2px solid transparent; }
   .clist__row[aria-current="true"] { border-left-color:var(--primary); }
   .clist__row .nm { font:var(--type-body-m); color:var(--text-secondary); }
-  .clist__row[aria-current="true"] .nm { color:var(--text-black); }
+  .clist__row[aria-current="true"] .nm { color:var(--text-primary); }
 
   /* ---------- anatomy ---------- */
   .anat { display:grid; grid-template-columns: minmax(260px,1fr) minmax(240px,360px); gap:40px; align-items:center; }
@@ -142,13 +142,13 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); display:block; }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); display:block; }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* anatomy diagram */
   .anat-dia { position:relative; }
   .anat-dia .big { --bdg-size:48px; min-width:48px; height:48px; padding:0 14px; font:var(--weight-semibold) 22px/1 var(--font-text); }
-  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-black); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; }
+  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-primary); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; }
 
   /* ---------- do / don't ---------- */
   .guide { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
@@ -193,7 +193,7 @@
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -228,7 +228,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -338,12 +338,12 @@
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">
         <div style="display:flex; align-items:center; gap:18px; margin-bottom:16px;" id="type-counter"></div>
-        <p style="font:var(--type-h5-strong); color:var(--text-black); margin:0 0 6px;">Counter</p>
+        <p style="font:var(--type-h5-strong); color:var(--text-primary); margin:0 0 6px;">Counter</p>
         <p class="desc" style="margin:0;">Числовой счётчик. Поддерживает переполнение «99+». Скрывается при значении 0.</p>
       </div>
       <div class="panel" style="flex:1; min-width:280px;">
         <div style="display:flex; align-items:center; gap:18px; margin-bottom:16px; height:32px;" id="type-dot"></div>
-        <p style="font:var(--type-h5-strong); color:var(--text-black); margin:0 0 6px;">Dot</p>
+        <p style="font:var(--type-h5-strong); color:var(--text-primary); margin:0 0 6px;">Dot</p>
         <p class="desc" style="margin:0;">Точка 8px без числа. Сигнализирует о новом событии или статусе родителя.</p>
       </div>
     </div>
@@ -394,7 +394,7 @@
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
 <div class="subsec" data-screen-label="Overflow">
-    <h3>Переполнение и формат<span class="badge-new">Новое</span></h3>
+    <h3>Переполнение и формат</h3>
     <p class="desc">У счётчика есть максимум (по умолчанию 99). Если значение его превышает, бейдж показывает <code class="tok">max+</code> — например «99+», чтобы капсула не растягивалась бесконтрольно. В компактных местах (счётчик скрытых элементов, «ещё N») используется безфоновый текстовый вариант <code class="tok">badge--text</code> в формате «+99».</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:260px;">
@@ -409,7 +409,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Positioning">
-    <h3>Позиционирование<span class="badge-new">Новое</span></h3>
+    <h3>Позиционирование</h3>
     <p class="desc">Counter накладывается на правый верхний угол родителя и центрируется на его границе. Dot для статуса ставится в правый нижний угол (например, индикатор «онлайн» на аватаре). На цветном или фото-фоне у бейджа появляется белая обводка (<code class="tok">badge--bordered</code>), чтобы он читался отдельно от подложки.</p>
     <div class="panel">
       <div class="row" style="align-items:center; gap:48px; justify-content:center; padding:18px 0;" id="pos-demo"></div>
@@ -419,7 +419,7 @@
 
   <!-- STATES & BEHAVIOR -->
   <section class="section" data-screen-label="States">
-    <h2>Состояния<span class="badge-new">Новое</span></h2>
+    <h2>Состояния</h2>
     <p class="desc">Поведение бейджа определяется значением и состоянием родителя.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:260px;">
@@ -495,29 +495,8 @@
       <code class="tok">styles/badge.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- counter, наложенный на родителя (иконка) --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"badge-anchor"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Уведомления, 7"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"navcell"</span><span class="tk-tag">&gt;&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"badge badge--xs badge--accent badge--bordered"</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>7<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/span&gt;</span>
-
-<span class="tk-cm">&lt;!-- dot-статус на аватаре: без числа, описание — через aria-label родителя --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"badge-anchor"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Иван Белов, онлайн"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"avatar"</span><span class="tk-tag">&gt;</span>ИБ<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"badge badge--dot badge--success badge--bordered"</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/span&gt;</span>
-
-<span class="tk-cm">&lt;!-- безфоновый текстовый вариант «+N» --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"badge badge--m badge--neutral badge--text"</span><span class="tk-tag">&gt;</span>+99<span class="tk-tag">&lt;/span&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -538,57 +517,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">makeBadge</code> / <code class="tok">anchor</code> в коде этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Badge.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> BadgeType = <span class="tk-val">'counter'</span> | <span class="tk-val">'dot'</span>;
-<span class="tk-attr">type</span> BadgeSize = <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span> | <span class="tk-val">'xs'</span> | <span class="tk-val">'xxs'</span>;
-<span class="tk-attr">type</span> BadgeTone = <span class="tk-val">'neutral'</span> | <span class="tk-val">'accent'</span> | <span class="tk-val">'success'</span> | <span class="tk-val">'info'</span> | <span class="tk-val">'warning'</span> | <span class="tk-val">'error'</span>;
-
-<span class="tk-attr">interface</span> BadgeProps {
-  type?: BadgeType;               <span class="tk-cm">// по умолчанию 'counter'</span>
-  tone?: BadgeTone;                <span class="tk-cm">// по умолчанию 'neutral'</span>
-  size?: BadgeSize;                <span class="tk-cm">// по умолчанию 'm'; игнорируется для type='dot'</span>
-  value?: <span class="tk-attr">number</span>;              <span class="tk-cm">// только для counter</span>
-  max?: <span class="tk-attr">number</span>;                  <span class="tk-cm">// порог переполнения, по умолчанию 99</span>
-  showZero?: <span class="tk-attr">boolean</span>;            <span class="tk-cm">// показывать при value === 0 (по умолчанию скрыт)</span>
-  text?: <span class="tk-attr">boolean</span>;                <span class="tk-cm">// безфоновый вариант «+N»</span>
-  bordered?: <span class="tk-attr">boolean</span>;            <span class="tk-cm">// белая обводка для наложения на фото/цвет</span>
-  muted?: <span class="tk-attr">boolean</span>;               <span class="tk-cm">// следует за disabled-состоянием родителя</span>
-  'aria-hidden'?: <span class="tk-attr">boolean</span>;        <span class="tk-cm">// true, когда значение уже есть в aria-label родителя</span>
-}
-
-<span class="tk-attr">interface</span> BadgeAnchorProps {
-  children: [React.ReactNode, React.ReactNode]; <span class="tk-cm">// [родитель, Badge]</span>
-  dotPosition?: <span class="tk-val">'top-right'</span> | <span class="tk-val">'bottom-right'</span>; <span class="tk-cm">// по умолчанию 'bottom-right' для dot</span>
-  'aria-label'?: <span class="tk-attr">string</span>;         <span class="tk-cm">// описание для скрин-ридера, включая значение бейджа</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.badge</code></td><td>span</td><td class="dsc">Корень: капсула-контейнер, размер через CSS-переменные <code class="tok">--bdg-*</code></td></tr>
-          <tr><td><code class="tok">.badge--m / --s / --xs / --xxs</code></td><td>span</td><td class="dsc">Размер counter’а</td></tr>
-          <tr><td><code class="tok">.badge--dot</code></td><td>span</td><td class="dsc">Тип Dot — фиксированный круг 8px, без текста</td></tr>
-          <tr><td><code class="tok">.badge--neutral / --accent / --success / --info / --warning / --error</code></td><td>span</td><td class="dsc">Тон</td></tr>
-          <tr><td><code class="tok">.badge--text</code></td><td>span</td><td class="dsc">Безфоновый вариант «+N», без фиксированной высоты/паддинга</td></tr>
-          <tr><td><code class="tok">.badge--bordered</code></td><td>span</td><td class="dsc">Белая обводка 2px (<code class="tok">box-shadow</code>) для наложения на фото/цвет</td></tr>
-          <tr><td><code class="tok">.badge--muted</code></td><td>span</td><td class="dsc">Следует за disabled-состоянием родителя: цвет <code class="tok">--disabled</code> / <code class="tok">--text-inactive</code></td></tr>
-          <tr><td><code class="tok">.badge--animate</code></td><td>span</td><td class="dsc">Анимация появления при монтировании (уважает <code class="tok">prefers-reduced-motion</code>)</td></tr>
-          <tr><td><code class="tok">.badge-anchor</code></td><td>span</td><td class="dsc">Обёртка родителя (<code class="tok">position:relative</code>) — сюда ставится <code class="tok">aria-label</code></td></tr>
-          <tr><td><code class="tok">.badge-anchor--dot-tr</code></td><td>span</td><td class="dsc">Переключает dot в правый верхний угол 8вместо нижнего по умолчанию</td></tr>
-          <tr><td><code class="tok">aria-hidden="true"</code></td><td>span.badge</td><td class="dsc">Скрывает число от скрин-ридера, когда оно уже есть в <code class="tok">aria-label</code> родителя</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Badge</span>

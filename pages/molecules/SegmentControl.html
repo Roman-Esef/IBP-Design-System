@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="SegmentControl" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -28,7 +28,7 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:66ch; text-wrap:pretty; }
 
@@ -39,7 +39,7 @@
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:80ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .addon { font: var(--type-button-xs); letter-spacing:.06em; text-transform:uppercase; color: var(--primary); background: var(--primary-bg); padding:5px 10px; border-radius:999px; }
@@ -56,7 +56,7 @@
 
   code.tok { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius:5px; }
 
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 30px; }
   .demo-rowlabel { font: var(--type-body-xs); color: var(--text-inactive); margin-bottom:10px; }
 
@@ -111,14 +111,14 @@
   /* two-column comparison */
   .cols2 { display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:20px; }
   @media (max-width:680px){ .cols2{ grid-template-columns:1fr; } }
-  .demo-col__title { font: var(--type-h5-strong); color: var(--text-black); margin:0 0 4px; }
+  .demo-col__title { font: var(--type-h5-strong); color: var(--text-primary); margin:0 0 4px; }
   .demo-col__sub { font: var(--type-body-s); color: var(--text-secondary); margin:0 0 18px; text-wrap:pretty; }
 
   /* mock surfaces */
   .surface { border:1px solid var(--border-light); border-radius:12px; background:var(--bg-tile); padding:0; overflow:hidden; box-shadow:0 6px 26px -18px rgba(40,50,55,.4); min-width:0; }
   .surface__cap { font:var(--type-body-xs); color:var(--text-inactive); margin:14px 2px 0; text-wrap:pretty; }
   .mock-toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 20px; border-bottom:1px solid var(--border-light); flex-wrap:wrap; }
-  .mock-toolbar__title { font:var(--type-h6-strong); color:var(--text-black); }
+  .mock-toolbar__title { font:var(--type-h6-strong); color:var(--text-primary); }
   .mock-chart { padding:22px 22px 26px; }
   .mock-chart__bars { display:flex; align-items:flex-end; gap:8px; height:120px; margin-top:16px; }
   .mock-chart__bars span { flex:1; background: linear-gradient(180deg, var(--primary-light), var(--primary)); border-radius:5px 5px 0 0; opacity:.85; }
@@ -130,12 +130,12 @@
   @media (max-width:760px){ .anat { grid-template-columns:1fr; } }
   .anat__stage { background: var(--tertiary-light); border:1px solid var(--border-light); border-radius:14px; padding:70px 44px; display:flex; justify-content:center; }
   .anat-dia { position:relative; }
-  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-black); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; transform:translate(-50%,-50%); }
+  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-primary); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; transform:translate(-50%,-50%); }
   .anat__legend { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; counter-reset:a; }
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); display:block; }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); display:block; }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* state spec tables */
@@ -143,7 +143,7 @@
   .spec + .spec { margin-top:16px; }
   .spec__row { display:grid; grid-template-columns: 210px 200px 1fr; align-items:center; gap:16px; padding:20px; }
   @media (max-width:760px){ .spec__row{ grid-template-columns:1fr; gap:14px; } }
-  .spec__state { font:var(--type-body-m-strong); color:var(--text-black); }
+  .spec__state { font:var(--type-body-m-strong); color:var(--text-primary); }
   .spec__sample { display:flex; justify-content:center; }
   .spec__colors { display:flex; flex-direction:column; gap:7px; }
   .spec__cline { display:grid; grid-template-columns: 150px 18px 150px 1fr; align-items:center; gap:10px; font:var(--type-body-s); color:var(--text-secondary); }
@@ -198,7 +198,7 @@
   @media (max-width:900px){ .diff { grid-template-columns:1fr; } }
   .diff__card { border:1px solid var(--border-light); border-radius:14px; padding:22px 22px 24px; background: var(--bg-tile); display:flex; flex-direction:column; gap:12px; }
   .diff__card.is-current { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary) inset; }
-  .diff__card h4 { font: var(--type-h6-strong); color: var(--text-black); margin:0; display:flex; align-items:center; gap:8px; }
+  .diff__card h4 { font: var(--type-h6-strong); color: var(--text-primary); margin:0; display:flex; align-items:center; gap:8px; }
   .diff__card h4 .star { font: var(--type-button-xs); text-transform:uppercase; letter-spacing:.06em; color: var(--primary); background: var(--primary-bg); padding:3px 8px; border-radius:999px; }
   .diff__card p { font: var(--type-body-s); color: var(--text-secondary); margin:0; text-wrap:pretty; }
   .diff__card .stage { min-height:52px; display:flex; align-items:center; }
@@ -248,7 +248,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -459,7 +459,7 @@
   </div>
   
 <div class="subsec" data-screen-label="ItemDisabled">
-    <h3>Отключение одного сегмента <span class="addon">Расширение</span></h3>
+    <h3>Отключение одного сегмента</h3>
     <p class="desc">Частный случай: один сегмент временно недоступен (например, тариф вне подписки), при этом остальной контрол активен. Такой сегмент нельзя выбрать и сфокусировать — используйте точечно, по умолчанию Disabled действует на весь контрол.</p>
     <div class="panel"><div id="item-disabled-demo"></div></div>
   </div>
@@ -474,7 +474,7 @@
 
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
-    <h2>Доступность <span class="addon">Расширение</span></h2>
+    <h2>Доступность</h2>
     <p class="desc">Контейнер получает <code class="tok">role="radiogroup"</code> и осмысленный <code class="tok">aria-label</code> (например «Период»); каждый сегмент — <code class="tok">role="radio"</code> с <code class="tok">aria-checked</code>. Фокус — по одному активному сегменту (roving tabindex), переключение между сегментами и смена выбора — стрелками ← → (или ↑ ↓), <code class="tok">Home</code> / <code class="tok">End</code> — к первому/последнему. Сегмент только с иконкой обязан иметь <code class="tok">aria-label</code>.</p>
   </section>
 
@@ -499,7 +499,7 @@
 
   <!-- DEVELOPER HANDOFF -->
   <section class="section" data-screen-label="Dev">
-    <h2>Для разработчиков <span class="addon">Расширение</span></h2>
+    <h2>Для разработчиков</h2>
     <p class="desc">Эта страница ДС собрана на чистых CSS-классах и vanilla JS — но всё ниже не привязано к стеку: команда, которая верстает компонент на React (или любом другом фреймворке), может взять отсюда анатомию, точные размеры, состояния и цвета, чтобы собрать свою реализацию, не заглядывая в этот код построчно.</p>
 
     <p class="subhead">Точные размеры (redline)</p>
@@ -520,33 +520,8 @@
       <span class="req">— и <code class="tok">styles/badge.css</code>, если используется счётчик.</span>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req" style="font-weight:400;">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- thumb идёт первым ребёнком — сегменты .segctrl__item начинаются со второго --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"segctrl segctrl--m"</span> <span class="tk-attr">role=</span><span class="tk-val">"radiogroup"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Период"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"segctrl__thumb"</span><span class="tk-tag">&gt;&lt;/div&gt;</span>
-
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"segctrl__item"</span> <span class="tk-attr">role=</span><span class="tk-val">"radio"</span> <span class="tk-attr">aria-checked=</span><span class="tk-val">"false"</span> <span class="tk-attr">tabindex=</span><span class="tk-val">"-1"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"segctrl__label"</span><span class="tk-tag">&gt;</span>Неделя<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/button&gt;</span>
-
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"segctrl__item"</span> <span class="tk-attr">role=</span><span class="tk-val">"radio"</span> <span class="tk-attr">aria-checked=</span><span class="tk-val">"true"</span> <span class="tk-attr">tabindex=</span><span class="tk-val">"0"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"segctrl__label"</span><span class="tk-tag">&gt;</span>Месяц<span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-cm">&lt;!-- опциональный счётчик — реальный Badge, вариант --text (без заливки) --&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"badge badge--text badge--s"</span><span class="tk-tag">&gt;</span>12<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/button&gt;</span>
-
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"segctrl__item"</span> <span class="tk-attr">role=</span><span class="tk-val">"radio"</span> <span class="tk-attr">aria-checked=</span><span class="tk-val">"false"</span> <span class="tk-attr">tabindex=</span><span class="tk-val">"-1"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"segctrl__label"</span><span class="tk-tag">&gt;</span>Год<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/button&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span class="copy-label">Копировать</span></button>
@@ -584,55 +559,7 @@ useEffect(() => {
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который нужно реализовать поверх вашего стека (в этом ДС он написан на vanilla JS, см. <code class="tok">segment-control.page.js</code>, функции <code class="tok">positionThumb</code> и <code class="tok">wireSegControl</code>, если нужен рабочий референс).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">SegmentControl.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> SegmentControlSize = <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span> | <span class="tk-val">'xs'</span>;
-
-<span class="tk-attr">interface</span> SegmentControlItem {
-  value: <span class="tk-attr">string</span>;              <span class="tk-cm">// уникальный ключ сегмента</span>
-  label?: <span class="tk-attr">string</span>;              <span class="tk-cm">// опустить для icon-only</span>
-  icon?: React.ReactNode;      <span class="tk-cm">// 20/18/16px по размеру</span>
-  badge?: <span class="tk-attr">number</span> | <span class="tk-attr">string</span>;      <span class="tk-cm">// счётчик — рендерить как Badge variant="text"</span>
-  disabled?: <span class="tk-attr">boolean</span>;           <span class="tk-cm">// точечное отключение сегмента</span>
-  ariaLabel?: <span class="tk-attr">string</span>;           <span class="tk-cm">// обязателен, если label не задан</span>
-}
-
-<span class="tk-attr">interface</span> SegmentControlProps {
-  items: SegmentControlItem[];
-  value: <span class="tk-attr">string</span>;                              <span class="tk-cm">// controlled-компонент</span>
-  onChange: (value: <span class="tk-attr">string</span>) => <span class="tk-attr">void</span>;
-  size?: SegmentControlSize;                     <span class="tk-cm">// по умолчанию 'm'</span>
-  fullWidth?: <span class="tk-attr">boolean</span>;                         <span class="tk-cm">// по умолчанию false</span>
-  disabled?: <span class="tk-attr">boolean</span>;                          <span class="tk-cm">// отключает весь контрол</span>
-  <span class="tk-val">'aria-label'</span>: <span class="tk-attr">string</span>;                      <span class="tk-cm">// обязателен на радиогруппе</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table" id="dev-classes-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.segctrl</code></td><td>контейнер</td><td class="dsc">Трек — <code class="tok">role="radiogroup"</code>, обязателен <code class="tok">aria-label</code></td></tr>
-          <tr><td><code class="tok">.segctrl--m / --s / --xs</code></td><td>контейнер</td><td class="dsc">Размер: высота, паддинги, типографика, иконка</td></tr>
-          <tr><td><code class="tok">.segctrl--fullwidth</code></td><td>контейнер</td><td class="dsc">Сегменты растягиваются на равную ширину на 100% контейнера</td></tr>
-          <tr><td><code class="tok">.segctrl--disabled</code> / <code class="tok">[aria-disabled="true"]</code></td><td>контейнер</td><td class="dsc">Отключает весь контрол целиком</td></tr>
-          <tr><td><code class="tok">.segctrl__thumb</code></td><td>div, первый ребёнок</td><td class="dsc">Плавающий индикатор; ширина/позиция задаются JS (<code class="tok">positionThumb</code>)</td></tr>
-          <tr><td><code class="tok">.segctrl__item</code></td><td>button</td><td class="dsc">Сегмент — <code class="tok">role="radio"</code>, roving <code class="tok">tabindex</code></td></tr>
-          <tr><td><code class="tok">.segctrl__item--icon-only</code></td><td>button</td><td class="dsc">Сегмент без текста — обязателен <code class="tok">aria-label</code> на кнопке</td></tr>
-          <tr><td><code class="tok">.segctrl__label</code></td><td>span</td><td class="dsc">Текст сегмента, обрезается многоточием при нехватке места</td></tr>
-          <tr><td><code class="tok">[aria-checked="true"]</code></td><td>button</td><td class="dsc">Выбранный сегмент — под ним стоит индикатор</td></tr>
-          <tr><td><code class="tok">[aria-disabled="true"]</code></td><td>button (точечно)</td><td class="dsc">Отключает один сегмент, остальной контрол активен</td></tr>
-          <tr><td><code class="tok">.badge.badge--text.badge--{s|xs|xxs}</code></td><td>span в сегменте</td><td class="dsc">Опциональный счётчик содержимого — компонент Badge, вариант без заливки</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · SegmentControl</span>

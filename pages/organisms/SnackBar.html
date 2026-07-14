@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="SnackBar" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -25,18 +25,18 @@ body{margin:0;font-family:var(--font-text),system-ui,sans-serif;color:var(--text
 .masthead .meta{font:var(--type-body-xs);color:var(--text-inactive);display:flex;gap:24px;margin:0 0 22px;flex-wrap:wrap;}
 .masthead .meta b{color:var(--text-secondary);font-weight:600;}
 .eyebrow{font:var(--type-button-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin:0 0 14px;}
-.masthead h1{font:var(--type-h1);margin:0 0 14px;color:var(--text-black);}
+.masthead h1{font:var(--type-h1);margin:0 0 14px;color:var(--text-primary);}
 @media(max-width:600px){.masthead h1{font-size:40px;line-height:48px;}}
 .masthead p.lead{font:var(--type-body-l);color:var(--text-secondary);margin:0;max-width:66ch;text-wrap:pretty;}
 .crumb{display:inline-flex;align-items:center;gap:7px;font:var(--type-body-s);color:var(--text-inactive);text-decoration:none;margin-bottom:20px;}
 .crumb:hover{color:var(--primary);}
 a{color:var(--link);} a:hover{color:var(--link-dark);}
 .section{margin-top:76px;}
-.section>h2{font:var(--type-h3-strong);margin:0 0 8px;color:var(--text-black);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.section>h2{font:var(--type-h3-strong);margin:0 0 8px;color:var(--text-primary);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
 .section>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 28px;max-width:80ch;text-wrap:pretty;}
 .panel{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:16px;padding:32px 34px;}
 .panel+.panel{margin-top:16px;}
-.subhead{font:var(--type-body-m-strong);color:var(--text-black);margin:32px 0 14px;}
+.subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:32px 0 14px;}
 .subhead:first-child{margin-top:0;}
 ul.bullets{margin:0 0 0 2px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;}
 ul.bullets li{position:relative;padding-left:18px;font:var(--type-body-m);color:var(--text-secondary);}
@@ -65,7 +65,7 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 /* mock screen */
 .mock-screen{position:relative;border-radius:12px;border:1px solid var(--border-light);background:var(--bg-page);overflow:hidden;min-height:380px;display:flex;flex-direction:column;}
 .mock-topbar{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--bg-tile);border-bottom:1px solid var(--border-light);flex:none;}
-.mock-title{font:var(--type-body-m-strong);color:var(--text-black);}
+.mock-title{font:var(--type-body-m-strong);color:var(--text-primary);}
 .mock-time{font:var(--type-body-xs);color:var(--text-inactive);}
 .mock-body{flex:1;padding:14px;}
 .mock-rows{display:flex;flex-direction:column;gap:8px;}
@@ -80,11 +80,11 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .anat__stage{background:color-mix(in srgb,var(--primary) 5%,#fff);border:1px solid var(--border-light);border-radius:14px;padding:50px 44px;display:flex;justify-content:center;}
 .anat-dia{position:relative;display:inline-block;}
 .anat-dia .snack{width:252px;}
-.mk{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--text-black);color:#fff;font:700 12px/22px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:5;pointer-events:none;}
+.mk{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--text-primary);color:#fff;font:700 12px/22px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:5;pointer-events:none;}
 .anat__legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
 .anat__legend li{display:flex;gap:12px;align-items:flex-start;}
 .anat__legend li .n{width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font:700 12px/22px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;}
-.anat__legend li .k{font:var(--type-body-m-strong);color:var(--text-black);display:block;}
+.anat__legend li .k{font:var(--type-body-m-strong);color:var(--text-primary);display:block;}
 .anat__legend li .d{font:var(--type-body-s);color:var(--text-secondary);}
 /* states */
 .states-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
@@ -119,7 +119,7 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .cref{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
 @media(max-width:700px){.cref{grid-template-columns:1fr;}}
 .cref-group{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:14px;overflow:hidden;}
-.cref-group>h3{font:var(--type-body-m-strong);margin:0;padding:14px 18px;border-bottom:1px solid var(--border-light);color:var(--text-black);}
+.cref-group>h3{font:var(--type-body-m-strong);margin:0;padding:14px 18px;border-bottom:1px solid var(--border-light);color:var(--text-primary);}
 .cref-row{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-secondary);}
 .cref-row:last-child{border-bottom:none;}
 .cref-row .sw{width:16px;height:16px;border-radius:4px;border:1px solid rgba(40,50,55,.1);}
@@ -131,7 +131,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -147,7 +147,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   </a>
   <div class="meta">
     <span>Версия <b>v1.0</b></span>
-    <span>Обновлено <b>08.07.2026</b></span>
+    <span>Обновлено <b>13.07.2026</b></span>
     <span>CSS <b>styles/snackbar.css</b></span>
     <span>Зависимости <b>button, link</b></span>
   </div>
@@ -256,7 +256,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   <div class="anat">
     <div class="anat__stage">
       <div class="anat-dia">
-        <div class="snack snack--error">
+        <div class="snack snack--error" data-snack-tone="error">
           <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
           <div class="snack__body">
             <div class="snack__title">Ошибка</div>
@@ -314,7 +314,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     </table>
   </div>
   <div class="rl-sample" aria-hidden="true">
-    <div class="snack snack--error" id="rl-snack">
+    <div class="snack snack--error" data-snack-tone="error" id="rl-snack">
       <span class="snack__icon"><i data-icon="alert-circle-filled"></i></span>
       <div class="snack__body">
         <div class="snack__title">Ошибка</div>
@@ -335,7 +335,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
       <div class="guide-card__bar"></div>
       <div class="guide-card__tag">✓ Правильно</div>
       <div class="guide-card__body">
-        <div class="snack snack--error" style="width:100%;max-width:280px;">
+        <div class="snack snack--error" data-snack-tone="error" style="width:100%;max-width:280px;">
           <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
           <div class="snack__body"><div class="snack__title">Ошибка загрузки</div><div class="snack__text">Не удалось получить данные сделки. Попробуйте обновить страницу.</div></div>
           <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
@@ -347,7 +347,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
       <div class="guide-card__bar"></div>
       <div class="guide-card__tag">✗ Неправильно</div>
       <div class="guide-card__body">
-        <div class="snack snack--error" style="width:100%;max-width:280px;">
+        <div class="snack snack--error" data-snack-tone="error" style="width:100%;max-width:280px;">
           <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
           <div class="snack__body"><div class="snack__title">Произошла непредвиденная ошибка при попытке загрузить данные по текущей сделке из базы данных сервера</div></div>
           <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
@@ -369,7 +369,22 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   <!-- BEHAVIOR (STUB) -->
   <section class="section" data-screen-label="Behavior">
     <h2>Поведение</h2>
-    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+    <p class="desc">Стек, авто-скрытие и слои поверх интерфейса.</p>
+
+<div class="subsec" data-screen-label="Stack">
+    <h3>Стек и переполнение</h3>
+    <p class="desc">Снеки укладываются в стек в правом верхнем углу, новый — сверху. Одновременно показывается не более <b>пяти</b>; при превышении лишние сворачиваются в счётчик «+N» под видимыми карточками.</p>
+  </div>
+
+<div class="subsec" data-screen-label="AutoHide">
+    <h3>Авто-скрытие</h3>
+    <p class="desc">Снек без кнопок скрывается через <b>5&nbsp;секунд</b>; наведение курсора или фокус внутри него ставят таймер на паузу, а уход курсора/фокуса — возобновляют отсчёт заново. Снек с кнопками действий не скрывается автоматически — ждёт явного закрытия пользователем, чтобы не потерять решение, которое от него требуется.</p>
+  </div>
+
+<div class="subsec" data-screen-label="Layering">
+    <h3>Слои и совмещение с Toast</h3>
+    <p class="desc">SnackBar живёt поверх ToastBar/ToastLoader (правый верхний угол против верхнего центра) и не конкурирует с ними за место — оба стека могут быть на экране одновременно. Закрытие — фейд + сдвиг вправо (<code class="tok">translateX</code>), при <code class="tok">prefers-reduced-motion: reduce</code> заменяется на чистый фейд без сдвига.</p>
+  </div>
   </section>
 
   <!-- 6. СОСТОЯНИЯ -->
@@ -382,44 +397,44 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     <div class="stg-label">Error</div>
     <div class="stg-label">Success</div>
     <!-- row 1: title + text -->
-    <div class="snack snack--info" role="status">
+    <div class="snack snack--info" data-snack-tone="info" role="status">
       <span class="snack__icon" aria-hidden="true"><i data-icon="Info-circle-filled"></i></span>
       <div class="snack__body"><div class="snack__title">Информация</div><div class="snack__text">Плановая дата подписания находится в прошлом году.</div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
-    <div class="snack snack--warning" role="alert">
+    <div class="snack snack--warning" data-snack-tone="warning" role="alert">
       <span class="snack__icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span>
       <div class="snack__body"><div class="snack__title">Внимание</div><div class="snack__text">Плановая дата подписания находится в прошлом году.</div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
-    <div class="snack snack--error" role="alert">
+    <div class="snack snack--error" data-snack-tone="error" role="alert">
       <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
       <div class="snack__body"><div class="snack__title">Ошибка</div><div class="snack__text">Плановая дата подписания находится в прошлом году.</div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
-    <div class="snack snack--success" role="status">
+    <div class="snack snack--success" data-snack-tone="success" role="status">
       <span class="snack__icon" aria-hidden="true"><i data-icon="check-circle-filled"></i></span>
       <div class="snack__body"><div class="snack__title">Операция выполнена</div><div class="snack__text">Плановая дата подписания находится в прошлом году.</div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
     <div class="states-sep"></div>
     <!-- row 2: with buttons -->
-    <div class="snack snack--info" role="status">
+    <div class="snack snack--info" data-snack-tone="info" role="status">
       <span class="snack__icon" aria-hidden="true"><i data-icon="Info-circle-filled"></i></span>
       <div class="snack__body"><div class="snack__title">Информация</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs"><span class="btn__label">Подробнее</span></button></div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
-    <div class="snack snack--warning" role="alert">
+    <div class="snack snack--warning" data-snack-tone="warning" role="alert">
       <span class="snack__icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span>
       <div class="snack__body"><div class="snack__title">Внимание</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs"><span class="btn__label">Изменить</span></button></div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
-    <div class="snack snack--error" role="alert">
+    <div class="snack snack--error" data-snack-tone="error" role="alert">
       <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
       <div class="snack__body"><div class="snack__title">Ошибка</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs"><span class="btn__label">Изменить</span></button><button class="btn btn--transparent btn--xs"><span class="btn__label">Отмена</span></button></div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
-    <div class="snack snack--success" role="status">
+    <div class="snack snack--success" data-snack-tone="success" role="status">
       <span class="snack__icon" aria-hidden="true"><i data-icon="check-circle-filled"></i></span>
       <div class="snack__body"><div class="snack__title">Операция выполнена</div><div class="snack__text">Сделка успешно обновлена.</div><div class="snack__buttons"><a class="link" href="#">Перейти к сделке</a></div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
@@ -430,14 +445,14 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     <div>
       <p style="font:var(--type-body-s);color:var(--text-inactive);margin:0 0 10px;">Стек: 3 снека (новый — сверху)</p>
       <div class="stack-demo">
-        <div class="snack snack--error" role="alert"><span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span><div class="snack__body"><div class="snack__title">Ошибка</div><div class="snack__text">Сделка №3841 просрочена.</div></div><button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button></div>
-        <div class="snack snack--warning" role="alert"><span class="snack__icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span><div class="snack__body"><div class="snack__title">Внимание</div><div class="snack__text">Требуется согласование.</div></div><button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button></div>
-        <div class="snack snack--info" role="status"><span class="snack__icon" aria-hidden="true"><i data-icon="Info-circle-filled"></i></span><div class="snack__body"><div class="snack__title">Информация</div><div class="snack__text">Обновлены данные контрагента.</div></div><button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button></div>
+        <div class="snack snack--error" data-snack-tone="error" role="alert"><span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span><div class="snack__body"><div class="snack__title">Ошибка</div><div class="snack__text">Сделка №3841 просрочена.</div></div><button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button></div>
+        <div class="snack snack--warning" data-snack-tone="warning" role="alert"><span class="snack__icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span><div class="snack__body"><div class="snack__title">Внимание</div><div class="snack__text">Требуется согласование.</div></div><button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button></div>
+        <div class="snack snack--info" data-snack-tone="info" role="status"><span class="snack__icon" aria-hidden="true"><i data-icon="Info-circle-filled"></i></span><div class="snack__body"><div class="snack__title">Информация</div><div class="snack__text">Обновлены данные контрагента.</div></div><button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button></div>
       </div>
     </div>
     <div>
       <p style="font:var(--type-body-s);color:var(--text-inactive);margin:0 0 10px;">Дедупликация — снек ×3</p>
-      <div class="snack snack--error" role="alert">
+      <div class="snack snack--error" data-snack-tone="error" role="alert">
         <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
         <div class="snack__body"><div class="snack__title">Ошибка <span class="snack__dupe">×3</span></div><div class="snack__text">Плановая дата подписания просрочена.</div></div>
         <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
@@ -527,44 +542,6 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     </table>
   </div>
 
-  <p class="subhead">Анатомия DOM</p>
-  <div class="code-wrap">
-    <button class="copy-btn" data-copy="dom">Скопировать</button>
-    <code id="code-dom">&lt;!-- Слой поверх всего: фиксирован, правый верхний угол --&gt;
-&lt;div class="snackbar-layer" aria-label="Уведомления"&gt;
-
-  &lt;!-- Карточка: role=alert для error/warning; role=status для info/success --&gt;
-  &lt;div class="snack snack--error" role="alert" aria-live="assertive"&gt;
-    &lt;span class="snack__icon" aria-hidden="true"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/span&gt;
-    &lt;div class="snack__body"&gt;
-      &lt;div class="snack__title"&gt;
-        Ошибка
-        &lt;span class="snack__dupe"&gt;×2&lt;/span&gt;  &lt;!-- при дедупликации --&gt;
-      &lt;/div&gt;
-      &lt;div class="snack__text"&gt;Плановая дата подписания просрочена.&lt;/div&gt;
-      &lt;div class="snack__buttons"&gt;
-        &lt;button type="button" class="btn btn--outline btn--xs"&gt;
-          &lt;span class="btn__label"&gt;Изменить сроки&lt;/span&gt;
-        &lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;button type="button" class="snack__close" aria-label="Закрыть"&gt;
-      &lt;svg…&gt;&lt;/svg&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
-
-  &lt;!-- Overflow-плашка при стеке &gt; 5 --&gt;
-  &lt;div class="snack-more"&gt;
-    Ещё &lt;span class="snack-more__count"&gt;3&lt;/span&gt; уведомл.
-    &lt;div class="snack-more__actions"&gt;
-      &lt;button class="snack-more__btn" aria-label="Развернуть"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/button&gt;
-      &lt;button class="snack-more__btn" aria-label="Закрыть все"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-&lt;/div&gt;</code>
-  </div>
-
   <p class="subhead">Поведение (псевдокод)</p>
   <div class="code-wrap">
     <button class="copy-btn" data-copy="logic">Скопировать</button>
@@ -608,52 +585,7 @@ function dismiss(id):
 // Reduced motion: только fade (snk-fi / snk-fo), без translateX</code>
   </div>
 
-  <p class="subhead">Рекомендуемый React API</p>
-  <div class="code-wrap">
-    <button class="copy-btn" data-copy="api">Скопировать</button>
-    <code id="code-api">type SnackTone = 'info' | 'warning' | 'error' | 'success';
-
-interface SnackOptions {
-  tone: SnackTone;
-  title: string;
-  text?: string;
-  buttons?: React.ReactNode;  // Button xs outline/transparent или Link
-  dedup?: boolean;            // схлопывать одинаковые (по умолчанию true)
-  onClose?: () => void;
-}
-
-// Провайдер на уровне приложения:
-interface SnackbarController {
-  show(opts: SnackOptions): string;     // возвращает id
-  dismiss(id: string): void;
-  dismissAll(): void;
-}
-// Использование: const { show } = useSnackbar();</code>
-  </div>
-
-  <p class="subhead">Справочник классов и атрибутов</p>
-  <div class="panel" style="padding:0;overflow:hidden;">
-    <table class="ref-table">
-      <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-      <tbody>
-        <tr><td><code class="tok">.snackbar-layer</code></td><td>div</td><td>fixed-контейнер, top/right 24px, z-index 9900, width 320px</td></tr>
-        <tr><td><code class="tok">.snack</code></td><td>div</td><td>Карточка снека: grid 3-col, анимация, pointer-events: all</td></tr>
-        <tr><td><code class="tok">.snack--info/warning/error/success</code></td><td>div</td><td>Тон: фон + цвет иконки/close/кнопок/ссылок</td></tr>
-        <tr><td><code class="tok">.snack--leave</code></td><td>div</td><td>Анимация ухода; удалить узел по animationend</td></tr>
-        <tr><td><code class="tok">.snack__icon</code></td><td>span</td><td>Иконка тона 20px, aria-hidden</td></tr>
-        <tr><td><code class="tok">.snack__body</code></td><td>div</td><td>flex-колонка: title + text + buttons; gap 4px</td></tr>
-        <tr><td><code class="tok">.snack__title</code></td><td>div</td><td>Body S 400, --text-primary</td></tr>
-        <tr><td><code class="tok">.snack__dupe</code></td><td>span</td><td>Счётчик дублей ×N; вставляется в конец .snack__title</td></tr>
-        <tr><td><code class="tok">.snack__text</code></td><td>div</td><td>Body XS, --text-secondary; опционален</td></tr>
-        <tr><td><code class="tok">.snack__buttons</code></td><td>div</td><td>flex-ряд кнопок; переопределяет --primary на цвет тона</td></tr>
-        <tr><td><code class="tok">.snack__close</code></td><td>button</td><td>Кнопка закрытия; обязателен aria-label="Закрыть"</td></tr>
-        <tr><td><code class="tok">.snack-more</code></td><td>div</td><td>Overflow-плашка при стеке &gt; 5</td></tr>
-        <tr><td><code class="tok">role="alert"</code></td><td>snack</td><td>Error/Warning → assertive live-region</td></tr>
-        <tr><td><code class="tok">role="status"</code></td><td>snack</td><td>Info/Success → polite live-region</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+  </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · SnackBar</span>
@@ -728,6 +660,7 @@ function updateOverflow() {
 function makeSnackEl(tone, title, text, btnType, count) {
   var el = document.createElement('div');
   el.className = 'snack snack--' + tone;
+  el.setAttribute('data-snack-tone', tone);
   el.setAttribute('role', (tone==='error'||tone==='warning') ? 'alert' : 'status');
   el.setAttribute('aria-live', (tone==='error'||tone==='warning') ? 'assertive' : 'polite');
   var dupeHtml = count > 1 ? '<span class="snack__dupe">\u00d7' + count + '</span>' : '';

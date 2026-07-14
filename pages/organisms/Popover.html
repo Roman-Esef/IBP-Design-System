@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Popover" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -32,13 +32,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:70ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:76ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -55,7 +55,7 @@
   ul.rules { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px; }
   ul.rules li { font: var(--type-body-m); color: var(--text-primary); padding-left:26px; position:relative; text-wrap:pretty; }
   ul.rules li::before { content:""; position:absolute; left:2px; top:9px; width:7px; height:7px; border-radius:50%; background: var(--primary); }
-  ul.rules li b { color: var(--text-black); }
+  ul.rules li b { color: var(--text-primary); }
 
   code.tok { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius:5px; }
 
@@ -85,7 +85,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- header variants ---------- */
@@ -181,7 +181,7 @@
   .cref-meta .tname { font: var(--type-body-m-strong); color: var(--text-primary); margin:1px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px; word-break:break-all; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -218,7 +218,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -228,7 +228,7 @@
 <main class="page" data-screen-label="Popover">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Popover</h1>
     <p class="lead">Popover — нон-модальный всплывающий контейнер, привязанный к триггеру. Показывает расширенный контекстный контент (текст с форматированием, интерактивные элементы, формы, легенды, списки). В отличие от <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> — требует клика для открытия и не закрывается при уходе курсора; в отличие от <b>Modal</b> — не блокирует страницу, не имеет скрима и закрывается кликом вне себя.</p>
@@ -405,7 +405,7 @@
     <div class="panel">
       <div class="pgrid" id="placement-grid"></div>
     </div>
-    <p class="subhead mt" style="margin-top:30px;">Авто-flip у края контейнера<span class="badge-new">Новое</span></p>
+    <p class="subhead mt" style="margin-top:30px;">Авто-flip у края контейнера</p>
     <p class="desc tight">Если предпочтительному выравниванию не хватает места по горизонтали до края — поповер перевыравнивается на противоположный край (start ↔ end), стрелка остаётся направленной на триггер. Переключите положение триггера.</p>
     <div class="panel">
       <div class="flip-controls">
@@ -441,7 +441,7 @@
       <p class="dev-note">Запрещено: автозакрытие по таймеру и открытие сразу при загрузке страницы — пользователь теряет контроль (Nielsen, эвристика №3). Одновременно может быть открыт только один поповер — открытие нового закрывает предыдущий (демо ниже). Возврат фокуса на триггер при любом закрытии — требование WCAG 2.1.2.</p>
     </div>
 
-    <p class="subhead">Один поповер одновременно<span class="badge-new">Новое</span></p>
+    <p class="subhead">Один поповер одновременно</p>
     <p class="desc tight">Откройте второй поповер — первый закроется автоматически.</p>
     <div class="panel" style="margin-bottom:20px;">
       <div class="single-open-demo" id="single-open-demo"></div>
@@ -516,49 +516,8 @@
       <code class="tok">styles/popover.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- триггер: aria-haspopup/aria-expanded/aria-controls, обычно обёрнут в .pop-anchor --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"pop-anchor"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">aria-haspopup=</span><span class="tk-val">"dialog"</span> <span class="tk-attr">aria-expanded=</span><span class="tk-val">"true"</span> <span class="tk-attr">aria-controls=</span><span class="tk-val">"pop-1"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/button&gt;</span>
-
-  <span class="tk-cm">&lt;!-- контейнер: не модальный — aria-modal="false", клик вне себя закрывает --&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">id=</span><span class="tk-val">"pop-1"</span> <span class="tk-attr">class=</span><span class="tk-val">"pop pop--w-m pop--bottom pop--start pop--floating"</span> <span class="tk-attr">role=</span><span class="tk-val">"dialog"</span> <span class="tk-attr">aria-modal=</span><span class="tk-val">"false"</span> <span class="tk-attr">aria-labelledby=</span><span class="tk-val">"pop-1-title"</span><span class="tk-tag">&gt;</span>
-
-    <span class="tk-cm">&lt;!-- Header: заголовок (+ опц. чип/ссылка) + ✕, БЕЗ кнопок действий --&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__head"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__head-main"</span><span class="tk-tag">&gt;</span>
-        <span class="tk-tag">&lt;h3</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__title"</span> <span class="tk-attr">id=</span><span class="tk-val">"pop-1-title"</span><span class="tk-tag">&gt;</span>Изменить тег<span class="tk-tag">&lt;/h3&gt;</span>
-        <span class="tk-cm">&lt;!-- опц.: chip/link, gap 8px от заголовка --&gt;</span>
-      <span class="tk-tag">&lt;/div&gt;</span>
-      <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__close"</span><span class="tk-tag">&gt;</span><span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--neutral ibtn--s"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Закрыть"</span><span class="tk-tag">&gt;</span>&lt;svg…&gt;&lt;/svg&gt;<span class="tk-tag">&lt;/button&gt;</span><span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;/div&gt;</span>
-
-    <span class="tk-cm">&lt;!-- Body: единственная гибкая/прокручиваемая зона, контент произвольный --&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__body"</span><span class="tk-tag">&gt;</span>
-      …форма, легенда, карточка, таблица…
-    <span class="tk-tag">&lt;/div&gt;</span>
-
-    <span class="tk-cm">&lt;!-- Footer: foot-left служебное (опц.), foot-right Secondary+Primary --&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__foot"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__foot-left"</span><span class="tk-tag">&gt;</span><span class="tk-tag">&lt;/div&gt;</span>
-      <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__foot-right"</span><span class="tk-tag">&gt;</span>
-        <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--transparent btn--s"</span><span class="tk-tag">&gt;</span>Отмена<span class="tk-tag">&lt;/button&gt;</span>
-        <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--s"</span><span class="tk-tag">&gt;</span>Применить<span class="tk-tag">&lt;/button&gt;</span>
-      <span class="tk-tag">&lt;/div&gt;</span>
-    <span class="tk-tag">&lt;/div&gt;</span>
-
-    <span class="tk-cm">&lt;!-- Arrow: опциональна, добавляет модификатор .pop--arrow --&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__arrow"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/span&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -607,69 +566,7 @@ onBodyScroll():
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм поверх вашего стека. Рабочий референс на vanilla JS — функции <code class="tok">buildPopover</code> и <code class="tok">placePop</code> в <code class="tok">popover.page.js</code>.</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт. Тело — просто <code class="tok">children</code>, компонент не диктует его структуру.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Popover.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> PopoverWidth = <span class="tk-val">'s'</span> | <span class="tk-val">'m'</span> | <span class="tk-val">'l'</span> | <span class="tk-val">'xl'</span> | <span class="tk-val">'max'</span>;
-<span class="tk-attr">type</span> PopoverPlacement = <span class="tk-val">'top'</span> | <span class="tk-val">'bottom'</span> | <span class="tk-val">'left'</span> | <span class="tk-val">'right'</span>;
-<span class="tk-attr">type</span> PopoverAlign = <span class="tk-val">'start'</span> | <span class="tk-val">'center'</span> | <span class="tk-val">'end'</span>;
-
-<span class="tk-attr">interface</span> PopoverFooterAction {
-  label: <span class="tk-attr">string</span>;
-  onClick(): <span class="tk-attr">void</span>;
-  disabled?: <span class="tk-attr">boolean</span>;
-}
-
-<span class="tk-attr">interface</span> PopoverProps {
-  open: <span class="tk-attr">boolean</span>;
-  onOpenChange(open: <span class="tk-attr">boolean</span>): <span class="tk-attr">void</span>;
-  trigger: React.ReactElement;          <span class="tk-cm">// клонируется с aria-haspopup/aria-expanded/aria-controls</span>
-  title?: <span class="tk-attr">string</span>;                     <span class="tk-cm">// если задан — рендерит Header с заголовком и ✕</span>
-  width?: PopoverWidth;                 <span class="tk-cm">// по умолчанию 'm' (320px)</span>
-  placement?: PopoverPlacement;         <span class="tk-cm">// по умолчанию 'bottom'; авто-flip при нехватке места</span>
-  align?: PopoverAlign;                 <span class="tk-cm">// по умолчанию 'start'</span>
-  arrow?: <span class="tk-attr">boolean</span>;                    <span class="tk-cm">// по умолчанию false — как у Menu/DropdownList</span>
-  offset?: <span class="tk-attr">number</span>;                    <span class="tk-cm">// зазор от триггера в px, по умолчанию 8</span>
-  children: React.ReactNode;            <span class="tk-cm">// Body — произвольный контент</span>
-  primaryAction?: PopoverFooterAction;   <span class="tk-cm">// правый Primary — рендерит Footer</span>
-  secondaryAction?: PopoverFooterAction; <span class="tk-cm">// правый Secondary</span>
-  footerLeft?: React.ReactNode;         <span class="tk-cm">// служебная информация/ссылка слева — НЕ действие</span>
-  closeOnOutsideClick?: <span class="tk-attr">boolean</span>;       <span class="tk-cm">// по умолчанию true, отключать запрещено</span>
-  closeOnEsc?: <span class="tk-attr">boolean</span>;                <span class="tk-cm">// по умолчанию true, отключать запрещено</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.pop-anchor</code></td><td>span</td><td class="dsc">position:relative обёртка вокруг триггера — точка отсчёта для floating-позиционирования</td></tr>
-          <tr><td><code class="tok">.pop</code></td><td>div</td><td class="dsc">Контейнер: фон, радиус 8px (--radius-m), тень --elevation-5, без внешнего бордера, flex-колонка из Header/Body/Footer</td></tr>
-          <tr><td><code class="tok">.pop--w-s … --w-max</code></td><td>div</td><td class="dsc">Ширина — 5 шагов (240–560px), одновременно задаёт max-height тела</td></tr>
-          <tr><td><code class="tok">.pop--floating</code></td><td>div</td><td class="dsc">JS-позиционирование относительно триггера; показ/скрытие через <code class="tok">.is-open</code></td></tr>
-          <tr><td><code class="tok">.pop--pinned</code></td><td>div</td><td class="dsc">Всегда открытый поповер — только для демонстраций в документации</td></tr>
-          <tr><td><code class="tok">.pop--top / --bottom / --left / --right</code></td><td>div</td><td class="dsc">Сторона размещения относительно триггера</td></tr>
-          <tr><td><code class="tok">.pop--start / --center / --end</code></td><td>div</td><td class="dsc">Выравнивание стрелки/поповера вдоль края триггера</td></tr>
-          <tr><td><code class="tok">.pop--arrow</code></td><td>div</td><td class="dsc">Включает стрелку-указатель (<code class="tok">.pop__arrow</code>); по умолчанию выключена</td></tr>
-          <tr><td><code class="tok">.pop__head / .pop__foot</code></td><td>div</td><td class="dsc">Фиксированные зоны, фон --bgtable-pinned; Header — высота 48px, содержимое по центру; тень — при <code class="tok">.is-scrolled</code>, как у Modal</td></tr>
-          <tr><td><code class="tok">.pop__head-main</code></td><td>div</td><td class="dsc">Заголовок + опц. чип/ссылка внутри Header, примыкают с зазором 8px</td></tr>
-          <tr><td><code class="tok">.pop__title</code></td><td>h3</td><td class="dsc">Заголовок — Body S Strong 14px, одна строка с многоточием (≤25 символов)</td></tr>
-          <tr><td><code class="tok">.pop__close</code></td><td>span</td><td class="dsc">Обёртка ✕ — сама кнопка это <code class="tok">.ibtn.ibtn--neutral.ibtn--s</code></td></tr>
-          <tr><td><code class="tok">.pop__body</code></td><td>div</td><td class="dsc">Единственная гибкая/прокручиваемая зона; контент произвольный</td></tr>
-          <tr><td><code class="tok">.pop__body--flush</code></td><td>div</td><td class="dsc">Без внутреннего паддинга — контент сам управляет отступами (таблица)</td></tr>
-          <tr><td><code class="tok">.pop__foot-left / -right</code></td><td>div</td><td class="dsc">Независимо включаемые группы: слева — информация/ссылка/кнопка, справа — Secondary+Primary; могут присутствовать одновременно</td></tr>
-          <tr><td><code class="tok">.pop__skeleton</code></td><td>span</td><td class="dsc">Loading-плейсхолдер — тот же приём шиммера, что у Modal/ReadOnlyField</td></tr>
-          <tr><td><code class="tok">role="dialog"</code> / <code class="tok">aria-modal="false"</code></td><td>.pop</td><td class="dsc">Не блокирующий диалог — в отличие от Modal (<code class="tok">aria-modal="true"</code>)</td></tr>
-          <tr><td><code class="tok">aria-haspopup</code> / <code class="tok">aria-expanded</code> / <code class="tok">aria-controls</code></td><td>триггер</td><td class="dsc">Связь триггера с поповером и его состоянием</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Popover</span>

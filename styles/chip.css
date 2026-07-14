@@ -105,7 +105,7 @@
   margin-left: calc(0px - (var(--chip-pad-x) - 4px));
   border-radius: var(--radius-circle);
   background: var(--st-system-midlight);
-  color: var(--chip-text);
+  color: inherit;
   font: var(--weight-semibold) 10px/1 var(--font-text);
   overflow: hidden;
 }
@@ -121,7 +121,7 @@
 
 /* remove (×) is genuinely interactive — gets its own hit state */
 .chip__remove { cursor: pointer; border-radius: var(--radius-circle); transition: background-color .12s ease, color .12s ease; }
-.chip__remove:hover { background: color-mix(in srgb, var(--chip-text) 12%, transparent); color: var(--chip-text); }
+.chip__remove:hover { color: inherit; background: color-mix(in srgb, currentColor 12%, transparent); }
 .chip__dropdown { cursor: pointer; }
 
 /* info-trigger (×) — PROPOSED: opens a Popover with metric detail (used by RiskMetric).
@@ -136,7 +136,7 @@
   transition: background-color .12s ease, color .12s ease;
   font: inherit;
 }
-.chip__info:hover { background: color-mix(in srgb, var(--chip-text) 12%, transparent); color: var(--chip-text); }
+.chip__info:hover { color: inherit; background: color-mix(in srgb, currentColor 12%, transparent); }
 .chip__info:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 /* trailing info-trigger carries its own visual weight, so the padding rhythm shifts:
    text (left) keeps a fuller 8px, icon (right) reads correctly at a tighter 4px.
@@ -149,21 +149,34 @@
 .chip__info [data-icon] { width: 100%; height: 100%; }
 .chip__info [data-icon] svg { width: 100%; height: 100%; }
 
-/* ---------- sizes --------------------------------------------------------- */
-.chip--l  { --chip-height: 40px; --chip-pad-x: 14px; --chip-gap: 8px; --chip-icon: 20px; --chip-radius: var(--radius-control); --chip-font: var(--type-body-m); }
-.chip--m  { --chip-height: 32px; --chip-pad-x: 12px; --chip-gap: 6px; --chip-icon: 20px; --chip-radius: var(--radius-control); --chip-font: var(--type-body-m); }
-.chip--s  { --chip-height: 24px; --chip-pad-x: 10px; --chip-gap: 6px; --chip-icon: 16px; --chip-radius: var(--radius-control-s); --chip-font: var(--type-body-s); }
-.chip--xs { --chip-height: 20px; --chip-pad-x: 8px;  --chip-gap: 4px; --chip-icon: 16px; --chip-radius: var(--radius-control-s); --chip-font: var(--type-body-xs); }
+/* ---------- sizes --------------------------------------------------------- *
+   NB: size/tone/state values live directly on properties (not via local --*
+   overrides in modifiers) so the DS compiler can register tokens cleanly.
+   Descendant consumers (icon slots, spinner, avatar) get per-size rules. */
+.chip--l  { height: 40px; padding: 0 14px; gap: 8px; border-radius: var(--radius-control);   font: var(--type-body-m); }
+.chip--m  { height: 32px; padding: 0 12px; gap: 6px; border-radius: var(--radius-control);   font: var(--type-body-m); }
+.chip--s  { height: 24px; padding: 0 10px; gap: 6px; border-radius: var(--radius-control-s); font: var(--type-body-s); }
+.chip--xs { height: 20px; padding: 0 8px;  gap: 4px; border-radius: var(--radius-control-s); font: var(--type-body-xs); }
+
+/* per-size icon + spinner slot sizing (mirror --chip-icon) */
+.chip--l .chip__icon, .chip--l .chip__marker, .chip--l .chip__remove, .chip--l .chip__dropdown, .chip--l .chip__info, .chip--l .chip__spinner { width: 20px; height: 20px; }
+.chip--m .chip__icon, .chip--m .chip__marker, .chip--m .chip__remove, .chip--m .chip__dropdown, .chip--m .chip__info, .chip--m .chip__spinner { width: 20px; height: 20px; }
+.chip--s .chip__icon, .chip--s .chip__marker, .chip--s .chip__remove, .chip--s .chip__dropdown, .chip--s .chip__info, .chip--s .chip__spinner { width: 16px; height: 16px; }
+.chip--xs .chip__icon, .chip--xs .chip__marker, .chip--xs .chip__remove, .chip--xs .chip__dropdown, .chip--xs .chip__info, .chip--xs .chip__spinner { width: 16px; height: 16px; }
+
+/* per-size leading avatar / badge (mirror calc(--chip-height - 6) + margin from --chip-pad-x) */
+.chip--l .chip__avatar, .chip--l .chip__badge { width: 34px; height: 34px; margin-left: -10px; }
+.chip--m .chip__avatar, .chip--m .chip__badge { width: 26px; height: 26px; margin-left: -8px; }
+.chip--s .chip__avatar, .chip--s .chip__badge { width: 18px; height: 18px; margin-left: -6px; }
+.chip--xs .chip__avatar, .chip--xs .chip__badge { width: 14px; height: 14px; margin-left: -4px; }
 
 /* ---------- style: outline (Border only) ---------------------------------- */
-.chip--outline {
-  --chip-fill: transparent;
-  --chip-border: var(--st-system-mid);          /* Swamp_400 56% */
-  --chip-border-hover: var(--st-system-mid);
-}
+.chip--outline { background: transparent; border-color: var(--st-system-mid); /* Swamp_400 56% */ }
+.chip--edit.chip--outline:not(.chip--disabled):hover,
+.chip--edit.chip--outline:not(.chip--disabled).is-hover { border-color: var(--st-system-mid); }
 
 /* ---------- rounded (full pill) ------------------------------------------- */
-.chip--rounded { --chip-radius: var(--radius-pill); }
+.chip--rounded { border-radius: var(--radius-pill); }
 
 /* ---------- hover (Edit only) --------------------------------------------- */
 .chip--edit:not(.chip--disabled):hover,
@@ -180,76 +193,89 @@
 }
 
 /* ---------- selected (filter toggle) — PROPOSED --------------------------- */
-.chip--selected {
-  --chip-fill: var(--st-primary-light);
-  --chip-fill-hover: var(--st-primary-midlight);
-  --chip-border: color-mix(in srgb, var(--primary) 56%, transparent);
-  --chip-border-hover: var(--primary);
-  --chip-text: var(--primary-dark);
-  --chip-icon-color: var(--primary);
-}
+.chip--selected { background: var(--st-primary-light); border-color: color-mix(in srgb, var(--primary) 56%, transparent); color: var(--primary-dark); }
+.chip--selected .chip__icon, .chip--selected .chip__marker, .chip--selected .chip__remove, .chip--selected .chip__dropdown, .chip--selected .chip__info, .chip--selected .chip__count { color: var(--primary); }
+.chip--edit.chip--selected:not(.chip--disabled):hover,
+.chip--edit.chip--selected:not(.chip--disabled).is-hover { background: var(--st-primary-midlight); border-color: var(--primary); }
 
 /* ---------- tones / statuses — PROPOSED ----------------------------------- *
    Used when chips carry status meaning (active/blocked/overdue…) rather than
    neutral tags. Fill = status Light, text = status Dark, icon = status base. */
-.chip--accent  { --chip-fill: var(--st-primary-light); --chip-fill-hover: var(--st-primary-midlight); --chip-border: var(--st-primary-light); --chip-border-hover: var(--st-primary-light); --chip-text: var(--st-primary-dark); --chip-icon-color: var(--primary); }
-.chip--success { --chip-fill: var(--st-green-light);   --chip-fill-hover: var(--st-green-midlight);   --chip-border: var(--st-green-light);   --chip-border-hover: var(--st-green-light);   --chip-text: var(--st-green-dark);   --chip-icon-color: var(--st-green); }
-.chip--info    { --chip-fill: var(--st-lblue-light);   --chip-fill-hover: var(--st-lblue-midlight);   --chip-border: var(--st-lblue-light);   --chip-border-hover: var(--st-lblue-light);   --chip-text: var(--st-lblue-dark);   --chip-icon-color: var(--st-lblue); }
-.chip--warning { --chip-fill: var(--st-orange-light);  --chip-fill-hover: var(--st-orange-midlight);  --chip-border: var(--st-orange-light);  --chip-border-hover: var(--st-orange-light);  --chip-text: var(--st-orange-dark);  --chip-icon-color: var(--st-orange); }
-.chip--error   { --chip-fill: var(--st-red-light);     --chip-fill-hover: var(--st-red-midlight);     --chip-border: var(--st-red-light);     --chip-border-hover: var(--st-red-light);     --chip-text: var(--st-red-dark);     --chip-icon-color: var(--st-red); }
-.chip--dark    { --chip-fill: var(--st-grey-light);    --chip-fill-hover: var(--st-grey-midlight);    --chip-border: var(--st-grey-light);    --chip-border-hover: var(--st-grey-light);    --chip-text: var(--st-grey-dark);    --chip-icon-color: var(--st-grey); }
+.chip--accent  { background: var(--st-primary-light); border-color: var(--st-primary-light); color: var(--st-primary-dark); }
+.chip--success { background: var(--st-green-light);   border-color: var(--st-green-light);   color: var(--st-green-dark); }
+.chip--info    { background: var(--st-lblue-light);   border-color: var(--st-lblue-light);   color: var(--st-lblue-dark); }
+.chip--warning { background: var(--st-orange-light);  border-color: var(--st-orange-light);  color: var(--st-orange-dark); }
+.chip--error   { background: var(--st-red-light);     border-color: var(--st-red-light);     color: var(--st-red-dark); }
+.chip--dark    { background: var(--st-grey-light);    border-color: var(--st-grey-light);    color: var(--st-grey-dark); }
 
-/* outline + tone — keep fill transparent, colour the border at Mid opacity */
-.chip--outline.chip--accent  { --chip-border: color-mix(in srgb, var(--primary) 56%, transparent); }
-.chip--outline.chip--success { --chip-border: var(--st-green-mid); }
-.chip--outline.chip--info    { --chip-border: var(--st-lblue-mid); }
-.chip--outline.chip--warning { --chip-border: var(--st-orange-mid); }
-.chip--outline.chip--error   { --chip-border: var(--st-red-mid); }
-.chip--outline.chip--dark    { --chip-border: var(--st-grey-mid); }
+.chip--accent  .chip__icon, .chip--accent  .chip__marker, .chip--accent  .chip__remove, .chip--accent  .chip__dropdown, .chip--accent  .chip__info, .chip--accent  .chip__count { color: var(--primary); }
+.chip--success .chip__icon, .chip--success .chip__marker, .chip--success .chip__remove, .chip--success .chip__dropdown, .chip--success .chip__info, .chip--success .chip__count { color: var(--st-green); }
+.chip--info    .chip__icon, .chip--info    .chip__marker, .chip--info    .chip__remove, .chip--info    .chip__dropdown, .chip--info    .chip__info, .chip--info    .chip__count { color: var(--st-lblue); }
+.chip--warning .chip__icon, .chip--warning .chip__marker, .chip--warning .chip__remove, .chip--warning .chip__dropdown, .chip--warning .chip__info, .chip--warning .chip__count { color: var(--st-orange); }
+.chip--error   .chip__icon, .chip--error   .chip__marker, .chip--error   .chip__remove, .chip--error   .chip__dropdown, .chip--error   .chip__info, .chip--error   .chip__count { color: var(--st-red); }
+.chip--dark    .chip__icon, .chip--dark    .chip__marker, .chip--dark    .chip__remove, .chip--dark    .chip__dropdown, .chip--dark    .chip__info, .chip--dark    .chip__count { color: var(--st-grey); }
+
+.chip--edit.chip--accent:not(.chip--disabled):hover,  .chip--edit.chip--accent:not(.chip--disabled).is-hover  { background: var(--st-primary-midlight); border-color: var(--st-primary-light); }
+.chip--edit.chip--success:not(.chip--disabled):hover, .chip--edit.chip--success:not(.chip--disabled).is-hover { background: var(--st-green-midlight);   border-color: var(--st-green-light); }
+.chip--edit.chip--info:not(.chip--disabled):hover,    .chip--edit.chip--info:not(.chip--disabled).is-hover    { background: var(--st-lblue-midlight);   border-color: var(--st-lblue-light); }
+.chip--edit.chip--warning:not(.chip--disabled):hover, .chip--edit.chip--warning:not(.chip--disabled).is-hover { background: var(--st-orange-midlight);  border-color: var(--st-orange-light); }
+.chip--edit.chip--error:not(.chip--disabled):hover,   .chip--edit.chip--error:not(.chip--disabled).is-hover   { background: var(--st-red-midlight);     border-color: var(--st-red-light); }
+.chip--edit.chip--dark:not(.chip--disabled):hover,    .chip--edit.chip--dark:not(.chip--disabled).is-hover    { background: var(--st-grey-midlight);    border-color: var(--st-grey-light); }
+
+/* outline + tone — colour the border at Mid opacity (fill follows the tone rule above) */
+.chip--outline.chip--accent  { border-color: color-mix(in srgb, var(--primary) 56%, transparent); }
+.chip--outline.chip--success { border-color: var(--st-green-mid); }
+.chip--outline.chip--info    { border-color: var(--st-lblue-mid); }
+.chip--outline.chip--warning { border-color: var(--st-orange-mid); }
+.chip--outline.chip--error   { border-color: var(--st-red-mid); }
+.chip--outline.chip--dark    { border-color: var(--st-grey-mid); }
 
 /* ---------- solid tones — PROPOSED ---------------------------------------- *
    Насыщенная заливка = status base, текст и иконка белые (--c-mgrey-50).
    Для критичных статусов, где светлого фона недостаточно (красная/чёрная
    зона в RiskMetric). Тон-масштаб: чем выше критичность, тем плотнее фон. */
-.chip--success-solid { --chip-fill: var(--st-green);  --chip-fill-hover: var(--st-green-dark);  --chip-border: var(--st-green);  --chip-border-hover: var(--st-green-dark);  --chip-text: var(--c-mgrey-50); --chip-icon-color: var(--c-mgrey-50); }
-.chip--warning-solid { --chip-fill: var(--st-orange); --chip-fill-hover: var(--st-orange-dark); --chip-border: var(--st-orange); --chip-border-hover: var(--st-orange-dark); --chip-text: var(--c-mgrey-50); --chip-icon-color: var(--c-mgrey-50); }
-.chip--error-solid   { --chip-fill: var(--st-red);    --chip-fill-hover: var(--st-red-dark);    --chip-border: var(--st-red);    --chip-border-hover: var(--st-red-dark);    --chip-text: var(--c-mgrey-50); --chip-icon-color: var(--c-mgrey-50); }
-.chip--dark-solid    { --chip-fill: var(--st-grey);   --chip-fill-hover: var(--st-grey-dark);   --chip-border: var(--st-grey);   --chip-border-hover: var(--st-grey-dark);   --chip-text: var(--c-mgrey-50); --chip-icon-color: var(--c-mgrey-50); }
+.chip--success-solid { background: var(--st-green);  border-color: var(--st-green);  color: var(--c-mgrey-50); }
+.chip--warning-solid { background: var(--st-orange); border-color: var(--st-orange); color: var(--c-mgrey-50); }
+.chip--error-solid   { background: var(--st-red);    border-color: var(--st-red);    color: var(--c-mgrey-50); }
+.chip--dark-solid    { background: var(--st-grey);   border-color: var(--st-grey);   color: var(--c-mgrey-50); }
+.chip--success-solid .chip__icon, .chip--success-solid .chip__marker, .chip--success-solid .chip__remove, .chip--success-solid .chip__dropdown, .chip--success-solid .chip__info, .chip--success-solid .chip__count { color: var(--c-mgrey-50); }
+.chip--warning-solid .chip__icon, .chip--warning-solid .chip__marker, .chip--warning-solid .chip__remove, .chip--warning-solid .chip__dropdown, .chip--warning-solid .chip__info, .chip--warning-solid .chip__count { color: var(--c-mgrey-50); }
+.chip--error-solid .chip__icon, .chip--error-solid .chip__marker, .chip--error-solid .chip__remove, .chip--error-solid .chip__dropdown, .chip--error-solid .chip__info, .chip--error-solid .chip__count { color: var(--c-mgrey-50); }
+.chip--dark-solid .chip__icon, .chip--dark-solid .chip__marker, .chip--dark-solid .chip__remove, .chip--dark-solid .chip__dropdown, .chip--dark-solid .chip__info, .chip--dark-solid .chip__count { color: var(--c-mgrey-50); }
+.chip--edit.chip--success-solid:not(.chip--disabled):hover, .chip--edit.chip--success-solid:not(.chip--disabled).is-hover { background: var(--st-green-dark);  border-color: var(--st-green-dark); }
+.chip--edit.chip--warning-solid:not(.chip--disabled):hover, .chip--edit.chip--warning-solid:not(.chip--disabled).is-hover { background: var(--st-orange-dark); border-color: var(--st-orange-dark); }
+.chip--edit.chip--error-solid:not(.chip--disabled):hover,   .chip--edit.chip--error-solid:not(.chip--disabled).is-hover   { background: var(--st-red-dark);    border-color: var(--st-red-dark); }
+.chip--edit.chip--dark-solid:not(.chip--disabled):hover,    .chip--edit.chip--dark-solid:not(.chip--disabled).is-hover    { background: var(--st-grey-dark);   border-color: var(--st-grey-dark); }
 
 /* ---------- invalid / validation error on input chip — PROPOSED ----------- */
-.chip--invalid {
-  --chip-fill: var(--error-bg-light);
-  --chip-fill-hover: var(--error-bg);
-  --chip-border: var(--st-red-mid);
-  --chip-border-hover: var(--error);
-  --chip-text: var(--error-dark);
-  --chip-icon-color: var(--error);
-}
+.chip--invalid { background: var(--error-bg-light); border-color: var(--st-red-mid); color: var(--error-dark); }
+.chip--invalid .chip__icon, .chip--invalid .chip__marker, .chip--invalid .chip__remove, .chip--invalid .chip__dropdown, .chip--invalid .chip__info, .chip--invalid .chip__count { color: var(--error); }
+.chip--edit.chip--invalid:not(.chip--disabled):hover,
+.chip--edit.chip--invalid:not(.chip--disabled).is-hover { background: var(--error-bg); border-color: var(--error); }
 
 /* ---------- disabled ------------------------------------------------------ */
 .chip--disabled {
-  --chip-fill: var(--st-disabled-light);        /* CGrey_600 4% */
-  --chip-fill-hover: var(--st-disabled-light);
-  --chip-border: var(--st-disabled-light);
-  --chip-text: var(--st-disabled-dark);          /* CGrey_600 40% */
-  --chip-icon-color: var(--st-disabled);         /* CGrey_600 24% */
+  background: var(--st-disabled-light);          /* CGrey_600 4% */
+  border-color: var(--st-disabled-light);
+  color: var(--st-disabled-dark);                /* CGrey_600 40% */
   cursor: not-allowed;
   pointer-events: none;
 }
-.chip--outline.chip--disabled { --chip-fill: transparent; --chip-border: var(--st-disabled-mid); /* CGrey_600 16% */ }
+.chip--disabled .chip__icon, .chip--disabled .chip__marker, .chip--disabled .chip__remove, .chip--disabled .chip__dropdown, .chip--disabled .chip__info, .chip--disabled .chip__count { color: var(--st-disabled); /* CGrey_600 24% */ }
+.chip--outline.chip--disabled { background: transparent; border-color: var(--st-disabled-mid); /* CGrey_600 16% */ }
 /* a disabled chip with long, truncated text must still show its tooltip */
 .chip--disabled.chip--has-tooltip { pointer-events: auto; }
 .chip--disabled .chip__remove { pointer-events: none; }
 
 /* ---------- loading — PROPOSED -------------------------------------------- */
-.chip--loading { --chip-icon-color: var(--st-system); }
+.chip--loading .chip__icon, .chip--loading .chip__marker, .chip--loading .chip__remove, .chip--loading .chip__dropdown, .chip--loading .chip__info, .chip--loading .chip__count { color: var(--st-system); }
 .chip__spinner {
   flex: none;
   width: var(--chip-icon);
   height: var(--chip-icon);
   border-radius: var(--radius-circle);
-  border: 2px solid color-mix(in srgb, var(--chip-icon-color) 28%, transparent);
-  border-top-color: var(--chip-icon-color);
+  border: 2px solid color-mix(in srgb, var(--st-system) 28%, transparent);
+  border-top-color: var(--st-system);
   animation: chip-spin .7s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {

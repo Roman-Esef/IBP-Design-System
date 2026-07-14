@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Avatar" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -28,13 +28,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:66ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:78ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -93,7 +93,7 @@
   .type-cards { display:grid; grid-template-columns: repeat(3,1fr); gap:20px; }
   @media (max-width:760px){ .type-cards{ grid-template-columns:1fr; } }
   .type-card { border:1px solid var(--border-light); border-radius:14px; padding:28px 24px; background:var(--bg-tile); display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center; }
-  .type-card .nm { font:var(--type-h5-strong); color:var(--text-black); }
+  .type-card .nm { font:var(--type-h5-strong); color:var(--text-primary); }
   .type-card .ds { font:var(--type-body-s); color:var(--text-secondary); text-wrap:pretty; }
 
   /* ---------- usage tiles ---------- */
@@ -106,19 +106,19 @@
   /* entity row */
   .entity { display:flex; align-items:center; gap:12px; }
   .entity .ent-txt { display:flex; flex-direction:column; gap:2px; min-width:0; text-align:left; }
-  .entity .ent-name { font:var(--type-body-m-strong); color:var(--text-black); }
+  .entity .ent-name { font:var(--type-body-m-strong); color:var(--text-primary); }
   .entity .ent-role { font:var(--type-body-xs); color:var(--text-secondary); }
   /* comment */
   .comment { display:flex; gap:12px; max-width:340px; }
   .comment .cm-body { background:var(--bg-tile); border:1px solid var(--border-light); border-radius:0 12px 12px 12px; padding:10px 14px; }
-  .comment .cm-name { font:var(--type-body-s-strong); color:var(--text-black); margin:0 0 3px; }
+  .comment .cm-name { font:var(--type-body-s-strong); color:var(--text-primary); margin:0 0 3px; }
   .comment .cm-text { font:var(--type-body-s); color:var(--text-secondary); margin:0; }
 
   /* presence legend */
   .presence { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap:16px; }
   .presence-cell { border:1px solid var(--border-light); border-radius:12px; padding:18px; display:flex; align-items:center; gap:14px; background:var(--bg-tile); }
   .presence-cell .pc-txt { display:flex; flex-direction:column; gap:2px; }
-  .presence-cell .pc-nm { font:var(--type-body-m-strong); color:var(--text-black); }
+  .presence-cell .pc-nm { font:var(--type-body-m-strong); color:var(--text-primary); }
   .presence-cell .pc-rl { font:var(--type-body-xs); color:var(--text-secondary); }
 
   /* fallback chain */
@@ -136,10 +136,10 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); display:block; }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); display:block; }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
   .anat-dia { position:relative; }
-  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-black); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; transform:translate(-50%,-50%); }
+  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-primary); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; transform:translate(-50%,-50%); }
 
   /* ---------- do / don't ---------- */
   .guide { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
@@ -183,7 +183,7 @@
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 
   /* ---------- developer handoff ---------- */
-  .subhead2 { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead2 { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead2.mt { margin-top: 34px; }
   .subhead2 .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -218,7 +218,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -228,7 +228,7 @@
 <main class="page" data-screen-label="Avatar">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Avatar</h1>
     <p class="lead">Аватар — компактное визуальное представление пользователя или сущности. Содержит инициалы (Text), запасную иконку (Icon) или фотографию (Image). Две формы — Circular и Rounded — четыре размера и опциональный бейдж: счётчик или индикатор статуса.</p>
@@ -323,7 +323,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Badge">
-    <h3>Бейдж на аватаре<span class="badge-new">Новое</span></h3>
+    <h3>Бейдж на аватаре</h3>
     <p class="desc">Аватар может нести дочерний <a class="inl" href="../atoms/Badge.html">Badge</a>. <b>Counter</b> ставится в правый верхний угол — непрочитанные сообщения, количество задач. <b>Dot</b> ставится в правый нижний угол как индикатор присутствия. На фото у бейджа всегда белая обводка (<code class="tok">badge--bordered</code>).</p>
     <div class="panel">
       <div class="row" style="gap:44px; justify-content:center; align-items:center; padding:8px 0 28px;" id="badge-demo"></div>
@@ -333,7 +333,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Group">
-    <h3>Группа аватаров<span class="badge-new">Новое</span></h3>
+    <h3>Группа аватаров</h3>
     <p class="desc">Несколько участников показываются перекрывающимся стеком: левый аватар лежит поверх следующего, между ними — белое кольцо. Если участников больше лимита, остаток сворачивается в нейтральный чип «+N». Рекомендуемый лимит — 3–5 видимых аватаров.</p>
     <div class="panel">
       <div class="row" style="flex-direction:column; gap:26px; align-items:flex-start;" id="group-sizes"></div>
@@ -391,7 +391,7 @@
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
 <div class="subsec" data-screen-label="Fallback">
-    <h3>Заглушки и фолбэк<span class="badge-new">Новое</span></h3>
+    <h3>Заглушки и фолбэк</h3>
     <p class="desc">Содержимое выбирается по цепочке деградации: если есть фотография — показываем её; если фото нет или не загрузилось — инициалы; если нет и имени — нейтральную иконку. Это гарантирует, что аватар никогда не остаётся пустым.</p>
     <div class="panel">
       <div class="fallback" id="fallback"></div>
@@ -401,7 +401,7 @@
 
   <!-- STATES -->
   <section class="section" data-screen-label="States">
-    <h2>Состояния<span class="badge-new">Новое</span></h2>
+    <h2>Состояния</h2>
     <p class="desc">Аватар может быть интерактивным — вести на профиль. В этом случае у него есть состояния Hover, Focus (обводка <code class="tok">--primary</code>) и Pressed. Неактивный аватар приглушается.</p>
     <div class="panel">
       <div class="row" style="gap:40px; align-items:flex-start;" id="states-demo"></div>
@@ -472,35 +472,8 @@
       <code class="tok">styles/avatar.css</code>
     </div>
 
-    <p class="subhead2">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- самостоятельный аватар с инициалами --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"av av--circular av--l"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"av__text"</span><span class="tk-tag">&gt;</span>ИБ<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/span&gt;</span>
-
-<span class="tk-cm">&lt;!-- с бейджем: обёртка .av-stack даёт position:relative для абсолютного позиционирования --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"av-stack"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Мария А., в сети"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"av av--circular av--xl"</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"badge badge--dot badge--success badge--bordered"</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/span&gt;</span>
-
-<span class="tk-cm">&lt;!-- группа участников с переполнением --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"av-group av-group--m"</span> <span class="tk-attr">role=</span><span class="tk-val">"group"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Участники: ИБ, ВБ, МА, КГ и ещё 3"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"av av--circular av--m"</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-cm">&lt;!-- ещё 3–4 &lt;span class="av"&gt; — каждый смещается на -–av-overlap --&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"av-group__more"</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>+3<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/span&gt;</span>
-
-<span class="tk-cm">&lt;!-- интерактивный аватар-ссылка на профиль --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"av av--circular av--l av--button"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Открыть профиль Игоря Белова"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/button&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -526,60 +499,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">makeAvatar</code> / <code class="tok">makeGroup</code> в коде этой страницы).</p>
 
-    <p class="subhead2 mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Avatar.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> AvatarShape = <span class="tk-val">'circular'</span> | <span class="tk-val">'rounded'</span>;
-<span class="tk-attr">type</span> AvatarSize  = <span class="tk-val">'xl'</span> | <span class="tk-val">'l'</span> | <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span>;
-
-<span class="tk-attr">interface</span> AvatarProps {
-  shape?: AvatarShape;             <span class="tk-cm">// по умолчанию 'circular'</span>
-  size?: AvatarSize;               <span class="tk-cm">// по умолчанию 'm'</span>
-  name?: <span class="tk-attr">string</span>;                 <span class="tk-cm">// источник для авто-инициалов и aria-label</span>
-  src?: <span class="tk-attr">string</span>;                  <span class="tk-cm">// URL фото; при отсутствии/ошибке — фолбэк на инициалы/иконку</span>
-  icon?: React.ReactNode;          <span class="tk-cm">// переопределяет глиф фолбэка (иначе — нейтральный user)</span>
-  tone?: <span class="tk-val">'accent'</span>;                <span class="tk-cm">// акцентная подложка для Entity</span>
-  badge?: { type: <span class="tk-val">'counter'</span> | <span class="tk-val">'dot'</span>; value?: <span class="tk-attr">number</span>; tone?: <span class="tk-attr">string</span> };
-  interactive?: <span class="tk-attr">boolean</span>;         <span class="tk-cm">// рендерится как &lt;button&gt;, требует aria-label</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-  decorative?: <span class="tk-attr">boolean</span>;          <span class="tk-cm">// true — рядом уже есть видимое имя → aria-hidden</span>
-}
-
-<span class="tk-attr">interface</span> AvatarGroupProps {
-  items: { name: <span class="tk-attr">string</span>; src?: <span class="tk-attr">string</span> }[];
-  size?: <span class="tk-val">'l'</span> | <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span>;
-  shape?: AvatarShape;
-  limit?: <span class="tk-attr">number</span>;                <span class="tk-cm">// сколько аватаров показать явно; остаток → «+N»</span>
-  'aria-label'?: <span class="tk-attr">string</span>;
-}</code></pre>
-    </div>
-
-    <p class="subhead2 mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.av</code></td><td>span/button</td><td class="dsc">Контейнер-фигура фиксированного размера; размер через CSS-переменные <code class="tok">--av-*</code></td></tr>
-          <tr><td><code class="tok">.av--circular / --rounded</code></td><td>span</td><td class="dsc">Форма</td></tr>
-          <tr><td><code class="tok">.av--xl / --l / --m / --s</code></td><td>span</td><td class="dsc">Размер</td></tr>
-          <tr><td><code class="tok">.av--accent</code></td><td>span</td><td class="dsc">Акцентная подложка для Entity/иконки</td></tr>
-          <tr><td><code class="tok">.av--button</code></td><td>button</td><td class="dsc">Интерактивный аватар: hover/focus-visible, требует <code class="tok">aria-label</code></td></tr>
-          <tr><td><code class="tok">.av--disabled</code></td><td>span</td><td class="dsc"><code class="tok">pointer-events:none</code>, opacity .5, grayscale</td></tr>
-          <tr><td><code class="tok">.av__text / __icon / __img</code></td><td>span/img</td><td class="dsc">Слоты содержимого по типу</td></tr>
-          <tr><td><code class="tok">.av-stack</code></td><td>span</td><td class="dsc">Обёртка для аватара с <a class="inl" href="../atoms/Badge.html">Badge</a>; <code class="tok">position:relative</code></td></tr>
-          <tr><td><code class="tok">.av-stack--square</code></td><td>span</td><td class="dsc">Меняет позицию Dot для Rounded-аватара (в угол, не на кольце)</td></tr>
-          <tr><td><code class="tok">.av-group</code></td><td>span</td><td class="dsc">Контейнер группы; парой <code class="tok">role="group"</code> + <code class="tok">aria-label</code></td></tr>
-          <tr><td><code class="tok">.av-group--l / --m / --s</code></td><td>span</td><td class="dsc">Размер и шаг перекрытия (<code class="tok">--av-overlap</code>)</td></tr>
-          <tr><td><code class="tok">.av-group--rounded</code></td><td>span</td><td class="dsc">Скругление «+N»-чипа под форму Rounded</td></tr>
-          <tr><td><code class="tok">.av-group__more</code></td><td>span</td><td class="dsc">Нейтральный чип остатка — та же геометрия, что и аватар</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Avatar</span>
@@ -743,7 +663,7 @@ function makeGroup({ size='m', shape='circular', items=[], more=0 }) {
   [['circular','Circular','ИБ','text',null],['rounded','Rounded','',  'icon','accent']].forEach(([shape,label,text,content,tone])=>{
     const col=document.createElement('div'); col.style.cssText='display:flex;flex-direction:column;align-items:center;gap:14px;';
     col.appendChild(makeAvatar({shape,size:'xl',content,text,tone,icon:ICONS.entity}));
-    const cap=document.createElement('span'); cap.style.cssText='font:var(--type-body-m-strong);color:var(--text-black);'; cap.textContent=label;
+    const cap=document.createElement('span'); cap.style.cssText='font:var(--type-body-m-strong);color:var(--text-primary);'; cap.textContent=label;
     col.appendChild(cap); s.appendChild(col);
   });
 })();
@@ -876,7 +796,7 @@ function makeGroup({ size='m', shape='circular', items=[], more=0 }) {
   const groups = [
     { name:'Подложка', rows:[
       ['Нейтральная (по умолчанию)', '--c-swamp-100'],
-      ['Инициалы / иконка', '--text-on-tertiary'],
+      ['Инициалы / иконка', '--text-primary'],
       ['Акцентная (Entity)', '--primary'],
     ]},
     { name:'Группа', rows:[

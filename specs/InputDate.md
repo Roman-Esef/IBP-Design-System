@@ -1,8 +1,8 @@
 ---
 component: InputDate
 title: "InputDate"
-version: "v1.1"
-updated: "09.07.2026"
+version: "v1.5"
+updated: "12.07.2026"
 page: pages/molecules/InputDate.html
 page_js: scripts/input-date.page.js
 css: styles/input.css
@@ -22,10 +22,10 @@ status: curated
 - **Размеры** — M (40px, Body M) — основной; S (32px, Body S) — только Table Edit. Ширину задаёт контейнер.
 - **Контент** — маска ММ.ДД.ГГГГ (шаблон единый на экране); пустое поле показывает маску как плейсхолдер; метка-существительное; хелпер = правило (в Error → ошибка).
 - **Поведение** — вводятся только цифры, точки-разделители автоматически; Backspace удаляет цифру с разделителем; DatePicker открывается при фокусе и по кнопке-календарю; выбор даты пишет значение и закрывает.
-- **Состояния** — Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled. Тултип ошибки/предупреждения — в *Focus.
+- **Состояния** — Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled. Фокус — бордер 2px. ПРАВИЛО: текст ошибки/предупреждения по умолчанию НЕ в хелпере — только в тултипе при *Focus; тултип не смещает хелпер (position:absolute, z-index выше поля). Исключение — намеренно при разработке.
 - **Доступность** — `label[for]`, `aria-describedby`, `aria-invalid`; кнопка-календарь — button с aria-label и `aria-haspopup="dialog"`; дата вводима с клавиатуры без календаря; `inputmode="numeric"`.
 - **Типографика** — значение SB Sans Text с табличными цифрами (M — Body M, S — Body S); Label/Helper — Body XS.
-- **Цвета** — токены совпадают с InputText: рамка `--border-primary`, фокус `--primary`, Error `--error`, Warning `--warning`, маска-плейсхолдер `--text-inactive`.
+- **Цвета** — токены совпадают с InputText: рамка `--border-primary`, фокус `--primary`, Error `--error`, Warning `--warning`, маска-плейсхолдер `--text-inactive`. Иконки (календарь/крестик) — Active · `--secondary`, hover → `--secondary-dark`.t-inactive`.
 
 ## Для разработчиков (выжимка)
 

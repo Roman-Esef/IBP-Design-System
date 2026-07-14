@@ -1,8 +1,8 @@
 ---
 component: Entity
 title: "Entity"
-version: "v1.0"
-updated: "08.07.2026"
+version: "v1.1"
+updated: "13.07.2026"
 page: pages/organisms/Entity.html
 css: styles/entity.css
 deps: [avatar, chip, icon-button, button, badge]
@@ -47,9 +47,13 @@ status: manual
 - `.entity--error` — объект удалён: иконка в тоне error, Label зачёркнут, Header в тоне error.
 - Drag-handle — `.entity__drag` (drag-dots) в начале строки.
 
+## Поведение
+- Клик по кликабельному тайлу (`.entity--interactive`) активирует всю строку целиком, не только Label.
+- Вложенные интерактивные элементы (кнопка действия, чекбокс выбора) — их клик не всплывает до обработчика строки (`stopPropagation`), иначе клик по вложенной кнопке одновременно откроет/выберет саму сущность.
+
 ## Токены (цвета)
-- Label `--text-black` · счётчик +N `--text-primary` · Subheaders `--text-secondary` · Header/постфикс/«—» `--text-inactive`.
-- Иконка (default): фон `--c-swamp-100`, глиф `--text-on-tertiary`. Тон accent: `--primary` 14% / `--primary-dark`. Тон neutral: `--c-cgrey-100` / `--text-secondary`.
+- Label `--text-primary` · счётчик +N `--text-primary` · Subheaders `--text-secondary` · Header/постфикс/«—» `--text-inactive`.
+- Иконка (default): фон `--c-swamp-100`, глиф `--text-primary`. Тон accent: `--primary` 14% / `--primary-dark`. Тон neutral: `--c-cgrey-100` / `--text-secondary`.
 - Интерактив: hover `--bgtable-row-hover`, selected `--primary-bg`, закладка active/фокус `--primary`.
 - Ошибка: фон иконки `--error-bg-light`, иконка/Header `--error`.
 
@@ -114,7 +118,7 @@ interface EntityProps {
 | .entity__titles | div | Header + строка Label |
 | .entity__header | p | Надзаголовок Body XS inactive |
 | .entity__labelrow | div | prefix · label · postfix · bookmark (baseline) |
-| .entity__label | span | Основной текст *-strong --text-black |
+| .entity__label | span | Основной текст *-strong --text-primary |
 | .entity__label--truncate | .entity__label | Усечение + Tooltip |
 | .entity__prefix / __postfix | span | Серые аффиксы |
 | .entity__bookmark | button | Избранное; --active = primary |

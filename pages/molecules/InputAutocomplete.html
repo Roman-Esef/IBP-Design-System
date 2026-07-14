@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="InputAutocomplete" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -30,7 +30,7 @@
 <main class="page" data-screen-label="InputAutocomplete">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>09.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.7</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputAutocomplete</h1>
     <p class="lead">Поле с выпадающим списком: пользователь вводит запрос, а под полем раскрывается <a class="inl" href="Select.html">DropdownList</a> с подходящими опциями. Список содержит как текстовые опции (одиночный выбор), так и опции с чекбоксами (множественный выбор). Выбранные значения показываются в поле сводкой, чипами внутри поля или чипами во внешнем стеке под полем. Построен на той же базе Input_Content, что и <a class="inl" href="InputText.html">InputText</a> и <a class="inl" href="InputDate.html">InputDate</a>.</p>
@@ -175,7 +175,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Восемь состояний поля-триггера, общих со всеми типами поля. Тултип с текстом ошибки или предупреждения появляется в ErrorFocus и WarningFocus. Состояния опций списка — на странице <a class="inl" href="Select.html">DropdownList</a>.</p>
+    <p class="desc">Восемь состояний поля-триггера, общих со всеми типами поля. Текст ошибки или предупреждения по умолчанию не выносится в хелпер — хелпер остаётся правилом заполнения — и показывается только в тултипе в ErrorFocus и WarningFocus. Тултип не смещает хелпер: лежит поверх потока, z-index выше поля. Исключение из правила допустимо, если оно намеренно заложено при разработке. Состояния опций списка — на странице <a class="inl" href="Select.html">DropdownList</a>.</p>
     <div class="panel"><div class="demo-grid" id="states-demo"></div></div>
   </section>
 
@@ -236,40 +236,8 @@
       <code class="tok">styles/input.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"inp inp--m is-open"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;label</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-label ds-label--left"</span> <span class="tk-attr">for=</span><span class="tk-val">"ac"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-label__text"</span><span class="tk-tag">&gt;</span>Контрагент<span class="tk-tag">&lt;/span&gt;&lt;/label&gt;</span>
-
-  <span class="tk-cm">&lt;!-- поле-триггер --&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__field"</span> <span class="tk-attr">role=</span><span class="tk-val">"combobox"</span> <span class="tk-attr">aria-expanded=</span><span class="tk-val">"true"</span> <span class="tk-attr">aria-controls=</span><span class="tk-val">"ac-list"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-cm">&lt;!-- показ выбора: сводка ИЛИ стек чипов --&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__chips"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"chip chip--edit chip--s"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"chip__label"</span><span class="tk-tag">&gt;</span>Value 1<span class="tk-tag">&lt;/span&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"chip__remove"</span> <span class="tk-attr">role=</span><span class="tk-val">"button"</span><span class="tk-tag">&gt;</span>…✕…<span class="tk-tag">&lt;/span&gt;&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;input</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__control"</span> <span class="tk-attr">id=</span><span class="tk-val">"ac"</span> <span class="tk-attr">placeholder=</span><span class="tk-val">"Поиск…"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__acts"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__act"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Очистить"</span><span class="tk-tag">&gt;</span>…✕…<span class="tk-tag">&lt;/button&gt;</span>
-      <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__act inp__act--chev"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Показать список"</span><span class="tk-tag">&gt;</span>…⌄…<span class="tk-tag">&lt;/button&gt;</span>
-    <span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-
-  <span class="tk-cm">&lt;!-- DropdownList: role=listbox; текст ИЛИ ddl__item--checkbox --&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">id=</span><span class="tk-val">"ac-list"</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl ddl--floating ddl--scroll"</span> <span class="tk-attr">role=</span><span class="tk-val">"listbox"</span> <span class="tk-attr">aria-multiselectable=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item ddl__item--checkbox"</span> <span class="tk-attr">role=</span><span class="tk-val">"option"</span> <span class="tk-attr">aria-checked=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/button&gt;</span>
-    <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item"</span> <span class="tk-attr">role=</span><span class="tk-val">"option"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item-label"</span><span class="tk-tag">&gt;</span>Дол<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__match"</span><span class="tk-tag">&gt;</span>лар<span class="tk-tag">&lt;/span&gt;&lt;/span&gt;&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-
-  <span class="tk-cm">&lt;!-- вариант Chips Ext: стек чипов ПОД полем вместо .inp__chips внутри --&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"inp-ext"</span> <span class="tk-attr">role=</span><span class="tk-val">"group"</span><span class="tk-tag">&gt;</span>…чипы…<span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -292,54 +260,7 @@
 <span class="tk-cm">//    Enter — выбор, Esc — закрыть.</span></code></pre>
     </div>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">InputAutocomplete.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">interface</span> Option { id: <span class="tk-attr">string</span>; label: <span class="tk-attr">string</span>; helper?: <span class="tk-attr">string</span>; disabled?: <span class="tk-attr">boolean</span>; }
-
-<span class="tk-attr">type</span> Selection = <span class="tk-val">'summary'</span> | <span class="tk-val">'chips'</span> | <span class="tk-val">'chips-external'</span>;
-
-<span class="tk-attr">interface</span> InputAutocompleteProps {
-  options: Option[];
-  value: <span class="tk-attr">string</span>[];               <span class="tk-cm">// id выбранных (одиночный — длина 0..1)</span>
-  onChange(ids: <span class="tk-attr">string</span>[]): <span class="tk-attr">void</span>;
-  onSearch?(query: <span class="tk-attr">string</span>): <span class="tk-attr">void</span>; <span class="tk-cm">// async-фильтрация</span>
-  multiple?: <span class="tk-attr">boolean</span>;            <span class="tk-cm">// список с чекбоксами</span>
-  selectionDisplay?: Selection;    <span class="tk-cm">// по умолчанию multiple? 'chips' : 'summary'</span>
-  size?: <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span>;              <span class="tk-cm">// s — только Table Edit</span>
-  label?: <span class="tk-attr">string</span>;
-  helper?: <span class="tk-attr">string</span>;
-  placeholder?: <span class="tk-attr">string</span>;
-  status?: <span class="tk-val">'default'</span> | <span class="tk-val">'error'</span> | <span class="tk-val">'warning'</span>;
-  statusMessage?: <span class="tk-attr">string</span>;
-  loading?: <span class="tk-attr">boolean</span>;             <span class="tk-cm">// системная строка загрузки в списке</span>
-  allowCreate?: <span class="tk-attr">boolean</span>;         <span class="tk-cm">// action-строка «создать значение»</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.inp / .inp--m / .inp--s / .inp--error / --warning / --disabled</code></td><td>div</td><td class="dsc">База поля — общая с InputText</td></tr>
-          <tr><td><code class="tok">.inp.is-open</code></td><td>div</td><td class="dsc">Список раскрыт; поворачивает шеврон</td></tr>
-          <tr><td><code class="tok">.inp__summary</code></td><td>span</td><td class="dsc">Сводка выбора «Value 1, +4»</td></tr>
-          <tr><td><code class="tok">.inp__chips</code></td><td>span</td><td class="dsc">Стек чипов внутри поля; overflow → «+N»</td></tr>
-          <tr><td><code class="tok">.inp-ext</code></td><td>div</td><td class="dsc">Внешний стек чипов под полем (Chips Ext)</td></tr>
-          <tr><td><code class="tok">.inp__act--chev</code></td><td>button</td><td class="dsc">Шеврон раскрытия; поворот в <code class="tok">.is-open</code></td></tr>
-          <tr><td><code class="tok">.chip.chip--edit.chip--s / --xs</code></td><td>span</td><td class="dsc">Чип выбранного значения (см. Chip)</td></tr>
-          <tr><td><code class="tok">.ddl / .ddl__item / .ddl__item--checkbox / .ddl__match</code></td><td>div / button</td><td class="dsc">DropdownList и опции (см. Select · DropdownList)</td></tr>
-          <tr><td><code class="tok">role="combobox" / listbox / option · aria-expanded / -controls / -multiselectable / -selected / -checked</code></td><td>поле, список, опция</td><td class="dsc">Доступность: связь поля и списка, семантика выбора</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <!-- BACKLOG -->
   <div class="backlog" data-screen-label="Backlog">

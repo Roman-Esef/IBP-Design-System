@@ -1,8 +1,8 @@
 ---
 component: TableCell
 title: "TableCell"
-version: "v1.3"
-updated: "08.07.2026"
+version: "v1.4"
+updated: "13.07.2026"
 page: pages/organisms/TableCell.html
 css: styles/table-cell.css
 deps: [checkbox, chip, icon-button, button, tooltip]
@@ -21,7 +21,8 @@ status: curated
 - **Контент** — текст слева, усечение + Tooltip; числа/даты справа, tabular-nums; multirow клэмп 2; 2row = значение + subtext; пусто = «—»; действий max 2–3 → кебаб.
 - **Состояния** — Default · Hover · Focus · Selected (строка) · Disabled · Error (+error-bg) · Empty · Skeleton. Фон колонки: Accent · Pinned (со своими hover/focus-тонами). EditMark (`--edited`) — угловой маркер правки.
 - **Доступность** — нативные table/th/td или role=grid/columnheader/gridcell; `aria-sort` на шапке; чекбокс + `aria-selected` для выбора; клавиатура grid-pattern, `:focus-visible` inset outline; Tooltip для усечения; `aria-expanded`/`aria-level` для дерева; `aria-busy` для skeleton; статус не только цветом.
-- **Цвета** — текст `--text-black`/`--text-secondary`/`--text-inactive`; фон строки `--bgtable`/`-row-hover`/`-row-focus`/`--primary-bg`/`--error-bg-light`; фон колонки `--bgtable-accent*`/`--bgtable-pinned*`; границы `--border-light`(ячейка)/`--border-primary`(шапка); акценты `--primary` (фокус, активн. сортировка, рамка input), `--warning` (предупреждение), `--error`, `--chart-orange` (EditMark).
+- **Цвета** — текст `--text-primary`/`--text-secondary`/`--text-inactive`; фон строки `--bgtable`/`-row-hover`/`-row-focus`/`--primary-bg`/`--error-bg-light`; фон колонки `--bgtable-accent*`/`--bgtable-pinned*`; границы `--border-light`(ячейка)/`--border-primary`(шапка); акценты `--primary` (фокус, активн. сортировка, рамка input), `--warning` (предупреждение), `--error`, `--chart-orange` (EditMark).
+- **Поведение** — Tooltip усечения появляется только когда текст реально обрезан (`scrollWidth > clientWidth`), не всегда. TreeNode: твисти toggle `aria-expanded`, разворачивает/сворачивает дочерние строки с поворотом глифа; листья — без твисти (зарезервировано место). Навигация по таблице — стрелками между ячейками (grid pattern), не Tab по каждому элементу.
 
 ## Для разработчиков (выжимка)
 

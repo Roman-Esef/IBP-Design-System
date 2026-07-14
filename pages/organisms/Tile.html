@@ -1,0 +1,842 @@
+<!-- @dsCard group="Components" name="Tile" viewport="1440x900" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script>window.__DS_ROOT = '../../';</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tile — Дизайн-система</title>
+<link rel="stylesheet" href="../../styles/typography.css">
+<link rel="stylesheet" href="../../styles/colors.css">
+<link rel="stylesheet" href="../../styles/radius.css">
+<link rel="stylesheet" href="../../styles/shadow.css">
+<link rel="stylesheet" href="../../styles/button.css">
+<link rel="stylesheet" href="../../styles/icon-button.css">
+<link rel="stylesheet" href="../../styles/link.css">
+<link rel="stylesheet" href="../../styles/chip.css">
+<link rel="stylesheet" href="../../styles/badge.css">
+<link rel="stylesheet" href="../../styles/divider.css">
+<link rel="stylesheet" href="../../styles/label-helper.css">
+<link rel="stylesheet" href="../../styles/read-only-field.css">
+<link rel="stylesheet" href="../../styles/alert.css">
+<link rel="stylesheet" href="../../styles/tile.css">
+<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/ds-nav.css">
+<link rel="stylesheet" href="../../styles/ds-toc.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body{margin:0;font-family:var(--font-text),system-ui,sans-serif;color:var(--text-primary);background:var(--bg-page);background-attachment:fixed;}
+.page{max-width:1320px;margin:0 auto;padding:clamp(40px,7vw,96px) clamp(24px,5vw,72px) 140px;}
+.masthead{border-bottom:1px solid var(--border-light);padding-bottom:30px;}
+.masthead .meta{font:var(--type-body-xs);color:var(--text-inactive);display:flex;gap:24px;margin:0 0 22px;flex-wrap:wrap;}
+.masthead .meta b{color:var(--text-secondary);font-weight:600;}
+.eyebrow{font:var(--type-button-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin:0 0 14px;}
+.masthead h1{font:var(--type-h1);margin:0 0 14px;color:var(--text-primary);}
+@media(max-width:600px){.masthead h1{font-size:40px;line-height:48px;}}
+.masthead p.lead{font:var(--type-body-l);color:var(--text-secondary);margin:0;max-width:66ch;text-wrap:pretty;}
+.crumb{display:inline-flex;align-items:center;gap:7px;font:var(--type-body-s);color:var(--text-inactive);text-decoration:none;margin-bottom:20px;}
+.crumb:hover{color:var(--primary);}
+a{color:var(--link);} a:hover{color:var(--link-dark);}
+.section{margin-top:76px;}
+.section>h2{font:var(--type-h3-strong);margin:0 0 8px;color:var(--text-primary);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.section>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 28px;max-width:82ch;text-wrap:pretty;}
+.section>p.desc+p.desc{margin-top:-16px;}
+.panel{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:16px;padding:32px 34px;}
+.panel+.panel{margin-top:16px;}
+.subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:32px 0 14px;}
+.subhead:first-child{margin-top:0;}
+.subsec{margin-top:48px;}
+.subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
+.subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
+ul.bullets{margin:0 0 0 2px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;}
+ul.bullets li{position:relative;padding-left:18px;font:var(--type-body-m);color:var(--text-secondary);}
+ul.bullets li::before{content:"";position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--text-inactive);}
+ul.bullets li b{color:var(--text-primary);}
+code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;color:var(--primary);background:var(--primary-bg);padding:1px 6px;border-radius:5px;}
+.disclaimer{border:1px solid var(--warning);background:var(--warning-bg);border-radius:14px;padding:22px 26px;}
+.disclaimer h2{font:var(--type-h4-strong);color:var(--warning-dark,var(--text-primary));margin:0 0 10px;}
+.disclaimer p{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 6px;max-width:88ch;text-wrap:pretty;}
+.disclaimer p:last-child{margin-bottom:0;}
+/* playground */
+.panel.pg{padding:0;overflow:hidden;display:grid;}
+.pg__stage{display:flex;align-items:stretch;min-height:340px;padding:24px 26px;min-width:0;}
+.pg__stagebox{width:100%;display:flex;flex-direction:column;min-width:0;}
+.ctl{display:flex;flex-direction:column;gap:10px;}
+.ctl.is-off{display:none;}
+.ctl>.lbl{font:600 11px/1 var(--font-text),sans-serif;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;}
+.pg-text input{width:100%;height:40px;padding:0 14px;border:1px solid var(--border-primary);border-radius:9px;background:var(--bg-tile);color:var(--text-primary);font:var(--type-body-m);}
+.pg-text input:focus-visible{outline:2px solid var(--primary);outline-offset:1px;}
+.pg-select{position:relative;}
+.pg-select select{appearance:none;-webkit-appearance:none;width:100%;height:40px;padding:0 38px 0 14px;border:1px solid var(--border-primary);border-radius:9px;background:var(--bg-tile);color:var(--text-primary);font:var(--type-body-m);cursor:pointer;}
+.pg-select select:focus-visible{outline:2px solid var(--primary);outline-offset:1px;}
+.pg-select::after{content:"";position:absolute;right:15px;top:50%;width:9px;height:9px;border-right:2px solid var(--text-secondary);border-bottom:2px solid var(--text-secondary);transform:translateY(-65%) rotate(45deg);pointer-events:none;}
+.pg-toggle{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font:var(--type-body-m);color:var(--text-primary);user-select:none;}
+.pg-toggle input{position:absolute;opacity:0;pointer-events:none;}
+.pg-toggle__sw{width:36px;height:20px;border-radius:999px;background:var(--c-cgrey-200);position:relative;flex:none;transition:.15s;}
+.pg-toggle__sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:.15s;}
+.pg-toggle input:checked~.pg-toggle__sw{background:var(--primary);}
+.pg-toggle input:checked~.pg-toggle__sw::after{transform:translateX(16px);}
+.pg-stage-grid{flex:1;display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-content:center;background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:28px;min-height:260px;}
+.ws-cap{font:var(--type-body-xs);color:var(--text-inactive);margin:12px 0 0;text-wrap:pretty;}
+/* demo content inside tiles */
+.tl-fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.tl-field{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.tl-field__label{font:var(--type-body-xs);color:var(--text-inactive);}
+.tl-field__value{font:var(--type-body-m-strong);color:var(--text-primary);}
+.tl-field__value .u{color:var(--text-inactive);font-weight:400;}
+/* anatomy */
+.anat{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start;}
+@media(max-width:860px){.anat{grid-template-columns:1fr;}}
+.anat__stage{background:color-mix(in srgb,var(--primary) 5%,#fff);border:1px solid var(--border-light);border-radius:14px;padding:44px 40px;display:flex;justify-content:center;}
+.anat-dia{position:relative;width:100%;max-width:440px;}
+.mk{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--text-primary);color:#fff;font:700 12px/24px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:5;pointer-events:none;}
+.anat__legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.anat__legend li{display:flex;gap:12px;align-items:flex-start;}
+.anat__legend li .n{width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font:700 12px/24px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px;}
+.anat__legend li .k{font:var(--type-body-m-strong);color:var(--text-primary);display:block;}
+.anat__legend li .d{font:var(--type-body-s);color:var(--text-secondary);}
+/* sizes rail */
+.size-row{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--border-light);}
+.size-row:last-child{border-bottom:none;}
+.size-tag{font:var(--type-body-s-strong);color:var(--text-primary);}
+.size-tag small{display:block;font:var(--type-body-xs);color:var(--text-inactive);font-weight:400;margin-top:2px;}
+.colspan{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;}
+.colspan .cs{height:34px;border-radius:6px;background:var(--c-swamp-100,var(--primary-bg));border:1px solid var(--border-light);}
+.colspan .cs--fill{background:var(--primary-bg);border-color:var(--primary);display:flex;align-items:center;justify-content:center;font:var(--type-body-xs);color:var(--primary-dark,var(--primary));font-weight:600;}
+/* content guide */
+.guide{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:700px){.guide{grid-template-columns:1fr;}}
+.guide-card{border-radius:12px;overflow:hidden;border:1px solid var(--border-light);background:var(--bg-tile);}
+.guide-card__bar{height:4px;}
+.guide-card.bad .guide-card__bar{background:var(--error);}
+.guide-card.good .guide-card__bar{background:var(--success);}
+.guide-card__tag{font:var(--type-body-s-strong);padding:12px 18px 0;}
+.guide-card.bad .guide-card__tag{color:var(--error-dark);}
+.guide-card.good .guide-card__tag{color:var(--success-dark);}
+.guide-card__body{padding:14px 18px 18px;font:var(--type-body-s);color:var(--text-secondary);}
+/* states / variants grid */
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:820px){.mini-grid{grid-template-columns:1fr;}}
+.mini{display:flex;flex-direction:column;gap:12px;}
+.mini__cap{font:var(--type-body-xs);color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;}
+.mini__cap b{color:var(--text-secondary);}
+.stagebg{background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:24px;}
+/* page example */
+.page-ex{background:var(--bg-page);border:1px solid var(--border-light);border-radius:14px;padding:24px;overflow:hidden;}
+.page-ex__crumbs{font:var(--type-body-xs);color:var(--text-inactive);margin:0 0 6px;}
+.page-ex__title{font:var(--type-h4-strong);color:var(--text-primary);margin:0 0 18px;}
+.page-ex__row{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);}
+.page-ex__row+.page-ex__row{margin-top:16px;}
+/* colors */
+.cref{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media(max-width:700px){.cref{grid-template-columns:1fr;}}
+.cref-group{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:14px;overflow:hidden;}
+.cref-group>h3{font:var(--type-body-m-strong);margin:0;padding:14px 18px;border-bottom:1px solid var(--border-light);color:var(--text-primary);}
+.cref-row{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-secondary);}
+.cref-row:last-child{border-bottom:none;}
+.cref-row .sw{width:16px;height:16px;border-radius:4px;border:1px solid rgba(40,50,55,.1);}
+.cref-row b{color:var(--text-primary);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;font-weight:600;}
+/* ref table */
+.ref-table{width:100%;border-collapse:collapse;}
+.ref-table th,.ref-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--border-light);font:var(--type-body-m);color:var(--text-primary);vertical-align:middle;}
+.ref-table th{font:var(--type-body-s-strong);color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em;font-size:12px;}
+.ref-table tr:last-child td{border-bottom:none;}
+.ref-table code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;}
+.rl-sample{position:absolute;top:-9999px;left:0;width:520px;}
+/* code blocks */
+.code-wrap{position:relative;background:var(--c-cgrey-800);border-radius:12px;padding:20px 22px;margin:0;overflow-x:auto;}
+.code-wrap code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--text-on-dark);white-space:pre;display:block;line-height:1.65;}
+.copy-btn{position:absolute;top:12px;right:12px;appearance:none;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font:var(--type-button-xs);border-radius:7px;padding:5px 11px;cursor:pointer;transition:.15s;}
+.copy-btn:hover{background:rgba(255,255,255,.2);}
+.copy-btn.is-copied{border-color:rgba(100,220,150,.5);background:rgba(100,220,150,.15);}
+footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-inactive);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="Tile">
+
+<header class="masthead">
+  <a class="crumb" href="../../index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Обзор компонентов
+  </a>
+  <div class="meta">
+    <span>Версия <b>v1.1</b></span>
+    <span>Обновлено <b>13.07.2026</b></span>
+    <span>CSS <b>styles/tile.css</b></span>
+    <span>Зависимости <b>icon-button, button, link, chip, badge, alert, divider</b></span>
+  </div>
+  <div class="eyebrow">Дизайн-система · Организмы</div>
+  <h1>Tile</h1>
+  <p class="lead">Один из основных компонентов интерфейса — плашка на рабочей области страницы. Состоит из TileHeader и контентной области; наполнение контента индивидуально под задачу и тип тайла.</p>
+</header>
+
+<!-- 1. КОНСТРУКТОР -->
+<section class="section" id="constructor" data-screen-label="Конструктор">
+  <h2>Конструктор</h2>
+  <div class="panel pg">
+    <div class="pg__controls">
+      <div class="ctl">
+        <div class="lbl">Тип тайла</div>
+        <div class="pg-select"><select id="ctl-type">
+          <option value="normal" selected>Обычный</option>
+          <option value="accordion">Аккордеон</option>
+          <option value="headless">Без хэдера</option>
+        </select></div>
+      </div>
+      <div class="ctl">
+        <div class="lbl">Ширина, колонок</div>
+        <div class="pg-select"><select id="ctl-cols">
+          <option value="3">3 колонки</option>
+          <option value="4">4 колонки</option>
+          <option value="6" selected>6 колонок</option>
+          <option value="8">8 колонок</option>
+          <option value="9">9 колонок</option>
+          <option value="12">12 колонок</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-title">
+        <div class="lbl">Заголовок</div>
+        <div class="pg-text"><input id="ctl-title" type="text" placeholder="Проектное финансирование" maxlength="48"></div>
+      </div>
+      <div class="ctl" id="wrap-add">
+        <div class="lbl">Addition к заголовку</div>
+        <div class="pg-select"><select id="ctl-add">
+          <option value="none" selected>Нет</option>
+          <option value="link">Ссылка</option>
+          <option value="icon">Иконка</option>
+          <option value="chip">Чип</option>
+          <option value="badge">Бейдж</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-sub">
+        <div class="lbl">Подзаголовок</div>
+        <label class="pg-toggle"><input id="ctl-sub" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Subtitle с иконкой</span></label>
+      </div>
+      <div class="ctl" id="wrap-chips">
+        <div class="lbl">Chiplist в хэдере</div>
+        <label class="pg-toggle"><input id="ctl-chips" type="checkbox"><span class="pg-toggle__sw"></span><span>Ряд чипов</span></label>
+      </div>
+      <div class="ctl" id="wrap-actions">
+        <div class="lbl">Actions (трейлинг)</div>
+        <div class="pg-select"><select id="ctl-actions">
+          <option value="none">Нет</option>
+          <option value="one" selected>IconButton</option>
+          <option value="two">2 IconButton</option>
+          <option value="three">3 IconButton</option>
+          <option value="button">Кнопка</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-alert">
+        <div class="lbl">Alert-слот</div>
+        <div class="pg-select"><select id="ctl-alert">
+          <option value="none" selected>Нет</option>
+          <option value="warning">Warning</option>
+          <option value="info">Info</option>
+        </select></div>
+      </div>
+    </div>
+    <div class="pg__stage">
+      <div class="pg__stagebox">
+        <div class="pg-stage-grid">
+          <div id="demo-tile-wrap" style="grid-column:span 6;">
+            <div id="demo-tile"></div>
+          </div>
+        </div>
+        <p class="ws-cap">Ширина тайла привязана к колонкам контентной области (3–12). Контент здесь — типовой пример: наполнение всегда индивидуально под задачу тайла.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ИСПОЛЬЗОВАНИЕ -->
+<section class="section" id="usage" data-screen-label="Использование">
+  <h2>Использование</h2>
+  <p class="desc">Tile — основная плашка рабочей области страницы: группирует связанные данные и действия по объекту (сделка, продукт, инструмент, контрагент). Описаны общие правила построения; для каждой конкретной плашки в проекте заводится локальный компонент, разработанный по этим правилам.</p>
+
+  <div class="disclaimer" role="note">
+    <h2>Дисклеймер</h2>
+    <p>Описаны общие правила построения и использования тайла.</p>
+    <p>Для каждой конкретной плашки в проекте заводится локальный компонент, разработанный по правилам этой страницы.</p>
+    <p>Контент в контентной области отличается в зависимости от типа и задачи плашки и может быть любым.</p>
+  </div>
+
+  <div class="subsec">
+    <h3>Когда использовать</h3>
+    <ul class="bullets">
+      <li>Для группировки связанных полей и действий по объекту на рабочей области страницы.</li>
+      <li>Когда блоку нужен заголовок, опциональный статус (чипы/бейдж) и локальные действия в шапке.</li>
+      <li>Когда блок раскрывается/сворачивается — вариант <b>AccordionTile</b>.</li>
+      <li>Когда заголовок не нужен и блок целиком состоит из контента — вариант <b>TileHeadless</b>.</li>
+    </ul>
+  </div>
+
+  <div class="subsec">
+    <h3>Когда не использовать</h3>
+    <ul class="bullets">
+      <li>Внутри модальных окон — там используется <b>Card</b> (собственная система отступов, состояния перетаскивания/выбора).</li>
+      <li>Для отдельного объекта в списке или строке — это <b>Entity</b>, а не тайл.</li>
+      <li>Как контейнер-обёртку без содержательного заголовка и контента — тайл не декоративен.</li>
+    </ul>
+  </div>
+
+  <div class="subsec">
+    <h3>Tile · TileHeadless · Card</h3>
+    <p class="desc tight">Три родственные плашки с общим TileHeader, но разной областью применения и системой отступов.</p>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table">
+        <thead><tr><th>Компонент</th><th>Где</th><th>Хэдер</th><th>Отступы контента</th><th>Состояния</th></tr></thead>
+        <tbody>
+          <tr><td><b>Tile</b></td><td>рабочая область страницы</td><td>TileHeader M</td><td>10 / 20 / 24 / 20</td><td>нет</td></tr>
+          <tr><td><b>TileHeadless</b></td><td>рабочая область страницы</td><td>нет</td><td>24 / 24 / 32 / 24</td><td>нет</td></tr>
+          <tr><td><b>Card</b></td><td>модальные окна</td><td>TileHeader Card</td><td>8 / 16 / 20 / 16</td><td>Default / Hover / Active / Move / Disabled</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 3. АНАТОМИЯ -->
+<section class="section" id="anatomy" data-screen-label="Анатомия">
+  <h2>Анатомия</h2>
+  <p class="desc">Тайл состоит из TileHeader и контентной области; хэдер размещается над контентом вплотную, без отступа. Опционально между ними вставляется Alert.</p>
+  <div class="anat">
+    <div class="anat__stage">
+      <div class="anat-dia">
+        <div class="tile" id="anat-tile">
+          <div class="tile__header">
+            <div class="tile__header-main">
+              <div class="tile__title-row">
+                <h4 class="tile__title">Проектное финансирование</h4>
+              </div>
+              <div class="tile__subtitle"><span class="tile__subtitle-icon"><i data-icon="check-circle-filled"></i></span>Нерезидент</div>
+              <div class="tile__chiplist">
+                <span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span>
+              </div>
+            </div>
+            <div class="tile__actions">
+              <button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы"><i data-icon="document-check"></i></button>
+              <button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button>
+            </div>
+          </div>
+          <div class="tile__alert">
+            <div class="alert alert--warning alert--s" data-alert-tone="warning" role="status">
+              <span class="alert__icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span>
+              <div class="alert__body"><p class="alert__text">Функционал в разработке</p></div>
+            </div>
+          </div>
+          <div class="tile__body">
+            <div class="tl-fieldgrid">
+              <div class="tl-field"><span class="tl-field__label">Объём по продукту, млн ед.</span><span class="tl-field__value">17 560 <span class="u">RUB</span></span></div>
+              <div class="tl-field"><span class="tl-field__label">Валовая маржа, %</span><span class="tl-field__value">3</span></div>
+            </div>
+          </div>
+        </div>
+        <span class="mk" style="left:0;top:20px;">1</span>
+        <span class="mk" style="left:0;top:118px;">2</span>
+        <span class="mk" style="right:0;left:auto;top:20px;transform:translate(50%,-50%);">3</span>
+        <span class="mk" style="right:0;left:auto;bottom:44px;top:auto;transform:translate(50%,50%);">4</span>
+      </div>
+    </div>
+    <ol class="anat__legend">
+      <li><span class="n">1</span><span><span class="k">TileHeader — Title</span><span class="d">H5 Strong. Опц. Addition: Link / Icon / Chip / Badge.</span></span></li>
+      <li><span class="n">2</span><span><span class="k">Subtitle + Chiplist</span><span class="d">Subtitle — Body XS с опц. иконкой; ниже — ряд чипов (маркеры).</span></span></li>
+      <li><span class="n">3</span><span><span class="k">Actions</span><span class="d">Трейлинг: IconButton ×1–3 или Button.</span></span></li>
+      <li><span class="n">4</span><span><span class="k">Alert-слот + контентная область</span><span class="d">Опц. полноширинный Alert, затем контент (индивидуальный).</span></span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 4. ВАРИАНТЫ -->
+<section class="section" id="variants" data-screen-label="Варианты">
+  <h2>Варианты</h2>
+  <p class="desc">Оси конфигурации тайла: наличие хэдера, разворачивание и вставка Alert. Состав самого хэдера (Title / Subtitle / Chiplist / Actions) настраивается независимо — см. Конструктор.</p>
+
+  <div class="subsec">
+    <h3>Обычный Tile</h3>
+    <p class="desc tight">TileHeader M + контентная область. Базовый вариант.</p>
+    <div class="stagebg">
+      <div class="tile" style="max-width:420px;">
+        <div class="tile__header">
+          <div class="tile__header-main">
+            <div class="tile__title-row"><h4 class="tile__title">Сроки сделки</h4></div>
+            <div class="tile__subtitle"><span class="tile__subtitle-icon"><i data-icon="check-circle-filled"></i></span>Нерезидент</div>
+          </div>
+          <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
+        </div>
+        <div class="tile__body">
+          <div class="tl-fieldgrid">
+            <div class="tl-field"><span class="tl-field__label">Дата начала</span><span class="tl-field__value">12.09.2024</span></div>
+            <div class="tl-field"><span class="tl-field__label">Дата погашения</span><span class="tl-field__value">22.04.2027</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsec">
+    <h3>AccordionTile</h3>
+    <p class="desc tight">Плашка, способная разворачиваться и сворачиваться. Полный коллапс — скрывается весь контент; частичный — часть контента остаётся видимой, сворачивается только вложенный блок.</p>
+    <div class="mini-grid">
+      <div class="mini">
+        <div class="mini__cap">Полный коллапс · <b>клик по шеврону</b></div>
+        <div class="stagebg">
+          <div class="tile tile--accordion" id="acc-full">
+            <div class="tile__header">
+              <div class="tile__header-main">
+                <div class="tile__title-row"><h4 class="tile__title">1. Кредит</h4><span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span></div>
+              </div>
+              <div class="tile__actions">
+                <button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button>
+                <button class="ibtn ibtn--neutral ibtn--s tile__toggle" aria-expanded="true" aria-controls="acc-full-body" aria-label="Свернуть"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button>
+              </div>
+            </div>
+            <div class="tile__collapsible" id="acc-full-body">
+              <div class="tile__body">
+                <div class="tl-fieldgrid">
+                  <div class="tl-field"><span class="tl-field__label">Баланс</span><span class="tl-field__value">—</span></div>
+                  <div class="tl-field"><span class="tl-field__label">Тип отчётности</span><span class="tl-field__value">Только МСФО</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mini">
+        <div class="mini__cap">Частичный коллапс · <b>сводка остаётся</b></div>
+        <div class="stagebg">
+          <div class="tile tile--accordion" id="acc-part">
+            <div class="tile__header">
+              <div class="tile__header-main">
+                <div class="tile__title-row"><h4 class="tile__title">2. Акции</h4></div>
+                <div class="tile__subtitle">Корпоративный договор</div>
+              </div>
+              <div class="tile__actions">
+                <button class="ibtn ibtn--neutral ibtn--s tile__toggle" aria-expanded="true" aria-controls="acc-part-body" aria-label="Свернуть"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button>
+              </div>
+            </div>
+            <div class="tile__body" style="padding-bottom:8px;">
+              <div class="tl-field"><span class="tl-field__label">1234-КД-1</span><span class="tl-field__value">Корпоративный договор</span></div>
+            </div>
+            <div class="tile__collapsible" id="acc-part-body">
+              <div class="tile__body" style="padding-top:0;">
+                <hr class="dvd dvd--h" style="margin:0 0 12px;">
+                <div class="tl-fieldgrid">
+                  <div class="tl-field"><span class="tl-field__label">Валюта расчётов</span><span class="tl-field__value">RUB</span></div>
+                  <div class="tl-field"><span class="tl-field__label">FV/AC</span><span class="tl-field__value">MCDO и PCSV</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsec">
+    <h3>TileHeadless</h3>
+    <p class="desc tight">Тайл без заголовка: только контентная область. Хэдера нет, состояний нет, отступы 24/24/32/24.</p>
+    <div class="stagebg">
+      <div class="tile tile--headless" style="max-width:420px;">
+        <div class="tile__body">
+          <div class="tl-fieldgrid">
+            <div class="tl-field"><span class="tl-field__label">Баланс</span><span class="tl-field__value">SBIL</span></div>
+            <div class="tl-field"><span class="tl-field__label">Валюта</span><span class="tl-field__value">RUB</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsec">
+    <h3>С Alert-слотом</h3>
+    <p class="desc tight">Полноширинный Alert между хэдером и контентом — статус, требующий внимания. В Card Alert-слот не предполагается.</p>
+    <div class="stagebg">
+      <div class="tile" style="max-width:420px;">
+        <div class="tile__header">
+          <div class="tile__header-main"><div class="tile__title-row"><h4 class="tile__title">1. Кредит</h4></div></div>
+          <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
+        </div>
+        <div class="tile__alert">
+          <div class="alert alert--warning alert--s" data-alert-tone="warning" role="status">
+            <span class="alert__icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span>
+            <div class="alert__body"><p class="alert__text">Функционал в разработке</p></div>
+          </div>
+        </div>
+        <div class="tile__body">
+          <div class="tl-field"><span class="tl-field__label">Контрагент</span><span class="tl-field__value">—</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. РАЗМЕРЫ -->
+<section class="section" id="sizes" data-screen-label="Размеры">
+  <h2>Размеры</h2>
+  <p class="desc">Ширина плашки привязана к колонкам контентной области страницы и может занимать от 3 до 12 колонок. Высота в строке фиксированная — определяется плашкой с максимальным объёмом контента с учётом возможных алертов; при изменении состояния/наполнения высота может меняться.</p>
+  <div class="panel">
+    <div class="size-row">
+      <div class="size-tag">3 колонки<small>минимум</small></div>
+      <div class="colspan"><div class="cs cs--fill" style="grid-column:span 3;">3</div><div class="cs" style="grid-column:span 9;"></div></div>
+    </div>
+    <div class="size-row">
+      <div class="size-tag">6 колонок<small>½ ширины</small></div>
+      <div class="colspan"><div class="cs cs--fill" style="grid-column:span 6;">6</div><div class="cs" style="grid-column:span 6;"></div></div>
+    </div>
+    <div class="size-row">
+      <div class="size-tag">12 колонок<small>во всю ширину</small></div>
+      <div class="colspan"><div class="cs cs--fill" style="grid-column:span 12;">12</div></div>
+    </div>
+  </div>
+  <p class="ws-cap">Расстояние между колонками — 16px, между строками контента — 16 или 24px.</p>
+</section>
+
+<!-- 6. КОНТЕНТ -->
+<section class="section" id="content" data-screen-label="Контент">
+  <h2>Контент</h2>
+  <p class="desc">Наполнение контентной области индивидуально под задачу тайла и может быть любым. Разрешённые элементы — текст, дивайдеры, ReadOnly-инпуты, кнопки, ссылки; в отдельных случаях внутри тайла размещаются плашки-аккордеоны.</p>
+
+  <div class="subsec">
+    <h3>Внутренние отступы и ритм</h3>
+    <ul class="bullets">
+      <li><b>Отступы контентной области</b> — 10 / 20 / 24 / 20 (top / right / bottom / left). TileHeadless — 24 / 24 / 32 / 24.</li>
+      <li><b>Расстояние между строками</b> — 16 или 24px.</li>
+      <li><b>Расстояние между колонками</b> — 16px.</li>
+      <li>TileHeader размещается над контентом вплотную, без отступа; Alert (если есть) — между ними полноширинным блоком.</li>
+    </ul>
+  </div>
+
+  <div class="subsec">
+    <h3>Правила наполнения</h3>
+    <div class="guide">
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag">Хорошо</div>
+        <div class="guide-card__body">Группировать поля в 2–3 колонки по 16px, длинные значения переносить или усекать с Tooltip, действия по строке — в ReadOnly-инпутах и ссылках.</div>
+      </div>
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag">Плохо</div>
+        <div class="guide-card__body">Смешивать несвязанные данные в одном тайле, дублировать заголовок внутри контента, задавать произвольные отступы вне сетки 16/24.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ПОВЕДЕНИЕ -->
+<section class="section" id="behavior" data-screen-label="Поведение">
+  <h2>Поведение</h2>
+
+  <div class="subsec">
+    <h3>Сворачивание AccordionTile</h3>
+    <p class="desc tight">Клик по шеврону (IconButton в Actions) переключает состояние. Полный коллапс скрывает весь контент, частичный — оставляет заранее заданную сводку и сворачивает только вложенный блок. Шеврон поворачивается на 180°.</p>
+  </div>
+
+  <div class="subsec">
+    <h3>Высота в строке</h3>
+    <p class="desc tight">Высота плашки в строке одинаковая и выставляется по тайлу с наибольшим объёмом контента (с учётом возможных алертов). При изменении состояния или наполнения одной плашки высота всей строки может пересчитаться.</p>
+  </div>
+
+  <div class="subsec">
+    <h3>Адаптивность</h3>
+    <p class="desc tight">Ширина пересчитывается по сетке колонок контейнера. Длинный заголовок усекается в одну строку с многоточием; полное значение — по Tooltip.</p>
+  </div>
+</section>
+
+<!-- 8. СОСТОЯНИЯ -->
+<section class="section" id="states" data-screen-label="Состояния">
+  <h2>Состояния</h2>
+  <p class="desc">Tile собственных состояний <b>не имеет</b> — нет hover / active / selected у самой плашки. Интерактивны только вложенные элементы: IconButton в хэдере, а также Button и Link в алертах и контентной области. Состояния перетаскивания/выбора есть только у родственного компонента Card.</p>
+  <div class="panel">
+    <ul class="bullets">
+      <li><b>IconButton в хэдере</b> — собственные состояния Default / Hover / Focus / Disabled (см. IconButton).</li>
+      <li><b>Button / Link в контенте и алертах</b> — состояния своих компонентов.</li>
+      <li><b>AccordionTile</b> — не состояние, а переключаемая конфигурация (collapsed / expanded) через <code class="tok">.tile--collapsed</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 9. ДОСТУПНОСТЬ -->
+<section class="section" id="a11y" data-screen-label="Доступность">
+  <h2>Доступность</h2>
+  <div class="panel">
+    <ul class="bullets">
+      <li><b>Заголовок тайла</b> — семантический heading (<code class="tok">h2</code>–<code class="tok">h4</code> по уровню страницы), а не просто жирный текст.</li>
+      <li><b>Иконка-предупреждение в тайтле</b> декоративна: <code class="tok">aria-hidden="true"</code>; смысл дублируется текстом Alert или чипа.</li>
+      <li><b>IconButton</b> без текста — обязателен <code class="tok">aria-label</code>.</li>
+      <li><b>Шеврон аккордеона</b> — <code class="tok">aria-expanded</code> на кнопке + <code class="tok">aria-controls</code> на сворачиваемый блок; сам блок при коллапсе скрыт (<code class="tok">display:none</code>), а не только визуально.</li>
+      <li><b>Alert-слот</b> — <code class="tok">role="status"</code>/<code class="tok">alert</code> по тону (см. Alert); озвучивается при появлении.</li>
+      <li><b>Усечённый заголовок</b> — полное значение доступно через Tooltip и <code class="tok">title</code>.</li>
+      <li><b>prefers-reduced-motion</b> — анимация поворота шеврона отключается.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10. ТИПОГРАФИКА -->
+<section class="section" id="typography" data-screen-label="Типографика">
+  <h2>Типографика</h2>
+  <div class="panel" style="padding:0;overflow:hidden;">
+    <table class="ref-table">
+      <thead><tr><th>Слот</th><th>Токен</th><th>Размер</th></tr></thead>
+      <tbody>
+        <tr><td>Title (Tile M)</td><td><code class="tok">--type-h5-strong</code></td><td>18 / 24, SemiBold</td></tr>
+        <tr><td>Title (Card)</td><td><code class="tok">--type-h6-strong</code></td><td>16 / 20, SemiBold</td></tr>
+        <tr><td>Subtitle</td><td><code class="tok">--type-body-xs</code></td><td>12 / 16, Regular</td></tr>
+        <tr><td>Метка поля контента</td><td><code class="tok">--type-body-xs</code></td><td>12 / 16, Regular</td></tr>
+        <tr><td>Значение поля</td><td><code class="tok">--type-body-m-strong</code></td><td>16 / 20, SemiBold</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 11. ЦВЕТА -->
+<section class="section" id="colors" data-screen-label="Цвета">
+  <h2>Цвета</h2>
+  <div class="cref">
+    <div class="cref-group">
+      <h3>Контейнер</h3>
+      <div class="cref-row"><span class="sw" style="background:var(--bg-tile);"></span><b>--bg-tile</b><span>Фон плашки</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--border-light);"></span><b>--border-light</b><span>Бордер 1px</span></div>
+    </div>
+    <div class="cref-group">
+      <h3>Текст</h3>
+      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Title, значение</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-secondary);"></span><b>--text-secondary</b><span>Subtitle</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>Метка поля</span></div>
+    </div>
+    <div class="cref-group">
+      <h3>Addition в тайтле</h3>
+      <div class="cref-row"><span class="sw" style="background:var(--warning);"></span><b>--warning</b><span>Иконка-предупреждение</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--success);"></span><b>--success</b><span>Иконка сабтайтла</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--link);"></span><b>--link</b><span>Ссылка-Addition</span></div>
+    </div>
+    <div class="cref-group">
+      <h3>Alert-слот</h3>
+      <div class="cref-row"><span class="sw" style="background:var(--warning-bg);"></span><b>--warning-bg</b><span>Фон (warning)</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--info-bg);"></span><b>--info-bg</b><span>Фон (info)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. ДЛЯ РАЗРАБОТЧИКОВ -->
+<section class="section" id="dev" data-screen-label="Для разработчиков">
+  <h2>Для разработчиков</h2>
+  <p class="desc">Хендофф-пакет. Имена классов условны — важны сами элементы, их роли и состояния. Разработчики собирают компонент на React.</p>
+
+  <p class="subhead">Точные размеры (redline)</p>
+  <div class="panel" style="padding:0;overflow:hidden;">
+    <table class="ref-table">
+      <thead><tr><th>Свойство</th><th>Значение</th><th>Токен / описание</th></tr></thead>
+      <tbody>
+        <tr><td>Радиус плашки</td><td id="rl-radius">—</td><td><code class="tok">--radius-m</code> · 8px</td></tr>
+        <tr><td>Бордер</td><td id="rl-border">—</td><td>1px solid <code class="tok">--border-light</code></td></tr>
+        <tr><td>Паддинг хэдера (top / side)</td><td id="rl-head">—</td><td>сверху 20, по бокам 20</td></tr>
+        <tr><td>Зазор Title ↔ Subtitle</td><td id="rl-headgap">—</td><td>8px</td></tr>
+        <tr><td>Паддинг контента</td><td id="rl-body">—</td><td>10 / 20 / 24 / 20</td></tr>
+        <tr><td>Зазор строк контента</td><td id="rl-rowgap">—</td><td>16px (или 24)</td></tr>
+        <tr><td>Зазор колонок контента</td><td id="rl-colgap">—</td><td>16px</td></tr>
+        <tr><td>Размер шрифта Title</td><td id="rl-title">—</td><td><code class="tok">--type-h5-strong</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="rl-sample" aria-hidden="true">
+    <div class="tile" id="rl-tile">
+      <div class="tile__header">
+        <div class="tile__header-main">
+          <div class="tile__title-row"><h4 class="tile__title" id="rl-title-el">Заголовок</h4></div>
+          <div class="tile__subtitle">Подзаголовок</div>
+        </div>
+      </div>
+      <div class="tile__body"><div class="tl-fieldgrid" id="rl-grid"><div class="tl-field"><span>A</span></div><div class="tl-field"><span>B</span></div></div></div>
+    </div>
+  </div>
+
+  <p class="subhead">Поведение (framework-agnostic)</p>
+  <div class="code-wrap">
+    <button class="copy-btn" data-copy="logic">Скопировать</button>
+    <code id="code-logic">// 1. Сворачивание AccordionTile
+//    toggle-кнопка переключает collapsed; блок .tile__collapsible
+//    скрывается через display:none (не только визуально).
+onToggle():
+  collapsed = !collapsed
+  tile.classList.toggle('tile--collapsed', collapsed)
+  toggleBtn.setAttribute('aria-expanded', String(!collapsed))
+  toggleBtn.setAttribute('aria-label', collapsed ? 'Развернуть' : 'Свернуть')
+
+// 2. Частичный vs полный коллапс
+//    Полный  — весь контент лежит внутри .tile__collapsible.
+//    Частичный — постоянная сводка вне .tile__collapsible,
+//    сворачивается только вложенный .tile__collapsible.
+
+// 3. Высота строки тайлов
+//    tiles в одной строке выравниваются по максимальной высоте
+//    (CSS Grid: align-items:stretch, либо расчёт max по данным).
+//    Пересчитывать при смене состояния/наполнения любого тайла.
+
+// 4. Ширина
+//    span = clamp(3, cols, 12) колонок сетки контейнера.
+
+// 5. Усечение Title
+//    если scrollWidth > clientWidth — показать Tooltip/title
+//    с полным значением.</code>
+  </div>
+
+  </section>
+
+<footer class="page-foot">
+  <span>Дизайн-система · Tile</span>
+  <span>Основная плашка рабочей области — TileHeader + контентная область</span>
+</footer>
+</main><!-- .page -->
+
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-toc.js"></script>
+<script src="../../scripts/pg-kit.js"></script>
+<script>
+/* ---- icon helper ---- */
+function getIcon(name, size){
+  size = size || 20;
+  if(!window.DS_ICONS) return '';
+  var raw = window.DS_ICONS[name] || ''; if(!raw) return '';
+  var d = document.createElement('div'); d.innerHTML = raw;
+  var s = d.firstElementChild; if(!s) return '';
+  s.setAttribute('width', size); s.setAttribute('height', size); s.setAttribute('aria-hidden','true');
+  return s.outerHTML;
+}
+function esc(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+/* ---- constructor ---- */
+function buildTile(){
+  var type    = document.getElementById('ctl-type').value;
+  var cols    = document.getElementById('ctl-cols').value;
+  var title   = document.getElementById('ctl-title').value.trim() || 'Проектное финансирование';
+  var add     = document.getElementById('ctl-add').value;
+  var sub     = document.getElementById('ctl-sub').checked;
+  var chips   = document.getElementById('ctl-chips').checked;
+  var actions = document.getElementById('ctl-actions').value;
+  var alert   = document.getElementById('ctl-alert').value;
+
+  var headless = (type === 'headless');
+  /* hide header-only controls when headless */
+  ['wrap-title','wrap-add','wrap-sub','wrap-chips','wrap-actions','wrap-alert'].forEach(function(id){
+    document.getElementById(id).classList.toggle('is-off', headless);
+  });
+
+  /* width by columns */
+  document.getElementById('demo-tile-wrap').style.gridColumn = 'span ' + cols;
+
+  var cls = 'tile';
+  if (headless) cls += ' tile--headless';
+  if (type === 'accordion') cls += ' tile--accordion';
+
+  var host = document.getElementById('demo-tile');
+  host.className = cls;
+
+  /* ---- content (individual sample) ---- */
+  var content =
+    '<div class="tile__body"><div class="tl-fieldgrid">' +
+      '<div class="tl-field"><span class="tl-field__label">Объём по продукту, млн ед.</span><span class="tl-field__value">17 560 <span class="u">RUB</span></span></div>' +
+      '<div class="tl-field"><span class="tl-field__label">Валовая маржа, %</span><span class="tl-field__value">3</span></div>' +
+    '</div></div>';
+
+  if (headless){
+    host.innerHTML = content;
+    return;
+  }
+
+  /* ---- title addition ---- */
+  var addHtml = '';
+  if (add === 'link') addHtml = '<a class="link link--accent link--s tile__title-link" href="#" onclick="return false">Заполнить</a>';
+  else if (add === 'icon') addHtml = '<span class="tile__title-add tile__title-add--icon" aria-hidden="true">' + getIcon('alert-triangle-filled',20) + '</span>';
+  else if (add === 'chip') addHtml = '<span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span>';
+  else if (add === 'badge') addHtml = '<span class="badge badge--s badge--neutral badge--text">9</span>';
+
+  var titleRow = '<div class="tile__title-row"><h3 class="tile__title">' + esc(title) + '</h3>' + addHtml + '</div>';
+  var subHtml = sub ? '<p class="tile__subtitle"><span class="tile__subtitle-icon">' + getIcon('check-circle-filled',16) + '</span>Нерезидент</p>' : '';
+  var chipsHtml = chips ? '<div class="tile__chiplist"><span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span><span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span></div>' : '';
+
+  /* ---- actions ---- */
+  var actHtml = '';
+  if (actions === 'button'){
+    actHtml = '<div class="tile__actions"><button class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button></div>';
+  } else if (actions !== 'none'){
+    var ib = '<button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать">' + getIcon('edit',20) + '</button>';
+    var extra = '';
+    if (actions === 'two') extra = '<button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы">' + getIcon('document-check',20) + '</button>';
+    if (actions === 'three') extra = '<button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы">' + getIcon('document-check',20) + '</button><button class="ibtn ibtn--neutral ibtn--s" aria-label="История">' + getIcon('history',20) + '</button>';
+    actHtml = '<div class="tile__actions">' + ib + extra + '</div>';
+  }
+  /* accordion toggle always present in actions */
+  if (type === 'accordion'){
+    var toggle = '<button class="ibtn ibtn--neutral ibtn--s tile__toggle" aria-expanded="true" aria-controls="demo-acc" aria-label="Свернуть"><span class="tile__chevron">' + getIcon('chevron-up',20) + '</span></button>';
+    if (actHtml) actHtml = actHtml.replace('</div>', toggle + '</div>');
+    else actHtml = '<div class="tile__actions">' + toggle + '</div>';
+  }
+
+  var header = '<header class="tile__header"><div class="tile__header-main">' + titleRow + subHtml + chipsHtml + '</div>' + actHtml + '</header>';
+
+  /* ---- alert slot ---- */
+  var alertHtml = '';
+  if (alert === 'warning') alertHtml = '<div class="tile__alert"><div class="alert alert--warning alert--s" data-alert-tone="warning" role="status"><span class="alert__icon" aria-hidden="true">' + getIcon('alert-triangle-filled',18) + '</span><div class="alert__body"><p class="alert__text">Функционал в разработке</p></div></div></div>';
+  else if (alert === 'info') alertHtml = '<div class="tile__alert"><div class="alert alert--info alert--s" data-alert-tone="info" role="status"><span class="alert__icon" aria-hidden="true">' + getIcon('Info-circle-filled',18) + '</span><div class="alert__body"><p class="alert__text">Данные обновлены 12.07.2026</p></div></div></div>';
+
+  var body = (type === 'accordion')
+    ? '<div class="tile__collapsible" id="demo-acc">' + content + '</div>'
+    : content;
+
+  host.innerHTML = header + alertHtml + body;
+}
+
+['ctl-type','ctl-cols','ctl-title','ctl-add','ctl-sub','ctl-chips','ctl-actions','ctl-alert'].forEach(function(id){
+  var el = document.getElementById(id);
+  if (el){ el.addEventListener('change', buildTile); el.addEventListener('input', buildTile); }
+});
+buildTile();
+
+/* ---- accordion toggling (demos + constructor, delegated) ---- */
+document.addEventListener('click', function(e){
+  var t = e.target.closest('.tile__toggle'); if(!t) return;
+  var tile = t.closest('.tile'); if(!tile) return;
+  var collapsed = tile.classList.toggle('tile--collapsed');
+  t.setAttribute('aria-expanded', String(!collapsed));
+  t.setAttribute('aria-label', collapsed ? 'Развернуть' : 'Свернуть');
+});
+
+/* ---- redline ---- */
+function measureRedline(){
+  var e = document.getElementById('rl-tile'); if(!e) return;
+  var cs = getComputedStyle(e);
+  var head = getComputedStyle(e.querySelector('.tile__header'));
+  var main = getComputedStyle(e.querySelector('.tile__header-main'));
+  var body = getComputedStyle(e.querySelector('.tile__body'));
+  var grid = getComputedStyle(document.getElementById('rl-grid'));
+  var title = getComputedStyle(document.getElementById('rl-title-el'));
+  function set(id,v){ var n=document.getElementById(id); if(n) n.textContent=v; }
+  set('rl-radius', cs.borderTopLeftRadius);
+  set('rl-border', cs.borderTopWidth + ' solid');
+  set('rl-head', head.paddingTop + ' / ' + head.paddingLeft);
+  set('rl-headgap', main.rowGap || main.gap);
+  set('rl-body', body.paddingTop + ' / ' + body.paddingRight + ' / ' + body.paddingBottom + ' / ' + body.paddingLeft);
+  set('rl-rowgap', grid.rowGap);
+  set('rl-colgap', grid.columnGap);
+  set('rl-title', title.fontSize + ' / ' + title.lineHeight);
+}
+setTimeout(measureRedline, 300);
+
+/* ---- copy buttons ---- */
+document.querySelectorAll('.copy-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var el = document.getElementById('code-' + btn.getAttribute('data-copy')); if(!el) return;
+    navigator.clipboard.writeText(el.textContent).then(function(){
+      btn.textContent='Скопировано ✓'; btn.classList.add('is-copied');
+      setTimeout(function(){ btn.textContent='Скопировать'; btn.classList.remove('is-copied'); }, 2000);
+    });
+  });
+});
+</script>
+</body>
+</html>

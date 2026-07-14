@@ -126,7 +126,7 @@
         table,
         state: state.state,
         label: !table ? 'Контрагент' : null,
-        helper: !table ? (state.state.startsWith('error') ? 'Текст ошибки' : 'Выберите из справочника') : null,
+        helper: !table ? 'Выберите из справочника' : null,
         chevron: true,
         placeholder: 'Поиск…',
         tip: state.state === 'error-focus' ? 'Текст ошибки' : (state.state === 'warning-focus' ? 'Указана информация, которая не блокирует действие, но требует внимания пользователя' : null),
@@ -303,7 +303,7 @@
     ].forEach(([title, st]) => {
       g.appendChild(cell(title, mk({
         label: 'Label',
-        helper: st.startsWith('error') ? 'Текст ошибки' : 'Helper',
+        helper: 'Helper',
         chevron: true, summary: 'Value 1, +4',
         state: st,
         tip: st === 'error-focus' ? 'Текст ошибки' : (st === 'warning-focus' ? 'Указана информация, которая не блокирует действие, но требует внимания пользователя' : null),
@@ -341,6 +341,7 @@
         ['Рамка · hover/focus', '--primary'],
         ['Сводка / значение', '--text-primary'],
         ['Плейсхолдер', '--text-inactive'],
+        ['Иконки (шеврон / крестик)', '--secondary'],
       ]],
       ['Список (DropdownList)', [
         ['Фон списка', '--bg-popup'],

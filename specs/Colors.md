@@ -24,7 +24,7 @@ status: curated
 **Orange**: `--c-orange-50` `--c-orange-200` 
 **BG**: `--bg-popup` `--bg-tile` `--bg-mainmenu` `--bg-hint` `--bg-page` 
 **Border**: `--border-primary` `--border-light` `--border-dark` 
-**Text**: `--text-primary` `--text-secondary` `--text-inactive` `--text-black` `--text-on-tertiary` `--text-on-dark` 
+**Text**: `--text-primary` `--text-secondary` `--text-inactive` `--text-primary` `--text-primary` `--text-on-dark` 
 **BGTable**: `--bgtable` `--bgtable-row-hover` `--bgtable-row-focus` `--bgtable-row-focus-hover` `--bgtable-pinned` `--bgtable-pinned-hover` `--bgtable-pinned-focus` `--bgtable-accent` `--bgtable-accent-hover` `--bgtable-accent-focus` 
 **Primary**: `--primary` `--primary-dark` `--primary-light` `--primary-bg` `--primary-bg-light` `--primary-bg-semitransparent` 
 **Secondary**: `--secondary` `--secondary-dark` `--secondary-light` `--secondary-bg` `--secondary-bg-light` 

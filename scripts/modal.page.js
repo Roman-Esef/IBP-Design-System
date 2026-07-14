@@ -71,7 +71,7 @@ const MODAL_CONTENT = {
     for (let i = 1; i <= 12; i++) {
       const row = document.createElement('div');
       row.style.cssText = 'display:flex; flex-direction:column; gap:6px; padding-bottom:16px; border-bottom:1px solid var(--border-light);';
-      row.innerHTML = `<span style="font:var(--type-body-m-strong); color:var(--text-black);">Пункт ${i}</span><span style="font:var(--type-body-s); color:var(--text-secondary);">Пояснение к пункту, чтобы контент занимал больше одной строки и требовал прокрутки.</span>`;
+      row.innerHTML = `<span style="font:var(--type-body-m-strong); color:var(--text-primary);">Пункт ${i}</span><span style="font:var(--type-body-s); color:var(--text-secondary);">Пояснение к пункту, чтобы контент занимал больше одной строки и требовал прокрутки.</span>`;
       wrap.appendChild(row);
     }
     return wrap;
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ['Разделитель шапка/подвал', '--border-light'], ['Тень', '--shadow-modal-form (--elevation, не color)'],
       ]},
       { name: 'Типографика', rows: [
-        ['Заголовок', '--text-black'], ['Текст контента', '--text-primary'],
+        ['Заголовок', '--text-primary'], ['Текст контента', '--text-primary'],
       ]},
       { name: 'Скелетон-загрузка', rows: [
         ['База', '--st-disabled-light'], ['Пик волны', '--st-disabled-midlight'],

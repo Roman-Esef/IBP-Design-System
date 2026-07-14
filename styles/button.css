@@ -46,13 +46,35 @@
 .btn svg { flex: none; width: var(--btn-icon); height: var(--btn-icon); display: block; }
 .btn .btn__chevron { width: calc(var(--btn-icon) * .8); height: calc(var(--btn-icon) * .8); }
 
-/* ---------- sizes ---------------------------------------------------------- */
-.btn--m  { --btn-h: 40px; --btn-px: 16px; --btn-gap: 8px; --btn-iconpad: 8px; --btn-icon: 20px; --btn-radius: var(--radius-control); font: var(--type-button-m); }
-.btn--s  { --btn-h: 32px; --btn-px: 12px; --btn-gap: 6px; --btn-iconpad: 6px; --btn-icon: 18px; --btn-radius: var(--radius-control); font: var(--type-button-s); }
-.btn--xs { --btn-h: 24px; --btn-px: 8px;  --btn-gap: 4px; --btn-iconpad: 4px; --btn-icon: 16px; --btn-radius: var(--radius-control-s); font: var(--type-button-xs); }
+/* ---------- sizes ---------------------------------------------------------- *
+   Размеры — прямыми свойствами (не через --btn-* в модификаторе), чтобы
+   компилятор чисто регистрировал токены. Иконка/спиннер/шеврон — per-size.
+   Шеврон: повышенная специфичность (.btn.btn--m ...), чтобы перебить
+   per-size `svg`-правило независимо от тега элемента (0,3,0 > 0,2,1). */
+.btn--m  { height: 40px; padding: 0 16px; gap: 8px; border-radius: var(--radius-control);   font: var(--type-button-m); }
+.btn--s  { height: 32px; padding: 0 12px; gap: 6px; border-radius: var(--radius-control);   font: var(--type-button-s); }
+.btn--xs { height: 24px; padding: 0 8px;  gap: 4px; border-radius: var(--radius-control-s); font: var(--type-button-xs); }
+.btn--m svg  { width: 20px; height: 20px; }
+.btn--s svg  { width: 18px; height: 18px; }
+.btn--xs svg { width: 16px; height: 16px; }
+/* [data-icon] в ds-icons.js фиксирует 24px с той же специфичностью и грузится
+   после button.css — перебивает per-size `svg`-правило выше. Пин обратно
+   (тот же приём, что в chip.css для .chip__info). */
+.btn--m [data-icon]  { width: 20px; height: 20px; }
+.btn--s [data-icon]  { width: 18px; height: 18px; }
+.btn--xs [data-icon] { width: 16px; height: 16px; }
+.btn--m .btn__spinner  { width: 20px; height: 20px; }
+.btn--s .btn__spinner  { width: 18px; height: 18px; }
+.btn--xs .btn__spinner { width: 16px; height: 16px; }
+.btn.btn--m .btn__chevron  { width: calc(20px * .8); height: calc(20px * .8); }
+.btn.btn--s .btn__chevron  { width: calc(18px * .8); height: calc(18px * .8); }
+.btn.btn--xs .btn__chevron { width: calc(16px * .8); height: calc(16px * .8); }
 
-/* icon-only: square-ish, padding from icon-pad token */
-.btn--icon-only { padding: 0 var(--btn-iconpad); gap: 0; }
+/* icon-only: square-ish, padding per size (mirror --btn-iconpad) */
+.btn--icon-only { gap: 0; }
+.btn--m.btn--icon-only  { padding: 0 8px; }
+.btn--s.btn--icon-only  { padding: 0 6px; }
+.btn--xs.btn--icon-only { padding: 0 4px; }
 
 /* ---------- type: ACCENT --------------------------------------------------- */
 .btn--accent {

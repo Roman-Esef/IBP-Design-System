@@ -1,8 +1,8 @@
 ---
 component: InputAutocomplete
 title: "InputAutocomplete"
-version: "v1.2"
-updated: "09.07.2026"
+version: "v1.7"
+updated: "13.07.2026"
 page: pages/molecules/InputAutocomplete.html
 page_js: scripts/input-autocomplete.page.js
 css: styles/input.css
@@ -22,10 +22,10 @@ status: curated
 - **Размеры** — M / S (Table Edit). Чип в поле на размер меньше поля: M→чип S (24px), S→чип XS (20px).
 - **Контент** — плейсхолдер = приглашение к поиску; сводка «первое, +N»; подсветка совпадения `.ddl__match`; текст чипа обрезается (тултип); системные строки списка — по DropdownList.
 - **Поведение** — раскрытие при фокусе/по шеврону, ширина списка = ширине поля, авто-разворот; фильтрация с подсветкой; одиночный выбор закрывает список, множественный — нет; чипы: крестик/повтор удаляет, Backspace в пустом поле — последний; переполнение поля → чип-счётчик «+N» (без крестика удаления; по клику раскрывает полный список).
-- **Состояния** — Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled (поле-триггер). Тултип — в *Focus. Состояния опций — на странице DropdownList.
+- **Состояния** — Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled (поле-триггер). ПРАВИЛО: текст ошибки/предупреждения по умолчанию НЕ в хелпере — только в тултипе при *Focus; тултип не смещает хелпер (position:absolute, z-index выше поля). Состояния опций — на странице DropdownList.
 - **Доступность** — поле `role="combobox"` + `aria-expanded`/`aria-controls`; список `role="listbox"` (+ `aria-multiselectable`); опции `role="option"` + `aria-selected`/`aria-checked`; `aria-activedescendant`; чипы и шеврон озвучены.
 - **Типографика** — ввод/сводка SB Sans Text (M — Body M, S — Body S); чипы по своим токенам (S/XS); опции Body M, helper/группа Body XS.
-- **Цвета** — поле = токены InputText; список: фон `--bg-popup`, hover `--tertiary-light`, выбранная строка `--bgtable-row-focus`, подсветка `--primary`.
+- **Цвета** — поле = токены InputText (иконки шеврон/крестик — Active · `--secondary`, hover → `--secondary-dark`); список: фон `--bg-popup`, hover `--tertiary-light`, выбранная строка `--bgtable-row-focus`, подсветка `--primary`.
 
 ## Для разработчиков (выжимка)
 

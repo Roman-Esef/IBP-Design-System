@@ -307,6 +307,55 @@ css: `styles/input.css` · deps: [label-helper, checkbox, chip, tooltip, dropdow
 </div>
 ```
 
+## InputAmountRange
+css: `styles/input-range.css` · deps: [input, label-helper, tooltip]
+
+Поле ввода числового диапазона: два InputAmount с префиксами «От»/«До» + Range_Line между ними, общая метка сверху и общий хелпер снизу. Только размер M (40px), размера S нет. Каждое поле — независимый `.inp` со своими состояниями (hover/focus/error одного не влияют на другое; оба могут быть в ошибке). В полях всегда префикс. Range_Line — 1px, цвет `--border-primary` (в disabled `--border-light`), `aria-hidden`.
+
+```html
+<div class="inp-range inp-range--m">
+  <label class="ds-label ds-label--left"><span class="ds-label__text">Сумма, ₽</span></label>
+  <div class="inp-range__row">
+    <div class="inp inp--m inp-range__field">
+      <div class="inp__field">
+        <span class="inp__prefix">От</span>
+        <input class="inp__control" inputmode="decimal" placeholder="Amount">
+        <span class="inp__acts"><button class="inp__act" aria-label="Очистить поле">…✕…</button></span>
+      </div>
+    </div>
+    <span class="inp-range__line" aria-hidden="true"></span>
+    <div class="inp inp--m inp-range__field">…префикс «До»…</div>
+  </div>
+  <span class="ds-helper ds-helper--left">Helper</span>
+</div>
+```
+
+## InputDateRange
+css: `styles/input-range.css` · deps: [input, label-helper, tooltip]
+
+Поле ввода диапазона дат: два InputDate (маска ММ.ДД.ГГГГ + календарь) с префиксами «От»/«До» + Range_Line, общая метка/хелпер. Только размер M (40px), размера S нет. Мин. ширина каждого поля 186px. Поля независимы (см. InputAmountRange). Префикс всегда присутствует. Range_Line — 1px `--border-primary`, `aria-hidden`.
+
+```html
+<div class="inp-range inp-range--m inp-range--date">
+  <label class="ds-label ds-label--left"><span class="ds-label__text">Период сделки</span></label>
+  <div class="inp-range__row">
+    <div class="inp inp--m inp-range__field">
+      <div class="inp__field">
+        <span class="inp__prefix">От</span>
+        <input class="inp__control" inputmode="numeric" placeholder="ММ.ДД.ГГГГ">
+        <span class="inp__acts">
+          <button class="inp__act" aria-label="Очистить поле">…✕…</button>
+          <button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">…📅…</button>
+        </span>
+      </div>
+    </div>
+    <span class="inp-range__line" aria-hidden="true"></span>
+    <div class="inp inp--m inp-range__field">…префикс «До»…</div>
+  </div>
+  <span class="ds-helper ds-helper--left">Helper</span>
+</div>
+```
+
 ## LabelHelper
 css: `styles/label-helper.css` · deps: [checkbox, radio, switch]
 
@@ -381,6 +430,68 @@ css: `styles/modal.css` · deps: [button, icon-button, label-helper, checkbox]
 <!-- … полная анатомия: specs/Modal.md -->
 ```
 
+## NavPanel
+css: `styles/nav-panel.css` · deps: [icon-button, badge, avatar]
+
+Главная навигация приложения слева. Три режима: `nav--rail` (56px, иконки, тултип по hover, без тени), `nav--drawer` (272px, оверлей, тень Shadow4.0_modalform), `nav--fixed` (272px, закреплён, шов справа). Список = «Главная» + navigation-block'и (заголовок-секция + пункты), внизу футер с профилем и выходом. Иконки пунктов — глифы раздела Menu (specs/Icons.md).
+
+```html
+<nav class="nav nav--drawer" aria-label="Главное меню">
+  <div class="nav__top">
+    <button class="ibtn ibtn--neutral ibtn--m nav__burger" aria-label="Свернуть меню"><i data-icon="left-menu"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--m nav__pin" aria-pressed="false" aria-label="Закрепить панель"><i data-icon="pin-menu"></i></button>
+  </div>
+  <div class="nav__list">
+    <a class="nav__item nav__item--selected" href="#" aria-current="page"><span class="nav__ico"><i data-icon="main-page"></i></span><span class="nav__label">Главная</span></a>
+    <div class="nav__block nav__block--first">
+      <div class="nav__block-label">Origination</div>
+      <a class="nav__item" href="#"><span class="nav__ico"><i data-icon="Important-deals"></i></span><span class="nav__label">Обязательные сделки</span></a>
+      <a class="nav__item" href="#" aria-label="Задачи, 7"><span class="nav__ico"><i data-icon="tasks"></i></span><span class="nav__label">Задачи</span><span class="nav__badge"><span class="badge badge--xs badge--accent" aria-hidden="true">7</span></span></a>
+    </div>
+  </div>
+  <div class="nav__footer">
+    <div class="nav__user">
+      <span class="av av--circular av--m"><span class="av__text">АП</span></span>
+      <span class="nav__user-text"><span class="nav__user-name">Александров Петр</span><span class="nav__user-role">Аналитик ДИД</span><span class="nav__user-org">SMB Недвижимость +2</span></span>
+    </div>
+    <button class="ibtn ibtn--neutral ibtn--m nav__logout" aria-label="Выйти"><i data-icon="logout"></i></button>
+  </div>
+</nav>
+<!-- Rail: nav--rail (подписи → тултип, бейдж на угол иконки, футер = только аватар). Fixed: nav--fixed (шов справа, без тени). -->
+```
+
+Пункт: Default текст/иконка `--text-secondary`; Hover заливка `--bgtable-row-hover`; Selected заливка `--bgtable-row-focus` + подпись Strong; Disabled `--text-inactive` + бейдж `badge--muted`. Высота пункта 44px, иконка 24, badge XS accent. Полная анатомия: specs/NavPanel.md.
+
+## PageHeader
+css: `styles/page-header.css` · deps: [button, icon-button, chip, badge, context-menu, tooltip, breadcrumbs]
+
+Заголовок страницы рабочей области: наименование сущности (h1) + основные действия. Части независимы и опциональны: IconLeft, Edit, Chips, Return, Subtitle (стандартный/кастомный), Actions (max 3 кнопки) + MenuButton. Ставится под Breadcrumbs. Варианты: `--dashboard` (подложка), `--stack` (мобильная раскладка).
+
+```html
+<div class="phead">
+  <div class="phead__main">
+    <div class="phead__title-row">
+      <span class="phead__title-ico" aria-hidden="true"><i data-icon="drag-dots"></i></span><!-- опц. -->
+      <h1 class="phead__title">D-007. ПАО «Газпром»</h1>
+      <button class="ibtn ibtn--neutral ibtn--s phead__edit" aria-label="Переименовать"><i data-icon="edit"></i></button><!-- опц. -->
+      <div class="phead__chips"><span class="chip chip--readonly chip--s"><span class="chip__label">Черновик</span></span></div><!-- опц. -->
+      <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">В сделку</span></button></span><!-- опц. -->
+    </div>
+    <div class="phead__subtitle"><!-- опц.: стандартный (иконка+текст Body S) или кастомный (мета-элементы) -->
+      <span class="phead__meta"><span class="phead__meta-ico"><i data-icon="copy"></i></span>7</span>
+      <span class="phead__meta"><span class="phead__meta-ico phead__meta-ico--ok"><i data-icon="check-circle"></i></span>Версия 12 (07.02.2021)</span>
+    </div>
+  </div>
+  <div class="phead__actions"><!-- опц.; max 3 кнопки M, MenuButton последняя -->
+    <button class="btn btn--outline btn--m"><i data-icon="star"></i><span class="btn__label">В избранное</span></button>
+    <button class="btn btn--accent btn--m"><i data-icon="download"></i><span class="btn__label">Выгрузить</span></button>
+    <button class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё действия" aria-haspopup="menu" aria-expanded="false"><i data-icon="more-dots"></i></button>
+  </div>
+</div>
+```
+
+Title `--type-h3-strong` (28/32), усечение + Tooltip; Subtitle Body S; мета Body XS `--text-inactive`. Адаптивность: <1024 второстепенные actions → MenuButton; <720 `.phead--stack`. Полная анатомия: specs/PageHeader.md.
+
 ## Pagination
 css: `styles/pagination.css` · deps: [dropdown-list, checkbox, label-helper, button, splitter]
 
@@ -447,7 +558,7 @@ css: `styles/snackbar.css` · deps: [button, link]
 
   <!-- тон: info | warning | error | success -->
   <!-- role=alert (error/warning) | role=status (info/success) -->
-  <div class="snack snack--error" role="alert" aria-live="assertive">
+  <div class="snack snack--error" data-snack-tone="error" role="alert" aria-live="assertive">
     <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
     <div class="snack__body">
       <div class="snack__title">Ошибка <span class="snack__dupe">×2</span></div>
@@ -774,4 +885,66 @@ css: `styles/tooltip.css` · deps: [button]
 </span>
 <span class="tip tip--error tip--bottom tip--start tip--no-arrow tip--multiline" role="tooltip">…</span>
 ```
+
+## TableFilter
+css: `styles/table-filter.css` · deps: [button, icon-button, chip, badge, modal, tab, input, checkbox]
+
+Панель фильтра над таблицей. Слева кнопка «Фильтр» (Outline XS, ведущая воронка тонирована в `--primary`) — открывает модалку; при активном фильтре рядом появляется вторая, самостоятельная кнопка сброса (Outline XS icon-only, `filter-reset`) — кнопки НЕ сращены в группу, у каждой полное скругление, обе высотой 24px как чипы. Справа чиплист применённых параметров (Chip Edit S, «Категория: значения»); переполнение свёрнуто в «+N» + шеврон-аккордеон. Собственный CSS — только раскладка бара; статичный мокап рисуется нужным состоянием (свёрнут/развёрнут) без JS.
+
+```html
+<!-- применён, свёрнут -->
+<div class="tfilter tfilter--collapsed" role="group" aria-label="Фильтр таблицы" data-expanded="false">
+  <div class="tfilter__trigger" role="group" aria-label="Фильтр таблицы">
+    <button class="btn btn--outline btn--xs" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>
+    <button class="btn btn--outline btn--xs btn--icon-only" aria-label="Сбросить фильтры"><i data-icon="filter-reset"></i></button>
+  </div>
+  <div class="tfilter__chips" role="group" aria-label="Применённые параметры">
+    <span class="chip chip--edit chip--s" tabindex="0"><span class="chip__label">ТБ: ЦА, МБ, СРБ, СЗБ</span><span class="chip__remove" role="button" aria-label="Убрать ТБ"><i data-icon="close"></i></span></span>
+    <span class="chip chip--edit chip--s" tabindex="0"><span class="chip__label">Дески: RE, TMT, CND</span><span class="chip__remove" role="button" aria-label="Убрать Дески"><i data-icon="close"></i></span></span>
+  </div>
+  <div class="tfilter__tail">
+    <span class="badge badge--xs badge--neutral badge--text tfilter__more" aria-label="ещё 3 параметров">+3</span>
+    <button class="ibtn ibtn--neutral ibtn--s tfilter__toggle" aria-label="Развернуть фильтр" aria-expanded="false"><span class="tfilter__chev"><i data-icon="chevron-down"></i></span></button>
+  </div>
+</div>
+<!-- не применён: только <div class="tfilter__trigger"><button class="btn btn--outline btn--xs">…Фильтр…</button></div> -->
+```
+
+## Tile
+css: `styles/tile.css` · deps: [icon-button, button, link, chip, badge, alert, divider]
+
+Основная плашка рабочей области: TileHeader (M) + опц. Alert + контентная область (наполнение индивидуально). Ширина 3–12 колонок, отступы контента 10/20/24/20. Собственных состояний нет. Варианты: `--headless` (без хэдера, отступы 24/24/32/24), `--accordion` (+ `--collapsed`).
+
+```html
+<section class="tile">
+  <header class="tile__header">
+    <div class="tile__header-main">
+      <div class="tile__title-row">
+        <h3 class="tile__title">Проектное финансирование</h3>
+        <!-- Addition: link | icon(--icon=warning) | chip | badge -->
+        <span class="tile__title-add tile__title-add--icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span>
+      </div>
+      <p class="tile__subtitle"><span class="tile__subtitle-icon"><i data-icon="check-circle-filled"></i></span>Нерезидент</p>
+      <div class="tile__chiplist"><span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span></div>
+    </div>
+    <div class="tile__actions">
+      <button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button>
+    </div>
+  </header>
+  <!-- опц. полноширинный Alert между хэдером и контентом (в Card не бывает) -->
+  <div class="tile__alert"><div class="alert alert--warning alert--s" role="status">…</div></div>
+  <div class="tile__body"><div class="tile__grid" style="grid-template-columns:1fr 1fr;">…</div></div>
+</section>
+
+<!-- headless -->
+<section class="tile tile--headless"><div class="tile__body">…</div></section>
+
+<!-- accordion: toggle .tile__toggle (aria-expanded) над .tile__collapsible; свёрнуто — .tile--collapsed -->
+<section class="tile tile--accordion">
+  <header class="tile__header">… <button class="ibtn ibtn--neutral ibtn--s tile__toggle" aria-expanded="true" aria-controls="acc-1"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button></header>
+  <div class="tile__collapsible" id="acc-1"><div class="tile__body">…</div></div>
+</section>
+```
+
+Отступы контента 10/20/24/20 (headless 24/24/32/24) · строки 16/24 · колонки 16. Title `--type-h5-strong`, Subtitle Body XS. Полная анатомия: specs/Tile.md.
 

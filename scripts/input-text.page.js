@@ -69,7 +69,7 @@
         table,
         state: state.state,
         label: !table && state.label ? 'Label' : null,
-        helper: !table && state.helper ? (state.state.startsWith('error') ? 'Текст ошибки' : 'Helper') : null,
+        helper: !table && state.helper ? 'Helper' : null,
         prefix: state.prefix ? 'Pref' : null,
         postfix: state.postfix ? 'Postf' : null,
         lead: state.lead,
@@ -233,7 +233,7 @@
     states.forEach(([title, st]) => {
       g.appendChild(cell(title, mk({
         label: 'Label',
-        helper: st.startsWith('error') ? 'Текст ошибки' : 'Helper',
+        helper: 'Helper',
         prefix: 'Pref', postfix: 'Postf', value: 'Text',
         state: st,
         tip: st === 'error-focus' ? 'Текст ошибки' : (st === 'warning-focus' ? 'Указана информация, которая не блокирует действие, но требует внимания пользователя' : null),
@@ -284,7 +284,7 @@
         ['Значение', '--text-primary'],
         ['Плейсхолдер / префикс / постфикс', '--text-inactive'],
         ['Метка', '--text-secondary'],
-        ['Действия (иконки)', '--text-secondary'],
+        ['Действия (иконки)', '--secondary'],
       ]],
       ['Статусы', [
         ['Рамка · Error', '--error'],

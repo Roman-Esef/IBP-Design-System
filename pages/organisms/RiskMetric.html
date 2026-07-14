@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="RiskMetric" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -33,13 +33,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:70ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:76ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .badge-new { display:inline-block; font: var(--type-button-xs); letter-spacing:.06em; text-transform:uppercase; color: var(--primary); background: var(--primary-bg); border:1px solid color-mix(in srgb, var(--primary) 22%, transparent); padding:3px 9px; border-radius:999px; margin-left:12px; vertical-align:middle; }
@@ -55,7 +55,7 @@
   ul.rules { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px; }
   ul.rules li { font: var(--type-body-m); color: var(--text-primary); padding-left:26px; position:relative; text-wrap:pretty; }
   ul.rules li::before { content:""; position:absolute; left:2px; top:9px; width:7px; height:7px; border-radius:50%; background: var(--primary); }
-  ul.rules li b { color: var(--text-black); }
+  ul.rules li b { color: var(--text-primary); }
 
   code.tok { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius:5px; }
 
@@ -86,7 +86,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- sizes ---------- */
@@ -116,7 +116,7 @@
   .rm-block__row { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
   .rm-block__label { font: var(--type-body-s); color: var(--text-inactive); }
   .rm-block__value { font: var(--type-body-s); color: var(--text-secondary); text-align:right; }
-  .rm-block__value--strong { font: var(--type-body-m-strong); color: var(--text-black); }
+  .rm-block__value--strong { font: var(--type-body-m-strong); color: var(--text-primary); }
   .rm-field { display:flex; flex-direction:column; gap:4px; margin-top:14px; }
   .rm-field__label { margin:0; font: var(--type-body-xs); color: var(--text-inactive); }
   .rm-field__value { margin:0; font: var(--type-body-s); color: var(--text-primary); text-wrap:pretty; }
@@ -147,7 +147,7 @@
   .prop-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
   .prop { background:var(--bg-tile); border:1px solid var(--border-light); border-radius:12px; padding:16px 18px; display:flex; flex-direction:column; gap:10px; }
   .prop .pdemo { display:flex; gap:8px; flex-wrap:wrap; min-height:28px; align-items:center; }
-  .prop .pname { font:var(--type-body-m-strong); color:var(--text-black); }
+  .prop .pname { font:var(--type-body-m-strong); color:var(--text-primary); }
   .prop .pdesc { font:var(--type-body-s); color:var(--text-secondary); text-wrap:pretty; }
 
   /* ---------- reference tables ---------- */
@@ -171,7 +171,7 @@
   .cref-meta .tname { font: var(--type-body-m-strong); color: var(--text-primary); margin:1px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px; word-break:break-all; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -208,7 +208,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -360,13 +360,13 @@
       <div class="single-open-demo" id="single-open-demo"></div>
     </div>
 
-    <p class="subhead">Загрузка и ошибка<span class="badge-new">Новое</span></p>
+    <p class="subhead">Загрузка и ошибка</p>
     <p class="desc tight">Данные зоны/рейтинга могут ещё не быть загружены к моменту клика по информеру, либо запрос может завершиться ошибкой — Body переходит в состояние шиммера или <code class="tok">role="alert"</code>, Header (заголовок + ✕) остаётся на месте.</p>
     <div class="panel" style="margin-bottom:20px;">
       <div class="states" id="states-load-error"></div>
     </div>
 
-    <p class="subhead">Предлагаемые дополнения<span class="badge-new">Новое</span></p>
+    <p class="subhead">Предлагаемые дополнения</p>
     <p class="desc tight">Чего не хватает в текущей спеке — три корневых случая, которые почти наверняка встретятся в проде. Собраны на существующих токенах, не требуют новых цветов.</p>
     <div class="prop-grid" id="proposals"></div>
   </section>
@@ -444,37 +444,8 @@
       <code class="tok">styles/icon-button.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- анкор — точка отсчёта для позиционирования Popover --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"pop-anchor"</span><span class="tk-tag">&gt;</span>
-
-  <span class="tk-cm">&lt;!-- чип: ReadOnly, pill, без tabindex — сам он не интерактивен; красная/чёрная зона — solid --&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"chip chip--readonly chip--rounded chip--s chip--error-solid"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Риск-метрика. Рейтинг 26, зона проблемности — красная."</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"chip__label"</span><span class="tk-tag">&gt;</span>26<span class="tk-tag">&lt;/span&gt;</span>
-
-    <span class="tk-cm">&lt;!-- единственный интерактивный элемент чипа --&gt;</span>
-    <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"chip__info"</span> <span class="tk-attr">aria-haspopup=</span><span class="tk-val">"dialog"</span> <span class="tk-attr">aria-expanded=</span><span class="tk-val">"false"</span> <span class="tk-attr">aria-controls=</span><span class="tk-val">"rm-pop-1"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Показать детали риск-метрики"</span><span class="tk-tag">&gt;</span>&lt;svg…&gt;&lt;/svg&gt;<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;/span&gt;</span>
-
-  <span class="tk-cm">&lt;!-- Popover_RiskMetric: без Footer --&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">id=</span><span class="tk-val">"rm-pop-1"</span> <span class="tk-attr">class=</span><span class="tk-val">"pop pop--w-m pop--bottom pop--start pop--floating"</span> <span class="tk-attr">role=</span><span class="tk-val">"dialog"</span> <span class="tk-attr">aria-modal=</span><span class="tk-val">"false"</span> <span class="tk-attr">aria-labelledby=</span><span class="tk-val">"rm-pop-1-title"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__head"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;h3</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__title"</span> <span class="tk-attr">id=</span><span class="tk-val">"rm-pop-1-title"</span><span class="tk-tag">&gt;</span>Рейтинг и зона проблемности<span class="tk-tag">&lt;/h3&gt;</span>
-      <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--neutral ibtn--s"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Закрыть"</span><span class="tk-tag">&gt;</span>&lt;svg…&gt;&lt;/svg&gt;<span class="tk-tag">&lt;/button&gt;</span>
-    <span class="tk-tag">&lt;/div&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pop__body"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-cm">&lt;!-- rm-block × 2 (Зона / Рейтинг, каждый = значение + дата расчёта) + rm-field × 2 (Риск-сегмент / Риск-профиль), без Divider — см. код ниже --&gt;</span>
-    <span class="tk-tag">&lt;/div&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/span&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -510,50 +481,7 @@ function onInfoClick(btn, pop, anchor):
     </div>
     <p class="dev-note">Рабочий референс на vanilla JS — функции <code class="tok">makeRiskChip</code>, <code class="tok">buildRiskPopover</code> и <code class="tok">rmPlacePop</code> в <code class="tok">riskmetric.page.js</code>.</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">RiskMetric.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> RiskZone = <span class="tk-val">'green'</span> | <span class="tk-val">'watchlist'</span> | <span class="tk-val">'red'</span> | <span class="tk-val">'black'</span>; <span class="tk-cm">// без поля — зона не определена</span>
-<span class="tk-attr">type</span> PopoverLoadState = <span class="tk-val">'idle'</span> | <span class="tk-val">'loading'</span> | <span class="tk-val">'error'</span>;
-
-<span class="tk-attr">interface</span> RiskMetricProps {
-  rating?: <span class="tk-attr">number</span>;                 <span class="tk-cm">// 1–26, целое; не задан → «—»</span>
-  zone?: RiskZone;                     <span class="tk-cm">// не задан → Outline, дефолтный бордер</span>
-  ratingCalculatedAt?: <span class="tk-attr">string</span>;     <span class="tk-cm">// ISO-дата, показывается в Popover как ДД.ММ.ГГГГ</span>
-  zoneCalculatedAt?: <span class="tk-attr">string</span>;
-  riskSegment?: <span class="tk-attr">string</span>;            <span class="tk-cm">// свободный текст, показывается в Popover</span>
-  riskProfile?: <span class="tk-attr">string</span>;
-  loadPopoverDetails?(): Promise&lt;{ zone: RiskZone; rating: <span class="tk-attr">number</span>; …}&gt;; <span class="tk-cm">// ленивая загрузка — управляет PopoverLoadState</span>
-  'aria-label'?: <span class="tk-attr">string</span>;           <span class="tk-cm">// переопределяет автогенерируемый label чипа</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.chip.chip--readonly.chip--rounded.chip--s</code></td><td>span</td><td class="dsc">Корень метрики — ReadOnly, pill, единственный фиксированный размер S</td></tr>
-          <tr><td><code class="tok">.chip--success / --warning</code></td><td>span</td><td class="dsc">Светлая заливка: зелёная / watchlist</td></tr>
-          <tr><td><code class="tok">.chip--error-solid / --dark-solid</code></td><td>span</td><td class="dsc">Solid-заливка + белый текст: красная / чёрная зона</td></tr>
-          <tr><td><code class="tok">.chip--outline</code></td><td>span</td><td class="dsc">Нет данных о зоне — только дефолтный бордер, без заливки</td></tr>
-          <tr><td><code class="tok">.chip__label</code></td><td>span</td><td class="dsc">Число рейтинга или «—»</td></tr>
-          <tr><td><code class="tok">.chip__info</code></td><td>button</td><td class="dsc">Единственный интерактивный элемент — открывает Popover. Отсутствует, если нет ни рейтинга, ни зоны</td></tr>
-          <tr><td><code class="tok">.pop-anchor</code></td><td>span</td><td class="dsc">position:relative обёртка — точка отсчёта позиционирования Popover</td></tr>
-          <tr><td><code class="tok">.pop.pop--w-m</code></td><td>div</td><td class="dsc">Popover_RiskMetric — фиксированная ширина 320px, без Footer</td></tr>
-          <tr><td><code class="tok">.rm-block / .rm-block__row / .rm-block__label / .rm-block__value</code></td><td>div/span</td><td class="dsc">Серый блок подкачки «Зона»/«Рейтинг»: две строки label–значение (значение + дата расчёта)</td></tr>
-          <tr><td><code class="tok">.rm-block__value--strong</code></td><td>span</td><td class="dsc">Жирное значение (зона/рейтинг); у зоны дополнительно окрашено цветом зоны</td></tr>
-          <tr><td><code class="tok">.rm-field / .rm-field__label / .rm-field__value</code></td><td>div/p</td><td class="dsc">Текстовое поле «Риск-сегмент»/«Риск-профиль»</td></tr>
-          <tr><td><code class="tok">aria-busy="true"</code></td><td>.pop__body</td><td class="dsc">Состояние загрузки — Body заменяется на skeleton</td></tr>
-          <tr><td><code class="tok">role="alert"</code></td><td>.pop__body</td><td class="dsc">Ошибка загрузки деталей метрики</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · RiskMetric</span>

@@ -59,9 +59,9 @@
   --font-screen: "SB Sans Screen", system-ui, sans-serif;
 
   /* Weights */
-  --weight-light: 300;
-  --weight-regular: 400;
-  --weight-semibold: 600;
+  --weight-light: 300; /* @kind other */
+  --weight-regular: 400; /* @kind other */
+  --weight-semibold: 600; /* @kind other */
 
   /* ---- Type ramp: each token = font / weight / size / line-height ---- */
 

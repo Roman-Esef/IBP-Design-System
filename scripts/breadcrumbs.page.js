@@ -411,7 +411,7 @@ whenReady(function () {
       ['Pressed', '--text-primary'],
     ] },
     { name: 'Текущая страница · Breadcrumbs_2 / служебное', rows: [
-      ['Текущая крошка', '--text-black'],
+      ['Текущая крошка', '--text-primary'],
       ['Разделитель «/»', '--text-inactive'],
       ['«…» (свёрнуто)', '--text-inactive'],
       ['«…» hover = focus / open', '--text-secondary'],

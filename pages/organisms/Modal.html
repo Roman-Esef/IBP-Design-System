@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Modal" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -31,13 +31,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:66ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:76ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -54,7 +54,7 @@
   ul.rules { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px; }
   ul.rules li { font: var(--type-body-m); color: var(--text-primary); padding-left:26px; position:relative; text-wrap:pretty; }
   ul.rules li::before { content:""; position:absolute; left:2px; top:9px; width:7px; height:7px; border-radius:50%; background: var(--primary); }
-  ul.rules li b { color: var(--text-black); }
+  ul.rules li b { color: var(--text-primary); }
 
   code.tok { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius:5px; }
 
@@ -87,7 +87,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- sizes ---------- */
@@ -154,7 +154,7 @@
   .cref-meta .tname { font: var(--type-body-m-strong); color: var(--text-primary); margin:1px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px; word-break:break-all; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -191,7 +191,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -201,7 +201,7 @@
 <main class="page" data-screen-label="Modal">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Modal</h1>
     <p class="lead">Modal — не отдельный компонент, а свод правил построения модальных форм. Обязательны две части с фиксированной анатомией — шапка (<b>Modal_Top</b>: заголовок + крестик) и подвал (<b>Modal_Bottom</b>: опциональные кнопки слева, кнопки действий справа). Между ними — контентная область, которая может содержать что угодно: форму, таблицу, пустое состояние.</p>
@@ -333,10 +333,20 @@
     </div>
   </section>
 
-  <!-- BEHAVIOR (STUB) -->
+  <!-- BEHAVIOR -->
   <section class="section" data-screen-label="Behavior">
     <h2>Поведение</h2>
-    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+    <p class="desc">Блокировка скролла фона и анимация открытия/закрытия.</p>
+
+<div class="subsec" data-screen-label="ScrollLock">
+    <h3>Блокировка скролла фона</h3>
+    <p class="desc">Пока модалка открыта, страница за скримом не прокручивается: скролл документа блокируется при монтировании и снимается при закрытии (последней модалки, если открыто несколько вложенных). Прокручивается только содержимое <code class="tok">Modal_Body</code> — независимо от заблокированного фона.</p>
+  </div>
+
+<div class="subsec" data-screen-label="Animation">
+    <h3>Анимация открытия/закрытия</h3>
+    <p class="desc">Открытие: скрим проявляется фейдом (150&nbsp;мс, ease-out), модалка одновременно масштабируется 0.96&nbsp;→&nbsp;1 и проявляется. Закрытие — обратная последовательность быстрее (~120&nbsp;мс, ease-in). Вложенный диалог подтверждения открывается тем же паттерном поверх уже открытой модалки — их скримы складываются, поэтому фон темнеет сильнее. При <code class="tok">prefers-reduced-motion: reduce</code> масштабирование отключается, остаётся только фейд.</p>
+  </div>
   </section>
 
   <!-- STATES -->
@@ -357,7 +367,7 @@
     <div class="states" id="states-demo"></div>
 
     <div class="panel" style="margin-top:30px;">
-      <p class="subhead" style="margin-bottom:10px;">Диалог подтверждения удаления<span class="badge-new">Новое</span></p>
+      <p class="subhead" style="margin-bottom:10px;">Диалог подтверждения удаления</p>
       <p class="desc tight">Клик по «Удалить» в подвале не удаляет напрямую — открывает вложенный модальный диалог поверх текущей модалки (<code class="tok">--modal-z-nested</code>, скрим складывается с уже открытым и темнеет сильнее). Диалог — компактная ширина (2–4 шаг шкалы), Primary в тоне <code class="tok">.btn--danger</code>.</p>
       <div id="danger-demo" style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;"></div>
     </div>
@@ -426,49 +436,8 @@
       <code class="tok">styles/modal.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- скрим: клик закрывает модалку, КРОМЕ guarded-форм с несохранённым вводом --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"modal-scrim"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"modal modal--w6"</span> <span class="tk-attr">role=</span><span class="tk-val">"dialog"</span> <span class="tk-attr">aria-modal=</span><span class="tk-val">"true"</span> <span class="tk-attr">aria-labelledby=</span><span class="tk-val">"modal-title"</span><span class="tk-tag">&gt;</span>
-
-    <span class="tk-cm">&lt;!-- Modal_Top: заголовок + крестик, больше ничего --&gt;</span>
-    <span class="tk-tag">&lt;header</span> <span class="tk-attr">class=</span><span class="tk-val">"modal__head"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;h2</span> <span class="tk-attr">class=</span><span class="tk-val">"modal__title"</span> <span class="tk-attr">id=</span><span class="tk-val">"modal-title"</span><span class="tk-tag">&gt;</span>Новая сделка<span class="tk-tag">&lt;/h2&gt;</span>
-      <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--neutral ibtn--m"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Закрыть"</span><span class="tk-tag">&gt;</span>&lt;svg…&gt;&lt;/svg&gt;<span class="tk-tag">&lt;/button&gt;</span>
-    <span class="tk-tag">&lt;/header&gt;</span>
-
-    <span class="tk-cm">&lt;!-- Modal_Body: единственная гибкая/прокручиваемая зона, контент произвольный --&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"modal__body"</span><span class="tk-tag">&gt;</span>
-      …любой контент — форма, таблица, пустое состояние…
-    <span class="tk-tag">&lt;/div&gt;</span>
-
-    <span class="tk-cm">&lt;!-- Modal_Bottom: слева опционально, справа Primary обязателен --&gt;</span>
-    <span class="tk-tag">&lt;footer</span> <span class="tk-attr">class=</span><span class="tk-val">"modal__foot"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"modal__foot-left"</span><span class="tk-tag">&gt;</span>
-        <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--transparent btn--s"</span><span class="tk-tag">&gt;</span>&lt;svg…&gt;&lt;/svg&gt;Изменить<span class="tk-tag">&lt;/button&gt;</span>
-      <span class="tk-tag">&lt;/div&gt;</span>
-      <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"modal__foot-right"</span><span class="tk-tag">&gt;</span>
-        <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--transparent btn--m"</span><span class="tk-tag">&gt;</span>Очистить фильтр<span class="tk-tag">&lt;/button&gt;</span>
-        <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--m"</span><span class="tk-tag">&gt;</span>Сохранить<span class="tk-tag">&lt;/button&gt;</span>
-      <span class="tk-tag">&lt;/div&gt;</span>
-    <span class="tk-tag">&lt;/footer&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span>
-
-<span class="tk-cm">&lt;!-- диалог подтверждения — вложенный поверх открытой модалки --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"modal-scrim modal-scrim--nested"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"modal modal--w3"</span> <span class="tk-attr">role=</span><span class="tk-val">"alertdialog"</span> <span class="tk-attr">aria-modal=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>
-    …заголовок + сообщение + <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--m btn--danger"</span><span class="tk-tag">&gt;</span>Удалить<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -507,62 +476,7 @@ onBodyScroll():
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм поверх вашего стека. Рабочий референс на vanilla JS — функция <code class="tok">buildModal</code> в <code class="tok">modal.page.js</code>.</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы. Тело — просто <code class="tok">children</code>, компонент не диктует его структуру.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Modal.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> ModalWidthStep = <span class="tk-val">1</span>|<span class="tk-val">2</span>|<span class="tk-val">3</span>|<span class="tk-val">4</span>|<span class="tk-val">5</span>|<span class="tk-val">6</span>|<span class="tk-val">7</span>|<span class="tk-val">8</span>|<span class="tk-val">9</span>|<span class="tk-val">10</span>|<span class="tk-val">11</span>|<span class="tk-val">12</span>;
-
-<span class="tk-attr">interface</span> ModalFooterAction {
-  label: <span class="tk-attr">string</span>;
-  onClick(): <span class="tk-attr">void</span>;
-  loading?: <span class="tk-attr">boolean</span>;
-  disabled?: <span class="tk-attr">boolean</span>;
-}
-
-<span class="tk-attr">interface</span> ModalProps {
-  open: <span class="tk-attr">boolean</span>;
-  onClose(): <span class="tk-attr">void</span>;
-  title: <span class="tk-attr">string</span>;
-  widthStep?: ModalWidthStep;         <span class="tk-cm">// по умолчанию 6 (900px)</span>
-  children: React.ReactNode;          <span class="tk-cm">// Modal_Body — произвольный контент</span>
-  primaryAction: ModalFooterAction;   <span class="tk-cm">// обязателен — правый Primary</span>
-  secondaryAction?: ModalFooterAction; <span class="tk-cm">// правый Secondary</span>
-  onEdit?(): <span class="tk-attr">void</span>;                   <span class="tk-cm">// левая «Изменить»; исключает onDelete</span>
-  onDelete?(): <span class="tk-attr">void</span>;                 <span class="tk-cm">// левая «Удалить»; открывает confirm сама</span>
-  isDirty?: <span class="tk-attr">boolean</span>;                 <span class="tk-cm">// guarded — блокирует закрытие по клику на скрим</span>
-  role?: <span class="tk-val">'dialog'</span> | <span class="tk-val">'alertdialog'</span>; <span class="tk-cm">// alertdialog — для confirm/danger</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.modal-scrim</code></td><td>div</td><td class="dsc">Оверлей на весь вьюпорт, центрирует модалку, гасит фон</td></tr>
-          <tr><td><code class="tok">.modal-scrim--nested</code></td><td>div</td><td class="dsc">Вложенный слой (confirm/alert) поверх уже открытой модалки — выше z-index</td></tr>
-          <tr><td><code class="tok">.modal-scrim--inline</code></td><td>div</td><td class="dsc">Встраивание превью в статичный контейнер (документация/канвас) вместо fixed-оверлея</td></tr>
-          <tr><td><code class="tok">.modal</code></td><td>div</td><td class="dsc">Контейнер: фон, радиус 24px, тень, flex-колонка из шапки/тела/подвала</td></tr>
-          <tr><td><code class="tok">.modal--w1 … --w12</code></td><td>div</td><td class="dsc">Ширина — 12 шагов шкалы (140–1820px)</td></tr>
-          <tr><td><code class="tok">.modal--saving</code></td><td>div</td><td class="dsc">Тело приглушено и не интерактивно, пока идёт сохранение</td></tr>
-          <tr><td><code class="tok">.modal__head / .modal__foot</code></td><td>header / footer</td><td class="dsc">Фиксированные зоны; разделитель всегда виден, тень — при <code class="tok">.is-scrolled</code></td></tr>
-          <tr><td><code class="tok">.modal__title</code></td><td>h2</td><td class="dsc">Заголовок — Body H5 Strong, переносится на 2 строки, не обрезается</td></tr>
-          <tr><td><code class="tok">.modal__close</code></td><td>span</td><td class="dsc">Обёртка крестика — сама кнопка это <code class="tok">.ibtn.ibtn--neutral.ibtn--m</code></td></tr>
-          <tr><td><code class="tok">.modal__body</code></td><td>div</td><td class="dsc">Единственная гибкая/прокручиваемая зона; контент произвольный</td></tr>
-          <tr><td><code class="tok">.modal__body--flush</code></td><td>div</td><td class="dsc">Без внутреннего паддинга — когда контент сам управляет отступами (таблица во всю ширину)</td></tr>
-          <tr><td><code class="tok">.modal__skeleton</code></td><td>span</td><td class="dsc">Loading-плейсхолдер — шиммер, тот же приём, что и в ReadOnlyField</td></tr>
-          <tr><td><code class="tok">.modal__foot-left / -right</code></td><td>div</td><td class="dsc">Опциональные (Изменить/Удалить) и обязательные (Secondary/Primary) действия</td></tr>
-          <tr><td><code class="tok">.btn--danger</code></td><td>button</td><td class="dsc">Модификатор Button (не только Modal) — для Primary в диалоге подтверждения удаления</td></tr>
-          <tr><td><code class="tok">role="dialog"</code> / <code class="tok">alertdialog</code></td><td>.modal</td><td class="dsc">Обычная модалка / диалог подтверждения соответственно</td></tr>
-          <tr><td><code class="tok">aria-modal</code> / <code class="tok">aria-labelledby</code></td><td>.modal</td><td class="dsc">Связь с заголовком, исключение фона из дерева доступности</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Modal</span>

@@ -35,7 +35,7 @@ body.ds-has-nav { padding-left: var(--ds-nav-w); }
 }
 .ds-nav__logo img { width: 26px; height: 26px; display: block; }
 .ds-nav__brandtext { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-.ds-nav__title { font: var(--type-body-m-strong); color: var(--text-black); }
+.ds-nav__title { font: var(--type-body-m-strong); color: var(--text-primary); }
 .ds-nav__sub { font: var(--type-body-xs); color: var(--text-inactive); }
 
 /* прокручиваемое тело */
@@ -75,7 +75,7 @@ body.ds-has-nav { padding-left: var(--ds-nav-w); }
   cursor: pointer; transition: background .12s ease, color .12s ease;
   position: relative;
 }
-.ds-nav__link:hover { background: var(--bgtable-row-hover); color: var(--text-black); }
+.ds-nav__link:hover { background: var(--bgtable-row-hover); color: var(--text-primary); }
 
 .ds-nav__dot { width: 6px; height: 6px; border-radius: 50%; flex: none; background: var(--border-primary); transition: background .12s ease; }
 .ds-nav__link:hover .ds-nav__dot { background: var(--text-secondary); }
@@ -95,7 +95,7 @@ body.ds-has-nav { padding-left: var(--ds-nav-w); }
 .ds-nav__link.is-soon .ds-nav__dot { background: var(--border-light); }
 .ds-nav__soon-badge {
   margin-left: auto; font: var(--type-body-xs); font-weight: 600;
-  color: var(--text-on-tertiary); background: var(--tertiary);
+  color: var(--text-primary); background: var(--tertiary);
   padding: 2px 7px; border-radius: 999px; letter-spacing: .02em;
 }
 
@@ -105,7 +105,7 @@ body.ds-has-nav { padding-left: var(--ds-nav-w); }
   width: 44px; height: 44px; border-radius: 11px;
   display: none; align-items: center; justify-content: center;
   background: var(--bg-tile); border: 1px solid var(--border-light);
-  color: var(--text-black); cursor: pointer;
+  color: var(--text-primary); cursor: pointer;
   box-shadow: 0 4px 14px rgba(40,50,55,.10);
 }
 .ds-nav__toggle svg { width: 22px; height: 22px; }

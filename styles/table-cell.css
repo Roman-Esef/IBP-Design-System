@@ -19,7 +19,7 @@
   min-width: 0;
   padding: 6px 16px;
   font: var(--type-body-s);
-  color: var(--text-black);
+  color: var(--text-primary);
   background: var(--bgtable);
   border-bottom: 1px solid var(--border-light);
   transition: background-color .12s ease;
@@ -80,7 +80,7 @@
 
 .tc__text {
   font: var(--type-body-s);
-  color: var(--text-black);
+  color: var(--text-primary);
   min-width: 0;
 }
 
@@ -233,7 +233,7 @@
   border: none;
   background: transparent;
   font: var(--type-body-s);
-  color: var(--text-black);
+  color: var(--text-primary);
   padding: 6px 0;
 }
 .tc__field-input::placeholder { color: var(--text-inactive); }

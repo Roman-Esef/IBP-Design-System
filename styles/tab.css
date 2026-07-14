@@ -88,7 +88,8 @@
 .tabs-overflow .tabs--horiz { flex-wrap: nowrap; }
 .tabs-overflow .tab { flex: none; }
 
-.tab--more.is-menu-open { --tab-fill: var(--primary-bg); --tab-text: var(--text-primary); --tab-icon-color: var(--text-primary); }
+.tab--more.is-menu-open { background: var(--primary-bg); color: var(--text-primary); }
+.tab--more.is-menu-open .tab__icon { color: var(--text-primary); }
 
 .tabs-overflow__menu {
   position: absolute;
@@ -246,17 +247,17 @@
   margin-left: auto;
 }
 
-/* ---------- sizes --------------------------------------------------------- */
-.tab--m {
-  --tab-h: 40px; --tab-pad-x: 16px; --tab-gap: 8px;
-  --tab-icon: 20px; --tab-font: var(--type-body-m);
-  --tab-indicator-w: 2px; --tab-badge-min: 20px;
-}
-.tab--s {
-  --tab-h: 32px; --tab-pad-x: 12px; --tab-gap: 6px;
-  --tab-icon: 18px; --tab-font: var(--type-body-s);
-  --tab-indicator-w: 2px; --tab-badge-min: 16px;
-}
+/* ---------- sizes --------------------------------------------------------- *
+   Size values assigned directly to properties (not via local --* overrides in
+   modifiers) so the DS compiler can register tokens cleanly. Slot dimensions
+   (icon / badge) get per-size descendant rules; indicator width is 2px for
+   both sizes = the root default, so no per-size indicator rule is needed. */
+.tab--m { height: 40px; padding: 0 16px; gap: 8px; font: var(--type-body-m); }
+.tab--m .tab__icon  { width: 20px; height: 20px; }
+.tab--m .tab__badge { min-width: 20px; height: 20px; }
+.tab--s { height: 32px; padding: 0 12px; gap: 6px; font: var(--type-body-s); }
+.tab--s .tab__icon  { width: 18px; height: 18px; }
+.tab--s .tab__badge { min-width: 16px; height: 16px; }
 
 /* =========================================================================
    STATES
@@ -269,41 +270,44 @@
 .tab:not(.tab--disabled).is-hover,
 .tab:not(.tab--disabled):focus-visible,
 .tab:not(.tab--disabled).is-focus {
-  --tab-fill: var(--primary-bg);              /* Active · PrimaryBG — Emerald_500 6% */
-  --tab-text: var(--text-primary);
-  --tab-icon-color: var(--text-primary);
+  background: var(--primary-bg);              /* Active · PrimaryBG — Emerald_500 6% */
+  color: var(--text-primary);
+}
+.tab:not(.tab--disabled):hover .tab__icon,
+.tab:not(.tab--disabled).is-hover .tab__icon,
+.tab:not(.tab--disabled):focus-visible .tab__icon,
+.tab:not(.tab--disabled).is-focus .tab__icon {
+  color: var(--text-primary);
 }
 .tab:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
 
 /* ---------- selected ------------------------------------------------------ */
-.tab--selected {
-  --tab-text: var(--text-primary);
-  --tab-mark: var(--tab-indicator, var(--primary));
-  --tab-icon-color: var(--primary);
-}
+.tab--selected { color: var(--text-primary); }
+.tab--selected .tab__icon { color: var(--primary); }
+.tab--selected::after { background: var(--tab-indicator, var(--primary)); }
 /* selected hover / focus — тот же Active · PrimaryBG, что и у unselected; бейдж не перекрашивается */
 .tab--selected:not(.tab--disabled):hover,
 .tab--selected:not(.tab--disabled).is-hover,
 .tab--selected:not(.tab--disabled):focus-visible,
 .tab--selected:not(.tab--disabled).is-focus {
-  --tab-fill: var(--primary-bg);               /* Active · PrimaryBG */
-  --tab-text: var(--text-primary);
+  background: var(--primary-bg);               /* Active · PrimaryBG */
+  color: var(--text-primary);
 }
 
 /* ---------- disabled ------------------------------------------------------ */
 .tab--disabled {
-  --tab-text: var(--text-inactive);
-  --tab-icon-color: var(--text-inactive);
-  --tab-fill: transparent;
+  color: var(--text-inactive);
+  background: transparent;
   cursor: not-allowed;
   pointer-events: none;
 }
+.tab--disabled .tab__icon { color: var(--text-inactive); }
 .tab--disabled .tab__badge {
   background: var(--st-disabled-midlight);    /* CGrey 8% */
   color: var(--text-inactive);
 }
-.tab--disabled.tab--selected {
-  --tab-mark: var(--st-disabled);             /* faded accent */
+.tab--disabled.tab--selected::after {
+  background: var(--st-disabled);             /* faded accent */
 }
 
 /* a disabled tab whose text is truncated still shows its tooltip */

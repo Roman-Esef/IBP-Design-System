@@ -36,6 +36,9 @@
     makeInput(spec):
       size 'm'|'s' · table bool (без label/helper) · width px|'auto'
       label · helper · helperError bool
+        (ПРАВИЛО: текст ошибки/предупреждения НЕ выносится в хелпер — только в тултип
+         (spec.tip) в состояниях *-focus. Хелпер = правило заполнения и остаётся
+         нейтральным. helperError:true — намеренное исключение, заложенное при разработке.)
       state: 'default'|'hover'|'focus'|'error'|'error-focus'|'warning'|'warning-focus'|'disabled'
       lead bool (иконка поиска) · prefix · postfix
       value · placeholder · multiline bool
@@ -119,26 +122,29 @@
       });
       f.appendChild(aw);
     }
-    root.appendChild(f);
+    const box = document.createElement('div');
+    box.className = 'inp__box';
+    box.appendChild(f);
 
-    /* тултип ошибки/предупреждения — статично, при *-focus */
+    /* тултип ошибки/предупреждения — статично, при *-focus.
+       ПРАВИЛО: тултип не смещает хелпер — позиционируется абсолютно
+       поверх потока (см. .inp__box .tip в input.css), z-index выше поля. */
     if (s.tip && st.endsWith('-focus')) {
       const t = document.createElement('span');
       const kind = st.startsWith('error') ? 'error' : 'warning';
-      t.className = 'tip tip--bottom tip--start tip--multiline' + (kind === 'error' ? ' tip--error' : '');
+      t.className = 'tip tip--bottom tip--start tip--multiline inp__tip' + (kind === 'error' ? ' tip--error' : '');
       if (kind === 'warning') t.style.setProperty('--tip-bg', 'var(--warning)');
-      t.style.marginTop = '6px';
-      t.style.alignSelf = 'flex-start';
       t.setAttribute('role', 'alert');
       t.innerHTML = esc(s.tip) + '<span class="tip__arrow"></span>';
-      root.appendChild(t);
+      box.appendChild(t);
     }
+    root.appendChild(box);
 
     /* helper */
     if (s.helper && !s.table) {
       const h = document.createElement('span');
       h.className = 'ds-helper ds-helper--left'
-        + (s.helperError || st.startsWith('error') ? ' ds-helper--error' : '')
+        + (s.helperError ? ' ds-helper--error' : '') /* красный хелпер — только намеренное исключение */
         + (disabled ? ' ds-helper--disabled' : '');
       h.textContent = s.helper;
       root.appendChild(h);
@@ -159,5 +165,80 @@
     return root;
   }
 
-  window.DSInputKit = { makeInput, makeChip, esc, icon };
+  window.DSInputKit = { makeInput, makeRange, makeChip, esc, icon };
+
+  /*
+    makeRange(spec): диапазон из двух полей InputAmount/InputDate + Range_Line.
+      size 'm' (единственный — размера S нет)
+      kind 'amount' | 'date'
+      label · helper · helperError bool  (общие для диапазона)
+      width px|'auto'|string — общая ширина
+      disabled bool — весь диапазон (красит линию как бордер disabled)
+      from / to — спеки для makeInput каждого поля (state, value, tip, informer, clear, live).
+        Метка/хелпер полей игнорируются (у диапазона они общие),
+        префикс по умолчанию «От» / «До», для kind='date' добавляется календарь.
+  */
+  function makeRange(spec = {}) {
+    const size = spec.size || 'm';
+    const kind = spec.kind === 'date' ? 'date' : 'amount';
+    const root = document.createElement('div');
+    root.className = 'inp-range inp-range--' + size + ' inp-range--' + kind;
+    if (spec.disabled) root.classList.add('inp-range--disabled');
+    if (spec.width === 'auto') root.style.width = 'auto';
+    else if (typeof spec.width === 'number') root.style.width = spec.width + 'px';
+    else if (spec.width) root.style.width = spec.width;
+
+    /* общая метка */
+    if (spec.label) {
+      const lb = document.createElement('label');
+      lb.className = 'ds-label ds-label--left' + (spec.disabled ? ' ds-label--disabled' : '');
+      lb.innerHTML = '<span class="ds-label__text">' + esc(spec.label) + '</span>';
+      root.appendChild(lb);
+    }
+
+    const row = document.createElement('div');
+    row.className = 'inp-range__row';
+
+    function field(side, sub) {
+      sub = sub || {};
+      const placeholder = kind === 'date' ? 'ММ.ДД.ГГГГ' : 'Amount';
+      const fspec = Object.assign({
+        size,
+        width: 'auto',
+        prefix: side === 'from' ? 'От' : 'До',
+        placeholder: sub.value ? null : placeholder,
+        calendar: kind === 'date',
+      }, sub);
+      fspec.label = null;
+      fspec.helper = null;
+      const node = makeInput(fspec);
+      node.classList.add('inp-range__field');
+      return node;
+    }
+
+    const from = field('from', spec.from);
+    const line = document.createElement('span');
+    line.className = 'inp-range__line';
+    line.setAttribute('aria-hidden', 'true');
+    const to = field('to', spec.to);
+    row.appendChild(from);
+    row.appendChild(line);
+    row.appendChild(to);
+    root.appendChild(row);
+
+    /* общий хелпер */
+    if (spec.helper) {
+      const h = document.createElement('span');
+      h.className = 'ds-helper ds-helper--left'
+        + (spec.helperError ? ' ds-helper--error' : '')
+        + (spec.disabled ? ' ds-helper--disabled' : '');
+      h.textContent = spec.helper;
+      root.appendChild(h);
+    }
+
+    root._from = from;
+    root._to = to;
+    root._row = row;
+    return root;
+  }
 })();

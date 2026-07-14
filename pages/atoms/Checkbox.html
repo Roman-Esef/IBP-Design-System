@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Checkbox" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -27,13 +27,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:60ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -120,7 +120,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- group demo card ---------- */
@@ -174,7 +174,7 @@
   .size-spec__stage { background: var(--tertiary-light); border:1px solid var(--border-light); border-radius:14px; padding:44px; display:flex; justify-content:center; align-items:center; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -209,7 +209,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -219,7 +219,7 @@
 <main class="page" data-screen-label="Checkbox">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Checkbox</h1>
     <p class="lead">Чекбокс используется, когда доступен список опций и пользователю нужно выбрать одну или несколько из них. Три состояния выбора — Unselected / Selected / Indeterminate — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Error.</p>
@@ -376,7 +376,7 @@
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
 <div class="subsec" data-screen-label="Error">
-    <h3>Ошибка и валидация<span class="badge-new">Новое</span></h3>
+    <h3>Ошибка и валидация</h3>
     <p class="desc">Состояние Error появляется, когда обязательный чекбокс не выбран при отправке формы, или когда группа не прошла валидацию. Бокс и хелпер окрашиваются в <code class="tok">--error</code>; рядом с обязательным названием ставится звёздочка.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">
@@ -394,7 +394,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Три состояния выбора по вертикали и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Error</b> добавлены к исходной матрице Default / Disabled<span class="badge-new">Новое</span></p>
+    <p class="desc">Три состояния выбора по вертикали и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Error</b> добавлены к исходной матрице Default / Disabled</p>
     <div class="panel">
       <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
     </div>
@@ -402,7 +402,7 @@
 
   <!-- HIT AREA / A11Y -->
   <section class="section" data-screen-label="HitArea">
-    <h2>Доступность<span class="badge-new">Новое</span></h2>
+    <h2>Доступность</h2>
     <p class="desc">Видимый бокс — 16px, но кликабельная область шире: она включает название и хелпер. В группе активная область чекбокса вытягивается на всю высоту строки, чтобы её было легче нажать. Управление возможно с клавиатуры: фокус показывается обводкой <code class="tok">--primary</code>, переключение — пробелом.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">
@@ -458,41 +458,8 @@
       <code class="tok">styles/checkbox.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- чекбокс с названием и хелпером; бокс и текст — внутри &lt;label&gt; --&gt;</span>
-<span class="tk-tag">&lt;label</span> <span class="tk-attr">class=</span><span class="tk-val">"cb cb--selected"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;input</span> <span class="tk-attr">type=</span><span class="tk-val">"checkbox"</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__input"</span> <span class="tk-attr">checked</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__box"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__mark"</span><span class="tk-tag">&gt;&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;&lt;/span&gt;&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__content"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__label"</span><span class="tk-tag">&gt;</span>Получать уведомления<span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-helper ds-helper--left"</span><span class="tk-tag">&gt;</span>Не чаще раза в день<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/label&gt;</span>
-
-<span class="tk-cm">&lt;!-- indeterminate (родитель группы): input.indeterminate = true, внутри «минус» --&gt;</span>
-<span class="tk-tag">&lt;label</span> <span class="tk-attr">class=</span><span class="tk-val">"cb cb--indeterminate"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/label&gt;</span>
-
-<span class="tk-cm">&lt;!-- обязательный + ошибка: звёздочка у названия, aria-invalid --&gt;</span>
-<span class="tk-tag">&lt;label</span> <span class="tk-attr">class=</span><span class="tk-val">"cb cb--unselected cb--error"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;input</span> <span class="tk-attr">type=</span><span class="tk-val">"checkbox"</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__input"</span> <span class="tk-attr">required</span> <span class="tk-attr">aria-invalid=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__box"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__mark"</span><span class="tk-tag">&gt;&lt;/span&gt;&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__content"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__label"</span><span class="tk-tag">&gt;</span>Я принимаю условия<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"cb__req"</span><span class="tk-tag">&gt;</span>*<span class="tk-tag">&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/label&gt;</span>
-
-<span class="tk-cm">&lt;!-- группа: заголовок + пункты + ошибка уровня группы --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"cb-group"</span> <span class="tk-attr">role=</span><span class="tk-val">"group"</span> <span class="tk-attr">aria-labelledby=</span><span class="tk-val">"grp-t"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;p</span> <span class="tk-attr">class=</span><span class="tk-val">"cb-group__title"</span> <span class="tk-attr">id=</span><span class="tk-val">"grp-t"</span><span class="tk-tag">&gt;</span>Выберите каналы<span class="tk-tag">&lt;/p&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"cb-group__items"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/div&gt;</span>
-  <span class="tk-tag">&lt;p</span> <span class="tk-attr">class=</span><span class="tk-val">"cb-group__error"</span><span class="tk-tag">&gt;&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;&lt;span&gt;</span>Нужно выбрать хотя бы один<span class="tk-tag">&lt;/span&gt;&lt;/p&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -525,61 +492,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">makeCb</code> / <code class="tok">setCbState</code> в коде этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Checkbox.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> CheckState = <span class="tk-val">'unselected'</span> | <span class="tk-val">'selected'</span> | <span class="tk-val">'indeterminate'</span>;
-
-<span class="tk-attr">interface</span> CheckboxProps <span class="tk-attr">extends</span> Omit&lt;React.InputHTMLAttributes&lt;HTMLInputElement&gt;, <span class="tk-val">'type'</span>&gt; {
-  state?: CheckState;             <span class="tk-cm">// по умолчанию 'unselected'</span>
-  label?: React.ReactNode;        <span class="tk-cm">// название справа от бокса</span>
-  helper?: React.ReactNode;       <span class="tk-cm">// подпись Body XS под названием</span>
-  required?: <span class="tk-attr">boolean</span>;            <span class="tk-cm">// звёздочка * у названия</span>
-  error?: <span class="tk-attr">boolean</span>;               <span class="tk-cm">// невалидно → красный бокс + aria-invalid</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-  onChange?(next: CheckState): <span class="tk-attr">void</span>;
-}
-
-<span class="tk-attr">interface</span> CheckboxGroupProps {
-  title?: React.ReactNode;        <span class="tk-cm">// заголовок группы (H6 Strong)</span>
-  error?: React.ReactNode;        <span class="tk-cm">// сообщение об ошибке уровня группы</span>
-  indent?: <span class="tk-attr">boolean</span>;              <span class="tk-cm">// отступ дочерних (28px) под родителем</span>
-  children: React.ReactNode;      <span class="tk-cm">// Checkbox[]</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.cb</code></td><td>label</td><td class="dsc">Корень: <code class="tok">inline-flex</code>, зазор 8px, выравнивание по верхней строке</td></tr>
-          <tr><td><code class="tok">.cb--unselected / --selected / --indeterminate</code></td><td>label</td><td class="dsc">Состояние выбора (пустой / галочка / минус)</td></tr>
-          <tr><td><code class="tok">.cb--hover / --focus / --pressed</code></td><td>label</td><td class="dsc">Форс-состояния — только для спецификаций в документации, не для продакшена</td></tr>
-          <tr><td><code class="tok">.cb--error</code></td><td>label</td><td class="dsc">Невалидно: красный бокс и хелпер (<code class="tok">--error</code>); парой идёт <code class="tok">aria-invalid</code></td></tr>
-          <tr><td><code class="tok">.cb--disabled</code></td><td>label</td><td class="dsc">Отключено: <code class="tok">pointer-events: none</code>, текст/бокс в <code class="tok">--disabled</code></td></tr>
-          <tr><td><code class="tok">.cb--no-content</code></td><td>label</td><td class="dsc">Бокс без названия/хелпера (icon-only, напр. шапка таблицы)</td></tr>
-          <tr><td><code class="tok">.cb__input</code></td><td>input</td><td class="dsc">Визуально скрытый нативный <code class="tok">checkbox</code> — фокус и доступность</td></tr>
-          <tr><td><code class="tok">.cb__box</code></td><td>span</td><td class="dsc">Зона выравнивания 20px, центрирует бокс</td></tr>
-          <tr><td><code class="tok">.cb__mark</code></td><td>span</td><td class="dsc">Видимый бокс 16px: рамка, фон, галочка/минус; все state-слои на нём</td></tr>
-          <tr><td><code class="tok">.cb__content</code></td><td>span</td><td class="dsc">Колонка название + хелпер (зазор 2px)</td></tr>
-          <tr><td><code class="tok">.cb__label</code></td><td>span</td><td class="dsc">Название (Body M)</td></tr>
-          <tr><td><code class="tok">.cb__req</code></td><td>span</td><td class="dsc">Звёздочка обязательного поля (<code class="tok">--error</code>)</td></tr>
-          <tr><td><code class="tok">.ds-helper.ds-helper--left</code></td><td>span</td><td class="dsc">Хелпер (Body XS) — общий компонент, см. Label / Helper</td></tr>
-          <tr><td><code class="tok">.cb-group</code></td><td>div</td><td class="dsc">Контейнер группы (колонка); парой — <code class="tok">role="group"</code> + <code class="tok">aria-labelledby</code></td></tr>
-          <tr><td><code class="tok">.cb-group__title</code></td><td>p</td><td class="dsc">Заголовок группы (H6 Strong)</td></tr>
-          <tr><td><code class="tok">.cb-group__items</code></td><td>div</td><td class="dsc">Колонка пунктов</td></tr>
-          <tr><td><code class="tok">.cb-group--indent</code></td><td>div</td><td class="dsc">Отступ дочерних 28px (группа под родительским чекбоксом)</td></tr>
-          <tr><td><code class="tok">.cb-group__error</code></td><td>p</td><td class="dsc">Сообщение об ошибке уровня группы (Body XS, --error)</td></tr>
-          <tr><td><code class="tok">aria-invalid / role="group" / aria-labelledby</code></td><td>input / div</td><td class="dsc">Доступность: пометка ошибки и связь группы с её заголовком</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Checkbox</span>
@@ -920,7 +833,7 @@ function setCbState(root, state){
     { name:'Текст', rows:[
       ['Название', '--text-primary'],
       ['Хелпер', '--text-inactive'],
-      ['Заголовок группы', '--text-black'],
+      ['Заголовок группы', '--text-primary'],
       ['Текст · Disabled', '--text-inactive'],
     ]},
     { name:'Disabled', rows:[

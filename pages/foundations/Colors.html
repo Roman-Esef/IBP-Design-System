@@ -1,5 +1,5 @@
+<!-- @dsCard group="Colors" name="Colors" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Colors" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -30,7 +30,7 @@
     font: var(--type-button-xs); letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--primary); margin: 0 0 16px;
   }
-  .masthead h1 { font: var(--type-h1); letter-spacing: 0; margin: 0 0 18px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); letter-spacing: 0; margin: 0 0 18px; color: var(--text-primary); }
   @media (max-width: 600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p { font: var(--type-body-l); color: var(--text-secondary); max-width: 60ch; margin: 0; text-wrap: pretty; }
   .legend { display:flex; gap:18px; flex-wrap:wrap; margin-top:24px; }
@@ -46,7 +46,7 @@
   /* category */
   .category { margin-top: 80px; }
   .cat-head { margin-bottom: 28px; }
-  .cat-head h2 { font: var(--type-h3-strong); margin: 0 0 6px; color: var(--text-black); }
+  .cat-head h2 { font: var(--type-h3-strong); margin: 0 0 6px; color: var(--text-primary); }
   .cat-head p { font: var(--type-body-m); color: var(--text-secondary); margin: 0; }
 
   .groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; align-items: start; }
@@ -148,8 +148,6 @@ const data = [
         ["--text-primary",     "Text_Primary",     "CGrey_600", "#324844"],
         ["--text-secondary",   "Text_Secondary",   "CGrey_500", "#6C8080"],
         ["--text-inactive",    "Text_Inactive",    "CGrey_300", "#AAB2B1"],
-        ["--text-black",       "Text_Black",       "CGrey_800", "#283237"],
-        ["--text-on-tertiary", "Text_OnTertiary",  "Swamp_500", "#617C7C"],
         ["--text-on-dark",     "Text_OnDark",      "MGrey_50",  "#FFFFFF"],
       ]},
       { name: "BGTable", rows: [

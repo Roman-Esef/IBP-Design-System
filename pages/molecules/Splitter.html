@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Splitter" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -27,13 +27,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:64ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -100,7 +100,7 @@
   .scell { display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
   .scell .spl-static { width:100%; }
   .vcap { display:flex; align-items:baseline; gap:12px; }
-  .vcap__name { font: var(--type-body-m-strong); color: var(--text-black); }
+  .vcap__name { font: var(--type-body-m-strong); color: var(--text-primary); }
   .vdesc { font: var(--type-body-s); color: var(--text-secondary); margin:0; text-wrap:pretty; }
 
   .readout { display:inline-flex; align-items:center; gap:8px; font: var(--type-body-s-strong); color: var(--text-secondary); }
@@ -110,7 +110,7 @@
   .mdt { flex-direction:column; padding:0; font: var(--type-body-s); }
   .mdt__head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px 4px; }
   .mdt__crumb { font: var(--type-body-s); color: var(--text-secondary); }
-  .mdt__title { font: var(--type-h5-strong); color: var(--text-black); padding:2px 18px 10px; }
+  .mdt__title { font: var(--type-h5-strong); color: var(--text-primary); padding:2px 18px 10px; }
   .mdt__filter { display:inline-flex; align-items:center; gap:6px; color: var(--primary); font: var(--type-body-s); padding:0 18px 12px; }
   .mdt__filter svg { width:15px; height:15px; }
   .mdt__table { padding:0 10px 10px; }
@@ -123,7 +123,7 @@
 
   .mdd { flex-direction:column; padding:18px 22px; }
   .mdd__head { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-  .mdd__name { font: var(--type-h5-strong); color: var(--text-black); display:inline-flex; align-items:center; gap:10px; }
+  .mdd__name { font: var(--type-h5-strong); color: var(--text-primary); display:inline-flex; align-items:center; gap:10px; }
   .mdd__chip { font: var(--type-body-xs); color: var(--warning-dark); background: var(--warning-bg); border-radius:999px; padding:2px 9px; }
   .mdd__tools { color: var(--text-inactive); display:inline-flex; gap:14px; }
   .mdd__tools svg { width:18px; height:18px; }
@@ -175,7 +175,7 @@
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 
   /* ---------- developer handoff ---------- */
-  .subhead2 { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead2 { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead2.mt { margin-top: 34px; }
   .subhead2 .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -209,7 +209,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -282,9 +282,9 @@
       <div style="display:grid; grid-template-columns: minmax(280px,1fr) minmax(240px,360px); gap:40px; align-items:center;">
         <div style="background: var(--tertiary-light); border:1px solid var(--border-light); border-radius:14px; padding:40px; display:flex; justify-content:center;" id="anat-diagram"></div>
         <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px;">
-          <li style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center;">1</span><span><span style="font: var(--type-body-m-strong); color: var(--text-black);">Зона захвата</span><span style="font: var(--type-body-s); color: var(--text-secondary);"> — 11px, курсор col-resize</span></span></li>
-          <li style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center;">2</span><span><span style="font: var(--type-body-m-strong); color: var(--text-black);">Линия</span><span style="font: var(--type-body-s); color: var(--text-secondary);"> — 1px, темнеет в Hover/Move</span></span></li>
-          <li style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center;">3</span><span><span style="font: var(--type-body-m-strong); color: var(--text-black);">Ручка-грип</span><span style="font: var(--type-body-s); color: var(--text-secondary);"> — точки-аффорданс по центру</span></span></li>
+          <li style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center;">1</span><span><span style="font: var(--type-body-m-strong); color: var(--text-primary);">Зона захвата</span><span style="font: var(--type-body-s); color: var(--text-secondary);"> — 11px, курсор col-resize</span></span></li>
+          <li style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center;">2</span><span><span style="font: var(--type-body-m-strong); color: var(--text-primary);">Линия</span><span style="font: var(--type-body-s); color: var(--text-secondary);"> — 1px, темнеет в Hover/Move</span></span></li>
+          <li style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center;">3</span><span><span style="font: var(--type-body-m-strong); color: var(--text-primary);">Ручка-грип</span><span style="font: var(--type-body-s); color: var(--text-secondary);"> — точки-аффорданс по центру</span></span></li>
         </ul>
       </div>
     </div>
@@ -296,7 +296,7 @@
     <p class="desc">Оси конфигурации компонента — каждая описана отдельным подразделом.</p>
   
 <div class="subsec" data-screen-label="Orientation">
-    <h3>Ориентация<span class="badge-new">Новое</span></h3>
+    <h3>Ориентация</h3>
     <p class="desc">Вертикальный сплиттер регулирует ширину колонок (курсор <code class="tok">col-resize</code>) — основной сценарий. Горизонтальный регулирует высоту строк (курсор <code class="tok">row-resize</code>) — например, делит контент и панель деталей по высоте. Грип разворачивается вдоль оси перетаскивания.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:300px;">
@@ -355,7 +355,7 @@
 
   <!-- STATES -->
   <section class="section" data-screen-label="States">
-    <h2>Состояния<span class="badge-new">Новое</span></h2>
+    <h2>Состояния</h2>
     <p class="desc">Исходная пара Default / Hover дополнена состояниями Move (перетаскивание), Focus и Disabled. В Move сплиттер сохраняет вид Hover и курсор <code class="tok">col-resize</code> на всём документе, пока кнопка мыши зажата.</p>
     <div class="panel">
       <div class="sgrid" id="states"></div>
@@ -364,7 +364,7 @@
 
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
-    <h2>Доступность<span class="badge-new">Новое</span></h2>
+    <h2>Доступность</h2>
     <p class="desc">Сплиттеру присваивается <code class="tok">role="separator"</code>, <code class="tok">aria-orientation</code> и значения <code class="tok">aria-valuemin</code> / <code class="tok">aria-valuemax</code> / <code class="tok">aria-valuenow</code> (в процентах). Он фокусируется по <b>Tab</b>; стрелки <b>←/→</b> (или <b>↑/↓</b> для горизонтального) сдвигают границу с шагом 2%, с <b>Shift</b> — 10%, <b>Home</b> / <b>End</b> — в минимум / максимум. Сфокусируйте сплиттер в примерах выше и подвигайте стрелками.</p>
   </section>
 
@@ -421,27 +421,8 @@
       <code class="tok">styles/splitter.css</code>
     </div>
 
-    <p class="subhead2">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- вертикальный сплиттер между двумя панелями --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"splitpane"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"splitpane__panel splitpane__a"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/div&gt;</span>
-
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"spl"</span> <span class="tk-attr">role=</span><span class="tk-val">"separator"</span> <span class="tk-attr">aria-orientation=</span><span class="tk-val">"vertical"</span>
-       <span class="tk-attr">aria-valuemin=</span><span class="tk-val">"20"</span> <span class="tk-attr">aria-valuemax=</span><span class="tk-val">"80"</span> <span class="tk-attr">aria-valuenow=</span><span class="tk-val">"50"</span>
-       <span class="tk-attr">aria-label=</span><span class="tk-val">"Изменить ширину панелей"</span> <span class="tk-attr">tabindex=</span><span class="tk-val">"0"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"spl__grip"</span><span class="tk-tag">&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"splitpane__panel splitpane__b"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -465,46 +446,7 @@ pct = clamp( (позиция_курсора - начало_контейнера)
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функция <code class="tok">createSplitPane</code> в <code class="tok">splitter.page.js</code>).</p>
 
-    <p class="subhead2 mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Splitter.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> SplitterOrientation = <span class="tk-val">'vertical'</span> | <span class="tk-val">'horizontal'</span>;
-
-<span class="tk-attr">interface</span> SplitterProps {
-  orientation?: SplitterOrientation;    <span class="tk-cm">// по умолчанию 'vertical'</span>
-  value: <span class="tk-attr">number</span>;                       <span class="tk-cm">// % размера панели A — controlled</span>
-  onChange: (value: <span class="tk-attr">number</span>) => <span class="tk-attr">void</span>;
-  min?: <span class="tk-attr">number</span>;                        <span class="tk-cm">// %, по умолчанию 20</span>
-  max?: <span class="tk-attr">number</span>;                        <span class="tk-cm">// %, по умолчанию 80</span>
-  step?: <span class="tk-attr">number</span>;                       <span class="tk-cm">// шаг стрелками, по умолчанию 2</span>
-  bigStep?: <span class="tk-attr">number</span>;                    <span class="tk-cm">// шаг со Shift, по умолчанию 10</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-  <span class="tk-val">'aria-label'</span>: <span class="tk-attr">string</span>;             <span class="tk-cm">// обязателен — что именно меняется в размере</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead2 mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.spl</code></td><td>div</td><td class="dsc">Корень — зона захвата 11px; <code class="tok">role="separator"</code></td></tr>
-          <tr><td><code class="tok">.spl--h</code></td><td>div</td><td class="dsc">Горизонтальная ориентация — регулирует высоту строк</td></tr>
-          <tr><td><code class="tok">.spl__grip</code></td><td>span</td><td class="dsc">Ручка-грип — точки-аффорданс по центру</td></tr>
-          <tr><td><code class="tok">.spl--hover</code> / <code class="tok">:hover</code></td><td>div</td><td class="dsc">Подсветка зоны, курсор col-resize / row-resize</td></tr>
-          <tr><td><code class="tok">.spl--move</code></td><td>div</td><td class="dsc">Перетаскивание — вид Hover удерживается всё время drag</td></tr>
-          <tr><td><code class="tok">.spl--disabled</code></td><td>div</td><td class="dsc"><code class="tok">pointer-events:none</code>, курсор default</td></tr>
-          <tr><td><code class="tok">:focus-visible</code></td><td>div</td><td class="dsc">Обводка 2px <code class="tok">--primary</code>, offset −1px</td></tr>
-          <tr><td><code class="tok">body.spl-dragging</code> / <code class="tok">.spl-dragging-h</code></td><td>body</td><td class="dsc">Курсор col-resize/row-resize поверх всего документа во время Move</td></tr>
-          <tr><td><code class="tok">role="separator"</code> / <code class="tok">aria-orientation</code> / <code class="tok">aria-valuemin/max/now</code></td><td>div</td><td class="dsc">Доступность — семантика и текущее значение размера</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Splitter</span>

@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="IconButton" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -27,13 +27,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:64ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -125,7 +125,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- input field demo ---------- */
@@ -189,7 +189,7 @@
   .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
 
   .addon { font: var(--type-button-xs); letter-spacing:.06em; text-transform:uppercase; color: var(--primary); background: var(--primary-bg); padding:5px 10px; border-radius:999px; }
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 30px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -233,7 +233,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -243,7 +243,7 @@
 <main class="page" data-screen-label="IconButton">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>IconButton</h1>
     <p class="lead">Безрамочная кнопка с одной иконкой и круглым стейт-слоем (риплом). Цвет рипла соответствует цвету иконки. Тоны Neutral / Primary / Danger / Contrast, размеры L / M / S, состояния Default / Hover / Pressed / Focus / Disabled / Loading, режим-переключатель и встроенный вариант для полей ввода.</p>
@@ -315,7 +315,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Toggle">
-    <h3>Режим-переключатель<span class="badge-new">Новое</span></h3>
+    <h3>Режим-переключатель</h3>
     <p class="desc">IconButton может работать как переключатель (toggle): нажатие фиксирует состояние Selected. В выбранном состоянии иконка окрашивается в Primary и остаётся лёгкий стейт-слой; чаще всего контурная иконка заменяется на залитую. Подходит для «в избранное», «закрепить», «показать пароль». Нажмите на пример:</p>
     <div class="panel">
       <div class="row" id="toggle-row" style="gap:36px;"></div>
@@ -323,7 +323,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Embedded">
-    <h3>Встроенный вариант (поля и тулбары)<span class="badge-new">Новое</span></h3>
+    <h3>Встроенный вариант (поля и тулбары)</h3>
     <p class="desc">В полях ввода и плотных тулбарах круглый стейт-слой избыточен. Встроенный вариант (<code class="tok">ibtn--embedded</code>) убирает рипл: в покое иконка нейтральная, на Hover она окрашивается в Primary. Это и есть состояние «Hover (Input)». Наведите на иконку очистки:</p>
     <div class="panel" style="margin-bottom:20px;">
       <div class="row" id="field-row" style="gap:28px;"></div>
@@ -335,7 +335,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Badge">
-    <h3>С бейджем<span class="badge-new">Новое</span></h3>
+    <h3>С бейджем</h3>
     <p class="desc">IconButton может нести индикатор-<a class="inl" href="../atoms/Badge.html">Badge</a> — счётчик непрочитанного или точку-индикатор. Бейдж прижимается к правому верхнему углу иконки и не перехватывает клики.</p>
     <div class="panel">
       <div class="row" id="badge-row" style="gap:32px;"></div>
@@ -384,16 +384,26 @@
   </div>
   </section>
 
-  <!-- BEHAVIOR (STUB) -->
+  <!-- BEHAVIOR -->
   <section class="section" data-screen-label="Behavior">
     <h2>Поведение</h2>
-    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+    <p class="desc">Независимость режима-переключателя и блокировка в Loading.</p>
+
+<div class="subsec" data-screen-label="ToggleLogic">
+    <h3>Режим-переключатель</h3>
+    <p class="desc">В отличие от ButtonGroup Toggle, где сегменты одной группы могут быть взаимоисключающими, отдельный IconButton в режиме toggle всегда переключается независимо от других кнопок рядом — своё Selected не влияет на соседние IconButton, даже если они выглядят как ряд (например, панель инструментов). Если нужна взаимоисключающая группа — используйте ButtonGroup Toggle или SegmentControl.</p>
+  </div>
+
+<div class="subsec" data-screen-label="LoadingLock">
+    <h3>Loading блокирует повторный клик</h3>
+    <p class="desc">Пока идёт процесс, кнопка недоступна для повторного нажатия (<code class="tok">pointer-events: none</code>) — это предотвращает повторный запуск того же действия до получения ответа. Иконка временно скрыта под спиннером и возвращается по завершении.</p>
+  </div>
   </section>
 
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Интерактивные состояния по горизонтали, размеры по вертикали. К исходной матрице Default / Hover / Disabled добавлены <b>Pressed</b>, <b>Focus</b> и <b>Loading</b>.<span class="badge-new">Новое</span></p>
+    <p class="desc">Интерактивные состояния по горизонтали, размеры по вертикали. К исходной матрице Default / Hover / Disabled добавлены <b>Pressed</b>, <b>Focus</b> и <b>Loading</b>.</p>
     <div class="panel">
       <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
     </div>
@@ -456,35 +466,8 @@
       <code class="tok">styles/badge.css (если нужен бейдж)</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- базовый вариант: одна иконка, aria-label обязателен --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--neutral ibtn--m"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Редактировать"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;</span>          <span class="tk-cm">&lt;!-- 24/20/16 px по размеру кнопки --&gt;</span>
-<span class="tk-tag">&lt;/button&gt;</span>
-
-<span class="tk-cm">&lt;!-- toggle: aria-pressed + залитая иконка в selected --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--primary ibtn--l ibtn--selected"</span> <span class="tk-attr">aria-pressed=</span><span class="tk-val">"true"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"В избранном"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;</span>
-<span class="tk-tag">&lt;/button&gt;</span>
-
-<span class="tk-cm">&lt;!-- loading: спиннер вместо иконки, клики заблокированы --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--neutral ibtn--m ibtn--loading"</span> <span class="tk-attr">aria-busy=</span><span class="tk-val">"true"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Ещё"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn__spinner"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/button&gt;</span>
-
-<span class="tk-cm">&lt;!-- с бейджем: Badge не перехватывает клики (pointer-events: none) --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn ibtn--neutral ibtn--l"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Сделки"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ibtn__badge"</span><span class="tk-tag">&gt;</span><span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"badge badge--xs badge--accent"</span><span class="tk-tag">&gt;</span>3<span class="tk-tag">&lt;/span&gt;</span><span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/button&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -515,52 +498,7 @@ glyph = selected ? iconSelected : icon
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который нужно реализовать поверх вашего стека (рабочий референс на vanilla JS — функция <code class="tok">makeIB</code> в коде этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">IconButton.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> IconButtonTone = <span class="tk-val">'neutral'</span> | <span class="tk-val">'primary'</span> | <span class="tk-val">'danger'</span> | <span class="tk-val">'contrast'</span>;
-<span class="tk-attr">type</span> IconButtonSize = <span class="tk-val">'l'</span> | <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span>;
-
-<span class="tk-attr">interface</span> IconButtonProps <span class="tk-attr">extends</span> React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt; {
-  icon: React.ReactNode;          <span class="tk-cm">// 24×24 из библиотеки ДС, заливка currentColor</span>
-  <span class="tk-val">'aria-label'</span>: <span class="tk-attr">string</span>;           <span class="tk-cm">// обязателен: у кнопки нет текста</span>
-  tone?: IconButtonTone;          <span class="tk-cm">// по умолчанию 'neutral'</span>
-  size?: IconButtonSize;          <span class="tk-cm">// по умолчанию 'm'</span>
-  shape?: <span class="tk-val">'circle'</span> | <span class="tk-val">'square'</span>;    <span class="tk-cm">// по умолчанию 'circle'</span>
-  embedded?: <span class="tk-attr">boolean</span>;             <span class="tk-cm">// вариант для полей ввода — без стейт-слоя</span>
-  selected?: <span class="tk-attr">boolean</span>;             <span class="tk-cm">// toggle-режим → aria-pressed</span>
-  iconSelected?: React.ReactNode; <span class="tk-cm">// залитая иконка для selected</span>
-  loading?: <span class="tk-attr">boolean</span>;              <span class="tk-cm">// спиннер + aria-busy, клики заблокированы</span>
-  badge?: React.ReactNode;        <span class="tk-cm">// Badge в правом верхнем углу</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.ibtn</code></td><td>button</td><td class="dsc">Базовый класс: раскладка, круглый стейт-слой, переходы, focus-visible</td></tr>
-          <tr><td><code class="tok">.ibtn--neutral / --primary / --danger / --contrast</code></td><td>button</td><td class="dsc">Тон — цвет иконки; стейт-слой следует за ним. Neutral = <code class="tok">--secondary</code></td></tr>
-          <tr><td><code class="tok">.ibtn--l / --m / --s</code></td><td>button</td><td class="dsc">Размер: 40 / 32 / 24 px, иконка 24 / 20 / 16 px</td></tr>
-          <tr><td><code class="tok">.ibtn--square</code></td><td>button</td><td class="dsc">Квадратная форма стейт-слоя вместо круга (радиус 8 / 8 / 6)</td></tr>
-          <tr><td><code class="tok">.ibtn--embedded</code></td><td>button</td><td class="dsc">Встроенный вариант (поля ввода): без стейт-слоя, hover меняет цвет</td></tr>
-          <tr><td><code class="tok">.ibtn--selected</code></td><td>button</td><td class="dsc">Toggle включён: иконка primary + постоянный лёгкий стейт-слой; парой идёт <code class="tok">aria-pressed="true"</code></td></tr>
-          <tr><td><code class="tok">.ibtn--loading</code></td><td>button</td><td class="dsc">Загрузка: <code class="tok">pointer-events: none</code>, внутри <code class="tok">.ibtn__spinner</code></td></tr>
-          <tr><td><code class="tok">disabled</code></td><td>button</td><td class="dsc">Отключённое состояние — иконка <code class="tok">--text-inactive</code>, без стейт-слоя</td></tr>
-          <tr><td><code class="tok">.is-hover / .is-pressed / .is-focus</code></td><td>button</td><td class="dsc">Форсированные состояния — только для спецификаций в документации, не для продакшена</td></tr>
-          <tr><td><code class="tok">.ibtn__spinner</code></td><td>span</td><td class="dsc">Лоадер — кольцо <code class="tok">currentColor</code> размером с иконку, уважает <code class="tok">prefers-reduced-motion</code></td></tr>
-          <tr><td><code class="tok">.ibtn__badge</code></td><td>span</td><td class="dsc">Слот для Badge в правом верхнем углу; клики не перехватывает</td></tr>
-          <tr><td><code class="tok">aria-label</code></td><td>button</td><td class="dsc">Обязателен всегда — глагол действия (см. «Контент»)</td></tr>
-          <tr><td><code class="tok">aria-pressed</code></td><td>button</td><td class="dsc">Только в toggle-режиме; синхронизируется с <code class="tok">.ibtn--selected</code></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · IconButton</span>

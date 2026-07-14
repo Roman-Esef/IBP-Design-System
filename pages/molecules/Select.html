@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Select" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -29,13 +29,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:66ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:76ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -107,7 +107,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- variants matrix ---------- */
@@ -150,7 +150,7 @@
       repeating-conic-gradient(#eef3f2 0% 25%, #f7faf9 0% 50%) 0 / 20px 20px; }
   .vp .fldwrap { cursor:grab; touch-action:none; }
   .vp .fldwrap:active { cursor:grabbing; }
-  .vp .hint-drag { position:absolute; left:14px; bottom:12px; font: var(--type-body-xs); color: var(--text-on-tertiary); pointer-events:none; }
+  .vp .hint-drag { position:absolute; left:14px; bottom:12px; font: var(--type-body-xs); color: var(--text-primary); pointer-events:none; }
 
   /* ---------- reference tables ---------- */
   .ref-table { width:100%; border-collapse:collapse; }
@@ -177,7 +177,7 @@
   .cref-hex { font: var(--type-body-s-strong); color: var(--text-secondary); font-variant-numeric: tabular-nums; text-align:right; flex:none; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -214,7 +214,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -224,7 +224,7 @@
 <main class="page" data-screen-label="Select">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Select · DropdownList</h1>
     <p class="lead">Выпадающий список — всплывающая поверхность со списком опций, которая раскрывается под полем <a class="inl" href="#">Select</a> или <a class="inl" href="../molecules/InputAutocomplete.html">InputAutocomplete</a>. Служит для выбора значения из перечня: одиночного (подсветка выбранной строки), множественного (ведущие чекбоксы) или с поиском по мере набора (подсветка совпадения). В отличие от <a class="inl" href="../molecules/ContextMenu.html">Context Menu</a> — это выбор данных, а не список команд.</p>
@@ -342,7 +342,7 @@
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
 <div class="subsec" data-screen-label="Positioning">
-    <h3>Позиционирование и авто-разворот <span class="badge-new">Новое</span></h3>
+    <h3>Позиционирование и авто-разворот</h3>
     <p class="desc">Список выравнивается по левому краю поля, его ширина равна ширине поля. Если снизу не хватает места, список разворачивается вверх. Перетащите поле к нижнему краю области.</p>
     <div class="panel">
       <div class="vp" id="flip-vp">
@@ -362,7 +362,7 @@
     </div>
   
 <div class="subsec" data-screen-label="SystemStates">
-    <h3>Системные состояния <span class="badge-new">Новое</span></h3>
+    <h3>Системные состояния</h3>
     <p class="desc">Когда показывать нечего, вместо списка опций выводится одна системная строка. Три случая — загрузка, пустой результат и ошибка — плюс корнер-кейс автокомплита со свободным вводом («создать»).</p>
     <div class="panel">
       <div class="sys" id="system-grid"></div>
@@ -430,41 +430,8 @@
       <code class="tok">styles/dropdown-list.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- поле-триггер связано со списком через combobox / aria-controls --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">role=</span><span class="tk-val">"combobox"</span> <span class="tk-attr">aria-expanded=</span><span class="tk-val">"true"</span> <span class="tk-attr">aria-controls=</span><span class="tk-val">"ccy"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/div&gt;</span>
-
-<span class="tk-cm">&lt;!-- список: role=listbox; multiselect → aria-multiselectable --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">id=</span><span class="tk-val">"ccy"</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl ddl--floating ddl--scroll"</span> <span class="tk-attr">role=</span><span class="tk-val">"listbox"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__group"</span><span class="tk-tag">&gt;</span>Популярные<span class="tk-tag">&lt;/div&gt;</span>
-
-  <span class="tk-cm">&lt;!-- одиночный выбор: выбранная опция = aria-selected --&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item"</span> <span class="tk-attr">role=</span><span class="tk-val">"option"</span> <span class="tk-attr">aria-selected=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item-body"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item-label"</span><span class="tk-tag">&gt;</span>Доллар <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__match"</span><span class="tk-tag">&gt;</span>США<span class="tk-tag">&lt;/span&gt;&lt;/span&gt;</span>
-      <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-helper"</span><span class="tk-tag">&gt;</span>USD · 840<span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/button&gt;</span>
-
-  <span class="tk-cm">&lt;!-- множественный выбор: ведущий чекбокс + aria-checked --&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item ddl__item--checkbox"</span> <span class="tk-attr">role=</span><span class="tk-val">"option"</span> <span class="tk-attr">aria-checked=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item-check"</span><span class="tk-tag">&gt;</span>&lt;span class="cb__box"&gt;&lt;span class="cb__mark"&gt;…&lt;/span&gt;&lt;/span&gt;<span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item-body"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/button&gt;</span>
-
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__item"</span> <span class="tk-attr">role=</span><span class="tk-val">"option"</span> <span class="tk-attr">aria-disabled=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>Евро<span class="tk-tag">&lt;/button&gt;</span>
-
-  <span class="tk-cm">&lt;!-- системная строка вместо опций --&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"ddl__state ddl__state--empty"</span><span class="tk-tag">&gt;</span>…Ничего не найдено<span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -493,59 +460,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм поверх вашего стека. Рабочий референс на vanilla JS — функции <code class="tok">makeItem</code> / <code class="tok">makeList</code> / <code class="tok">placeList</code> в <code class="tok">dropdown-list.page.js</code>.</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы. Позиционирование и приравнивание ширины обычно выносятся в <code class="tok">useLayoutEffect</code>.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">DropdownList.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">interface</span> Option {
-  value: <span class="tk-attr">string</span>;
-  label: <span class="tk-attr">string</span>;
-  helper?: <span class="tk-attr">string</span>;               <span class="tk-cm">// вторая строка (код, ISO, счёт)</span>
-  icon?: React.ReactNode;           <span class="tk-cm">// ведущая иконка (single-select)</span>
-  group?: <span class="tk-attr">string</span>;                <span class="tk-cm">// заголовок группы</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-}
-
-<span class="tk-attr">type</span> ListStatus = <span class="tk-val">'idle'</span> | <span class="tk-val">'loading'</span> | <span class="tk-val">'empty'</span> | <span class="tk-val">'error'</span>;
-
-<span class="tk-attr">interface</span> DropdownListProps {
-  options: Option[];
-  multiple?: <span class="tk-attr">boolean</span>;               <span class="tk-cm">// ведущие чекбоксы, не закрывать при выборе</span>
-  value: <span class="tk-attr">string</span> | <span class="tk-attr">string</span>[];         <span class="tk-cm">// выбранное значение(-я)</span>
-  query?: <span class="tk-attr">string</span>;                    <span class="tk-cm">// строка поиска — подсветка совпадения</span>
-  status?: ListStatus;              <span class="tk-cm">// системное состояние вместо списка</span>
-  emptyAction?: { label: string; onClick: () =&gt; <span class="tk-attr">void</span> }; <span class="tk-cm">// «создать»</span>
-  maxHeight?: <span class="tk-attr">number</span>;             <span class="tk-cm">// включает прокрутку (по умолч. ≈7 опций)</span>
-  onChange?: (value: <span class="tk-attr">string</span> | <span class="tk-attr">string</span>[]) =&gt; <span class="tk-attr">void</span>;
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.ddl</code></td><td>div</td><td class="dsc">Контейнер-список: фон, радиус 12px, тень, min-ширина</td></tr>
-          <tr><td><code class="tok">.ddl--scroll</code></td><td>div</td><td class="dsc">Прокрутка при переполнении (<code class="tok">--ddl-max-h</code>)</td></tr>
-          <tr><td><code class="tok">.ddl--floating</code></td><td>div</td><td class="dsc">JS-позиционирование под полем; показ через <code class="tok">.is-open</code></td></tr>
-          <tr><td><code class="tok">.ddl__item</code></td><td>button</td><td class="dsc">Опция: ведущий слот + тело + правая часть</td></tr>
-          <tr><td><code class="tok">.ddl__item--checkbox</code></td><td>button</td><td class="dsc">Множественный выбор — ведущий чекбокс, состояние в <code class="tok">aria-checked</code></td></tr>
-          <tr><td><code class="tok">.ddl__item--wrap</code></td><td>button</td><td class="dsc">Перенос подписи вместо многоточия</td></tr>
-          <tr><td><code class="tok">.ddl__item--action</code></td><td>button</td><td class="dsc">Строка «создать» / свободный ввод (акцентная)</td></tr>
-          <tr><td><code class="tok">.ddl__item-check / -icon / -body / -label / -trail</code> · <code class="tok">.ds-helper</code></td><td>span</td><td class="dsc">Части опции: чекбокс, иконка, тело, подпись, правая часть; helper — компонент подкачки <code class="tok">.ds-helper</code></td></tr>
-          <tr><td><code class="tok">.ddl__match</code></td><td>span</td><td class="dsc">Подсветка совпавшей подстроки в автокомплите</td></tr>
-          <tr><td><code class="tok">.ddl__group</code></td><td>div</td><td class="dsc">Липкий заголовок группы (Body XS uppercase)</td></tr>
-          <tr><td><code class="tok">.ddl__divider</code></td><td>hr</td><td class="dsc">Разделитель между группами / перед action-строкой</td></tr>
-          <tr><td><code class="tok">.ddl__state (--loading / --empty / --error)</code></td><td>div</td><td class="dsc">Системная строка вместо списка опций</td></tr>
-          <tr><td><code class="tok">.is-hover / .is-focus / .is-active</code></td><td>опция</td><td class="dsc">Принудительные состояния (для доков/тестов)</td></tr>
-          <tr><td><code class="tok">role=listbox / option · aria-selected / -checked / -disabled / -activedescendant</code></td><td>список, опция</td><td class="dsc">Доступность: семантика списка и выбора</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Select · DropdownList</span>

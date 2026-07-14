@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="ProgressBar" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -27,13 +27,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:62ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -105,7 +105,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- composition grid ---------- */
@@ -133,7 +133,7 @@
   .cc-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
   @media (max-width:760px){ .cc-grid { grid-template-columns:1fr; } }
   .cc-card { background: var(--bg-tile); border:1px solid var(--border-light); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:14px; }
-  .cc-card .ct { font: var(--type-body-m-strong); color: var(--text-black); }
+  .cc-card .ct { font: var(--type-body-m-strong); color: var(--text-primary); }
   .cc-card .cd { font: var(--type-body-s); color: var(--text-secondary); text-wrap:pretty; }
 
   /* ---------- do / don't ---------- */
@@ -184,7 +184,7 @@
   .size-spec__stage { background: var(--tertiary-light); border:1px solid var(--border-light); border-radius:14px; padding:44px; display:flex; flex-direction:column; gap:22px; justify-content:center; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -219,7 +219,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -283,7 +283,7 @@
   
 <div class="subsec" data-screen-label="Composition">
     <h3>Состав</h3>
-    <p class="desc">Заголовок, значение и хелпер добавляются независимо друг от друга. Плавающее значение — расширенный вариант, решающий частную задачу (величина без формы), добавлен поверх исходного материала.<span class="badge-new">Новое</span></p>
+    <p class="desc">Заголовок, значение и хелпер добавляются независимо друг от друга. Плавающее значение — расширенный вариант, решающий частную задачу (величина без формы), добавлен поверх исходного материала.</p>
     <div class="panel"><div class="compo-list" id="compo-list"></div></div>
   </div>
   </section>
@@ -328,7 +328,7 @@
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
 <div class="subsec" data-screen-label="AutoTone">
-    <h3>Авто-подбор тона по порогам<span class="badge-new">Новое</span></h3>
+    <h3>Авто-подбор тона по порогам</h3>
     <p class="desc">Опциональный helper вычисляет тон автоматически из значения по процентным порогам — вместо ручного выбора тона. Направление по умолчанию — «выше — лучше» (прогресс к цели); для метрик, где высокое значение означает риск (просрочка, нагрузка), передайте свои пороги с обратным порядком тонов — компонент не диктует направление, это делает конфигурация.</p>
     <div class="panel">
       <div id="autotone-demo"></div>
@@ -348,7 +348,7 @@
 
 <div class="subsec" data-screen-label="CornerCases">
     <h3>Корнер-кейсы</h3>
-    <p class="desc">Случаи, не покрытые исходным референсом, но важные для корректной реализации.<span class="badge-new">Новое</span></p>
+    <p class="desc">Случаи, не покрытые исходным референсом, но важные для корректной реализации.</p>
     <div class="cc-grid" id="cc-grid"></div>
   </div>
   </section>
@@ -356,7 +356,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Состояния описывают поведение самого индикатора — независимо от них выбирается тон (см. «Цвета»). <b>Indeterminate</b> и явная граница «сливера» на малых значениях добавлены поверх исходного материала.<span class="badge-new">Новое</span></p>
+    <p class="desc">Состояния описывают поведение самого индикатора — независимо от них выбирается тон (см. «Цвета»). <b>Indeterminate</b> и явная граница «сливера» на малых значениях добавлены поверх исходного материала.</p>
     <div class="panel"><div class="matrix-wrap"><div class="matrix" id="matrix"></div></div></div>
 
     <p class="desc" style="margin-top:34px;">Тон — независимая от состояния настройка на локальных статусных токенах. Нейтральный тон <code class="tok">system</code> соответствует референсному материалу («Вероятность сделки»); остальные — расширение под ситуативную семантику success/warning/error/info.</p>
@@ -417,43 +417,8 @@
       <code class="tok">styles/progress-bar.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- определённый режим: заголовок + значение + трек + хелпер --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar pbar--m pbar--accent"</span>
-     <span class="tk-attr">role=</span><span class="tk-val">"progressbar"</span> <span class="tk-attr">aria-valuenow=</span><span class="tk-val">"50"</span> <span class="tk-attr">aria-valuemin=</span><span class="tk-val">"0"</span> <span class="tk-attr">aria-valuemax=</span><span class="tk-val">"100"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Label"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__head"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__label"</span><span class="tk-tag">&gt;</span>Label<span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__value"</span><span class="tk-tag">&gt;</span>50/100<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__track"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__fill"</span> <span class="tk-attr">style=</span><span class="tk-val">"width:50%"</span><span class="tk-tag">&gt;&lt;/div&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-helper ds-helper--left pbar__helper"</span><span class="tk-tag">&gt;</span>Helper<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span>
-
-<span class="tk-cm">&lt;!-- неопределённый режим: aria-valuenow не указывается --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar pbar--m pbar--accent pbar--indeterminate"</span>
-     <span class="tk-attr">role=</span><span class="tk-val">"progressbar"</span> <span class="tk-attr">aria-valuetext=</span><span class="tk-val">"Загрузка"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Загрузка"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__track"</span><span class="tk-tag">&gt;&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__fill"</span><span class="tk-tag">&gt;&lt;/div&gt;&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span>
-
-<span class="tk-cm">&lt;!-- плавающее значение: метка — потомок заливки, позиционируется в JS --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar pbar--m pbar--system pbar--floating"</span> <span class="tk-attr">role=</span><span class="tk-val">"progressbar"</span> <span class="tk-attr">aria-valuenow=</span><span class="tk-val">"85"</span> <span class="tk-attr">aria-valuemin=</span><span class="tk-val">"0"</span> <span class="tk-attr">aria-valuemax=</span><span class="tk-val">"100"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Вероятность сделки"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__track"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__fill"</span> <span class="tk-attr">style=</span><span class="tk-val">"width:85%"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"pbar__marker"</span><span class="tk-tag">&gt;</span>85%<span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;/div&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-helper ds-helper--left pbar__helper"</span><span class="tk-tag">&gt;</span>Вероятность сделки<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -488,62 +453,7 @@ widthPercent = (value / max) * 100;
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">makePbar</code> / <code class="tok">positionFloatingMarkers</code> в коде этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">ProgressBar.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> ProgressBarTone = <span class="tk-val">'accent'</span> | <span class="tk-val">'success'</span> | <span class="tk-val">'warning'</span> | <span class="tk-val">'error'</span> | <span class="tk-val">'info'</span> | <span class="tk-val">'system'</span>;
-<span class="tk-attr">type</span> ProgressBarSize = <span class="tk-val">'s'</span> | <span class="tk-val">'m'</span> | <span class="tk-val">'l'</span>;
-<span class="tk-attr">type</span> ProgressBarValueFormat = <span class="tk-val">'percent'</span> | <span class="tk-val">'fraction'</span>;
-
-<span class="tk-attr">interface</span> ProgressBarProps {
-  value?: <span class="tk-attr">number</span>;                    <span class="tk-cm">// текущее значение; игнорируется при indeterminate</span>
-  max?: <span class="tk-attr">number</span>;                      <span class="tk-cm">// по умолчанию 100</span>
-  tone?: ProgressBarTone;             <span class="tk-cm">// по умолчанию 'accent'</span>
-  size?: ProgressBarSize;             <span class="tk-cm">// по умолчанию 'm'</span>
-  valueFormat?: ProgressBarValueFormat; <span class="tk-cm">// по умолчанию 'percent'</span>
-  label?: React.ReactNode;            <span class="tk-cm">// заголовок над треком; также источник aria-label, если floating</span>
-  showValue?: <span class="tk-attr">boolean</span>;               <span class="tk-cm">// показывать значение в заголовочной строке (не в floating-режиме)</span>
-  helper?: React.ReactNode;           <span class="tk-cm">// подпись под треком</span>
-  floating?: <span class="tk-attr">boolean</span>;                <span class="tk-cm">// значение плавает над краем заливки вместо заголовочной строки</span>
-  indeterminate?: <span class="tk-attr">boolean</span>;           <span class="tk-cm">// длительность неизвестна — анимированная полоса вместо value</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-  autoTone?: <span class="tk-attr">boolean</span>;             <span class="tk-cm">// тон вычисляется из value по порогам, игнорируя ручной tone</span>
-  toneThresholds?: { upTo: <span class="tk-attr">number</span>; tone: ProgressBarTone }[]; <span class="tk-cm">// пороги в % от max; по умолчанию 30/70 → error/warning/success</span>
-  stack?: { value: <span class="tk-attr">number</span>; color: <span class="tk-attr">string</span>; label?: <span class="tk-attr">string</span> }[]; <span class="tk-cm">// Предложение — составной прогресс из нескольких величин</span>
-  'aria-label'?: <span class="tk-attr">string</span>;
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс/атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.pbar</code></td><td>div</td><td class="dsc">Корень: колонка (заголовок → трек → хелпер), задаёт CSS-переменные <code class="tok">--pbar-h/--pbar-track/--pbar-fill</code></td></tr>
-          <tr><td><code class="tok">.pbar--s / --m / --l</code></td><td>div</td><td class="dsc">Размер — высота трека и заливки (4 / 6 / 8px)</td></tr>
-          <tr><td><code class="tok">.pbar--accent / --success / --warning / --error / --info / --system</code></td><td>div</td><td class="dsc">Тон — цвет заливки на локальных статусных токенах</td></tr>
-          <tr><td><code class="tok">.pbar--indeterminate</code></td><td>div</td><td class="dsc">Неопределённый режим: анимированная полоса вместо value-заливки</td></tr>
-          <tr><td><code class="tok">.pbar--floating</code></td><td>div</td><td class="dsc">Значение — плавающая метка над краем заливки вместо заголовочной строки</td></tr>
-          <tr><td><code class="tok">.pbar--disabled</code></td><td>div</td><td class="dsc">Отключено: трек/заливка/текст — токены <code class="tok">--disabled-*</code></td></tr>
-          <tr><td><code class="tok">.pbar--compact</code></td><td>div</td><td class="dsc">Без вертикальных зазоров — для одиночной строки в таблице/списке</td></tr>
-          <tr><td><code class="tok">.pbar__head</code></td><td>div</td><td class="dsc">Строка заголовок ↔ значение, space-between</td></tr>
-          <tr><td><code class="tok">.pbar__label</code></td><td>span</td><td class="dsc">Заголовок, Body S, обрезается многоточием</td></tr>
-          <tr><td><code class="tok">.pbar__value</code></td><td>span</td><td class="dsc">Значение, Body S Strong, tabular-nums, не переносится</td></tr>
-          <tr><td><code class="tok">.pbar__track</code></td><td>div</td><td class="dsc">Контейнер заливки; фон-трек, обрезает заливку скруглением</td></tr>
-          <tr><td><code class="tok">.pbar__fill</code></td><td>div</td><td class="dsc">Заливка; ширина — инлайн-стиль <code class="tok">width</code></td></tr>
-          <tr><td><code class="tok">.pbar__fill--sliver</code></td><td>div</td><td class="dsc">Форсирует <code class="tok">min-width</code> = высоте трека на малых ненулевых значениях</td></tr>
-          <tr><td><code class="tok">.pbar__marker</code></td><td>span</td><td class="dsc">Плавающая метка значения — потомок <code class="tok">.pbar__fill</code>, позиция задаётся в JS</td></tr>
-          <tr><td><code class="tok">.pbar__track--stack</code> / <code class="tok">.pbar__seg-stack</code></td><td>div</td><td class="dsc">Предложение — составной прогресс из нескольких величин в одном треке</td></tr>
-          <tr><td><code class="tok">.ds-helper.ds-helper--left</code></td><td>span</td><td class="dsc">Хелпер под треком — общий компонент, см. Label / Helper</td></tr>
-          <tr><td><code class="tok">role="progressbar"</code> / <code class="tok">aria-valuenow/min/max/text</code></td><td>div</td><td class="dsc">Доступность — см. раздел «Доступность»</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
     <!-- BACKLOG -->
   <section class="section" data-screen-label="Proposals">

@@ -40,7 +40,7 @@
   --pop-w-max: 560px;   /* верхняя граница — дальше Modal */
 
   /* max-height контентной зоны на каждом шаге ширины (см. .pop--w-* ниже) */
-  --pop-mh-s:   none;
+  --pop-mh-s:   none; /* @kind other */
   --pop-mh-m:   320px;
   --pop-mh-l:   440px;
   --pop-mh-xl:  520px;
@@ -61,7 +61,7 @@
   --pop-zone-bg: var(--bgtable-pinned); /* фон шапки и подвала — Pinned Default #F5F7F7 */
 
   /* z-index — тот же слой, что Menu/DropdownList; ниже Toast/Nav и Modal */
-  --pop-z: 40;
+  --pop-z: 40; /* @kind other */
 }
 
 /* =========================================================================
@@ -129,7 +129,7 @@
 .pop__title {
   margin: 0;
   font: var(--type-body-s-strong);
-  color: var(--text-black);
+  color: var(--text-primary);
   flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;

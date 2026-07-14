@@ -20,18 +20,30 @@
   box-sizing: border-box;
 }
 
-/* ---------- sizes ---------- */
-.pbar--s { --pbar-h: 4px; }
-.pbar--m { --pbar-h: 6px; }
-.pbar--l { --pbar-h: 8px; }
+/* ---------- sizes ---------- *
+   Высота трека — прямыми свойствами на потомках (не через --pbar-h в
+   модификаторе). m = дефолт .pbar (6px), отдельных правил не требует. */
+.pbar--s .pbar__track { height: 4px; }
+.pbar--l .pbar__track { height: 8px; }
+.pbar--s .pbar__fill--sliver { min-width: 4px; }
+.pbar--l .pbar__fill--sliver { min-width: 8px; }
+.pbar--s .pbar__marker { top: calc(-1 * (4px + 16px)); }
+.pbar--l .pbar__marker { top: calc(-1 * (8px + 16px)); }
 
-/* ---------- tones (fill color; track остаётся нейтральным) ---------- */
-.pbar--accent  { --pbar-fill: var(--primary); }
-.pbar--success { --pbar-fill: var(--st-green); }
-.pbar--info    { --pbar-fill: var(--st-lblue); }
-.pbar--warning { --pbar-fill: var(--st-orange); }
-.pbar--error   { --pbar-fill: var(--st-red); }
-.pbar--system  { --pbar-fill: var(--st-system); }
+/* ---------- tones (fill color; track остаётся нейтральным) ---------- *
+   Цвет заливки — прямо на .pbar__fill; для indeterminate — per-tone градиент
+   (accent = primary = дефолт, его indeterminate покрывает базовое правило). */
+.pbar--accent  .pbar__fill { background: var(--primary); }
+.pbar--success .pbar__fill { background: var(--st-green); }
+.pbar--info    .pbar__fill { background: var(--st-lblue); }
+.pbar--warning .pbar__fill { background: var(--st-orange); }
+.pbar--error   .pbar__fill { background: var(--st-red); }
+.pbar--system  .pbar__fill { background: var(--st-system); }
+.pbar--success.pbar--indeterminate .pbar__fill { background: linear-gradient(90deg, transparent, var(--st-green) 35%, var(--st-green) 65%, transparent); }
+.pbar--info.pbar--indeterminate .pbar__fill    { background: linear-gradient(90deg, transparent, var(--st-lblue) 35%, var(--st-lblue) 65%, transparent); }
+.pbar--warning.pbar--indeterminate .pbar__fill { background: linear-gradient(90deg, transparent, var(--st-orange) 35%, var(--st-orange) 65%, transparent); }
+.pbar--error.pbar--indeterminate .pbar__fill   { background: linear-gradient(90deg, transparent, var(--st-red) 35%, var(--st-red) 65%, transparent); }
+.pbar--system.pbar--indeterminate .pbar__fill  { background: linear-gradient(90deg, transparent, var(--st-system) 35%, var(--st-system) 65%, transparent); }
 
 /* ---------- head row: label + value ---------- */
 .pbar__head {
@@ -116,8 +128,11 @@
 .pbar__track--stack { display: flex; }
 .pbar__seg-stack { height: 100%; }
 
-/* ---------- disabled ---------- */
-.pbar--disabled { --pbar-fill: var(--disabled); --pbar-track: var(--disabled-bg); }
+/* ---------- disabled ---------- *
+   fill/track — прямыми свойствами (позже тонов — перекрывают их, как раньше). */
+.pbar--disabled .pbar__fill  { background: var(--disabled); }
+.pbar--disabled .pbar__track { background: var(--disabled-bg); }
+.pbar--disabled.pbar--indeterminate .pbar__fill { background: linear-gradient(90deg, transparent, var(--disabled) 35%, var(--disabled) 65%, transparent); }
 .pbar--disabled .pbar__label,
 .pbar--disabled .pbar__value { color: var(--text-inactive); }
 .pbar--disabled .pbar__fill { transition: none; }

@@ -1,8 +1,8 @@
 ---
 component: Link
 title: "Link"
-version: "v1.3"
-updated: "08.07.2026"
+version: "v1.4"
+updated: "13.07.2026"
 page: pages/atoms/Link.html
 css: styles/link.css
 deps: [breadcrumbs]
@@ -79,7 +79,7 @@ status: auto
 // 2. Цвет задаёт тон:
 //    accent  → --link, hover/focus --link-dark, pressed --c-emerald-900
 //    muted   → --text-inactive, hover --text-secondary (Breadcrumbs_1)
-//    neutral → --text-black (Breadcrumbs_2); только Default, не кликабельна (pointer-events: none)
+//    neutral → --text-primary (Breadcrumbs_2); только Default, не кликабельна (pointer-events: none)
 
 // 3. Фокус = Hover: :focus-visible применяет ТЕ ЖЕ правила, что и :hover
 //    (цвет + подчёркивание), без отдельной обводки — оформление одинаковое для мыши и клавиатуры
@@ -133,5 +133,5 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 | target="_blank" · rel="noopener" | a | Обязательны на внешних ссылках; aria-label дополняется пометкой о новой вкладке |
 | .crumbs | nav > ol | Контейнер хлебных крошек — единственный размер S, crumbs--m не существует; полная спецификация — страница Breadcrumbs |
 | разделитель «/» | li::after | CSS-псевдоэлемент между звеньями, цвет как у Breadcrumbs_1; не часть DOM — не читается скринридером |
-| .crumbs__current + aria-current="page" | span | Текущая страница — не ссылка, --text-black; начертание такое же, как у родительских звеньев |
+| .crumbs__current + aria-current="page" | span | Текущая страница — не ссылка, --text-primary; начертание такое же, как у родительских звеньев |
 | .crumbs__more | button | Свёрнутое звено «…»; раскрывает попап со скрытыми страницами (см. Breadcrumbs.html) |

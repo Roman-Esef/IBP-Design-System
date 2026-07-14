@@ -1,8 +1,8 @@
 ---
 component: Checkbox
 title: "Checkbox"
-version: "v1.2"
-updated: "08.07.2026"
+version: "v1.3"
+updated: "13.07.2026"
 page: pages/atoms/Checkbox.html
 css: styles/checkbox.css
 deps: [label-helper]

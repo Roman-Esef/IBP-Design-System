@@ -61,7 +61,7 @@
       acts += '<button type="button" class="alert__act alert__close" aria-label="Закрыть"><i data-icon="close"></i></button>';
     }
 
-    return '<div class="alert alert--' + tone + ' alert--' + size + collapsed + '" role="' + role + '" aria-live="' + live + '">'
+    return '<div class="alert alert--' + tone + ' alert--' + size + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">'
       + (icon ? '<span class="alert__icon" aria-hidden="true"><i data-icon="' + TONE_ICON[tone] + '"></i></span>' : '')
       + '<div class="alert__body">' + body + '</div>'
       + (acts ? '<div class="alert__actions">' + acts + '</div>' : '')
@@ -102,7 +102,7 @@
       var cls = 'alert alert--' + o.tone + ' alert--' + o.size;
       var code = document.getElementById('pg-code');
       if (code) {
-        code.innerHTML = '<code>&lt;div class="' + cls + '" role="'
+        code.innerHTML = '<code>&lt;div class="' + cls + '" data-alert-tone="' + o.tone + '" role="'
           + ((o.tone === 'error' || o.tone === 'warning') ? 'alert' : 'status') + '"&gt;…&lt;/div&gt;</code>';
       }
     }
@@ -123,7 +123,7 @@
     var diffToast = document.getElementById('diff-toast');
     if (diffToast) diffToast.innerHTML = '<div style="display:inline-flex;align-items:center;gap:10px;background:var(--c-cgrey-700,#333F48);color:#fff;border-radius:8px;padding:10px 16px;font:var(--type-body-s)">Процесс запущен</div>';
     var diffSnack = document.getElementById('diff-snack');
-    if (diffSnack) diffSnack.innerHTML = '<div style="background:var(--bg-tile);border:1px solid var(--border-light);border-radius:12px;box-shadow:0 10px 30px rgba(40,50,55,.16);padding:12px 14px;max-width:260px"><div style="font:var(--type-body-s-strong);color:var(--text-black);margin-bottom:2px">Готово</div><div style="font:var(--type-body-xs);color:var(--text-secondary)">Уведомление в углу экрана.</div></div>';
+    if (diffSnack) diffSnack.innerHTML = '<div style="background:var(--bg-tile);border:1px solid var(--border-light);border-radius:12px;box-shadow:0 10px 30px rgba(40,50,55,.16);padding:12px 14px;max-width:260px"><div style="font:var(--type-body-s-strong);color:var(--text-primary);margin-bottom:2px">Готово</div><div style="font:var(--type-body-xs);color:var(--text-secondary)">Уведомление в углу экрана.</div></div>';
 
     // Тоны
     setHTML('var-tones', TONES.map(function (t) {
@@ -309,7 +309,7 @@
     var body = document.querySelector('#type-table tbody');
     if (!body) return;
     var rows = [
-      ['Заголовок', '--type-body-m-strong', '--type-body-s-strong', 'Text_Black'],
+      ['Заголовок', '--type-body-m-strong', '--type-body-s-strong', 'Text_Primary'],
       ['Текст', '--type-body-s', '--type-body-xs', 'Text_Secondary'],
       ['Кнопка', '--type-button-xs', '--type-button-xs', 'тон (акцент)'],
       ['Ссылка', '--type-body-s', '--type-body-s', 'тон (акцент)']

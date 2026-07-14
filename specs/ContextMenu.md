@@ -1,8 +1,8 @@
 ---
 component: ContextMenu
 title: "Context Menu"
-version: "v1.0"
-updated: "08.07.2026"
+version: "v1.1"
+updated: "13.07.2026"
 page: pages/molecules/ContextMenu.html
 page_js: scripts/context-menu.page.js
 css: styles/context-menu.css

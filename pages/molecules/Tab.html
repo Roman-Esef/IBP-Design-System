@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Tab" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -24,13 +24,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:64ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:80ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .badge-new { display:inline-block; font: var(--type-button-xs); letter-spacing:.06em; text-transform:uppercase; color: var(--primary); background: var(--primary-bg); border:1px solid color-mix(in srgb, var(--primary) 22%, transparent); padding:3px 9px; border-radius:999px; margin-left:12px; vertical-align:middle; }
@@ -97,7 +97,7 @@
   /* two-column comparison */
   .cols2 { display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:20px; }
   @media (max-width:680px){ .cols2{ grid-template-columns:1fr; } }
-  .demo-col__title { font: var(--type-h5-strong); color: var(--text-black); margin:0 0 4px; }
+  .demo-col__title { font: var(--type-h5-strong); color: var(--text-primary); margin:0 0 4px; }
   .demo-col__sub { font: var(--type-body-s); color: var(--text-secondary); margin:0 0 18px; text-wrap:pretty; }
   .demo-rowlabel { font: var(--type-body-xs); color: var(--text-inactive); margin-bottom:7px; }
 
@@ -105,14 +105,14 @@
   .surface { border:1px solid var(--border-light); border-radius:12px; background:var(--bg-tile); padding:0; overflow:hidden; box-shadow:0 6px 26px -18px rgba(40,50,55,.4); min-width:0; }
   .surface__cap { font:var(--type-body-xs); color:var(--text-inactive); margin:14px 2px 0; text-wrap:pretty; }
   .mock-modal__head { display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--border-light); }
-  .mock-modal__title { font:var(--type-h5-strong); color:var(--text-black); }
+  .mock-modal__title { font:var(--type-h5-strong); color:var(--text-primary); }
   .mock-modal__x { color:var(--text-inactive); width:18px; height:18px; }
   .mock-modal__body { display:flex; min-height:200px; }
   .mock-modal__nav { padding:18px 14px; border-right:1px solid var(--border-light); flex:none; }
   .mock-modal__content { flex:1; min-width:0; padding:22px 24px; font:var(--type-body-s); color:var(--text-inactive); }
   .mock-page { padding:18px 22px; }
   .mock-page__crumbs { font:var(--type-body-xs); color:var(--text-inactive); margin-bottom:8px; }
-  .mock-page__title { font:var(--type-h4-strong); color:var(--text-black); margin:0 0 14px; }
+  .mock-page__title { font:var(--type-h4-strong); color:var(--text-primary); margin:0 0 14px; }
   .mock-page__content { margin-top:18px; font:var(--type-body-s); color:var(--text-inactive); }
 
   /* anatomy */
@@ -121,22 +121,22 @@
   .anat__stage { background: var(--tertiary-light); border:1px solid var(--border-light); border-radius:14px; padding:70px 44px; display:flex; justify-content:center; }
   .anat-dia { position:relative; }
   .anat-dia .tab { --tab-h:48px; --tab-font: var(--weight-semibold) 20px/1 var(--font-text); --tab-icon:24px; }
-  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-black); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; transform:translate(-50%,-50%); }
+  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-primary); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; transform:translate(-50%,-50%); }
   .anat__legend { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; counter-reset:a; }
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); display:block; }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); display:block; }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* state spec tables */
   .spec { border:1px solid var(--border-light); border-radius:14px; overflow:hidden; }
   .spec + .spec { margin-top:20px; }
-  .spec__head { background:var(--tertiary-light); padding:12px 20px; font:var(--type-body-s-strong); color:var(--text-black); text-align:center; border-bottom:1px solid var(--border-light); }
+  .spec__head { background:var(--tertiary-light); padding:12px 20px; font:var(--type-body-s-strong); color:var(--text-primary); text-align:center; border-bottom:1px solid var(--border-light); }
   .spec__row { display:grid; grid-template-columns: 130px 170px 1fr; align-items:center; gap:16px; padding:20px; border-bottom:1px solid var(--border-light); }
   .spec__row:last-child { border-bottom:none; }
   @media (max-width:720px){ .spec__row{ grid-template-columns:1fr; gap:14px; } }
-  .spec__state { font:var(--type-body-m-strong); color:var(--text-black); }
+  .spec__state { font:var(--type-body-m-strong); color:var(--text-primary); }
   .spec__sample { display:flex; justify-content:center; }
   .spec__colors { display:flex; flex-direction:column; gap:7px; }
   .spec__cline { display:grid; grid-template-columns: 84px 18px 160px 1fr; align-items:center; gap:10px; font:var(--type-body-s); color:var(--text-secondary); }
@@ -190,7 +190,7 @@
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 
   /* ---------- developer handoff ---------- */
-  .subhead2 { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead2 { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead2.mt { margin-top: 34px; }
   .subhead2 .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -224,7 +224,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -391,7 +391,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Icon">
-    <h3>Иконка<span class="badge-new">Новое</span></h3>
+    <h3>Иконка</h3>
     <p class="desc">Слева к тексту можно добавить ведущую иконку — для табов-разделов с понятной семантикой. Отдельный кейс — таб только с иконкой (переключатель вида списка / сетки); такому табу обязателен <code class="tok">aria-label</code>.</p>
     <div class="panel">
       <p class="demo-rowlabel">Текст + иконка</p>
@@ -402,7 +402,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Fitted">
-    <h3>Равная ширина (Fitted)<span class="badge-new">Предложение</span></h3>
+    <h3>Равная ширина (Fitted)</h3>
     <p class="desc">Режим, в котором табы делят ширину контейнера поровну — для сегмент-переключателей с коротким набором опций (период, режим отображения). Это альтернатива контентной ширине горизонтальных табов.</p>
     <div class="panel">
       <div id="fitted-demo" style="max-width:440px;"></div>
@@ -444,7 +444,7 @@
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
 <div class="subsec" data-screen-label="Overflow">
-    <h3>Переполнение<span class="badge-new">Предложение</span></h3>
+    <h3>Переполнение</h3>
     <p class="desc">Два паттерна для горизонтальных табов, когда их больше, чем помещается по ширине контейнера. <b>Скролл</b> — ряд прокручивается по горизонтали, скроллбар скрыт; по краям появляются стрелки, когда в эту сторону ещё есть куда скроллить, а выбранный таб подскролливается в зону видимости. <b>Fit + меню «Ещё»</b> — показываются только табы, помещающиеся целиком, остальные уходят в выпадающий список за иконкой из трёх точек. У вертикального таба слишком длинный текст обрезается многоточием с тултипом.</p>
     <div class="panel">
       <p class="demo-rowlabel">Горизонтальная прокрутка · стрелки или колесо/трекпад · контейнер уже содержимого</p>
@@ -523,27 +523,8 @@
       <code class="tok">styles/tab.css</code>
     </div>
 
-    <p class="subhead2">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- группа: горизонтальные табы, второй выбран --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"tabs tabs--horiz"</span> <span class="tk-attr">role=</span><span class="tk-val">"tablist"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"tab tab--m tab--horiz"</span> <span class="tk-attr">role=</span><span class="tk-val">"tab"</span> <span class="tk-attr">aria-selected=</span><span class="tk-val">"false"</span> <span class="tk-attr">tabindex=</span><span class="tk-val">"-1"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"tab__label"</span><span class="tk-tag">&gt;</span>Обзор<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/button&gt;</span>
-
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"tab tab--m tab--horiz tab--selected"</span> <span class="tk-attr">role=</span><span class="tk-val">"tab"</span> <span class="tk-attr">aria-selected=</span><span class="tk-val">"true"</span> <span class="tk-attr">tabindex=</span><span class="tk-val">"0"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"tab__icon"</span><span class="tk-tag">&gt;&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"tab__label"</span><span class="tk-tag">&gt;</span>Сделки<span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"tab__badge"</span><span class="tk-tag">&gt;</span>12<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/button&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -567,58 +548,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">wireTablist</code>, <code class="tok">makeOverflowTabs</code> в <code class="tok">tab.page.js</code>).</p>
 
-    <p class="subhead2 mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Tab.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> TabOrientation = <span class="tk-val">'horizontal'</span> | <span class="tk-val">'vertical'</span>;
-<span class="tk-attr">type</span> TabSize = <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span>;
-
-<span class="tk-attr">interface</span> TabItem {
-  value: <span class="tk-attr">string</span>;
-  label?: React.ReactNode;        <span class="tk-cm">// опустить для icon-only — тогда обязателен ariaLabel</span>
-  icon?: React.ReactNode;
-  badge?: <span class="tk-attr">number</span>;                 <span class="tk-cm">// целое число, рендерится с разбиением на разряды</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-  ariaLabel?: <span class="tk-attr">string</span>;
-}
-
-<span class="tk-attr">interface</span> TabsProps {
-  items: TabItem[];
-  value: <span class="tk-attr">string</span>;                                <span class="tk-cm">// controlled-компонент</span>
-  onChange: (value: <span class="tk-attr">string</span>) => <span class="tk-attr">void</span>;
-  orientation?: TabOrientation;                  <span class="tk-cm">// по умолчанию 'horizontal'</span>
-  size?: TabSize;                                <span class="tk-cm">// по умолчанию 'm'</span>
-  fitted?: <span class="tk-attr">boolean</span>;                            <span class="tk-cm">// равная ширина сегментов (Предложение)</span>
-  overflow?: <span class="tk-val">'scroll'</span> | <span class="tk-val">'menu'</span>;              <span class="tk-cm">// паттерн переполнения (Предложение)</span>
-  <span class="tk-val">'aria-label'</span>: <span class="tk-attr">string</span>;                       <span class="tk-cm">// обязателен на tablist</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead2 mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.tabs</code></td><td>div</td><td class="dsc">Группа — общий рейл (снизу у horiz, слева у vert); <code class="tok">role="tablist"</code></td></tr>
-          <tr><td><code class="tok">.tabs--horiz / --vert</code></td><td>div</td><td class="dsc">Ориентация группы</td></tr>
-          <tr><td><code class="tok">.tabs--fill</code></td><td>div</td><td class="dsc">Fitted — сегменты делят ширину поровну (Предложение)</td></tr>
-          <tr><td><code class="tok">.tab</code></td><td>button</td><td class="dsc">Таб; размер через CSS-переменные <code class="tok">--tab-*</code>; <code class="tok">role="tab"</code></td></tr>
-          <tr><td><code class="tok">.tab--m / --s</code></td><td>button</td><td class="dsc">Размер</td></tr>
-          <tr><td><code class="tok">.tab--selected</code> / <code class="tok">aria-selected="true"</code></td><td>button</td><td class="dsc">Выбранный таб — индикатор и акцентный цвет</td></tr>
-          <tr><td><code class="tok">.tab--disabled</code></td><td>button</td><td class="dsc"><code class="tok">pointer-events:none</code>, цвет в <code class="tok">--st-disabled-*</code></td></tr>
-          <tr><td><code class="tok">.tab__icon</code></td><td>span</td><td class="dsc">Ведущая иконка — опционально</td></tr>
-          <tr><td><code class="tok">.tab__label</code></td><td>span</td><td class="dsc">Текст, обрезается многоточием при переполнении (вертикальный таб)</td></tr>
-          <tr><td><code class="tok">.tab__badge</code></td><td>span</td><td class="dsc">Счётчик — целое число с разбиением на разряды</td></tr>
-          <tr><td><code class="tok">tabindex="0" / "-1"</code></td><td>button</td><td class="dsc">Roving tabindex — в таб-порядке только выбранный таб</td></tr>
-          <tr><td><code class="tok">.tabs-overflow</code> / <code class="tok">.tabs-scroll</code></td><td>div</td><td class="dsc">Паттерны переполнения — «ещё»-меню и скролл со стрелками (Предложение)</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Tab</span>

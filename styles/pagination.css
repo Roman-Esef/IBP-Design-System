@@ -162,7 +162,7 @@
 /* текущая страница */
 .pgn__num[aria-current="page"] {
   background: var(--bgtable-row-focus);
-  color: var(--text-black);
+  color: var(--text-primary);
   font: var(--type-body-s-strong);
   cursor: default;
 }
@@ -275,7 +275,7 @@
 }
 .pgn-row--bulk { background: var(--bg-tile); }
 .pgn-bulk__count { font: var(--type-body-m); color: var(--text-secondary); white-space: nowrap; }
-.pgn-bulk__count b { color: var(--text-black); font-weight: 600; }
+.pgn-bulk__count b { color: var(--text-primary); font-weight: 600; }
 .pgn-bulk__actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
 /* =========================================================================
@@ -291,7 +291,7 @@
   color: var(--text-secondary);
   white-space: nowrap;
 }
-.pgn-info__item b { color: var(--text-black); font-weight: 600; }
+.pgn-info__item b { color: var(--text-primary); font-weight: 600; }
 .pgn-info__warn {
   display: inline-flex;
   align-items: center;

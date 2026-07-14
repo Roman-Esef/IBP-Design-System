@@ -1,0 +1,64 @@
+/* =========================================================================
+   TableFilter — панель фильтра над таблицей.
+   Только токены ДС. Ядро компонента: кнопка «Фильтр» (+ сброс), чиплист
+   применённых параметров, счётчик «+N» и шеврон-аккордеон.
+   Сама модалка фильтра строится на Modal (styles/modal.css) — здесь только
+   раскладка бара над таблицей.
+   ========================================================================= */
+
+/* ---------- бар ---------- */
+/* Кнопки триггера, чипы и хвост (бейдж+шеврон) — единый flex-wrap поток:
+   визуально это один список, где элементы, не поместившиеся в первый ряд,
+   переносятся на второй ряд с левого края бара (а не «под кнопки»).
+   .tfilter__trigger / __chips / __tail остаются в DOM как группирующие
+   обёртки для ARIA и запросов из JS, но не создают собственный флекс-бокс
+   (display:contents) — их дети становятся прямыми flex-item'ами .tfilter. */
+.tfilter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 100%;
+}
+.tfilter--collapsed { flex-wrap: nowrap; overflow: hidden; }
+
+  /* ---------- кластер-триггер: две отдельные кнопки Button рядом ---------- */
+  .tfilter__trigger { display: contents; }
+  .tfilter__trigger .btn { flex: none; }
+  .tfilter__trigger .btn i[data-icon="filter"],
+  .tfilter__trigger .btn i[data-icon="filter-reset"] { color: var(--primary); }
+  .tfilter__trigger .btn[disabled] i[data-icon="filter"],
+  .tfilter__trigger .btn[disabled] i[data-icon="filter-reset"] { color: inherit; }
+
+/* ---------- чиплист применённых параметров (плоский поток, см. выше) ---------- */
+.tfilter__chips { display: contents; }
+/* чип-параметр держит свою ширину (обрезка — по max-width из chip.css, 320px),
+   лишние чипы прячет скрипт при сворачивании — поэтому не сжимается */
+.tfilter__chips .chip { flex: 0 0 auto; }
+/* Ужимание одного не помещающегося чипа контролирует скрипт (см. updateBar):
+   шринк разрешается ТОЛЬКО последнему видимому чипу, иначе ломается замер ширин. */
+
+/* ---------- хвост: бейдж «+N» (Badge · Text) + шеврон-аккордеон (IconButton) ---------- */
+.tfilter__tail { display: contents; }
+.tfilter__tail .tfilter__more,
+.tfilter__tail .tfilter__toggle { flex: none; }
+.tfilter__more.badge--text {
+  color: var(--text-inactive);
+  font-variant-numeric: tabular-nums;
+}
+.tfilter__toggle { flex: none; }
+.tfilter__toggle .tfilter__chev {
+  display: inline-flex;
+  transition: transform .18s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tfilter__toggle .tfilter__chev { transition: none; }
+}
+
+/* ---------- заблокированный бар ---------- */
+.tfilter--disabled { pointer-events: none; opacity: .55; }
+
+/* ---------- скрытие неактуальных частей ---------- */
+.tfilter__trigger.is-off,
+.tfilter__chips.is-off,
+.tfilter__tail.is-off { display: none !important; }

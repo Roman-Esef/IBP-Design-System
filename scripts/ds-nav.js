@@ -8,11 +8,11 @@
     {
       cat: 'Основы',
       items: [
-        { label: 'Типографика', href: 'pages/foundations/Typography.html' },
-        { label: 'Цвета',       href: 'pages/foundations/Colors.html' },
         { label: 'Иконки',      href: 'pages/foundations/Icons.html' },
         { label: 'Скругления',  href: 'pages/foundations/Radius.html' },
         { label: 'Тени',        href: 'pages/foundations/Elevation.html' },
+        { label: 'Типографика', href: 'pages/foundations/Typography.html' },
+        { label: 'Цвета',       href: 'pages/foundations/Colors.html' },
         { label: 'Сетка и отступы', soon: true }
       ]
     },
@@ -22,47 +22,53 @@
         {
           group: 'Атомы',
           items: [
+            { label: 'Avatar',       href: 'pages/atoms/Avatar.html' },
+            { label: 'Badge',        href: 'pages/atoms/Badge.html' },
             { label: 'Button',       href: 'pages/atoms/Buttons.html' },
+            { label: 'Checkbox',     href: 'pages/atoms/Checkbox.html' },
+            { label: 'Chip',         href: 'pages/atoms/Chip.html' },
+            { label: 'Divider',      href: 'pages/atoms/Divider.html' },
             { label: 'IconButton',   href: 'pages/atoms/IconButton.html' },
             { label: 'Link',         href: 'pages/atoms/Link.html' },
-            { label: 'Checkbox',     href: 'pages/atoms/Checkbox.html' },
+            { label: 'ProgressBar',  href: 'pages/atoms/ProgressBar.html' },
             { label: 'Radiobutton',  href: 'pages/atoms/Radiobutton.html' },
-            { label: 'Switch',       href: 'pages/atoms/Switch.html' },
-            { label: 'Badge',        href: 'pages/atoms/Badge.html' },
-            { label: 'Chip',         href: 'pages/atoms/Chip.html' },
-            { label: 'Avatar',       href: 'pages/atoms/Avatar.html' },
-            { label: 'Divider',      href: 'pages/atoms/Divider.html' },
-            { label: 'ProgressBar',  href: 'pages/atoms/ProgressBar.html' }
+            { label: 'Switch',       href: 'pages/atoms/Switch.html' }
           ]
         },
         {
           group: 'Молекулы',
           items: [
-            { label: 'ButtonGroup',      href: 'pages/molecules/ButtonGroup.html' },
             { label: 'Breadcrumbs',       href: 'pages/molecules/Breadcrumbs.html' },
-            { label: 'Tooltip',          href: 'pages/molecules/Tooltip.html' },
+            { label: 'ButtonGroup',      href: 'pages/molecules/ButtonGroup.html' },
             { label: 'Context Menu',     href: 'pages/molecules/ContextMenu.html' },
-            { label: 'Tab',              href: 'pages/molecules/Tab.html' },
-            { label: 'SegmentControl',   href: 'pages/molecules/SegmentControl.html' },
-            { label: 'Splitter',         href: 'pages/molecules/Splitter.html' },
-            { label: 'InputText',        href: 'pages/molecules/InputText.html' },
-            { label: 'InputDate',        href: 'pages/molecules/InputDate.html' },
+            { label: 'InputAmountRange', href: 'pages/molecules/InputAmountRange.html' },
             { label: 'InputAutocomplete', href: 'pages/molecules/InputAutocomplete.html' },
-            { label: 'Select',           href: 'pages/molecules/Select.html' },
+            { label: 'InputDate',        href: 'pages/molecules/InputDate.html' },
+            { label: 'InputDateRange',   href: 'pages/molecules/InputDateRange.html' },
+            { label: 'InputText',        href: 'pages/molecules/InputText.html' },
+            { label: 'Pagination',       href: 'pages/molecules/Pagination.html' },
             { label: 'ReadOnlyField',    href: 'pages/molecules/ReadOnlyField.html' },
+            { label: 'SegmentControl',   href: 'pages/molecules/SegmentControl.html' },
+            { label: 'Select',           href: 'pages/molecules/Select.html' },
+            { label: 'Splitter',         href: 'pages/molecules/Splitter.html' },
+            { label: 'Tab',              href: 'pages/molecules/Tab.html' },
             { label: 'Toast',            href: 'pages/molecules/Toast.html' },
-            { label: 'Pagination',       href: 'pages/molecules/Pagination.html' }
+            { label: 'Tooltip',          href: 'pages/molecules/Tooltip.html' }
           ]
         },
         {
           group: 'Организмы',
           items: [
+            { label: 'Entity',     href: 'pages/organisms/Entity.html' },
             { label: 'Modal',    href: 'pages/organisms/Modal.html' },
+            { label: 'NavPanel', href: 'pages/organisms/NavPanel.html' },
+            { label: 'PageHeader', href: 'pages/organisms/PageHeader.html' },
             { label: 'Popover',  href: 'pages/organisms/Popover.html' },
             { label: 'RiskMetric', href: 'pages/organisms/RiskMetric.html' },
             { label: 'SnackBar',   href: 'pages/organisms/SnackBar.html' },
-            { label: 'Entity',     href: 'pages/organisms/Entity.html' },
-            { label: 'TableCell',  href: 'pages/organisms/TableCell.html' }
+            { label: 'TableCell',  href: 'pages/organisms/TableCell.html' },
+            { label: 'TableFilter', href: 'pages/organisms/TableFilter.html' },
+            { label: 'Tile',       href: 'pages/organisms/Tile.html' }
           ]
         },
         {
@@ -123,7 +129,7 @@
   brand.href = ROOT + 'index.html';
   var logo = el('span', 'ds-nav__logo');
   logo.appendChild(el('img'));
-  logo.querySelector('img').src = ROOT + 'uploads/logo.svg';
+  logo.querySelector('img').src = ROOT + 'assets/logo.svg';
   logo.querySelector('img').alt = 'IBP';
   brand.appendChild(logo);
   var bt = el('span', 'ds-nav__brandtext');

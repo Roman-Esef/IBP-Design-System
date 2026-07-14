@@ -39,29 +39,33 @@
   color: var(--text-primary);
 }
 
-/* ---------- тоны ---------- */
-.alert--info {
+/* ---------- тоны ---------- *
+   Тон ре-скоупит --primary*/--link* для вложенных DS-кнопок/ссылок, поэтому
+   его нельзя свести к прямым свойствам на самом Алерте. Скоуп --* живёт
+   на [data-alert-tone] (разрешённый для компилятора data-скоуп); маркап несёт
+   атрибут рядом с классом .alert--<tone>. Значения идентичны прежним. */
+[data-alert-tone="info"] {
   --alert-accent:  var(--info);
   --alert-surface: var(--info-bg);
   --primary:       var(--info);
   --primary-dark:  var(--info-dark);
   --primary-bg:    color-mix(in srgb, var(--info) 12%, transparent);
 }
-.alert--warning {
+[data-alert-tone="warning"] {
   --alert-accent:  var(--warning);
   --alert-surface: var(--warning-bg);
   --primary:       var(--warning);
   --primary-dark:  var(--warning-dark);
   --primary-bg:    color-mix(in srgb, var(--warning) 14%, transparent);
 }
-.alert--error {
+[data-alert-tone="error"] {
   --alert-accent:  var(--error);
   --alert-surface: var(--error-bg-light);
   --primary:       var(--error);
   --primary-dark:  var(--error-dark);
   --primary-bg:    color-mix(in srgb, var(--error) 12%, transparent);
 }
-.alert--success {
+[data-alert-tone="success"] {
   --alert-accent:  var(--success);
   --alert-surface: var(--success-bg);
   --primary:       var(--success);
@@ -95,7 +99,7 @@
 
 .alert__title {
   font: var(--type-body-m-strong);
-  color: var(--text-black);
+  color: var(--text-primary);
   margin: 0;
   text-wrap: pretty;
 }
@@ -154,17 +158,13 @@
 .alert--collapsed .alert__text,
 .alert--collapsed .alert__buttons { display: none; }
 
-/* ---------- размеры ---------- */
-.alert--m {
-  --alert-pad: 16px;
-  --alert-gap: 12px;
-  --alert-icon: 20px;
-}
-.alert--s {
-  --alert-pad: 12px 14px;
-  --alert-gap: 10px;
-  --alert-icon: 18px;
-}
+/* ---------- размеры ---------- *
+   Размерные значения — прямыми свойствами (не через --* в модификаторе);
+   размер иконки — per-size descendant. */
+.alert--m { padding: 16px; gap: 12px; }
+.alert--m .alert__icon { width: 20px; height: 20px; }
+.alert--s { padding: 12px 14px; gap: 10px; }
+.alert--s .alert__icon { width: 18px; height: 18px; }
 .alert--s .alert__title { font: var(--type-body-s-strong); }
 .alert--s .alert__text  { font: var(--type-body-xs); }
 .alert--s .alert__buttons { margin-top: 4px; }

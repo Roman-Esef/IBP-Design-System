@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Link" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -25,13 +25,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:64ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -172,11 +172,11 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -211,7 +211,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -221,7 +221,7 @@
 <main class="page" data-screen-label="Link">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Link</h1>
     <p class="lead">Текстовая ссылка для навигации внутри лайаута и модальных окон, а также в Хлебных крошках. Тоны Accent / Muted / Neutral, размеры M / S, состояния Default и Hover = Focus (подчёркивание) — кроме тона Neutral (Breadcrumbs_2): у него только состояние Default, ссылка не кликабельна. Цветовое решение едино для всех видов и размеров.</p>
@@ -286,7 +286,7 @@
       <div class="matrix" id="crumb-matrix" style="grid-template-columns:130px repeat(2,1fr); min-width:auto;"></div>
     </div>
 
-    <p class="desc">Готовая цепочка крошек с разделителем «/». Текущая страница — не ссылка (<code class="tok">aria-current="page"</code>), родительские — ссылки тона Muted.<span class="badge-new">Новое</span></p>
+    <p class="desc">Готовая цепочка крошек с разделителем «/». Текущая страница — не ссылка (<code class="tok">aria-current="page"</code>), родительские — ссылки тона Muted.</p>
     <div class="panel" style="margin-bottom:20px;">
       <div class="header-mock"><nav class="crumbs" id="crumbs-full" aria-label="Хлебные крошки"></nav></div>
     </div>
@@ -298,7 +298,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Inline">
-    <h3>Ссылка внутри текста<span class="badge-new">Новое</span></h3>
+    <h3>Ссылка внутри текста</h3>
     <p class="desc">Инлайн-ссылка живёт в потоке текста и наследует его размер. Чтобы её можно было отличить не только по цвету, инлайн-ссылка <b>всегда подчёркнута</b> (мягким подчёркиванием), а на Hover подчёркивание становится насыщенным. Это требование доступности (WCAG 1.4.1).</p>
     <div class="panel">
       <div class="prose" id="inline-prose"></div>
@@ -306,7 +306,7 @@
   </div>
 
 <div class="subsec" data-screen-label="IconExternal">
-    <h3>С иконкой и внешние ссылки<span class="badge-new">Новое</span></h3>
+    <h3>С иконкой и внешние ссылки</h3>
     <p class="desc">Иконка может стоять слева (например, ссылка-скачивание) или справа. Внешняя ссылка ведёт на другой ресурс — она открывается в новой вкладке (<code class="tok">target="_blank"</code>, <code class="tok">rel="noopener"</code>) и помечается иконкой со стрелкой. Иконка масштабируется относительно текста (1em).</p>
     <div class="panel"><div class="row" id="icon-row" style="gap:36px;"></div></div>
   </div>
@@ -360,7 +360,7 @@
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
 <div class="subsec" data-screen-label="WrapTruncate">
-    <h3>Перенос и обрезка<span class="badge-new">Новое</span></h3>
+    <h3>Перенос и обрезка</h3>
     <p class="desc">Длинная ссылка по умолчанию переносится по словам вместе с текстом. В узких контейнерах (ячейка таблицы, чип) ссылку можно обрезать многоточием — полное значение остаётся в <code class="tok">title</code> / тултипе.</p>
     <div class="row" style="align-items:flex-start; gap:24px;">
       <div class="panel" style="flex:1; min-width:260px;">
@@ -378,7 +378,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Hover и Focus оформлены одинаково (подчёркивание) — как в спецификации. Дополнительно добавлены <b>Pressed</b>, <b>Disabled</b> и опциональный <b>Visited</b>, а на клавиатурный фокус показывается обводка для доступности. Тон <b>Neutral</b> (Breadcrumbs_2) не кликабелен — для него доступно только состояние Default.<span class="badge-new">Новое</span></p>
+    <p class="desc">Hover и Focus оформлены одинаково (подчёркивание) — как в спецификации. Дополнительно добавлены <b>Pressed</b>, <b>Disabled</b> и опциональный <b>Visited</b>, а на клавиатурный фокус показывается обводка для доступности. Тон <b>Neutral</b> (Breadcrumbs_2) не кликабелен — для него доступно только состояние Default.</p>
     <div class="panel">
       <div class="matrix-wrap"><div class="matrix" id="states-matrix"></div></div>
     </div>
@@ -445,42 +445,8 @@
       <code class="tok">styles/link.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- standalone-ссылка (лайаут / модалка), тон Accent --&gt;</span>
-<span class="tk-tag">&lt;a</span> <span class="tk-attr">class=</span><span class="tk-val">"link link--accent link--m"</span> <span class="tk-attr">href=</span><span class="tk-val">"/deals/4521"</span><span class="tk-tag">&gt;</span>Открыть договор<span class="tk-tag">&lt;/a&gt;</span>
-
-<span class="tk-cm">&lt;!-- инлайн-ссылка в тексте: подчёркнута всегда --&gt;</span>
-… подробнее в <span class="tk-tag">&lt;a</span> <span class="tk-attr">class=</span><span class="tk-val">"link link--accent link--inline"</span> <span class="tk-attr">href=</span><span class="tk-val">"/help"</span><span class="tk-tag">&gt;</span>справке<span class="tk-tag">&lt;/a&gt;</span> …
-
-<span class="tk-cm">&lt;!-- иконка слева (скачивание) --&gt;</span>
-<span class="tk-tag">&lt;a</span> <span class="tk-attr">class=</span><span class="tk-val">"link link--accent link--m link--with-icon"</span> <span class="tk-attr">href=</span><span class="tk-val">"/report.pdf"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"link__icon"</span><span class="tk-tag">&gt;&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"link__text"</span><span class="tk-tag">&gt;</span>Скачать PDF<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/a&gt;</span>
-
-<span class="tk-cm">&lt;!-- внешняя ссылка: новая вкладка + иконка-стрелка справа --&gt;</span>
-<span class="tk-tag">&lt;a</span> <span class="tk-attr">class=</span><span class="tk-val">"link link--accent link--m link--with-icon"</span> <span class="tk-attr">href=</span><span class="tk-val">"https://…"</span>
-   <span class="tk-attr">target=</span><span class="tk-val">"_blank"</span> <span class="tk-attr">rel=</span><span class="tk-val">"noopener"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Открыть в реестре (открывается в новой вкладке)"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"link__text"</span><span class="tk-tag">&gt;</span>Открыть в реестре<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"link__icon"</span><span class="tk-tag">&gt;&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/a&gt;</span>
-
-<span class="tk-cm">&lt;!-- хлебные крошки: родители — ссылки Muted, текущая — не ссылка; полная анатомия — см. Breadcrumbs.html --&gt;</span>
-<span class="tk-tag">&lt;nav</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Хлебные крошки"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;li</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__item"</span><span class="tk-tag">&gt;&lt;a</span> <span class="tk-attr">class=</span><span class="tk-val">"link link--muted"</span> <span class="tk-attr">href=</span><span class="tk-val">"/"</span><span class="tk-tag">&gt;</span>Главная<span class="tk-tag">&lt;/a&gt;&lt;/li&gt;</span>
-  <span class="tk-cm">&lt;!-- разделитель «/» — CSS ::after на .crumbs__item, не отдельный элемент --&gt;</span>
-  <span class="tk-tag">&lt;li</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__item crumbs__item--current"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__current"</span> <span class="tk-attr">aria-current=</span><span class="tk-val">"page"</span><span class="tk-tag">&gt;</span>Договор №4521<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/li&gt;</span>
-<span class="tk-tag">&lt;/nav&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -494,7 +460,7 @@
 <span class="tk-cm">// 2. Цвет задаёт тон:</span>
 <span class="tk-cm">//    accent  → --link, hover/focus --link-dark, pressed --c-emerald-900</span>
 <span class="tk-cm">//    muted   → --text-inactive, hover --text-secondary (Breadcrumbs_1)</span>
-<span class="tk-cm">//    neutral → --text-black (Breadcrumbs_2); только Default, не кликабельна (pointer-events: none)</span>
+<span class="tk-cm">//    neutral → --text-primary (Breadcrumbs_2); только Default, не кликабельна (pointer-events: none)</span>
 
 <span class="tk-cm">// 3. Фокус = Hover: :focus-visible применяет ТЕ ЖЕ правила, что и :hover</span>
 <span class="tk-cm">//    (цвет + подчёркивание), без отдельной обводки — оформление одинаковое для мыши и клавиатуры</span>
@@ -515,51 +481,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функция <code class="tok">makeLink</code> в коде этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Link.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> LinkTone = <span class="tk-val">'accent'</span> | <span class="tk-val">'muted'</span> | <span class="tk-val">'neutral'</span>;
-<span class="tk-attr">type</span> LinkSize = <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span>;
-
-<span class="tk-attr">interface</span> LinkProps <span class="tk-attr">extends</span> React.AnchorHTMLAttributes&lt;HTMLAnchorElement&gt; {
-  children: React.ReactNode;      <span class="tk-cm">// текст ссылки — называет цель перехода</span>
-  tone?: LinkTone;                <span class="tk-cm">// по умолчанию 'accent'</span>
-  size?: LinkSize;                <span class="tk-cm">// по умолчанию 'm'; игнорируется при inline</span>
-  inline?: <span class="tk-attr">boolean</span>;              <span class="tk-cm">// в потоке текста → font: inherit + всегда underline</span>
-  icon?: React.ReactNode;         <span class="tk-cm">// иконка слева, 1em</span>
-  external?: <span class="tk-attr">boolean</span>;            <span class="tk-cm">// target=_blank + rel=noopener + иконка-стрелка</span>
-  truncate?: <span class="tk-attr">boolean</span>;            <span class="tk-cm">// обрезка многоточием (нужен title)</span>
-  disabled?: <span class="tk-attr">boolean</span>;            <span class="tk-cm">// aria-disabled + pointer-events: none</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.link</code></td><td>a</td><td class="dsc">Базовый класс: цвет по тону, переходы; фокус оформлен тем же правилом, что hover — без отдельного focus-ring</td></tr>
-          <tr><td><code class="tok">.link--accent / --muted / --neutral</code></td><td>a</td><td class="dsc">Тон: Accent (лайаут/модалки) и Muted (Breadcrumbs_1) — задают цвет и оттенки hover/pressed; Neutral (Breadcrumbs_2) — только цвет Default, без hover/pressed, <code class="tok">pointer-events: none</code> (не кликабельна)</td></tr>
-          <tr><td><code class="tok">.link--m / --s</code></td><td>a</td><td class="dsc">Размер standalone: 16/20 · 14/16. При inline не используется</td></tr>
-          <tr><td><code class="tok">.link--inline</code></td><td>a</td><td class="dsc">В потоке текста: <code class="tok">font: inherit</code> + постоянное подчёркивание</td></tr>
-          <tr><td><code class="tok">.link--with-icon</code></td><td>a</td><td class="dsc"><code class="tok">inline-flex</code> + зазор для иконки; парой идут <code class="tok">.link__icon</code> / <code class="tok">.link__text</code></td></tr>
-          <tr><td><code class="tok">.link--truncate</code></td><td>a</td><td class="dsc">Обрезка многоточием (<code class="tok">inline-block</code> + ellipsis); полное значение — в <code class="tok">title</code></td></tr>
-          <tr><td><code class="tok">.link--disabled</code> / <code class="tok">aria-disabled="true"</code></td><td>a</td><td class="dsc">Отключено: цвет <code class="tok">--text-inactive</code>, <code class="tok">pointer-events: none</code>, без подчёркивания</td></tr>
-          <tr><td><code class="tok">.is-hover / .is-pressed / .is-focus</code></td><td>a</td><td class="dsc">Форс-состояния — только для спецификаций в документации, не для продакшена</td></tr>
-          <tr><td><code class="tok">.link__icon / .link__text</code></td><td>span</td><td class="dsc">Слоты иконки (1em) и текста внутри ссылки с иконкой</td></tr>
-          <tr><td><code class="tok">target="_blank" · rel="noopener"</code></td><td>a</td><td class="dsc">Обязательны на внешних ссылках; <code class="tok">aria-label</code> дополняется пометкой о новой вкладке</td></tr>
-          <tr><td><code class="tok">.crumbs</code></td><td>nav &gt; ol</td><td class="dsc">Контейнер хлебных крошек — единственный размер S, <code class="tok">crumbs--m</code> не существует; полная спецификация — страница <a class="link link--accent link--inline" href="../molecules/Breadcrumbs.html">Breadcrumbs</a></td></tr>
-          <tr><td>разделитель «/»</td><td>li::after</td><td class="dsc">CSS-псевдоэлемент между звеньями, цвет как у Breadcrumbs_1; не часть DOM — не читается скринридером</td></tr>
-          <tr><td><code class="tok">.crumbs__current</code> + <code class="tok">aria-current="page"</code></td><td>span</td><td class="dsc">Текущая страница — не ссылка, <code class="tok">--text-black</code>; начертание такое же, как у родительских звеньев</td></tr>
-          <tr><td><code class="tok">.crumbs__more</code></td><td>button</td><td class="dsc">Свёрнутое звено «…»; раскрывает попап со скрытыми страницами (см. Breadcrumbs.html)</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Link</span>
@@ -774,8 +696,8 @@ document.getElementById('ic-good').innerHTML = UI.good;
     { name:'Breadcrumbs', rows:[
       ['Breadcrumbs_1 · Default', '--text-inactive'],
       ['Breadcrumbs_1 · Hover', '--text-secondary'],
-      ['Breadcrumbs_2 · Default', '--text-black'],
-      ['Текущая страница', '--text-black'],
+      ['Breadcrumbs_2 · Default', '--text-primary'],
+      ['Текущая страница', '--text-primary'],
       ['Disabled', '--text-inactive'],
     ]},
   ];

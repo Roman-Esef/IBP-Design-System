@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="ButtonGroup" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -25,7 +25,7 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:62ch; }
 
@@ -36,7 +36,7 @@
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .addon { font: var(--type-button-xs); letter-spacing:.06em; text-transform:uppercase; color: var(--primary); background: var(--primary-bg); padding:5px 10px; border-radius:999px; }
 
@@ -53,20 +53,20 @@
   .blk > .cap b { font: var(--type-body-s-strong); color: var(--text-secondary); }
 
   /* sub-heading inside a panel */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 30px; }
 
   code.tok { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius:5px; }
 
   /* sizes matrix */
   .size-grid { display:grid; grid-template-columns: 64px 1fr; gap:30px 28px; align-items:center; }
-  .size-grid .sz-tag { font: var(--type-body-s-strong); color: var(--text-on-tertiary); background: var(--tertiary); padding:8px 0; border-radius:8px; text-align:center; letter-spacing:.05em; }
+  .size-grid .sz-tag { font: var(--type-body-s-strong); color: var(--text-primary); background: var(--tertiary); padding:8px 0; border-radius:8px; text-align:center; letter-spacing:.05em; }
   .size-grid .sz-tag span { display:block; font: var(--type-body-xs); color: var(--text-inactive); margin-top:3px; font-weight:400; }
 
   /* states matrix */
   .matrix { display:grid; grid-template-columns: 140px repeat(3, 1fr); gap:18px 22px; align-items:center; }
   .matrix .col-head { font: var(--type-body-m); color: var(--text-secondary); }
-  .matrix .grouphdr { grid-column:1 / -1; font: var(--type-h6-strong); color: var(--text-black); margin-top:8px; }
+  .matrix .grouphdr { grid-column:1 / -1; font: var(--type-h6-strong); color: var(--text-primary); margin-top:8px; }
   .matrix .rowname { font: var(--type-body-m-strong); color: var(--text-primary); }
   .matrix .cell { display:flex; }
 
@@ -206,7 +206,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -217,7 +217,7 @@
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ButtonGroup</h1>
     <p class="lead">Объединяет связанные кнопки в единый визуальный блок с общим фоном или обводкой. Поддерживает 2–5 кнопок, типы Accent / Outline, все три размера, вариант Split&nbsp;Button и сегментированный выбор. Собирается из компонентов <b>Button</b> — кнопки наследуют свои свойства.</p>
@@ -301,13 +301,13 @@
   </div>
   
 <div class="subsec" data-screen-label="Orientation">
-    <h3>Ориентация <span class="addon">Расширение</span></h3>
+    <h3>Ориентация</h3>
     <p class="desc">Помимо горизонтальной, группа поддерживает вертикальную раскладку — для компактных меню и боковых панелей, где действия выстраиваются в столбец. Скругление переносится на верхнюю и нижнюю кнопки, шов становится горизонтальным.</p>
     <div class="panel"><div class="row" style="gap:40px; align-items:flex-start;" id="orient-row"></div></div>
   </div>
 
 <div class="subsec" data-screen-label="Toggle">
-    <h3>Сегментированный выбор <span class="addon">Расширение</span></h3>
+    <h3>Сегментированный выбор</h3>
     <p class="desc">Группа может работать как переключатель: кнопки сохраняют выбранное состояние, выбранный сегмент заливается акцентным цветом. Поддерживается одиночный выбор (как радиокнопки — всегда выбран ровно один) и множественный (как чекбоксы). Управляется атрибутом <code class="tok">aria-pressed</code>. Попробуйте нажать.</p>
     <div class="panel">
       <div class="row" style="gap:44px;">
@@ -318,7 +318,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Fullwidth">
-    <h3>Fullwidth и равная ширина <span class="addon">Расширение</span></h3>
+    <h3>Fullwidth и равная ширина</h3>
     <p class="desc">Группа со свойством Fullwidth заполняет контейнер целиком; кнопки получают равную ширину. Удобно для нижних панелей действий в модальных окнах и на мобильных макетах.</p>
     <div class="panel">
       <div style="max-width:520px; display:flex; flex-direction:column; gap:18px;" id="fw-row"></div>
@@ -366,10 +366,15 @@
     </ul>
   </section>
 
-  <!-- BEHAVIOR (STUB) -->
+  <!-- BEHAVIOR -->
   <section class="section" data-screen-label="Behavior">
     <h2>Поведение</h2>
-    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+    <p class="desc">Логика выбора в режиме Toggle.</p>
+
+<div class="subsec" data-screen-label="ToggleLogic">
+    <h3>Одиночный и множественный выбор</h3>
+    <p class="desc">В режиме Toggle группа работает по одной из двух схем: <b>одиночный выбор</b> (radio-like) — клик по кнопке снимает выбор со всех соседей и ставит только на неё, всегда ровно один нажатый сегмент; <b>множественный выбор</b> (checkbox-like) — каждая кнопка переключается независимо, допустимы любое число нажатых от нуля до всех. Схема задаётся на уровне группы, а не смешивается внутри одной группы.</p>
+  </div>
   </section>
 
   <!-- STATES & BEHAVIOR -->
@@ -385,7 +390,7 @@
 
   <!-- ACCESSIBILITY (addon) -->
   <section class="section" data-screen-label="A11y">
-    <h2>Доступность <span class="addon">Расширение</span></h2>
+    <h2>Доступность</h2>
     <p class="desc">Контейнер группы получает <code class="tok">role="group"</code> и осмысленный <code class="tok">aria-label</code> (например «Режим отображения»). В сегментированном выборе используется <code class="tok">aria-pressed</code> на кнопках; одиночный выбор удобно навигировать стрелками с roving&nbsp;tabindex. Split Button: текстовая кнопка — основное действие, у стрелки <code class="tok">aria-haspopup="menu"</code> и <code class="tok">aria-expanded</code>.</p>
   </section>
 
@@ -425,36 +430,8 @@
       <code class="tok">styles/button-group.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- горизонтальная группа Accent из кнопок Button --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"btn-group btn-group--accent"</span> <span class="tk-attr">role=</span><span class="tk-val">"group"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Режим отображения"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--m"</span><span class="tk-tag">&gt;</span>Список<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--m"</span><span class="tk-tag">&gt;</span>Плитка<span class="tk-tag">&lt;/button&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span>
-
-<span class="tk-cm">&lt;!-- Split Button: основное действие + стрелка с меню --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"btn-group btn-group--accent btn-group--split"</span> <span class="tk-attr">role=</span><span class="tk-val">"group"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--m"</span><span class="tk-tag">&gt;</span>Сохранить<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--m btn--icon-only"</span> <span class="tk-attr">aria-haspopup=</span><span class="tk-val">"menu"</span> <span class="tk-attr">aria-expanded=</span><span class="tk-val">"false"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"dropdown__menu"</span> <span class="tk-attr">role=</span><span class="tk-val">"menu"</span> <span class="tk-attr">hidden</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span>
-
-<span class="tk-cm">&lt;!-- Сегментированный выбор (toggle): aria-pressed на каждой кнопке --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"btn-group btn-group--outline btn-group--toggle"</span> <span class="tk-attr">role=</span><span class="tk-val">"group"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Форматирование"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--outline btn--m"</span> <span class="tk-attr">aria-pressed=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--outline btn--m"</span> <span class="tk-attr">aria-pressed=</span><span class="tk-val">"false"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/button&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span>
-
-<span class="tk-cm">&lt;!-- вертикальная + заблокированая --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"btn-group btn-group--outline btn-group--vertical btn-group--disabled"</span> <span class="tk-attr">role=</span><span class="tk-val">"group"</span> <span class="tk-attr">aria-disabled=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -479,58 +456,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">makeGroup</code> / <code class="tok">makeSplit</code> в коде этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">ButtonGroup.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> BtnGroupType = <span class="tk-val">'accent'</span> | <span class="tk-val">'outline'</span> | <span class="tk-val">'transparent'</span>;
-<span class="tk-attr">type</span> BtnGroupSize = <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span> | <span class="tk-val">'xs'</span>;
-
-<span class="tk-attr">interface</span> ButtonGroupProps {
-  type?: BtnGroupType;              <span class="tk-cm">// по умолчанию 'accent'</span>
-  size?: BtnGroupSize;              <span class="tk-cm">// по умолчанию 'm'</span>
-  orientation?: <span class="tk-val">'horizontal'</span> | <span class="tk-val">'vertical'</span>;
-  fullwidth?: <span class="tk-attr">boolean</span>;
-  disabled?: <span class="tk-attr">boolean</span>;              <span class="tk-cm">// блокирует всю группу, не часть</span>
-  label: <span class="tk-attr">string</span>;                    <span class="tk-cm">// aria-label контейнера (обязателен)</span>
-  children: React.ReactNode;        <span class="tk-cm">// Button[] (2–5)</span>
-}
-
-<span class="tk-attr">interface</span> SplitButtonProps {
-  type?: BtnGroupType;
-  size?: BtnGroupSize;
-  label: React.ReactNode;           <span class="tk-cm">// текст основной кнопки</span>
-  icon?: React.ReactNode;           <span class="tk-cm">// иконка слева от текста основной кнопки</span>
-  onAction(): <span class="tk-attr">void</span>;                  <span class="tk-cm">// клик по текстовой кнопке</span>
-  menuItems: { label: <span class="tk-attr">string</span>; icon?: React.ReactNode; onSelect(): <span class="tk-attr">void</span> }[];
-  menuAlign?: <span class="tk-val">'left'</span> | <span class="tk-val">'right'</span>;
-  disabled?: <span class="tk-attr">boolean</span>;
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.btn-group</code></td><td>div</td><td class="dsc">Контейнер: <code class="tok">inline-flex</code>, кнопки-дети схлопывают радиусы и границы</td></tr>
-          <tr><td><code class="tok">.btn-group--accent / --outline / --transparent</code></td><td>div</td><td class="dsc">Тип (наследуется кнопками внутри)</td></tr>
-          <tr><td><code class="tok">.btn-group--vertical</code></td><td>div</td><td class="dsc">Столбец вместо строки; радиус переносится на верх/низ</td></tr>
-          <tr><td><code class="tok">.btn-group--fullwidth</code></td><td>div</td><td class="dsc">Заполняет контейнер; кнопки равной ширины (<code class="tok">flex:1</code>)</td></tr>
-          <tr><td><code class="tok">.btn-group--disabled</code></td><td>div</td><td class="dsc"><code class="tok">pointer-events:none</code> на всюй группе; парный <code class="tok">aria-disabled</code></td></tr>
-          <tr><td><code class="tok">.btn-group--toggle</code></td><td>div</td><td class="dsc">Сегментированный выбор; стилизует кнопки с <code class="tok">aria-pressed="true"</code></td></tr>
-          <tr><td><code class="tok">.btn-group--split</code></td><td>div</td><td class="dsc">Split Button: текстовая + icon-only стрелка</td></tr>
-          <tr><td><code class="tok">.dropdown / .dropdown__menu / .dropdown__item</code></td><td>div/button</td><td class="dsc">Контекстное меню Split Button</td></tr>
-          <tr><td><code class="tok">role="group" / aria-label</code></td><td>div</td><td class="dsc">Доступность: описывает назначение группы целиком</td></tr>
-          <tr><td><code class="tok">aria-pressed</code></td><td>button</td><td class="dsc">Состояние кнопки в сегментированном выборе</td></tr>
-          <tr><td><code class="tok">aria-haspopup / aria-expanded</code></td><td>button</td><td class="dsc">Стрелка Split Button — связь с контекстным меню</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · ButtonGroup</span>

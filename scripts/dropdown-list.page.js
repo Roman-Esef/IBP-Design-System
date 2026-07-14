@@ -613,8 +613,8 @@ function openable(anchor, field, list, prefer) {
     ]},
     { name: 'Выбор', rows: [
       ['Чекбокс · заливка', '--primary'],
-      ['Подпись выбранной', '--text-black'],
-      ['Подсветка совпадения', '--text-black'],
+      ['Подпись выбранной', '--text-primary'],
+      ['Подсветка совпадения', '--text-primary'],
     ]},
     { name: 'Системное', rows: [
       ['Ошибка · иконка', '--error'],

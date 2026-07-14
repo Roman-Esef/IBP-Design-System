@@ -1,8 +1,8 @@
 ---
 component: Alert
 title: "Alert"
-version: "v1.0"
-updated: "08.07.2026"
+version: "v1.1"
+updated: "13.07.2026"
 page: pages/loading/Alert.html
 page_js: scripts/alert.page.js
 css: styles/alert.css
@@ -25,7 +25,7 @@ status: curated
 - **Состояния** — сам Алерт статичен, не реагирует на курсор; интерактивны только действия/кнопки/ссылки. Иконка-действие: Default (Text_Inactive), Hover (Text_Secondary + подложка в тон 12%), Active (акцент тона), Focus (2px обводка тона).
 - **Доступность** — role/aria-live по тону: Error·Warning → alert/assertive, Info·Success → status/polite. Иконка тона aria-hidden. Кнопки действий с aria-label; шеврон с aria-expanded. Не перехватывает Esc (не модальный).
 - **Типографика** — заголовок --type-body-m-strong (M) / --type-body-s-strong (S); текст --type-body-s (M) / --type-body-xs (S); кнопка --type-button-xs; ссылка --type-body-s.
-- **Цвета** — пара «заливка + акцент» из группы Situative. info: --info-bg + --info; warning: --warning-bg + --warning; error: --error-bg-light + --error; success: --success-bg + --success. Заголовок Text_Black, текст Text_Secondary, действия Text_Inactive. Кнопки/ссылки внутри перекрашиваются в акцент через переопределение --primary/--link на .alert.
+- **Цвета** — пара «заливка + акцент» из группы Situative. info: --info-bg + --info; warning: --warning-bg + --warning; error: --error-bg-light + --error; success: --success-bg + --success. Заголовок Text_Primary, текст Text_Secondary, действия Text_Inactive. Кнопки/ссылки внутри перекрашиваются в акцент через переопределение --primary/--link на .alert.
 
 ## Для разработчиков (выжимка)
 

@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Alert" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -29,7 +29,7 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:66ch; text-wrap:pretty; }
 
@@ -38,7 +38,7 @@
   .crumb svg { width:16px; height:16px; }
 
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:80ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .addon { font: var(--type-button-xs); letter-spacing:.06em; text-transform:uppercase; color: var(--primary); background: var(--primary-bg); padding:5px 10px; border-radius:999px; }
@@ -56,7 +56,7 @@
 
   code.tok { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius:5px; }
 
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 30px; }
   .demo-rowlabel { font: var(--type-body-xs); color: var(--text-inactive); margin-bottom:10px; }
 
@@ -111,7 +111,7 @@
   /* two-column comparison */
   .cols2 { display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:20px; }
   @media (max-width:680px){ .cols2{ grid-template-columns:1fr; } }
-  .demo-col__title { font: var(--type-h6-strong); color: var(--text-black); margin:0 0 4px; }
+  .demo-col__title { font: var(--type-h6-strong); color: var(--text-primary); margin:0 0 4px; }
   .demo-col__sub { font: var(--type-body-s); color: var(--text-secondary); margin:0 0 14px; text-wrap:pretty; }
 
   .stackdemo { display:flex; flex-direction:column; gap:14px; }
@@ -121,12 +121,12 @@
   @media (max-width:760px){ .anat { grid-template-columns:1fr; } }
   .anat__stage { background: var(--tertiary-light); border:1px solid var(--border-light); border-radius:14px; padding:56px 44px; display:flex; justify-content:center; }
   .anat-dia { position:relative; width:100%; max-width:420px; }
-  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-black); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; transform:translate(-50%,-50%); z-index:3; box-shadow:0 0 0 3px var(--tertiary-light); }
+  .anat-dia .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:var(--text-primary); color:#fff; font:var(--type-body-xs); font-weight:600; display:flex; align-items:center; justify-content:center; transform:translate(-50%,-50%); z-index:3; box-shadow:0 0 0 3px var(--tertiary-light); }
   .anat__legend { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; counter-reset:a; }
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); display:block; }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); display:block; }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* state spec tables */
@@ -134,7 +134,7 @@
   .spec__row { display:grid; grid-template-columns: 210px 260px 1fr; align-items:center; gap:16px; padding:20px; }
   @media (max-width:820px){ .spec__row{ grid-template-columns:1fr; gap:14px; } }
   .spec__row + .spec__row { border-top:1px solid var(--border-light); }
-  .spec__state { font:var(--type-body-m-strong); color:var(--text-black); }
+  .spec__state { font:var(--type-body-m-strong); color:var(--text-primary); }
   .spec__state small { display:block; font:var(--type-body-s); color:var(--text-secondary); font-weight:400; margin-top:3px; }
   .spec__sample { display:flex; justify-content:center; }
 
@@ -182,7 +182,7 @@
   .diff { display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
   @media (max-width:900px){ .diff { grid-template-columns:1fr; } }
   .diff__card { border:1px solid var(--border-light); border-radius:14px; padding:22px 22px 24px; background: var(--bg-tile); display:flex; flex-direction:column; gap:14px; }
-  .diff__card h4 { font: var(--type-h6-strong); color: var(--text-black); margin:0; }
+  .diff__card h4 { font: var(--type-h6-strong); color: var(--text-primary); margin:0; }
   .diff__card p { font: var(--type-body-s); color: var(--text-secondary); margin:0; text-wrap:pretty; }
   .diff__card p b { color: var(--text-primary); }
 
@@ -228,7 +228,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -239,7 +239,7 @@
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты подкачки</p>
     <h1>Alert</h1>
     <p class="lead">Инлайновое сообщение о состоянии, встроенное в поток контента. В отличие от <b>Toast</b> и <b>SnackBar</b> не всплывает и не исчезает само — занимает место на странице и остаётся, пока не закрыт пользователем или пока не исчезла причина. Четыре тона (Info · Warning · Error · Success), два размера (M · S) и набор опциональных частей: иконка, заголовок, текст, кнопки, действия.</p>
@@ -469,7 +469,7 @@
     </div>
 
     <div class="subsec" data-screen-label="Animation">
-      <h3>Анимация <span class="addon">Добавлено</span></h3>
+      <h3>Анимация</h3>
       <p class="desc">Появление — плавное раскрытие по высоте + проявление (150&nbsp;мс, ease-out). Закрытие — сворачивание высоты + затухание. Сворочивание шеврона — поворот глифа 150&nbsp;мс. При <code class="tok">prefers-reduced-motion: reduce</code> остаётся только смена прозрачности.</p>
       <div class="panel">
         <div class="row" style="gap:16px;">
@@ -522,13 +522,13 @@
   <!-- ЦВЕТА -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
-    <p class="desc">Каждый тон — пара «заливка + акцент» из семантической группы Situative. Заливка — светлая рампа тона, акцент (иконка, бордер/текст кнопок) — базовый тон. Текст заголовка — Text_Black, тела — Text_Secondary; действия — Text_Inactive.</p>
+    <p class="desc">Каждый тон — пара «заливка + акцент» из семантической группы Situative. Заливка — светлая рампа тона, акцент (иконка, бордер/текст кнопок) — базовый тон. Текст заголовка — Text_Primary, тела — Text_Secondary; действия — Text_Inactive.</p>
     <div class="color-ref" id="color-ref"></div>
   </section>
 
   <!-- ДЛЯ РАЗРАБОТЧИКОВ -->
   <section class="section" data-screen-label="Dev">
-    <h2>Для разработчиков <span class="addon">Расширение</span></h2>
+    <h2>Для разработчиков</h2>
     <p class="desc">Страница ДС собрана на чистом CSS, но всё ниже не привязано к стеку: команда, которая верстает Alert на React, берёт отсюда анатомию, точные размеры, тоны и логику закрытия/сворачивания.</p>
 
     <p class="subhead">Точные размеры (redline)</p>
@@ -550,35 +550,8 @@
       <code class="tok">styles/alert.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req" style="font-weight:400;">— эталонная структура, имена классов условны, важны элементы, роли и тоны</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- тон: --info | --warning | --error | --success; размер: --m | --s --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"alert alert--info alert--m"</span> <span class="tk-attr">role=</span><span class="tk-val">"status"</span> <span class="tk-attr">aria-live=</span><span class="tk-val">"polite"</span><span class="tk-tag">&gt;</span>
-
-  <span class="tk-cm">&lt;!-- иконка тона, опциональна; глиф по тону --&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"alert__icon"</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>&lt;i data-icon="Info-circle-filled"&gt;&lt;/i&gt;<span class="tk-tag">&lt;/span&gt;</span>
-
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"alert__body"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;p</span> <span class="tk-attr">class=</span><span class="tk-val">"alert__title"</span><span class="tk-tag">&gt;</span>Заголовок компонента<span class="tk-tag">&lt;/p&gt;</span>
-    <span class="tk-tag">&lt;p</span> <span class="tk-attr">class=</span><span class="tk-val">"alert__text"</span><span class="tk-tag">&gt;</span>Добавление холдинга в разработке…<span class="tk-tag">&lt;/p&gt;</span>
-    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"alert__buttons"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--outline btn--xs"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"btn__label"</span><span class="tk-tag">&gt;</span>Завести сделку<span class="tk-tag">&lt;/span&gt;&lt;/button&gt;</span>
-    <span class="tk-tag">&lt;/div&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-
-  <span class="tk-cm">&lt;!-- действия: свернуть (шеврон) и/или закрыть (×) --&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"alert__actions"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"alert__act alert__collapse"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Свернуть"</span> <span class="tk-attr">aria-expanded=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>&lt;i data-icon="chevron-up"&gt;&lt;/i&gt;<span class="tk-tag">&lt;/button&gt;</span>
-    <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"alert__act alert__close"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Закрыть"</span><span class="tk-tag">&gt;</span>&lt;i data-icon="close"&gt;&lt;/i&gt;<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span class="copy-label">Копировать</span></button>
@@ -606,56 +579,7 @@ ICON = { info: <span class="tk-val">'Info-circle-filled'</span>, warning: <span 
     </div>
     <p class="dev-note">Рабочий референс поведения (сворачивание, закрытие, карта глифов) — <code class="tok">alert.page.js</code>, функция <code class="tok">alertHTML</code> и обработчики раздела «Поведение».</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не жёсткий контракт; адаптируйте под свою кодовую базу.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Alert.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> AlertTone = <span class="tk-val">'info'</span> | <span class="tk-val">'warning'</span> | <span class="tk-val">'error'</span> | <span class="tk-val">'success'</span>;
-<span class="tk-attr">type</span> AlertSize = <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span>;
-
-<span class="tk-attr">interface</span> AlertAction {
-  label: <span class="tk-attr">string</span>;
-  onClick(): <span class="tk-attr">void</span>;
-  variant?: <span class="tk-val">'outline'</span> | <span class="tk-val">'transparent'</span> | <span class="tk-val">'link'</span>; <span class="tk-cm">// по умолчанию outline</span>
-}
-
-<span class="tk-attr">interface</span> AlertProps {
-  tone?: AlertTone;              <span class="tk-cm">// по умолчанию 'info'</span>
-  size?: AlertSize;              <span class="tk-cm">// по умолчанию 'm'</span>
-  title?: <span class="tk-attr">string</span>;              <span class="tk-cm">// опционален</span>
-  children?: React.ReactNode;   <span class="tk-cm">// текст сообщения, опционален</span>
-  icon?: <span class="tk-attr">boolean</span>;             <span class="tk-cm">// показать иконку тона, по умолчанию true</span>
-  actions?: AlertAction[];      <span class="tk-cm">// 0–2 кнопки/ссылки</span>
-  collapsible?: <span class="tk-attr">boolean</span>;       <span class="tk-cm">// показать шеврон свернуть</span>
-  onDismiss?(): <span class="tk-attr">void</span>;         <span class="tk-cm">// задан → показать крестик</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.alert</code></td><td>контейнер</td><td class="dsc">Корень компонента; переопределяет <code class="tok">--primary*</code> для кнопок/ссылок в тон</td></tr>
-          <tr><td><code class="tok">.alert--info / --warning / --error / --success</code></td><td>контейнер</td><td class="dsc">Тон: заливка, акцент, глиф иконки, цвет кнопок</td></tr>
-          <tr><td><code class="tok">.alert--m / --s</code></td><td>контейнер</td><td class="dsc">Размер: паддинги, зазор, размер иконки, токены текста</td></tr>
-          <tr><td><code class="tok">.alert--collapsed</code></td><td>контейнер</td><td class="dsc">Свёрнутое состояние: скрывает текст и кнопки, поворачивает шеврон</td></tr>
-          <tr><td><code class="tok">.alert__icon</code></td><td>span</td><td class="dsc">Ведущая иконка тона; <code class="tok">aria-hidden</code></td></tr>
-          <tr><td><code class="tok">.alert__body</code></td><td>div</td><td class="dsc">Колонка: заголовок · текст · кнопки</td></tr>
-          <tr><td><code class="tok">.alert__title</code></td><td>p</td><td class="dsc">Заголовок (Alert_Title), опционален</td></tr>
-          <tr><td><code class="tok">.alert__text</code></td><td>p</td><td class="dsc">Текст (Alert_Text), переносится, не усекается</td></tr>
-          <tr><td><code class="tok">.alert__buttons</code></td><td>div</td><td class="dsc">Ряд кнопок/ссылок (Button XS / Link), в тон</td></tr>
-          <tr><td><code class="tok">.alert__actions</code></td><td>div</td><td class="dsc">Блок действий справа сверху</td></tr>
-          <tr><td><code class="tok">.alert__act</code></td><td>button</td><td class="dsc">Иконка-действие; обязателен <code class="tok">aria-label</code></td></tr>
-          <tr><td><code class="tok">.alert__collapse / .alert__close</code></td><td>button</td><td class="dsc">Свернуть (<code class="tok">aria-expanded</code>) / закрыть</td></tr>
-          <tr><td><code class="tok">[role][aria-live]</code></td><td>контейнер</td><td class="dsc">alert/assertive для Error·Warning, status/polite для Info·Success</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Alert</span>

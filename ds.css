@@ -38,13 +38,18 @@
 @import url("styles/pagination.css");
 @import url("styles/splitter.css");
 @import url("styles/input.css");
+@import url("styles/input-range.css");
 
 /* Организмы */
 @import url("styles/modal.css");
+@import url("styles/nav-panel.css");
+@import url("styles/page-header.css");
 @import url("styles/popover.css");
 @import url("styles/snackbar.css");
 @import url("styles/entity.css");
 @import url("styles/table-cell.css");
+@import url("styles/table-filter.css");
+@import url("styles/tile.css");
 
 /* Компоненты подкачки */
 @import url("styles/alert.css");

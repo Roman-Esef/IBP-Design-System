@@ -22,7 +22,7 @@ const POP_CONTENT = {
       <div style="display:flex; align-items:center; gap:10px;">
         <span style="width:8px;height:8px;border-radius:50%;background:${r[0]};flex:none;"></span>
         <span style="font:var(--type-body-s); color:var(--text-secondary); flex:1 1 auto;">${r[1]}</span>
-        <span style="font:var(--type-body-s-strong); color:var(--text-black);">${r[2]}</span>
+        <span style="font:var(--type-body-s-strong); color:var(--text-primary);">${r[2]}</span>
       </div>`).join('');
     return wrap;
   },
@@ -45,7 +45,7 @@ const POP_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:10px;';
     wrap.innerHTML = `
       <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-        <span style="font:var(--type-body-m-strong); color:var(--text-black);">ДК-2025-4471</span>
+        <span style="font:var(--type-body-m-strong); color:var(--text-primary);">ДК-2025-4471</span>
         <span class="chip chip--readonly chip--s"><span class="chip__label">В работе</span></span>
       </div>
       <div style="display:flex; flex-direction:column; gap:4px;">
@@ -93,7 +93,7 @@ const POP_CONTENT = {
     for (let i = 1; i <= 8; i++) {
       const row = document.createElement('div');
       row.style.cssText = 'display:flex; justify-content:space-between; gap:10px; padding-bottom:12px; border-bottom:1px solid var(--border-light);';
-      row.innerHTML = `<span style="font:var(--type-body-s); color:var(--text-secondary);">Пункт ${i}</span><span style="font:var(--type-body-s-strong); color:var(--text-black);">${(i * 12.5).toFixed(1)}%</span>`;
+      row.innerHTML = `<span style="font:var(--type-body-s); color:var(--text-secondary);">Пункт ${i}</span><span style="font:var(--type-body-s-strong); color:var(--text-primary);">${(i * 12.5).toFixed(1)}%</span>`;
       wrap.appendChild(row);
     }
     return wrap;
@@ -507,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ['Фон Body', '--bg-popup'], ['Фон Header/Footer', '--bgtable-pinned'], ['Тень', '--elevation-5 (без внешнего бордера)'],
       ]},
       { name: 'Типографика', rows: [
-        ['Заголовок', '--text-black'], ['Текст контента', '--text-primary'], ['Служебный текст в футере', '--text-secondary'],
+        ['Заголовок', '--text-primary'], ['Текст контента', '--text-primary'], ['Служебный текст в футере', '--text-secondary'],
       ]},
       { name: 'Загрузка / ошибка', rows: [
         ['Скелетон — база', '--st-disabled-light'], ['Скелетон — пик волны', '--st-disabled-midlight'], ['Иконка ошибки', '--error'],

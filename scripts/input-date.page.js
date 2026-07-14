@@ -90,7 +90,7 @@
         lead: table,
         state: state.state,
         label: !table && state.label ? 'Label' : null,
-        helper: !table && state.helper ? (state.state.startsWith('error') ? 'Текст ошибки' : 'Helper') : null,
+        helper: !table && state.helper ? 'Helper' : null,
         informer: state.informer,
         value: state.fill === 'value' ? '12.21.2022' : null,
         tip: state.state === 'error-focus' ? 'Текст ошибки' : (state.state === 'warning-focus' ? 'Указана информация, которая не блокирует действие, но требует внимания пользователя' : null),
@@ -185,7 +185,7 @@
     ].forEach(([title, st]) => {
       g.appendChild(cell(title, mkDate({
         label: 'Label',
-        helper: st.startsWith('error') ? 'Текст ошибки' : 'Helper',
+        helper: 'Helper',
         value: '12.21.2022',
         state: st,
         informer: st === 'disabled',
@@ -233,6 +233,7 @@
       ['Текст и статусы', [
         ['Значение', '--text-primary'],
         ['Маска-плейсхолдер', '--text-inactive'],
+        ['Иконки (календарь / крестик)', '--secondary'],
         ['Рамка · Error', '--error'],
         ['Рамка · Warning', '--warning'],
       ]],

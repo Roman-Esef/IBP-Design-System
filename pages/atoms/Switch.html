@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Switch" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -27,13 +27,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:62ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -117,7 +117,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- spec / guard ---------- */
@@ -183,7 +183,7 @@
   .size-spec__stage { background: var(--tertiary-light); border:1px solid var(--border-light); border-radius:14px; padding:44px; display:flex; justify-content:center; align-items:center; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -218,7 +218,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -228,7 +228,7 @@
 <main class="page" data-screen-label="Switch">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Switch</h1>
     <p class="lead">Свитч мгновенно переключает состояние — например, включает или отключает определённую опцию. Действие применяется сразу, без подтверждения. Два состояния — Off / On — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Loading.</p>
@@ -275,7 +275,7 @@
   </div>
 
 <div class="subsec" data-screen-label="SettingsRow">
-    <h3>Свитч в строке настроек<span class="badge-new">Новое</span></h3>
+    <h3>Свитч в строке настроек</h3>
     <p class="desc">Частый паттерн: название слева, контрол прижат к правому краю строки. Вся строка — активная область. Так свитчи легко сканировать в списке настроек, а контролы выровнены по правому краю.</p>
     <div class="panel">
       <div class="settings" id="settings-demo" style="max-width:520px;"></div>
@@ -398,7 +398,7 @@
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
 <div class="subsec" data-screen-label="Loading">
-    <h3>Загрузка и асинхронное действие<span class="badge-new">Новое</span></h3>
+    <h3>Загрузка и асинхронное действие</h3>
     <p class="desc">Свитч выполняет действие мгновенно. Но если переключение запускает запрос к серверу, который может занять время, покажите промежуточное состояние <b>Loading</b>: в ползунке появляется индикатор, контрол временно недоступен для повторного нажатия. Когда ответ получен — свитч фиксируется в новом состоянии; при ошибке возвращается в исходное.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">
@@ -416,7 +416,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Два состояния по вертикали — Off / On — и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Loading</b> добавлены к исходной матрице Default / Disabled.<span class="badge-new">Новое</span></p>
+    <p class="desc">Два состояния по вертикали — Off / On — и интерактивные состояния по горизонтали. Состояния <b>Hover</b>, <b>Focus</b>, <b>Pressed</b> и <b>Loading</b> добавлены к исходной матрице Default / Disabled.</p>
     <div class="panel">
       <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
     </div>
@@ -424,7 +424,7 @@
 
   <!-- HIT AREA / A11Y (NEW) -->
   <section class="section" data-screen-label="HitArea">
-    <h2>Доступность<span class="badge-new">Новое</span></h2>
+    <h2>Доступность</h2>
     <p class="desc">Видимый контрол — 20×36px, но кликабельная область шире: она включает название и хелпер. В строке настроек активная область вытягивается на всю строку. Управление с клавиатуры: <b>Tab</b> ставит фокус на свитч, <b>Space</b> / <b>Enter</b> переключают его, фокус показывается обводкой <code class="tok">--primary</code>. Контролу присваивается <code class="tok">role="switch"</code> с <code class="tok">aria-checked</code>.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">
@@ -480,35 +480,8 @@
       <code class="tok">styles/switch.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- свитч с названием и хелпером; контрол и текст — внутри &lt;label&gt; --&gt;</span>
-<span class="tk-tag">&lt;label</span> <span class="tk-attr">class=</span><span class="tk-val">"sw sw--on"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;input</span> <span class="tk-attr">type=</span><span class="tk-val">"checkbox"</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__input"</span> <span class="tk-attr">role=</span><span class="tk-val">"switch"</span> <span class="tk-attr">aria-checked=</span><span class="tk-val">"true"</span> <span class="tk-attr">checked</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__control"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__thumb"</span><span class="tk-tag">&gt;&lt;/span&gt;&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__content"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__label"</span><span class="tk-tag">&gt;</span>Тёмная тема<span class="tk-tag">&lt;/span&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-helper ds-helper--left"</span><span class="tk-tag">&gt;</span>Применяется ко всему интерфейсу<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/label&gt;</span>
-
-<span class="tk-cm">&lt;!-- loading: класс .sw--loading + спиннер внутри ползунка, ввод блокируется --&gt;</span>
-<span class="tk-tag">&lt;label</span> <span class="tk-attr">class=</span><span class="tk-val">"sw sw--off sw--loading"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;input</span> <span class="tk-attr">type=</span><span class="tk-val">"checkbox"</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__input"</span> <span class="tk-attr">role=</span><span class="tk-val">"switch"</span> <span class="tk-attr">disabled</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__control"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__thumb"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"sw__spinner"</span><span class="tk-tag">&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/label&gt;</span>
-
-<span class="tk-cm">&lt;!-- строка настроек: название слева, свитч прижат вправо --&gt;</span>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"sw-row"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;label</span> <span class="tk-attr">class=</span><span class="tk-val">"sw sw--on"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/label&gt;</span> <span class="tk-cm">&lt;!-- .sw-row разворачивает .sw в row-reverse --&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -536,50 +509,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">makeSw</code> / <code class="tok">wireToggle</code> в коде этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Switch.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">interface</span> SwitchProps <span class="tk-attr">extends</span> Omit&lt;React.InputHTMLAttributes&lt;HTMLInputElement&gt;, <span class="tk-val">'type'</span> | <span class="tk-val">'onChange'</span>&gt; {
-  checked: <span class="tk-attr">boolean</span>;              <span class="tk-cm">// Off / On</span>
-  onChange(next: <span class="tk-attr">boolean</span>): <span class="tk-attr">void</span> | <span class="tk-attr">Promise</span>&lt;<span class="tk-attr">void</span>&gt;;
-  label?: React.ReactNode;        <span class="tk-cm">// название справа от контрола</span>
-  helper?: React.ReactNode;       <span class="tk-cm">// подпись Body XS под названием</span>
-  loading?: <span class="tk-attr">boolean</span>;             <span class="tk-cm">// асинхронное действие в процессе — спиннер в ползунке, ввод заблокирован</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-  settingsRow?: <span class="tk-attr">boolean</span>;          <span class="tk-cm">// паттерн «название слева, контрол справа» (.sw-row)</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.sw</code></td><td>label</td><td class="dsc">Корень: <code class="tok">inline-flex</code>, зазор 10px, выравнивание по верхней строке</td></tr>
-          <tr><td><code class="tok">.sw--off / --on</code></td><td>label</td><td class="dsc">Состояние контрола</td></tr>
-          <tr><td><code class="tok">.sw--hover / --focus / --pressed</code></td><td>label</td><td class="dsc">Форс-состояния — только для спецификации в документации, не для продакшена</td></tr>
-          <tr><td><code class="tok">.sw--loading</code></td><td>label</td><td class="dsc">Асинхронное действие: <code class="tok">pointer-events: none</code>, спиннер в ползунке (<code class="tok">.sw__spinner</code>)</td></tr>
-          <tr><td><code class="tok">.sw--disabled</code></td><td>label</td><td class="dsc">Отключено: <code class="tok">pointer-events: none</code>, текст/трек в <code class="tok">--disabled</code></td></tr>
-          <tr><td><code class="tok">.sw--no-content</code></td><td>label</td><td class="dsc">Контрол без названия/хелпера (например, на карточке)</td></tr>
-          <tr><td><code class="tok">.sw__input</code></td><td>input</td><td class="dsc">Визуально скрытый <code class="tok">input[type=checkbox]</code> с <code class="tok">role="switch"</code> и <code class="tok">aria-checked</code></td></tr>
-          <tr><td><code class="tok">.sw__control</code></td><td>span</td><td class="dsc">Трек 36×20px</td></tr>
-          <tr><td><code class="tok">.sw__thumb</code></td><td>span</td><td class="dsc">Ползунок 16px; все state-слои и анимация перемещения на нём</td></tr>
-          <tr><td><code class="tok">.sw__spinner</code></td><td>span</td><td class="dsc">Индикатор загрузки внутри ползунка (только loading)</td></tr>
-          <tr><td><code class="tok">.sw__content</code></td><td>span</td><td class="dsc">Колонка название + хелпер (зазор 2px)</td></tr>
-          <tr><td><code class="tok">.sw__label</code></td><td>span</td><td class="dsc">Название (Body M)</td></tr>
-          <tr><td><code class="tok">.ds-helper.ds-helper--left</code></td><td>span</td><td class="dsc">Хелпер (Body XS) — общий компонент, см. Label / Helper</td></tr>
-          <tr><td><code class="tok">.sw-row</code></td><td>div</td><td class="dsc">Строка настроек: <code class="tok">.sw</code> внутри в <code class="tok">row-reverse</code>, вся строка — hit area</td></tr>
-          <tr><td><code class="tok">.sw-group</code></td><td>div</td><td class="dsc">Контейнер списка свитчей (колонка)</td></tr>
-          <tr><td><code class="tok">.sw-group__title</code></td><td>p</td><td class="dsc">Заголовок группы (H6 Strong)</td></tr>
-          <tr><td><code class="tok">role="switch" / aria-checked</code></td><td>input</td><td class="dsc">Доступность: сообщает ассистивным технологиям текущее состояние как switch, не checkbox</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Switch</span>
@@ -738,7 +668,7 @@ function wireToggle(root, onChange){
     card.style.cssText = 'flex:1; min-width:200px; background:var(--bg-tile); border:1px solid var(--border-light); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:16px;';
     const head = document.createElement('div');
     head.style.cssText = 'display:flex; align-items:center; justify-content:space-between; gap:16px;';
-    const t = document.createElement('span'); t.style.font='var(--type-body-m-strong)'; t.style.color='var(--text-black)'; t.textContent=title;
+    const t = document.createElement('span'); t.style.font='var(--type-body-m-strong)'; t.style.color='var(--text-primary)'; t.textContent=title;
     const s = makeSw({ state:st }); wireToggle(s);
     head.appendChild(t); head.appendChild(s);
     const body = document.createElement('p'); body.style.cssText='margin:0; font:var(--type-body-s); color:var(--text-secondary);'; body.textContent='Контент карточки';
@@ -972,7 +902,7 @@ function wireToggle(root, onChange){
     { name:'Текст', rows:[
       ['Название', '--text-primary'],
       ['Хелпер', '--text-inactive'],
-      ['Заголовок группы', '--text-black'],
+      ['Заголовок группы', '--text-primary'],
       ['Текст · Disabled', '--text-inactive'],
     ]},
     { name:'Disabled', rows:[

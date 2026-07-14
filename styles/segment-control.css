@@ -169,19 +169,19 @@
 .segctrl__item:disabled::before,
 .segctrl__item[aria-disabled="true"]::before { opacity: 0; }
 
-/* ---------- sizes ------------------------------------------------------------ */
-.segctrl--m {
-  --seg-h: 40px; --seg-pad: 3px; --seg-gap: 2px; --seg-px: 14px;
-  --seg-icon: 20px; --seg-font: var(--type-button-m);
-  --seg-radius: var(--radius-m); --seg-item-radius: calc(var(--radius-m) - 3px);
-}
-.segctrl--s {
-  --seg-h: 32px; --seg-pad: 2px; --seg-gap: 2px; --seg-px: 11px;
-  --seg-icon: 18px; --seg-font: var(--type-button-s);
-  --seg-radius: var(--radius-s); --seg-item-radius: calc(var(--radius-s) - 2px);
-}
-.segctrl--xs {
-  --seg-h: 24px; --seg-pad: 2px; --seg-gap: 2px; --seg-px: 8px;
-  --seg-icon: 16px; --seg-font: var(--type-button-xs);
-  --seg-radius: var(--radius-s); --seg-item-radius: calc(var(--radius-s) - 2px);
-}
+/* ---------- sizes ------------------------------------------------------------ *
+   Размеры — прямыми свойствами на конкретных потомках (не через --seg-* в
+   модификаторе), чтобы компилятор чисто регистрировал токены. Размер m =
+   дефолты .segctrl (отдельных правил не требует); gap = 2px для всех размеров,
+   поэтому seg-gap-потребители (.segctrl gap, ::before left) не переопределяются. */
+.segctrl--s { padding: 2px; border-radius: var(--radius-s); }
+.segctrl--s .segctrl__thumb { top: 2px; bottom: 2px; border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--s .segctrl__item { height: 32px; padding: 0 11px; font: var(--type-button-s); border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--s .segctrl__item--icon-only { padding: 0 calc(11px - 4px); }
+.segctrl--s .segctrl__item svg { width: 18px; height: 18px; }
+
+.segctrl--xs { padding: 2px; border-radius: var(--radius-s); }
+.segctrl--xs .segctrl__thumb { top: 2px; bottom: 2px; border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--xs .segctrl__item { height: 24px; padding: 0 8px; font: var(--type-button-xs); border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--xs .segctrl__item--icon-only { padding: 0 calc(8px - 4px); }
+.segctrl--xs .segctrl__item svg { width: 16px; height: 16px; }

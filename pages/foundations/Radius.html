@@ -1,5 +1,5 @@
+<!-- @dsCard group="Foundations" name="Radius" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Foundations" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -26,13 +26,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:60ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 72px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:72ch; text-wrap:pretty; }
 
   code.tok { font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius: var(--radius-xs); }
@@ -52,7 +52,7 @@
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
   .ctl select {
     appearance:none; -webkit-appearance:none; width:100%;
-    font: var(--type-body-m); color: var(--text-black);
+    font: var(--type-body-m); color: var(--text-primary);
     background: var(--bg-tile); border:1px solid var(--border-primary); border-radius: var(--radius-field);
     padding:10px 38px 10px 14px; cursor:pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364787d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
@@ -66,7 +66,7 @@
   .readout { display:flex; flex-direction:column; gap:6px; padding-top:4px; border-top:1px solid var(--border-light); }
   .readout .r { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
   .readout .r .k { font: var(--type-body-s); color: var(--text-inactive); }
-  .readout .r .v { font: var(--type-body-m-strong); color: var(--text-black); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px; }
+  .readout .r .v { font: var(--type-body-m-strong); color: var(--text-primary); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px; }
   .readout .r .v.tokv { color: var(--primary); }
 
   .stagebox {
@@ -92,7 +92,7 @@
     border:1.5px solid var(--primary-light);
   }
   .scale-info { display:flex; flex-direction:column; gap:3px; }
-  .scale-name { font: var(--type-body-m-strong); color: var(--text-black); display:flex; align-items:baseline; gap:8px; }
+  .scale-name { font: var(--type-body-m-strong); color: var(--text-primary); display:flex; align-items:baseline; gap:8px; }
   .scale-name .px { margin-left:auto; font: var(--type-body-s-strong); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
   .scale-token { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; color: var(--primary); word-break:break-all; }
   .scale-use { font: var(--type-body-xs); color: var(--text-inactive); margin-top:3px; text-wrap:pretty; }
@@ -113,7 +113,7 @@
   /* ---------- guidelines ---------- */
   .guides { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap:18px; }
   .guide { background: var(--bg-tile); border:1px solid var(--border-light); border-radius: var(--radius-2xl); padding:24px 26px; }
-  .guide h3 { font: var(--type-h6-strong); color: var(--text-black); margin:0 0 8px; display:flex; align-items:center; gap:9px; }
+  .guide h3 { font: var(--type-h6-strong); color: var(--text-primary); margin:0 0 8px; display:flex; align-items:center; gap:9px; }
   .guide p { font: var(--type-body-s); color: var(--text-secondary); margin:0; text-wrap:pretty; }
   .guide .ic { width:22px; height:22px; flex:none; color: var(--primary); }
   .guide.dont .ic { color: var(--error); }

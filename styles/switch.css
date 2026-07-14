@@ -163,7 +163,7 @@
 .sw-group { display: flex; flex-direction: column; }
 .sw-group__title {
   font: var(--type-h6-strong);
-  color: var(--text-black);
+  color: var(--text-primary);
   margin: 0 0 4px;
 }
 .sw-group__items { display: flex; flex-direction: column; }

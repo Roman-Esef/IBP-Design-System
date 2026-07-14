@@ -1,8 +1,8 @@
 ---
 component: Pagination
 title: "Pagination"
-version: "v1.3"
-updated: "08.07.2026"
+version: "v1.4"
+updated: "13.07.2026"
 page: pages/molecules/Pagination.html
 page_js: scripts/pagination.page.js
 css: styles/pagination.css

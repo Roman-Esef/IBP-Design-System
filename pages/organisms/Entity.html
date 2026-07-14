@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Entity" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -31,18 +31,18 @@ body{margin:0;font-family:var(--font-text),system-ui,sans-serif;color:var(--text
 .masthead .meta{font:var(--type-body-xs);color:var(--text-inactive);display:flex;gap:24px;margin:0 0 22px;flex-wrap:wrap;}
 .masthead .meta b{color:var(--text-secondary);font-weight:600;}
 .eyebrow{font:var(--type-button-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin:0 0 14px;}
-.masthead h1{font:var(--type-h1);margin:0 0 14px;color:var(--text-black);}
+.masthead h1{font:var(--type-h1);margin:0 0 14px;color:var(--text-primary);}
 @media(max-width:600px){.masthead h1{font-size:40px;line-height:48px;}}
 .masthead p.lead{font:var(--type-body-l);color:var(--text-secondary);margin:0;max-width:66ch;text-wrap:pretty;}
 .crumb{display:inline-flex;align-items:center;gap:7px;font:var(--type-body-s);color:var(--text-inactive);text-decoration:none;margin-bottom:20px;}
 .crumb:hover{color:var(--primary);}
 a{color:var(--link);} a:hover{color:var(--link-dark);}
 .section{margin-top:76px;}
-.section>h2{font:var(--type-h3-strong);margin:0 0 8px;color:var(--text-black);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.section>h2{font:var(--type-h3-strong);margin:0 0 8px;color:var(--text-primary);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
 .section>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 28px;max-width:80ch;text-wrap:pretty;}
 .panel{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:16px;padding:32px 34px;}
 .panel+.panel{margin-top:16px;}
-.subhead{font:var(--type-body-m-strong);color:var(--text-black);margin:32px 0 14px;}
+.subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:32px 0 14px;}
 .subhead:first-child{margin-top:0;}
 ul.bullets{margin:0 0 0 2px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;}
 ul.bullets li{position:relative;padding-left:18px;font:var(--type-body-m);color:var(--text-secondary);}
@@ -77,24 +77,24 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 @media(max-width:820px){.anat{grid-template-columns:1fr;}}
 .anat__stage{background:color-mix(in srgb,var(--primary) 5%,#fff);border:1px solid var(--border-light);border-radius:14px;padding:44px 40px;display:flex;justify-content:center;}
 .anat-dia{position:relative;display:inline-block;width:100%;max-width:420px;background:var(--bg-tile);border:1px solid var(--border-light);border-radius:12px;padding:16px 18px;}
-.mk{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--text-black);color:#fff;font:700 12px/22px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:5;pointer-events:none;}
+.mk{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--text-primary);color:#fff;font:700 12px/22px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:5;pointer-events:none;}
 .anat__legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
 .anat__legend li{display:flex;gap:12px;align-items:flex-start;}
 .anat__legend li .n{width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font:700 12px/22px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;}
-.anat__legend li .k{font:var(--type-body-m-strong);color:var(--text-black);display:block;}
+.anat__legend li .k{font:var(--type-body-m-strong);color:var(--text-primary);display:block;}
 .anat__legend li .d{font:var(--type-body-s);color:var(--text-secondary);}
 .anat__legend li .d em{font-style:normal;color:var(--text-inactive);}
 /* sizes rail */
 .size-rail{display:flex;flex-direction:column;gap:0;}
 .size-row{display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--border-light);}
 .size-row:last-child{border-bottom:none;}
-.size-tag{font:var(--type-body-s-strong);color:var(--text-black);}
+.size-tag{font:var(--type-body-s-strong);color:var(--text-primary);}
 .size-tag small{display:block;font:var(--type-body-xs);color:var(--text-inactive);font-weight:400;margin-top:2px;}
 /* usage example cards */
 .ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 @media(max-width:760px){.ex-grid{grid-template-columns:1fr;}}
 .ex-card{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:12px;padding:20px 22px;}
-.ex-card__title{font:var(--type-body-m-strong);color:var(--text-black);margin:0 0 16px;}
+.ex-card__title{font:var(--type-body-m-strong);color:var(--text-primary);margin:0 0 16px;}
 .ex-card__list{display:flex;flex-direction:column;gap:14px;}
 .ex-cap{font:var(--type-body-xs);color:var(--text-inactive);margin:10px 0 0;}
 .ex-more{font:var(--type-body-s);color:var(--link);margin:14px 0 0;cursor:pointer;}
@@ -132,7 +132,7 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .cref{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
 @media(max-width:700px){.cref{grid-template-columns:1fr;}}
 .cref-group{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:14px;overflow:hidden;}
-.cref-group>h3{font:var(--type-body-m-strong);margin:0;padding:14px 18px;border-bottom:1px solid var(--border-light);color:var(--text-black);}
+.cref-group>h3{font:var(--type-body-m-strong);margin:0;padding:14px 18px;border-bottom:1px solid var(--border-light);color:var(--text-primary);}
 .cref-row{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-secondary);}
 .cref-row:last-child{border-bottom:none;}
 .cref-row .sw{width:16px;height:16px;border-radius:4px;border:1px solid rgba(40,50,55,.1);}
@@ -145,7 +145,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -160,8 +160,8 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.0</b></span>
-    <span>Обновлено <b>08.07.2026</b></span>
+    <span>Версия <b>v1.1</b></span>
+    <span>Обновлено <b>13.07.2026</b></span>
     <span>CSS <b>styles/entity.css</b></span>
     <span>Зависимости <b>avatar, chip, icon-button, button, badge</b></span>
   </div>
@@ -514,10 +514,15 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   </div>
 </section>
 
-  <!-- BEHAVIOR (STUB) -->
+  <!-- BEHAVIOR -->
   <section class="section" data-screen-label="Behavior">
     <h2>Поведение</h2>
-    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+    <p class="desc">Клик по кликабельному тайлу и вложенные действия.</p>
+
+<div class="subsec" data-screen-label="ClickTarget">
+    <h3>Клик по тайлу и вложенные действия</h3>
+    <p class="desc">В интерактивном режиме (<code class="tok">entity--interactive</code>) кликабельна вся строка целиком, а не только Label — это увеличивает область попадания и упрощает выбор в списках. Если внутри тайла есть собственные интерактивные элементы (кнопка действия, чекбокс выбора), их клик не должен всплывать до обработчика строки (<code class="tok">stopPropagation</code>) — иначе клик по кнопке «Удалить» одновременно откроет/выберет саму сущность.</p>
+  </div>
   </section>
 
   <!-- 6. СОСТОЯНИЯ -->
@@ -614,7 +619,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   <div class="cref">
     <div class="cref-group">
       <h3>Текст</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--text-black);"></span><b>--text-black</b><span>Label</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Label</span></div>
       <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Счётчик +N</span></div>
       <div class="cref-row"><span class="sw" style="background:var(--text-secondary);"></span><b>--text-secondary</b><span>Подзаголовки</span></div>
       <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>Header, постфикс, «—»</span></div>
@@ -622,7 +627,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     <div class="cref-group">
       <h3>Ведущая иконка</h3>
       <div class="cref-row"><span class="sw" style="background:var(--c-swamp-100);"></span><b>--c-swamp-100</b><span>Фон (по умолчанию)</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-on-tertiary);"></span><b>--text-on-tertiary</b><span>Глиф (по умолчанию)</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Глиф (по умолчанию)</span></div>
       <div class="cref-row"><span class="sw" style="background:var(--primary-dark);"></span><b>--primary-dark</b><span>Глиф (тон accent)</span></div>
       <div class="cref-row"><span class="sw" style="background:var(--c-cgrey-100);"></span><b>--c-cgrey-100</b><span>Фон (тон neutral)</span></div>
     </div>
@@ -668,53 +673,6 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     </div>
   </div>
 
-  <p class="subhead">Анатомия DOM</p>
-  <div class="code-wrap">
-    <button class="copy-btn" data-copy="dom">Скопировать</button>
-    <code id="code-dom">&lt;!-- size: entity--s (32) | entity--m (40) | entity--l (96) --&gt;
-&lt;div class="entity entity--m"&gt;
-
-  &lt;!-- Ведущий: иконка / аватар / чекбокс / грип; aria-hidden для декора --&gt;
-  &lt;div class="entity__lead"&gt;
-    &lt;span class="entity__icon" aria-hidden="true"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/span&gt;
-    &lt;!-- или: &lt;span class="av av--circular av--l"&gt;…&lt;/span&gt; --&gt;
-  &lt;/div&gt;
-
-  &lt;div class="entity__main"&gt;
-    &lt;div class="entity__titles"&gt;
-      &lt;p class="entity__header"&gt;Header&lt;/p&gt;                    &lt;!-- опц. --&gt;
-      &lt;div class="entity__labelrow"&gt;
-        &lt;span class="entity__prefix-icon"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/span&gt;   &lt;!-- опц. --&gt;
-        &lt;span class="entity__prefix"&gt;Pref&lt;/span&gt;               &lt;!-- опц. --&gt;
-        &lt;span class="entity__label entity__label--truncate"&gt;Text Label&lt;/span&gt;
-        &lt;span class="entity__postfix"&gt;Postf&lt;/span&gt;             &lt;!-- опц. --&gt;
-        &lt;button class="entity__bookmark" aria-label="В избранное"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;!-- EntitySubtitleGroup — опц. --&gt;
-    &lt;div class="entity__subs"&gt;
-      &lt;span class="entity__subs-icon"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/span&gt;
-      &lt;span class="entity__subs-list"&gt;Subheader, Subheader, Subheader&lt;/span&gt;
-      &lt;span class="entity__subs-more"&gt;+99&lt;/span&gt;
-    &lt;/div&gt;
-
-    &lt;div class="entity__chips"&gt;…Chip readonly S…&lt;/div&gt;       &lt;!-- опц. --&gt;
-
-    &lt;!-- EntityIconButtonGroup — опц. --&gt;
-    &lt;div class="entity__icons"&gt;
-      &lt;button class="ibtn ibtn--neutral ibtn--s" aria-label="Позвонить"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;!-- EntityActions — опц., до 2 кнопок + закрытие; выравнивание по верху --&gt;
-  &lt;div class="entity__actions"&gt;
-    &lt;button class="btn btn--outline btn--xs" aria-haspopup="menu"&gt;…&lt;/button&gt;
-    &lt;button class="ibtn ibtn--neutral ibtn--s" aria-label="Убрать"&gt;&lt;svg…&gt;&lt;/svg&gt;&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code>
-  </div>
-
   <p class="subhead">Поведение (framework-agnostic)</p>
   <div class="code-wrap">
     <button class="copy-btn" data-copy="logic">Скопировать</button>
@@ -747,84 +705,7 @@ if (more > 0) render(<span class="entity__subs-more">+{more}</span>)
 //    Порядок кнопок = порядку в заголовке страницы.</code>
   </div>
 
-  <p class="subhead">Рекомендуемый API компонента (React)</p>
-  <div class="code-wrap">
-    <button class="copy-btn" data-copy="api">Скопировать</button>
-    <code id="code-api">type EntitySize = 's' | 'm' | 'l';           // 32 | 40 | 96
-type EntityState = 'default' | 'selected' | 'loading' | 'empty' | 'error';
-
-interface EntityLead {
-  kind: 'icon' | 'avatar' | 'checkbox' | 'none';
-  glyph?: string;            // имя иконки (kind='icon')
-  tone?: 'default' | 'accent' | 'neutral';
-  avatar?: AvatarProps;      // kind='avatar'
-}
-
-interface EntityAction {
-  label: string;
-  onClick(): void;
-  menu?: MenuItem[];         // кебаб / дропдаун
-}
-
-interface EntityProps {
-  size?: EntitySize;         // default 'm'
-  state?: EntityState;       // default 'default'
-  lead?: EntityLead;
-
-  header?: string;
-  prefix?: { icon?: string; text?: string };
-  label: React.ReactNode;
-  postfix?: string;
-  truncate?: boolean;        // усекать Label + Tooltip; default true
-  bookmark?: { active: boolean; onToggle(): void };
-
-  subheaders?: string[];     // список; свёртка в +N автоматически
-  chips?: React.ReactNode;   // ChipList
-  icons?: EntityAction[];    // EntityIconButtonGroup
-
-  actions?: EntityAction[];  // максимум 2, иначе кебаб-меню
-
-  interactive?: boolean;     // кликабельный тайл
-  selected?: boolean;
-  onSelect?(): void;
-  draggable?: boolean;       // drag-handle
-}
-// ⚠️ Предложение, не жёсткий контракт.</code>
-  </div>
-
-  <p class="subhead">Справочник классов и атрибутов</p>
-  <div class="panel" style="padding:0;overflow:hidden;">
-    <table class="ref-table">
-      <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-      <tbody>
-        <tr><td><code class="tok">.entity</code></td><td>div</td><td>Корень: flex-строка, align-items center, width 100%, без фона</td></tr>
-        <tr><td><code class="tok">.entity--s / --m / --l</code></td><td>.entity</td><td>Размер: 32 / 40 / 96px; масштабирует токены --e-*</td></tr>
-        <tr><td><code class="tok">.entity--inline</code></td><td>.entity</td><td>inline-flex, ширина по контенту (таблицы, чипы)</td></tr>
-        <tr><td><code class="tok">.entity__lead</code></td><td>div</td><td>Ведущий слот: иконка / аватар / чекбокс / грип</td></tr>
-        <tr><td><code class="tok">.entity__icon</code></td><td>span</td><td>Скруглённый контейнер иконки; тон <code>--accent</code>/<code>--neutral</code></td></tr>
-        <tr><td><code class="tok">.entity__main</code></td><td>div</td><td>flex-колонка контента; min-width 0 (усечение)</td></tr>
-        <tr><td><code class="tok">.entity__titles</code></td><td>div</td><td>Header + строка Label с малым зазором</td></tr>
-        <tr><td><code class="tok">.entity__header</code></td><td>p</td><td>Надзаголовок, Body XS, inactive; усекается</td></tr>
-        <tr><td><code class="tok">.entity__labelrow</code></td><td>div</td><td>Строка: prefix · label · postfix · bookmark (baseline)</td></tr>
-        <tr><td><code class="tok">.entity__label</code></td><td>span</td><td>Основной текст, *-strong, --text-black</td></tr>
-        <tr><td><code class="tok">.entity__label--truncate</code></td><td>.entity__label</td><td>Усечение в одну строку + Tooltip</td></tr>
-        <tr><td><code class="tok">.entity__prefix / __postfix</code></td><td>span</td><td>Серые аффиксы (inactive)</td></tr>
-        <tr><td><code class="tok">.entity__bookmark</code></td><td>button</td><td>Иконка избранного; <code>--active</code> = primary</td></tr>
-        <tr><td><code class="tok">.entity__subs</code></td><td>div</td><td>EntitySubtitleGroup: icon + список + +N; клэмп 2 строки</td></tr>
-        <tr><td><code class="tok">.entity__subs--single</code></td><td>.entity__subs</td><td>Клэмп 1 строка</td></tr>
-        <tr><td><code class="tok">.entity__chips</code></td><td>div</td><td>Обёртка ChipList (Chip readonly S)</td></tr>
-        <tr><td><code class="tok">.entity__icons</code></td><td>div</td><td>EntityIconButtonGroup: ряд IconButton S</td></tr>
-        <tr><td><code class="tok">.entity__actions</code></td><td>div</td><td>EntityActions: до 2 кнопок + закрытие; align-self start</td></tr>
-        <tr><td><code class="tok">.entity__drag</code></td><td>button</td><td>Грип переупорядочивания (drag-dots)</td></tr>
-        <tr><td><code class="tok">.entity--interactive</code></td><td>.entity</td><td>Кликабельный тайл: hover-фон, фокус-обводка</td></tr>
-        <tr><td><code class="tok">.entity--selected</code></td><td>.entity</td><td>Выбран: фон --primary-bg</td></tr>
-        <tr><td><code class="tok">.entity--skeleton</code></td><td>.entity</td><td>Загрузка: плейсхолдеры + шиммер; <code>aria-busy</code></td></tr>
-        <tr><td><code class="tok">.entity--empty</code></td><td>.entity</td><td>Нет данных: Label = «—», inactive</td></tr>
-        <tr><td><code class="tok">.entity--error</code></td><td>.entity</td><td>Объект удалён: иконка error, Label зачёркнут</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+  </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Entity</span>

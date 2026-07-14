@@ -1,8 +1,8 @@
 ---
 component: InputText
 title: "InputText"
-version: "v1.1"
-updated: "09.07.2026"
+version: "v1.5"
+updated: "12.07.2026"
 page: pages/molecules/InputText.html
 page_js: scripts/input-text.page.js
 css: styles/input.css
@@ -22,10 +22,10 @@ status: curated
 - **Размеры** — M (высота 40px, текст Body M) — основной; S (32px, Body S) — только Table Edit. Ширину задаёт контейнер.
 - **Контент** — метка-существительное без двоеточия; плейсхолдер = формат/пример, не дублирует метку; хелпер = правило (в Error → текст ошибки); префикс/постфикс — неизменяемые единицы.
 - **Поведение** — плейсхолдер исчезает при вводе (не при фокусе); крестик только у заполненного поля; очищенное поле по blur возвращается в пустое; многострочный растёт по высоте.
-- **Состояния** — Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled. Тултип ошибки/предупреждения — в *Focus.
+- **Состояния** — Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled. Фокус — бордер 2px `--primary` + кольцо `--primary-bg-light`; `box-sizing:border-box` держит габариты. ПРАВИЛО: текст ошибки/предупреждения по умолчанию НЕ в хелпере — только в тултипе при *Focus; тултип не смещает хелпер (position:absolute, z-index выше поля). helperError:true — намеренное исключение.
 - **Доступность** — `label[for]`, `aria-describedby`, `aria-invalid="true"`; ошибка не только цветом; крестик — button с aria-label.
 - **Типографика** — значение SB Sans Text (M — Body M, S — Body S); Label/Helper — Body XS.
-- **Цвета** — фон `--bg-tile`, рамка `--border-primary`, hover/focus `--primary` (+ тень `--primary-bg-light`), Error `--error`, Warning `--warning`, disabled `--st-disabled-light`, плейсхолдер/префикс/постфикс `--text-inactive`.
+- **Цвета** — фон `--bg-tile`, рамка `--border-primary`, hover/focus `--primary` (+ тень `--primary-bg-light`), Error `--error`, Warning `--warning`, disabled `--st-disabled-light`,плейсхолдер/префикс/постфикс `--text-inactive`. Иконки в поле (ведущая + действия) — Active · `--secondary`, hover → `--secondary-dark`.
 
 ## Для разработчиков (выжимка)
 

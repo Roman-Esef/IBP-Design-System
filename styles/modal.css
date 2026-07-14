@@ -57,8 +57,8 @@
   --modal-scrim: color-mix(in srgb, var(--st-grey) 48%, transparent);
 
   /* z-index — выше остальных слоёв ДС (nav 50/60, toast 40/55/60, меню 30/40) */
-  --modal-z: 1000;
-  --modal-z-nested: 1010; /* вложенный (confirm) диалог поверх открытой модалки */
+  --modal-z: 1000; /* @kind other */
+  --modal-z-nested: 1010; /* @kind other — вложенный (confirm) диалог поверх открытой модалки */
 }
 
 /* =========================================================================
@@ -149,7 +149,7 @@
 .modal__title {
   margin: 0;
   font: var(--type-h5-strong);
-  color: var(--text-black);
+  color: var(--text-primary);
   flex: 1 1 auto;
   min-width: 0;
   text-wrap: pretty; /* заголовок переносится на 2 строки, а не обрезается */

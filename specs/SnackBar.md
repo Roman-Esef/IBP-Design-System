@@ -2,7 +2,7 @@
 component: SnackBar
 title: "SnackBar"
 version: "v1.0"
-updated: "08.07.2026"
+updated: "13.07.2026"
 page: pages/organisms/SnackBar.html
 css: styles/snackbar.css
 deps: [button, link]

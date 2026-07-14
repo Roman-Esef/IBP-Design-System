@@ -9,7 +9,14 @@
    ========================================================================= */
 
 .link {
-  /* color comes from the tone; default = accent */
+  /* color comes from the tone; default = accent.
+     --link-fg* — инаследуемые токены темы (Alert/SnackBar переопределяют
+     их для вложенных ссылок). Дефолты (= accent) живут в корне
+     компонента (разрешёно), а не в :not()-правиле — элемент-level значения
+     идентичны прежнему дефолту. */
+  --link-fg:        var(--link);
+  --link-fg-hover:  var(--link-dark);
+  --link-fg-active: var(--c-emerald-900);
   color: var(--link-fg, var(--link));
   text-decoration: none;
   text-decoration-color: currentColor;
@@ -25,23 +32,22 @@
 .link--m { font: var(--type-body-m); letter-spacing: 0; }
 .link--s { font: var(--type-body-s); letter-spacing: 0; }
 
-/* ---------- tones --------------------------------------------------------- */
+/* ---------- tones --------------------------------------------------------- *
+   Тон = цвет напрямую (не через --link-fg* в модификаторе). Префикс
+   .link.link--X — чтобы hover/active перебивали базовые :hover/:active независимо от порядка. */
 /* accent — layout & modal links (primary) */
-.link--accent  { --link-fg: var(--link);          --link-fg-hover: var(--link-dark);     --link-fg-active: var(--c-emerald-900); }
+.link.link--accent  { color: var(--link); }
+.link.link--accent:hover, .link.link--accent.is-hover, .link.link--accent:focus-visible, .link.link--accent.is-focus { color: var(--link-dark); }
+.link.link--accent:active, .link.link--accent.is-pressed { color: var(--c-emerald-900); }
 /* muted — Breadcrumbs_1 (ancestor / secondary crumbs) */
-.link--muted   { --link-fg: var(--text-inactive); --link-fg-hover: var(--text-secondary); --link-fg-active: var(--text-primary); }
+.link.link--muted   { color: var(--text-inactive); }
+.link.link--muted:hover, .link.link--muted.is-hover, .link.link--muted:focus-visible, .link.link--muted.is-focus { color: var(--text-secondary); }
+.link.link--muted:active, .link.link--muted.is-pressed { color: var(--text-primary); }
 /* neutral — Breadcrumbs_2 (emphasised crumb): non-interactive, Default only */
-.link--neutral {
-  --link-fg: var(--text-black);
-  --link-fg-hover: var(--text-black);
-  --link-fg-active: var(--text-black);
+.link.link--neutral {
+  color: var(--text-primary);
   cursor: default;
   pointer-events: none;
-}
-
-/* default tone if none set */
-.link:not([class*="link--accent"]):not([class*="link--muted"]):not([class*="link--neutral"]) {
-  --link-fg: var(--link); --link-fg-hover: var(--link-dark); --link-fg-active: var(--c-emerald-900);
 }
 
 /* ---------- hover = focus (underline) ------------------------------------- */
@@ -69,7 +75,7 @@
 .link--neutral.is-focus,
 .link--neutral:active,
 .link--neutral.is-pressed {
-  color: var(--link-fg);
+  color: var(--text-primary);
   text-decoration-line: none;
   outline: none;
 }

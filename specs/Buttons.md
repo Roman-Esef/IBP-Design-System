@@ -1,8 +1,8 @@
 ---
 component: Buttons
 title: "Button"
-version: "v1.4"
-updated: "08.07.2026"
+version: "v1.5"
+updated: "14.07.2026"
 page: pages/atoms/Buttons.html
 css: styles/button.css
 status: auto

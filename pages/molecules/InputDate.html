@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="InputDate" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -23,7 +23,7 @@
 <main class="page" data-screen-label="InputDate">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>09.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>12.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputDate</h1>
     <p class="lead">Компонент ввода даты: поле с маской и кнопкой-календарём. При фокусе на поле поднимается DatePicker (календарь — отдельный компонент, будет описан позже). Построен на той же базе Input_Content, что и <a class="inl" href="InputText.html">InputText</a> и <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a>, — состояния и размеры общие.</p>
@@ -152,7 +152,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Восемь состояний, общих для всех типов поля. Тултип с текстом ошибки или предупреждения появляется в состояниях ErrorFocus и WarningFocus.</p>
+    <p class="desc">Восемь состояний, общих для всех типов поля. Текст ошибки или предупреждения по умолчанию не выносится в хелпер — хелпер остаётся правилом заполнения — и показывается только в тултипе в состояниях ErrorFocus и WarningFocus. Тултип не смещает хелпер: лежит поверх потока, z-index выше поля. Исключение из правила допустимо, если оно намеренно заложено при разработке.</p>
     <div class="panel"><div class="demo-grid" id="states-demo"></div></div>
 
     <div class="subsec" data-screen-label="FillStates">
@@ -218,31 +218,8 @@
       <code class="tok">styles/input.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"inp inp--m"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;label</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-label ds-label--left"</span> <span class="tk-attr">for=</span><span class="tk-val">"d1"</span><span class="tk-tag">&gt;&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-label__text"</span><span class="tk-tag">&gt;</span>Дата подписания<span class="tk-tag">&lt;/span&gt;&lt;/label&gt;</span>
-
-  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__field"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-cm">&lt;!-- маска в placeholder; inputmode=numeric для мобильной клавиатуры --&gt;</span>
-    <span class="tk-tag">&lt;input</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__control"</span> <span class="tk-attr">id=</span><span class="tk-val">"d1"</span> <span class="tk-attr">placeholder=</span><span class="tk-val">"ММ.ДД.ГГГГ"</span> <span class="tk-attr">inputmode=</span><span class="tk-val">"numeric"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__acts"</span><span class="tk-tag">&gt;</span>
-      <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__act"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Очистить поле"</span><span class="tk-tag">&gt;</span>…✕…<span class="tk-tag">&lt;/button&gt;</span>
-      <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"inp__act"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Открыть календарь"</span> <span class="tk-attr">aria-haspopup=</span><span class="tk-val">"dialog"</span><span class="tk-tag">&gt;</span>…📅…<span class="tk-tag">&lt;/button&gt;</span>
-    <span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/div&gt;</span>
-
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"ds-helper ds-helper--left"</span><span class="tk-tag">&gt;</span>Helper<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span>
-
-<span class="tk-cm">&lt;!-- состояния и Table Edit — как у InputText: .inp--error/--warning/--disabled, .inp--s --&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -262,42 +239,7 @@
 <span class="tk-cm">//    возвращается в пустое состояние.</span></code></pre>
     </div>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">InputDate.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">interface</span> InputDateProps {
-  value: Date | <span class="tk-attr">null</span>;
-  onChange(value: Date | <span class="tk-attr">null</span>): <span class="tk-attr">void</span>;
-  size?: <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span>;               <span class="tk-cm">// s — только Table Edit</span>
-  label?: <span class="tk-attr">string</span>;
-  helper?: <span class="tk-attr">string</span>;
-  mask?: <span class="tk-attr">string</span>;                   <span class="tk-cm">// по умолчанию 'ММ.ДД.ГГГГ'</span>
-  min?: Date;
-  max?: Date;
-  status?: <span class="tk-val">'default'</span> | <span class="tk-val">'error'</span> | <span class="tk-val">'warning'</span>;
-  statusMessage?: <span class="tk-attr">string</span>;          <span class="tk-cm">// тултип при фокусе</span>
-  informer?: React.ReactNode;       <span class="tk-cm">// опционально, обычно нет</span>
-  disabled?: <span class="tk-attr">boolean</span>;
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.inp / .inp--m / .inp--s / .inp--error / .inp--warning / .inp--disabled</code></td><td>div</td><td class="dsc">База — общая с InputText (см. её справочник)</td></tr>
-          <tr><td><code class="tok">.inp__act[aria-label="Открыть календарь"]</code></td><td>button</td><td class="dsc">Кнопка-календарь; фиксированная, всегда последняя в ряду действий</td></tr>
-          <tr><td><code class="tok">input[inputmode="numeric"]</code></td><td>input</td><td class="dsc">Цифровая клавиатура на мобильных; маска в placeholder</td></tr>
-          <tr><td><code class="tok">aria-haspopup="dialog" / aria-expanded</code></td><td>button</td><td class="dsc">Связь с DatePicker (отдельный компонент)</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <!-- BACKLOG -->
   <div class="backlog" data-screen-label="Backlog">

@@ -139,7 +139,7 @@
 .rb-group { display: flex; flex-direction: column; }
 .rb-group__title {
   font: var(--type-h6-strong);
-  color: var(--text-black);
+  color: var(--text-primary);
   margin: 0 0 4px;
   display: inline-flex;
   align-items: flex-start;

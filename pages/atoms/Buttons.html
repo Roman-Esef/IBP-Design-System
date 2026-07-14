@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Buttons" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -24,13 +24,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:58ch; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:70ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
 
@@ -65,8 +65,8 @@
   .ref-table th, .ref-table td { text-align:left; padding:16px 16px; border-bottom:1px solid var(--border-light); font: var(--type-body-m); color: var(--text-primary); vertical-align:middle; }
   .ref-table th { font: var(--type-body-s-strong); color: var(--text-secondary); text-transform:uppercase; letter-spacing:.04em; font-size:12px; }
   .ref-table tr:last-child td { border-bottom:none; }
-  .ref-table .rt-size { font: var(--type-body-m-strong); color: var(--text-black); }
-  .ref-table .rt-sample { color: var(--text-black); }
+  .ref-table .rt-size { font: var(--type-body-m-strong); color: var(--text-primary); }
+  .ref-table .rt-sample { color: var(--text-primary); }
   .ref-table .rt-tok code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; color: var(--primary); }
   .ref-table .rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
 
@@ -93,7 +93,7 @@
   /* states matrix */
   .matrix { display:grid; grid-template-columns: 150px repeat(4, 1fr); gap:18px 20px; align-items:center; }
   .matrix .col-head { font: var(--type-body-m); color: var(--text-secondary); text-align:left; }
-  .matrix .grouphdr { grid-column:1 / -1; font: var(--type-h6-strong); color: var(--text-black); margin-top:10px; }
+  .matrix .grouphdr { grid-column:1 / -1; font: var(--type-h6-strong); color: var(--text-primary); margin-top:10px; }
   .matrix .rowname { font: var(--type-body-m-strong); color: var(--text-primary); }
   .matrix .rowname.sub { font: var(--type-body-m); color: var(--text-secondary); }
   .matrix .cell { display:flex; }
@@ -174,9 +174,9 @@
   .dropdown__item:hover { background: var(--bgtable-row-hover); }
   .dropdown__item:active { background: var(--bgtable-row-focus); }
   .typecols { display:grid; grid-template-columns: 44px repeat(3, auto); gap:0 56px; min-width:min-content; }
-  .typecols .th { font: var(--type-h5-strong); color: var(--text-black); padding:0 0 20px; }
+  .typecols .th { font: var(--type-h5-strong); color: var(--text-primary); padding:0 0 20px; }
   .typecols .sz { display:flex; align-items:center; justify-content:center; }
-  .typecols .sz .badge { font: var(--type-body-s-strong); color: var(--text-on-tertiary); background: var(--tertiary); padding:6px 9px; border-radius:6px; letter-spacing:.05em; }
+  .typecols .sz .badge { font: var(--type-body-s-strong); color: var(--text-primary); background: var(--tertiary); padding:6px 9px; border-radius:6px; letter-spacing:.05em; }
   .stack { display:flex; flex-direction:column; gap:10px; padding:14px 0 26px; }
   .stack .pair { display:flex; gap:10px; align-items:center; }
 
@@ -187,7 +187,7 @@
   .hint { font: var(--type-body-s); color: var(--text-inactive); margin-top:14px; }
 
   .addon { font: var(--type-button-xs); letter-spacing:.06em; text-transform:uppercase; color: var(--primary); background: var(--primary-bg); padding:5px 10px; border-radius:999px; }
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 30px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
 
@@ -195,7 +195,7 @@
   .rules { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px; }
   .rules li { font: var(--type-body-m); color: var(--text-primary); padding-left:26px; position:relative; text-wrap:pretty; }
   .rules li::before { content:""; position:absolute; left:2px; top:9px; width:7px; height:7px; border-radius:50%; background: var(--primary); }
-  .rules li b { color: var(--text-black); }
+  .rules li b { color: var(--text-primary); }
 
   /* ---------- developer handoff ---------- */
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -243,7 +243,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -253,7 +253,7 @@
 <main class="page" data-screen-label="Button">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>14.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Button</h1>
     <p class="lead">Кнопка инициирует действие. Три типа, три размера, состояния Default / Hover / Active / Disabled, лоадер и режим Fullwidth. Модификатор <code class="tok">--danger</code> комбинируется с любым типом — для деструктивных действий (диалог подтверждения удаления). Текст кнопок набран токенами Button&nbsp;M&nbsp;/&nbsp;S&nbsp;/&nbsp;XS (SB Sans Screen).</p>
@@ -305,7 +305,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Danger">
-    <h3>Danger<span class="badge-new">Новое</span></h3>
+    <h3>Danger</h3>
     <p class="desc">Модификатор, а не отдельный тип — комбинируется с Accent / Outline / Transparent и меняет только цвет на токены <code class="tok">Error</code>. Используется для деструктивного действия в диалоге подтверждения (например «Удалить» в confirm-модалке, см. <a class="inl" href="../organisms/Modal.html">Modal</a>). Не применяйте Danger к обычному «Удалить» в подвале формы — там кнопка остаётся Transparent, деструктивность подтверждает отдельный диалог, а не цвет.</p>
     <div class="panel"><div class="row" id="danger-row"></div></div>
   </div>
@@ -392,7 +392,7 @@
 
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
-    <h2>Доступность <span class="addon">Расширение</span></h2>
+    <h2>Доступность</h2>
     <p class="desc">Кнопка — нативный <code class="tok">&lt;button type="button"&gt;</code>: Enter и Space работают из коробки. Фокус — <code class="tok">outline: 2px var(--primary)</code> с отступом 2px, только по <code class="tok">:focus-visible</code>. Disabled задаётся атрибутом <code class="tok">disabled</code>. В состоянии Loader кнопка не интерактивна (<code class="tok">pointer-events: none</code>) — дополнительно ставьте <code class="tok">aria-busy="true"</code> и держите её disabled до конца процесса. Icon-only обязана иметь <code class="tok">aria-label</code>. Кнопка с шевроном получает <code class="tok">aria-haspopup="menu"</code> и <code class="tok">aria-expanded</code>; меню — <code class="tok">role="menu"</code> с пунктами <code class="tok">role="menuitem"</code>, Esc закрывает меню и возвращает фокус на кнопку. Спиннер замедляется при <code class="tok">prefers-reduced-motion</code>.</p>
   </section>
 
@@ -417,7 +417,7 @@
 
   <!-- DEVELOPER HANDOFF -->
   <section class="section" data-screen-label="Dev">
-    <h2>Для разработчиков <span class="addon">Расширение</span></h2>
+    <h2>Для разработчиков</h2>
     <p class="desc">Эта страница ДС собрана на чистых CSS-классах и vanilla JS — но всё ниже не привязано к стеку: команда, которая верстает компонент на React (или любом другом фреймворке), может взять отсюда анатомию, точные размеры, состояния и цвета, не заглядывая в этот код построчно.</p>
 
     <p class="subhead">Точные размеры (redline)</p>
@@ -437,37 +437,8 @@
       <code class="tok">styles/button.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- иконка слева и/или текст и/или иконка справа; справа — иконка ИЛИ шеврон, не оба --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--m"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;</span>                <span class="tk-cm">&lt;!-- иконка слева, 20/18/16 px --&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"btn__label"</span><span class="tk-tag">&gt;</span>Применить<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/button&gt;</span>
-
-<span class="tk-cm">&lt;!-- кнопка-меню: шеврон справа, клик только открывает меню --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--outline btn--m"</span> <span class="tk-attr">aria-haspopup=</span><span class="tk-val">"menu"</span> <span class="tk-attr">aria-expanded=</span><span class="tk-val">"false"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"btn__label"</span><span class="tk-tag">&gt;</span>Действия<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;svg</span> <span class="tk-attr">class=</span><span class="tk-val">"btn__chevron"</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;</span>
-<span class="tk-tag">&lt;/button&gt;</span>
-
-<span class="tk-cm">&lt;!-- icon-only: квадратный паддинг, обязателен aria-label --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--outline btn--s btn--icon-only"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Скачать"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;svg</span> <span class="tk-attr">aria-hidden=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/svg&gt;</span>
-<span class="tk-tag">&lt;/button&gt;</span>
-
-<span class="tk-cm">&lt;!-- loading: спиннер на месте левой иконки, кнопка удерживается в disabled --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"btn btn--accent btn--m btn--loading"</span> <span class="tk-attr">disabled</span> <span class="tk-attr">aria-busy=</span><span class="tk-val">"true"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"btn__spinner"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"btn__label"</span><span class="tk-tag">&gt;</span>Применить<span class="tk-tag">&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/button&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -494,49 +465,7 @@ leftSlot = loading ? Spinner : iconLeft
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который нужно реализовать поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">makeBtn</code>, <code class="tok">attachLoader</code> и <code class="tok">makeDropdown</code> в коде этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Button.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> ButtonVariant = <span class="tk-val">'accent'</span> | <span class="tk-val">'outline'</span> | <span class="tk-val">'transparent'</span>;
-<span class="tk-attr">type</span> ButtonSize = <span class="tk-val">'m'</span> | <span class="tk-val">'s'</span> | <span class="tk-val">'xs'</span>;
-
-<span class="tk-attr">interface</span> ButtonProps <span class="tk-attr">extends</span> React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt; {
-  variant?: ButtonVariant;     <span class="tk-cm">// по умолчанию 'accent'</span>
-  size?: ButtonSize;           <span class="tk-cm">// по умолчанию 'm'</span>
-  children?: React.ReactNode;  <span class="tk-cm">// текст; не задан → icon-only (обязателен aria-label)</span>
-  iconLeft?: React.ReactNode;  <span class="tk-cm">// 20/18/16 px по размеру</span>
-  iconRight?: React.ReactNode; <span class="tk-cm">// взаимоисключим с chevron</span>
-  chevron?: <span class="tk-attr">boolean</span>;           <span class="tk-cm">// кнопка-меню; исключает iconRight</span>
-  loading?: <span class="tk-attr">boolean</span>;           <span class="tk-cm">// спиннер + disabled + aria-busy</span>
-  fullWidth?: <span class="tk-attr">boolean</span>;         <span class="tk-cm">// icon-only не растягивается</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.btn</code></td><td>button</td><td class="dsc">Базовый класс: флекс-раскладка, типографика, переходы, focus-visible</td></tr>
-          <tr><td><code class="tok">.btn--accent / --outline / --transparent</code></td><td>button</td><td class="dsc">Тип кнопки — заливка, граница, цвет текста и состояния</td></tr>
-          <tr><td><code class="tok">.btn--danger</code></td><td>button</td><td class="dsc">Модификатор (не тип) — меняет цвет любого типа на токены Error; для диалогов подтверждения удаления</td></tr>
-          <tr><td><code class="tok">.btn--m / --s / --xs</code></td><td>button</td><td class="dsc">Размер: высота, паддинги, иконка, радиус, токен типографики</td></tr>
-          <tr><td><code class="tok">.btn--icon-only</code></td><td>button</td><td class="dsc">Кнопка без текста — квадратный паддинг, обязателен <code class="tok">aria-label</code></td></tr>
-          <tr><td><code class="tok">.btn--fullwidth</code></td><td>button</td><td class="dsc">Растягивает кнопку на 100% контейнера; icon-only не растягивается</td></tr>
-          <tr><td><code class="tok">.btn--loading</code></td><td>button</td><td class="dsc">Состояние загрузки — <code class="tok">pointer-events: none</code>, внутри <code class="tok">.btn__spinner</code></td></tr>
-          <tr><td><code class="tok">disabled</code> / <code class="tok">.btn--disabled</code></td><td>button</td><td class="dsc">Отключённое состояние; класс — для не-button элементов (например ссылок)</td></tr>
-          <tr><td><code class="tok">.is-hover / .is-active</code></td><td>button</td><td class="dsc">Форсированные состояния — только для спецификаций в документации, не для продакшена</td></tr>
-          <tr><td><code class="tok">.btn__label</code></td><td>span</td><td class="dsc">Текст кнопки, не переносится</td></tr>
-          <tr><td><code class="tok">.btn__chevron</code></td><td>svg</td><td class="dsc">Шеврон кнопки-меню — 80% размера иконки, поворачивается при открытом меню</td></tr>
-          <tr><td><code class="tok">.btn__spinner</code></td><td>span</td><td class="dsc">Лоадер — кольцо <code class="tok">currentColor</code>, размер иконки, уважает <code class="tok">prefers-reduced-motion</code></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Button</span>

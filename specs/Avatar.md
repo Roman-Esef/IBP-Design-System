@@ -1,8 +1,8 @@
 ---
 component: Avatar
 title: "Avatar"
-version: "v1.1"
-updated: "08.07.2026"
+version: "v1.2"
+updated: "13.07.2026"
 page: pages/atoms/Avatar.html
 css: styles/avatar.css
 deps: [badge]

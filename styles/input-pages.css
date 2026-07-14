@@ -17,18 +17,18 @@ a.inl:hover { color: var(--link-dark); }
 .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display: flex; gap: 24px; margin: 0 0 22px; }
 .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight: 600; }
 .eyebrow { font: var(--type-button-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--primary); margin: 0 0 14px; }
-.masthead h1 { font: var(--type-h1); margin: 0 0 14px; color: var(--text-black); }
+.masthead h1 { font: var(--type-h1); margin: 0 0 14px; color: var(--text-primary); }
 @media (max-width:600px){ .masthead h1 { font-size: 40px; line-height: 48px; } }
 .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin: 0; max-width: 66ch; text-wrap: pretty; }
 
 /* sections */
 .section { margin-top: 76px; }
-.section > h2 { font: var(--type-h3-strong); margin: 0 0 8px; color: var(--text-black); }
+.section > h2 { font: var(--type-h3-strong); margin: 0 0 8px; color: var(--text-primary); }
 .section > p.desc, .section .subsec > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin: 0 0 28px; max-width: 76ch; text-wrap: pretty; }
 .section > p.desc.tight, .section .subsec > p.desc.tight { margin-bottom: 20px; }
 .section > p.desc + p.desc { margin-top: -16px; }
 .section .subsec { margin-top: 48px; }
-.section .subsec > h3 { font: var(--type-h4-strong); margin: 0 0 8px; color: var(--text-black); }
+.section .subsec > h3 { font: var(--type-h4-strong); margin: 0 0 8px; color: var(--text-primary); }
 .badge-new { display: inline-block; font: var(--type-button-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--primary); background: var(--primary-bg); border: 1px solid color-mix(in srgb, var(--primary) 22%, transparent); padding: 3px 9px; border-radius: 999px; margin-left: 12px; vertical-align: middle; }
 
 .panel { background: var(--bg-tile); border: 1px solid var(--border-light); border-radius: 16px; padding: 32px 34px; }
@@ -87,7 +87,7 @@ code.tok { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-siz
 .anat__legend li { display: flex; gap: 14px; align-items: flex-start; font: var(--type-body-m); color: var(--text-primary); }
 .anat__legend li .n { counter-increment: a; flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; font: var(--type-body-s-strong); display: flex; align-items: center; justify-content: center; }
 .anat__legend li .n::before { content: counter(a); }
-.anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+.anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
 .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
 /* variants / sizes / states grids */
@@ -130,7 +130,7 @@ kbd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12
 .cref-hex { font: var(--type-body-s-strong); color: var(--text-secondary); font-variant-numeric: tabular-nums; text-align: right; flex: none; }
 
 /* developer handoff */
-.subhead { font: var(--type-body-m-strong); color: var(--text-black); margin: 0 0 16px; }
+.subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin: 0 0 16px; }
 .subhead.mt { margin-top: 34px; }
 .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight: 400; }
 .dev-intro { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: -6px 0 22px; }
@@ -164,7 +164,7 @@ kbd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12
 
 /* backlog */
 .backlog { margin-top: 76px; border: 1px dashed var(--border-primary); border-radius: 16px; padding: 28px 32px; }
-.backlog > h2 { font: var(--type-h4-strong); margin: 0 0 8px; color: var(--text-black); }
+.backlog > h2 { font: var(--type-h4-strong); margin: 0 0 8px; color: var(--text-primary); }
 .backlog > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin: 0 0 18px; max-width: 76ch; }
 
 footer.page-foot { margin-top: 90px; padding-top: 26px; border-top: 1px solid var(--border-light); font: var(--type-body-s); color: var(--text-inactive); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }

@@ -36,27 +36,29 @@
 /* ширина по контенту (в inline-контекстах — таблицы, чипы) */
 .entity--inline { display: inline-flex; width: auto; }
 
-/* ---------- размеры ------------------------------------------------------- */
-.entity--s {
-  --e-lead: 32px;  --e-lead-radius: var(--radius-l);  --e-lead-icon: 18px;
-  --e-gap: 10px;   --e-block-gap: 5px;
-  --e-font-label: var(--type-body-s-strong);
-  --e-font-affix: var(--type-body-s);
-  --e-font-sub: var(--type-body-xs);
-  --e-bookmark: 16px;
-}
-.entity--m {
-  --e-lead: 40px;  --e-lead-radius: var(--radius-xl); --e-lead-icon: 22px;
-}
-.entity--l {
-  --e-lead: 96px;  --e-lead-radius: var(--radius-5xl); --e-lead-icon: 48px;
-  --e-gap: 16px;   --e-head-gap: 3px; --e-block-gap: 8px;
-  --e-font-header: var(--type-body-s);
-  --e-font-label: var(--type-body-xl-strong);
-  --e-font-affix: var(--type-body-xl);
-  --e-font-sub: var(--type-body-m);
-  --e-bookmark: 22px;
-}
+/* ---------- размеры ------------------------------------------------------- *
+   Шкала размера — прямыми свойствами на конкретных потомках (не через --e-*
+   в модификаторе), чтобы компилятор чисто регистрировал токены. Размер m = дефолты
+   .entity (отдельных правил не требует). */
+.entity--s { gap: 10px; }
+.entity--s .entity__main { gap: 5px; }
+.entity--s .entity__icon { width: 32px; height: 32px; border-radius: var(--radius-l); }
+.entity--s .entity__icon > i, .entity--s .entity__icon > svg { width: 18px; height: 18px; }
+.entity--s .entity__label { font: var(--type-body-s-strong); }
+.entity--s .entity__prefix, .entity--s .entity__postfix { font: var(--type-body-s); }
+.entity--s .entity__subs { font: var(--type-body-xs); }
+.entity--s .entity__bookmark { width: 16px; height: 16px; }
+
+.entity--l { gap: 16px; }
+.entity--l .entity__titles { gap: 3px; }
+.entity--l .entity__main { gap: 8px; }
+.entity--l .entity__icon { width: 96px; height: 96px; border-radius: var(--radius-5xl); }
+.entity--l .entity__icon > i, .entity--l .entity__icon > svg { width: 48px; height: 48px; }
+.entity--l .entity__header { font: var(--type-body-s); }
+.entity--l .entity__label { font: var(--type-body-xl-strong); }
+.entity--l .entity__prefix, .entity--l .entity__postfix { font: var(--type-body-xl); }
+.entity--l .entity__subs { font: var(--type-body-m); }
+.entity--l .entity__bookmark { width: 22px; height: 22px; }
 
 /* =========================================================================
    Ведущий элемент — иконка в скруглённом контейнере / аватар / чекбокс / грип
@@ -73,7 +75,7 @@
   align-items: center;
   justify-content: center;
   background: var(--c-swamp-100);
-  color: var(--text-on-tertiary);
+  color: var(--text-primary);
 }
 .entity__icon > i,
 .entity__icon > svg { width: var(--e-lead-icon); height: var(--e-lead-icon); display: block; }
@@ -129,7 +131,7 @@
 
 .entity__label {
   font: var(--e-font-label);
-  color: var(--text-black);
+  color: var(--text-primary);
   min-width: 0;
 }
 /* усечение в одну строку с многоточием (для тултипа) */
@@ -258,12 +260,12 @@
 .entity--skeleton .sk-line {
   background: color-mix(in srgb, var(--c-swamp-400) 13%, transparent);
   color: transparent;
-  border-radius: var(--radius-s);
   position: relative;
   overflow: hidden;
 }
-.entity--skeleton .entity__icon { border-radius: var(--e-lead-radius); }
-.entity--skeleton .sk-line { height: .72em; }
+/* иконка скелетона сохраняет радиус по размеру (базовый/.entity--s/.entity--l);
+   sk-line — малый радиус */
+.entity--skeleton .sk-line { height: .72em; border-radius: var(--radius-s); }
 .entity--skeleton .sk-line--head { width: 42%; }
 .entity--skeleton .sk-line--label { width: 68%; height: 1em; }
 .entity--skeleton .sk-line--sub { width: 88%; }

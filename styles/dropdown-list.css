@@ -146,7 +146,7 @@
 .ddl__item[aria-selected="true"] .ddl__item-check-single { opacity: 1; }
 
 /* ---------- подсветка совпадения (автокомплит) ---------- */
-.ddl__match { color: var(--text-black); font-weight: 600; }
+.ddl__match { color: var(--text-primary); font-weight: 600; }
 
 /* =========================================================================
    STATES
@@ -168,7 +168,7 @@
 .ddl__item[aria-selected="true"],
 .ddl__item--selected { background: var(--ddl-item-selected); }
 .ddl__item[aria-selected="true"] .ddl__item-label,
-.ddl__item--selected .ddl__item-label { color: var(--text-black); font: var(--type-body-m-strong); }
+.ddl__item--selected .ddl__item-label { color: var(--text-primary); font: var(--type-body-m-strong); }
 
 /* selected + hover / focus */
 .ddl__item[aria-selected="true"]:hover,
@@ -183,7 +183,7 @@
 .ddl__item--checkbox[aria-checked="true"] { background: transparent; }
 .ddl__item--checkbox[aria-checked="true"]:hover,
 .ddl__item--checkbox[aria-checked="true"].is-hover { background: var(--ddl-item-hover); }
-.ddl__item--checkbox[aria-checked="true"] .ddl__item-label { color: var(--text-black); font: var(--type-body-m); }
+.ddl__item--checkbox[aria-checked="true"] .ddl__item-label { color: var(--text-primary); font: var(--type-body-m); }
 
 /* disabled */
 .ddl__item[aria-disabled="true"],
@@ -290,7 +290,7 @@
 .ddl__item--action { color: var(--primary); }
 .ddl__item--action .ddl__item-icon { color: var(--primary); }
 .ddl__item--action .ddl__item-label { white-space: normal; }
-.ddl__item--action strong { color: var(--text-black); font-weight: 600; }
+.ddl__item--action strong { color: var(--text-primary); font-weight: 600; }
 
 /* =========================================================================
    SCROLL — переполнение по высоте (по умолчанию видно ~7 опций)

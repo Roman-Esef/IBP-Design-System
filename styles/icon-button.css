@@ -39,20 +39,30 @@
 .ibtn:focus-visible,
 .ibtn.is-focus { outline: 2px solid var(--primary); outline-offset: 2px; }
 
-/* ---------- sizes ---------------------------------------------------------- */
-.ibtn--l { --ibtn-size: 40px; --ibtn-icon: 24px; --ibtn-radius: var(--radius-control); }
-.ibtn--m { --ibtn-size: 32px; --ibtn-icon: 20px; --ibtn-radius: var(--radius-control); }
-.ibtn--s { --ibtn-size: 24px; --ibtn-icon: 16px; --ibtn-radius: var(--radius-control-s); }
+/* ---------- sizes ---------------------------------------------------------- *
+   Размеры — прямыми свойствами (не через --ibtn-* в модификаторе). Иконка/
+   спиннер — per-size; радиус (для square/embedded) — per-size compound. */
+.ibtn--l { width: 40px; height: 40px; }
+.ibtn--m { width: 32px; height: 32px; }
+.ibtn--s { width: 24px; height: 24px; }
+.ibtn--l svg, .ibtn--l .ibtn__spinner { width: 24px; height: 24px; }
+.ibtn--m svg, .ibtn--m .ibtn__spinner { width: 20px; height: 20px; }
+.ibtn--s svg, .ibtn--s .ibtn__spinner { width: 16px; height: 16px; }
+.ibtn--l.ibtn--square, .ibtn--l.ibtn--embedded { border-radius: var(--radius-control); }
+.ibtn--m.ibtn--square, .ibtn--m.ibtn--embedded { border-radius: var(--radius-control); }
+.ibtn--s.ibtn--square, .ibtn--s.ibtn--embedded { border-radius: var(--radius-control-s); }
 
-/* ---------- tones (set the icon color; state layer follows) ---------------- */
-.ibtn--neutral  { --ibtn-fg: var(--secondary); }   /* Active · Secondary (Emerald_200) */
-.ibtn--primary  { --ibtn-fg: var(--primary); }
-.ibtn--danger   { --ibtn-fg: var(--error); }
-.ibtn--contrast { --ibtn-fg: var(--text-on-dark); }   /* for dark surfaces */
+/* ---------- tones (set the icon color; state layer follows) ---------------- *
+   Тон = цвет иконки напрямую (state-layer миксуется из currentColor). */
+.ibtn--neutral  { color: var(--secondary); }   /* Active · Secondary (Emerald_200) */
+.ibtn--primary  { color: var(--primary); }
+.ibtn--danger   { color: var(--error); }
+.ibtn--contrast { color: var(--text-on-dark); }   /* for dark surfaces */
 
-/* default tone if none specified */
+/* default tone if none specified — высокая специфичность сохранена,
+   чтобы поведение (в т.ч. selected без тона = secondary) было идентичным */
 .ibtn:not([class*="ibtn--neutral"]):not([class*="ibtn--primary"]):not([class*="ibtn--danger"]):not([class*="ibtn--contrast"]) {
-  --ibtn-fg: var(--secondary);
+  color: var(--secondary);
 }
 
 /* ---------- interactive states (state layer mixed from icon color) --------- */
@@ -71,7 +81,7 @@
 
 /* ---------- selected (toggle on) ------------------------------------------- */
 /* icon turns primary and keeps a persistent faint layer; pair with a filled glyph */
-.ibtn--selected { --ibtn-fg: var(--primary); background: color-mix(in srgb, var(--primary) 12%, transparent); }
+.ibtn--selected { color: var(--primary); background: color-mix(in srgb, var(--primary) 12%, transparent); }
 .ibtn--selected:hover,
 .ibtn--selected.is-hover { background: color-mix(in srgb, var(--primary) 20%, transparent); }
 

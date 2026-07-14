@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///Users/22191584/Desktop/popover-spec-final.html -->
+<html lang="ru" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Popover — Спецификация компонента дизайн-системы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Popover — Спецификация компонента дизайн-системы_files/css2" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+--color-bg:#f7f6f2;--color-surface:#fff;--color-surface-2:#f9f8f5;
+--color-surface-offset:#f3f0ec;--color-surface-offset-2:#edeae5;
+--color-surface-dynamic:#e6e4df;--color-divider:#dcd9d5;--color-border:#d4d1ca;
+--color-text:#28251d;--color-text-muted:#6b6860;--color-text-faint:#bab9b4;
+--color-primary:#01696f;--color-primary-hover:#0c4e54;--color-primary-active:#0f3638;
+--color-primary-highlight:#cedcd8;--color-primary-light:#e8f2f1;
+--color-warning:#964219;--color-warning-highlight:#f5e8df;
+--color-error:#a12c7b;--color-error-highlight:#f5e8f1;
+--color-success:#437a22;--color-success-highlight:#e4f0da;
+--color-orange:#da7101;--color-orange-highlight:#fdf0e0;
+--color-blue:#006494;--color-blue-highlight:#e0edf5;
+--color-gold:#d19900;--color-purple:#7a39bb;
+--shadow-sm:0 1px 3px rgba(40,37,29,.07);
+--shadow-md:0 4px 14px rgba(40,37,29,.1);
+--shadow-lg:0 12px 36px rgba(40,37,29,.14);
+--shadow-pop:0 2px 4px rgba(40,37,29,.08),0 8px 24px rgba(40,37,29,.12),0 0 0 1px rgba(40,37,29,.06);
+--radius-sm:4px;--radius-md:6px;--radius-lg:10px;--radius-xl:14px;--radius-2xl:20px;
+--text-xs:11px;--text-sm:13px;--text-base:14px;--text-md:15px;--text-lg:18px;--text-xl:22px;
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;
+--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;
+--font-body:'Inter',system-ui,sans-serif;
+}
+[data-theme="dark"]{
+--color-bg:#141312;--color-surface:#1b1a18;--color-surface-2:#201f1d;
+--color-surface-offset:#1d1c1a;--color-surface-offset-2:#242321;
+--color-surface-dynamic:#2d2c2a;--color-divider:#2e2d2b;--color-border:#3a3936;
+--color-text:#d0cfc9;--color-text-muted:#888580;--color-text-faint:#555350;
+--color-primary:#4f98a3;--color-primary-hover:#227f8b;--color-primary-highlight:#1e3535;
+--color-primary-light:#1a3030;
+--color-warning:#c87449;--color-warning-highlight:#3d2e22;
+--color-error:#d163a7;--color-error-highlight:#3d1e33;
+--color-success:#6daa45;--color-success-highlight:#1e3312;
+--color-orange:#fdab43;--color-orange-highlight:#3a2810;
+--color-blue:#5591c7;--color-blue-highlight:#152435;
+--shadow-sm:0 1px 3px rgba(0,0,0,.25);
+--shadow-md:0 4px 14px rgba(0,0,0,.35);
+--shadow-lg:0 12px 36px rgba(0,0,0,.45);
+--shadow-pop:0 2px 4px rgba(0,0,0,.25),0 8px 24px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.05);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.55}
+code{font-family:'SF Mono','Fira Code',monospace;font-size:12px;background:var(--color-surface-offset-2);padding:1px 5px;border-radius:3px;color:var(--color-primary)}
+h4{font-size:var(--text-sm);font-weight:600;line-height:1.3}
+p{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.5}
+strong{color:var(--color-text);font-weight:600}
+.page-header{position:sticky;top:0;z-index:1000;background:var(--color-surface);border-bottom:1px solid var(--color-border);padding:0 var(--space-8);height:52px;display:flex;align-items:center;gap:var(--space-6)}
+.logo{display:flex;align-items:center;gap:var(--space-2);text-decoration:none;color:var(--color-text);font-weight:700;font-size:15px;flex-shrink:0}
+.logo-text{font-weight:700}
+.badge-version{font-size:11px;font-weight:600;padding:2px 8px;background:var(--color-surface-offset-2);border-radius:20px;color:var(--color-text-muted)}
+.header-nav{flex:1;display:flex;align-items:center;gap:var(--space-1);overflow-x:auto}
+.header-nav a{font-size:var(--text-xs);font-weight:500;color:var(--color-text-muted);text-decoration:none;padding:4px 10px;border-radius:var(--radius-md);transition:background .15s,color .15s;white-space:nowrap}
+.header-nav a:hover,.header-nav a.active{background:var(--color-surface-offset);color:var(--color-text)}
+.btn-theme{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted);cursor:pointer;transition:all .15s;flex-shrink:0}
+.btn-theme:hover{background:var(--color-surface-offset);color:var(--color-text)}
+.main{max-width:1100px;margin:0 auto;padding:var(--space-10) var(--space-8) var(--space-16)}
+section{padding-top:var(--space-12);scroll-margin-top:60px}
+section+section{border-top:1px solid var(--color-divider);margin-top:var(--space-12)}
+.section-header{display:flex;align-items:flex-start;gap:var(--space-4);margin-bottom:var(--space-8)}
+.section-num{font-size:11px;font-weight:700;color:var(--color-text-faint);letter-spacing:.06em;padding-top:3px;min-width:24px}
+.section-title{font-size:var(--text-xl);font-weight:700;margin-bottom:4px}
+.section-desc{font-size:var(--text-sm);color:var(--color-text-muted)}
+.section-sub{font-size:var(--text-md);font-weight:600;margin-bottom:var(--space-4);margin-top:var(--space-6)}
+.badge{font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;letter-spacing:.02em;vertical-align:middle}
+.badge-req{background:var(--color-primary-light);color:var(--color-primary)}
+.badge-opt{background:var(--color-surface-offset-2);color:var(--color-text-muted)}
+.badge-rec{background:var(--color-orange-highlight);color:var(--color-orange)}
+.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;display:inline-block}
+.chip-green{background:var(--color-success-highlight);color:var(--color-success)}
+.chip-orange{background:var(--color-warning-highlight);color:var(--color-warning)}
+.chip-blue{background:var(--color-blue-highlight);color:var(--color-blue)}
+.chip-gray{background:var(--color-surface-offset-2);color:var(--color-text-muted)}
+.chip-red{background:var(--color-error-highlight);color:var(--color-error)}
+.chip-primary{background:var(--color-primary-light);color:var(--color-primary)}
+.callout{display:flex;gap:var(--space-3);padding:var(--space-3) var(--space-4);border-radius:var(--radius-lg);margin:var(--space-4) 0;border-left:3px solid var(--color-primary);background:var(--color-primary-light)}
+.callout-warn{border-color:var(--color-warning);background:var(--color-warning-highlight)}
+.callout-error{border-color:var(--color-error);background:var(--color-error-highlight)}
+.callout-icon{font-weight:700;color:var(--color-primary);flex-shrink:0}
+.callout-warn .callout-icon{color:var(--color-warning)}
+.callout-error .callout-icon{color:var(--color-error)}
+.callout-text{font-size:var(--text-xs);color:var(--color-text);line-height:1.55}
+.callout-text strong{color:var(--color-text)}
+.q-callout{display:flex;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-lg);margin:var(--space-3) 0;background:var(--color-surface-2);border:1px solid var(--color-border)}
+.q-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--color-primary);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+.q-text{font-size:var(--text-xs);color:var(--color-text);line-height:1.55}
+.q-text strong{display:block;margin-bottom:3px;font-size:var(--text-sm)}
+.anatomy-grid{display:grid;grid-template-columns:400px 1fr;gap:var(--space-8);align-items:start}
+.anatomy-diagram{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6);overflow:visible}
+.anatomy-parts{list-style:none;display:flex;flex-direction:column;gap:var(--space-4)}
+.anatomy-part{display:flex;gap:var(--space-3);align-items:flex-start}
+.anatomy-num{width:22px;height:22px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.anatomy-part-text h4{margin-bottom:3px}
+.sizes-row{display:flex;flex-direction:column;gap:var(--space-4);margin-bottom:var(--space-6);overflow-x:auto}
+.size-item{display:flex;align-items:center;gap:var(--space-4)}
+.size-bar{height:36px;background:var(--color-primary-light);border:1.5px solid var(--color-primary);border-radius:var(--radius-md);display:flex;align-items:center;padding:0 var(--space-3);min-width:60px;max-width:100%}
+.size-num{font-size:11px;font-weight:700;color:var(--color-primary)}
+.size-label{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.4;min-width:130px}
+.spec-table{width:100%;border-collapse:collapse;font-size:var(--text-xs)}
+.spec-table th{text-align:left;padding:var(--space-2) var(--space-3);background:var(--color-surface-offset-2);color:var(--color-text-muted);font-weight:600;font-size:11px;letter-spacing:.03em;border-bottom:1px solid var(--color-border)}
+.spec-table td{padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--color-divider);vertical-align:top;font-size:var(--text-xs)}
+.spec-table tr:last-child td{border-bottom:none}
+.placement-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+.placement-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3)}
+.placement-card h4{font-size:var(--text-sm);font-weight:600}
+.placement-mini{height:100px;display:flex;align-items:center;justify-content:center;background:var(--color-surface-offset);border-radius:var(--radius-lg);position:relative;overflow:visible}
+.placement-desc{font-size:11px;color:var(--color-text-muted);line-height:1.45}
+.mini-trigger{padding:5px 12px;background:var(--color-surface-dynamic);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:11px;font-weight:500;cursor:default;position:relative;z-index:2}
+.mini-popover{position:absolute;z-index:10;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);box-shadow:var(--shadow-md);padding:8px 10px;font-size:11px;min-width:80px}
+.mini-popover.bottom{top:calc(100% + 8px);left:0}
+.mini-popover.top{bottom:calc(100% + 8px);left:0}
+.mini-popover.right{left:calc(100% + 8px);top:0}
+.mini-popover::before{content:'';position:absolute;width:8px;height:8px;background:var(--color-surface);border:1px solid var(--color-border);transform:rotate(45deg)}
+.mini-popover.bottom::before{top:-5px;left:12px;border-bottom:none;border-right:none}
+.mini-popover.top::before{bottom:-5px;left:12px;border-top:none;border-left:none}
+.mini-popover.right::before{left:-5px;top:10px;border-bottom:none;border-left:none;border-right:1px solid var(--color-border);border-top:1px solid var(--color-border);transform:rotate(-45deg) scaleX(-1)}
+#examples .section-header{margin-bottom:var(--space-4)}
+.examples-intro{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-8)}
+.example-block{margin-bottom:var(--space-10)}
+.example-meta{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3)}
+.example-num{font-size:11px;font-weight:700;color:var(--color-text-faint)}
+.example-title{font-size:var(--text-md);font-weight:600}
+.example-chips{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-left:auto}
+.example-desc{font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-4);max-width:700px}
+.demo-stage{background:var(--color-surface-offset);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-10);display:flex;align-items:flex-start;justify-content:center;min-height:340px;position:relative;overflow:visible}
+.pop-wrap{position:relative;display:inline-block}
+.pop-trigger{padding:8px 16px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;color:var(--color-text);white-space:nowrap}
+.pop-trigger:hover{background:var(--color-surface-offset);border-color:var(--color-surface-dynamic)}
+.pop-trigger.primary{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+.pop-trigger.primary:hover{background:var(--color-primary-hover)}
+.pop-trigger[aria-expanded="true"]{background:var(--color-surface-offset);border-color:var(--color-primary)}
+.popover{position:absolute;z-index:100;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);box-shadow:var(--shadow-pop);overflow:hidden;
+  opacity:0;transform:translateY(-4px) scale(.98);pointer-events:none;
+  transition:opacity .18s cubic-bezier(.16,1,.3,1),transform .18s cubic-bezier(.16,1,.3,1)}
+.popover.open{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
+.popover.bottom{top:calc(100% + 8px)}
+.popover.bottom-start{left:0;top:calc(100% + 8px)}
+.popover.bottom-end{right:0;top:calc(100% + 8px)}
+.popover.top-start{left:0;bottom:calc(100% + 8px);transform-origin:bottom left}
+.popover.top-start.open{transform:translateY(0) scale(1)}
+.popover.right-start{left:calc(100% + 8px);top:0;transform:translateX(-4px) scale(.98);transform-origin:left top}
+.popover.right-start.open{transform:translateX(0) scale(1)}
+.popover::before{content:'';position:absolute;width:9px;height:9px;background:var(--color-surface);border:1px solid var(--color-border);transform:rotate(45deg);z-index:1}
+.popover.bottom-start::before,.popover.bottom::before{top:-5px;left:18px;border-bottom:none;border-right:none}
+.popover.bottom-end::before{top:-5px;right:18px;left:auto;border-bottom:none;border-right:none}
+.popover.top-start::before{bottom:-5px;left:18px;border-top:none;border-left:none}
+.popover.right-start::before{left:-5px;top:14px;transform:rotate(-45deg);border-bottom:none;border-right:none}
+.pop-header{padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);display:flex;align-items:center;justify-content:space-between;background:var(--color-surface-2);flex-shrink:0}
+.pop-header h5{font-size:var(--text-sm);font-weight:600;color:var(--color-text);line-height:1.3}
+.pop-close{width:24px;height:24px;border-radius:4px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);transition:all .12s;flex-shrink:0}
+.pop-close:hover{background:var(--color-surface-dynamic);color:var(--color-text)}
+.pop-body{padding:var(--space-4)}
+.pop-footer{padding:var(--space-3) var(--space-4);border-top:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-2);background:var(--color-surface-2)}
+.btn{padding:7px 14px;border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;cursor:pointer;border:1px solid transparent;transition:all .14s;white-space:nowrap}
+.btn-primary{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+.btn-primary:hover{background:var(--color-primary-hover)}
+.btn-ghost{background:transparent;color:var(--color-text-muted);border-color:var(--color-border)}
+.btn-ghost:hover{background:var(--color-surface-offset);color:var(--color-text)}
+.btn-danger{background:var(--color-error-highlight);color:var(--color-error);border-color:transparent}
+.btn-danger:hover{opacity:.8}
+.btn-sm{padding:4px 10px;font-size:var(--text-xs)}
+.btn-link{background:none;border:none;color:var(--color-primary);font-size:var(--text-xs);cursor:pointer;padding:0;text-decoration:underline}
+.form-field{display:flex;flex-direction:column;gap:4px;margin-bottom:var(--space-3)}
+.form-field:last-child{margin-bottom:0}
+.form-label{font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted)}
+.form-input,.form-select,.form-textarea{width:100%;padding:7px 10px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--color-text);background:var(--color-surface);font-family:inherit;outline:none;transition:border-color .14s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-light)}
+.form-textarea{resize:vertical;min-height:64px}
+.form-hint{font-size:11px;color:var(--color-text-faint)}
+.form-error-msg{font-size:11px;color:var(--color-error)}
+.form-input.error{border-color:var(--color-error)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)}
+.form-check{display:flex;align-items:center;gap:6px;font-size:var(--text-xs);color:var(--color-text-muted);cursor:pointer}
+.data-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--color-divider);font-size:var(--text-xs)}
+.data-row:last-child{border-bottom:none}
+.data-key{color:var(--color-text-muted)}
+.data-val{font-weight:600;font-variant-numeric:tabular-nums}
+.status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.status-green{background:#437a22}.status-orange{background:#da7101}.status-red{background:#a12c7b}.status-gray{background:#bab9b4}.status-blue{background:#006494}
+.legend-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--color-divider);font-size:var(--text-xs)}
+.legend-item:last-child{border-bottom:none}
+.legend-color{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.legend-label{flex:1;color:var(--color-text-muted)}
+.legend-val{font-weight:600;font-variant-numeric:tabular-nums}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11px;padding:3px 8px;border-radius:20px;border:1px solid var(--color-border);background:var(--color-surface-offset);color:var(--color-text-muted)}
+.tag.selected{background:var(--color-primary-light);border-color:var(--color-primary);color:var(--color-primary)}
+.risk-bar-wrap{width:100%;height:6px;background:var(--color-surface-dynamic);border-radius:3px;overflow:hidden}
+.risk-bar{height:100%;border-radius:3px}
+.risk-row{display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-xs);margin-bottom:6px}
+.risk-label{min-width:90px;color:var(--color-text-muted)}
+.collateral-item{padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-lg);margin-bottom:var(--space-2)}
+.timeline-item{display:flex;gap:var(--space-3);padding-bottom:var(--space-3);position:relative}
+.timeline-item::before{content:'';position:absolute;left:9px;top:20px;bottom:-4px;width:1px;background:var(--color-divider)}
+.timeline-item:last-child::before{display:none}
+.timeline-dot{width:18px;height:18px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.timeline-dot svg{width:10px;height:10px}
+.timeline-content h5{font-size:var(--text-xs);font-weight:600;margin-bottom:2px}
+.timeline-content p{font-size:11px;color:var(--color-text-muted)}
+.steps-track{display:flex;margin-bottom:var(--space-4);gap:0}
+.step-tab{flex:1;text-align:center;padding:8px 4px;font-size:11px;border-bottom:2px solid var(--color-divider);color:var(--color-text-faint);cursor:pointer;transition:.14s}
+.step-tab.active{color:var(--color-primary);border-color:var(--color-primary);font-weight:600}
+.step-tab.done{color:var(--color-success);border-color:var(--color-success)}
+.step-content{display:none}
+.step-content.visible{display:block}
+.divider{height:1px;background:var(--color-divider);margin:var(--space-3) 0}
+.cc-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+.cc-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);overflow:hidden}
+.cc-header{padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-2)}
+.cc-header h4{font-size:var(--text-sm);font-weight:600}
+.cc-tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:3px;margin-left:auto}
+.cc-body{padding:var(--space-4)}
+.cc-body p{font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3)}
+.tokens-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+.token-group h3{font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-3)}
+.rules-2col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+.rule-col h3{font-size:var(--text-md);font-weight:600;margin-bottom:var(--space-4)}
+.rule-item{display:flex;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--color-divider)}
+.rule-item:last-child{border-bottom:none}
+.rule-icon{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:1px}
+.rule-do .rule-icon{background:var(--color-success-highlight);color:var(--color-success)}
+.rule-dont .rule-icon{background:var(--color-error-highlight);color:var(--color-error)}
+.rule-item h5{font-size:var(--text-xs);font-weight:600;margin-bottom:2px}
+.rule-item p{font-size:11px;color:var(--color-text-muted);line-height:1.4}
+.scroll-x{overflow-x:auto}
+.scroll-y{overflow-y:auto}
+.mini-chart{display:flex;align-items:flex-end;gap:3px;height:40px;padding:4px 0}
+.mini-bar{flex:1;border-radius:2px 2px 0 0;min-height:4px}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skel{background:linear-gradient(90deg,var(--color-surface-offset) 25%,var(--color-surface-dynamic) 50%,var(--color-surface-offset) 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite;border-radius:3px}
+.icon{width:14px;height:14px;flex-shrink:0;display:inline-block}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:#a13544;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--color-surface)}
+kbd{font-size:11px;background:var(--color-surface-offset-2);border:1px solid var(--color-border);border-radius:3px;padding:1px 5px;font-family:'SF Mono',monospace}
+.a11y-item{display:flex;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--color-divider);align-items:flex-start}
+.a11y-item:last-child{border-bottom:none}
+.a11y-check{width:20px;height:20px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.a11y-item h5{font-size:var(--text-xs);font-weight:600;margin-bottom:2px}
+.a11y-item p{font-size:11px;color:var(--color-text-muted)}
+.info-icon{width:18px;height:18px;border-radius:50%;background:var(--color-surface-offset-2);border:1px solid var(--color-border);color:var(--color-text-muted);font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.14s}
+.info-icon:hover{background:var(--color-primary-light);border-color:var(--color-primary);color:var(--color-primary)}
+.acc-item{border-bottom:1px solid var(--color-divider)}
+.acc-item:last-child{border-bottom:none}
+.acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:7px 0;font-size:var(--text-xs);font-weight:600;background:none;border:none;cursor:pointer;color:var(--color-text);text-align:left}
+.acc-trigger svg{transition:transform .2s;flex-shrink:0}
+.acc-trigger.open svg{transform:rotate(90deg)}
+.acc-body{font-size:11px;color:var(--color-text-muted);padding-bottom:7px;display:none;line-height:1.5}
+.acc-body.visible{display:block}
+.upload-zone{border:1.5px dashed var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);text-align:center;color:var(--color-text-muted);font-size:var(--text-xs);cursor:pointer;transition:.14s}
+.upload-zone:hover{border-color:var(--color-primary);background:var(--color-primary-light)}
+.swatch{width:20px;height:20px;border-radius:4px;display:inline-block;border:1px solid rgba(0,0,0,.1)}
+.zindex-stack{display:flex;flex-direction:column;gap:var(--space-2);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4)}
+.zindex-row{display:flex;justify-content:space-between;align-items:center;padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);background:var(--color-surface-offset);font-size:var(--text-xs)}
+.zindex-row.highlight{background:var(--color-primary-light);color:var(--color-primary);font-weight:600}
+.dt-tree{display:flex;flex-direction:column;align-items:center;gap:var(--space-3)}
+.dt-q{padding:var(--space-3) var(--space-4);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-lg);font-size:var(--text-xs);font-weight:600;text-align:center;max-width:520px}
+.dt-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);width:100%;max-width:560px}
+.dt-branch{padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface)}
+.dt-branch-label{font-size:10px;font-weight:700;color:var(--color-text-faint);letter-spacing:.05em;margin-bottom:4px;text-transform:uppercase}
+.dt-result{font-size:var(--text-xs);font-weight:600;color:var(--color-primary);margin-bottom:3px}
+.dt-result-desc{font-size:11px;color:var(--color-text-muted);line-height:1.45}
+.dt-arrow{width:1px;height:14px;background:var(--color-divider)}
+.compare-table th,.compare-table td{font-size:var(--text-xs);padding:var(--space-2) var(--space-3);text-align:center;vertical-align:middle}
+.compare-table th:first-child,.compare-table td:first-child{text-align:left}
+.compare-table .col-popover{background:var(--color-primary-light);color:var(--color-primary);font-weight:600}
+.compare-table tr:nth-child(even) td{background:var(--color-surface-2)}
+.compare-table tr:nth-child(even) td.col-popover{background:var(--color-primary-light)}
+.yes{color:var(--color-success);font-weight:600}
+.no{color:var(--color-error);font-weight:600}
+.maybe{color:var(--color-warning);font-weight:600}
+.states-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+.state-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start}
+.state-card-name{font-size:var(--text-sm);font-weight:600;margin-bottom:3px}
+.state-card-desc{font-size:11px;color:var(--color-text-muted);line-height:1.45}
+.demo-trigger{padding:6px 14px;background:var(--color-surface-offset);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:12px;color:var(--color-text-muted)}
+.flow-diagram{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);overflow-x:auto;padding:var(--space-4) 0}
+.flow-step{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:90px}
+.flow-node{padding:8px 12px;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:11px;font-weight:600;text-align:center;line-height:1.3}
+.flow-node.trigger{border-color:var(--color-warning);background:var(--color-warning-highlight);color:var(--color-warning)}
+.flow-node.open{border-color:var(--color-success);background:var(--color-success-highlight);color:var(--color-success)}
+.flow-node.close{border-color:var(--color-error);background:var(--color-error-highlight);color:var(--color-error)}
+.flow-label{font-size:10px;color:var(--color-text-muted);text-align:center}
+.flow-arrow{color:var(--color-text-faint);font-size:14px;flex-shrink:0}
+@media(max-width:900px){
+  .anatomy-grid,.tokens-grid,.rules-2col,.cc-grid{grid-template-columns:1fr}
+  .placement-grid,.states-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header class="page-header">
+  <div style="display:flex;align-items:center;gap:var(--space-3)">
+    <a class="logo" href="file:///Users/22191584/Desktop/popover-spec-final.html#">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-label="Popover Spec">
+        <rect x="2" y="6" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.8"></rect>
+        <path d="M20 11h4a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-1v3l-3-3h-2a2 2 0 0 1-2-2v-1" stroke="currentColor" stroke-width="1.8"></path>
+        <line x1="6" y1="11" x2="14" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+        <line x1="6" y1="14" x2="12" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+      </svg>
+      <span class="logo-text">Popover</span>
+    </a>
+    <span class="badge-version">DS · v1.0</span>
+  </div>
+  <nav class="header-nav">
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#overview">Обзор</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#anatomy">Анатомия</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#sizes">Размеры</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#placement">Позиция</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#behavior">Поведение</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#animation">Анимация</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#slots">Header / Footer</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#examples">Примеры</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#corner">Corner cases</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#a11y">A11y</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#tokens">Токены</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#zindex">Z-index</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#decision">Дерево решений</a>
+    <a href="file:///Users/22191584/Desktop/popover-spec-final.html#rules">Правила</a>
+  </nav>
+  <button class="btn-theme" data-theme-toggle="" aria-label="Переключить тему">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+  </button>
+</header>
+<main class="main">
+
+<!-- 0. OVERVIEW -->
+<section id="overview">
+  <div class="section-header">
+    <span class="section-num">00</span>
+    <div><h2 class="section-title">Обзор и место в иерархии</h2><p class="section-desc">Popover — нон-модальный всплывающий контейнер, привязанный к триггеру</p></div>
+  </div>
+  <p style="font-size:var(--text-sm);color:var(--color-text);max-width:780px;margin-bottom:var(--space-6);line-height:1.7">
+    <strong>Popover</strong> показывает расширенный контекстный контент: текст с форматированием, интерактивные элементы (ссылки, кнопки), формы, легенды, списки. В отличие от tooltip — требует клика для открытия и не закрывается само по себе при уходе курсора.
+  </p>
+  <h3 class="section-sub" style="margin-top:0">Сравнение с соседними компонентами</h3>
+  <table class="spec-table compare-table">
+    <thead>
+      <tr><th>Критерий</th><th>Tooltip</th><th class="col-popover">Popover</th><th>Modal</th><th>Drawer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Триггер</td><td>Hover / Focus</td><td class="col-popover">Click</td><td>Click</td><td>Click</td></tr>
+      <tr><td>Тип контента</td><td>Только текст 1–2 строки</td><td class="col-popover">Текст + интерактив, формы, медиа</td><td>Любой, многошаговый</td><td>Расширенный, доп. к элементу</td></tr>
+      <tr><td>Блокирует UI</td><td class="no">Нет</td><td class="col-popover yes" style="color:var(--color-success)">Нет</td><td class="no" style="color:var(--color-error)">Да</td><td class="maybe">Частично</td></tr>
+      <tr><td>Закрытие по Esc</td><td class="yes">✓</td><td class="col-popover yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Связан с триггером</td><td class="yes">✓ Строго</td><td class="col-popover yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+      <tr><td>Прокрутка фона</td><td class="yes">Да</td><td class="col-popover yes">Да</td><td class="no">Блокирована</td><td class="no">Блокирована</td></tr>
+      <tr><td>Макс. ширина</td><td>~300 px</td><td class="col-popover">560 px</td><td>600 px и больше</td><td>480 px и больше</td></tr>
+      <tr><td>Закрытие</td><td>Уход курсора</td><td class="col-popover">Click вне / Esc / ✕</td><td>Обяз. действие пользователя</td><td>Click вне / ✕</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <span class="callout-icon">→</span>
+    <div class="callout-text"><strong>Правило переключения:</strong> если контент требует ширины более ~560 px или вертикальной прокрутки, превышающей max-height — переключайтесь на Modal или Drawer.</div>
+  </div>
+</section>
+
+<!-- 1. ANATOMY -->
+<section id="anatomy">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div><h2 class="section-title">Анатомия компонента</h2><p class="section-desc">Зоны, обязательность, ARIA-роли. Компонент состоит из 2 обязательных и 5 опциональных частей</p></div>
+  </div>
+  <div class="anatomy-grid">
+    <div class="anatomy-diagram">
+      <svg width="100%" viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="148" y="12" width="104" height="34" rx="6" fill="var(--color-surface-dynamic)" stroke="var(--color-border)" stroke-width="1.5"></rect>
+        <text x="200" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="var(--color-text-muted)" font-weight="500">Trigger</text>
+        <circle cx="244" cy="29" r="9" fill="var(--color-primary)" opacity=".18"></circle>
+        <text x="244" y="33" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="var(--color-primary)" font-weight="700">1</text>
+        <polygon points="186,56 200,46 214,56" fill="var(--color-surface-2)" stroke="var(--color-border)" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke fill"></polygon>
+        <circle cx="348" cy="58" r="9" fill="var(--color-primary)" opacity=".18"></circle>
+        <text x="348" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="var(--color-primary)" font-weight="700">2</text>
+        <line x1="214" y1="52" x2="339" y2="58" stroke="var(--color-primary)" stroke-width="1" stroke-dasharray="3 3" opacity=".4"></line>
+        <rect x="44" y="56" width="312" height="252" rx="10" fill="var(--color-surface-2)" stroke="var(--color-border)" stroke-width="1.5"></rect>
+        <rect x="44" y="56" width="312" height="44" rx="10" fill="var(--color-surface-offset)"></rect>
+        <rect x="44" y="88" width="312" height="12" fill="var(--color-surface-offset)"></rect>
+        <text x="64" y="83" font-family="Inter,sans-serif" font-size="11" fill="var(--color-text)" font-weight="600">Заголовок поповера</text>
+        <rect x="322" y="68" width="22" height="22" rx="4" fill="var(--color-surface-dynamic)"></rect>
+        <line x1="328" y1="74" x2="338" y2="84" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round"></line>
+        <line x1="338" y1="74" x2="328" y2="84" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round"></line>
+        <circle cx="52" cy="79" r="9" fill="var(--color-primary)" opacity=".18"></circle>
+        <text x="52" y="83" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="var(--color-primary)" font-weight="700">3</text>
+        <circle cx="348" cy="79" r="9" fill="var(--color-blue)" opacity=".18"></circle>
+        <text x="348" y="83" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="var(--color-blue)" font-weight="700">4</text>
+        <rect x="44" y="100" width="312" height="126" fill="none" stroke="var(--color-primary)" stroke-width="1" stroke-dasharray="4 3" opacity=".25"></rect>
+        <rect x="64" y="112" width="200" height="7" rx="3" fill="var(--color-surface-dynamic)"></rect>
+        <rect x="64" y="125" width="160" height="7" rx="3" fill="var(--color-surface-dynamic)"></rect>
+        <rect x="64" y="138" width="180" height="7" rx="3" fill="var(--color-surface-dynamic)"></rect>
+        <rect x="64" y="154" width="116" height="20" rx="4" fill="var(--color-surface-dynamic)"></rect>
+        <rect x="188" y="154" width="116" height="20" rx="4" fill="var(--color-surface-dynamic)"></rect>
+        <rect x="64" y="182" width="232" height="28" rx="5" fill="var(--color-surface-dynamic)" opacity=".5"></rect>
+        <circle cx="52" cy="163" r="9" fill="var(--color-primary)" opacity=".18"></circle>
+        <text x="52" y="167" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="var(--color-primary)" font-weight="700">5</text>
+        <line x1="44" y1="228" x2="356" y2="228" stroke="var(--color-divider)" stroke-width="1.5"></line>
+        <rect x="64" y="240" width="76" height="24" rx="5" fill="var(--color-surface-dynamic)"></rect>
+        <text x="102" y="257" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="var(--color-text-muted)" font-weight="500">Отмена</text>
+        <rect x="148" y="240" width="76" height="24" rx="5" fill="var(--color-primary)"></rect>
+        <text x="186" y="257" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="white" font-weight="600">Применить</text>
+        <circle cx="52" cy="252" r="9" fill="var(--color-primary)" opacity=".18"></circle>
+        <text x="52" y="256" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="var(--color-primary)" font-weight="700">6</text>
+        <circle cx="348" cy="163" r="9" fill="var(--color-orange)" opacity=".18"></circle>
+        <text x="348" y="167" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="var(--color-orange)" font-weight="700">7</text>
+      </svg>
+    </div>
+    <ul class="anatomy-parts">
+      <li class="anatomy-part"><span class="anatomy-num">1</span><div class="anatomy-part-text"><h4>Trigger <span class="badge badge-req">Обязательно</span></h4><p>Любой интерактивный элемент: кнопка, иконка, текстовая ссылка, badge. Получает <code>aria-expanded</code> и <code>aria-controls</code>. Управляет видимым focus ring.</p></div></li>
+      <li class="anatomy-part"><span class="anatomy-num">2</span><div class="anatomy-part-text"><h4>Container <span class="badge badge-req">Обязательно</span></h4><p>Обёртка с тенью и скруглёнными углами. Несёт <code>role="dialog"</code> или <code>role="region"</code>, <code>aria-modal="false"</code> (не блокирует страницу).</p></div></li>
+      <li class="anatomy-part"><span class="anatomy-num">3</span><div class="anatomy-part-text"><h4>Caret / Arrow <span class="badge badge-opt">Опционально</span></h4><p>Визуальная стрелка-указатель на триггер. Помогает при нескольких соседних триггерах. Можно скрыть для контекстных меню и detached-поповеров.</p></div></li>
+      <li class="anatomy-part"><span class="anatomy-num">4</span><div class="anatomy-part-text"><h4>Header <span class="badge badge-opt">Опционально</span></h4><p>Содержит <strong>только заголовок и кнопку ✕</strong>. Добавляется, когда контент требует контекста или при ширине свыше 320 px. Лимит заголовка — 25 символов в одну строку. <strong>Кнопки действий в Header не размещаются — для них предназначен Footer.</strong></p></div></li>
+      <li class="anatomy-part"><span class="anatomy-num">5</span><div class="anatomy-part-text"><h4>Body / Content area <span class="badge badge-req">Обязательно</span></h4><p>Слот под произвольный контент: текст, списки, формы, чарты, таблицы. Единственная обязательная внутренняя зона. Прокручивается при overflow.</p></div></li>
+      <li class="anatomy-part"><span class="anatomy-num">6</span><div class="anatomy-part-text"><h4>Footer <span class="badge badge-opt">Опционально</span></h4><p>Зона кнопок действий и пагинации. Используется при форме или подтверждении внутри поповера. Все интерактивные действия (кроме закрытия) живут именно здесь.</p></div></li>
+      <li class="anatomy-part"><span class="anatomy-num">7</span><div class="anatomy-part-text"><h4>Close button (✕) <span class="badge badge-rec">Рекомендовано</span></h4><p><code>aria-label="Закрыть"</code>. Размещается в правом верхнем углу Header (или Body — если Header нет). Обязательна для a11y и предсказуемости.</p></div></li>
+    </ul>
+  </div>
+  <div class="q-callout">
+    <div class="q-num">3</div>
+    <div class="q-text">
+      <strong>Можно ли размещать кнопку действия в Header?</strong>
+      Нет. Header содержит только заголовок и кнопку закрытия (✕). Любые действия — «Сохранить», «Применить», «Отмена», «Открыть сделку», «Подробнее» — размещаются только в Footer. Это правило обеспечивает предсказуемость взаимодействия и однозначное определение зоны действий для пользователя и скринридера. Исключение — служебные иконки-утилиты в Header (например, «Сбросить фильтры» рядом с ✕), оформленные как ссылки, а не как primary-кнопки.
+    </div>
+  </div>
+</section>
+
+<!-- 2. SIZES -->
+<section id="sizes">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div><h2 class="section-title">Размеры, ширина и высота</h2><p class="section-desc">Поповер не имеет резиновой ширины — только фиксированные токенные значения</p></div>
+  </div>
+  <div class="sizes-row">
+    <div class="size-item"><div class="size-bar" style="width:240px"><span class="size-num">240</span></div><div class="size-label"><strong>xs / sm</strong><br>Легенда, список, подсказка без действий</div></div>
+    <div class="size-item"><div class="size-bar" style="width:320px"><span class="size-num">320</span></div><div class="size-label"><strong>md (default)</strong><br>Стандартный поповер с заголовком и текстом</div></div>
+    <div class="size-item"><div class="size-bar" style="width:400px"><span class="size-num">400</span></div><div class="size-label"><strong>lg</strong><br>Форма, детали сущности, таблица</div></div>
+    <div class="size-item"><div class="size-bar" style="width:480px"><span class="size-num">480</span></div><div class="size-label"><strong>xl</strong><br>Многоколоночный, сложный контент</div></div>
+    <div class="size-item" style="opacity:.45"><div class="size-bar" style="width:560px;border-style:dashed"><span class="size-num">560</span></div><div class="size-label"><strong>max</strong><br>Верхняя граница → дальше Modal</div></div>
+  </div>
+  <table class="spec-table">
+    <thead><tr><th>Токен</th><th>Ширина</th><th>Типовое использование</th><th>max-height body</th><th>Прокрутка</th></tr></thead>
+    <tbody>
+      <tr><td><code>--pop-xs</code></td><td>240 px</td><td>Легенда чарта, меню действий, short info</td><td>авто</td><td>нет</td></tr>
+      <tr><td><code>--pop-sm</code></td><td>320 px</td><td>Информационная карточка, quick-edit, 1–2 поля</td><td>320 px</td><td>при overflow</td></tr>
+      <tr><td><code>--pop-md</code></td><td>400 px</td><td>Форма 3–5 полей, карточка сущности, детали сделки</td><td>440 px</td><td>при overflow</td></tr>
+      <tr><td><code>--pop-lg</code></td><td>480 px</td><td>Сложный контент, список с деталями, мини-визард</td><td>520 px</td><td>при overflow</td></tr>
+      <tr><td><code>--pop-xl</code></td><td>560 px</td><td>Только при обосновании. Свыше 560 → Modal</td><td>600 px</td><td>обязательно</td></tr>
+    </tbody>
+  </table>
+  <div class="q-callout">
+    <div class="q-num">1</div>
+    <div class="q-text">
+      <strong>Какое ограничение по высоте Popover?</strong>
+      Высота определяется контентом (auto height) и ограничена сверху значением <code>max-height</code> = <strong>60vh или 400–520 px</strong> в зависимости от ширины (см. таблицу выше). При превышении max-height появляется вертикальная прокрутка <strong>только внутри Body</strong> — Header и Footer остаются зафиксированными. Горизонтальная прокрутка запрещена. Если контент не помещается даже в xl-размер с прокруткой — это сигнал переключиться на Modal или Drawer.
+    </div>
+  </div>
+  <h3 class="section-sub">Отступы и зазоры</h3>
+  <table class="spec-table">
+    <thead><tr><th>Зона</th><th>Значение</th><th>Примечание</th></tr></thead>
+    <tbody>
+      <tr><td>Padding Body</td><td>16 px</td><td>Внутренний отступ контентной области (Carbon $spacing-05)</td></tr>
+      <tr><td>Расстояние от триггера</td><td>4–8 px</td><td>Зазор между Caret и триггером</td></tr>
+      <tr><td>Размер Caret tip (h × w)</td><td>8 × 8 px</td><td>Стандарт большинства DS</td></tr>
+      <tr><td>Скругление углов</td><td>4–14 px</td><td>В наших токенах — 14 px (radius-xl)</td></tr>
+      <tr><td>Margin от края viewport</td><td>≥ 8–16 px</td><td>MUI по умолчанию 16 px</td></tr>
+      <tr><td>Padding Header</td><td>12 × 16 px</td><td>min-height 44–48 px</td></tr>
+      <tr><td>Padding Footer</td><td>12 × 16 px</td><td>min-height 50–56 px</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 3. PLACEMENT -->
+<section id="placement">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div><h2 class="section-title">Позиционирование и авто-flip</h2><p class="section-desc">4 направления × 3 выравнивания = 12 позиций. Автоматический переход на противоположную сторону при нехватке viewport</p></div>
+  </div>
+  <div class="placement-grid">
+    <div class="placement-card">
+      <h4>bottom-start <span class="chip chip-primary" style="font-size:10px">Default</span></h4>
+      <div class="placement-mini">
+        <div style="position:relative;display:inline-block">
+          <div class="mini-trigger">Кнопка</div>
+          <div class="mini-popover bottom" style="min-width:90px"><div style="font-weight:600;font-size:11px">Заголовок</div><div style="font-size:11px;color:var(--color-text-muted)">Текст…</div></div>
+        </div>
+      </div>
+      <p class="placement-desc">По умолчанию. Снизу, левый край привязан к триггеру. Auto-flip → top при нехватке снизу.</p>
+    </div>
+    <div class="placement-card">
+      <h4>bottom-end</h4>
+      <div class="placement-mini">
+        <div style="position:relative;display:inline-block">
+          <div class="mini-trigger">Кнопка</div>
+          <div class="mini-popover bottom" style="min-width:90px;right:0;left:auto"><div style="font-weight:600;font-size:11px">Заголовок</div><div style="font-size:11px;color:var(--color-text-muted)">Текст…</div></div>
+        </div>
+      </div>
+      <p class="placement-desc">Снизу, правый край привязан. Для кнопок у правого края экрана (навигация, шапка).</p>
+    </div>
+    <div class="placement-card">
+      <h4>top-start / top-end</h4>
+      <div class="placement-mini" style="align-items:flex-end;padding-bottom:12px">
+        <div style="position:relative;display:inline-block">
+          <div class="mini-trigger">Кнопка</div>
+          <div class="mini-popover top" style="min-width:90px"><div style="font-weight:600;font-size:11px">Заголовок</div><div style="font-size:11px;color:var(--color-text-muted)">Текст…</div></div>
+        </div>
+      </div>
+      <p class="placement-desc">Авто-flip: если снизу не помещается — открывается сверху. GitLab Pajamas использует top по умолчанию.</p>
+    </div>
+    <div class="placement-card">
+      <h4>right-start / left-start</h4>
+      <div class="placement-mini">
+        <div style="position:relative;display:inline-block">
+          <div class="mini-trigger">Кнопка</div>
+          <div class="mini-popover right" style="min-width:90px"><div style="font-weight:600;font-size:11px">Заголовок</div><div style="font-size:11px;color:var(--color-text-muted)">Текст…</div></div>
+        </div>
+      </div>
+      <p class="placement-desc">Для sidebar-элементов, иконок в боковой панели, узких колонок таблицы.</p>
+    </div>
+  </div>
+  <div style="margin-top:var(--space-6);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+    <h4 style="font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-3)">Алгоритм auto-flip (Floating UI / Popper.js)</h4>
+    <div style="display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;font-size:var(--text-sm);color:var(--color-text-muted)">
+      <span style="background:var(--color-surface-offset);padding:4px 10px;border-radius:var(--radius-md)">Preferred position</span>
+      <span style="color:var(--color-primary)">→</span>
+      <span style="background:var(--color-surface-offset);padding:4px 10px;border-radius:var(--radius-md)">detectOverflow()</span>
+      <span style="color:var(--color-primary)">→</span>
+      <span style="background:var(--color-surface-offset);padding:4px 10px;border-radius:var(--radius-md)">flip() → противоположная сторона</span>
+      <span style="color:var(--color-primary)">→</span>
+      <span style="background:var(--color-surface-offset);padding:4px 10px;border-radius:var(--radius-md)">shift() → ближайший край</span>
+    </div>
+    <p style="margin-top:var(--space-3);font-size:11px">При каждом из 4 направлений возможны три варианта выравнивания (<code>start</code>, <code>center</code>, <code>end</code>) — это позволяет избегать перекрытия важного контента без смены стороны открытия. Edge detection: поповер не выходит за границы экрана; при необходимости смещается по оси start/end. Минимальный отступ от края viewport — 8 px.</p>
+  </div>
+</section>
+
+<!-- 4. BEHAVIOR -->
+<section id="behavior">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div><h2 class="section-title">Поведение: открытие и закрытие</h2><p class="section-desc">Триггеры, состояния и управление фокусом</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-bottom:var(--space-6)">
+    <div>
+      <h3 class="section-sub" style="margin-top:0;color:var(--color-success)">Открытие</h3>
+      <table class="spec-table">
+        <thead><tr><th>Триггер</th><th>Приоритет</th><th>Контекст</th></tr></thead>
+        <tbody>
+          <tr><td>Click / Tap</td><td><span class="chip chip-green">Primary</span></td><td>Все поповеры с контентом. Работает на мыши, тач, клавиатуре</td></tr>
+          <tr><td>Enter / Space</td><td><span class="chip chip-green">A11y</span></td><td>Обязателен для клавиатурной доступности (на триггере)</td></tr>
+          <tr><td>Hover (300–400 мс)</td><td><span class="chip chip-orange">Secondary</span></td><td>Только read-only, не touch. Никогда единственный метод</td></tr>
+          <tr><td>Focus (Tab)</td><td><span class="chip chip-blue">Optional</span></td><td>Единственный доступ к информации</td></tr>
+          <tr><td><code>open</code> prop</td><td><span class="chip chip-gray">Programmatic</span></td><td>Onboarding, validation errors, async-операции</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 class="section-sub" style="margin-top:0;color:var(--color-error)">Закрытие — обязательны все 5 способов</h3>
+      <table class="spec-table">
+        <thead><tr><th>Способ</th><th>Обязательность</th></tr></thead>
+        <tbody>
+          <tr><td>Кнопка <strong>✕</strong> внутри поповера</td><td><span class="chip chip-green">Обязательно</span></td></tr>
+          <tr><td>Outside click (клик вне)</td><td><span class="chip chip-green">Обязательно</span></td></tr>
+          <tr><td><kbd>Esc</kbd></td><td><span class="chip chip-green">Обязательно</span></td></tr>
+          <tr><td>Tab за последний интерактивный элемент</td><td><span class="chip chip-green">Обязательно</span></td></tr>
+          <tr><td>Кнопка-действие (если завершает задачу)</td><td><span class="chip chip-blue">Контекстно</span></td></tr>
+          <tr><td>Hover-out (только для hover-триггера)</td><td><span class="chip chip-orange">При hover</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠</span>
+    <div class="callout-text">
+      <strong>Запрещено:</strong> автоматическое закрытие по таймеру — пользователь не успевает прочитать контент. Открытие при загрузке страницы — нарушает принцип пользовательского контроля (Heuristic №3 Nielsen). Одновременно может быть открыт <strong>только один поповер</strong>: при открытии нового — предыдущий закрывается. Возврат фокуса на триггер при любом способе закрытия — требование WCAG 2.1 (критерий 2.1.2 No Keyboard Trap).
+    </div>
+  </div>
+  <h3 class="section-sub">Flow открытия / закрытия</h3>
+  <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-node">Триггер<br>в фокусе</div><div class="flow-label">Исходное состояние</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node trigger">Click /<br>Enter</div><div class="flow-label">Действие пользователя</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node open">Поповер<br>открыт</div><div class="flow-label">Фокус → 1-й эл-т</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node">Tab /<br>работа</div><div class="flow-label">Взаимодействие</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node close">✕ / Esc /<br>Click out</div><div class="flow-label">Закрытие</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-node">Фокус<br>на триггере</div><div class="flow-label">Возврат фокуса</div></div>
+    </div>
+  </div>
+  <h3 class="section-sub">Состояния компонента</h3>
+  <table class="spec-table">
+    <thead><tr><th>Состояние</th><th>Описание</th><th>Анимация</th><th>Фокус</th><th>ARIA</th></tr></thead>
+    <tbody>
+      <tr><td><span class="chip chip-gray">default</span></td><td>Поповер закрыт, триггер в нормальном состоянии</td><td>—</td><td>На триггере</td><td><code>aria-expanded="false"</code></td></tr>
+      <tr><td><span class="chip chip-blue">hover</span></td><td>Курсор над триггером (pre-highlight)</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td><span class="chip chip-blue">opening</span></td><td>Появление 150–180 мс</td><td>opacity 0→1, translateY −4→0, scale .98→1</td><td>Переходит на первый интерактивный</td><td>—</td></tr>
+      <tr><td><span class="chip chip-green">open</span></td><td>Виден, интерактивен</td><td>—</td><td>Внутри поповера</td><td><code>aria-expanded="true"</code></td></tr>
+      <tr><td><span class="chip chip-orange">loading</span></td><td>Контент подгружается (skeleton в Body)</td><td>shimmer</td><td>На первом доступном</td><td><code>aria-busy="true"</code></td></tr>
+      <tr><td><span class="chip chip-red">error</span></td><td>Ошибка загрузки контента</td><td>—</td><td>На сообщении об ошибке</td><td><code>role="alert"</code></td></tr>
+      <tr><td><span class="chip chip-gray">closing</span></td><td>Исчезает 100–120 мс</td><td>opacity 1→0, translateY 0→−4, scale 1→.98</td><td>Возврат на триггер</td><td>—</td></tr>
+      <tr><td><span class="chip chip-gray">disabled</span></td><td>Триггер недоступен, поповер не открывается</td><td>—</td><td>Не получает</td><td><code>aria-disabled="true"</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 5. ANIMATION -->
+<section id="animation">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div><h2 class="section-title">Анимация enter / leave</h2><p class="section-desc">Параметры переходов и поведение при prefers-reduced-motion</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+    <div>
+      <table class="spec-table">
+        <thead><tr><th>Параметр</th><th>Значение</th></tr></thead>
+        <tbody>
+          <tr><td>Enter duration</td><td>150–180 ms</td></tr>
+          <tr><td>Leave duration</td><td>100–120 ms</td></tr>
+          <tr><td>Easing (enter)</td><td><code>cubic-bezier(.16,1,.3,1)</code></td></tr>
+          <tr><td>Easing (leave)</td><td><code>cubic-bezier(.4,0,1,1)</code></td></tr>
+          <tr><td>Initial transform</td><td><code>translateY(-4px) scale(.98)</code></td></tr>
+          <tr><td>Transform origin</td><td>от триггера (авто, рассчитывается из placement)</td></tr>
+          <tr><td>Initial opacity</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <span class="callout-icon">ℹ</span>
+        <div class="callout-text"><strong>prefers-reduced-motion:</strong> при включённой системной настройке анимация отключается, поповер появляется и скрывается мгновенно. Это требование WCAG 2.3.3.</div>
+      </div>
+    </div>
+    <div>
+      <h4 style="margin-bottom:var(--space-3)">CSS-пример</h4>
+      <pre style="background:var(--color-surface-offset-2);padding:var(--space-4);border-radius:var(--radius-md);font-family:&#39;SF Mono&#39;,monospace;font-size:11px;line-height:1.6;color:var(--color-text);overflow-x:auto"><code style="background:transparent;padding:0;color:inherit">.popover {
+  opacity: 0;
+  transform: translateY(-4px) scale(.98);
+  transition: opacity 180ms cubic-bezier(.16,1,.3,1),
+              transform 180ms cubic-bezier(.16,1,.3,1);
+}
+.popover.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .popover { transition: none; }
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 6. HEADER & FOOTER (SLOTS) -->
+<section id="slots">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div><h2 class="section-title">Header, Footer и слоты контента</h2><p class="section-desc">Поповер — контейнер-примитив. Header и Footer опциональны и управляются через props</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-bottom:var(--space-6)">
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+      <h3 style="font-size:var(--text-md);font-weight:600;margin-bottom:var(--space-3)">Header — когда добавлять?</h3>
+      <table class="spec-table">
+        <tbody>
+          <tr><td>Контент однозначен и самодостаточен</td><td class="no">Не нужен</td></tr>
+          <tr><td>Контент требует метки или группировки</td><td class="yes">Добавить</td></tr>
+          <tr><td>Форма с несколькими полями</td><td class="yes">Добавить</td></tr>
+          <tr><td>Поповер шире 320 px</td><td class="yes">Добавить</td></tr>
+          <tr><td>Нужна явная кнопка ✕</td><td class="yes">Разместить ✕ в Header</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:var(--space-3);padding:var(--space-3);background:var(--color-surface-offset);border-radius:var(--radius-md);font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.55">
+        <strong style="color:var(--color-text)">Лимит заголовка:</strong> не более 25 символов, в одну строку (Red Hat). Header содержит <strong style="color:var(--color-text)">только заголовок и кнопку ✕</strong>; primary-кнопки действий в Header не размещаются.
+      </div>
+    </div>
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+      <h3 style="font-size:var(--text-md);font-weight:600;margin-bottom:var(--space-3)">Footer — когда добавлять?</h3>
+      <table class="spec-table">
+        <tbody>
+          <tr><td>Только информационный контент</td><td class="no">Не нужен</td></tr>
+          <tr><td>Внутри есть форма или выбор, требующий подтверждения</td><td class="yes">Добавить</td></tr>
+          <tr><td>Деструктивное действие, требующее confirm</td><td class="yes">Добавить</td></tr>
+          <tr><td>Ссылка «Подробнее» / внешний переход</td><td class="maybe">Можно в Footer или в конец Body</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:var(--space-3);padding:var(--space-3);background:var(--color-surface-offset);border-radius:var(--radius-md);font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.55">
+        Все интерактивные действия (Сохранить, Применить, Отмена, Открыть, Удалить) живут в Footer. Это снимает неоднозначность для пользователя и скринридера.
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-sub">Порядок и выравнивание кнопок в Footer</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-bottom:var(--space-4)">
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4)">
+      <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);margin-bottom:var(--space-2);letter-spacing:.04em">КОНСТРУКТИВНЫЕ ДЕЙСТВИЯ — СПРАВА</div>
+      <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);background:var(--color-surface-offset);border-radius:var(--radius-md)">
+        <span style="font-size:11px;color:var(--color-text-faint)">Footer:</span>
+        <div style="flex:1"></div>
+        <button class="btn btn-ghost btn-sm" style="pointer-events:none">Отмена</button>
+        <button class="btn btn-primary btn-sm" style="pointer-events:none">Применить</button>
+      </div>
+      <p style="font-size:11px;margin-top:var(--space-2);line-height:1.5">Salesforce / Carbon / Material: вторичные действия (Отмена, Назад) — слева, основное конструктивное действие (Применить, Сохранить, Подтвердить) — справа. Это паттерн «прогрессивного движения» — глаз идёт слева направо к финальному действию.</p>
+    </div>
+    <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4)">
+      <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);margin-bottom:var(--space-2);letter-spacing:.04em">ИНФО / СЛУЖЕБНЫЕ ССЫЛКИ — СЛЕВА</div>
+      <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);background:var(--color-surface-offset);border-radius:var(--radius-md)">
+        <span style="font-size:11px;color:var(--color-text-faint)">Footer:</span>
+        <span style="font-size:11px;color:var(--color-text-muted)">Найдено: 24</span>
+        <div style="flex:1"></div>
+        <button class="btn btn-primary btn-sm" style="pointer-events:none">Применить</button>
+      </div>
+      <p style="font-size:11px;margin-top:var(--space-2);line-height:1.5">Информационные подписи («Найдено N», «Показано 5 из 12»), служебные ссылки («Сбросить», «Полный отчёт», «История») — слева. Они не конкурируют с основным действием за фокус внимания.</p>
+    </div>
+  </div>
+  <div class="q-callout">
+    <div class="q-num">2</div>
+    <div class="q-text">
+      <strong>В каких случаях кнопки в Footer размещаются слева, а в каких — справа?</strong>
+      <strong style="display:inline">Справа</strong> размещаются <strong style="display:inline">конструктивные / primary</strong> действия, завершающие задачу: «Применить», «Сохранить», «Подтвердить», «Открыть сделку». Рядом с ними слева идёт парная вторичная кнопка «Отмена» / «Назад». Этот порядок принят в Salesforce, Carbon, Material — он соответствует прогрессивному движению взгляда и финальной точке принятия решения.
+      <strong style="display:inline">Слева</strong> размещаются <strong style="display:inline">служебные и информационные элементы</strong>: счётчики («Найдено N», «Показано 5 из 12»), кнопки-ссылки («Сбросить», «История оценок», «Полный отчёт», «Экспорт CSV»), а также <strong style="display:inline">деструктивные действия</strong> в confirm-поповерах (например, «Закрыть без сохранения») — чтобы пользователь не нажал их случайно при движении к primary-кнопке справа.
+    </div>
+  </div>
+
+  <h3 class="section-sub">Варианты наполнения Content Area</h3>
+  <table class="spec-table">
+    <thead><tr><th>Тип контента</th><th>Примеры применения</th><th>Header</th><th>Footer</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Текст + ссылка</strong></td><td>Пояснение к полю формы, help-текст, определение термина</td><td class="no">—</td><td class="no">—</td></tr>
+      <tr><td><strong>Список / легенда</strong></td><td>Легенда к чарту, набор статусов, опции</td><td class="maybe">Опц.</td><td class="no">—</td></tr>
+      <tr><td><strong>Форма</strong></td><td>Быстрое редактирование тега, фильтр, inline-edit</td><td class="yes">Да</td><td class="yes">Да</td></tr>
+      <tr><td><strong>Карточка данных</strong></td><td>Превью сделки, разбивка метрики по категориям</td><td class="yes">Да</td><td class="maybe">Опц.</td></tr>
+      <tr><td><strong>Медиа</strong></td><td>Аватар, превью изображения, иконка статуса</td><td class="no">—</td><td class="no">—</td></tr>
+      <tr><td><strong>Custom</strong></td><td>Любой составной контент под задачу (визард, таймлайн, accordion)</td><td class="yes">Да</td><td class="yes">Да</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <span class="callout-icon">★</span>
+    <div class="callout-text"><strong>Поповер — контейнер-примитив.</strong> Контентные варианты следует документировать <strong>отдельными паттернами</strong> (например: Popover/Легенда, Popover/Форма правки, Popover/Статус). Это позволяет наполнять компонент свободно, не плодя отдельные компоненты для каждого кейса.</div>
+  </div>
+</section>
+
+<!-- 7. PROPS / API -->
+<section id="props">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div><h2 class="section-title">Props и API компонента</h2><p class="section-desc">Конфигурация через props и слоты</p></div>
+  </div>
+  <table class="spec-table">
+    <thead><tr><th>Prop / Slot</th><th>Тип</th><th>По умолчанию</th><th>Описание</th></tr></thead>
+    <tbody>
+      <tr><td><code>title</code></td><td>string / slot</td><td>—</td><td>Если задан — рендерит Header с заголовком и ✕</td></tr>
+      <tr><td><code>showClose</code></td><td>boolean</td><td>true</td><td>Показывать кнопку ✕ (в header или в body)</td></tr>
+      <tr><td><code>footer</code></td><td>slot</td><td>—</td><td>Если задан — рендерит Footer с разделителем</td></tr>
+      <tr><td><code>width</code></td><td>"xs" │ "sm" │ "md" │ "lg" │ "xl" │ "auto"</td><td>md</td><td>Ширина контейнера через токен</td></tr>
+      <tr><td><code>placement</code></td><td>top │ bottom │ left │ right + start/end</td><td>bottom-start</td><td>Сторона открытия с авто-flip</td></tr>
+      <tr><td><code>trigger</code></td><td>click │ focus │ hover</td><td>click</td><td>Способ открытия</td></tr>
+      <tr><td><code>arrow</code></td><td>boolean</td><td>true</td><td>Показывать caret-стрелку</td></tr>
+      <tr><td><code>closeOnOutside</code></td><td>boolean</td><td>true</td><td>Закрывать при клике вне поповера</td></tr>
+      <tr><td><code>closeOnEsc</code></td><td>boolean</td><td>true</td><td>Закрывать по Escape (отключать запрещено)</td></tr>
+      <tr><td><code>open</code></td><td>boolean</td><td>—</td><td>Контролируемое состояние (controlled)</td></tr>
+      <tr><td><code>onOpenChange</code></td><td>(open: boolean) =&gt; void</td><td>—</td><td>Колбэк изменения состояния</td></tr>
+      <tr><td><code>offset</code></td><td>number</td><td>8</td><td>Зазор от триггера в px</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 8. EXAMPLES -->
+<section id="examples">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <div><h2 class="section-title">Примеры использования × 13</h2><p class="section-desc">Кликайте по кнопкам — поповеры полностью интерактивны</p></div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">01</span>
+      <h3 class="example-title">Легенда чарта с детализацией</h3>
+      <div class="example-chips"><span class="chip chip-gray">xs · 240px</span><span class="chip chip-blue">Read-only</span><span class="chip chip-gray">Без Footer</span></div>
+    </div>
+    <p class="example-desc">Используется рядом с графиком. Показывает цветовые категории, значения и процентное распределение. Открывается по клику на иконку ℹ. Без шапки — контекст очевиден из расположения.</p>
+    <div class="demo-stage" style="align-items:center;gap:var(--space-6)">
+      <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-5);width:320px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4)">
+          <span style="font-size:var(--text-sm);font-weight:600">Структура портфеля</span>
+          <div class="pop-wrap">
+            <button class="info-icon" onclick="togglePop(&#39;pop-ex1&#39;)" aria-expanded="false" aria-controls="pop-ex1" aria-label="Показать легенду" id="trigger-ex1">ℹ</button>
+            <div class="popover bottom-end" id="pop-ex1" style="width:240px;right:0;left:auto" role="dialog">
+              <div class="pop-body" style="padding-top:var(--space-3)">
+                <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.04em;margin-bottom:var(--space-2)">СТРУКТУРА ПОРТФЕЛЯ</div>
+                <div class="legend-item"><div class="legend-color" style="background:#01696f"></div><span class="legend-label">Займы корпоративные</span><span class="legend-val">42%</span></div>
+                <div class="legend-item"><div class="legend-color" style="background:#006494"></div><span class="legend-label">Долговые инструменты</span><span class="legend-val">28%</span></div>
+                <div class="legend-item"><div class="legend-color" style="background:#d19900"></div><span class="legend-label">Акции и доли</span><span class="legend-val">18%</span></div>
+                <div class="legend-item"><div class="legend-color" style="background:#7a39bb"></div><span class="legend-label">Опционы</span><span class="legend-val">8%</span></div>
+                <div class="legend-item"><div class="legend-color" style="background:#bab9b4"></div><span class="legend-label">Прочее</span><span class="legend-val">4%</span></div>
+                <div class="divider"></div>
+                <div style="display:flex;justify-content:space-between;font-size:var(--text-xs)"><span style="color:var(--color-text-muted)">Итого активов</span><span style="font-weight:700">₽ 18 450 M</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;height:120px;gap:3px;align-items:flex-end">
+          <div style="flex:42;background:#01696f;border-radius:3px 3px 0 0"></div>
+          <div style="flex:28;background:#006494;border-radius:3px 3px 0 0"></div>
+          <div style="flex:18;background:#d19900;border-radius:3px 3px 0 0"></div>
+          <div style="flex:8;background:#7a39bb;border-radius:3px 3px 0 0"></div>
+          <div style="flex:4;background:#bab9b4;border-radius:3px 3px 0 0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">02</span>
+      <h3 class="example-title">Карточка сущности — быстрый просмотр сделки</h3>
+      <div class="example-chips"><span class="chip chip-gray">sm · 320px</span><span class="chip chip-blue">Read-only</span><span class="chip chip-green">С Header</span></div>
+    </div>
+    <p class="example-desc">Клик на ID сделки в таблице открывает поповер с ключевыми параметрами без перехода на страницу. Паттерн peek-preview сокращает время навигации на 40–60%.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex2&#39;)" aria-expanded="false" id="trigger-ex2">
+          <span style="color:var(--color-primary);font-weight:600">ДК-2025-4471</span>
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"></path></svg>
+        </button>
+        <div class="popover bottom-start" id="pop-ex2" style="width:320px" role="dialog">
+          <div class="pop-header">
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:1px">Корпоративный займ</div>
+              <h5>ДК-2025-4471</h5>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-2)">
+              <span class="chip chip-orange" style="font-size:10px">На согласовании</span>
+              <button class="pop-close" onclick="closePop(&#39;pop-ex2&#39;,&#39;trigger-ex2&#39;)" aria-label="Закрыть">✕</button>
+            </div>
+          </div>
+          <div class="pop-body">
+            <div class="data-row"><span class="data-key">Клиент</span><span class="data-val">ООО «АльфаЛогистик»</span></div>
+            <div class="data-row"><span class="data-key">Сумма займа</span><span class="data-val">₽ 450 000 000</span></div>
+            <div class="data-row"><span class="data-key">Ставка</span><span class="data-val">12,5% годовых</span></div>
+            <div class="data-row"><span class="data-key">Срок</span><span class="data-val">36 месяцев</span></div>
+            <div class="data-row"><span class="data-key">Менеджер</span><span class="data-val">Петров А.В.</span></div>
+            <div class="data-row"><span class="data-key">Обеспечение</span><span class="data-val">Недвижимость + поручительство</span></div>
+            <div class="data-row"><span class="data-key">Дата создания</span><span class="data-val">18.04.2025</span></div>
+          </div>
+          <div class="pop-footer">
+            <button class="btn btn-ghost btn-sm">История</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary btn-sm">Открыть сделку</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">03</span>
+      <h3 class="example-title">Быстрое редактирование — изменение параметра сделки</h3>
+      <div class="example-chips"><span class="chip chip-gray">md · 400px</span><span class="chip chip-orange">С Footer</span><span class="chip chip-green">С Header</span></div>
+    </div>
+    <p class="example-desc">Inline-редактирование поля без открытия всей формы. Сохранить/Отмена в footer обязательны — пользователь должен явно подтвердить изменение финансового параметра.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex3&#39;)" aria-expanded="false" id="trigger-ex3">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 2l3 3-9 9H2v-3L11 2z"></path></svg>
+          Изменить ставку
+        </button>
+        <div class="popover bottom-start" id="pop-ex3" style="width:380px" role="dialog">
+          <div class="pop-header">
+            <h5>Изменение процентной ставки</h5>
+            <button class="pop-close" onclick="closePop(&#39;pop-ex3&#39;,&#39;trigger-ex3&#39;)" aria-label="Закрыть">✕</button>
+          </div>
+          <div class="pop-body">
+            <div style="background:var(--color-warning-highlight);border-radius:var(--radius-md);padding:var(--space-2) var(--space-3);margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--color-warning);display:flex;align-items:center;gap:6px">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="7"></circle><path d="M8 5v4M8 11v1"></path></svg>
+              Текущая ставка: 12,5% · Требует согласования риск-менеджера
+            </div>
+            <div class="form-row">
+              <div class="form-field"><label class="form-label">Новая ставка, %</label><input class="form-input" type="number" value="12.5" min="0" max="30" step="0.1"></div>
+              <div class="form-field"><label class="form-label">Тип ставки</label><select class="form-select"><option>Фиксированная</option><option>Плавающая</option><option>КС + спред</option></select></div>
+            </div>
+            <div class="form-field"><label class="form-label">Дата вступления в силу</label><input class="form-input" type="date" value="2025-05-01"></div>
+            <div class="form-field"><label class="form-label">Обоснование изменения</label><textarea class="form-textarea" placeholder="Укажите причину изменения ставки…"></textarea></div>
+          </div>
+          <div class="pop-footer">
+            <button class="btn btn-ghost btn-sm" onclick="closePop(&#39;pop-ex3&#39;,&#39;trigger-ex3&#39;)">Отмена</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary btn-sm">Сохранить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">04</span>
+      <h3 class="example-title">Риск-профиль заёмщика</h3>
+      <div class="example-chips"><span class="chip chip-gray">md · 400px</span><span class="chip chip-blue">Read-only</span><span class="chip chip-green">С Header</span></div>
+    </div>
+    <p class="example-desc">Визуализация риска по нескольким параметрам. Прогресс-бары с цветовой кодировкой (зелёный → жёлтый → красный). Открывается кликом на риск-рейтинг в карточке или строке таблицы.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex4&#39;)" aria-expanded="false" id="trigger-ex4">
+          <span class="status-dot status-orange"></span>
+          Риск: B+
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"></path></svg>
+        </button>
+        <div class="popover bottom-start" id="pop-ex4" style="width:400px" role="dialog">
+          <div class="pop-header">
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:1px">ООО «АльфаЛогистик»</div>
+              <h5>Риск-профиль · B+ (умеренный)</h5>
+            </div>
+            <button class="pop-close" onclick="closePop(&#39;pop-ex4&#39;,&#39;trigger-ex4&#39;)" aria-label="Закрыть">✕</button>
+          </div>
+          <div class="pop-body">
+            <div class="risk-row"><span class="risk-label">Кредитный риск</span><div style="flex:1"><div class="risk-bar-wrap"><div class="risk-bar" style="width:62%;background:var(--color-orange)"></div></div></div><span style="font-size:11px;font-weight:600;min-width:28px;text-align:right">62</span></div>
+            <div class="risk-row"><span class="risk-label">Рыночный риск</span><div style="flex:1"><div class="risk-bar-wrap"><div class="risk-bar" style="width:34%;background:var(--color-success)"></div></div></div><span style="font-size:11px;font-weight:600;min-width:28px;text-align:right">34</span></div>
+            <div class="risk-row"><span class="risk-label">Операционный</span><div style="flex:1"><div class="risk-bar-wrap"><div class="risk-bar" style="width:48%;background:var(--color-gold)"></div></div></div><span style="font-size:11px;font-weight:600;min-width:28px;text-align:right">48</span></div>
+            <div class="risk-row"><span class="risk-label">Ликвидность</span><div style="flex:1"><div class="risk-bar-wrap"><div class="risk-bar" style="width:71%;background:var(--color-warning)"></div></div></div><span style="font-size:11px;font-weight:600;min-width:28px;text-align:right">71</span></div>
+            <div class="risk-row"><span class="risk-label">Концентрация</span><div style="flex:1"><div class="risk-bar-wrap"><div class="risk-bar" style="width:88%;background:var(--color-error)"></div></div></div><span style="font-size:11px;font-weight:600;min-width:28px;text-align:right;color:var(--color-error)">88</span></div>
+            <div class="divider"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-2)">
+              <div>
+                <div style="font-size:10px;color:var(--color-text-muted)">Обновлено риск-менеджером</div>
+                <div style="font-size:var(--text-xs);font-weight:500">Смирнова Е.А. · 24.04.2025</div>
+              </div>
+              <span class="chip chip-orange">⚠ Концентрация</span>
+            </div>
+          </div>
+          <div class="pop-footer">
+            <button class="btn btn-ghost btn-sm">История оценок</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary btn-sm">Полный отчёт</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">05</span>
+      <h3 class="example-title">Мини-визард — добавление залога</h3>
+      <div class="example-chips"><span class="chip chip-gray">lg · 480px</span><span class="chip chip-orange">С Footer</span><span class="chip chip-green">3 шага</span></div>
+    </div>
+    <p class="example-desc">Многошаговый процесс в поповере. Применяется когда задача укладывается в 2–4 шага и не требует перехода. При &gt;4 шагах — Drawer или отдельная страница. Прогресс-индикатор в шапке обязателен.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger primary" onclick="togglePop(&#39;pop-ex5&#39;);initWizard()" aria-expanded="false" id="trigger-ex5">+ Добавить залог</button>
+        <div class="popover bottom-start" id="pop-ex5" style="width:460px" role="dialog">
+          <div class="pop-header">
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:1px" id="wiz-step-label">Шаг 1 из 3</div>
+              <h5>Добавление обеспечения</h5>
+            </div>
+            <button class="pop-close" onclick="closePop(&#39;pop-ex5&#39;,&#39;trigger-ex5&#39;)" aria-label="Закрыть">✕</button>
+          </div>
+          <div class="steps-track">
+            <div class="step-tab active" id="stab-1">Тип</div>
+            <div class="step-tab" id="stab-2">Параметры</div>
+            <div class="step-tab" id="stab-3">Документы</div>
+          </div>
+          <div class="pop-body">
+            <div class="step-content visible" id="sc-1">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+                <label style="border:1.5px solid var(--color-primary);border-radius:var(--radius-lg);padding:var(--space-3);cursor:pointer;background:var(--color-primary-light)">
+                  <div style="font-size:18px;margin-bottom:4px">🏢</div>
+                  <div style="font-size:var(--text-xs);font-weight:600">Недвижимость</div>
+                  <div style="font-size:11px;color:var(--color-text-muted)">Объекты коммерческой и жилой недвижимости</div>
+                </label>
+                <label style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3);cursor:pointer">
+                  <div style="font-size:18px;margin-bottom:4px">🚗</div>
+                  <div style="font-size:var(--text-xs);font-weight:600">Транспорт</div>
+                  <div style="font-size:11px;color:var(--color-text-muted)">Автотранспорт и спецтехника</div>
+                </label>
+                <label style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3);cursor:pointer">
+                  <div style="font-size:18px;margin-bottom:4px">📄</div>
+                  <div style="font-size:var(--text-xs);font-weight:600">Ценные бумаги</div>
+                  <div style="font-size:11px;color:var(--color-text-muted)">Акции, облигации, паи</div>
+                </label>
+                <label style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3);cursor:pointer">
+                  <div style="font-size:18px;margin-bottom:4px">🤝</div>
+                  <div style="font-size:var(--text-xs);font-weight:600">Поручительство</div>
+                  <div style="font-size:11px;color:var(--color-text-muted)">Личное или корпоративное</div>
+                </label>
+              </div>
+            </div>
+            <div class="step-content" id="sc-2">
+              <div class="form-field"><label class="form-label">Адрес объекта</label><input class="form-input" placeholder="г. Москва, ул. Ленина, д. 1"></div>
+              <div class="form-row">
+                <div class="form-field"><label class="form-label">Кадастровая стоимость, ₽</label><input class="form-input" placeholder="0" type="number"></div>
+                <div class="form-field"><label class="form-label">Коэффициент залога</label><select class="form-select"><option>0.5</option><option selected="">0.7</option><option>0.8</option></select></div>
+              </div>
+              <div class="form-field"><label class="form-label">Оценочная стоимость (независимая), ₽</label><input class="form-input" placeholder="0" type="number"></div>
+            </div>
+            <div class="step-content" id="sc-3">
+              <div class="form-field">
+                <label class="form-label">Оценочный отчёт</label>
+                <div class="upload-zone">📎 Перетащите файл или нажмите для выбора<br><span style="font-size:10px;opacity:.6">PDF, не более 20 МБ</span></div>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Свидетельство о праве собственности</label>
+                <div class="upload-zone" style="border-color:var(--color-success);background:var(--color-success-highlight)">✓ выписка_ЕГРН.pdf</div>
+              </div>
+            </div>
+          </div>
+          <div class="pop-footer">
+            <button class="btn btn-ghost btn-sm" id="wiz-back" style="display:none" onclick="wizStep(-1)">← Назад</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-ghost btn-sm" onclick="closePop(&#39;pop-ex5&#39;,&#39;trigger-ex5&#39;)">Отмена</button>
+            <button class="btn btn-primary btn-sm" id="wiz-next" onclick="wizStep(1)">Далее →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">06</span>
+      <h3 class="example-title">Детали обеспечения / залогового пула</h3>
+      <div class="example-chips"><span class="chip chip-gray">md · 400px</span><span class="chip chip-blue">Read-only + action</span><span class="chip chip-green">С Header</span></div>
+    </div>
+    <p class="example-desc">Список объектов залога с суммами и статусами. Раскрывается при клике на агрегированное значение в поле «Обеспечение».</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex6&#39;)" aria-expanded="false" id="trigger-ex6">
+          <span style="color:var(--color-success)">●</span> Обеспечение: 3 объекта
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"></path></svg>
+        </button>
+        <div class="popover bottom-start" id="pop-ex6" style="width:400px" role="dialog">
+          <div class="pop-header">
+            <h5>Залоговый пул · ДК-2025-4471</h5>
+            <button class="pop-close" onclick="closePop(&#39;pop-ex6&#39;,&#39;trigger-ex6&#39;)" aria-label="Закрыть">✕</button>
+          </div>
+          <div class="pop-body">
+            <div class="collateral-item">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:var(--text-xs);font-weight:600">Офисное здание, Москва</span><span class="chip chip-green" style="font-size:10px">Оформлен</span></div>
+              <div style="display:flex;gap:var(--space-4);font-size:11px;color:var(--color-text-muted)"><span>Кадастр: ₽ 320 M</span><span>Коэф: 0.7</span><span>Стоимость: ₽ 224 M</span></div>
+            </div>
+            <div class="collateral-item">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:var(--text-xs);font-weight:600">Грузовой автопарк (12 ед.)</span><span class="chip chip-orange" style="font-size:10px">Оценка ожидается</span></div>
+              <div style="display:flex;gap:var(--space-4);font-size:11px;color:var(--color-text-muted)"><span>Балансовая: ₽ 85 M</span><span>Коэф: 0.5</span><span>Расчётная: ₽ 42 M</span></div>
+            </div>
+            <div class="collateral-item">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:var(--text-xs);font-weight:600">Поручительство Иванов С.П.</span><span class="chip chip-green" style="font-size:10px">Подписано</span></div>
+              <div style="display:flex;gap:var(--space-4);font-size:11px;color:var(--color-text-muted)"><span>Сумма: ₽ 200 M</span><span>До: 31.12.2027</span></div>
+            </div>
+            <div class="divider"></div>
+            <div class="data-row"><span class="data-key">Итого покрытие</span><span class="data-val" style="color:var(--color-success)">₽ 466 M / 103.5%</span></div>
+          </div>
+          <div class="pop-footer">
+            <button class="btn btn-ghost btn-sm">Редактировать</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary btn-sm">+ Добавить объект</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">07</span>
+      <h3 class="example-title">История согласования — таймлайн</h3>
+      <div class="example-chips"><span class="chip chip-gray">sm · 320px</span><span class="chip chip-blue">Read-only</span><span class="chip chip-gray">Без Footer</span></div>
+    </div>
+    <p class="example-desc">Показывает цепочку согласований без открытия полной истории. Иконки статусов (✓ / ⏳ / ○) в точках таймлайна. Прокрутка при &gt;5 событий.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex7&#39;)" aria-expanded="false" id="trigger-ex7">
+          <span class="status-dot status-orange"></span> Согласовано: 2/4 · Просмотреть
+        </button>
+        <div class="popover bottom-start" id="pop-ex7" style="width:320px" role="dialog">
+          <div class="pop-header">
+            <h5>История согласования</h5>
+            <button class="pop-close" onclick="closePop(&#39;pop-ex7&#39;,&#39;trigger-ex7&#39;)" aria-label="Закрыть">✕</button>
+          </div>
+          <div class="pop-body" style="max-height:280px;overflow-y:auto">
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:var(--color-success-highlight)"><svg viewBox="0 0 16 16" fill="none" stroke="var(--color-success)" stroke-width="2.5"><path d="M3 8l4 4 6-6"></path></svg></div>
+              <div class="timeline-content"><h5>Менеджер сделок</h5><p>Петров А.В. · 18.04.2025 · 10:24</p></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:var(--color-success-highlight)"><svg viewBox="0 0 16 16" fill="none" stroke="var(--color-success)" stroke-width="2.5"><path d="M3 8l4 4 6-6"></path></svg></div>
+              <div class="timeline-content"><h5>Риск-менеджер</h5><p>Смирнова Е.А. · 20.04.2025 · 15:10</p></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:var(--color-warning-highlight)"><svg viewBox="0 0 16 16" fill="none" stroke="var(--color-warning)" stroke-width="2.5"><circle cx="8" cy="8" r="5"></circle><path d="M8 5v4"></path></svg></div>
+              <div class="timeline-content"><h5>Юридический отдел</h5><p style="color:var(--color-warning)">Ожидает проверки документов</p></div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background:var(--color-surface-dynamic)"><svg viewBox="0 0 16 16" fill="none" stroke="var(--color-text-faint)" stroke-width="2"><circle cx="8" cy="8" r="5"></circle></svg></div>
+              <div class="timeline-content"><h5>Кредитный комитет</h5><p>Ожидает согласования предыдущих этапов</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">08</span>
+      <h3 class="example-title">Расширенный фильтр таблицы</h3>
+      <div class="example-chips"><span class="chip chip-gray">md · 400px</span><span class="chip chip-orange">С Footer</span><span class="chip chip-green">С Header</span></div>
+    </div>
+    <p class="example-desc">Альтернатива боковой панели фильтров. Компактно — подходит для таблиц с 3–7 параметрами. При &gt;10 фильтрах — Drawer или отдельная страница настроек.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex8&#39;)" aria-expanded="false" id="trigger-ex8">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h12M5 8h6M8 12h0" stroke-linecap="round"></path></svg>
+          Фильтры <span class="chip chip-primary" style="font-size:10px">3</span>
+        </button>
+        <div class="popover bottom-start" id="pop-ex8" style="width:400px" role="dialog">
+          <div class="pop-header">
+            <h5>Фильтры сделок</h5>
+            <div style="display:flex;align-items:center;gap:var(--space-2)">
+              <button class="btn-link">Сбросить</button>
+              <button class="pop-close" onclick="closePop(&#39;pop-ex8&#39;,&#39;trigger-ex8&#39;)" aria-label="Закрыть">✕</button>
+            </div>
+          </div>
+          <div class="pop-body">
+            <div class="form-row" style="margin-bottom:var(--space-3)">
+              <div class="form-field" style="margin:0"><label class="form-label">Статус</label><select class="form-select"><option>Все статусы</option><option selected="">На согласовании</option><option>Оформлен</option></select></div>
+              <div class="form-field" style="margin:0"><label class="form-label">Тип сделки</label><select class="form-select"><option>Все типы</option><option selected="">Корпоративный займ</option></select></div>
+            </div>
+            <div class="form-row" style="margin-bottom:var(--space-3)">
+              <div class="form-field" style="margin:0"><label class="form-label">Сумма от, ₽ M</label><input class="form-input" value="100" type="number"></div>
+              <div class="form-field" style="margin:0"><label class="form-label">Сумма до, ₽ M</label><input class="form-input" value="1000" type="number"></div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Менеджер</label>
+              <div class="tag-list">
+                <span class="tag selected">Петров А.В.</span>
+                <span class="tag">Сидоров Д.К.</span>
+                <span class="tag">Иванова О.П.</span>
+                <span class="tag">Козлов Р.М.</span>
+              </div>
+            </div>
+          </div>
+          <div class="pop-footer">
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">Найдено: 24 сделки</span>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary btn-sm">Применить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">09</span>
+      <h3 class="example-title">Центр уведомлений</h3>
+      <div class="example-chips"><span class="chip chip-gray">md · 400px</span><span class="chip chip-green">С Header + Footer</span><span class="chip chip-blue">Scrollable body</span></div>
+    </div>
+    <p class="example-desc">Список системных уведомлений: задачи, статусы, события. Группировка по времени. Клик на элемент — переход или действие. Footer — управление всеми уведомлениями.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex9&#39;)" aria-expanded="false" id="trigger-ex9">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2a4 4 0 0 1 4 4c0 3 1 4 2 5H2c1-1 2-2 2-5a4 4 0 0 1 4-4z"></path><path d="M6 13a2 2 0 0 0 4 0"></path></svg>
+          Уведомления
+          <span style="width:18px;height:18px;border-radius:9px;font-size:10px;background:var(--color-error);color:white;display:inline-flex;align-items:center;justify-content:center;font-weight:700;margin-left:2px">5</span>
+        </button>
+        <div class="popover bottom-end" id="pop-ex9" style="width:400px" role="dialog">
+          <div class="pop-header">
+            <h5>Уведомления <span style="background:var(--color-error);color:#fff;border-radius:9px;font-size:10px;padding:1px 6px;font-weight:700;margin-left:4px">5</span></h5>
+            <div style="display:flex;align-items:center;gap:var(--space-2)">
+              <button class="btn-link">Прочитать все</button>
+              <button class="pop-close" onclick="closePop(&#39;pop-ex9&#39;,&#39;trigger-ex9&#39;)" aria-label="Закрыть">✕</button>
+            </div>
+          </div>
+          <div class="pop-body" style="padding:0;max-height:300px;overflow-y:auto">
+            <div style="padding:var(--space-2) var(--space-4);font-size:10px;font-weight:700;color:var(--color-text-faint);letter-spacing:.05em;background:var(--color-surface-2)">СЕГОДНЯ</div>
+            <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);display:flex;gap:var(--space-3);background:var(--color-primary-light);cursor:pointer">
+              <span style="font-size:18px">📝</span>
+              <div style="flex:1"><div style="font-size:var(--text-xs);font-weight:600">Требуется подпись: ДК-2025-4471</div><div style="font-size:11px;color:var(--color-text-muted)">Дополнительное соглашение к кредитному договору</div><div style="font-size:10px;color:var(--color-text-faint)">15 мин назад</div></div>
+            </div>
+            <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);display:flex;gap:var(--space-3);background:var(--color-primary-light);cursor:pointer">
+              <span style="font-size:18px">⚠️</span>
+              <div style="flex:1"><div style="font-size:var(--text-xs);font-weight:600">Просрочка: клиент Бета-Транс</div><div style="font-size:11px;color:var(--color-text-muted)">Платёж 120 дней просрочен — требует внимания</div><div style="font-size:10px;color:var(--color-text-faint)">1 ч назад</div></div>
+            </div>
+            <div style="padding:var(--space-2) var(--space-4);font-size:10px;font-weight:700;color:var(--color-text-faint);letter-spacing:.05em;background:var(--color-surface-2)">ВЧЕРА</div>
+            <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);display:flex;gap:var(--space-3);cursor:pointer">
+              <span style="font-size:18px">✅</span>
+              <div style="flex:1"><div style="font-size:var(--text-xs);font-weight:600">Сделка ДК-2025-4455 согласована</div><div style="font-size:11px;color:var(--color-text-muted)">Кредитный комитет утвердил лимит ₽ 800 M</div><div style="font-size:10px;color:var(--color-text-faint)">Вчера, 14:32</div></div>
+            </div>
+            <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);display:flex;gap:var(--space-3);cursor:pointer">
+              <span style="font-size:18px">📎</span>
+              <div style="flex:1"><div style="font-size:var(--text-xs);font-weight:600">Загружены документы</div><div style="font-size:11px;color:var(--color-text-muted)">Выписка ЕГРН по ДК-2025-4471</div><div style="font-size:10px;color:var(--color-text-faint)">Вчера, 11:05</div></div>
+            </div>
+          </div>
+          <div class="pop-footer">
+            <button class="btn btn-ghost btn-sm">Все уведомления</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-ghost btn-sm">Настройки</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">10</span>
+      <h3 class="example-title">Настройка колонок таблицы</h3>
+      <div class="example-chips"><span class="chip chip-gray">sm · 300px</span><span class="chip chip-orange">С Footer</span><span class="chip chip-green">Drag-handle</span></div>
+    </div>
+    <p class="example-desc">Управление видимостью и порядком колонок. Drag-and-drop для сортировки. Сохранение пресетов — в footer. Паттерн распространён в Bloomberg Terminal, Salesforce, SAP.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex10&#39;)" aria-expanded="false" id="trigger-ex10">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="1" width="6" height="6"></rect><rect x="9" y="1" width="6" height="6"></rect><rect x="1" y="9" width="6" height="6"></rect><rect x="9" y="9" width="6" height="6"></rect></svg>
+          Колонки
+        </button>
+        <div class="popover bottom-start" id="pop-ex10" style="width:300px" role="dialog">
+          <div class="pop-header">
+            <h5>Настройка колонок</h5>
+            <button class="pop-close" onclick="closePop(&#39;pop-ex10&#39;,&#39;trigger-ex10&#39;)" aria-label="Закрыть">✕</button>
+          </div>
+          <div class="pop-body" style="padding:var(--space-2) 0">
+            <div style="padding:0 var(--space-4) var(--space-2)"><input class="form-input" placeholder="Найти колонку…" style="height:30px;font-size:var(--text-xs)"></div>
+            <div id="col-list" style="max-height:220px;overflow-y:auto"><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(0)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Номер сделки</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-primary);background:var(--color-primary);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"></path></svg></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(1)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Клиент</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-primary);background:var(--color-primary);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"></path></svg></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(2)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Сумма</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-primary);background:var(--color-primary);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"></path></svg></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(3)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Статус</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-primary);background:var(--color-primary);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"></path></svg></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(4)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Ставка</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-border);background:transparent;display:flex;align-items:center;justify-content:center"></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(5)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Срок</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-border);background:transparent;display:flex;align-items:center;justify-content:center"></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(6)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Менеджер</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-primary);background:var(--color-primary);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"></path></svg></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(7)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Дата создания</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-border);background:transparent;display:flex;align-items:center;justify-content:center"></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(8)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Обеспечение</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-border);background:transparent;display:flex;align-items:center;justify-content:center"></div></div><div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol(9)"><span style="color:var(--color-text-faint);cursor:grab">⣿</span><div style="flex:1;font-size:12px">Риск</div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-primary);background:var(--color-primary);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"></path></svg></div></div></div>
+          </div>
+          <div class="pop-footer">
+            <button class="btn-link" onclick="selectAllCols()">Показать все</button>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary btn-sm">Применить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">11</span>
+      <h3 class="example-title">Контекстная подсказка по полю формы</h3>
+      <div class="example-chips"><span class="chip chip-gray">xs · 280px</span><span class="chip chip-blue">Read-only</span><span class="chip chip-gray">Без Header/Footer</span></div>
+    </div>
+    <p class="example-desc">Расширенная справка по полю — показывает правила заполнения, примеры, допустимые значения. Триггер — иконка ? справа от лейбла. Закрывается по Esc и outside click.</p>
+    <div class="demo-stage" style="align-items:center">
+      <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6);width:380px">
+        <h4 style="margin-bottom:var(--space-4)">Параметры займа</h4>
+        <div class="form-field">
+          <div style="display:flex;align-items:center;gap:6px">
+            <label class="form-label">КПН (коэффициент покрытия долга)</label>
+            <div class="pop-wrap" style="display:inline-block">
+              <button class="info-icon" onclick="togglePop(&#39;pop-ex11&#39;)" aria-expanded="false" id="trigger-ex11" aria-label="Справка по КПН">?</button>
+              <div class="popover bottom-start" id="pop-ex11" style="width:280px" role="dialog">
+                <div class="pop-body" style="padding:var(--space-3)">
+                  <div style="font-size:var(--text-xs);font-weight:700;margin-bottom:var(--space-2)">Коэффициент покрытия долга</div>
+                  <p style="margin-bottom:var(--space-2)">КПН = EBITDA / (Основной долг + Проценты). Показывает способность компании обслуживать долг из операционной прибыли.</p>
+                  <div style="background:var(--color-surface-offset);border-radius:var(--radius-md);padding:var(--space-2)">
+                    <div style="font-size:10px;font-weight:600;color:var(--color-text-muted);margin-bottom:4px">ДОПУСТИМЫЕ ЗНАЧЕНИЯ</div>
+                    <div class="legend-item" style="padding:3px 0"><span class="legend-color" style="background:var(--color-success)"></span><span class="legend-label">Отличный ≥ 1.5</span></div>
+                    <div class="legend-item" style="padding:3px 0"><span class="legend-color" style="background:var(--color-gold)"></span><span class="legend-label">Допустимый 1.2–1.5</span></div>
+                    <div class="legend-item" style="padding:3px 0"><span class="legend-color" style="background:var(--color-error)"></span><span class="legend-label">Критичный &lt; 1.2</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input class="form-input" value="1.85">
+        </div>
+        <div class="form-field"><label class="form-label">Размер займа, ₽</label><input class="form-input" value="450 000 000"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">12</span>
+      <h3 class="example-title">Назначение ответственного / передача задачи</h3>
+      <div class="example-chips"><span class="chip chip-gray">sm · 300px</span><span class="chip chip-orange">С Footer</span><span class="chip chip-green">Поиск внутри</span></div>
+    </div>
+    <p class="example-desc">Поиск + список сотрудников с ролями. Выбор одного или нескольких. Паттерн «assign popover» используется в Jira, Linear, Salesforce.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex12&#39;)" aria-expanded="false" id="trigger-ex12">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--color-surface-dynamic);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">П</div>
+          Петров А.В.
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"></path></svg>
+        </button>
+        <div class="popover bottom-start" id="pop-ex12" style="width:300px" role="dialog">
+          <div class="pop-header">
+            <h5>Назначить ответственного</h5>
+            <button class="pop-close" onclick="closePop(&#39;pop-ex12&#39;,&#39;trigger-ex12&#39;)" aria-label="Закрыть">✕</button>
+          </div>
+          <div class="pop-body" style="padding:var(--space-3)">
+            <div style="margin-bottom:var(--space-3)"><input class="form-input" placeholder="Поиск по имени…" style="height:32px;font-size:var(--text-xs)"></div>
+            <div style="font-size:10px;font-weight:600;color:var(--color-text-faint);letter-spacing:.05em;margin-bottom:var(--space-2)">УПРАВЛЕНИЕ СДЕЛКАМИ</div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:6px 8px;border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0">П</div>
+                <div style="flex:1"><div style="font-size:var(--text-xs);font-weight:600">Петров А.В.</div><div style="font-size:11px;color:var(--color-text-muted)">Ст. менеджер сделок</div></div>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M3 8l4 4 6-6"></path></svg>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:6px 8px;border-radius:var(--radius-md);cursor:pointer">
+                <div style="width:28px;height:28px;border-radius:50%;background:#006494;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0">С</div>
+                <div style="flex:1"><div style="font-size:var(--text-xs);font-weight:600">Сидоров Д.К.</div><div style="font-size:11px;color:var(--color-text-muted)">Менеджер сделок</div></div>
+              </div>
+              <div style="font-size:10px;font-weight:600;color:var(--color-text-faint);letter-spacing:.05em;margin:var(--space-2) 0">РИСК-МЕНЕДЖМЕНТ</div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:6px 8px;border-radius:var(--radius-md);cursor:pointer">
+                <div style="width:28px;height:28px;border-radius:50%;background:#437a22;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0">Е</div>
+                <div style="flex:1"><div style="font-size:var(--text-xs);font-weight:600">Смирнова Е.А.</div><div style="font-size:11px;color:var(--color-text-muted)">Риск-менеджер</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="pop-footer">
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">Текущий: Петров А.В.</span>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary btn-sm">Назначить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-meta">
+      <span class="example-num">13</span>
+      <h3 class="example-title">График погашения — таблица с прокруткой</h3>
+      <div class="example-chips"><span class="chip chip-gray">lg · 460px</span><span class="chip chip-green">С Header + Footer</span><span class="chip chip-blue">Прокрутка тела</span></div>
+    </div>
+    <p class="example-desc">Детализация графика платежей прямо из строки таблицы. Прокрутка тела при длинном списке. Footer — ссылка на полный экран и экспорт.</p>
+    <div class="demo-stage" style="padding-top:var(--space-16)">
+      <div class="pop-wrap">
+        <button class="pop-trigger" onclick="togglePop(&#39;pop-ex13&#39;)" aria-expanded="false" id="trigger-ex13">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="12" height="12" rx="2"></rect><path d="M2 6h12M6 6v8"></path></svg>
+          График погашения
+        </button>
+        <div class="popover bottom-start" id="pop-ex13" style="width:460px" role="dialog">
+          <div class="pop-header">
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:1px">ДК-2025-4471 · ₽ 450 M</div>
+              <h5>График погашения</h5>
+            </div>
+            <button class="pop-close" onclick="closePop(&#39;pop-ex13&#39;,&#39;trigger-ex13&#39;)" aria-label="Закрыть">✕</button>
+          </div>
+          <div class="pop-body" style="max-height:320px;overflow-y:auto;padding:0">
+            <table class="spec-table" style="font-size:11px">
+              <thead><tr><th>Дата</th><th>Осн. долг, ₽</th><th>Проценты, ₽</th><th>Итого, ₽</th><th>Статус</th></tr></thead>
+              <tbody>
+                <tr><td>2025-07-01</td><td>12 500 000</td><td>4 687 500</td><td>17 187 500</td><td><span class="chip chip-green" style="font-size:10px">Ожидается</span></td></tr>
+                <tr><td>2025-10-01</td><td>12 500 000</td><td>4 218 750</td><td>16 718 750</td><td><span class="chip chip-green" style="font-size:10px">Ожидается</span></td></tr>
+                <tr><td>2026-01-01</td><td>12 500 000</td><td>3 750 000</td><td>16 250 000</td><td><span class="chip chip-gray" style="font-size:10px">Будущий</span></td></tr>
+                <tr><td>2026-04-01</td><td>12 500 000</td><td>3 281 250</td><td>15 781 250</td><td><span class="chip chip-gray" style="font-size:10px">Будущий</span></td></tr>
+                <tr><td>2026-07-01</td><td>12 500 000</td><td>2 812 500</td><td>15 312 500</td><td><span class="chip chip-gray" style="font-size:10px">Будущий</span></td></tr>
+                <tr style="font-weight:600;background:var(--color-surface-offset-2)"><td>Итого</td><td>62 500 000</td><td>18 750 000</td><td>81 250 000</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pop-footer">
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">Показано: 5 из 12 платежей</span>
+            <div style="flex:1"></div>
+            <button class="btn btn-ghost btn-sm">Экспорт CSV</button>
+            <button class="btn btn-primary btn-sm">Полный график</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CORNER CASES -->
+<section id="corner">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <div><h2 class="section-title">Corner Cases</h2><p class="section-desc">Нестандартные сценарии и граничные состояния</p></div>
+  </div>
+  <div class="cc-grid">
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Async-загрузка контента</h4><span class="cc-tag" style="background:var(--color-blue-highlight);color:var(--color-blue)">Loading state</span></div>
+      <div class="cc-body">
+        <p>Когда данные загружаются из API после открытия — показываем skeleton в Body. Не блокируем открытие. Header рендерится сразу. <code>aria-busy="true"</code> на body. Минимальная высота не прыгает.</p>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);font-weight:600">Детали клиента</span><span style="font-size:11px;color:var(--color-text-faint)">●●●</span></div>
+          <div style="padding:var(--space-4)" aria-busy="true">
+            <div class="skel" style="height:11px;width:60%;margin-bottom:8px"></div>
+            <div class="skel" style="height:11px;width:90%;margin-bottom:8px"></div>
+            <div class="skel" style="height:11px;width:75%;margin-bottom:8px"></div>
+            <div class="skel" style="height:11px;width:50%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Пустое состояние (empty)</h4><span class="cc-tag" style="background:var(--color-surface-offset-2);color:var(--color-text-muted)">Empty state</span></div>
+      <div class="cc-body">
+        <p>Никогда не показывать пустой контейнер. Иконка + человеческий текст + CTA-действие. Footer в этом кейсе убирается (или содержит только основной CTA).</p>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);font-weight:600">Документы по сделке</span><span style="color:var(--color-text-faint);font-size:11px">✕</span></div>
+          <div style="padding:var(--space-5) var(--space-4);text-align:center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-faint)" stroke-width="1.5" style="margin:0 auto 10px"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+            <div style="font-size:var(--text-xs);font-weight:600;margin-bottom:4px">Документов нет</div>
+            <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:var(--space-3)">К этой сделке ещё не загружены документы</div>
+            <button class="btn btn-primary btn-sm">+ Загрузить документ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Ошибка загрузки контента</h4><span class="cc-tag" style="background:var(--color-error-highlight);color:var(--color-error)">Error state</span></div>
+      <div class="cc-body">
+        <p>API вернул ошибку — не закрываем поповер. Показываем error state с кнопкой повтора. <code>role="alert"</code>. Никогда не показывать stack trace или HTTP-коды — только человеческое сообщение.</p>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);font-weight:600">Аналитика по сделке</span><span style="color:var(--color-text-faint);font-size:11px">✕</span></div>
+          <div style="padding:var(--space-5) var(--space-4);text-align:center" role="alert">
+            <div style="font-size:24px;margin-bottom:var(--space-2)">⚠️</div>
+            <div style="font-size:var(--text-xs);font-weight:600;margin-bottom:4px">Не удалось загрузить данные</div>
+            <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:var(--space-3)">Ошибка сети · код 503</div>
+            <button class="btn btn-ghost btn-sm">↻ Повторить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Переполнение контента / прокрутка</h4><span class="cc-tag" style="background:var(--color-warning-highlight);color:var(--color-warning)">Overflow</span></div>
+      <div class="cc-body">
+        <p>Когда контент не помещается в max-height — Body прокручивается, Header и Footer остаются фиксированными. Пользователь всегда видит действия. В Footer — счётчик «Показано N из M».</p>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);font-weight:600">Список документов</span><span style="color:var(--color-text-faint);font-size:11px">✕</span></div>
+          <div style="max-height:100px;overflow-y:auto;padding:var(--space-3) var(--space-4)">
+            <div style="font-size:var(--text-xs);padding:3px 0;border-bottom:1px solid var(--color-divider)">📄 Договор займа v3.pdf</div>
+            <div style="font-size:var(--text-xs);padding:3px 0;border-bottom:1px solid var(--color-divider)">📄 Выписка ЕГРН.pdf</div>
+            <div style="font-size:var(--text-xs);padding:3px 0;border-bottom:1px solid var(--color-divider)">📄 Оценочный отчёт.pdf</div>
+            <div style="font-size:var(--text-xs);padding:3px 0;border-bottom:1px solid var(--color-divider)">📄 Поручительство.pdf</div>
+            <div style="font-size:var(--text-xs);padding:3px 0">📄 Доп. соглашение.pdf</div>
+          </div>
+          <div style="padding:var(--space-2) var(--space-4);border-top:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;align-items:center"><span style="font-size:11px;color:var(--color-text-muted)">Показано 5 из 12</span><div style="flex:1"></div><button class="btn btn-primary btn-sm">+ Загрузить</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Поповер у края экрана (auto-flip)</h4><span class="cc-tag" style="background:var(--color-primary-light);color:var(--color-primary)">Positioning</span></div>
+      <div class="cc-body">
+        <p>При открытии поповера вне viewport — Floating UI / Popper.js автоматически переключает позицию на противоположную сторону и/или сдвигает <code>shift()</code> чтобы избежать выхода за границы. Минимальный отступ — 8 px.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);font-size:var(--text-xs)">
+          <div style="background:var(--color-surface-offset);border-radius:var(--radius-md);padding:var(--space-2)"><div style="font-weight:600;margin-bottom:2px">bottom → top</div><div style="color:var(--color-text-muted)">Не помещается снизу viewport</div></div>
+          <div style="background:var(--color-surface-offset);border-radius:var(--radius-md);padding:var(--space-2)"><div style="font-weight:600;margin-bottom:2px">end → start</div><div style="color:var(--color-text-muted)">Правый край за viewport</div></div>
+          <div style="background:var(--color-surface-offset);border-radius:var(--radius-md);padding:var(--space-2)"><div style="font-weight:600;margin-bottom:2px">right → left</div><div style="color:var(--color-text-muted)">Нет места справа (sidebar)</div></div>
+          <div style="background:var(--color-surface-offset);border-radius:var(--radius-md);padding:var(--space-2)"><div style="font-weight:600;margin-bottom:2px">shift()</div><div style="color:var(--color-text-muted)">Сдвиг при узких экранах</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Форма с ошибками валидации</h4><span class="cc-tag" style="background:var(--color-error-highlight);color:var(--color-error)">Validation</span></div>
+      <div class="cc-body">
+        <p>При сабмите с ошибками поповер <strong>НЕ закрывается</strong>. Inline-ошибки под полями + сводный banner наверху. Кнопка «Сохранить» деактивирована до исправления.</p>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);background:var(--color-surface-2)"><span style="font-size:var(--text-xs);font-weight:600">Изменение лимита</span></div>
+          <div style="padding:var(--space-3) var(--space-4)">
+            <div style="background:var(--color-error-highlight);color:var(--color-error);font-size:var(--text-xs);padding:var(--space-2);border-radius:var(--radius-md);margin-bottom:var(--space-3)">⚠ Исправьте 1 ошибку перед сохранением</div>
+            <div style="font-size:var(--text-xs);font-weight:600;margin-bottom:4px;color:var(--color-text-muted)">Новый лимит, ₽</div>
+            <input class="form-input error" value="9999999999" style="margin-bottom:4px">
+            <div class="form-error-msg">Значение превышает допустимый лимит 500 M ₽</div>
+          </div>
+          <div style="padding:var(--space-2) var(--space-4);border-top:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;gap:var(--space-2)"><button class="btn btn-ghost btn-sm">Отмена</button><div style="flex:1"></div><button class="btn btn-primary btn-sm" style="opacity:.5;cursor:not-allowed">Сохранить</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Несохранённые изменения (dirty state)</h4><span class="cc-tag" style="background:var(--color-warning-highlight);color:var(--color-warning)">Unsaved</span></div>
+      <div class="cc-body">
+        <p>При dirty state отключаем <code>closeOnOutside</code>. Esc и ✕ показывают inline-предупреждение или confirm. Деструктивная кнопка «Закрыть без сохранения» — слева, конструктивная «Сохранить» — справа.</p>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);background:var(--color-surface-2)"><span style="font-size:var(--text-xs);font-weight:600">Редактировать условия</span></div>
+          <div style="padding:var(--space-3) var(--space-4)">
+            <div style="background:var(--color-warning-highlight);color:var(--color-warning);font-size:var(--text-xs);padding:var(--space-2);border-radius:var(--radius-md);margin-bottom:var(--space-3)">⚠ Несохранённые изменения. Закрыть и потерять их?</div>
+            <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:4px">Ставка</div>
+            <input class="form-input" value="13.0%" style="border-color:var(--color-warning)">
+          </div>
+          <div style="padding:var(--space-2) var(--space-4);border-top:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;gap:var(--space-2)"><button class="btn btn-danger btn-sm">Закрыть без сохранения</button><div style="flex:1"></div><button class="btn btn-primary btn-sm">Сохранить</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Состояние сохранения</h4><span class="cc-tag" style="background:var(--color-success-highlight);color:var(--color-success)">Saving</span></div>
+      <div class="cc-body">
+        <p>Во время отправки данных: форма и кнопки задизейблены, кнопка ✕ скрыта (или disabled). После успеха — мгновенное закрытие + toast. При ошибке — поповер остаётся открытым с inline-сообщением.</p>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);font-weight:600">Изменить ставку</span><span style="opacity:.4;color:var(--color-text-faint);font-size:11px">✕</span></div>
+          <div style="padding:var(--space-3) var(--space-4);opacity:.5">
+            <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:4px">Ставка</div>
+            <input class="form-input" value="12.5%">
+          </div>
+          <div style="padding:var(--space-2) var(--space-4);border-top:1px solid var(--color-divider);background:var(--color-surface-2);display:flex;gap:var(--space-2)"><button class="btn btn-ghost btn-sm" style="opacity:.4">Отмена</button><div style="flex:1"></div><button class="btn btn-primary btn-sm" style="display:flex;align-items:center;gap:6px;cursor:not-allowed"><span style="display:inline-block;width:10px;height:10px;border:2px solid white;border-top-color:transparent;border-radius:50%;animation:shimmer 1s linear infinite"></span>Сохранение…</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Подтверждение деструктивного действия</h4><span class="cc-tag" style="background:var(--color-error-highlight);color:var(--color-error)">Destructive</span></div>
+      <div class="cc-body">
+        <p>Для необратимых действий (удалить, отозвать, аннулировать) — confirm-поповер. Деструктивная кнопка слева как «выход», primary «Отмена» справа — чтобы пользователь не нажал случайно при движении к финальному действию.</p>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="padding:var(--space-4)">
+            <div style="font-size:18px;margin-bottom:var(--space-2)">🗑️</div>
+            <div style="font-size:var(--text-xs);font-weight:600;margin-bottom:4px">Удалить сделку?</div>
+            <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:var(--space-3)">Сделка ДК-2025-4471 и все связанные документы будут удалены. Действие необратимо.</div>
+            <div style="display:flex;gap:var(--space-2)">
+              <button class="btn btn-danger btn-sm">Удалить навсегда</button>
+              <div style="flex:1"></div>
+              <button class="btn btn-primary btn-sm">Отмена</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Поповер внутри другого поповера</h4><span class="cc-tag" style="background:var(--color-warning-highlight);color:var(--color-warning)">Nesting</span></div>
+      <div class="cc-body">
+        <p>Допускается максимум 1 уровень вложенности. Вложенный (2-й) поповер — обязательно xs и только read-only. Родительский не закрывается. z-index вложенного выше родителя.</p>
+        <div style="background:var(--color-error-highlight);border-radius:var(--radius-md);padding:var(--space-2) var(--space-3);font-size:11px;color:var(--color-error);margin-top:var(--space-2)">⛔ Не делать: вложенная форма или поповер с Footer внутри другого.</div>
+        <div style="background:var(--color-success-highlight);border-radius:var(--radius-md);padding:var(--space-2) var(--space-3);font-size:11px;color:var(--color-success);margin-top:var(--space-2)">✓ Можно: xs-поповер с подсказкой открывается из поля формы внутри md-поповера.</div>
+      </div>
+    </div>
+
+    <div class="cc-card">
+      <div class="cc-header"><h4>Поповер на мобильном</h4><span class="cc-tag" style="background:var(--color-blue-highlight);color:var(--color-blue)">Mobile</span></div>
+      <div class="cc-body">
+        <p>На экранах &lt;768 px поповер автоматически трансформируется в Bottom Sheet — занимает всю ширину, появляется снизу. Свайп вниз для закрытия.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+          <div style="font-size:11px"><strong style="font-size:var(--text-xs)">Desktop ≥ 768 px</strong><br><span style="color:var(--color-text-muted)">Позиционированный поповер с caret</span></div>
+          <div style="font-size:11px"><strong style="font-size:var(--text-xs)">Mobile &lt; 768 px</strong><br><span style="color:var(--color-text-muted)">Bottom Sheet, 100% ширины, max-height 85vh</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 10. ACCESSIBILITY -->
+<section id="a11y">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <div><h2 class="section-title">Доступность (WCAG 2.2 AA)</h2><p class="section-desc">Обязательные атрибуты, фокус, клавиатурная навигация и контрастность</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+    <div>
+      <h3 class="section-sub" style="margin-top:0">ARIA-атрибуты</h3>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5><code>role="dialog"</code> на контейнере</h5><p>Обязателен при интерактивном контенте. При отсутствии интерактивных элементов — <code>role="region"</code> с <code>aria-label</code>. Не <code>role="tooltip"</code>.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5><code>aria-modal="false"</code></h5><p>Поповер не блокирует основной контент. Скринридер сохраняет доступ к остальному.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5><code>aria-expanded</code> на триггере</h5><p>false при закрытом, true при открытом. Меняется атомарно.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5><code>aria-controls="[popover-id]"</code></h5><p>Связывает триггер с конкретным поповером.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5><code>aria-haspopup="dialog"</code></h5><p>Тип всплывающего контента для скринридера.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5><code>aria-labelledby</code> на диалоге</h5><p>Указывает на заголовок. Если заголовка нет — <code>aria-label</code>.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5>Кнопка ✕ — <code>aria-label="Закрыть"</code></h5><p>Без видимого текста. Только иконка + a11y-метка.</p></div></div>
+    </div>
+    <div>
+      <h3 class="section-sub" style="margin-top:0">Клавиатура и фокус</h3>
+      <table class="spec-table" style="margin-bottom:var(--space-4)">
+        <thead><tr><th>Клавиша</th><th>Действие</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Открыть/закрыть на триггере</td></tr>
+          <tr><td><kbd>Tab</kbd></td><td>Переход между интерактивными элементами внутри</td></tr>
+          <tr><td><kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Обратный обход</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>Закрыть, вернуть фокус на триггер</td></tr>
+          <tr><td><kbd>Tab</kbd> за последний</td><td>Закрыть поповер, перейти дальше по странице (для нон-модального)</td></tr>
+        </tbody>
+      </table>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5>Открытие — фокус на первый интерактивный</h5><p>Внутри поповера. Для нон-модального soft trap — Tab может уйти за пределы и закрыть.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5>Закрытие — возврат фокуса на триггер</h5><p>Точно на тот элемент, который открыл поповер. Требование WCAG 2.4.3.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5>Контрастность текста</h5><p>≥ 4.5:1 для обычного текста, ≥ 3:1 для крупного (≥18 px). Граница / тень контейнера обеспечивает визуальное отделение от фона.</p></div></div>
+      <div class="a11y-item"><div class="a11y-check">✓</div><div><h5>Видимый focus ring</h5><p><code>:focus-visible</code> на триггере и интерактивных элементах внутри. Минимум 2 px outline.</p></div></div>
+    </div>
+  </div>
+  <h3 class="section-sub">Пример разметки</h3>
+  <pre style="background:var(--color-surface-offset-2);padding:var(--space-4);border-radius:var(--radius-md);font-family:&#39;SF Mono&#39;,monospace;font-size:11px;line-height:1.7;color:var(--color-text);overflow-x:auto"><code style="background:transparent;padding:0;color:inherit">&lt;button
+  aria-expanded="false"
+  aria-controls="popover-id"
+  aria-haspopup="dialog"
+&gt;
+  Открыть поповер
+&lt;/button&gt;
+
+&lt;div
+  id="popover-id"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="popover-title"
+  hidden
+&gt;
+  &lt;h2 id="popover-title"&gt;Заголовок&lt;/h2&gt;
+  …
+&lt;/div&gt;</code></pre>
+</section>
+
+<!-- 11. TOKENS -->
+<section id="tokens">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <div><h2 class="section-title">Дизайн-токены компонента</h2><p class="section-desc">CSS-переменные для интеграции в дизайн-систему</p></div>
+  </div>
+  <div class="tokens-grid">
+    <div>
+      <div class="token-group">
+        <h3>Ширина и высота</h3>
+        <table class="spec-table">
+          <thead><tr><th>Токен</th><th>Значение</th></tr></thead>
+          <tbody>
+            <tr><td><code>--pop-width-xs</code></td><td>240 px</td></tr>
+            <tr><td><code>--pop-width-sm</code></td><td>320 px</td></tr>
+            <tr><td><code>--pop-width-md</code></td><td>400 px</td></tr>
+            <tr><td><code>--pop-width-lg</code></td><td>480 px</td></tr>
+            <tr><td><code>--pop-width-xl</code></td><td>560 px</td></tr>
+            <tr><td><code>--pop-max-height</code></td><td>60vh / 400–520 px</td></tr>
+            <tr><td><code>--pop-body-max-md</code></td><td>440 px</td></tr>
+            <tr><td><code>--pop-header-height</code></td><td>44–48 px (min)</td></tr>
+            <tr><td><code>--pop-footer-height</code></td><td>50–56 px (min)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="token-group" style="margin-top:var(--space-6)">
+        <h3>Отступы</h3>
+        <table class="spec-table">
+          <thead><tr><th>Зона</th><th>Значение</th></tr></thead>
+          <tbody>
+            <tr><td>Body padding</td><td>16 px</td></tr>
+            <tr><td>Header padding</td><td>12 × 16 px</td></tr>
+            <tr><td>Footer padding</td><td>12 × 16 px</td></tr>
+            <tr><td><code>--pop-offset</code></td><td>8 px</td></tr>
+            <tr><td><code>--pop-viewport-margin</code></td><td>8 px</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="token-group">
+        <h3>Визуальные</h3>
+        <table class="spec-table">
+          <thead><tr><th>Токен</th><th>Значение</th></tr></thead>
+          <tbody>
+            <tr><td><code>--pop-bg</code></td><td>var(--color-surface)</td></tr>
+            <tr><td><code>--pop-border</code></td><td>1 px solid var(--color-border)</td></tr>
+            <tr><td><code>--pop-radius</code></td><td>4–14 px</td></tr>
+            <tr><td><code>--pop-shadow</code></td><td>0 8px 24px rgba(0,0,0,.12)…</td></tr>
+            <tr><td><code>--pop-header-bg</code></td><td>var(--color-surface-2)</td></tr>
+            <tr><td><code>--pop-footer-bg</code></td><td>var(--color-surface-2)</td></tr>
+            <tr><td><code>--pop-divider</code></td><td>var(--color-divider)</td></tr>
+            <tr><td><code>--pop-caret-size</code></td><td>8 px</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="token-group" style="margin-top:var(--space-6)">
+        <h3>Анимация</h3>
+        <table class="spec-table">
+          <thead><tr><th>Токен</th><th>Значение</th></tr></thead>
+          <tbody>
+            <tr><td><code>--pop-anim-in</code></td><td>180 ms cubic-bezier(.16,1,.3,1)</td></tr>
+            <tr><td><code>--pop-anim-out</code></td><td>120 ms ease-in</td></tr>
+            <tr><td><code>--pop-translate-y</code></td><td>−4 px (initial)</td></tr>
+            <tr><td><code>--pop-scale</code></td><td>.98 (initial)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. Z-INDEX -->
+<section id="zindex">
+  <div class="section-header">
+    <span class="section-num">12</span>
+    <div><h2 class="section-title">Z-index стэкинг</h2><p class="section-desc">Место поповера в стэке наложения относительно других overlay-компонентов</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:var(--space-6)">
+    <div class="zindex-stack">
+      <div class="zindex-row" style="background:var(--color-error-highlight);color:var(--color-error)"><span>Toast</span><span>1080</span></div>
+      <div class="zindex-row" style="background:var(--color-blue-highlight);color:var(--color-blue)"><span>Tooltip</span><span>1070</span></div>
+      <div class="zindex-row highlight"><span>Popover</span><span>1000–1060</span></div>
+      <div class="zindex-row"><span>Modal</span><span>1050</span></div>
+      <div class="zindex-row"><span>Drawer</span><span>1040</span></div>
+      <div class="zindex-row"><span>Sticky header</span><span>100</span></div>
+      <div class="zindex-row"><span>Base content</span><span>1</span></div>
+    </div>
+    <div>
+      <p style="font-size:var(--text-sm);line-height:1.7;color:var(--color-text);margin-bottom:var(--space-4)">
+        Поповер должен находиться <strong>выше Modal</strong> чтобы при необходимости появляться поверх открытого модального окна — редкий, но реальный кейс в enterprise-системах (например, поповер-подсказка по полю формы внутри модалки).
+      </p>
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠</span>
+        <div class="callout-text"><strong>Никогда не открывайте поповер поверх другого поповера.</strong> Это нарушает фокус-модель и неоднозначно для Esc — какой поповер закрывать первым? Если нужен новый — закрывай старый.</div>
+      </div>
+      <p style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.6;margin-top:var(--space-3)">
+        Tooltip — выше поповера (1070): подсказка по элементу внутри поповера должна быть видна. Toast (1080) — поверх всего: критические нотификации не должны перекрываться поповером.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 13. DECISION TREE -->
+<section id="decision">
+  <div class="section-header">
+    <span class="section-num">13</span>
+    <div><h2 class="section-title">Когда НЕ использовать поповер</h2><p class="section-desc">Дерево решений для выбора между Tooltip / Popover / Modal / Drawer</p></div>
+  </div>
+  <div class="dt-tree">
+    <div class="dt-q">Нужно показать дополнительную информацию к элементу?</div>
+    <div class="dt-arrow"></div>
+    <div class="dt-q">Это только текст, без взаимодействия?</div>
+    <div class="dt-arrow"></div>
+    <div class="dt-row">
+      <div class="dt-branch"><div class="dt-branch-label">Да →</div><div class="dt-result">Tooltip</div><div class="dt-result-desc">Только текст 1–2 строки. Hover/Focus. Max ~60 символов.</div></div>
+      <div class="dt-branch"><div class="dt-branch-label">Нет →</div><div class="dt-result">Popover →</div><div class="dt-result-desc">Есть интерактив, форма, список. Идём дальше.</div></div>
+    </div>
+    <div class="dt-arrow"></div>
+    <div class="dt-q">Контент помещается в 480–560 px шириной и 60vh высотой?</div>
+    <div class="dt-arrow"></div>
+    <div class="dt-row">
+      <div class="dt-branch"><div class="dt-branch-label">Да →</div><div class="dt-result">Popover ✓</div><div class="dt-result-desc">Привязан к триггеру, не блокирует контекст страницы.</div></div>
+      <div class="dt-branch"><div class="dt-branch-label">Нет →</div><div class="dt-result">→ Modal / Drawer</div><div class="dt-result-desc">Контент слишком большой для поповера. Идём дальше.</div></div>
+    </div>
+    <div class="dt-arrow"></div>
+    <div class="dt-q">Контент требует полного внимания и блокировки фона?</div>
+    <div class="dt-arrow"></div>
+    <div class="dt-row">
+      <div class="dt-branch"><div class="dt-branch-label">Да →</div><div class="dt-result">Modal</div><div class="dt-result-desc">Многошаговый процесс, критическое подтверждение, форма 5+ полей.</div></div>
+      <div class="dt-branch"><div class="dt-branch-label">Нет →</div><div class="dt-result">Drawer / Side Panel</div><div class="dt-result-desc">Детали объекта сбоку с сохранением контекста списка.</div></div>
+    </div>
+  </div>
+  <h3 class="section-sub">Сигналы для переключения с Popover на другой компонент</h3>
+  <table class="spec-table">
+    <thead><tr><th>Сигнал</th><th>Переключиться на</th></tr></thead>
+    <tbody>
+      <tr><td>Ширина &gt; 4 колонок / ~560 px</td><td><strong>Modal</strong></td></tr>
+      <tr><td>Появился вертикальный скролл при max-height и контента ещё много</td><td><strong>Modal или Drawer</strong></td></tr>
+      <tr><td>Больше 4 шагов / экранов</td><td><strong>Wizard / Modal</strong></td></tr>
+      <tr><td>Контент критически важен и нельзя игнорировать</td><td><strong>Modal с backdrop</strong></td></tr>
+      <tr><td>Пользователь должен изучать контент долго (Help-статья)</td><td><strong>Drawer / Side Panel</strong></td></tr>
+      <tr><td>Только 1–2 строки текста без действий</td><td><strong>Tooltip</strong></td></tr>
+      <tr><td>Список действий без дополнительного контента</td><td><strong>Dropdown Menu</strong></td></tr>
+      <tr><td>Критический алерт, ошибка системы</td><td><strong>Toast / Banner</strong></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 14. RULES -->
+<section id="rules">
+  <div class="section-header">
+    <span class="section-num">14</span>
+    <div><h2 class="section-title">Do / Don't — правила применения</h2><p class="section-desc">Что делать и чего избегать</p></div>
+  </div>
+  <div class="rules-2col">
+    <div class="rule-col">
+      <h3 style="color:var(--color-success)">✓ Делать</h3>
+      <div class="rule-item rule-do"><div class="rule-icon">✓</div><div><h5>Использовать для контекстного контента</h5><p>Поповер раскрывает дополнительный контент, не требующий полной страницы.</p></div></div>
+      <div class="rule-item rule-do"><div class="rule-icon">✓</div><div><h5>Фиксированная ширина из токенов</h5><p>Всегда один из 5 размеров: xs/sm/md/lg/xl. Никогда не резиновая ширина.</p></div></div>
+      <div class="rule-item rule-do"><div class="rule-icon">✓</div><div><h5>Возвращать фокус на триггер</h5><p>После любого закрытия фокус идёт обратно на элемент, открывший поповер.</p></div></div>
+      <div class="rule-item rule-do"><div class="rule-icon">✓</div><div><h5>Показывать шапку при сложном контенте</h5><p>3+ смысловых блока, форма, несколько действий — заголовок обязателен. Header содержит только заголовок и ✕.</p></div></div>
+      <div class="rule-item rule-do"><div class="rule-icon">✓</div><div><h5>Размещать действия только в Footer</h5><p>Primary-кнопки — справа, вторичные и служебные ссылки — слева. Деструктивные действия в confirm — слева.</p></div></div>
+      <div class="rule-item rule-do"><div class="rule-icon">✓</div><div><h5>Ограничить тело max-height с прокруткой</h5><p>Body прокручивается, Header и Footer фиксированы. Горизонтальная прокрутка запрещена.</p></div></div>
+      <div class="rule-item rule-do"><div class="rule-icon">✓</div><div><h5>Поддерживать Esc и outside click</h5><p>Все 5 способов закрытия должны работать одновременно.</p></div></div>
+      <div class="rule-item rule-do"><div class="rule-icon">✓</div><div><h5>Документировать паттерны отдельно</h5><p>Popover/Легенда, Popover/Форма, Popover/Статус — отдельные шаблоны над базовым компонентом.</p></div></div>
+    </div>
+    <div class="rule-col">
+      <h3 style="color:var(--color-error)">✗ Не делать</h3>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не превышать 560 px ширины</h5><p>Шире 560 px → переключайтесь на Modal/Drawer/отдельную страницу.</p></div></div>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не использовать только hover</h5><p>Недоступно на тач-устройствах и для клавиатуры. Click — основной триггер.</p></div></div>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не закрывать по таймауту</h5><p>Пользователь не успевает прочитать. Только явное действие пользователя.</p></div></div>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не открывать при загрузке страницы</h5><p>Нарушает Heuristic №3 Nielsen (пользовательский контроль).</p></div></div>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не размещать кнопки действия в Header</h5><p>Header — только заголовок и ✕. Все действия живут в Footer (см. ответ на вопрос 3 в анатомии).</p></div></div>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не вкладывать больше 1 уровня</h5><p>Поповер в поповере: максимум 2 уровня, второй — только read-only xs.</p></div></div>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не открывать несколько одновременно</h5><p>Открытие нового автоматически закрывает предыдущий. Исключение: вложенный xs.</p></div></div>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не делать горизонтальный скролл</h5><p>Дезориентирует. Увеличить ширину или Modal.</p></div></div>
+      <div class="rule-item rule-dont"><div class="rule-icon">✗</div><div><h5>Не закрывать при Esc если есть unsaved changes</h5><p>При dirty state — confirm-подтверждение «Несохранённые изменения — закрыть?».</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15. REFERENCES -->
+<section id="refs">
+  <div class="section-header">
+    <span class="section-num">15</span>
+    <div><h2 class="section-title">Реализации в других дизайн-системах</h2><p class="section-desc">Источники для бенчмарка и проверки решений</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-3)">
+    <a href="https://carbondesignsystem.com/components/popover/usage" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#0f62fe;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">C</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Carbon (IBM)</div><div style="font-size:11px;color:var(--color-text-muted)">carbondesignsystem.com</div></div></a>
+    <a href="https://www.patternfly.org/components/popover/design-guidelines" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#ee0000;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">PF</span></div><div><div style="font-size:var(--text-sm);font-weight:600">PatternFly (Red Hat)</div><div style="font-size:11px;color:var(--color-text-muted)">patternfly.org</div></div></a>
+    <a href="https://design.gitlab.com/components/popover" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#fc6d26;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">GL</span></div><div><div style="font-size:var(--text-sm);font-weight:600">GitLab Pajamas</div><div style="font-size:11px;color:var(--color-text-muted)">design.gitlab.com</div></div></a>
+    <a href="https://ux.redhat.com/elements/popover/guidelines/" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#cc0000;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">RH</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Red Hat UX</div><div style="font-size:11px;color:var(--color-text-muted)">ux.redhat.com</div></div></a>
+    <a href="https://ant.design/components/popover" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#1677ff;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">A</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Ant Design</div><div style="font-size:11px;color:var(--color-text-muted)">ant.design</div></div></a>
+    <a href="https://mui.com/material-ui/react-popover/" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#007fff;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">MUI</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Material UI (MUI)</div><div style="font-size:11px;color:var(--color-text-muted)">mui.com</div></div></a>
+    <a href="https://primer.style/product/components/popover/guidelines/" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#24292e;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">P</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Primer (GitHub)</div><div style="font-size:11px;color:var(--color-text-muted)">primer.style</div></div></a>
+    <a href="https://atlassian.design/components/popup/" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#0052cc;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">A</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Atlassian (Popup)</div><div style="font-size:11px;color:var(--color-text-muted)">atlassian.design</div></div></a>
+    <a href="https://www.lightningdesignsystem.com/2e1ef8501/p/331f61-popover" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#00a1e0;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">SF</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Salesforce SLDS</div><div style="font-size:11px;color:var(--color-text-muted)">lightningdesignsystem.com</div></div></a>
+    <a href="https://www.radix-ui.com/primitives/docs/components/popover" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#6e56cf;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">R</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Radix UI</div><div style="font-size:11px;color:var(--color-text-muted)">radix-ui.com</div></div></a>
+    <a href="https://ui.shadcn.com/docs/components/popover" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#18181b;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">S</span></div><div><div style="font-size:var(--text-sm);font-weight:600">shadcn/ui</div><div style="font-size:11px;color:var(--color-text-muted)">ui.shadcn.com</div></div></a>
+    <a href="https://webawesome.com/docs/components/popover/" target="_blank" rel="noopener" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;align-items:center;gap:var(--space-3);color:var(--color-text)"><div style="width:32px;height:32px;background:#0066cc;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:11px">WA</span></div><div><div style="font-size:var(--text-sm);font-weight:600">Web Awesome</div><div style="font-size:11px;color:var(--color-text-muted)">webawesome.com</div></div></a>
+  </div>
+</section>
+
+</main>
+
+<script>
+// Theme toggle
+(function(){
+  var r=document.documentElement;
+  var d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  r.setAttribute('data-theme',d);
+  var t=document.querySelector('[data-theme-toggle]');
+  if(t)t.addEventListener('click',function(){
+    d=d==='dark'?'light':'dark';
+    r.setAttribute('data-theme',d);
+  });
+})();
+
+// Popover open/close
+var openPops = [];
+function togglePop(id) {
+  var el = document.getElementById(id);
+  var triggerId = 'trigger-' + id.replace('pop-','');
+  var tr = document.getElementById(triggerId);
+  if (!el) return;
+  var isOpen = el.classList.contains('open');
+  openPops.forEach(function(pid){
+    var p = document.getElementById(pid);
+    if(p && pid !== id){ p.classList.remove('open'); var trOld = document.getElementById('trigger-'+pid.replace('pop-','')); if(trOld) trOld.setAttribute('aria-expanded','false'); }
+  });
+  openPops = openPops.filter(function(pid){return pid===id;});
+  if(isOpen){ el.classList.remove('open'); if(tr)tr.setAttribute('aria-expanded','false'); openPops=[]; }
+  else { el.classList.add('open'); if(tr)tr.setAttribute('aria-expanded','true'); if(!openPops.includes(id))openPops.push(id); }
+}
+function closePop(id, triggerId) {
+  var el = document.getElementById(id);
+  if(el) el.classList.remove('open');
+  var tr = document.getElementById(triggerId);
+  if(tr){ tr.setAttribute('aria-expanded','false'); setTimeout(function(){tr.focus();},50); }
+  openPops = openPops.filter(function(pid){return pid!==id;});
+}
+document.addEventListener('click',function(e){
+  if(openPops.length===0)return;
+  openPops.slice().forEach(function(pid){
+    var p = document.getElementById(pid);
+    var triggerId = 'trigger-'+pid.replace('pop-','');
+    var tr = document.getElementById(triggerId);
+    if(p && !p.contains(e.target) && tr && !tr.contains(e.target)){
+      p.classList.remove('open'); if(tr)tr.setAttribute('aria-expanded','false');
+      openPops = openPops.filter(function(x){return x!==pid;});
+    }
+  });
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape' && openPops.length>0){
+    var pid = openPops[openPops.length-1];
+    var p = document.getElementById(pid);
+    if(p) p.classList.remove('open');
+    var triggerId = 'trigger-'+pid.replace('pop-','');
+    var tr = document.getElementById(triggerId);
+    if(tr){ tr.setAttribute('aria-expanded','false'); setTimeout(function(){tr.focus();},50); }
+    openPops.pop();
+  }
+});
+
+// Wizard
+var wizCurrent = 1;
+function initWizard(){ wizCurrent=1; showWizStep(1); }
+function wizStep(dir){
+  wizCurrent += dir;
+  if(wizCurrent<1)wizCurrent=1;
+  if(wizCurrent>3)wizCurrent=3;
+  showWizStep(wizCurrent);
+}
+function showWizStep(n){
+  for(var i=1;i<=3;i++){
+    var sc=document.getElementById('sc-'+i);
+    var st=document.getElementById('stab-'+i);
+    if(sc) sc.className='step-content'+(i===n?' visible':'');
+    if(st){ st.className='step-tab'; if(i<n)st.classList.add('done'); if(i===n)st.classList.add('active'); }
+  }
+  var lbl=document.getElementById('wiz-step-label');
+  if(lbl)lbl.textContent='Шаг '+n+' из 3';
+  var back=document.getElementById('wiz-back');
+  var next=document.getElementById('wiz-next');
+  if(back)back.style.display=n>1?'':'none';
+  if(next)next.textContent=n===3?'Сохранить':'Далее →';
+}
+
+// Column list
+var cols = [
+  {id:'c1',label:'Номер сделки',visible:true},
+  {id:'c2',label:'Клиент',visible:true},
+  {id:'c3',label:'Сумма',visible:true},
+  {id:'c4',label:'Статус',visible:true},
+  {id:'c5',label:'Ставка',visible:false},
+  {id:'c6',label:'Срок',visible:false},
+  {id:'c7',label:'Менеджер',visible:true},
+  {id:'c8',label:'Дата создания',visible:false},
+  {id:'c9',label:'Обеспечение',visible:false},
+  {id:'c10',label:'Риск',visible:true}
+];
+function renderCols(){
+  var list=document.getElementById('col-list');
+  if(!list)return;
+  list.innerHTML=cols.map(function(c,i){
+    return '<div style="display:flex;align-items:center;gap:10px;padding:6px 16px;cursor:pointer;border-bottom:1px solid var(--color-divider)" onclick="toggleCol('+i+')">'
+      +'<span style="color:var(--color-text-faint);cursor:grab">⣿</span>'
+      +'<div style="flex:1;font-size:12px">'+c.label+'</div>'
+      +'<div style="width:16px;height:16px;border-radius:3px;border:1.5px solid '+(c.visible?'var(--color-primary)':'var(--color-border)')+';background:'+(c.visible?'var(--color-primary)':'transparent')+';display:flex;align-items:center;justify-content:center">'
+      +(c.visible?'<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"/></svg>':'')
+      +'</div></div>';
+  }).join('');
+}
+function toggleCol(i){ cols[i].visible=!cols[i].visible; renderCols(); }
+function selectAllCols(){ cols.forEach(function(c){c.visible=true;}); renderCols(); }
+document.addEventListener('DOMContentLoaded',renderCols);
+
+// Active nav highlight on scroll
+var sections=document.querySelectorAll('section[id]');
+var navLinks=document.querySelectorAll('.header-nav a');
+window.addEventListener('scroll',function(){
+  var scrollY=window.scrollY+70;
+  sections.forEach(function(s){
+    if(scrollY>=s.offsetTop && scrollY<s.offsetTop+s.offsetHeight){
+      navLinks.forEach(function(a){
+        a.classList.toggle('active',a.getAttribute('href')==='#'+s.id);
+      });
+    }
+  });
+},{passive:true});
+</script>
+
+
+</body></html>

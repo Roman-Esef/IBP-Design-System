@@ -1,5 +1,5 @@
+<!-- @dsCard group="Foundations" name="Icons" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Foundations" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -23,7 +23,7 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:60ch; text-wrap:pretty; }
 
@@ -62,7 +62,7 @@
   /* ---------- category ---------- */
   .cat { margin-top: 64px; }
   .cat-head { display:flex; align-items:baseline; gap:14px; margin:0 0 6px; }
-  .cat-head h2 { font: var(--type-h3-strong); margin:0; color: var(--text-black); }
+  .cat-head h2 { font: var(--type-h3-strong); margin:0; color: var(--text-primary); }
   .cat-head .c-count { font: var(--type-body-s); color: var(--text-inactive); font-variant-numeric:tabular-nums; }
   .cat > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 24px; max-width:72ch; text-wrap:pretty; }
 
@@ -88,7 +88,7 @@
   .icell:hover .iwrap { color: var(--primary); }
   .icell .iwrap svg { width: var(--isz, 24px); height: var(--isz, 24px); display:block; }
   .icell .iname { font: var(--type-body-m); color: var(--text-primary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .icell:hover .iname { color: var(--text-black); }
+  .icell:hover .iname { color: var(--text-primary); }
 
   /* menu list (with descriptions) — single column */
   .mlist { display:grid; grid-template-columns: 1fr; gap:2px; }
@@ -112,7 +112,7 @@
   /* toast */
   .toast {
     position: fixed; left:50%; bottom:34px; transform: translate(-50%, 20px);
-    background: var(--text-black); color:#fff; font: var(--type-body-s-strong);
+    background: var(--text-primary); color:#fff; font: var(--type-body-s-strong);
     padding:11px 18px; border-radius:10px; box-shadow:0 10px 30px rgba(40,50,55,.24);
     opacity:0; pointer-events:none; transition: opacity .18s ease, transform .18s ease; z-index:50;
     display:flex; align-items:center; gap:9px;

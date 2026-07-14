@@ -41,9 +41,12 @@
 /* перенос длинного контента — ограничение по --tip-max */
 .tip--multiline { white-space: normal; text-wrap: pretty; }
 
-/* ---------- types --------------------------------------------------------- */
-.tip--main  { --tip-bg: var(--bg-hint); }
-.tip--error { --tip-bg: var(--error); }
+/* ---------- types --------------------------------------------------------- *
+   Тип = фон тултипа и стрелки напрямую (не через --tip-bg в модификаторе). */
+.tip--main  { background: var(--bg-hint); }
+.tip--main  .tip__arrow { background: var(--bg-hint); }
+.tip--error { background: var(--error); }
+.tip--error .tip__arrow { background: var(--error); }
 
 /* ---------- arrow --------------------------------------------------------- */
 .tip__arrow {

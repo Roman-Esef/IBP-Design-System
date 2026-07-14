@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Tooltip" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -27,13 +27,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:62ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -108,7 +108,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* spec / paddings */
@@ -137,7 +137,7 @@
       repeating-conic-gradient(#eef3f2 0% 25%, #f7faf9 0% 50%) 0 / 20px 20px; }
   .vp .tgt { position:absolute; cursor:grab; touch-action:none; background: var(--primary); border-color: var(--primary-dark); color:#fff; }
   .vp .tgt:active { cursor:grabbing; }
-  .vp .hint-drag { position:absolute; left:14px; bottom:12px; font: var(--type-body-xs); color: var(--text-on-tertiary); }
+  .vp .hint-drag { position:absolute; left:14px; bottom:12px; font: var(--type-body-xs); color: var(--text-primary); }
 
   /* trigger demo toolbar */
   .toolbar { display:inline-flex; gap:8px; padding:10px 12px; background: var(--bg-tile); border:1px solid var(--border-light); border-radius:12px; }
@@ -201,7 +201,7 @@
   .use-field__input svg { width:18px; height:18px; color:var(--error); flex:none; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -236,7 +236,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -368,7 +368,7 @@
           <div id="size-short"></div>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px;">
-          <span class="th" style="font:var(--type-body-s-strong); color:var(--text-secondary);">Длинный контент — перенос по max-width <span class="badge-new">Новое</span></span>
+          <span class="th" style="font:var(--type-body-s-strong); color:var(--text-secondary);">Длинный контент — перенос по max-width</span>
           <div id="size-long"></div>
         </div>
       </div>
@@ -399,12 +399,12 @@
     <p class="desc">Тултип размещается с одной из 4 сторон объекта (<code class="tok">top</code> · <code class="tok">bottom</code> · <code class="tok">left</code> · <code class="tok">right</code>), а стрелка выравнивается вдоль края по одному из 3 положений (<code class="tok">start</code> · <code class="tok">center</code> · <code class="tok">end</code>) — всего 12 комбинаций. Стрелка всегда направлена на объект подсказки.</p>
     <div class="panel">
       <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:26px;">
-        <span style="font:var(--type-body-m-strong); color:var(--text-black);">12 положений стрелки</span>
+        <span style="font:var(--type-body-m-strong); color:var(--text-primary);">12 положений стрелки</span>
         <button type="button" class="toggle" id="vtype-toggle" aria-pressed="false"><span class="sw-mini"></span><span>Показать Error</span></button>
       </div>
       <div class="vgrid" id="variants-grid"></div>
     </div>
-    <p class="desc" style="margin-top:28px;">Стрелку можно отключить — тогда тултип просто отступает от объекта на 8px. Без стрелки уместен для подсказок, не привязанных к конкретной точке.<span class="badge-new">Новое</span></p>
+    <p class="desc" style="margin-top:28px;">Стрелку можно отключить — тогда тултип просто отступает от объекта на 8px. Без стрелки уместен для подсказок, не привязанных к конкретной точке.</p>
     <div class="panel">
       <div class="row" style="gap:40px; align-items:center;">
         <div id="noarrow-with"></div>
@@ -414,7 +414,7 @@
   </div>
 
 <div class="subsec" data-screen-label="AutoFlip">
-    <h3>Авто-разворот и смещение<span class="badge-new">Новое</span></h3>
+    <h3>Авто-разворот и смещение</h3>
     <p class="desc">Если у предпочтительной стороны не хватает места, тултип разворачивается на противоположную сторону, а вдоль края смещается, чтобы не выходить за границы экрана — при этом стрелка остаётся направленной на объект. Перетащите цель к краям области, чтобы увидеть поведение.</p>
     <div class="panel">
       <div class="row" style="margin-bottom:18px; gap:18px; align-items:center;">
@@ -438,7 +438,7 @@
   </div>
 
 <div class="subsec" data-screen-label="Triggers">
-    <h3>Триггеры и тайминги<span class="badge-new">Новое</span></h3>
+    <h3>Триггеры и тайминги</h3>
     <p class="desc">Тултип появляется при наведении курсора и при фокусе с клавиатуры, скрывается при уходе курсора, потере фокуса или нажатии <b>Esc</b>. Чтобы случайные пересечения курсора не вызывали мелькания, появление задерживается на ~400&nbsp;мс, скрытие — мгновенное. На тач-устройствах тултип вызывается долгим нажатием.</p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">
@@ -465,7 +465,7 @@
 
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
-    <h2>Доступность<span class="badge-new">Новое</span></h2>
+    <h2>Доступность</h2>
     <p class="desc">Контейнеру присваивается <code class="tok">role="tooltip"</code> и уникальный <code class="tok">id</code>, а объект-триггер ссылается на него через <code class="tok">aria-describedby</code>. Триггер должен быть фокусируемым (кнопка, ссылка или элемент с <code class="tok">tabindex="0"</code>). Тултип не перехватывает фокус и закрывается по <b>Esc</b>.</p>
     <div class="guide">
       <div class="guide-card bad">
@@ -524,26 +524,8 @@
       <code class="tok">styles/tooltip.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- триггер ссылается на тултип через aria-describedby --&gt;</span>
-<span class="tk-tag">&lt;button</span> <span class="tk-attr">type=</span><span class="tk-val">"button"</span> <span class="tk-attr">class=</span><span class="tk-val">"iconbtn"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Удалить"</span> <span class="tk-attr">aria-describedby=</span><span class="tk-val">"tip-1"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/button&gt;</span>
-
-<span class="tk-cm">&lt;!-- сам тултип: позиционируется JS относительно триггера, скрыт до показа --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"tip tip--main tip--top tip--center tip--floating"</span> <span class="tk-attr">role=</span><span class="tk-val">"tooltip"</span> <span class="tk-attr">id=</span><span class="tk-val">"tip-1"</span><span class="tk-tag">&gt;</span>
-  Удалить
-  <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"tip__arrow"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
-<span class="tk-tag">&lt;/span&gt;</span>
-
-<span class="tk-cm">&lt;!-- без стрелки / с переносом --&gt;</span>
-<span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"tip tip--error tip--bottom tip--start tip--no-arrow tip--multiline"</span> <span class="tk-attr">role=</span><span class="tk-val">"tooltip"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/span&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -566,48 +548,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функции <code class="tok">makeTip</code> / <code class="tok">placeTip</code> в <code class="tok">tooltip.page.js</code>).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы. В React позиционирование обычно выносится в <code class="tok">useLayoutEffect</code>, чтобы избежать мелькания перед первым показом.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Tooltip.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">type</span> TooltipType = <span class="tk-val">'main'</span> | <span class="tk-val">'error'</span>;
-<span class="tk-attr">type</span> TooltipPlacement = <span class="tk-val">'top'</span> | <span class="tk-val">'bottom'</span> | <span class="tk-val">'left'</span> | <span class="tk-val">'right'</span>;
-<span class="tk-attr">type</span> TooltipAlign = <span class="tk-val">'start'</span> | <span class="tk-val">'center'</span> | <span class="tk-val">'end'</span>;
-
-<span class="tk-attr">interface</span> TooltipProps {
-  content: React.ReactNode;         <span class="tk-cm">// обязательно; тултип не рендерится без содержимого</span>
-  children: React.ReactElement;     <span class="tk-cm">// триггер — должен принимать ref и быть фокусируемым</span>
-  type?: TooltipType;               <span class="tk-cm">// по умолчанию 'main'</span>
-  placement?: TooltipPlacement;     <span class="tk-cm">// по умолчанию 'top'; авто-разворачивается при нехватке места</span>
-  align?: TooltipAlign;             <span class="tk-cm">// по умолчанию 'center'</span>
-  arrow?: <span class="tk-attr">boolean</span>;                <span class="tk-cm">// по умолчанию true</span>
-  delay?: <span class="tk-attr">number</span>;                 <span class="tk-cm">// задержка появления при hover в мс, по умолчанию 400</span>
-  disabled?: <span class="tk-attr">boolean</span>;             <span class="tk-cm">// полностью отключить тултип</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.tip</code></td><td>span</td><td class="dsc">Контейнер: фон, паддинги 8/12, тень</td></tr>
-          <tr><td><code class="tok">.tip--main / --error</code></td><td>span</td><td class="dsc">Тип (цвет фона)</td></tr>
-          <tr><td><code class="tok">.tip--top / --bottom / --left / --right</code></td><td>span</td><td class="dsc">Размещение относительно объекта</td></tr>
-          <tr><td><code class="tok">.tip--start / --center / --end</code></td><td>span</td><td class="dsc">Выравнивание стрелки вдоль края</td></tr>
-          <tr><td><code class="tok">.tip--no-arrow</code></td><td>span</td><td class="dsc">Скрывает <code class="tok">.tip__arrow</code>, отступает от объекта на 8px</td></tr>
-          <tr><td><code class="tok">.tip--multiline</code></td><td>span</td><td class="dsc">Перенос текста (<code class="tok">white-space: normal</code>) в границах <code class="tok">--tip-max</code></td></tr>
-          <tr><td><code class="tok">.tip--floating</code></td><td>span</td><td class="dsc">JS-позиционирование относительно триггера; показ/скрытие через <code class="tok">.is-visible</code></td></tr>
-          <tr><td><code class="tok">.tip__arrow</code></td><td>span</td><td class="dsc">Треугольная стрелка (<code class="tok">clip-path</code>), наследует фон через <code class="tok">--tip-bg</code></td></tr>
-          <tr><td><code class="tok">.tip-anchor</code></td><td>span</td><td class="dsc"><code class="tok">position:relative</code> обёртка для floating-тултипа</td></tr>
-          <tr><td><code class="tok">role="tooltip" / aria-describedby</code></td><td>span / триггер</td><td class="dsc">Доступность: связь тултипа с объектом-триггером</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Tooltip</span>

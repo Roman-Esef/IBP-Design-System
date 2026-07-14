@@ -1,5 +1,5 @@
+<!-- @dsCard group="Components" name="Breadcrumbs" viewport="1440x900" -->
 <!DOCTYPE html>
-<!-- @dsCard group="Components" -->
 <html lang="ru">
 <head>
 <script>window.__DS_ROOT = '../../';</script>
@@ -27,13 +27,13 @@
   .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
   .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
   .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-black); }
+  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
   @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
   .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:64ch; text-wrap:pretty; }
 
   /* section */
   .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-black); }
+  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:74ch; text-wrap:pretty; }
   .section > p.desc.tight { margin-bottom:20px; }
   .section > p.desc + p.desc { margin-top:-16px; }
@@ -105,7 +105,7 @@
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; font: var(--type-body-m); color: var(--text-primary); }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
   .anat__legend li .n::before { content:counter(a); }
-  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-black); }
+  .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
   .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- header mock ---------- */
@@ -161,7 +161,7 @@
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 
   /* ---------- developer handoff ---------- */
-  .subhead { font: var(--type-body-m-strong); color: var(--text-black); margin:0 0 16px; }
+  .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
   .subhead.mt { margin-top: 34px; }
   .subhead .req { font: var(--type-body-s); color: var(--text-inactive); font-weight:400; }
   .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
@@ -195,7 +195,7 @@
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
 .section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-black);}
+.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
 .section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
 .section .subsec>p.desc.tight{margin-bottom:20px;}
 .section .subsec>p.desc+p.desc{margin-top:-16px;}
@@ -205,7 +205,7 @@
 <main class="page" data-screen-label="Breadcrumbs">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Breadcrumbs</h1>
     <p class="lead">Хлебные крошки — трейл ссылок в шапке страницы, показывающий путь до текущего раздела. Состоят из ссылок <a class="link link--accent link--inline" href="../atoms/Link.html">Link</a> (Breadcrumbs_1 — родительские страницы, Breadcrumbs_2 — текущая, некликабельная) и разделителя «/». Показываются на всех страницах системы, кроме Дашборда; отступ до контента страницы — 0.</p>
@@ -283,7 +283,7 @@
       <li>показывайте только те разделы пути, что имеют собственную страницу — служебные/технические сегменты URL в крошки не попадают;</li>
       <li>называйте звено так же, как называется сам раздел (заголовок страницы) — не сокращайте и не переформулируйте;</li>
       <li>текущая страница выводится текстом, без ссылки — <code class="tok">aria-current="page"</code>;</li>
-      <li>если у страницы нет родителя (страница первого уровня), компонент не показывается — крошка из одного звена не несёт смысла.<span class="badge-new">Новое</span></li>
+      <li>если у страницы нет родителя (страница первого уровня), компонент не показывается — крошка из одного звена не несёт смысла.</li>
     </ul>
     <div class="guide">
       <div class="guide-card bad">
@@ -296,21 +296,26 @@
         <div class="guide-card__bar"></div>
         <div class="guide-card__tag"><span class="ic" data-ic="good"></span>Так</div>
         <div class="guide-card__body" id="content-longparent"></div>
-        <p class="guide-card__cap">Длинное родительское звено обрезается многоточием (<code class="tok">title</code> показывает полное название), а не переносится на вторую строку.<span class="badge-new">Новое</span></p>
+        <p class="guide-card__cap">Длинное родительское звено обрезается многоточием (<code class="tok">title</code> показывает полное название), а не переносится на вторую строку.</p>
       </div>
     </div>
   </section>
 
-  <!-- BEHAVIOR (STUB) -->
+  <!-- BEHAVIOR -->
   <section class="section" data-screen-label="Behavior">
     <h2>Поведение</h2>
-    <p class="desc">Не применимо: специфического поведения (позиционирование, анимация, адаптивность) у компонента нет.</p>
+    <p class="desc">Схлопывание срединных звеньев при переполнении ширины — демо ниже, в «Состояния».</p>
+
+<div class="subsec" data-screen-label="Collapse">
+    <h3>Схлопывание при переполнении</h3>
+    <p class="desc">Ширина трейла измеряется относительно своего контейнера (не вьюпорта). Если звенья не помещаются в одну строку и их больше двух — звенья со 2 по предпоследнее заменяются одним кликабельным «…», первое звено и текущая (последняя) крошка остаются видимыми всегда. Если даже после схлопывания текущая крошка не помещается — она обрезается многоточием, полное название доступно в тултипе. Пересчёт идёт по <code class="tok">ResizeObserver</code> контейнера, а не только при первом рендере — крошки, встроенные в адаптивную шапку, переcхлопываются при изменении ширины окна.</p>
+  </div>
   </section>
 
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Кроме базового состояния из спецификации, документированы наведение/фокус на родительской ссылке, авто-схлопывание по ширине и обрезка текущей крошки — с раскрывающимся списком скрытых страниц.<span class="badge-new">Новое</span></p>
+    <p class="desc">Кроме базового состояния из спецификации, документированы наведение/фокус на родительской ссылке, авто-схлопывание по ширине и обрезка текущей крошки — с раскрывающимся списком скрытых страниц.</p>
     <div class="panel">
       <div class="state-row">
         <div><div class="state-row__label">Default</div><div class="state-row__cap">Все звенья помещаются, ничего не схлопнуто</div></div>
@@ -329,11 +334,11 @@
         <div class="state-row__stage" id="stt-condensed"></div>
       </div>
       <div class="state-row">
-        <div><div class="state-row__label">«…» раскрыто<span class="badge-new">Новое</span></div><div class="state-row__cap">Клик по «…» открывает контекстное меню со списком скрытых страниц (компонент Context Menu)</div></div>
+        <div><div class="state-row__label">«…» раскрыто</div><div class="state-row__cap">Клик по «…» открывает контекстное меню со списком скрытых страниц (компонент Context Menu)</div></div>
         <div class="state-row__stage" id="stt-expanded" style="overflow:visible;"></div>
       </div>
       <div class="state-row">
-        <div><div class="state-row__label">Текущая крошка обрезана<span class="badge-new">Новое</span></div><div class="state-row__cap">Не помещается даже после схлопывания — многоточие + тултип с полным названием</div></div>
+        <div><div class="state-row__label">Текущая крошка обрезана</div><div class="state-row__cap">Не помещается даже после схлопывания — многоточие + тултип с полным названием</div></div>
         <div class="state-row__stage" id="stt-truncated"></div>
       </div>
     </div>
@@ -392,35 +397,8 @@
       <code class="tok">styles/tooltip.css</code>
     </div>
 
-    <p class="subhead">Анатомия DOM <span class="req">— эталонная структура, имена классов условны, важны сами элементы и их роли/состояния</span></p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Разметка · HTML (эталонная реализация ДС)</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-html"><span class="tk-cm">&lt;!-- обычный трейл, всё помещается --&gt;</span>
-<span class="tk-tag">&lt;nav</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Хлебные крошки"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;li</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__item"</span><span class="tk-tag">&gt;&lt;a</span> <span class="tk-attr">class=</span><span class="tk-val">"link link--muted"</span> <span class="tk-attr">href=</span><span class="tk-val">"/"</span><span class="tk-tag">&gt;</span>Главная<span class="tk-tag">&lt;/a&gt;&lt;/li&gt;</span>
-  <span class="tk-tag">&lt;li</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__item"</span><span class="tk-tag">&gt;&lt;a</span> <span class="tk-attr">class=</span><span class="tk-val">"link link--muted"</span> <span class="tk-attr">href=</span><span class="tk-val">"/deals"</span><span class="tk-tag">&gt;</span>Сделки<span class="tk-tag">&lt;/a&gt;&lt;/li&gt;</span>
-  <span class="tk-tag">&lt;li</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__item crumbs__item--current"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__current"</span> <span class="tk-attr">aria-current=</span><span class="tk-val">"page"</span><span class="tk-tag">&gt;</span>Договор №4521<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/li&gt;</span>
-<span class="tk-tag">&lt;/nav&gt;</span>
-
-<span class="tk-cm">&lt;!-- трейл не помещается: срединные звенья схлопнуты в «…» --&gt;</span>
-<span class="tk-tag">&lt;nav</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs"</span> <span class="tk-attr">aria-label=</span><span class="tk-val">"Хлебные крошки"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-tag">&lt;li</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__item"</span><span class="tk-tag">&gt;&lt;a</span> <span class="tk-attr">class=</span><span class="tk-val">"link link--muted"</span> <span class="tk-attr">href=</span><span class="tk-val">"/"</span><span class="tk-tag">&gt;</span>Главная<span class="tk-tag">&lt;/a&gt;&lt;/li&gt;</span>
-  <span class="tk-tag">&lt;li</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__item"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;button</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__more"</span> <span class="tk-attr">aria-haspopup=</span><span class="tk-val">"true"</span> <span class="tk-attr">aria-expanded=</span><span class="tk-val">"false"</span><span class="tk-tag">&gt;</span>…<span class="tk-tag">&lt;/button&gt;</span>
-    <span class="tk-cm">&lt;!-- .menu.menu--floating (Контекстное меню), при открытии добавляется в конец &lt;body&gt; (position:fixed) --&gt;</span>
-  <span class="tk-tag">&lt;/li&gt;</span>
-  <span class="tk-tag">&lt;li</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__item crumbs__item--current"</span><span class="tk-tag">&gt;</span>
-    <span class="tk-tag">&lt;span</span> <span class="tk-attr">class=</span><span class="tk-val">"crumbs__current"</span> <span class="tk-attr">aria-current=</span><span class="tk-val">"page"</span> <span class="tk-attr">title=</span><span class="tk-val">"Полное название страницы"</span><span class="tk-tag">&gt;</span>Полное название страницы<span class="tk-tag">&lt;/span&gt;</span>
-  <span class="tk-tag">&lt;/li&gt;</span>
-<span class="tk-tag">&lt;/nav&gt;</span></code></pre>
-    </div>
-
-    <div class="code-panel">
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
       <div class="code-panel__head">
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
@@ -451,42 +429,7 @@
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который реализуется поверх вашего стека (рабочий референс на vanilla JS — функция <code class="tok">renderCrumbs</code> в <code class="tok">breadcrumbs.page.js</code> этой страницы).</p>
 
-    <p class="subhead mt">Рекомендуемый API компонента (React)</p>
-    <p class="desc tight">Форма пропсов — предложение, а не обязательный контракт; адаптируйте под конвенции вашей кодовой базы.</p>
-    <div class="code-panel">
-      <div class="code-panel__head">
-        <span class="code-panel__name">Breadcrumbs.types.ts</span>
-        <button type="button" class="code-panel__copy" data-copy-target="code-api"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
-      </div>
-      <pre><code id="code-api"><span class="tk-attr">interface</span> BreadcrumbItem {
-  label: <span class="tk-attr">string</span>;   <span class="tk-cm">// текст звена — совпадает с заголовком страницы</span>
-  href?: <span class="tk-attr">string</span>;   <span class="tk-cm">// не указывается у последнего элемента (текущая страница)</span>
-}
-
-<span class="tk-attr">interface</span> BreadcrumbsProps {
-  items: BreadcrumbItem[];        <span class="tk-cm">// от корня к текущей странице; &lt;2 элементов → не рендерить</span>
-  onNavigate?: (href: <span class="tk-attr">string</span>) =&gt; <span class="tk-attr">void</span>; <span class="tk-cm">// клик по звену/по пункту меню «…»</span>
-  <span class="tk-cm">// единственный размер — S; size-пропа нет</span>
-}</code></pre>
-    </div>
-
-    <p class="subhead mt">Справочник классов и атрибутов</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="dev-table">
-        <thead><tr><th>Класс / атрибут</th><th>На чём</th><th>Назначение</th></tr></thead>
-        <tbody>
-          <tr><td><code class="tok">.crumbs</code></td><td>nav &gt; ol</td><td class="dsc">Контейнер трейла: flex-строка, разделитель через <code class="tok">::after</code>; единственный размер — S (<code class="tok">--type-body-s</code>)</td></tr>
-          <tr><td><code class="tok">.crumbs__item</code></td><td>li</td><td class="dsc">Звено трейла; у всех, кроме последнего, генерируется разделитель «/»</td></tr>
-          <tr><td><code class="tok">.crumbs__item--current</code></td><td>li</td><td class="dsc">Звено с текущей страницей — последнее в списке</td></tr>
-          <tr><td><code class="tok">.link.link--muted</code></td><td>a</td><td class="dsc">Родительское звено — Breadcrumbs_1 (см. компонент Link)</td></tr>
-          <tr><td><code class="tok">.crumbs__current</code> + <code class="tok">aria-current="page"</code></td><td>span</td><td class="dsc">Текущая страница — Breadcrumbs_2, не ссылка, <code class="tok">--text-black</code>; начертание то же, что у Breadcrumbs_1 — отличие только в цвете</td></tr>
-          <tr><td><code class="tok">.crumbs__more</code> + <code class="tok">aria-haspopup</code> / <code class="tok">aria-expanded</code></td><td>button</td><td class="dsc">Свёрнутое звено «…»; раскрывает попап со скрытыми страницами</td></tr>
-          <tr><td><code class="tok">.menu.menu--floating.crumbs__popup</code></td><td>div</td><td class="dsc">Контекстное меню скрытых звеньев (пункты — <code class="tok">.menu__item</code>): добавляется в конец <code class="tok">&lt;body&gt;</code> с <code class="tok">position:fixed</code>, чтобы его не обрезал <code class="tok">overflow:hidden</code> трейла</td></tr>
-          <tr><td><code class="tok">.tip.tip--floating</code></td><td>span</td><td class="dsc">Тултип с полным названием обрезанной текущей крошки (см. компонент Tooltip)</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · Breadcrumbs</span>
