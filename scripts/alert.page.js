@@ -43,14 +43,14 @@
     if (title) body += '<p class="alert__title">' + esc(title) + '</p>';
     if (text) body += '<p class="alert__text">' + esc(text) + '</p>';
     if (buttons === 'one') {
-      body += '<div class="alert__buttons"><button type="button" class="btn btn--outline btn--xs"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button></div>';
+      body += '<div class="alert__buttons"><button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button></div>';
     } else if (buttons === 'two') {
       body += '<div class="alert__buttons">'
-        + '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button>'
-        + '<button type="button" class="btn btn--transparent btn--xs"><span class="btn__label">' + esc(o.btn2Label || 'Позже') + '</span></button>'
+        + '<button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button>'
+        + '<button type="button" class="btn btn--transparent btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btn2Label || 'Позже') + '</span></button>'
         + '</div>';
     } else if (buttons === 'link') {
-      body += '<div class="alert__buttons"><a class="link link--accent link--s" href="#" onclick="return false">' + esc(o.linkLabel || 'Подробнее') + '</a></div>';
+      body += '<div class="alert__buttons"><a class="link link--' + tone + ' link--s" href="#" onclick="return false">' + esc(o.linkLabel || 'Подробнее') + '</a></div>';
     }
 
     var acts = '';

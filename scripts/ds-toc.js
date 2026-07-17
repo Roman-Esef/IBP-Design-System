@@ -23,6 +23,9 @@
   }
 
   function init() {
+    // no-op guard: только на страницах-хостах (<main class="page">); на карточках @dsCard,
+    // тянущих ds-toc.js через _ds_bundle.js, контейнера нет — молча выходим.
+    if (!document.querySelector('main.page')) return;
     var sections = document.querySelectorAll('main section.section');
     if (!sections.length) sections = document.querySelectorAll('main section');
     if (sections.length < 2) return;

@@ -146,8 +146,8 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.0</b></span>
-    <span>Обновлено <b>13.07.2026</b></span>
+    <span>Версия <b>v1.2</b></span>
+    <span>Обновлено <b>17.07.2026</b></span>
     <span>CSS <b>styles/snackbar.css</b></span>
     <span>Зависимости <b>button, link</b></span>
   </div>
@@ -262,7 +262,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
             <div class="snack__title">Ошибка</div>
             <div class="snack__text">Плановая дата подписания находится в прошлом году. Измените сроки.</div>
             <div class="snack__buttons">
-              <button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Изменить</span></button>
+              <button type="button" class="btn btn--outline btn--xs btn--error"><span class="btn__label">Изменить</span></button>
             </div>
           </div>
           <button type="button" class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
@@ -319,7 +319,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
       <div class="snack__body">
         <div class="snack__title">Ошибка</div>
         <div class="snack__text">Текст</div>
-        <div class="snack__buttons"><button class="btn btn--outline btn--xs"><span class="btn__label">Действие</span></button></div>
+        <div class="snack__buttons"><button class="btn btn--outline btn--xs btn--error"><span class="btn__label">Действие</span></button></div>
       </div>
       <button class="snack__close"><i data-icon="close"></i></button>
     </div>
@@ -421,22 +421,22 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
     <!-- row 2: with buttons -->
     <div class="snack snack--info" data-snack-tone="info" role="status">
       <span class="snack__icon" aria-hidden="true"><i data-icon="Info-circle-filled"></i></span>
-      <div class="snack__body"><div class="snack__title">Информация</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs"><span class="btn__label">Подробнее</span></button></div></div>
+      <div class="snack__body"><div class="snack__title">Информация</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs btn--info"><span class="btn__label">Подробнее</span></button></div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
     <div class="snack snack--warning" data-snack-tone="warning" role="alert">
       <span class="snack__icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span>
-      <div class="snack__body"><div class="snack__title">Внимание</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs"><span class="btn__label">Изменить</span></button></div></div>
+      <div class="snack__body"><div class="snack__title">Внимание</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs btn--warning"><span class="btn__label">Изменить</span></button></div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
     <div class="snack snack--error" data-snack-tone="error" role="alert">
       <span class="snack__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
-      <div class="snack__body"><div class="snack__title">Ошибка</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs"><span class="btn__label">Изменить</span></button><button class="btn btn--transparent btn--xs"><span class="btn__label">Отмена</span></button></div></div>
+      <div class="snack__body"><div class="snack__title">Ошибка</div><div class="snack__text">Плановая дата подписания в прошлом году.</div><div class="snack__buttons"><button class="btn btn--outline btn--xs btn--error"><span class="btn__label">Изменить</span></button><button class="btn btn--transparent btn--xs btn--error"><span class="btn__label">Отмена</span></button></div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
     <div class="snack snack--success" data-snack-tone="success" role="status">
       <span class="snack__icon" aria-hidden="true"><i data-icon="check-circle-filled"></i></span>
-      <div class="snack__body"><div class="snack__title">Операция выполнена</div><div class="snack__text">Сделка успешно обновлена.</div><div class="snack__buttons"><a class="link" href="#">Перейти к сделке</a></div></div>
+      <div class="snack__body"><div class="snack__title">Операция выполнена</div><div class="snack__text">Сделка успешно обновлена.</div><div class="snack__buttons"><a class="link link--success" href="#">Перейти к сделке</a></div></div>
       <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
   </div>
@@ -587,7 +587,7 @@ function dismiss(id):
 
   </section>
 
-  <footer class="page-foot">
+    <footer class="page-foot">
     <span>Дизайн-система · SnackBar</span>
     <span>Info · Warning · Error · Success — стек, дедупликация, авто-скрытие</span>
   </footer>
@@ -665,9 +665,9 @@ function makeSnackEl(tone, title, text, btnType, count) {
   el.setAttribute('aria-live', (tone==='error'||tone==='warning') ? 'assertive' : 'polite');
   var dupeHtml = count > 1 ? '<span class="snack__dupe">\u00d7' + count + '</span>' : '';
   var btnsHtml = '';
-  if (btnType === 'one')  btnsHtml = '<div class="snack__buttons"><button type="button" class="btn btn--outline btn--xs"><span class="btn__label">' + esc(BTNLBL[tone]) + '</span></button></div>';
-  if (btnType === 'two')  btnsHtml = '<div class="snack__buttons"><button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Изменить</span></button><button type="button" class="btn btn--transparent btn--xs"><span class="btn__label">Отмена</span></button></div>';
-  if (btnType === 'link') btnsHtml = '<div class="snack__buttons"><a class="link" href="#" onclick="return false">Перейти к сделке</a></div>';
+  if (btnType === 'one')  btnsHtml = '<div class="snack__buttons"><button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(BTNLBL[tone]) + '</span></button></div>';
+  if (btnType === 'two')  btnsHtml = '<div class="snack__buttons"><button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">Изменить</span></button><button type="button" class="btn btn--transparent btn--xs btn--' + tone + '"><span class="btn__label">Отмена</span></button></div>';
+  if (btnType === 'link') btnsHtml = '<div class="snack__buttons"><a class="link link--' + tone + '" href="#" onclick="return false">Перейти к сделке</a></div>';
   el.innerHTML =
     '<span class="snack__icon" aria-hidden="true">' + getIcon(ICONS[tone], 20) + '</span>' +
     '<div class="snack__body"><div class="snack__title">' + esc(title) + dupeHtml + '</div>' +

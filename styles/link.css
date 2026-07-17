@@ -3,7 +3,7 @@
    A text link for layout/modal navigation and breadcrumbs.
    Tones:  accent (primary) · muted (Breadcrumbs_1) · neutral (Breadcrumbs_2)
    Sizes:  m (Body M) · s (Body S)   — inline variant inherits text size
-   States: default · hover (=focus, underline) · pressed · disabled · visited
+   States: default · hover (=focus, underline) · pressed · disabled
    Variants: inline (always underlined) · with-icon / external · truncate
    Requires: typography.css, colors.css, radius.css
    ========================================================================= */
@@ -50,6 +50,24 @@
   pointer-events: none;
 }
 
+/* ---------- semantic state tones (Info · Warning · Error · Success) -------- *
+   Модификатор поверх ссылки — цвет в тон палитры Situative. Переиспользуются
+   в Alert и SnackBar: ссылка внутри плашки получает .link--<тон>, совпадающий
+   с тоном компонента (тот же приём, что и .btn--<тон>). Hover — *-dark,
+   pressed — на ступень темнее. */
+.link.link--info    { color: var(--info); }
+.link.link--info:hover, .link.link--info.is-hover, .link.link--info:focus-visible, .link.link--info.is-focus { color: var(--info-dark); }
+.link.link--info:active, .link.link--info.is-pressed { color: color-mix(in srgb, var(--info-dark) 80%, #000); }
+.link.link--warning { color: var(--warning); }
+.link.link--warning:hover, .link.link--warning.is-hover, .link.link--warning:focus-visible, .link.link--warning.is-focus { color: var(--warning-dark); }
+.link.link--warning:active, .link.link--warning.is-pressed { color: color-mix(in srgb, var(--warning-dark) 80%, #000); }
+.link.link--error   { color: var(--error); }
+.link.link--error:hover, .link.link--error.is-hover, .link.link--error:focus-visible, .link.link--error.is-focus { color: var(--error-dark); }
+.link.link--error:active, .link.link--error.is-pressed { color: color-mix(in srgb, var(--error-dark) 80%, #000); }
+.link.link--success { color: var(--success); }
+.link.link--success:hover, .link.link--success.is-hover, .link.link--success:focus-visible, .link.link--success.is-focus { color: var(--success-dark); }
+.link.link--success:active, .link.link--success.is-pressed { color: color-mix(in srgb, var(--success-dark) 80%, #000); }
+
 /* ---------- hover = focus (underline) ------------------------------------- */
 /* ---------- hover = focus (одинаковое оформление — единый визуал для мыши и клавиатуры, без отдельной обводки) ---- */
 .link:hover,
@@ -79,10 +97,6 @@
   text-decoration-line: none;
   outline: none;
 }
-
-/* ---------- visited (optional — off in product UI by default) ------------- */
-.link--show-visited:visited,
-.link.is-visited { color: var(--secondary-dark); }
 
 /* ---------- disabled ------------------------------------------------------ */
 .link--disabled,

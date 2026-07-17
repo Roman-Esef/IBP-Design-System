@@ -6,23 +6,16 @@
    размера (M · S), опциональные части: иконка, заголовок, текст, кнопки,
    действия (свернуть / закрыть).
 
-   Только токены ДС. Кнопки и ссылки внутри Алерта перекрашиваются в тон
-   через переопределение --primary/--primary-dark/--primary-bg на .alert
-   (тот же приём, что и в SnackBar).
+   Только токены ДС. Кнопки и ссылки внутри Алерта красятся штатными
+   тоновыми классами ДС: .btn--<tone> и .link--<tone> (совпадают с тоном
+   плашки). Ре-скоупа --primary/--link больше нет.
    Зависимости: button.css, link.css (для .alert__buttons), icons — <i data-icon>.
    ========================================================================= */
 
 .alert {
-  /* тон по умолчанию — Info; тоновые модификаторы переопределяют переменные */
+  /* тон по умолчанию — Info; тоновые модификаторы переопределяют акцент/фон */
   --alert-accent:  var(--info);
   --alert-surface: var(--info-bg);
-  --primary:       var(--info);
-  --primary-dark:  var(--info-dark);
-  --primary-bg:    color-mix(in srgb, var(--info) 12%, transparent);
-
-  /* ссылки внутри Алерта — в тон (link.css читает --link/--link-dark) */
-  --link:          var(--alert-accent);
-  --link-dark:     var(--primary-dark);
 
   /* размер по умолчанию — M */
   --alert-pad:      16px;
@@ -40,38 +33,14 @@
 }
 
 /* ---------- тоны ---------- *
-   Тон ре-скоупит --primary*/--link* для вложенных DS-кнопок/ссылок, поэтому
-   его нельзя свести к прямым свойствам на самом Алерте. Скоуп --* живёт
-   на [data-alert-tone] (разрешённый для компилятора data-скоуп); маркап несёт
-   атрибут рядом с классом .alert--<tone>. Значения идентичны прежним. */
-[data-alert-tone="info"] {
-  --alert-accent:  var(--info);
-  --alert-surface: var(--info-bg);
-  --primary:       var(--info);
-  --primary-dark:  var(--info-dark);
-  --primary-bg:    color-mix(in srgb, var(--info) 12%, transparent);
-}
-[data-alert-tone="warning"] {
-  --alert-accent:  var(--warning);
-  --alert-surface: var(--warning-bg);
-  --primary:       var(--warning);
-  --primary-dark:  var(--warning-dark);
-  --primary-bg:    color-mix(in srgb, var(--warning) 14%, transparent);
-}
-[data-alert-tone="error"] {
-  --alert-accent:  var(--error);
-  --alert-surface: var(--error-bg-light);
-  --primary:       var(--error);
-  --primary-dark:  var(--error-dark);
-  --primary-bg:    color-mix(in srgb, var(--error) 12%, transparent);
-}
-[data-alert-tone="success"] {
-  --alert-accent:  var(--success);
-  --alert-surface: var(--success-bg);
-  --primary:       var(--success);
-  --primary-dark:  var(--success-dark);
-  --primary-bg:    color-mix(in srgb, var(--success) 14%, transparent);
-}
+   Тон задаёт акцент (иконка, кнопки действий) и фон плашки. Кнопки и ссылки
+   внутри — штатными классами .btn--<tone>/.link--<tone>, не через ре-скоуп.
+   Скоуп --* живёт на [data-alert-tone] (разрешённый data-скоуп компилятора);
+   маркап несёт атрибут рядом с классом .alert--<tone>. */
+[data-alert-tone="info"]    { --alert-accent: var(--info);    --alert-surface: var(--info-bg); }
+[data-alert-tone="warning"] { --alert-accent: var(--warning); --alert-surface: var(--warning-bg); }
+[data-alert-tone="error"]   { --alert-accent: var(--error);   --alert-surface: var(--error-bg-light); }
+[data-alert-tone="success"] { --alert-accent: var(--success); --alert-surface: var(--success-bg); }
 
 /* ---------- иконка (Alert_Icon) ---------- */
 .alert__icon {
@@ -146,7 +115,7 @@
   background: color-mix(in srgb, var(--alert-accent) 12%, transparent);
 }
 .alert__act:active { color: var(--alert-accent); }
-.alert__act:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.alert__act:focus-visible { outline: 2px solid var(--alert-accent); outline-offset: 1px; }
 .alert__act > i,
 .alert__act > svg { width: 16px; height: 16px; display: block; }
 
@@ -171,8 +140,8 @@
 .alert--s .alert__act { width: 22px; height: 22px; }
 
 /* ---------- кнопки/ссылки внутри Алерта — в тон ---------- */
-/* .alert уже переопределяет --primary*; DS-кнопки (btn--outline/--transparent)
-   и ссылки (link--accent) внутри .alert__buttons наследуют тон автоматически. */
+/* Штатные тоновые классы: .btn--<tone> на кнопках и .link--<tone> на ссылках
+   внутри .alert__buttons (совпадают с тоном плашки — см. alert.page.js). */
 
 @media (prefers-reduced-motion: reduce) {
   .alert__collapse > i,

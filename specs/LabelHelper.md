@@ -3,7 +3,7 @@ component: LabelHelper
 title: "Label / Helper"
 version: "v1.2"
 updated: "08.07.2026"
-page: pages/loading/LabelHelper.html
+page: pages/atoms/LabelHelper.html
 page_js: scripts/label-helper.page.js
 css: styles/label-helper.css
 deps: [checkbox, radio, switch]

@@ -1,8 +1,8 @@
 ---
 component: Buttons
 title: "Button"
-version: "v1.5"
-updated: "14.07.2026"
+version: "v1.6"
+updated: "17.07.2026"
 page: pages/atoms/Buttons.html
 css: styles/button.css
 status: auto
@@ -11,23 +11,23 @@ status: auto
 > Автоспека для быстрого контекста. Источник истины — CSS-файл и страница компонента. При изменении компонента обновляй эту спеку.
 
 ## Назначение
-Кнопка инициирует действие. Три типа, три размера, состояния Default / Hover / Active / Disabled, лоадер и режим Fullwidth. Модификатор Danger комбинируется с любым типом — для деструктивных действий (диалог подтверждения удаления). Текст кнопок набран токенами Button M / S / XS (SB Sans Screen).
+Кнопка инициирует действие. Три типа, три размера, состояния Default / Hover / Active / Disabled, лоадер и режим Fullwidth. Модификатор Тон (Error / Warning / Success / Info) комбинируется с любым типом — Error используется для деструктивных действий (диалог подтверждения удаления), остальные тоны переиспользуются в Alert и SnackBar. Текст кнопок набран токенами Button M / S / XS (SB Sans Screen).
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Тип кнопки отражает вес действия. На одной области экрана — только один Accent; рядом с ним второстепенные действия — Outline, третичные — Transparent. Справа от текста может быть либо шеврон (кнопка-меню), либо иконка — но не одновременно.
 - **Варианты · Type** — Свойство Type определяет общий вид кнопки: Accent, Outline, Transparent.
-- **Варианты · Danger** — Модификатор (не отдельный тип), комбинируется с Accent/Outline/Transparent, меняет цвет на токены Error. Для деструктивного действия в диалоге подтверждения (см. Modal) — не для обычного «Удалить» в подвале формы, которое остаётся Transparent.
+- **Варианты · Тон** — Модификатор (не отдельный тип), комбинируется с Accent/Outline/Transparent, меняет цвет на токены одного из четырёх тонов палитры Situative: Error, Warning, Success, Info. Error — для деструктивного действия в диалоге подтверждения (см. Modal) — не для обычного «Удалить» в подвале формы, которое остаётся Transparent. `.btn--danger` — алиас `.btn--error` для обратной совместимости (Modal, TableFilter). Warning/Success/Info переиспользуются в Alert и SnackBar — тон кнопки совпадает с тоном компонента.
 - **Варианты · Кнопка с меню (chevron)** — Если кнопка содержит шеврон — она открывает контекстное меню. Клик по самой кнопке только показывает меню; действия выполняются исключительно по пунктам меню. Справа может быть либо шеврон, либо иконка — но не одновременно. Нажмите, чтобы открыть.
 - **Анатомия** — Кнопка может содержать иконку слева и/или справа от текста, и/или сам текст. Иконки допускаются с обеих сторон одновременно.
 - **Размеры** — Три размера. Ширина зависит от контента, высота фиксирована. M — 40 · кнопки в модальных окнах · S — 32 · в таблицах, на тайлах · XS — 24 · фильтры и экшены на одном уровне с фильтром.
-- **Размеры · Отступы** — Отступы внутри кнопок разного типа, но одного состава — идентичны. Все значения в пикселях.
+- **Размеры · Отступы** — Боковой padding зависит от наличия иконки/шеврона у соответствующего края кнопки: сторона с иконкой уже, сторона с текстом — шире (M 16/12 · S 12/10 · XS 8/6). Отступы внутри кнопок разного типа, но одного состава — идентичны.
 - **Контент** — Текст кнопки — короткая глагольная формулировка действия. Ширина кнопки следует за текстом, поэтому правило одно: короче текст — лучше.
 - **Варианты · Fullwidth** — Кнопки со свойством Fullwidth заполняют весь контейнер: боковые паддинги убираются, контент центрируется. Кнопки, содержащие только иконку, не растягиваются.
 - **Состояния** — Default, Hover, Active, Disabled — для каждого типа.
 - **Поведение · Loader** — Сообщает, что идёт процесс, вызванный кликом. На время процесса кнопка переходит в Disabled. Если в кнопке есть иконка — лоадер заменяет её (при иконках с обеих сторон заменяется левая). Если иконок нет — лоадер появляется слева от текста и увеличивает ширину. В IconOnly иконка заменяется лоадером. Нажмите на любую кнопку, чтобы увидеть.
 - **Типографика** — Текст кнопок набран гарнитурой SB Sans Screen. Размер текста привязан к размеру кнопки через токены --type-button-*.
 - **Доступность** — Кнопка — нативный <button type="button">: Enter и Space работают из коробки. Фокус — outline: 2px var(--primary) с отступом 2px, только по :focus-visible. Disabled задаётся атрибутом disabled. В состоянии Loader кнопка не интерактивна (pointer-events: none) — дополнительно ставьте aria-busy="true" и держите её disabled до конца процесса. Icon-only обязана иметь aria-label. Кнопка с шевроном получает aria-haspopup="menu" и aria-expanded; меню — role="menu" с пунктами role="menuitem", Esc закрывает меню и возвращает фокус на кнопку. Спиннер замедляется при prefers-reduced-motion.
-- **Цвета** — Компонент использует только семантические токены из палитры; hex резолвится из живого значения токена. Заливки Hover/Active у Outline и Transparent и Active у Accent — производные от --primary через color-mix (--btn-hover-bg, --btn-active-bg, --btn-pale); Hover у Accent — самостоятельный токен --primary-dark.
+- **Цвета** — Компонент использует только семантические токены из палитры; hex резолвится из живого значения токена. Заливки Hover/Active у Outline и Transparent и Active у Accent — производные от --primary через color-mix (--btn-hover-bg, --btn-active-bg, --btn-pale); Hover у Accent — самостоятельный токен --primary-dark. Тон (Error/Warning/Success/Info) переопределяет те же роли токенами палитры Situative: Accent — фон/граница `--<тон>`, Hover `--<тон>-dark`, Active `--<тон>-light`, текст `--text-on-dark`; Outline/Transparent — текст/граница `--<тон>`, Hover `--<тон>-bg` (Error — `--error-bg-light`), Active — усиленный color-mix к `--<тон>-dark`.
 
 ## Для разработчиков (выжимка)
 
@@ -44,7 +44,8 @@ status: auto
   <span class="btn__label">Применить</span>
 </button>
 
-<!-- кнопка-меню: шеврон справа, клик только открывает меню -->
+<!-- Тон: Error/Warning/Success/Info — модификатор поверх любого типа; .btn--danger = алиас .btn--error -->
+<button type="button" class="btn btn--accent btn--m btn--error"><span class="btn__label">Удалить</span></button>
 <button type="button" class="btn btn--outline btn--m" aria-haspopup="menu" aria-expanded="false">
   <span class="btn__label">Действия</span>
   <svg class="btn__chevron" aria-hidden="true">…</svg>
@@ -90,7 +91,7 @@ leftSlot = loading ? Spinner : iconLeft
 
 ```
 type ButtonVariant = 'accent' | 'outline' | 'transparent';
-// danger — булев модификатор, комбинируется с любым ButtonVariant
+type ButtonTone = 'error' | 'warning' | 'success' | 'info'; // модификатор, комбинируется с любым ButtonVariant
 type ButtonSize = 'm' | 's' | 'xs';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -102,7 +103,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   chevron?: boolean;           // кнопка-меню; исключает iconRight
   loading?: boolean;           // спиннер + disabled + aria-busy
   fullWidth?: boolean;         // icon-only не растягивается
-  danger?: boolean;            // модификатор поверх variant — токены Error
+  tone?: ButtonTone;           // модификатор поверх variant — токены Situative; 'error' = легаси .btn--danger
 }
 ```
 
@@ -112,7 +113,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 |---|---|---|
 | .btn | button | Базовый класс: флекс-раскладка, типографика, переходы, focus-visible |
 | .btn--accent / --outline / --transparent | button | Тип кнопки — заливка, граница, цвет текста и состояния |
-| .btn--danger | button | Модификатор (не тип) — меняет цвет любого типа на токены Error; диалоги подтверждения удаления |
+| .btn--error / --warning / --success / --info | button | Модификатор Тон (не тип) — меняет цвет любого типа на токены Situative; переиспользуется в Alert/SnackBar |
+| .btn--danger | button | Легаси-алиас .btn--error, для обратной совместимости (Modal, TableFilter) |
 | .btn--m / --s / --xs | button | Размер: высота, паддинги, иконка, радиус, токен типографики |
 | .btn--icon-only | button | Кнопка без текста — квадратный паддинг, обязателен aria-label |
 | .btn--fullwidth | button | Растягивает кнопку на 100% контейнера; icon-only не растягивается |
@@ -122,3 +124,5 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 | .btn__label | span | Текст кнопки, не переносится |
 | .btn__chevron | svg | Шеврон кнопки-меню — 80% размера иконки, поворачивается при открытом меню |
 | .btn__spinner | span | Лоадер — кольцо currentColor, размер иконки, уважает prefers-reduced-motion |
+
+> Обновление 17.07.2026: в Конструктор добавлен выбор тона (Без тона / Error / Warning / Success / Info). Сами тоновые классы `.btn--<tone>` не менялись.

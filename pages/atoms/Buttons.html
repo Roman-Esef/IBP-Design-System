@@ -177,6 +177,10 @@
   .typecols .th { font: var(--type-h5-strong); color: var(--text-primary); padding:0 0 20px; }
   .typecols .sz { display:flex; align-items:center; justify-content:center; }
   .typecols .sz .badge { font: var(--type-body-s-strong); color: var(--text-primary); background: var(--tertiary); padding:6px 9px; border-radius:6px; letter-spacing:.05em; }
+  .tone-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap:18px 20px; align-items:center; }
+  .tone-grid__head { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.04em; font-size:11px; }
+  .tone-grid__cell { display:flex; }
+  @media (max-width:820px){ .tone-grid { grid-template-columns: repeat(5, minmax(120px,1fr)); overflow-x:auto; } }
   .stack { display:flex; flex-direction:column; gap:10px; padding:14px 0 26px; }
   .stack .pair { display:flex; gap:10px; align-items:center; }
 
@@ -253,10 +257,10 @@
 <main class="page" data-screen-label="Button">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>14.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>17.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Button</h1>
-    <p class="lead">Кнопка инициирует действие. Три типа, три размера, состояния Default / Hover / Active / Disabled, лоадер и режим Fullwidth. Модификатор <code class="tok">--danger</code> комбинируется с любым типом — для деструктивных действий (диалог подтверждения удаления). Текст кнопок набран токенами Button&nbsp;M&nbsp;/&nbsp;S&nbsp;/&nbsp;XS (SB Sans Screen).</p>
+    <p class="lead">Кнопка инициирует действие. Три типа, три размера, состояния Default / Hover / Active / Disabled, лоадер и режим Fullwidth. Модификатор Тон (<code class="tok">--error</code> / <code class="tok">--warning</code> / <code class="tok">--success</code> / <code class="tok">--info</code>) комбинируется с любым типом — Error для деструктивных действий (диалог подтверждения удаления), остальные тоны переиспользуются в Alert и SnackBar. Текст кнопок набран токенами Button&nbsp;M&nbsp;/&nbsp;S&nbsp;/&nbsp;XS (SB Sans Screen).</p>
   </header>
 
   <!-- PLAYGROUND (interactive — always first) -->
@@ -304,10 +308,10 @@
     <div class="panel"><div class="row" id="type-row"></div></div>
   </div>
 
-<div class="subsec" data-screen-label="Danger">
-    <h3>Danger</h3>
-    <p class="desc">Модификатор, а не отдельный тип — комбинируется с Accent / Outline / Transparent и меняет только цвет на токены <code class="tok">Error</code>. Используется для деструктивного действия в диалоге подтверждения (например «Удалить» в confirm-модалке, см. <a class="inl" href="../organisms/Modal.html">Modal</a>). Не применяйте Danger к обычному «Удалить» в подвале формы — там кнопка остаётся Transparent, деструктивность подтверждает отдельный диалог, а не цвет.</p>
-    <div class="panel"><div class="row" id="danger-row"></div></div>
+<div class="subsec" data-screen-label="Tone">
+    <h3>Тон</h3>
+    <p class="desc">Модификатор, а не отдельный тип — комбинируется с Accent / Outline / Transparent и меняет цвет на токены одного из четырёх тонов палитры <code class="tok">Situative</code>: <b>Error</b>, <b>Warning</b>, <b>Success</b>, <b>Info</b>. Те же самые кнопки переиспользуются в <a class="inl" href="../loading/Alert.html">Alert</a> и <a class="inl" href="../organisms/SnackBar.html">SnackBar</a> — тон кнопки совпадает с тоном компонента. Error — тон для деструктивного действия в диалоге подтверждения (например «Удалить» в confirm-модалке, см. <a class="inl" href="../organisms/Modal.html">Modal</a>); класс <code class="tok">.btn--danger</code> сохранён как алиас <code class="tok">.btn--error</code> для обратной совместимости. Не применяйте тон к обычному «Удалить» в подвале формы — там кнопка остаётся Transparent, деструктивность подтверждает отдельный диалог, а не цвет.</p>
+    <div class="panel"><div class="tone-grid" id="tone-grid"></div></div>
   </div>
 
 <div class="subsec" data-screen-label="Menu">
@@ -332,16 +336,16 @@
   
 <div class="subsec" data-screen-label="Padding">
     <h3>Отступы</h3>
-    <p class="desc">Отступы внутри кнопок разного типа, но одного состава — идентичны. Все значения в пикселях.</p>
+    <p class="desc">Боковой padding зависит от наличия иконки/шеврона у соответствующего края кнопки: сторона со значком уже, сторона с текстом — шире. Высота, радиус и padding icon-only не меняются.</p>
     <div class="panel" style="padding:8px 10px;">
       <table class="spec-table">
         <thead><tr>
-          <th>Размер</th><th>Высота</th><th>Боковой padding</th><th>Отступ иконка ↔ текст</th><th>Padding (icon-only)</th>
+          <th>Размер</th><th>Высота</th><th>Padding — только текст</th><th>Padding — сторона с иконкой</th><th>Отступ иконка ↔ текст</th><th>Padding (icon-only)</th>
         </tr></thead>
         <tbody>
-          <tr><td>M</td><td class="num">40</td><td class="num">16</td><td class="num">8</td><td class="num">8</td></tr>
-          <tr><td>S</td><td class="num">32</td><td class="num">12</td><td class="num">6</td><td class="num">6</td></tr>
-          <tr><td>XS</td><td class="num">24</td><td class="num">8</td><td class="num">4</td><td class="num">4</td></tr>
+          <tr><td>M</td><td class="num">40</td><td class="num">16</td><td class="num">12</td><td class="num">8</td><td class="num">8</td></tr>
+          <tr><td>S</td><td class="num">32</td><td class="num">12</td><td class="num">10</td><td class="num">6</td><td class="num">6</td></tr>
+          <tr><td>XS</td><td class="num">24</td><td class="num">8</td><td class="num">6</td><td class="num">4</td><td class="num">4</td></tr>
         </tbody>
       </table>
     </div>
@@ -411,8 +415,14 @@
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
-    <p class="desc">Компонент использует только семантические токены из палитры; hex резолвится из живого значения токена. Заливки Hover/Active у Outline и Transparent и Active у Accent — производные от <code class="tok">--primary</code> через <code class="tok">color-mix</code> (<code class="tok">--btn-hover-bg</code>, <code class="tok">--btn-active-bg</code>, <code class="tok">--btn-pale</code>); Hover у Accent — самостоятельный токен <code class="tok">--primary-dark</code>.</p>
+    <p class="desc">Компонент использует только семантические токены из палитры; hex резолвится из живого значения токена. Заливки Hover/Active у Outline и Transparent и Active у Accent — производные от <code class="tok">--primary</code> через <code class="tok">color-mix</code> (<code class="tok">--btn-hover-bg</code>, <code class="tok">--btn-active-bg</code>, <code class="tok">--btn-pale</code>); Hover у Accent — самостоятельный токен <code class="tok">--primary-dark</code>. Модификатор Тон (Error/Warning/Success/Info) переопределяет эти же роли токенами палитры <code class="tok">Situative</code> — таблица ниже.</p>
     <div class="color-ref" id="color-ref"></div>
+    <div class="panel" style="padding:8px 10px; margin-top:20px;">
+      <table class="ref-table" id="tone-color-table">
+        <thead><tr><th>Тон</th><th>Accent · фон</th><th>Accent · Hover</th><th>Accent · Active</th><th>Outline/Transparent · текст и граница</th><th>Outline/Transparent · Hover</th><th>Текст на Accent</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->
@@ -467,7 +477,7 @@ leftSlot = loading ? Spinner : iconLeft
 
     </section>
 
-  <footer class="page-foot">
+    <footer class="page-foot">
     <span>Дизайн-система · Button</span>
     <span>Accent · Outline · Transparent — M / S / XS</span>
   </footer>
@@ -549,13 +559,33 @@ appendBtns('type-row', [
   { type:'transparent', lead:'star', text:'Button' },
 ]);
 
-/* ---------- DANGER (модификатор поверх любого типа) ---------- */
+/* ---------- TONE (модификатор поверх любого типа: Error/Warning/Success/Info) ---------- */
 (function(){
-  const el = document.getElementById('danger-row');
-  [['accent','Удалить'],['outline','Удалить'],['transparent','Удалить']].forEach(([type,text])=>{
-    const b = makeBtn({ type, text });
-    b.classList.add('btn--danger');
-    el.appendChild(b);
+  const el = document.getElementById('tone-grid');
+  if (!el) return;
+  const tones = [
+    { cls:'',        label:'Default' },
+    { cls:'error',   label:'Error/Danger' },
+    { cls:'warning', label:'Warning' },
+    { cls:'success', label:'Success' },
+    { cls:'info',    label:'Info' },
+  ];
+  const types = ['accent','outline','transparent'];
+  tones.forEach(t=>{
+    const h = document.createElement('div');
+    h.className = 'tone-grid__head';
+    h.textContent = t.label;
+    el.appendChild(h);
+  });
+  types.forEach(type=>{
+    tones.forEach(t=>{
+      const cell = document.createElement('div');
+      cell.className = 'tone-grid__cell';
+      const b = makeBtn({ type, text:'Button' });
+      if (t.cls) b.classList.add('btn--' + t.cls);
+      cell.appendChild(b);
+      el.appendChild(cell);
+    });
   });
 })();
 
@@ -671,7 +701,7 @@ function attachLoader(btn){
 /* ---------- PLAYGROUND ---------- */
 (function(){
   const state = {
-    type:'accent', size:'m', state:'default',
+    type:'accent', size:'m', state:'default', tone:'none',
     lead:true, text:true, trail:false, chevron:true, loader:false, fullwidth:false,
   };
   const controls = document.getElementById('pg-controls');
@@ -720,6 +750,8 @@ function attachLoader(btn){
   // Тип и Состояние не помещаются в один ряд сегментами → выпадающие списки
   controls.appendChild(select('Тип', [['accent','Accent'],['outline','Outline'],['transparent','Transparent']],
     ()=>state.type, v=>state.type=v));
+  controls.appendChild(select('Тон', [['none','Без тона'],['error','Error'],['warning','Warning'],['success','Success'],['info','Info']],
+    ()=>state.tone, v=>state.tone=v));
   controls.appendChild(seg('Размер', [['m','M'],['s','S'],['xs','XS']], ()=>state.size, v=>state.size=v));
   controls.appendChild(select('Состояние', [['default','Default'],['hover','Hover'],['active','Active'],['disabled','Disabled']],
     ()=>state.state, v=>state.state=v));
@@ -772,6 +804,7 @@ function attachLoader(btn){
     else if (state.state==='active') o.force='active';
 
     const btn=makeBtn(o);
+    if (state.tone!=='none') btn.classList.add('btn--'+state.tone);
     applyLoader(btn);
     preview.innerHTML='';
     // chevron → interactive dropdown (when not loading/disabled/fullwidth)
@@ -783,6 +816,7 @@ function attachLoader(btn){
 
     // code string
     const cls=['btn','btn--'+state.type,'btn--'+state.size];
+    if (state.tone!=='none') cls.push('btn--'+state.tone);
     if (o.iconOnly) cls.push('btn--icon-only');
     if (state.fullwidth) cls.push('btn--fullwidth');
     if (state.loader) cls.push('btn--loading');
@@ -870,6 +904,26 @@ function attachLoader(btn){
           </div>`).join('')}
       </div>
     </section>`).join('');
+
+  const toneTbody = document.querySelector('#tone-color-table tbody');
+  if (toneTbody) {
+    const tones = [
+      ['Error',   '--error',   '--error-dark',   '--error-light'],
+      ['Warning', '--warning', '--warning-dark', '--warning-light'],
+      ['Success', '--success', '--success-dark', '--success-light'],
+      ['Info',    '--info',    '--info-dark',    '--info-light'],
+    ];
+    toneTbody.innerHTML = tones.map(([name, base, dark, light])=>`
+      <tr>
+        <td>${name}</td>
+        <td>${resolveHex('var('+base+')')} <code class="tok">${base}</code></td>
+        <td>${resolveHex('var('+dark+')')} <code class="tok">${dark}</code></td>
+        <td>${resolveHex('var('+light+')')} <code class="tok">${light}</code></td>
+        <td>${resolveHex('var('+base+')')} <code class="tok">${base}</code></td>
+        <td>${resolveHex('color-mix(in srgb, var('+base+') 10%, #fff)')}</td>
+        <td>${resolveHex('var(--text-on-dark)')} <code class="tok">--text-on-dark</code></td>
+      </tr>`).join('');
+  }
   probe.remove();
 })();
 /* ---------- DEV: redline measured from live component ---------- */
@@ -881,22 +935,24 @@ function attachLoader(btn){
   document.body.appendChild(host);
   function measure(sz){
     const b  = makeBtn({ size:sz, lead:'download', text:'Применить', chevron:true });
+    const t  = makeBtn({ size:sz, text:'Применить' });
     const io = makeBtn({ size:sz, iconOnly:'download' });
-    host.appendChild(b); host.appendChild(io);
+    host.appendChild(b); host.appendChild(t); host.appendChild(io);
     const cs = getComputedStyle(b);
     const icon = b.querySelector('svg:not(.btn__chevron)');
     const chev = b.querySelector('.btn__chevron');
     return {
-      h:    parseFloat(cs.height),
-      px:   parseFloat(cs.paddingLeft),
-      gap:  parseFloat(cs.columnGap),
-      iop:  parseFloat(getComputedStyle(io).paddingLeft),
-      icon: parseFloat(getComputedStyle(icon).width),
-      chev: parseFloat(getComputedStyle(chev).width),
-      rad:  parseFloat(cs.borderTopLeftRadius),
-      bw:   parseFloat(cs.borderTopWidth),
-      fs:   parseFloat(cs.fontSize),
-      lh:   parseFloat(cs.lineHeight),
+      h:      parseFloat(cs.height),
+      pxIcon: parseFloat(cs.paddingLeft),
+      pxText: parseFloat(getComputedStyle(t).paddingLeft),
+      gap:    parseFloat(cs.columnGap),
+      iop:    parseFloat(getComputedStyle(io).paddingLeft),
+      icon:   parseFloat(getComputedStyle(icon).width),
+      chev:   parseFloat(getComputedStyle(chev).width),
+      rad:    parseFloat(cs.borderTopLeftRadius),
+      bw:     parseFloat(cs.borderTopWidth),
+      fs:     parseFloat(cs.fontSize),
+      lh:     parseFloat(cs.lineHeight),
     };
   }
   const d = { m:measure('m'), s:measure('s'), xs:measure('xs') };
@@ -904,7 +960,8 @@ function attachLoader(btn){
   const r = n => Math.round(n*10)/10;
   const rows = [
     ['Высота', z => r(d[z].h)+' px'],
-    ['Боковой padding', z => r(d[z].px)+' px'],
+    ['Padding — только текст', z => r(d[z].pxText)+' px'],
+    ['Padding — сторона с иконкой', z => r(d[z].pxIcon)+' px'],
     ['Зазор иконка ↔ текст (gap)', z => r(d[z].gap)+' px'],
     ['Padding icon-only (по X)', z => r(d[z].iop)+' px'],
     ['Иконка', z => r(d[z].icon)+' px'],

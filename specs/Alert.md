@@ -1,9 +1,9 @@
 ---
 component: Alert
 title: "Alert"
-version: "v1.1"
-updated: "13.07.2026"
-page: pages/loading/Alert.html
+version: "v1.3"
+updated: "17.07.2026"
+page: pages/molecules/Alert.html
 page_js: scripts/alert.page.js
 css: styles/alert.css
 deps: [button, link]
@@ -25,7 +25,7 @@ status: curated
 - **Состояния** — сам Алерт статичен, не реагирует на курсор; интерактивны только действия/кнопки/ссылки. Иконка-действие: Default (Text_Inactive), Hover (Text_Secondary + подложка в тон 12%), Active (акцент тона), Focus (2px обводка тона).
 - **Доступность** — role/aria-live по тону: Error·Warning → alert/assertive, Info·Success → status/polite. Иконка тона aria-hidden. Кнопки действий с aria-label; шеврон с aria-expanded. Не перехватывает Esc (не модальный).
 - **Типографика** — заголовок --type-body-m-strong (M) / --type-body-s-strong (S); текст --type-body-s (M) / --type-body-xs (S); кнопка --type-button-xs; ссылка --type-body-s.
-- **Цвета** — пара «заливка + акцент» из группы Situative. info: --info-bg + --info; warning: --warning-bg + --warning; error: --error-bg-light + --error; success: --success-bg + --success. Заголовок Text_Primary, текст Text_Secondary, действия Text_Inactive. Кнопки/ссылки внутри перекрашиваются в акцент через переопределение --primary/--link на .alert.
+- **Цвета** — пара «заливка + акцент» из группы Situative. info: --info-bg + --info; warning: --warning-bg + --warning; error: --error-bg-light + --error; success: --success-bg + --success. Заголовок Text_Primary, текст Text_Secondary, действия Text_Inactive. Кнопки внутри несут явный модификатор Тон Button (`.btn--info/--warning/--error/--success`, совпадающий с тоном Алерта); переопределение --primary/--link на .alert остаётся для цвета ссылок и focus-обводки.
 
 ## Для разработчиков (выжимка)
 
@@ -51,7 +51,7 @@ status: curated
     <p class="alert__title">Заголовок компонента</p>
     <p class="alert__text">Добавление холдинга в разработке…</p>
     <div class="alert__buttons">
-      <button class="btn btn--outline btn--xs"><span class="btn__label">Завести сделку</span></button>
+      <button class="btn btn--outline btn--xs btn--info"><span class="btn__label">Завести сделку</span></button>
     </div>
   </div>
   <div class="alert__actions">
@@ -61,7 +61,7 @@ status: curated
 </div>
 ```
 
-Глифы иконки по тону: info → `Info-circle-filled`, warning → `alert-triangle-filled`, error → `alert-circle-filled`, success → `check-circle-filled`.
+Глифы иконки по тону: info → `Info-circle-filled`, warning → `alert-triangle-filled`, error → `alert-circle-filled`, success → `check-circle-filled`. Кнопка внутри несёт явный тон-класс Button (`.btn--<тон>`), совпадающий с тоном Алерта — переиспользование модификатора Тон из specs/Buttons.md.
 
 ### Поведение · псевдокод (framework-agnostic)
 
@@ -122,3 +122,5 @@ interface AlertProps {
 | `.alert__act` | button | Иконка-действие; обязателен aria-label |
 | `.alert__collapse / .alert__close` | button | Свернуть (aria-expanded) / закрыть |
 | `[role][aria-live]` | контейнер | alert/assertive для Error·Warning, status/polite для Info·Success |
+
+> v1.3 (17.07.2026): кнопки и ссылки внутри Алерта красятся штатными тоновыми классами `.btn--<tone>` / `.link--<tone>` (совпадают с тоном плашки). Локальная подмена `--primary`/`--link` убрана; тон задаёт только акцент (`--alert-accent`) и фон.

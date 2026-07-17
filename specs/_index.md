@@ -6,12 +6,12 @@ purpose: Манифест спек компонентов. Читай нужну
 
 | Компонент | Спека | CSS | Зависимости | Версия |
 |---|---|---|---|---|
-| Alert | specs/Alert.md | styles/alert.css | button, link | v1.1 |
+| Alert | specs/Alert.md | styles/alert.css | button, link | v1.2 |
 | Avatar | specs/Avatar.md | styles/avatar.css | badge | v1.2 |
 | Badge | specs/Badge.md | styles/badge.css | — | v1.1 |
 | Breadcrumbs | specs/Breadcrumbs.md | styles/breadcrumbs.css | link, context-menu, tooltip | v1.2 |
 | ButtonGroup | specs/ButtonGroup.md | styles/button-group.css | button | v1.0 |
-| Buttons | specs/Buttons.md | styles/button.css | — | v1.5 |
+| Buttons | specs/Buttons.md | styles/button.css | — | v1.6 |
 | Checkbox | specs/Checkbox.md | styles/checkbox.css | label-helper | v1.3 |
 | Chip | specs/Chip.md | styles/chip.css | label-helper | v1.4 |
 | Colors | specs/Colors.md | — | — | v1.1 |
@@ -41,6 +41,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | RiskMetric | specs/RiskMetric.md | — | chip, popover, icon-button, divider | v1.0 |
 | SegmentControl | specs/SegmentControl.md | styles/segment-control.css | tab, button, button-group, badge | v1.1 |
 | Select | specs/Select.md | — | checkbox, label-helper, dropdown-list | v1.1 |
+| SnackBar | specs/SnackBar.md | styles/snackbar.css | button, link | v1.1 |
 | Splitter | specs/Splitter.md | styles/splitter.css | button | v1.1 |
 | Switch | specs/Switch.md | styles/switch.css | label-helper | v1.3 |
 | TableCell | specs/TableCell.md | styles/table-cell.css | checkbox, chip, icon-button, button, tooltip | v1.4 |

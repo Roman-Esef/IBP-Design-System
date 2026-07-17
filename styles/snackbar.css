@@ -79,21 +79,9 @@
 /* кнопки действий */
 .snack__buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 
-/* перекраска кнопок через переопределение --primary в контексте снека.
-   Скоуп --* вынесен на [data-snack-tone] (разрешённый data-скоуп компилятора),
-   именно на .snack__buttons — чтобы .snack__close сохранил глобальный --primary
-   для focus-outline. Значения идентичны прежним. Тон-класс .snack--<tone>
-   остаётся для фона/иконки/×N/close. */
-[data-snack-tone="info"]    .snack__buttons { --primary: var(--info);    --primary-dark: var(--info-dark);    --btn-hover-bg: color-mix(in srgb, var(--info) 10%, #fff);    --btn-active-bg: color-mix(in srgb, var(--info) 18%, #fff);    --btn-pale: color-mix(in srgb, var(--info) 45%, #fff); }
-[data-snack-tone="warning"] .snack__buttons { --primary: var(--warning); --primary-dark: var(--warning-dark); --btn-hover-bg: color-mix(in srgb, var(--warning) 10%, #fff); --btn-active-bg: color-mix(in srgb, var(--warning) 18%, #fff); --btn-pale: color-mix(in srgb, var(--warning) 45%, #fff); }
-[data-snack-tone="error"]   .snack__buttons { --primary: var(--error);   --primary-dark: var(--error-dark);   --btn-hover-bg: color-mix(in srgb, var(--error) 10%, #fff);   --btn-active-bg: color-mix(in srgb, var(--error) 18%, #fff);   --btn-pale: color-mix(in srgb, var(--error) 45%, #fff); }
-[data-snack-tone="success"] .snack__buttons { --primary: var(--success); --primary-dark: var(--success-dark); --btn-hover-bg: color-mix(in srgb, var(--success) 10%, #fff); --btn-active-bg: color-mix(in srgb, var(--success) 18%, #fff); --btn-pale: color-mix(in srgb, var(--success) 45%, #fff); }
-
-/* перекраска ссылок (.link) через --link-fg / --link-fg-hover (см. link.css) */
-[data-snack-tone="info"]    .snack__buttons { --link-fg: var(--info);    --link-fg-hover: var(--info-dark);    --link-fg-active: var(--info-dark); }
-[data-snack-tone="warning"] .snack__buttons { --link-fg: var(--warning); --link-fg-hover: var(--warning-dark); --link-fg-active: var(--warning-dark); }
-[data-snack-tone="error"]   .snack__buttons { --link-fg: var(--error);   --link-fg-hover: var(--error-dark);   --link-fg-active: var(--error-dark); }
-[data-snack-tone="success"] .snack__buttons { --link-fg: var(--success); --link-fg-hover: var(--success-dark); --link-fg-active: var(--success-dark); }
+/* Кнопки и ссылки внутри снека красятся штатными тоновыми классами ДС:
+   .btn--<tone> и .link--<tone> (совпадают с тоном снека). Локальная подмена
+   --primary / --link-fg убрана — ре-скоупа переменных больше нет. */
 
 /* --- кнопка закрытия --------------------------------------------- */
 .snack__close {

@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/link.css">
+<link rel="stylesheet" href="../../styles/context-menu.css">
 <link rel="stylesheet" href="../../styles/breadcrumbs.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -221,7 +222,7 @@
 <main class="page" data-screen-label="Link">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>17.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Link</h1>
     <p class="lead">Текстовая ссылка для навигации внутри лайаута и модальных окон, а также в Хлебных крошках. Тоны Accent / Muted / Neutral, размеры M / S, состояния Default и Hover = Focus (подчёркивание) — кроме тона Neutral (Breadcrumbs_2): у него только состояние Default, ссылка не кликабельна. Цветовое решение едино для всех видов и размеров.</p>
@@ -279,6 +280,17 @@
     </div>
   </div>
 
+<div class="subsec" data-screen-label="StateTones">
+    <h3>Тона состояний</h3>
+    <p class="desc">Семантические тона <b>Info · Warning · Error · Success</b> — для ссылок внутри цветных Alert и SnackBar: цвет совпадает с тоном компонента. Hover — на ступень темнее (<code class="tok">--&lt;тон&gt;-dark</code>), Pressed — ещё темнее. Классы <code class="tok">.link--info</code> / <code class="tok">.link--warning</code> / <code class="tok">.link--error</code> / <code class="tok">.link--success</code>.</p>
+    <div class="panel"><div class="row" style="gap:36px; flex-wrap:wrap;">
+      <a class="link link--info link--m" href="#" onclick="event.preventDefault()">Info-ссылка</a>
+      <a class="link link--warning link--m" href="#" onclick="event.preventDefault()">Warning-ссылка</a>
+      <a class="link link--error link--m" href="#" onclick="event.preventDefault()">Error-ссылка</a>
+      <a class="link link--success link--m" href="#" onclick="event.preventDefault()">Success-ссылка</a>
+    </div></div>
+  </div>
+
 <div class="subsec" data-screen-label="Breadcrumbs">
     <h3>Ссылки Хлебных крошек</h3>
     <p class="desc">Ссылки используются в Хлебных крошках (шапка страницы). Есть два цветовых решения: <b>Breadcrumbs_1</b> (тон Muted — родительские страницы) — кликабельна, подчёркивается на Hover и Focus; и <b>Breadcrumbs_2</b> (тон Neutral — выделенная текущая страница) — не кликабельна, доступно только состояние Default, без подчёркивания. Полная спецификация компонента (анатомия, авто-схлопывание, доступность) — на странице <a class="link link--accent link--inline" href="../molecules/Breadcrumbs.html">Breadcrumbs</a>.</p>
@@ -291,7 +303,7 @@
       <div class="header-mock"><nav class="crumbs" id="crumbs-full" aria-label="Хлебные крошки"></nav></div>
     </div>
 
-    <p class="desc">При длинной цепочке средние крошки сворачиваются в «…». Нажмите, чтобы развернуть.</p>
+    <p class="desc">При длинной цепочке средние крошки сворачиваются в кнопку «…». Клик по ней открывает выпадающий список с названиями скрытых страниц — сами крошки не разворачиваются.</p>
     <div class="panel">
       <div class="header-mock"><nav class="crumbs" id="crumbs-collapsed" aria-label="Хлебные крошки"></nav></div>
     </div>
@@ -315,7 +327,7 @@
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
-    <p class="desc">Два размера, привязанных к токенам текста: <b>M</b> — <code class="tok">--type-body-m</code> (16/20), <b>S</b> — <code class="tok">--type-body-s</code> (14/16). Инлайн-ссылка наследует размер окружающего текста.</p>
+    <p class="desc">Два размера, привязанных к токенам текста: <b>M</b> — <code class="tok">--type-body-m</code> (16/20), <b>S</b> — <code class="tok">--type-body-s</code> (14/16). Инлайн-ссылка наследует размер окружающего текста. Размер S также используется в таблицах — весь текстовый контент внутри таблицы набирается размером S.</p>
     <div class="panel" style="margin-bottom:20px;"><div class="row" id="sizes-row" style="gap:40px;"></div></div>
     <div class="panel" style="padding:8px 10px;">
       <table class="ref-table">
@@ -378,7 +390,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Hover и Focus оформлены одинаково (подчёркивание) — как в спецификации. Дополнительно добавлены <b>Pressed</b>, <b>Disabled</b> и опциональный <b>Visited</b>, а на клавиатурный фокус показывается обводка для доступности. Тон <b>Neutral</b> (Breadcrumbs_2) не кликабелен — для него доступно только состояние Default.</p>
+    <p class="desc">Hover и Focus оформлены одинаково (подчёркивание) — как в спецификации. Дополнительно добавлены <b>Pressed</b> и <b>Disabled</b>, а на клавиатурный фокус показывается обводка для доступности. Тон <b>Neutral</b> (Breadcrumbs_2) не кликабелен — для него доступно только состояние Default.</p>
     <div class="panel">
       <div class="matrix-wrap"><div class="matrix" id="states-matrix"></div></div>
     </div>
@@ -551,6 +563,44 @@ function makeLink(o = {}) {
   const neC=document.createElement('div'); neC.className='cell'; neC.innerHTML='<span style="font: var(--type-body-m); color: var(--text-inactive);">— не кликабельна</span>'; m.appendChild(neC);
 })();
 
+/* интерактивная версия «…» — клик открывает контекстное меню со скрытыми страницами
+   (переиспользует .menu / .menu__item из styles/context-menu.css), крошки не разворачиваются.
+   Меню портируется в document.body (position:fixed) — полная логика в Breadcrumbs.html */
+function crumbMore(hidden){
+  const btn=document.createElement('button'); btn.type='button'; btn.className='crumbs__more'; btn.textContent='…';
+  btn.setAttribute('aria-haspopup','true'); btn.setAttribute('aria-expanded','false');
+  btn.setAttribute('aria-label','Показать промежуточные страницы: '+hidden.map(h=>h.text).join(', '));
+  let open=false, menu=null;
+  function place(){ const br=btn.getBoundingClientRect(); menu.style.left=Math.round(br.left)+'px'; menu.style.top=Math.round(br.bottom+6)+'px'; }
+  function close(){
+    if (!open) return;
+    open=false; btn.setAttribute('aria-expanded','false');
+    if (menu){ menu.remove(); menu=null; }
+    document.removeEventListener('pointerdown', onOutside, true);
+    document.removeEventListener('keydown', onEsc, true);
+    window.removeEventListener('scroll', place, true);
+    window.removeEventListener('resize', place);
+  }
+  function onOutside(e){ if (menu && !menu.contains(e.target) && e.target!==btn) close(); }
+  function onEsc(e){ if (e.key==='Escape'){ close(); btn.focus(); } }
+  btn.addEventListener('click', ()=>{
+    if (open){ close(); return; }
+    open=true; btn.setAttribute('aria-expanded','true');
+    menu=document.createElement('div'); menu.className='menu crumbs__popup'; menu.style.position='fixed'; menu.setAttribute('role','menu');
+    hidden.forEach(h=>{
+      const item=document.createElement('button'); item.type='button'; item.className='menu__item'; item.setAttribute('role','menuitem');
+      const label=document.createElement('span'); label.className='menu__item-label'; label.textContent=h.text;
+      item.appendChild(label); item.addEventListener('click', close);
+      menu.appendChild(item);
+    });
+    document.body.appendChild(menu); place();
+    document.addEventListener('pointerdown', onOutside, true);
+    document.addEventListener('keydown', onEsc, true);
+    window.addEventListener('scroll', place, true);
+    window.addEventListener('resize', place);
+  });
+  return btn;
+}
 /* ---------- FULL BREADCRUMBS (эталонная анатомия — полная спецификация в Breadcrumbs.html) ---------- */
 function buildCrumbs(host, items){
   host.innerHTML='';
@@ -561,9 +611,7 @@ function buildCrumbs(host, items){
       li.classList.add('crumbs__item--current');
       const cur=document.createElement('span'); cur.className='crumbs__current'; cur.setAttribute('aria-current','page'); cur.textContent=it.text; li.appendChild(cur);
     } else if (it.more){
-      const more=document.createElement('button'); more.type='button'; more.className='crumbs__more'; more.textContent='…'; more.setAttribute('aria-label','Показать промежуточные страницы');
-      more.addEventListener('click', it.onExpand);
-      li.appendChild(more);
+      li.appendChild(crumbMore(it.hidden));
     } else {
       const a = makeLink({ tone:'muted', size:'m', text:it.text }); li.appendChild(a);
     }
@@ -580,12 +628,10 @@ function buildCrumbs(host, items){
   const full = [
     { text:'Главная' }, { text:'Клиенты' }, { text:'ООО «Ромашка»' }, { text:'Сделки' }, { text:'Договоры' }, { text:'Договор №4521', current:true },
   ];
-  function collapsed(){
-    return [ full[0], { more:true, onExpand:()=>buildCrumbs(host, full) }, full[full.length-2], full[full.length-1] ];
-  }
-  buildCrumbs(host, collapsed());
+  const hidden = full.slice(1, full.length-2);
+  buildCrumbs(host, [ full[0], { more:true, hidden }, full[full.length-2], full[full.length-1] ]);
 })();
-/* полная логика авто-схлопывания по ширине, попап вместо полного раскрытия и тултип на обрезанной текущей крошке — см. Breadcrumbs.html */
+/* полная логика авто-схлопывания по ширине, тултип на обрезанной текущей крошке — см. Breadcrumbs.html */
 
 /* ---------- SIZES ---------- */
 (function(){
@@ -602,13 +648,13 @@ function buildCrumbs(host, items){
 /* ---------- STATES MATRIX ---------- */
 (function(){
   const m = document.getElementById('states-matrix');
-  const cols = ['Default','Hover','Focus','Pressed','Disabled','Visited'];
+  const cols = ['Default','Hover','Focus','Pressed','Disabled'];
   m.style.gridTemplateColumns = '110px repeat('+cols.length+', 1fr)';
   m.appendChild(Object.assign(document.createElement('div'),{className:'rowname'}));
   cols.forEach(c=>{ const d=document.createElement('div'); d.className='col-head'; d.textContent=c; m.appendChild(d); });
   [['Accent','accent'],['Muted','muted'],['Neutral','neutral']].forEach(([name,tone])=>{
     const rn=document.createElement('div'); rn.className='rowname'; rn.textContent=name; m.appendChild(rn);
-    ['default','hover','focus','pressed','disabled','visited'].forEach(st=>{
+    ['default','hover','focus','pressed','disabled'].forEach(st=>{
       const c=document.createElement('div'); c.className='cell';
       if (tone==='neutral' && st!=='default') {
         c.innerHTML='<span style="font: var(--type-body-s); color: var(--text-inactive);">—</span>';
@@ -691,7 +737,6 @@ document.getElementById('ic-good').innerHTML = UI.good;
       ['Default', '--link'],
       ['Hover = Focus', '--link-dark'],
       ['Pressed', '--c-emerald-900'],
-      ['Visited (опц.)', '--secondary-dark'],
     ]},
     { name:'Breadcrumbs', rows:[
       ['Breadcrumbs_1 · Default', '--text-inactive'],
@@ -772,7 +817,7 @@ document.getElementById('ic-good').innerHTML = UI.good;
   }
 
   controls.appendChild(select('Тон',
-    [['accent','Accent'],['muted','Muted (Breadcrumbs_1)'],['neutral','Neutral (Breadcrumbs_2)']],
+    [['accent','Accent'],['info','Info'],['warning','Warning'],['error','Error'],['success','Success'],['muted','Muted (Breadcrumbs_1)'],['neutral','Neutral (Breadcrumbs_2)']],
     ()=>state.tone, v=>{ state.tone=v; syncStateAvailability(); }));
   controls.appendChild(seg('Размер', [['m','M'],['s','S']], ()=>state.size, v=>state.size=v));
   controls.appendChild(stateCtl);

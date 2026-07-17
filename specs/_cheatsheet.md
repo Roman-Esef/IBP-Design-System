@@ -19,7 +19,7 @@ css: `styles/alert.css` · deps: [button, link]
     <p class="alert__title">Заголовок компонента</p>
     <p class="alert__text">Добавление холдинга в разработке…</p>
     <div class="alert__buttons">
-      <button class="btn btn--outline btn--xs"><span class="btn__label">Завести сделку</span></button>
+      <button class="btn btn--outline btn--xs btn--info"><span class="btn__label">Завести сделку</span></button>
       <a class="link link--accent link--s" href="#">Подробнее</a>
     </div>
   </div>
@@ -30,7 +30,7 @@ css: `styles/alert.css` · deps: [button, link]
 </div>
 ```
 
-Тоны — заливка/акцент: `--info-bg/--info` · `--warning-bg/--warning` · `--error-bg-light/--error` · `--success-bg/--success`. role/aria-live: error·warning → alert/assertive, info·success → status/polite. Кнопки и ссылки перекрашиваются в тон (переопределение `--primary`/`--link` на `.alert`). Свёрнуто — `.alert--collapsed`. Полная анатомия: specs/Alert.md.
+Тоны — заливка/акцент: `--info-bg/--info` · `--warning-bg/--warning` · `--error-bg-light/--error` · `--success-bg/--success`. role/aria-live: error·warning → alert/assertive, info·success → status/polite. Кнопки и ссылки несут явный тон-класс Button (`.btn--info/--warning/--error/--success`, совпадающий с тоном Алерта); переопределение --primary/--link на .alert остаётся для ссылок. Свёрнуто — `.alert--collapsed`. Полная анатомия: specs/Alert.md.
 
 ## Avatar
 css: `styles/avatar.css` · deps: [badge]
@@ -136,8 +136,8 @@ css: `styles/button.css`
   <span class="btn__spinner"></span>
   <span class="btn__label">Применить</span>
 </button>
-<!-- Danger — модификатор поверх любого типа, для диалогов подтверждения удаления -->
-<button type="button" class="btn btn--accent btn--m btn--danger"><span class="btn__label">Удалить</span></button>
+<!-- Тон: Error/Warning/Success/Info — модификатор поверх любого типа; переиспользуется в Alert и SnackBar; .btn--danger = алиас .btn--error, для диалогов подтверждения удаления -->
+<button type="button" class="btn btn--accent btn--m btn--error"><span class="btn__label">Удалить</span></button>
 ```
 
 ## Checkbox
@@ -584,9 +584,9 @@ css: `styles/snackbar.css` · deps: [button, link]
     <div class="snack__body">
       <div class="snack__title">Ошибка <span class="snack__dupe">×2</span></div>
       <div class="snack__text">Плановая дата подписания просрочена.</div><!-- опционально -->
-      <div class="snack__buttons"><!-- опционально -->
-        <button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Изменить</span></button>
-        <button type="button" class="btn btn--transparent btn--xs"><span class="btn__label">Отмена</span></button>
+      <div class="snack__buttons"><!-- опционально; кнопки несут явный тон-класс Button (.btn--error/--warning/--success/--info) по тону снека -->
+        <button type="button" class="btn btn--outline btn--xs btn--error"><span class="btn__label">Изменить</span></button>
+        <button type="button" class="btn btn--transparent btn--xs btn--error"><span class="btn__label">Отмена</span></button>
       </div>
     </div>
     <button type="button" class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
@@ -604,7 +604,7 @@ css: `styles/snackbar.css` · deps: [button, link]
 </div>
 ```
 
-Тона — фон/иконка/кнопки: `--info-bg/--info` · `--warning-bg/--warning` · `--error-bg-light/--error` · `--success-bg/--success`. Заголовок: Body S 400 `--text-primary`. Текст: Body XS `--text-secondary`. Кнопки перекрашиваются через переопределение `--primary` в `.snack__buttons`.
+Тона — фон/иконка/кнопки: `--info-bg/--info` · `--warning-bg/--warning` · `--error-bg-light/--error` · `--success-bg/--success`. Заголовок: Body S 400 `--text-primary`. Текст: Body XS `--text-secondary`. Кнопки несут явный тон-класс Button (`.btn--info/--warning/--error/--success`, совпадающий с тоном снека); переопределение `--primary` в `.snack__buttons` остаётся для ссылок.
 
 ## Entity
 css: `styles/entity.css` · deps: [avatar, chip, icon-button, button, badge]

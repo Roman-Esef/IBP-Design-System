@@ -30,6 +30,7 @@
             { label: 'Chip',         href: 'pages/atoms/Chip.html' },
             { label: 'Divider',      href: 'pages/atoms/Divider.html' },
             { label: 'IconButton',   href: 'pages/atoms/IconButton.html' },
+            { label: 'Label / Helper', href: 'pages/atoms/LabelHelper.html' },
             { label: 'Link',         href: 'pages/atoms/Link.html' },
             { label: 'ProgressBar',  href: 'pages/atoms/ProgressBar.html' },
             { label: 'Radiobutton',  href: 'pages/atoms/Radiobutton.html' },
@@ -39,6 +40,7 @@
         {
           group: 'Молекулы',
           items: [
+            { label: 'Alert',            href: 'pages/molecules/Alert.html' },
             { label: 'Breadcrumbs',       href: 'pages/molecules/Breadcrumbs.html' },
             { label: 'ButtonGroup',      href: 'pages/molecules/ButtonGroup.html' },
             { label: 'Context Menu',     href: 'pages/molecules/ContextMenu.html' },
@@ -71,13 +73,6 @@
             { label: 'TableCell',  href: 'pages/organisms/TableCell.html' },
             { label: 'TableFilter', href: 'pages/organisms/TableFilter.html' },
             { label: 'Tile',       href: 'pages/organisms/Tile.html' }
-          ]
-        },
-        {
-          group: 'Компоненты подкачки',
-          items: [
-            { label: 'Alert',         href: 'pages/loading/Alert.html' },
-            { label: 'Label / Helper', href: 'pages/loading/LabelHelper.html' }
           ]
         }
       ]
@@ -179,6 +174,11 @@
   nav.addEventListener('click', function (e) { if (e.target.closest('.ds-nav__link')) setOpen(false); });
 
   function mount() {
+    // no-op guard: монтируемся только на страницах-хостах навигации (index и документация
+    // имеют <main class="page">). На карточках @dsCard, которые тянут ds-nav.js через
+    // _ds_bundle.js, такого контейнера нет — молча выходим и не ломаем карточку/index.
+    if (!document.querySelector('main.page')) return;
+    if (document.body.classList.contains('ds-has-nav')) return;
     document.body.classList.add('ds-has-nav');
     document.body.insertBefore(backdrop, document.body.firstChild);
     document.body.insertBefore(nav, document.body.firstChild);

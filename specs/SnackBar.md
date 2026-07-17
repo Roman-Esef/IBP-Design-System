@@ -1,8 +1,8 @@
 ---
 component: SnackBar
 title: "SnackBar"
-version: "v1.0"
-updated: "13.07.2026"
+version: "v1.2"
+updated: "17.07.2026"
 page: pages/organisms/SnackBar.html
 css: styles/snackbar.css
 deps: [button, link]
@@ -22,7 +22,7 @@ status: auto
 - **Поведение · Переполнение** — видимых ≤ 5; при превышении старые скрываются за overflow-плашкой «+N уведомл.» с кнопками «развернуть» и «закрыть все».
 - **Дедупликация** — одинаковые снеки (тон+заголовок+текст) схлопываются в один со счётчиком ×N в заголовке; повторный показ перезапускает таймер.
 - **Esc** — закрывает верхний снек стека.
-- **Кнопки** — переиспользуют Button xs из ДС; перекраска через переопределение --primary в контексте .snack__buttons.
+- **Кнопки** — переиспользуют Button xs из ДС с явным тон-классом (`.btn--info/--warning/--error/--success`), совпадающим с тоном снека; переопределение --primary в контексте .snack__buttons остаётся для ссылок.
 - **Ссылки** — Link из ДС; перекраска через --link-fg / --link-fg-hover.
 - **Слои** — ToastBar < Modal < SnackBar < ToastLoader. Описано в specs/Toast.md.
 
@@ -52,7 +52,7 @@ status: auto
       <div class="snack__title">Ошибка <span class="snack__dupe">×2</span></div>
       <div class="snack__text">Плановая дата просрочена.</div>
       <div class="snack__buttons">
-        <button type="button" class="btn btn--outline btn--xs">
+        <button type="button" class="btn btn--outline btn--xs btn--error">
           <span class="btn__label">Изменить сроки</span>
         </button>
       </div>
@@ -102,8 +102,10 @@ interface SnackbarController {
 | .snack__title | div | Body S 400, --text-primary |
 | .snack__dupe | span | Счётчик ×N, встраивается в конец .snack__title |
 | .snack__text | div | Body XS, --text-secondary; опционален |
-| .snack__buttons | div | Переопределяет --primary/--link-fg в тон |
+| .snack__buttons | div | Содержит кнопки с явным `.btn--<тон>`; --primary/--link-fg — для ссылок |
 | .snack__close | button | aria-label="Закрыть" обязателен |
 | .snack-more | div | Overflow-плашка "+N уведомл." |
 | role="alert" | snack | error/warning → assertive |
 | role="status" | snack | info/success → polite |
+
+> v1.2 (17.07.2026): кнопки и ссылки внутри снека красятся штатными тоновыми классами `.btn--<tone>` / `.link--<tone>`. Переопределения `--primary`/`--link-fg` на `.snack__buttons` убраны — предупреждение компилятора о 37 токенах устранено.
