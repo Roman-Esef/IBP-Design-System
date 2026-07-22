@@ -1,0 +1,156 @@
+<!-- @dsCard group="Примеры экранов" viewport="1920x1080" name="05 · ФИ: Доп. доходность" subtitle="Карточка финансового инструмента: данные по ФИ, инструменты с тултипом, ID и счета 1С" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ФИ: Доп. доходность — Пример экрана</title>
+<link rel="stylesheet" href="../../ds.css">
+<link rel="stylesheet" href="../../styles/screens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; font-family: var(--font-text), system-ui, sans-serif; color: var(--text-primary); }
+  a { color: var(--primary); } a:hover { color: var(--primary-dark); }
+  .fi-grid { display: grid; grid-template-columns: 1.7fr 1fr 1fr; gap: 16px; align-items: start; }
+  .inst-pos { position: relative; }
+</style>
+</head>
+<body>
+<div class="scr">
+  <aside class="scr__rail" data-screen-rail data-active="main-page" data-avatar="ИБ"></aside>
+
+  <div class="scr__main">
+    <div class="ws" data-screen-label="ФИ Доп. доходность">
+      <div class="ws__top">
+        <nav class="crumbs ws__crumbs" aria-label="Хлебные крошки">
+          <span class="crumbs__item"><a class="link link--muted" href="01-Portfolio.html">Текущий портфель ДИД</a></span>
+          <span class="crumbs__item"><a class="link link--muted" href="02-Deal.html">1234. СамолетИнвестПродакшн</a></span>
+          <span class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">ФИ: 1. Кредит</span></span>
+        </nav>
+        <div class="phead ws__head">
+          <div class="phead__main">
+            <div class="phead__title-row">
+              <div class="phead__title-group"><h1 class="phead__title">ФИ: 3. Доп. доходность</h1></div>
+              <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">В сделку</span></button></span>
+            </div>
+          </div>
+          <div class="phead__actions">
+            <button class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё" aria-haspopup="menu"><i data-icon="more-dots"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ws__body">
+        <p class="cap">Общая информация</p>
+        <div class="fi-grid">
+
+          <!-- Данные по ФИ -->
+          <section class="tile">
+            <header class="tile__header">
+              <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Данные по ФИ</h3></div></div>
+              <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
+            </header>
+            <div class="tile__body">
+              <div class="kvgrid kvgrid--3" style="margin-bottom:16px">
+                <div class="kv" style="grid-column:span 1"><span class="kv__k">Наименование финансового инструмента</span><span class="kv__v">111222-Доп. доходность-1</span></div>
+                <div class="kv"><span class="kv__k">Баланс</span><span class="kv__v">SBI Voskhod Capital</span></div>
+                <div class="kv"><span class="kv__k">Валюта</span><span class="kv__v">RUB</span></div>
+                <div class="kv"><span class="kv__k">Тип отчетности</span><span class="kv__v">Только МСФО</span></div>
+                <div class="kv"><span class="kv__k">FV/AC</span><span class="kv__v">FV</span></div>
+                <div class="kv"></div>
+                <div class="kv"><span class="kv__k">Цена исполнения</span><span class="kv__v">900 000 000 000</span></div>
+                <div class="kv"><span class="kv__k">Плановая дата погашения</span><span class="kv__v">01.01.2021</span></div>
+                <div class="kv"><span class="kv__k">№ связанного договора</span><span class="kv__v">54-456789</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div class="kv"><span class="kv__k">Контрагент</span><div class="cpty"><span class="cpty__name">КГ ГАЗНЕФТЕХИМПРОМСТРОЙ НЕДВИЖИМОСТЬ</span><span class="chip chip--readonly chip--rounded chip--s chip--success"><span class="chip__label">26</span><button class="chip__info" aria-label="Детали"><i data-icon="info-circle"></i></button></span></div></div>
+                <div class="kv"><span class="kv__k">Контрагент для целей резервирования</span><div class="cpty"><span class="cpty__name">Промстрой холдинг</span><span class="chip chip--readonly chip--rounded chip--s chip--error-solid"><span class="chip__label">26</span><button class="chip__info" aria-label="Детали"><i data-icon="info-circle"></i></button></span></div></div>
+                <div class="kv"><span class="kv__k">Контрагент для аллокации финансового результата</span><div class="cpty"><span class="cpty__name">ФГУП ПАО "Новейшие инструментально-самолетные решения"</span><span class="chip chip--readonly chip--rounded chip--s chip--warning"><span class="chip__label">26</span><button class="chip__info" aria-label="Детали"><i data-icon="info-circle"></i></button></span></div></div>
+              </div>
+              <p style="display:inline-flex;align-items:center;gap:8px;font:var(--type-body-m);color:var(--text-primary);margin:16px 0 0"><i data-icon="check" style="width:18px;height:18px;color:var(--success)"></i>Участие ДККК</p>
+            </div>
+          </section>
+
+          <!-- Инструменты ФИ -->
+          <section class="tile">
+            <header class="tile__header">
+              <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Инструменты ФИ</h3></div></div>
+            </header>
+            <div class="tile__body">
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div class="fi-inst"><div class="pt-row__main"><span class="pt-row__title">1.1.1.1. Пут: РЕПО</span><span class="pt-row__meta"><span class="m"><i data-icon="calendar"></i>22.04.2024</span><span class="m"><i data-icon="bar-chart"></i>800 000,00 RUB</span></span></div></div>
+                <div class="fi-inst"><div class="pt-row__main"><span class="pt-row__title">1.1.1.2. Пут: РЕПО</span><span class="pt-row__meta"><span class="m"><i data-icon="calendar"></i>22.04.2024</span><span class="m"><i data-icon="bar-chart"></i>800 000,00 RUB</span></span></div></div>
+                <div class="fi-inst inst-pos"><div class="pt-row__main"><span class="pt-row__title">1.1.1.3. Пут: РЕПО</span><span class="pt-row__meta"><span class="m"><i data-icon="calendar"></i>22.04.2024</span><span class="m"><i data-icon="bar-chart"></i>800 000,00 RUB</span></span></div>
+                  <button class="ibtn ibtn--neutral ibtn--s" aria-label="Опцион включенный в расчет МСФО" aria-describedby="tip-mfso"><i data-icon="info-circle"></i></button>
+                  <span class="tip tip--main tip--top tip--end" id="tip-mfso" role="tooltip" style="position:absolute;right:-4px;top:-42px;white-space:nowrap">Опцион включенный в расчет<br>МСФО<span class="tip__arrow"></span></span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Корректировки KPI -->
+          <section class="tile">
+            <header class="tile__header">
+              <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Корректировки KPI</h3></div></div>
+              <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Открыть"><i data-icon="arrow-right"></i></button></div>
+            </header>
+            <div class="tile__body"><p class="kv__k" style="margin:0">Заполнено</p></div>
+          </section>
+
+          <!-- ID ФИ -->
+          <section class="tile">
+            <header class="tile__header">
+              <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">ID ФИ</h3></div></div>
+              <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
+            </header>
+            <div class="tile__body">
+              <div class="kvgrid kvgrid--3" style="margin-bottom:16px">
+                <div class="kv"><span class="kv__k">№ договора 1С</span><span class="kv__v">00-456789</span></div>
+                <div class="kv"><span class="kv__k">№ договора 1С для акций</span><span class="kv__v">00-456789</span></div>
+                <div class="kv"><span class="kv__k">№ договора 1С для резервов</span><span class="kv__v">00-456789</span></div>
+                <div class="kv"><span class="kv__k">№ договора 1С:УХ</span><span class="kv__v">00-456789</span></div>
+                <div class="kv"><span class="kv__k">№ договора 1С:УХ для акций</span><span class="kv__v">00-456789</span></div>
+                <div class="kv"><span class="kv__k">№ договора 1С:УХ для резервов</span><span class="kv__v">00-456789</span></div>
+                <div class="kv"><span class="kv__k">ID связанного аккредитива</span><span class="kv__v">00-456789</span></div>
+                <div class="kv"><span class="kv__k">ID связанного счета эскроу</span><span class="kv__v">00-456789</span></div>
+                <div class="kv"><span class="kv__k">Murex ID связанного ПФИ</span><span class="kv__v">00-456789</span></div>
+              </div>
+              <p class="kv__k" style="margin:0 0 6px">Код для RWA</p>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="chip chip--readonly chip--s"><span class="chip__label">6002-1,5%</span></span>
+                <span class="chip chip--readonly chip--s"><span class="chip__label">6005-5%</span></span>
+                <button class="ibtn ibtn--neutral ibtn--s" aria-label="Открыть в реестре"><i data-icon="link-external"></i></button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Дефолтные сделки -->
+          <section class="tile">
+            <header class="tile__header">
+              <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Дефолтные сделки</h3></div></div>
+              <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Открыть"><i data-icon="arrow-right"></i></button></div>
+            </header>
+            <div class="tile__body"><p class="kv__k" style="margin:0">Заполнено</p></div>
+          </section>
+
+          <!-- Счета для 1С -->
+          <section class="tile">
+            <header class="tile__header">
+              <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Счета для 1С</h3></div></div>
+              <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Открыть"><i data-icon="arrow-right"></i></button></div>
+            </header>
+            <div class="tile__body"><p class="kv__k" style="margin:0">Заполнено</p></div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/screens-chrome.js"></script>
+</body>
+</html>

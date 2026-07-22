@@ -16,7 +16,7 @@
   /* size tokens — overridden per size modifier */
   --bdg-size: 24px;
   --bdg-pad: 0 7px;
-  --bdg-font: var(--weight-semibold) 13px/1 var(--font-text);
+  --bdg-font: var(--type-body-s);
 
   box-sizing: border-box;
   display: inline-flex;
@@ -40,10 +40,10 @@
 
 /* ---------- sizes (counter) ----------------------------------------------- *
    Размеры — прямыми свойствами (не через --bdg-* в модификаторе). */
-.badge--m   { min-width: 32px; height: 32px; padding: 0 10px; font: var(--weight-semibold) 16px/1 var(--font-text); }
-.badge--s   { min-width: 24px; height: 24px; padding: 0 8px;  font: var(--weight-semibold) 13px/1 var(--font-text); }
-.badge--xs  { min-width: 20px; height: 20px; padding: 0 6px;  font: var(--weight-semibold) 12px/1 var(--font-text); }
-.badge--xxs { min-width: 16px; height: 16px; padding: 0 5px;  font: var(--weight-semibold) 11px/1 var(--font-text); }
+.badge--m   { min-width: 32px; height: 32px; padding: 0 10px; font: var(--type-body-m); }
+.badge--s   { min-width: 24px; height: 24px; padding: 0 8px;  font: var(--type-body-s); }
+.badge--xs  { min-width: 20px; height: 20px; padding: 0 6px;  font: var(--type-body-s); }
+.badge--xxs { min-width: 16px; height: 16px; padding: 0 5px;  font: var(--type-body-xs); }
 
 /* ---------- type: dot ----------------------------------------------------- */
 .badge--dot {
@@ -63,7 +63,7 @@
 .badge--accent  { background: var(--primary);     color: var(--text-on-dark); }
 .badge--success { background: var(--success);     color: var(--text-on-dark); }
 .badge--info    { background: var(--info);        color: var(--text-on-dark); }
-.badge--warning { background: var(--warning);     color: var(--c-cgrey-800); }
+.badge--warning { background: var(--warning);     color: var(--text-primary); }
 .badge--error   { background: var(--error);       color: var(--text-on-dark); }
 
 /* ---------- text variant (borderless «+99», inline counts) ---------------- */

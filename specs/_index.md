@@ -16,6 +16,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | Chip | specs/Chip.md | styles/chip.css | label-helper | v1.4 |
 | Colors | specs/Colors.md | — | — | v1.1 |
 | ContextMenu | specs/ContextMenu.md | styles/context-menu.css | button | v1.1 |
+| DatePicker | specs/DatePicker.md | styles/datepicker.css | icon-button, button | v1.0 |
 | Divider | specs/Divider.md | styles/divider.css | button | v2.0 |
 | Elevation | specs/Elevation.md | — | — | v1.0 |
 | Entity | specs/Entity.md | styles/entity.css | avatar, chip, icon-button, button, badge | v1.1 |
@@ -24,8 +25,8 @@ purpose: Манифест спек компонентов. Читай нужну
 | Illustrations | specs/Illustrations.md | styles/illustration.css | — | v1.0 |
 | InputAmountRange | specs/InputAmountRange.md | styles/input-range.css | input, label-helper, tooltip | v1.3 |
 | InputAutocomplete | specs/InputAutocomplete.md | styles/input.css | label-helper, checkbox, chip, tooltip, dropdown-list | v1.7 |
-| InputDate | specs/InputDate.md | styles/input.css | label-helper, tooltip | v1.5 |
-| InputDateRange | specs/InputDateRange.md | styles/input-range.css | input, label-helper, tooltip | v1.3 |
+| InputDate | specs/InputDate.md | styles/input.css | label-helper, tooltip | v1.6 |
+| InputDateRange | specs/InputDateRange.md | styles/input-range.css | input, label-helper, tooltip | v1.4 |
 | InputText | specs/InputText.md | styles/input.css | label-helper, tooltip, chip | v1.5 |
 | LabelHelper | specs/LabelHelper.md | styles/label-helper.css | checkbox, radio, switch | v1.2 |
 | Link | specs/Link.md | styles/link.css | breadcrumbs | v1.4 |

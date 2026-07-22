@@ -1,0 +1,217 @@
+<!-- @dsCard group="Примеры экранов" viewport="1920x1080" name="07 · Прогноз CashFlow" subtitle="Прогноз денежного потока: график-заглушка со всплывающей подсказкой, сводные карточки и правый агрегатор по типам операций" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Прогноз CashFlow — Пример экрана</title>
+<link rel="stylesheet" href="../../ds.css">
+<link rel="stylesheet" href="../../styles/screens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; font-family: var(--font-text), system-ui, sans-serif; color: var(--text-primary); }
+  a { color: var(--primary); } a:hover { color: var(--primary-dark); }
+  .chart-pos { position: relative; }
+  .cf-tip { position: absolute; left: 300px; top: 40px; width: 300px; background: var(--bg-hint); color: #fff; border-radius: var(--radius-m); box-shadow: var(--shadow-l); padding: 14px 16px; z-index: 20; }
+  .cf-tip__date { font: var(--type-body-m-strong); margin: 0 0 12px; }
+  .cf-tip__row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 22px; font: var(--type-body-s); }
+  .cf-tip__row .l { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,.85); }
+  .cf-tip__row .l.ind { padding-left: 16px; }
+  .cf-tip__row .dot { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+  .cf-tip__row .v { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cf-tip__hr { border: none; border-top: 1px solid rgba(255,255,255,.18); margin: 10px 0; }
+  .cf-tip__pos { color: var(--success); }
+</style>
+</head>
+<body>
+<div class="scr">
+  <aside class="scr__rail" data-screen-rail data-active="main-page" data-avatar="АП"></aside>
+
+  <div class="scr__main">
+    <div class="ws" data-screen-label="Прогноз CashFlow">
+      <div class="ws__top">
+        <nav class="crumbs ws__crumbs" aria-label="Хлебные крошки">
+          <span class="crumbs__item"><a class="link link--muted" href="../../index.html">Главная</a></span>
+          <span class="crumbs__item"><a class="link link--muted" href="#">Песочница</a></span>
+          <span class="crumbs__item"><a class="link link--muted" href="01-Portfolio.html">Портфель ДИД №12345</a></span>
+          <span class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">Прогноз CF</span></span>
+        </nav>
+        <div class="phead ws__head">
+          <div class="phead__main">
+            <div class="phead__title-row">
+              <div class="phead__title-group"><h1 class="phead__title">Проноз CashFlow от 23.08.2023</h1></div>
+              <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">Button</span></button></span>
+            </div>
+            <div class="phead__subtitle"><span class="phead__meta">Портфель №123456 от 01.01.2025</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:0 32px 10px">
+        <div class="tabs tabs--horiz" role="tablist">
+          <button class="tab tab--m tab--horiz tab--selected" role="tab" aria-selected="true"><span class="tab__label">Плановые операции</span></button>
+          <button class="tab tab--m tab--horiz" role="tab" aria-selected="false"><span class="tab__label">Сделки</span></button>
+          <button class="tab tab--m tab--horiz" role="tab" aria-selected="false"><span class="tab__label">Баланс CF</span></button>
+        </div>
+      </div>
+
+      <div class="ws__toolbar" style="justify-content:space-between">
+        <div class="tfilter" role="group" aria-label="Фильтр">
+          <div class="tfilter__trigger">
+            <button class="btn btn--outline btn--xs"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>
+            <button class="btn btn--outline btn--xs btn--icon-only" aria-label="Сбросить"><i data-icon="filter-reset"></i></button>
+          </div>
+          <div class="tfilter__chips">
+            <span class="chip chip--edit chip--s"><span class="chip__label">Дата от: 23.08.2023</span><span class="chip__remove" role="button" aria-label="Убрать"><i data-icon="close"></i></span></span>
+            <span class="chip chip--edit chip--s"><span class="chip__label">Дата до: 31.12.2033</span><span class="chip__remove" role="button" aria-label="Убрать"><i data-icon="close"></i></span></span>
+          </div>
+        </div>
+        <div class="segctrl segctrl--s" role="radiogroup" aria-label="Режим">
+          <div class="segctrl__thumb" style="width:70px;transform:translateX(56px)"></div>
+          <button type="button" class="segctrl__item" role="radio" aria-checked="false" tabindex="-1"><span class="segctrl__label">Итог</span></button>
+          <button type="button" class="segctrl__item" role="radio" aria-checked="true" tabindex="0"><span class="segctrl__label">График</span></button>
+          <button type="button" class="segctrl__item segctrl__item--icon-only" role="radio" aria-checked="false" tabindex="-1" aria-label="Таблица"><i data-icon="list-view-01"></i></button>
+        </div>
+      </div>
+
+      <div class="ws__body" style="padding-top:6px">
+        <div class="cf-split">
+          <div style="min-width:0;display:flex;flex-direction:column;gap:16px">
+
+            <!-- График (заглушка) -->
+            <section class="tile chart-pos">
+              <header class="tile__header"><div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">График</h3></div></div></header>
+              <div class="tile__body">
+                <div class="stub" style="min-height:340px">
+                  <span class="stub__label">Компонент «График CashFlow» (bar+line combo) — в ДС ещё не заведён</span>
+                </div>
+                <div class="cf-tip" aria-hidden="true">
+                  <p class="cf-tip__date">22.12.2020 г.</p>
+                  <div class="cf-tip__row"><span class="l">Остаток на начало периода</span><span class="v">200,00 <span style="opacity:.6">млн. руб.</span></span></div>
+                  <div class="cf-tip__row" style="margin-top:8px"><span class="l">Приток в СБИ</span><span class="v">234,70 <span style="opacity:.6">млн. руб.</span></span></div>
+                  <div class="cf-tip__row"><span class="l ind"><span class="dot" style="background:var(--success)"></span>Клиентский</span><span class="v">100,65</span></div>
+                  <div class="cf-tip__row"><span class="l ind"><span class="dot" style="background:var(--info)"></span>Фондирующий</span><span class="v">134,05</span></div>
+                  <div class="cf-tip__row"><span class="l ind"><span class="dot" style="background:var(--st-dpurple)"></span>Прочий</span><span class="v">134,05</span></div>
+                  <div class="cf-tip__row" style="margin-top:8px"><span class="l">Отток из СБИ</span><span class="v">-180,08 <span style="opacity:.6">млн. руб.</span></span></div>
+                  <div class="cf-tip__row"><span class="l ind"><span class="dot" style="background:var(--error)"></span>Клиентский</span><span class="v">-100,04</span></div>
+                  <div class="cf-tip__row"><span class="l ind"><span class="dot" style="background:var(--warning)"></span>Фондирующий</span><span class="v">-80,04</span></div>
+                  <div class="cf-tip__row"><span class="l ind"><span class="dot" style="background:var(--st-dpurple)"></span>Прочий</span><span class="v">-80,04</span></div>
+                  <hr class="cf-tip__hr">
+                  <div class="cf-tip__row"><span class="l">Остаток на конец периода</span><span class="v">234,78 <span style="opacity:.6">млн. руб.</span></span></div>
+                  <div class="cf-tip__row"><span class="l"></span><span class="v cf-tip__pos">+34,78 <span style="opacity:.6">млн. руб.</span></span></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Операции + сводные карточки -->
+            <section class="tile">
+              <header class="tile__header">
+                <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Операции с 23.08.2023 по 31.12.2033</h3></div></div>
+                <div class="tile__actions"><button class="btn btn--outline btn--xs"><i data-icon="download"></i><span class="btn__label">Выгрузить</span></button></div>
+              </header>
+              <div class="tile__body">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px">
+                  <label class="cb"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span><span class="cb__content"><span class="cb__label">Исключить Pipline</span></span></label>
+                  <button class="btn btn--transparent btn--xs"><span class="btn__label">Показать детали</span><i data-icon="chevron-down"></i></button>
+                </div>
+                <div class="cf-sum-cards" style="margin-bottom:20px">
+                  <div class="cf-sum">
+                    <div class="cf-sum__row cf-sum__row--head"><span>Приток в СБИ</span><span class="cf-sum__v">410,00</span></div>
+                    <div class="cf-sum__row"><span class="cf-sum__k">По сделкам <i data-icon="chevron-down" style="width:16px;height:16px"></i></span><span class="cf-sum__v">400,00</span></div>
+                    <div class="cf-sum__row"><span class="cf-sum__k">Прочий приток <i data-icon="chevron-down" style="width:16px;height:16px"></i></span><span class="cf-sum__v">10,00</span></div>
+                  </div>
+                  <div class="cf-sum">
+                    <div class="cf-sum__row cf-sum__row--head"><span>Отток из СБИ</span><span class="cf-sum__v">-350,00</span></div>
+                    <div class="cf-sum__row"><span class="cf-sum__k">По сделкам <i data-icon="chevron-down" style="width:16px;height:16px"></i></span><span class="cf-sum__v">-200,00</span></div>
+                    <div class="cf-sum__row"><span class="cf-sum__k">Прочий отток <i data-icon="chevron-down" style="width:16px;height:16px"></i></span><span class="cf-sum__v">-150,00</span></div>
+                  </div>
+                  <div class="cf-sum">
+                    <div class="cf-sum__row cf-sum__row--head"><span style="display:inline-flex;align-items:center;gap:8px"><i data-icon="trend-up" style="width:18px;height:18px;color:var(--success)"></i>Остаток средств</span><span class="cf-sum__v">70,00</span></div>
+                    <div class="cf-sum__row"><span class="cf-sum__k">Остаток на начало периода</span><span class="cf-sum__v">10,00</span></div>
+                    <div class="cf-sum__row"><span class="cf-sum__k">Изменение остатка</span><span class="cf-sum__v" style="color:var(--success)">+60,00</span></div>
+                  </div>
+                </div>
+                <div class="tabs tabs--horiz" role="tablist" style="margin-bottom:12px">
+                  <button class="tab tab--s tab--horiz tab--selected" role="tab" aria-selected="true"><span class="tab__label">По дате операции</span></button>
+                  <button class="tab tab--s tab--horiz" role="tab" aria-selected="false"><span class="tab__label">По сделкам</span></button>
+                </div>
+                <div class="dt-wrap" style="border-radius:var(--radius-m);border:1px solid var(--border-light)">
+                  <div class="dt-scroll">
+                    <table class="dt" style="min-width:900px">
+                      <thead><tr>
+                        <th style="min-width:70px"><span class="th-row"><span>№</span></span></th>
+                        <th style="min-width:110px"><span class="th-row"><span>Дата</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                        <th style="min-width:200px"><span class="th-row"><span>Тип операции</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                        <th style="min-width:90px"><span class="th-row"><span>Валюта</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                        <th class="num" style="min-width:150px"><span class="th-row" style="justify-content:flex-end"><span>Курс на дату платежа</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                        <th class="num" style="min-width:150px"><span class="th-row" style="justify-content:flex-end"><span>Сумма платежа</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                        <th class="num" style="min-width:170px"><span class="th-row" style="justify-content:flex-end"><span>Сумма платежа (в руб.)</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                      </tr></thead>
+                      <tbody>
+                        <tr><td>123456</td><td>01.01.2021</td><td><span class="st st--success"><span class="st__txt">Приток фондирующий</span></span></td><td class="muted">USD</td><td class="num">23,45</td><td class="num">200 000 000,00</td><td class="num">200 000 000,00</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- Правый агрегатор -->
+          <aside style="display:flex;flex-direction:column;gap:12px" id="agg"></aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/screens-chrome.js"></script>
+<script>
+(function () {
+  function cb(checked) { return '<label class="cb' + (checked ? ' cb--selected' : '') + '" style="min-width:0"><input type="checkbox" class="cb__input"' + (checked ? ' checked' : '') + '><span class="cb__box"><span class="cb__mark">' + (checked ? '<i data-icon="check" style="width:12px;height:12px"></i>' : '') + '</span></span></label>'; }
+  function line(opts) {
+    var ind = opts.ind ? ' style="padding-left:' + (opts.ind * 16) + 'px"' : '';
+    var chev = opts.chev ? '<span class="cf-line__chev"><i data-icon="chevron-down"></i></span>' : '<span></span>';
+    var info = opts.info ? ' <i data-icon="info-circle" style="width:14px;height:14px;color:var(--text-inactive)"></i>' : '';
+    return '<div class="cf-line' + (opts.total ? ' cf-line--total' : '') + '">' + cb(opts.checked) + chev +
+      '<span class="cf-line__lbl"><span' + ind + '>' + opts.name + info + '</span></span>' +
+      '<span class="cf-line__num">' + opts.val + '</span></div>';
+  }
+  var lines = [
+    { name: 'Приток в СБИ', val: '410,00', total: true, checked: true },
+    { name: 'Клиентский', val: '100,00', chev: true, checked: true },
+    { name: 'Погашения процентов', val: '20,00', ind: 1, checked: true },
+    { name: 'Погашения основного долга', val: '20,00', ind: 1, checked: true },
+    { name: 'КПЛ', val: '20,00', ind: 1, checked: true, info: true },
+    { name: 'Комиссионный доход', val: '20,00', ind: 1, checked: true },
+    { name: 'Торговый доход', val: '20,00', ind: 1, checked: true },
+    { name: 'КлиентскийPipeline', val: '100,00', chev: true, checked: true },
+    { name: 'Фондирующий', val: '100,00', chev: true, checked: true },
+    { name: 'Фондирующий Pipeline', val: '100,00', chev: true, checked: true },
+    { name: 'Процентный доход', val: '10,00', checked: true },
+    { name: 'Отток из СБИ', val: '-350,00', total: true, checked: true },
+    { name: 'Клиентский', val: '-50,00', chev: true, checked: true },
+    { name: 'Клиентский Pipeline', val: '-50,00', chev: true, checked: true },
+    { name: 'Фондирующий', val: '-50,00', chev: true, checked: true },
+    { name: 'Фондирующий Pipeline', val: '-50,00', chev: true, checked: true },
+    { name: 'Налоги', val: '-50,00', checked: true },
+    { name: 'Дивиденды', val: '-50,00', checked: true },
+    { name: 'Операционные расходы', val: '-50,00', chev: true, checked: true }
+  ];
+  var html = '<div class="cf-agg">' +
+    '<div class="cf-agg__head"><span style="font:var(--type-body-m-strong)">Тип операции</span><span style="font:var(--type-body-s);color:var(--text-inactive)">млн. руб.</span></div>' +
+    '<div class="cf-agg__list">' + lines.map(line).join('') + '</div></div>';
+  html += '<div class="cf-agg"><div class="cf-agg__list" style="padding-top:12px">' +
+    line({ name: '<span style="display:inline-flex;align-items:center;gap:6px"><i data-icon=\'trend-up\' style=\'width:16px;height:16px;color:var(--success)\'></i>Остаток на конец периода</span>', val: '70,00', total: true }) +
+    '<div class="cf-line"><span></span><span></span><span class="cf-line__lbl">Остаток на начало периода</span><span class="cf-line__num">10,00</span></div>' +
+    '<div class="cf-line"><span></span><span></span><span class="cf-line__lbl">Изменение остатка</span><span class="cf-line__num" style="color:var(--success)">+60,00</span></div>' +
+    '</div></div>';
+  document.getElementById('agg').innerHTML = html;
+})();
+</script>
+</body>
+</html>

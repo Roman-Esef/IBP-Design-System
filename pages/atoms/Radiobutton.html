@@ -223,7 +223,7 @@
 <main class="page" data-screen-label="Radiobutton">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v2.3</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v2.3</b></span><span>Обновлено: <b>21.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Radiobutton</h1>
     <p class="lead">Радиокнопка позволяет выбрать всего один пункт из списка взаимоисключающих вариантов. Используется только в составе группы. Два состояния выбора — Unselected / Selected — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Error.</p>
@@ -249,29 +249,7 @@
     <p class="desc">Если пунктов слишком много (от 5 до 15) или они не помещаются в ограниченном пространстве — используйте <a class="inl" href="../molecules/Select.html">Выпадающий список</a>.</p>
     <p class="desc">Если нужно дать возможность выбрать один или несколько пунктов — используйте <a class="inl" href="../atoms/Checkbox.html">Чекбокс</a>.</p>
   
-<div class="subsec" data-screen-label="HowItWorks">
-    <h3>Описание работы</h3>
-    <p class="desc">Клик по названию или по самой радиокнопке приводит к её выбору. Повторное нажатие не снимает выбор. Когда пользователь выбирает новый элемент, предыдущий выбор автоматически отменяется.</p>
-    <p class="desc tight">Радиокнопки всегда образуют группы:</p>
-    <div class="panel">
-      <ul class="bullets" style="margin-bottom:26px;">
-        <li>заголовок группы для дополнительной ясности, если необходимо;</li>
-        <li>несколько радиокнопок с текстом подписи (подпись всегда справа от радиокнопки);</li>
-        <li>выравнивание группы всегда по левому краю.</li>
-      </ul>
-      <p class="desc" style="margin-bottom:24px; max-width:80ch;">В группе радиокнопок только один пункт может быть выбран. Группа не может состоять из одного пункта. В группе активная область радиокнопки вытягивается на всю высоту строки. Поиграйте с примером:</p>
-      <div class="demo-card" id="how-demo" style="max-width:300px;"></div>
-    </div>
-    <p class="desc" style="margin-top:28px;">Если группа используется для настройки параметров и показывает текущее состояние системы, одна из радиокнопок всегда выбрана — так видно, в каком состоянии система находится по умолчанию. Выбранный по умолчанию пункт ставьте первым в списке.</p>
-    <p class="desc tight">Сортируйте пункты списка по определённой логике:</p>
-    <ul class="bullets">
-      <li>от наиболее подходящего в данном контексте до наименее подходящего;</li>
-      <li>по возрастанию или убыванию;</li>
-      <li>хронологически;</li>
-      <li>следуя другой понятной системе.</li>
-    </ul>
-  </div>
-  </section>
+</section>
 
   <!-- ANATOMY -->
   <section class="section" data-screen-label="Anatomy">
@@ -398,7 +376,30 @@
     <h2>Поведение</h2>
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
-<div class="subsec" data-screen-label="Error">
+<div class="subsec" data-screen-label="HowItWorks">
+    <h3>Описание работы</h3>
+    <p class="desc">Клик по названию или по самой радиокнопке приводит к её выбору. Повторное нажатие не снимает выбор. Когда пользователь выбирает новый элемент, предыдущий выбор автоматически отменяется.</p>
+    <p class="desc tight">Радиокнопки всегда образуют группы:</p>
+    <div class="panel">
+      <ul class="bullets" style="margin-bottom:26px;">
+        <li>заголовок группы для дополнительной ясности, если необходимо;</li>
+        <li>несколько радиокнопок с текстом подписи (подпись всегда справа от радиокнопки);</li>
+        <li>выравнивание группы всегда по левому краю.</li>
+      </ul>
+      <p class="desc" style="margin-bottom:24px; max-width:80ch;">В группе радиокнопок только один пункт может быть выбран. Группа не может состоять из одного пункта. В группе активная область радиокнопки вытягивается на всю высоту строки. Поиграйте с примером:</p>
+      <div class="demo-card" id="how-demo" style="max-width:300px;"></div>
+    </div>
+    <p class="desc" style="margin-top:28px;">Если группа используется для настройки параметров и показывает текущее состояние системы, одна из радиокнопок всегда выбрана — так видно, в каком состоянии система находится по умолчанию. Выбранный по умолчанию пункт ставьте первым в списке.</p>
+    <p class="desc tight">Сортируйте пункты списка по определённой логике:</p>
+    <ul class="bullets">
+      <li>от наиболее подходящего в данном контексте до наименее подходящего;</li>
+      <li>по возрастанию или убыванию;</li>
+      <li>хронологически;</li>
+      <li>следуя другой понятной системе.</li>
+    </ul>
+  </div>
+
+  <div class="subsec" data-screen-label="Error">
     <h3>Ошибка и валидация</h3>
     <p class="desc">Состояние Error появляется, когда обязательная группа не имеет выбранного пункта при отправке формы. Поскольку у радиокнопки нет промежуточного состояния, ошибка всегда относится к группе целиком: шейпы и сообщение окрашиваются в <code class="tok">--error</code>, рядом с заголовком обязательной группы ставится звёздочка.</p>
     <div class="row">
@@ -628,7 +629,7 @@ function wireGroup(items, onChange){
   const toggles=document.createElement('div'); toggles.className='toggles';
   toggles.appendChild(sw('Название','label'));
   toggles.appendChild(sw('Хелпер','helper'));
-  toggles.appendChild(sw('Обязательный (*)','required'));
+  toggles.appendChild(sw('Обязательная группа (*)','required'));
   toggles.appendChild(sw('Ошибка','error'));
   compWrap.appendChild(toggles); controls.appendChild(compWrap);
 
@@ -636,19 +637,33 @@ function wireGroup(items, onChange){
     const o = { state: state.sel };
     if (state.label)  o.label  = 'Ежеминутно';
     if (state.helper) o.helper = 'Обновлять список чаще всего';
-    o.required = state.required;
     o.error    = state.error;
     o.disabled = state.istate==='disabled';
     if (['hover','focus','pressed'].includes(state.istate)) o.force = state.istate;
     o.frozen = true;
-    preview.innerHTML=''; preview.appendChild(makeRb(o));
+    const rb = makeRb(o);
+    preview.innerHTML='';
+    if (state.required){
+      const group=document.createElement('div'); group.className='rb-group';
+      const title=document.createElement('p'); title.className='rb-group__title';
+      title.innerHTML='Обновлять список<span class="rb__req">*</span>';
+      const items=document.createElement('div'); items.className='rb-group__items';
+      items.appendChild(rb);
+      group.appendChild(title); group.appendChild(items);
+      preview.appendChild(group);
+    } else {
+      preview.appendChild(rb);
+    }
 
     const cls=['rb','rb--'+state.sel];
     if (o.disabled) cls.push('rb--disabled');
     if (state.error) cls.push('rb--error');
     if (o.force) cls.push('rb--'+o.force);
     if (!state.label && !state.helper) cls.push('rb--no-content');
-    codeEl.innerHTML = '<code>&lt;label class="'+cls.join(' ')+'"&gt;</code>';
+    const labelCode='<code>&lt;label class="'+cls.join(' ')+'"&gt;</code>';
+    codeEl.innerHTML = state.required
+      ? '<code>&lt;div class="rb-group"&gt;&lt;p class="rb-group__title"&gt;…&lt;span class="rb__req"&gt;*&lt;/span&gt;&lt;/p&gt;</code>'+labelCode
+      : labelCode;
   }
   render();
 })();

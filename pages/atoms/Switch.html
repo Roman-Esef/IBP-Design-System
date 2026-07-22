@@ -228,7 +228,7 @@
 <main class="page" data-screen-label="Switch">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>21.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Switch</h1>
     <p class="lead">Свитч мгновенно переключает состояние — например, включает или отключает определённую опцию. Действие применяется сразу, без подтверждения. Два состояния — Off / On — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Loading.</p>
@@ -256,47 +256,7 @@
     <p class="desc">Свитчи всегда мгновенно выполняют действие, поэтому не стоит использовать их в сценариях с кнопкой отправки данных или кнопкой сохранения — это может запутать пользователя. В этих случаях используйте <a class="inl" href="../atoms/Radiobutton.html">Radiobutton</a> или <a class="inl" href="../atoms/Checkbox.html">Checkbox</a>.</p>
     <p class="desc">Свитч нельзя использовать для выбора пунктов в списке из нескольких вариантов. Для этого используйте группу <a class="inl" href="../atoms/Checkbox.html">Checkbox</a>.</p>
   
-<div class="subsec" data-screen-label="HowItWorks">
-    <h3>Описание работы</h3>
-    <p class="desc">Клик по названию свитча или по самому контролу приводит к его переключению. Повторное нажатие переключает свитч обратно. Поиграйте с примером:</p>
-    <div class="panel" style="margin-bottom:28px;">
-      <div class="demo-card" id="how-demo" style="max-width:320px;"></div>
-    </div>
-
-    <p class="desc">Свитч может использоваться как с названием, так и без него — когда понятен контекст использования (например, на карточке).</p>
-    <div class="panel" style="margin-bottom:28px;">
-      <div class="row" id="card-demo" style="gap:20px;"></div>
-    </div>
-
-    <p class="desc">Название и хелпер (вспомогательный текст) могут располагаться в несколько рядов. Контрол всегда выравнивается по первой строке текста.</p>
-    <div class="panel">
-      <div class="demo-card" id="multiline-demo" style="max-width:300px;"></div>
-    </div>
-  </div>
-
-<div class="subsec" data-screen-label="SettingsRow">
-    <h3>Свитч в строке настроек</h3>
-    <p class="desc">Частый паттерн: название слева, контрол прижат к правому краю строки. Вся строка — активная область. Так свитчи легко сканировать в списке настроек, а контролы выровнены по правому краю.</p>
-    <div class="panel">
-      <div class="settings" id="settings-demo" style="max-width:520px;"></div>
-    </div>
-    <p class="desc" style="margin-top:28px;">В строке настроек контролы выравнивайте по правому краю — по общей вертикальной оси, а не по концу текста.</p>
-    <div class="guide">
-      <div class="guide-card bad">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-bad1"></span>Не так</div>
-        <div class="guide-card__body" id="align-bad"></div>
-        <p class="guide-card__cap">Выравнивание по тексту ломает вертикальную ось контролов.</p>
-      </div>
-      <div class="guide-card good">
-        <div class="guide-card__bar"></div>
-        <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
-        <div class="guide-card__body" id="align-good"></div>
-        <p class="guide-card__cap">Контролы прижаты к правому краю — общая ось сохраняется.</p>
-      </div>
-    </div>
-  </div>
-  </section>
+</section>
 
   <!-- ANATOMY -->
   <section class="section" data-screen-label="Anatomy">
@@ -397,7 +357,48 @@
     <h2>Поведение</h2>
     <p class="desc">Правила поведения: позиционирование, переполнение, анимация, адаптивность.</p>
   
-<div class="subsec" data-screen-label="Loading">
+<div class="subsec" data-screen-label="HowItWorks">
+    <h3>Описание работы</h3>
+    <p class="desc">Клик по названию свитча или по самому контролу приводит к его переключению. Повторное нажатие переключает свитч обратно. Поиграйте с примером:</p>
+    <div class="panel" style="margin-bottom:28px;">
+      <div class="demo-card" id="how-demo" style="max-width:320px;"></div>
+    </div>
+
+    <p class="desc">Свитч может использоваться как с названием, так и без него — когда понятен контекст использования (например, на карточке).</p>
+    <div class="panel" style="margin-bottom:28px;">
+      <div class="row" id="card-demo" style="gap:20px;"></div>
+    </div>
+
+    <p class="desc">Название и хелпер (вспомогательный текст) могут располагаться в несколько рядов. Контрол всегда выравнивается по первой строке текста.</p>
+    <div class="panel">
+      <div class="demo-card" id="multiline-demo" style="max-width:300px;"></div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="SettingsRow">
+    <h3>Свитч в строке настроек</h3>
+    <p class="desc">Частый паттерн: название слева, контрол прижат к правому краю строки. Вся строка — активная область. Так свитчи легко сканировать в списке настроек, а контролы выровнены по правому краю.</p>
+    <div class="panel">
+      <div class="settings" id="settings-demo" style="max-width:520px;"></div>
+    </div>
+    <p class="desc" style="margin-top:28px;">В строке настроек контролы выравнивайте по правому краю — по общей вертикальной оси, а не по концу текста.</p>
+    <div class="guide">
+      <div class="guide-card bad">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-bad1"></span>Не так</div>
+        <div class="guide-card__body" id="align-bad"></div>
+        <p class="guide-card__cap">Выравнивание по тексту ломает вертикальную ось контролов.</p>
+      </div>
+      <div class="guide-card good">
+        <div class="guide-card__bar"></div>
+        <div class="guide-card__tag"><span class="ic" id="ic-good1"></span>Так</div>
+        <div class="guide-card__body" id="align-good"></div>
+        <p class="guide-card__cap">Контролы прижаты к правому краю — общая ось сохраняется.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsec" data-screen-label="Loading">
     <h3>Загрузка и асинхронное действие</h3>
     <p class="desc">Свитч выполняет действие мгновенно. Но если переключение запускает запрос к серверу, который может занять время, покажите промежуточное состояние <b>Loading</b>: в ползунке появляется индикатор, контрол временно недоступен для повторного нажатия. Когда ответ получен — свитч фиксируется в новом состоянии; при ошибке возвращается в исходное.</p>
     <div class="row">

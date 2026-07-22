@@ -44,6 +44,7 @@
             { label: 'Breadcrumbs',       href: 'pages/molecules/Breadcrumbs.html' },
             { label: 'ButtonGroup',      href: 'pages/molecules/ButtonGroup.html' },
             { label: 'Context Menu',     href: 'pages/molecules/ContextMenu.html' },
+            { label: 'DatePicker',       href: 'pages/molecules/DatePicker.html' },
             { label: 'InputAmountRange', href: 'pages/molecules/InputAmountRange.html' },
             { label: 'InputAutocomplete', href: 'pages/molecules/InputAutocomplete.html' },
             { label: 'InputDate',        href: 'pages/molecules/InputDate.html' },
@@ -84,6 +85,23 @@
         { label: 'Редполитика',           soon: true },
         { label: 'Тон оф войс',           soon: true },
         { label: 'Паттерны интерфейса',   soon: true }
+      ],
+      groups: [
+        {
+          group: 'Примеры экранов',
+          items: [
+            { label: '01 · Текущий портфель ДИД', href: 'pages/screens/01-Portfolio.html' },
+            { label: '02 · Карточка сделки',      href: 'pages/screens/02-Deal.html' },
+            { label: '02 · Карточка сделки (v2)', href: 'pages/screens/02-Deal-v2.html' },
+            { label: '03 · Фиксация ЭПС/ВБС',     href: 'pages/screens/03-DealFixModal.html' },
+            { label: '04 · Финансовые метрики',   href: 'pages/screens/04-Metrics.html' },
+            { label: '05 · ФИ: Доп. доходность',  href: 'pages/screens/05-Instrument.html' },
+            { label: '06 · Процентные схемы',     href: 'pages/screens/06-RateSchemes.html' },
+            { label: '07 · Прогноз CashFlow',     href: 'pages/screens/07-CashFlow.html' },
+            { label: '08 · Плановые платежи',     href: 'pages/screens/08-Payments.html' },
+            { label: '09 · Корпоративный запрос', href: 'pages/screens/09-CorpRequest.html' }
+          ]
+        }
       ]
     }
   ];

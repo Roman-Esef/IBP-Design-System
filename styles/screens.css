@@ -1,0 +1,206 @@
+/* ============================================================
+   SCREENS — общий каркас и вспомогательные раскладки для раздела
+   «Примеры экранов». Не компонент ДС: только шелл приложения,
+   служебные раскладки и статус-пилюли/таблица, которых пока нет
+   отдельными компонентами. Значения — только токены ДС.
+   Подключается на страницах примеров рядом с ds.css.
+   ============================================================ */
+
+/* ---------- шелл приложения: рельс + рабочая область -------------------- */
+.scr { display: flex; min-height: 100vh; background: var(--bg-page); background-attachment: fixed; }
+.scr__rail { flex: none; width: 56px; position: sticky; top: 0; height: 100vh; border-right: 1px solid var(--border-light); background: var(--bg-mainmenu); z-index: 60; }
+.scr__rail .nav { height: 100vh; }
+/* drawer накладывается оверлеем поверх контента (контент НЕ смещается) */
+.scr__rail .nav--drawer { position: absolute; top: 0; left: 0; height: 100vh; z-index: 61; }
+/* fixed — закреплён, контент ужимается под ширину панели */
+.scr__rail:has(.nav--fixed) { width: 272px; }
+.scr__scrim { position: fixed; inset: 0; z-index: 50; background: transparent; cursor: default; }
+.scr__main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+
+/* ---------- рабочая область ---------------------------------------------- */
+.ws { flex: 1 1 auto; display: flex; flex-direction: column; min-width: 0; }
+.ws__top { padding: 18px 32px 0; }
+.ws__crumbs { margin-bottom: 12px; }
+.ws__body { padding: 20px 32px 40px; flex: 1 1 auto; min-width: 0; }
+.ws__body--flush { padding: 16px 0 0; }
+.ws--fill { display: flex; flex-direction: column; }
+
+/* ряд заголовка страницы (PageHeader-подобный) */
+.ws__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 6px 0 18px; }
+
+/* тулбар над таблицей */
+.ws__toolbar { display: flex; align-items: center; gap: 12px; padding: 0 32px 14px; }
+
+/* ---------- статус-пилюля (для таблиц статусов) -------------------------- */
+.st { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; height: 24px; padding: 0 10px; border-radius: var(--radius-pill); font: var(--type-body-s); color: var(--text-secondary); background: color-mix(in srgb, var(--c-cgrey-400) 16%, transparent); vertical-align: middle; }
+.st__mark { flex: none; width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font: 600 9px/1 var(--font-text); color: #fff; background: var(--text-inactive); }
+.st__txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st--success { background: var(--success-bg); color: var(--success-dark); } .st--success .st__mark { background: var(--success); }
+.st--warning { background: var(--warning-bg); color: var(--warning-dark); } .st--warning .st__mark { background: var(--warning); }
+.st--info    { background: var(--info-bg);    color: var(--info-dark); }    .st--info .st__mark    { background: var(--info); }
+.st--error   { background: var(--error-bg-light); color: var(--error-dark); } .st--error .st__mark  { background: var(--error); }
+.st--purple  { background: var(--st-dpurple-light); color: var(--st-dpurple-dark); } .st--purple .st__mark { background: var(--st-dpurple); }
+
+/* ---------- таблица данных (пока нет отдельного компонента Table) -------- */
+.dt-wrap { background: var(--bg-tile); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+.dt-scroll { overflow-x: auto; }
+.dt { border-collapse: separate; border-spacing: 0; width: 100%; font: var(--type-body-m); color: var(--text-primary); }
+.dt th, .dt td { text-align: left; padding: 0 16px; height: 48px; white-space: nowrap; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
+.dt thead th { font: var(--type-body-s); color: var(--text-secondary); background: var(--bg-tile); height: 64px; border-bottom: 1px solid var(--border-primary); vertical-align: top; padding-top: 16px; }
+.dt tbody tr:hover td { background: var(--bgtable-row-hover); }
+.dt .th-row { display: inline-flex; align-items: flex-start; gap: 8px; }
+.dt .th-sort { flex: none; color: var(--text-inactive); width: 16px; height: 16px; display: inline-flex; }
+.dt .th-sort [data-icon] { width: 16px; height: 16px; }
+.dt .th-pin { flex: none; color: var(--text-inactive); margin-left: 6px; width: 16px; height: 16px; }
+.dt .th-pin [data-icon] { width: 16px; height: 16px; }
+.dt .num { text-align: right; font-variant-numeric: tabular-nums; }
+.dt .muted { color: var(--text-secondary); }
+
+/* закреплённые слева колонки */
+.dt .pin { position: sticky; background: var(--bg-tile); z-index: 2; }
+.dt thead .pin { z-index: 3; }
+.dt tbody tr:hover .pin { background: var(--bgtable-row-hover); }
+.dt .pin--edge { box-shadow: 1px 0 0 var(--border-primary); }
+
+/* нижняя строка пагинации, прижата к низу рабочей области */
+.ws__pager { margin-top: auto; border-top: 1px solid var(--border-light); background: var(--bg-tile); padding: 12px 32px; }
+
+/* штриховая заглушка для отсутствующих компонентов (график, allocation-бар и т.п.) */
+.stub {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  border: 1px dashed var(--border-primary); border-radius: var(--radius-m);
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 9px, color-mix(in srgb, var(--border-primary) 22%, transparent) 9px, color-mix(in srgb, var(--border-primary) 22%, transparent) 10px);
+  color: var(--text-inactive);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; letter-spacing: .02em; text-align: center;
+  min-height: 80px; padding: 16px;
+}
+.stub__label { background: var(--bg-tile); padding: 4px 10px; border-radius: var(--radius-s); border: 1px solid var(--border-light); }
+
+/* ---------- подпись секции рабочей области ------------------------------- */
+.cap { font: var(--type-body-s); color: var(--text-inactive); margin: 4px 0 12px; }
+
+/* ---------- пара «подпись → значение» (компактный ReadOnlyField) --------- */
+.kv { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.kv__k { font: var(--type-body-xs); color: var(--text-inactive); }
+.kv__v { font: var(--type-body-m); color: var(--text-primary); }
+.kv__v--strong { font: var(--type-body-m-strong); }
+.kvgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; }
+.kvgrid--3 { grid-template-columns: 1fr 1fr 1fr; }
+
+/* ---------- allocation-бар (стек-полоса долей) --------------------------- */
+.alloc { display: flex; height: 10px; border-radius: var(--radius-pill); overflow: hidden; }
+.alloc__seg { height: 100%; }
+.leg { display: flex; flex-direction: column; gap: 10px; }
+.leg__row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 16px; font: var(--type-body-m); }
+.leg__name { display: inline-flex; align-items: center; gap: 8px; color: var(--text-primary); }
+.leg__dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.leg__pct { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.leg__sum { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+
+/* ---------- вертикальный степпер (Заведение сделки) ---------------------- */
+.stp { display: flex; flex-direction: column; }
+.stp__item { position: relative; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-pill); }
+.stp__item--current { background: var(--bgtable-row-focus); }
+.stp__ico { flex: none; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; color: var(--primary); }
+.stp__ico [data-icon] { width: 22px; height: 22px; }
+.stp__ico--pending { color: var(--text-inactive); }
+.stp__lbl { font: var(--type-body-m); color: var(--text-primary); }
+.stp__line { width: 1px; height: 20px; background: var(--border-primary); margin-left: 22px; }
+
+/* ---------- дерево продуктов сделки -------------------------------------- */
+.ptree { display: flex; flex-direction: column; gap: 8px; }
+.pt-group { display: flex; align-items: center; gap: 8px; padding: 6px 4px; }
+.pt-group__title { font: var(--type-body-l-strong); color: var(--text-primary); }
+.pt-group__acts { margin-left: auto; display: inline-flex; align-items: center; gap: 2px; }
+.pt-row { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--border-light); border-radius: var(--radius-m); background: var(--bg-tile); }
+.pt-row--indent { margin-left: 20px; }
+.pt-row--indent2 { margin-left: 40px; }
+.pt-row__main { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.pt-row__title { font: var(--type-body-m); color: var(--text-primary); }
+.pt-row__meta { display: inline-flex; align-items: center; gap: 14px; font: var(--type-body-s); color: var(--text-secondary); }
+.pt-row__meta .m { display: inline-flex; align-items: center; gap: 5px; }
+.pt-row__meta .m [data-icon] { width: 16px; height: 16px; color: var(--text-inactive); }
+.pt-row__acts { margin-left: auto; display: inline-flex; align-items: center; gap: 2px; }
+.pt-twisty { flex: none; width: 20px; height: 20px; color: var(--text-secondary); display: inline-flex; }
+.pt-twisty [data-icon] { width: 20px; height: 20px; }
+
+/* ---------- карточка финансового инструмента ----------------------------- */
+.fi { border: 1px solid var(--border-primary); border-radius: var(--radius-m); background: var(--bg-tile); padding: 18px 20px; }
+.fi__head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.fi__title { font: var(--type-body-l-strong); color: var(--text-primary); }
+.fi__head-acts { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; color: var(--text-secondary); }
+.fi__sub { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.fi-inst { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--border-light); border-radius: var(--radius-m); }
+
+/* ---------- инлайн-строка контрагента с риск-метрикой -------------------- */
+.cpty { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.cpty__name { font: var(--type-body-m); color: var(--text-primary); min-width: 0; }
+
+/* ---------- Экран 06: процентные схемы ---------------------------------- */
+.rate-card { display: grid; grid-template-columns: 90px 130px 90px 90px 1fr; gap: 0 40px; align-items: start; }
+.rate-card__period { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; font: var(--type-body-l-strong); color: var(--text-primary); margin-bottom: 20px; }
+.rate-groups { grid-column: 5; display: grid; grid-template-columns: 1fr; gap: 22px; }
+.rate-grouptitle { font: var(--type-body-s); color: var(--text-secondary); margin: 0 0 10px; }
+.rate-boxes { display: flex; gap: 12px; flex-wrap: wrap; }
+.rate-box { flex: 1 1 0; min-width: 150px; border-radius: var(--radius-m); padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; }
+.rate-box__k { font: var(--type-body-s); color: var(--text-secondary); }
+.rate-box__v { display: inline-flex; align-items: center; gap: 8px; font: var(--type-body-l-strong); color: var(--text-primary); }
+.rate-box__v [data-icon] { width: 16px; height: 16px; color: var(--text-inactive); }
+.rate-box--cur { background: var(--success-bg); }
+.rate-box--cap { background: var(--info-bg); }
+.rate-box--def { background: var(--st-dpurple-light); }
+.rate-box--plain { background: var(--bgtable-pinned); }
+.rate-comment { grid-column: 1 / -1; margin-top: 20px; }
+.rate-comment__k { font: var(--type-body-s); color: var(--text-secondary); margin: 0 0 4px; }
+.rate-comment__v { font: var(--type-body-m); color: var(--text-primary); margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- Экран 07: CashFlow — правый агрегатор ------------------------ */
+.cf-split { display: grid; grid-template-columns: minmax(0,1fr) 380px; gap: 16px; align-items: start; }
+.cf-agg { border: 1px solid var(--border-light); border-radius: var(--radius-l); background: var(--bg-tile); overflow: hidden; }
+.cf-agg__head { display: flex; align-items: baseline; justify-content: space-between; padding: 16px 18px 12px; border-bottom: 1px solid var(--border-light); }
+.cf-agg__list { padding: 6px 10px 12px; }
+.cf-line { display: grid; grid-template-columns: 20px 20px 1fr auto; align-items: center; gap: 6px; min-height: 34px; padding: 0 8px; font: var(--type-body-m); }
+.cf-line__num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-primary); }
+.cf-line--total { font: var(--type-body-m-strong); }
+.cf-line--total .cf-line__num { font: var(--type-body-m-strong); }
+.cf-line__chev { color: var(--text-inactive); width: 16px; height: 16px; display: inline-flex; }
+.cf-line__chev [data-icon] { width: 16px; height: 16px; }
+.cf-line__lbl { display: inline-flex; align-items: center; gap: 6px; min-width: 0; color: var(--text-primary); }
+.cf-line__lbl .ind { color: var(--text-inactive); }
+.cf-sum-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border: 1px solid var(--border-light); border-radius: var(--radius-l); background: var(--bg-tile); overflow: hidden; margin-top: 4px; }
+.cf-sum { padding: 16px 20px; border-right: 1px solid var(--border-light); }
+.cf-sum:last-child { border-right: none; }
+.cf-sum__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 30px; }
+.cf-sum__row--head { font: var(--type-body-l-strong); margin-bottom: 6px; }
+.cf-sum__k { font: var(--type-body-m); color: var(--text-secondary); display: inline-flex; align-items: center; gap: 6px; }
+.cf-sum__v { font-variant-numeric: tabular-nums; }
+
+/* ---------- Экран 09: AI-панель корпзапроса ------------------------------ */
+.scr__aside { flex: none; width: 400px; border-left: 1px solid var(--border-light); background: var(--bg-tile); position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
+.aip__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--border-light); }
+.aip__title { font: var(--type-body-l-strong); color: var(--text-primary); margin: 0; }
+.aip__body { overflow-y: auto; padding: 4px 0 24px; }
+.aip__sec { border-bottom: 1px solid var(--border-light); }
+.aip__sec-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 22px 10px; }
+.aip__sec-title { display: inline-flex; align-items: center; gap: 8px; font: var(--type-body-m-strong); color: var(--text-primary); }
+.aip__sec-body { padding: 0 22px 18px; }
+.ai-card { border: 1px solid var(--border-light); border-radius: var(--radius-m); padding: 16px; background: var(--bg-page); }
+.ai-card + .ai-card { margin-top: 12px; }
+.ai-badge { display: inline-flex; align-items: center; height: 22px; padding: 0 10px; border-radius: var(--radius-pill); font: var(--type-body-xs); background: var(--bgtable-pinned); color: var(--text-secondary); margin-bottom: 10px; }
+.ai-card__title { font: var(--type-body-m-strong); color: var(--text-primary); margin: 0 0 8px; }
+.ai-card__lead { font: var(--type-body-m); color: var(--text-primary); margin: 0 0 10px; }
+.ai-card ul { margin: 0 0 12px; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; }
+.ai-card li { font: var(--type-body-s); color: var(--text-secondary); }
+.ai-card__sub { font: var(--type-body-m-strong); color: var(--text-primary); margin: 14px 0 8px; }
+.ai-kv { display: grid; grid-template-columns: 90px 1fr; gap: 4px 12px; font: var(--type-body-s); }
+.ai-kv dt { color: var(--text-secondary); }
+.ai-kv dd { margin: 0; color: var(--text-primary); }
+.ai-toggle { width: 100%; margin-top: 12px; border: 1px solid var(--border-primary); border-radius: var(--radius-m); background: transparent; color: var(--primary); font: var(--type-body-s); padding: 8px; cursor: pointer; }
+
+/* AI-заголовок с бейджем «AI-агента» */
+.ai-agent { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 10px; border-radius: var(--radius-pill); font: var(--type-body-xs); background: var(--st-dpurple-light); color: var(--st-dpurple-dark); }
+.ai-agent [data-icon] { width: 14px; height: 14px; }
+
+/* карточки общей информации экрана 09 */
+.cq-grid { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 16px; align-items: start; }
+.cq-grid .span2 { grid-column: span 2; }

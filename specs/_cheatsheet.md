@@ -20,7 +20,7 @@ css: `styles/alert.css` · deps: [button, link]
     <p class="alert__text">Добавление холдинга в разработке…</p>
     <div class="alert__buttons">
       <button class="btn btn--outline btn--xs btn--info"><span class="btn__label">Завести сделку</span></button>
-      <a class="link link--accent link--s" href="#">Подробнее</a>
+      <a class="link link--info link--s" href="#">Подробнее</a>
     </div>
   </div>
   <div class="alert__actions">
@@ -204,9 +204,44 @@ css: `styles/context-menu.css` · deps: [button]
 </div>
 ```
 
+## DatePicker
+css: `styles/datepicker.css` · deps: [icon-button, button]
+
+Рантайм `scripts/ds-datepicker.js` (out-of-box): `makeCalendar` · `openPicker(anchor, spec)` · автоподключение кнопки-календаря полей InputDate / InputDateRange.
+
+Календарь — всплывающая поверхность выбора даты/диапазона. Поднимается InputDate / InputDateRange (floating) или встраивается в панель/модалку (inline). Material в токенах ДС, неделя с Пн, локаль RU. Ширина 304px, ячейка дня 40×40.
+
+```html
+<div class="dpk" role="dialog" aria-modal="false" aria-label="Выбор даты">
+  <div class="dpk__head">
+    <button class="dpk__caption" aria-haspopup="true"><span class="dpk__cap-text">Октябрь 2025</span><span class="dpk__cap-icon"><i data-icon="chevron-down"></i></span></button>
+    <div class="dpk__nav">
+      <button class="ibtn ibtn--neutral ibtn--s dpk__prev" aria-label="Назад"><i data-icon="chevron-left"></i></button>
+      <button class="ibtn ibtn--neutral ibtn--s dpk__next" aria-label="Вперёд"><i data-icon="chevron-right"></i></button>
+    </div>
+  </div>
+  <div class="dpk__weekdays" aria-hidden="true"><span class="dpk__weekday">Пн</span>…<span class="dpk__weekday">Вс</span></div>
+  <div class="dpk__grid" role="grid">
+    <button class="dpk__day dpk__day--outside" role="gridcell" tabindex="-1"><span class="dpk__daynum">29</span></button>
+    <button class="dpk__day dpk__day--today" role="gridcell" aria-selected="false" tabindex="-1"><span class="dpk__daynum">15</span></button>
+    <button class="dpk__day dpk__day--selected" role="gridcell" aria-selected="true" tabindex="0"><span class="dpk__daynum">21</span></button>
+    <!-- диапазон: dpk__day--range-start / --in-range / --range-end -->
+  </div>
+  <!-- опц. футер -->
+  <div class="dpk__foot">
+    <div class="dpk__foot-left"><button class="btn btn--transparent btn--s"><span class="btn__label">Сегодня</span></button></div>
+    <div class="dpk__foot-right">
+      <button class="btn btn--transparent btn--s"><span class="btn__label">Отменить</span></button>
+      <button class="btn btn--accent btn--s"><span class="btn__label">Применить</span></button>
+    </div>
+  </div>
+</div>
+```
+
+Режимы: single / range / month · представления: day / month / year (`.dpk--panel` + `.dpk__panel(.--years)` > `.dpk__panel-cell`, переключаются заголовком/стрелками). Состояния дня: default · hover · today (обводка `--primary`) · selected/концы диапазона (заливка `--primary`, число `--text-on-dark`) · in-range (полоса `--primary-bg`) · disabled (`--st-disabled`) · outside. Размещение: `--inline` (рамка, без тени) vs floating (`--elevation-5`, под полем, авто-flip как Popover). Полная анатомия: specs/DatePicker.md.
+
 ## Divider
 css: `styles/divider.css` · deps: [button]
-
 Разделительная черта — тонкая линия, которая визуально отделяет одни части интерфейса от других.
 
 ```html
@@ -383,6 +418,7 @@ css: `styles/label-helper.css` · deps: [checkbox, radio, switch]
 css: `styles/link.css` · deps: [breadcrumbs]
 
 Текстовая ссылка для навигации внутри лайаута и модальных окон, а также в Хлебных крошках.
+Тоны: `accent` (осн.), `muted`/`neutral` (Хлебные крошки), `info`/`warning`/`error`/`success` — тон в цвет плашки Alert/SnackBar (`.link--<tone>`).
 
 ```html
 <a class="link link--accent link--m" href="/deals/4521">Открыть договор</a>

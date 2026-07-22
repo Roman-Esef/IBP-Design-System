@@ -1,0 +1,179 @@
+<!-- @dsCard group="Примеры экранов" viewport="1920x1080" name="08 · Плановые платежи" subtitle="Таблица плановых платежей с чекбоксами строк, статусами, действием в строке и панелью групповых операций" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Плановые платежи — Пример экрана</title>
+<link rel="stylesheet" href="../../ds.css">
+<link rel="stylesheet" href="../../styles/screens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; font-family: var(--font-text), system-ui, sans-serif; color: var(--text-primary); }
+  a { color: var(--primary); } a:hover { color: var(--primary-dark); }
+  .dt td .cb, .dt th .cb { min-width: 0; }
+  .dt tbody tr.is-sel td { background: var(--bgtable-row-focus); }
+  .dt tbody tr.is-sel .pin { background: var(--bgtable-row-focus); }
+  .bulkbar { margin-top: auto; border-top: 1px solid var(--border-light); background: var(--bg-tile); padding: 12px 32px; display: flex; align-items: center; gap: 16px; }
+  .bulkbar__count { font: var(--type-body-m); color: var(--text-primary); }
+  .bulkbar__actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .row-mark { display: inline-flex; width: 18px; height: 18px; align-items: center; justify-content: center; }
+  .row-mark [data-icon] { width: 18px; height: 18px; color: var(--text-inactive); }
+</style>
+</head>
+<body>
+<div class="scr">
+  <aside class="scr__rail" data-screen-rail data-active="main-page" data-avatar="АП"></aside>
+
+  <div class="scr__main">
+    <div class="ws ws--fill" data-screen-label="Плановые платежи">
+      <div class="ws__top">
+        <nav class="crumbs ws__crumbs" aria-label="Хлебные крошки">
+          <span class="crumbs__item"><a class="link link--muted" href="../../index.html">Главная</a></span>
+          <span class="crumbs__item"><a class="link link--muted" href="01-Portfolio.html">Текущий портфель ДИД</a></span>
+          <span class="crumbs__item"><a class="link link--muted" href="02-Deal.html">1234. СамолётИнвестПродакшн</a></span>
+          <span class="crumbs__item"><a class="link link--muted" href="#">1.1.1. Договор займа</a></span>
+          <span class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">Плановые платежи</span></span>
+        </nav>
+        <div class="phead ws__head">
+          <div class="phead__main">
+            <div class="phead__title-row">
+              <div class="phead__title-group"><h1 class="phead__title">Плановые платежи</h1></div>
+              <span class="phead__return"><button class="btn btn--outline btn--xs"><span class="btn__label">В инструмент</span><i data-icon="arrow-right"></i></button></span>
+            </div>
+          </div>
+          <div class="phead__actions">
+            <button class="btn btn--outline btn--m"><span class="btn__label">Переплата</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:0 32px 10px">
+        <div class="tabs tabs--horiz" role="tablist">
+          <button class="tab tab--m tab--horiz tab--selected" role="tab" aria-selected="true"><span class="tab__label">Все</span></button>
+          <button class="tab tab--m tab--horiz" role="tab" aria-selected="false"><span class="tab__label">Исполненные</span></button>
+          <button class="tab tab--m tab--horiz" role="tab" aria-selected="false"><span class="tab__label">Неисполненные</span></button>
+        </div>
+      </div>
+
+      <div class="ws__toolbar">
+        <div class="tfilter" role="group" aria-label="Фильтр">
+          <div class="tfilter__trigger"><button class="btn btn--outline btn--xs"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button></div>
+        </div>
+      </div>
+
+      <div class="dt-wrap">
+        <div class="dt-scroll">
+          <table class="dt" id="p08">
+            <thead>
+              <tr>
+                <th class="pin" style="left:0;width:48px;min-width:48px"><label class="cb cb--no-content"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span></label></th>
+                <th style="min-width:70px"><span class="th-row"><span>Ста<br>тус</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:80px"><span class="th-row"><span>№</span></span></th>
+                <th style="min-width:110px"><span class="th-row"><span>Дата</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th class="num" style="min-width:150px"><span class="th-row" style="justify-content:flex-end"><span>Сумма</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:90px"><span class="th-row"><span>Валюта</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:170px"><span class="th-row"><span>Вид операции</span></span></th>
+                <th style="min-width:170px"><span class="th-row"><span>Инструмент</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:120px"><span class="th-row"><span>Включен<br>в CF</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:140px"><span class="th-row"><span>Дата<br>начала ПП</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:140px"><span class="th-row"><span>Дата<br>оконч. ПП</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th class="num" style="min-width:150px"><span class="th-row" style="justify-content:flex-end"><span>Исполненная сумма</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th class="num" style="min-width:150px"><span class="th-row" style="justify-content:flex-end"><span>Остаток платежа</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:130px"><span class="th-row"><span>Действия</span></span></th>
+                <th style="width:44px;min-width:44px"></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bulkbar">
+        <span class="bulkbar__count">Выбрано строк: 4</span>
+        <div class="bulkbar__actions">
+          <button class="btn btn--outline btn--m"><span class="btn__label">Отменить исполнение</span></button>
+          <button class="btn btn--outline btn--m"><span class="btn__label">Исполнить</span></button>
+          <button class="btn btn--outline btn--m"><span class="btn__label">Исключить из CF</span></button>
+          <button class="btn btn--outline btn--m"><span class="btn__label">Включить в CF</span></button>
+        </div>
+      </div>
+
+      <div class="ws__pager" style="margin-top:0">
+        <div class="pgn-row">
+          <div class="pgn-row__left"></div>
+          <div class="pgn-row__right">
+            <div class="pgn">
+              <button class="pgn__pagesize" aria-haspopup="listbox">Показывать строк: <b>50</b> <i data-icon="chevron-down"></i></button>
+              <span class="pgn__range">2 из 16</span>
+              <nav class="pgn__nav" aria-label="Страницы">
+                <button class="pgn__arrow" aria-label="Предыдущая"><i data-icon="chevron-left"></i></button>
+                <button class="pgn__num">1</button>
+                <button class="pgn__num">2</button>
+                <button class="pgn__num" aria-current="page">3</button>
+                <span class="pgn__ellipsis" aria-hidden="true">…</span>
+                <button class="pgn__num">14</button>
+                <button class="pgn__num">15</button>
+                <button class="pgn__num">16</button>
+                <button class="pgn__arrow" aria-label="Следующая"><i data-icon="chevron-right"></i></button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/screens-chrome.js"></script>
+<script>
+(function () {
+  // sel: выбрана строка; done: исполнена (галочка в статусе); sum: сумма
+  var rows = [
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: true,  done: false, sum: '2 000 000,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: true,  sum: '1 411 546,00', exec: '1 234 567,00', rest: '0' },
+    { sel: true,  done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: true,  done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' },
+    { sel: false, done: false, sum: '1 411 546,00', exec: '0', rest: '1 234 567,00' }
+  ];
+  function cb(sel) {
+    return '<label class="cb cb--no-content' + (sel ? ' cb--selected' : '') + '"><input type="checkbox" class="cb__input"' + (sel ? ' checked' : '') + '><span class="cb__box"><span class="cb__mark">' + (sel ? '<i data-icon="check" style="width:12px;height:12px"></i>' : '') + '</span></span></label>';
+  }
+  var html = rows.map(function (r) {
+    var mark = r.done ? '<span class="row-mark"><i data-icon="check-circle"></i></span>' : '';
+    return '<tr class="' + (r.sel ? 'is-sel' : '') + '">' +
+      '<td class="pin" style="left:0">' + cb(r.sel) + '</td>' +
+      '<td>' + mark + '</td>' +
+      '<td>1234</td>' +
+      '<td>01.01.2023</td>' +
+      '<td class="num">' + r.sum + '</td>' +
+      '<td class="muted">RUB</td>' +
+      '<td>Комиссия M&amp;A</td>' +
+      '<td class="muted">1.1.1.1. Транш</td>' +
+      '<td>Да</td>' +
+      '<td>01.01.2023</td>' +
+      '<td>30.01.2023</td>' +
+      '<td class="num">' + r.exec + '</td>' +
+      '<td class="num">' + r.rest + '</td>' +
+      '<td><button class="btn btn--outline btn--s"><span class="btn__label">Исполнить</span></button></td>' +
+      '<td style="text-align:center"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Действия"><i data-icon="more-dots"></i></button></td>' +
+    '</tr>';
+  }).join('');
+  document.querySelector('#p08 tbody').innerHTML = html;
+})();
+</script>
+</body>
+</html>

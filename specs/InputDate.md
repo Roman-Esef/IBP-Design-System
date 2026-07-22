@@ -1,8 +1,8 @@
 ---
 component: InputDate
 title: "InputDate"
-version: "v1.5"
-updated: "12.07.2026"
+version: "v1.6"
+updated: "21.07.2026"
 page: pages/molecules/InputDate.html
 page_js: scripts/input-date.page.js
 css: styles/input.css
@@ -13,7 +13,7 @@ status: curated
 > Спека для быстрого контекста. Источник истины — styles/input.css и страница. При изменении обновляй эту спеку и блок в specs/_cheatsheet.md.
 
 ## Назначение
-Поле ввода даты: маска ММ.ДД.ГГГГ (в placeholder) + кнопка-календарь, поднимающая DatePicker (отдельный компонент, TBD). База `.inp` общая с InputText — состояния и размеры общие.
+Поле ввода даты: маска ММ.ДД.ГГГГ (в placeholder) + кнопка-календарь, поднимающая DatePicker (рантайм `scripts/ds-datepicker.js`, модуль `openPicker`, автоподключение по кнопке-календарю). База `.inp` общая с InputText — состояния и размеры общие.
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — ввод конкретной даты (подписание, транш, план); редактирование даты в ячейке — размер S. Диапазон — два InputDate «От»/«До». Текст → InputText; справочник → InputAutocomplete.

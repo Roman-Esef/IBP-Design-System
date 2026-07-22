@@ -173,6 +173,13 @@
     g.appendChild(cell('Маска · живой ввод', node, 'Попробуйте: «12212022» → «12.21.2022».'));
   })();
 
+  /* календарь по кнопке — живой DatePicker (ds-datepicker.js) */
+  (function () {
+    const g = document.getElementById('beh-picker');
+    if (!g) return;
+    g.appendChild(cell('Кнопка-календарь · живой выбор', mkDate({ label: 'Дата подписания', helper: 'Нажмите на иконку календаря', value: '10.15.2025', live: true, width: 280 }), 'Клик по календарю поднимает DatePicker; выбор даты пишет её в поле.'));
+  })();
+
   /* =========================== STATES =========================== */
   (function () {
     const g = document.getElementById('states-demo');

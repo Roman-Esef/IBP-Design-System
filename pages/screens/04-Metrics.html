@@ -1,0 +1,131 @@
+<!-- @dsCard group="Примеры экранов" viewport="1920x1080" name="04 · Финансовые метрики" subtitle="Матрица метрик по инструментам: закреплённая колонка, группировка строк, даты-колонки с горизонтальной прокруткой" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Финансовые метрики — Пример экрана</title>
+<link rel="stylesheet" href="../../ds.css">
+<link rel="stylesheet" href="../../styles/screens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; font-family: var(--font-text), system-ui, sans-serif; color: var(--text-primary); }
+  a { color: var(--primary); } a:hover { color: var(--primary-dark); }
+  .dt .grp td { background: var(--bgtable-pinned); }
+  .dt .grp .pin { background: var(--bgtable-pinned); }
+  .grp-name { display: inline-flex; align-items: center; gap: 8px; font: var(--type-body-m-strong); color: var(--text-primary); }
+  .grp-name .tw { color: var(--text-secondary); width: 18px; height: 18px; display: inline-flex; }
+  .grp-name .tw [data-icon] { width: 18px; height: 18px; }
+  .grp-name .ccy { font: var(--type-body-s); color: var(--text-inactive); }
+</style>
+</head>
+<body>
+<div class="scr">
+  <aside class="scr__rail" data-screen-rail data-active="main-page" data-avatar="ИБ"></aside>
+
+  <div class="scr__main">
+    <div class="ws ws--fill" data-screen-label="Финансовые метрики">
+      <div class="ws__top">
+        <nav class="crumbs ws__crumbs" aria-label="Хлебные крошки">
+          <span class="crumbs__item"><a class="link link--muted" href="01-Portfolio.html">Текущий портфель ДИД</a></span>
+          <span class="crumbs__item"><a class="link link--muted" href="02-Deal.html">1234. СамолетИнвестПродакшн</a></span>
+          <span class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">Финансовые метрики</span></span>
+        </nav>
+        <div class="phead ws__head">
+          <div class="phead__main">
+            <div class="phead__title-row">
+              <div class="phead__title-group"><h1 class="phead__title">Финансовые метрики</h1></div>
+              <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">В сделку</span></button></span>
+            </div>
+            <div class="phead__subtitle"><span class="phead__meta">Последний расчет: 22.01.2024, 16:45</span></div>
+          </div>
+          <div class="phead__actions">
+            <button class="btn btn--outline btn--m"><span class="btn__label">Фиксация ЭПС/ВБС</span></button>
+            <button class="btn btn--outline btn--m"><span class="btn__label">Пересчет метрик</span></button>
+            <button class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё" aria-haspopup="menu"><i data-icon="more-dots"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:0 32px 14px">
+        <div class="alert alert--warning alert--m" role="status" aria-live="polite">
+          <span class="alert__icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span>
+          <div class="alert__body"><p class="alert__text">В сделку внесены изменения требующие пересчета</p></div>
+        </div>
+      </div>
+
+      <div style="padding:0 32px 10px">
+        <div class="tabs tabs--horiz" role="tablist">
+          <button class="tab tab--m tab--horiz" role="tab" aria-selected="false"><span class="tab__label">МСФО</span></button>
+          <button class="tab tab--m tab--horiz tab--selected" role="tab" aria-selected="true"><span class="tab__label">РСБУ</span></button>
+          <button class="tab tab--m tab--horiz" role="tab" aria-selected="false"><span class="tab__label">KPI</span></button>
+          <button class="tab tab--m tab--horiz" role="tab" aria-selected="false"><span class="tab__label">Фиксации ЭПС/ВБС</span></button>
+        </div>
+      </div>
+
+      <div class="ws__toolbar" style="flex-wrap:wrap">
+        <div class="tfilter tfilter--collapsed" role="group" aria-label="Фильтр таблицы">
+          <div class="tfilter__trigger">
+            <button class="btn btn--outline btn--xs" aria-haspopup="dialog"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>
+            <button class="btn btn--outline btn--xs btn--icon-only" aria-label="Сбросить фильтры"><i data-icon="filter-reset"></i></button>
+          </div>
+          <div class="tfilter__chips" role="group" aria-label="Применённые параметры">
+            <span class="chip chip--edit chip--s"><span class="chip__label">1-ПУТ: Репо-4474: РСБУ/НАЛ. ОП…</span><span class="chip__remove" role="button" aria-label="Убрать"><i data-icon="close"></i></span></span>
+            <span class="chip chip--edit chip--s"><span class="chip__label">2-Внутригрупповой кредит-4474: РСБУ/НАЛ. ОП…</span><span class="chip__remove" role="button" aria-label="Убрать"><i data-icon="close"></i></span></span>
+            <span class="chip chip--edit chip--s"><span class="chip__label">3-Внутригрупповой кредит-17: РСБУ/НАЛ. ОП…</span><span class="chip__remove" role="button" aria-label="Убрать"><i data-icon="close"></i></span></span>
+          </div>
+          <div class="tfilter__tail"><span class="badge badge--xs badge--neutral badge--text tfilter__more">+99</span></div>
+        </div>
+      </div>
+
+      <div class="dt-wrap">
+        <div class="dt-scroll">
+          <table class="dt" id="p04">
+            <thead>
+              <tr>
+                <th class="pin pin--edge" style="left:0;min-width:340px"><span class="th-row"><span>Наименование метрики</span><span class="th-pin"><i data-icon="pin"></i></span></span></th>
+                <th class="num" style="min-width:150px">18.11.2020</th>
+                <th class="num" style="min-width:150px">18.11.2020</th>
+                <th class="num" style="min-width:150px">18.11.2020</th>
+                <th class="num" style="min-width:150px">18.11.2020</th>
+                <th class="num" style="min-width:150px">18.11.2020</th>
+                <th class="num" style="min-width:150px">18.11.2020</th>
+                <th class="num" style="min-width:150px">18.11.2020</th>
+                <th class="num" style="min-width:150px">18.11.2020</th>
+                <th style="min-width:48px;width:48px"></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/screens-chrome.js"></script>
+<script>
+(function () {
+  var groups = [
+    { name: '1-ПУТ: Репо-4474', warn: false, metrics: ['РСБУ/НАЛ.ОПУ Дисконт (вал.)', 'РСБУ/НАЛ.ОПУ Опцион (вал.)', 'РСБУ/НАЛ.ОПУ Проценты (вал.)', 'ЭПС', 'Day1PnL'] },
+    { name: '2-Внутригрупповой кредит-44741', warn: true, metrics: ['РСБУ/НАЛ.ОПУ Проценты (вал.)', 'РСБУ/НАЛ.ОПУ Проценты (вал.)', 'РСБУ/НАЛ.ОПУ Проценты (вал.)', 'ЭПС', 'Day1PnL'] },
+    { name: '3-Внутригрупповой кредит-17', warn: false, metrics: ['РСБУ/НАЛ.ОПУ Проценты (вал.)', 'РСБУ/НАЛ.ОПУ Проценты (вал.)'] }
+  ];
+  var COLS = 8;
+  function valCells() { var s = ''; for (var i = 0; i < COLS; i++) s += '<td class="num">30 000 000.00</td>'; s += '<td></td>'; return s; }
+  var html = '';
+  groups.forEach(function (g) {
+    var warn = g.warn ? '<span class="tc__icon" style="color:var(--warning)"><i data-icon="alert-triangle" style="width:16px;height:16px"></i></span>' : '';
+    html += '<tr class="grp"><td class="pin" style="left:0"><span class="grp-name"><span class="tw"><i data-icon="chevron-up"></i></span>' + g.name + ' <span class="ccy">RUB</span>' + warn + '</span></td><td colspan="9"></td></tr>';
+    g.metrics.forEach(function (m) {
+      html += '<tr><td class="pin" style="left:0" title="' + m + '">' + m + '</td>' + valCells() + '</tr>';
+    });
+  });
+  document.querySelector('#p04 tbody').innerHTML = html;
+})();
+</script>
+</body>
+</html>

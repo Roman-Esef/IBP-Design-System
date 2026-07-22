@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"47802621d7d0","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f69ea4d3181c","scripts/context-menu.page.js":"74da50c59f0b","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"c98760f47497","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"bf94aa11669b","scripts/ds-nav.js":"2e6e6135b444","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"cfb5ef10a557","scripts/input-autocomplete.page.js":"500352e53c47","scripts/input-date-range.page.js":"60c905f8a284","scripts/input-date.page.js":"feafe96917e4","scripts/input-kit.js":"b0fea98e1589","scripts/input-text.page.js":"a08a33a53a22","scripts/label-helper.page.js":"645d15c55fcc","scripts/modal.page.js":"c38f6d4fdc19","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"d2948a360399","scripts/page-header.page.js":"5fe8419ffc09","scripts/pagination.page.js":"a2fa1e42d751","scripts/pg-kit.js":"d86d16ba91aa","scripts/popover.page.js":"22c85f8063e5","scripts/read-only-field.page.js":"edfac382ed3a","scripts/riskmetric.page.js":"739839cd70fa","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"e400c6b7a51a","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"6fff47fa0113"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"47802621d7d0","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f69ea4d3181c","scripts/context-menu.page.js":"74da50c59f0b","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"c98760f47497","scripts/ds-datepicker.js":"d242fba3500c","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"bf94aa11669b","scripts/ds-nav.js":"30de3340131b","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"cfb5ef10a557","scripts/input-autocomplete.page.js":"500352e53c47","scripts/input-date-range.page.js":"60c905f8a284","scripts/input-date.page.js":"08702f1eb912","scripts/input-kit.js":"b0fea98e1589","scripts/input-text.page.js":"a08a33a53a22","scripts/label-helper.page.js":"645d15c55fcc","scripts/modal.page.js":"c38f6d4fdc19","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"d2948a360399","scripts/page-header.page.js":"5fe8419ffc09","scripts/pagination.page.js":"a2fa1e42d751","scripts/pg-kit.js":"d86d16ba91aa","scripts/popover.page.js":"22c85f8063e5","scripts/read-only-field.page.js":"edfac382ed3a","scripts/riskmetric.page.js":"739839cd70fa","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"e400c6b7a51a","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"6fff47fa0113"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -3252,6 +3252,354 @@ function openable(anchor, trigger, menu, placement, align) {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/context-menu.page.js", error: String((e && e.message) || e) }); }
 
+// scripts/datepicker.page.js
+try { (() => {
+/* =========================================================================
+   DatePicker documentation — интерактивные демо календаря.
+   Требует: icons-data.js и ds-datepicker.js подключены ДО этого файла.
+   Календарь строит общий рантайм window.DSDatePicker (out-of-box).
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var BASE = new Date(2025, 9, 15); // фикс. «сегодня» для стабильной документации
+  function d(y, m, day) {
+    return new Date(y, m, day);
+  }
+
+  /* обёртка: демо всегда строятся вокруг фиксированного BASE */
+  function makeCalendar(spec) {
+    spec = Object.assign({}, spec || {});
+    if (spec.today === undefined) spec.today = BASE;
+    return window.DSDatePicker.makeCalendar(spec);
+  }
+
+  /* демо-ячейка с заголовком */
+  function cell(title, node, sub) {
+    var c = document.createElement('div');
+    c.className = 'demo-cell';
+    var h = document.createElement('span');
+    h.className = 'th';
+    h.innerHTML = title;
+    c.appendChild(h);
+    c.appendChild(node);
+    if (sub) {
+      var s = document.createElement('p');
+      s.className = 'sub';
+      s.textContent = sub;
+      c.appendChild(s);
+    }
+    return c;
+  }
+  function mount(id, node) {
+    var el = document.getElementById(id);
+    if (el) el.appendChild(node);
+  }
+
+  /* =========================== PLAYGROUND =========================== */
+  (function () {
+    var controls = document.getElementById('pg-controls');
+    var stage = document.getElementById('pg-stage');
+    var codeEl = document.getElementById('pg-code');
+    if (!controls || !stage) return;
+    var state = {
+      mode: 'single',
+      foot: false,
+      quick: false
+    };
+    function ctlSelect(label, options, key) {
+      var wrap = document.createElement('div');
+      wrap.className = 'ctl';
+      var l = document.createElement('div');
+      l.className = 'lbl';
+      l.textContent = label;
+      wrap.appendChild(l);
+      var box = document.createElement('div');
+      box.className = 'pg-select';
+      var sel = document.createElement('select');
+      options.forEach(function (o) {
+        var op = document.createElement('option');
+        op.value = o[0];
+        op.textContent = o[1];
+        if (o[0] === state[key]) op.selected = true;
+        sel.appendChild(op);
+      });
+      sel.addEventListener('change', function () {
+        state[key] = sel.value;
+        render();
+      });
+      box.appendChild(sel);
+      wrap.appendChild(box);
+      return wrap;
+    }
+    function ctlToggles(pairs) {
+      var wrap = document.createElement('div');
+      wrap.className = 'ctl';
+      var l = document.createElement('div');
+      l.className = 'lbl';
+      l.textContent = 'Футер';
+      wrap.appendChild(l);
+      var row = document.createElement('div');
+      row.className = 'toggles';
+      row.style.display = 'flex';
+      pairs.forEach(function (p) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'toggle';
+        b.dataset.key = p[1];
+        b.setAttribute('aria-pressed', String(state[p[1]]));
+        b.innerHTML = '<span class="sw-mini"></span><span>' + p[0] + '</span>';
+        b.addEventListener('click', function () {
+          state[p[1]] = !state[p[1]];
+          render();
+        });
+        row.appendChild(b);
+      });
+      wrap.appendChild(row);
+      return wrap;
+    }
+    controls.appendChild(ctlSelect('Режим выбора', [['single', 'Дата'], ['range', 'Диапазон'], ['month', 'Месяц']], 'mode'));
+    controls.appendChild(ctlToggles([['Кнопки Отменить / Применить', 'foot'], ['Быстрое «Сегодня»', 'quick']]));
+    function render() {
+      controls.querySelectorAll('.toggle').forEach(function (b) {
+        if (b.dataset.key === 'quick') b.classList.toggle('is-off', !state.foot);
+        b.setAttribute('aria-pressed', String(state[b.dataset.key]));
+      });
+      stage.innerHTML = '';
+      var spec = {
+        live: true,
+        foot: state.foot,
+        quick: state.foot && state.quick
+      };
+      if (state.mode === 'single') {
+        spec.mode = 'single';
+        spec.selected = d(2025, 9, 15);
+      } else if (state.mode === 'range') {
+        spec.mode = 'range';
+        spec.rangeStart = d(2025, 9, 8);
+        spec.rangeEnd = d(2025, 9, 21);
+      } else {
+        spec.mode = 'single';
+        spec.view = 'month';
+      }
+      var cal = makeCalendar(spec);
+      stage.appendChild(cal);
+      var label = state.mode === 'range' ? 'mode="range"' : state.mode === 'month' ? 'view="month"' : 'mode="single"';
+      codeEl.innerHTML = '<code>.dpk · ' + label + (state.foot ? ' · footer' : '') + (state.foot && state.quick ? ' · quick=«Сегодня»' : '') + '</code>';
+    }
+    render();
+  })();
+
+  /* =========================== USAGE =========================== */
+  mount('use-single', makeCalendar({
+    selected: d(2025, 9, 15),
+    live: true
+  }));
+  mount('use-range', makeCalendar({
+    mode: 'range',
+    rangeStart: d(2025, 9, 8),
+    rangeEnd: d(2025, 9, 21),
+    live: true
+  }));
+  mount('use-inline', makeCalendar({
+    inline: true,
+    selected: d(2025, 9, 15),
+    foot: true,
+    quick: true,
+    live: true
+  }));
+
+  /* =========================== ANATOMY =========================== */
+  mount('anat-diagram', makeCalendar({
+    selected: d(2025, 9, 15),
+    foot: true,
+    quick: false
+  }));
+
+  /* =========================== VARIANTS: режимы =========================== */
+  mount('var-single', cell('Дата — одиночный выбор', makeCalendar({
+    selected: d(2025, 9, 15),
+    live: true
+  })));
+  mount('var-range', cell('Диапазон — начало и конец', makeCalendar({
+    mode: 'range',
+    rangeStart: d(2025, 9, 8),
+    rangeEnd: d(2025, 9, 21),
+    live: true
+  })));
+  mount('var-month', cell('Месяц — выбор месяца целиком', makeCalendar({
+    view: 'month',
+    live: true
+  })));
+
+  /* =========================== VARIANTS: представления =========================== */
+  mount('var-view-day', cell('Дни', makeCalendar({
+    selected: d(2025, 9, 15)
+  })));
+  mount('var-view-month', cell('Месяцы', makeCalendar({
+    view: 'month'
+  })));
+  mount('var-view-year', cell('Годы', makeCalendar({
+    view: 'year'
+  })));
+
+  /* =========================== VARIANTS: футер =========================== */
+  mount('var-foot-none', cell('Без футера — авто-применение (docked)', makeCalendar({
+    selected: d(2025, 9, 15)
+  })));
+  mount('var-foot-btns', cell('С кнопками — подтверждение', makeCalendar({
+    selected: d(2025, 9, 15),
+    foot: true
+  })));
+  mount('var-foot-quick', cell('С быстрым «Сегодня»', makeCalendar({
+    selected: d(2025, 9, 15),
+    foot: true,
+    quick: true
+  })));
+
+  /* =========================== SIZES =========================== */
+  mount('sizes-floating', cell('Floating — с тенью (над полем)', makeCalendar({
+    selected: d(2025, 9, 15)
+  })));
+  mount('sizes-inline', cell('Inline — встроенный, без тени', makeCalendar({
+    inline: true,
+    selected: d(2025, 9, 15)
+  })));
+
+  /* =========================== CONTENT =========================== */
+  mount('content-demo', makeCalendar({
+    selected: d(2025, 9, 15),
+    min: d(2025, 9, 3),
+    max: d(2025, 9, 27)
+  }));
+
+  /* =========================== BEHAVIOR =========================== */
+  mount('beh-range', cell('Диапазон · выберите две даты', makeCalendar({
+    mode: 'range',
+    rangeStart: d(2025, 9, 10),
+    live: true
+  }), 'Первый клик — начало, второй — конец. Клик раньше начала перезапускает выбор.'));
+  mount('beh-nav', cell('Навигация · заголовок → годы → месяцы', makeCalendar({
+    selected: d(2025, 9, 15),
+    live: true
+  }), 'Стрелки листают месяцы. Клик по заголовку открывает выбор года, затем месяца.'));
+
+  /* =========================== STATES =========================== */
+  (function () {
+    var g = document.getElementById('states-demo');
+    if (!g) return;
+    var specs = [['Default', {}], ['Сегодня (today)', {
+      today: d(2025, 9, 15)
+    }], ['Выбрано (selected)', {
+      selected: d(2025, 9, 15)
+    }], ['Начало диапазона', {
+      mode: 'range',
+      rangeStart: d(2025, 9, 15)
+    }], ['В диапазоне (in-range)', {
+      mode: 'range',
+      rangeStart: d(2025, 9, 12),
+      rangeEnd: d(2025, 9, 20)
+    }], ['Недоступно (disabled)', {
+      selected: d(2025, 9, 15),
+      min: d(2025, 9, 10),
+      max: d(2025, 9, 20)
+    }]];
+    specs.forEach(function (s) {
+      g.appendChild(cell(s[0], makeCalendar(s[1])));
+    });
+  })();
+
+  /* =========================== TYPOGRAPHY =========================== */
+  (function () {
+    var tb = document.querySelector('#typo-table tbody');
+    if (!tb) return;
+    [['Заголовок (месяц/год)', 'Октябрь 2025', '--type-body-s-strong'], ['Дни недели', 'Пн Вт Ср', '--type-body-xs'], ['Число дня', '15', '--type-body-s'], ['Ячейка месяца / года', 'Окт · 2025', '--type-body-s']].forEach(function (r) {
+      var tr = document.createElement('tr');
+      var f = getComputedStyle(document.documentElement).getPropertyValue(r[2]).trim();
+      tr.innerHTML = '<td>' + r[0] + '</td><td style="font:var(' + r[2] + ');">' + r[1] + '</td>' + '<td class="rt-tok"><code>' + r[2] + '</code></td><td class="rt-num">' + (f.match(/(\d+px)\s*\/\s*(\d+px)/) ? RegExp.$1 + ' / ' + RegExp.$2 : f) + '</td>';
+      tb.appendChild(tr);
+    });
+  })();
+
+  /* =========================== COLORS =========================== */
+  (function () {
+    var wrap = document.getElementById('color-ref');
+    if (!wrap) return;
+    var groups = [['Поверхность', [['Фон календаря', '--bg-popup'], ['Тень (floating)', '--elevation-5'], ['Рамка (inline)', '--border-light'], ['Радиус', '--radius-m']]], ['Дни и статусы', [['Число дня', '--text-primary'], ['Дни недели / соседний месяц', '--text-inactive'], ['Ховер дня', '--bgtable-row-hover'], ['Сегодня (обводка)', '--primary'], ['Выбрано / концы диапазона (фон)', '--primary'], ['В диапазоне (полоса)', '--primary-bg'], ['Недоступно', '--st-disabled']]]];
+    var probe = document.createElement('span');
+    document.body.appendChild(probe);
+    function hex(tok) {
+      probe.style.color = 'var(' + tok + ')';
+      var m = getComputedStyle(probe).color.match(/\d+(\.\d+)?/g) || [];
+      if (m.length < 3) return '';
+      var h = function (n) {
+        return Math.round(+n).toString(16).padStart(2, '0').toUpperCase();
+      };
+      return '#' + h(m[0]) + h(m[1]) + h(m[2]) + (m[3] != null && +m[3] < 1 ? ' · ' + Math.round(+m[3] * 100) + '%' : '');
+    }
+    groups.forEach(function (grp) {
+      var gr = document.createElement('div');
+      gr.className = 'cref-group';
+      gr.innerHTML = '<h3>' + grp[0] + '</h3>';
+      var rw = document.createElement('div');
+      rw.className = 'cref-rows';
+      grp[1].forEach(function (row) {
+        var isColor = /color|bg|primary|text|border|disabled|hover/.test(row[1]);
+        var r = document.createElement('div');
+        r.className = 'cref-row';
+        r.innerHTML = '<span class="cref-sw"><span class="cf" style="background:var(' + row[1] + ');"></span></span>' + '<span class="cref-meta"><p class="role">' + row[0] + '</p><p class="tname">' + row[1] + '</p></span>' + '<span class="cref-hex">' + (isColor ? hex(row[1]) : '') + '</span>';
+        rw.appendChild(r);
+      });
+      gr.appendChild(rw);
+      wrap.appendChild(gr);
+    });
+    probe.remove();
+  })();
+
+  /* =========================== REDLINE =========================== */
+  (function () {
+    var tb = document.querySelector('#dev-spec-table tbody');
+    if (!tb) return;
+    var holder = document.createElement('div');
+    holder.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
+    document.body.appendChild(holder);
+    var cal = makeCalendar({
+      selected: d(2025, 9, 15),
+      foot: true,
+      quick: true
+    });
+    holder.appendChild(cal);
+    var cs = getComputedStyle(cal);
+    var head = getComputedStyle(cal.querySelector('.dpk__head'));
+    var day = getComputedStyle(cal.querySelector('.dpk__day'));
+    var num = getComputedStyle(cal.querySelector('.dpk__daynum'));
+    var wd = getComputedStyle(cal.querySelector('.dpk__weekday'));
+    [['Ширина контейнера', cal.getBoundingClientRect().width.toFixed(0) + 'px'], ['Паддинг контейнера', cs.padding], ['Радиус контейнера', cs.borderRadius], ['Высота шапки', head.height], ['Ячейка дня', day.width + ' × ' + day.height], ['Кружок числа', num.width + ' × ' + num.height], ['Высота дней недели', wd.height], ['Шрифт числа', num.fontSize + ' / ' + num.lineHeight]].forEach(function (r) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td>';
+      tb.appendChild(tr);
+    });
+    holder.remove();
+  })();
+
+  /* =========================== COPY BUTTONS =========================== */
+  document.querySelectorAll('.code-panel__copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var code = document.getElementById(btn.dataset.copyTarget);
+      if (!code) return;
+      navigator.clipboard.writeText(code.textContent).then(function () {
+        btn.classList.add('is-copied');
+        btn.querySelector('.copy-label').textContent = 'Скопировано';
+        setTimeout(function () {
+          btn.classList.remove('is-copied');
+          btn.querySelector('.copy-label').textContent = 'Копировать';
+        }, 1600);
+      });
+    });
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/datepicker.page.js", error: String((e && e.message) || e) }); }
+
 // scripts/divider.page.js
 try { (() => {
 /* =========================================================================
@@ -5081,6 +5429,376 @@ function openable(anchor, field, list, prefer) {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/dropdown-list.page.js", error: String((e && e.message) || e) }); }
 
+// scripts/ds-datepicker.js
+try { (() => {
+/* =========================================================================
+   DS DatePicker — рантайм календаря (out-of-box).
+   Требует: icons-data.js подключён ДО этого файла (window.DS_ICONS).
+   Экспорт: window.DSDatePicker = { makeCalendar, openPicker,
+                                    parseDate, formatDate }
+   Автоподключение: клик по кнопке-календарю поля (.inp__act[aria-label=
+   "Открыть календарь"]) поднимает календарь. Одиночное поле → выбор даты;
+   поле внутри .inp-range--date → выбор диапазона (start → «От», end → «До»).
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var ICONS = window.DS_ICONS || {};
+  function icon(name) {
+    return ICONS[name] || '';
+  }
+  var MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+  var MONTHS_SHORT = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+  var WEEKDAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  function d(y, m, day) {
+    return new Date(y, m, day);
+  }
+  function sameDay(a, b) {
+    return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  }
+  function startOfDay(x) {
+    return new Date(x.getFullYear(), x.getMonth(), x.getDate());
+  }
+  function pad(n) {
+    return (n < 10 ? '0' : '') + n;
+  }
+  function fmtFull(dt) {
+    return dt.getDate() + ' ' + MONTHS[dt.getMonth()].toLowerCase() + ' ' + dt.getFullYear();
+  }
+
+  /* маска поля — ММ.ДД.ГГГГ (месяц.день.год) */
+  function formatDate(dt) {
+    return dt ? pad(dt.getMonth() + 1) + '.' + pad(dt.getDate()) + '.' + dt.getFullYear() : '';
+  }
+  function parseDate(str) {
+    if (!str) return null;
+    var p = String(str).split('.');
+    if (p.length !== 3) return null;
+    var mm = +p[0],
+      dd = +p[1],
+      yy = +p[2];
+    if (!mm || !dd || String(p[2]).length !== 4) return null;
+    var dt = new Date(yy, mm - 1, dd);
+    return dt.getMonth() === mm - 1 && dt.getDate() === dd ? dt : null;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* makeCalendar — фабрика поверхности календаря по спецификации.       */
+  /* spec: { year, month, today, selected, rangeStart, rangeEnd, min,    */
+  /*   max, mode:'single'|'range'|'month', view:'day'|'month'|'year',    */
+  /*   foot, quick, inline, live, onPick(state), onApply(state),         */
+  /*   onCancel() }                                                       */
+  /* ------------------------------------------------------------------ */
+  function makeCalendar(spec) {
+    spec = spec || {};
+    var today = spec.today !== undefined ? spec.today : new Date();
+    var anchorDate = spec.selected || spec.rangeStart || today;
+    var st = {
+      year: spec.year != null ? spec.year : anchorDate.getFullYear(),
+      month: spec.month != null ? spec.month : anchorDate.getMonth(),
+      today: today,
+      selected: spec.selected || null,
+      rangeStart: spec.rangeStart || null,
+      rangeEnd: spec.rangeEnd || null,
+      min: spec.min || null,
+      max: spec.max || null,
+      mode: spec.mode || 'single',
+      view: spec.view || 'day',
+      foot: !!spec.foot,
+      quick: !!spec.quick,
+      inline: !!spec.inline,
+      live: !!spec.live
+    };
+    var root = document.createElement('div');
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-modal', 'false');
+    root.setAttribute('aria-label', 'Выбор даты');
+    function disabled(dt) {
+      if (st.min && startOfDay(dt) < startOfDay(st.min)) return true;
+      if (st.max && startOfDay(dt) > startOfDay(st.max)) return true;
+      return false;
+    }
+    function headHTML(caption) {
+      return '<div class="dpk__head">' + '<button type="button" class="dpk__caption" aria-haspopup="true"><span class="dpk__cap-text">' + caption + '</span>' + '<span class="dpk__cap-icon" aria-hidden="true">' + icon('chevron-down') + '</span></button>' + '<div class="dpk__nav">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s dpk__prev" aria-label="Назад">' + icon('chevron-left') + '</button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s dpk__next" aria-label="Вперёд">' + icon('chevron-right') + '</button>' + '</div></div>';
+    }
+    function footHTML() {
+      if (!st.foot) return '';
+      var left = st.quick ? '<div class="dpk__foot-left"><button type="button" class="btn btn--transparent btn--s dpk__today"><span class="btn__label">Сегодня</span></button></div>' : '<div class="dpk__foot-left"></div>';
+      return '<div class="dpk__foot">' + left + '<div class="dpk__foot-right">' + '<button type="button" class="btn btn--transparent btn--s dpk__cancel"><span class="btn__label">Отменить</span></button>' + '<button type="button" class="btn btn--accent btn--s dpk__ok"><span class="btn__label">Применить</span></button>' + '</div></div>';
+    }
+    function render() {
+      root.className = 'dpk' + (st.inline ? ' dpk--inline' : '') + (st.foot && st.quick ? ' dpk--wide' : '') + (st.view !== 'day' ? ' dpk--panel' : '');
+      var html = '';
+      if (st.view === 'year') {
+        var ds = st.year - st.year % 12;
+        html += headHTML(ds + ' – ' + (ds + 11));
+        html += '<div class="dpk__panel dpk__panel--years" role="grid">';
+        for (var i = 0; i < 12; i++) {
+          var yy = ds + i;
+          var cur = yy === st.today.getFullYear();
+          var selY = yy === st.year;
+          html += '<button type="button" class="dpk__panel-cell' + (selY ? ' dpk__panel-cell--selected' : cur ? ' dpk__panel-cell--current' : '') + '" data-year="' + yy + '" role="gridcell">' + yy + '</button>';
+        }
+        html += '</div>';
+      } else if (st.view === 'month') {
+        html += headHTML(String(st.year));
+        html += '<div class="dpk__panel" role="grid">';
+        for (var mi = 0; mi < 12; mi++) {
+          var curM = mi === st.today.getMonth() && st.year === st.today.getFullYear();
+          var selM = mi === st.month;
+          html += '<button type="button" class="dpk__panel-cell' + (selM ? ' dpk__panel-cell--selected' : curM ? ' dpk__panel-cell--current' : '') + '" data-month="' + mi + '" role="gridcell">' + MONTHS_SHORT[mi] + '</button>';
+        }
+        html += '</div>';
+      } else {
+        html += headHTML(MONTHS[st.month] + ' ' + st.year);
+        html += '<div class="dpk__weekdays" aria-hidden="true">';
+        WEEKDAYS.forEach(function (w) {
+          html += '<span class="dpk__weekday">' + w + '</span>';
+        });
+        html += '</div><div class="dpk__grid" role="grid">';
+        var first = d(st.year, st.month, 1);
+        var lead = (first.getDay() + 6) % 7;
+        var start = d(st.year, st.month, 1 - lead);
+        for (var c = 0; c < 42; c++) {
+          var cd = d(start.getFullYear(), start.getMonth(), start.getDate() + c);
+          var cls = 'dpk__day';
+          if (cd.getMonth() !== st.month) cls += ' dpk__day--outside';
+          if (sameDay(cd, st.today)) cls += ' dpk__day--today';
+          var dis = disabled(cd);
+          if (dis) cls += ' dpk__day--disabled';
+          if (st.mode === 'range' && st.rangeStart) {
+            var rs = sameDay(cd, st.rangeStart),
+              re = st.rangeEnd && sameDay(cd, st.rangeEnd);
+            if (st.rangeEnd && startOfDay(cd) > startOfDay(st.rangeStart) && startOfDay(cd) < startOfDay(st.rangeEnd)) cls += ' dpk__day--in-range';
+            if (rs && !(st.rangeEnd && sameDay(st.rangeStart, st.rangeEnd))) cls += ' dpk__day--range-start';
+            if (re) cls += ' dpk__day--range-end';
+            if (rs && !st.rangeEnd) cls += ' dpk__day--selected';
+          } else if (st.selected && sameDay(cd, st.selected)) {
+            cls += ' dpk__day--selected';
+          }
+          var sel = /--selected|--range-start|--range-end/.test(cls);
+          html += '<button type="button" class="' + cls + '" role="gridcell"' + ' data-y="' + cd.getFullYear() + '" data-m="' + cd.getMonth() + '" data-d="' + cd.getDate() + '"' + (dis ? ' aria-disabled="true"' : '') + ' aria-selected="' + (sel ? 'true' : 'false') + '"' + ' aria-label="' + fmtFull(cd) + '" tabindex="' + (sel ? '0' : '-1') + '">' + '<span class="dpk__daynum">' + cd.getDate() + '</span></button>';
+        }
+        html += '</div>';
+      }
+      html += footHTML();
+      root.innerHTML = html;
+      if (st.live) bind();
+    }
+    function bind() {
+      var cap = root.querySelector('.dpk__caption');
+      cap.addEventListener('click', function () {
+        st.view = st.view === 'day' ? 'year' : 'day';
+        render();
+      });
+      root.querySelector('.dpk__prev').addEventListener('click', function () {
+        step(-1);
+      });
+      root.querySelector('.dpk__next').addEventListener('click', function () {
+        step(1);
+      });
+      root.querySelectorAll('.dpk__day').forEach(function (b) {
+        if (b.getAttribute('aria-disabled')) return;
+        b.addEventListener('click', function () {
+          pickDay(+b.dataset.y, +b.dataset.m, +b.dataset.d);
+        });
+      });
+      root.querySelectorAll('[data-year]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          st.year = +b.dataset.year;
+          st.view = 'month';
+          render();
+        });
+      });
+      root.querySelectorAll('[data-month]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          st.month = +b.dataset.month;
+          st.view = 'day';
+          render();
+        });
+      });
+      var todayBtn = root.querySelector('.dpk__today');
+      if (todayBtn) todayBtn.addEventListener('click', function () {
+        st.year = st.today.getFullYear();
+        st.month = st.today.getMonth();
+        pickDay(st.today.getFullYear(), st.today.getMonth(), st.today.getDate());
+      });
+      var ok = root.querySelector('.dpk__ok');
+      if (ok) ok.addEventListener('click', function () {
+        if (typeof spec.onApply === 'function') spec.onApply(st);
+      });
+      var cancel = root.querySelector('.dpk__cancel');
+      if (cancel) cancel.addEventListener('click', function () {
+        if (typeof spec.onCancel === 'function') spec.onCancel(st);
+      });
+    }
+    function step(dir) {
+      if (st.view === 'year') {
+        st.year += dir * 12;
+      } else if (st.view === 'month') {
+        st.year += dir;
+      } else {
+        var nm = st.month + dir;
+        st.year += Math.floor(nm / 12);
+        st.month = (nm % 12 + 12) % 12;
+      }
+      render();
+    }
+    function pickDay(y, m, day) {
+      var dt = d(y, m, day);
+      if (m !== st.month || y !== st.year) {
+        st.year = y;
+        st.month = m;
+      }
+      if (st.mode === 'range') {
+        if (!st.rangeStart || st.rangeEnd) {
+          st.rangeStart = dt;
+          st.rangeEnd = null;
+        } else if (startOfDay(dt) < startOfDay(st.rangeStart)) {
+          st.rangeStart = dt;
+        } else {
+          st.rangeEnd = dt;
+        }
+      } else {
+        st.selected = dt;
+      }
+      render();
+      if (typeof spec.onPick === 'function') spec.onPick(st);
+    }
+    render();
+    root._state = st;
+    return root;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* openPicker — всплывающий календарь, привязанный к якорю (полю).     */
+  /* Один открытый экземпляр; закрытие — клик вне / Esc.                 */
+  /* ------------------------------------------------------------------ */
+  var current = null;
+  function closeCurrent(returnFocus) {
+    if (!current) return;
+    document.removeEventListener('mousedown', current.onDoc, true);
+    document.removeEventListener('keydown', current.onKey, true);
+    window.removeEventListener('resize', current.reposition);
+    window.removeEventListener('scroll', current.reposition, true);
+    if (current.el.parentNode) current.el.parentNode.removeChild(current.el);
+    var focusEl = returnFocus ? current.anchorFocus : null;
+    current = null;
+    if (focusEl && focusEl.focus) focusEl.focus();
+  }
+  function openPicker(anchorEl, spec) {
+    closeCurrent(false);
+    spec = spec || {};
+    var cal = makeCalendar(Object.assign({
+      live: true
+    }, spec));
+    cal.style.position = 'fixed';
+    cal.style.zIndex = '9500';
+    document.body.appendChild(cal);
+    function reposition() {
+      var r = anchorEl.getBoundingClientRect();
+      var h = cal.offsetHeight,
+        w = cal.offsetWidth;
+      var gap = 8;
+      var top = r.bottom + gap;
+      if (top + h > window.innerHeight - 8 && r.top - gap - h > 8) top = r.top - gap - h;
+      var left = Math.min(Math.max(8, r.left), window.innerWidth - w - 8);
+      cal.style.top = Math.round(top) + 'px';
+      cal.style.left = Math.round(left) + 'px';
+    }
+    reposition();
+    var onDoc = function (e) {
+      if (!cal.contains(e.target) && !anchorEl.contains(e.target)) closeCurrent(false);
+    };
+    var onKey = function (e) {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        closeCurrent(true);
+      }
+    };
+    document.addEventListener('mousedown', onDoc, true);
+    document.addEventListener('keydown', onKey, true);
+    window.addEventListener('resize', reposition);
+    window.addEventListener('scroll', reposition, true);
+    current = {
+      el: cal,
+      onDoc: onDoc,
+      onKey: onKey,
+      reposition: reposition,
+      anchorFocus: spec.anchorFocus || anchorEl
+    };
+    return {
+      el: cal,
+      close: function () {
+        closeCurrent(false);
+      }
+    };
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Автоподключение: делегированный клик по кнопке-календарю поля.      */
+  /* ------------------------------------------------------------------ */
+  function fire(ctl) {
+    ctl.dispatchEvent(new Event('input', {
+      bubbles: true
+    }));
+    ctl.dispatchEvent(new Event('change', {
+      bubbles: true
+    }));
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.inp__act');
+    if (!btn || btn.getAttribute('aria-label') !== 'Открыть календарь' || btn.disabled) return;
+    var field = btn.closest('.inp__field');
+    var inp = field && field.closest('.inp');
+    if (!inp) return;
+    e.preventDefault();
+    var range = inp.closest('.inp-range--date');
+    if (range) {
+      var ctls = range.querySelectorAll('.inp-range__field .inp__control');
+      var fromCtl = ctls[0],
+        toCtl = ctls[1];
+      openPicker(field, {
+        mode: 'range',
+        rangeStart: parseDate(fromCtl.value),
+        rangeEnd: parseDate(toCtl.value),
+        anchorFocus: field.querySelector('.inp__control'),
+        onPick: function (s) {
+          fromCtl.value = formatDate(s.rangeStart);
+          fire(fromCtl);
+          if (s.rangeEnd) {
+            toCtl.value = formatDate(s.rangeEnd);
+            fire(toCtl);
+            closeCurrent(true);
+          } else {
+            toCtl.value = '';
+            fire(toCtl);
+          }
+        }
+      });
+    } else {
+      var ctl = inp.querySelector('.inp__control');
+      openPicker(field, {
+        mode: 'single',
+        selected: parseDate(ctl.value),
+        anchorFocus: ctl,
+        onPick: function (s) {
+          ctl.value = formatDate(s.selected);
+          fire(ctl);
+          closeCurrent(true);
+        }
+      });
+    }
+  });
+  window.DSDatePicker = {
+    makeCalendar: makeCalendar,
+    openPicker: openPicker,
+    parseDate: parseDate,
+    formatDate: formatDate
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-datepicker.js", error: String((e && e.message) || e) }); }
+
 // scripts/ds-icons.js
 try { (() => {
 /* ============================================================
@@ -5257,6 +5975,9 @@ try { (() => {
         label: 'Context Menu',
         href: 'pages/molecules/ContextMenu.html'
       }, {
+        label: 'DatePicker',
+        href: 'pages/molecules/DatePicker.html'
+      }, {
         label: 'InputAmountRange',
         href: 'pages/molecules/InputAmountRange.html'
       }, {
@@ -5347,6 +6068,40 @@ try { (() => {
     }, {
       label: 'Паттерны интерфейса',
       soon: true
+    }],
+    groups: [{
+      group: 'Примеры экранов',
+      items: [{
+        label: '01 · Текущий портфель ДИД',
+        href: 'pages/screens/01-Portfolio.html'
+      }, {
+        label: '02 · Карточка сделки',
+        href: 'pages/screens/02-Deal.html'
+      }, {
+        label: '02 · Карточка сделки (v2)',
+        href: 'pages/screens/02-Deal-v2.html'
+      }, {
+        label: '03 · Фиксация ЭПС/ВБС',
+        href: 'pages/screens/03-DealFixModal.html'
+      }, {
+        label: '04 · Финансовые метрики',
+        href: 'pages/screens/04-Metrics.html'
+      }, {
+        label: '05 · ФИ: Доп. доходность',
+        href: 'pages/screens/05-Instrument.html'
+      }, {
+        label: '06 · Процентные схемы',
+        href: 'pages/screens/06-RateSchemes.html'
+      }, {
+        label: '07 · Прогноз CashFlow',
+        href: 'pages/screens/07-CashFlow.html'
+      }, {
+        label: '08 · Плановые платежи',
+        href: 'pages/screens/08-Payments.html'
+      }, {
+        label: '09 · Корпоративный запрос',
+        href: 'pages/screens/09-CorpRequest.html'
+      }]
     }]
   }];
 
@@ -8154,6 +8909,19 @@ try { (() => {
       width: 280
     });
     g.appendChild(cell('Маска · живой ввод', node, 'Попробуйте: «12212022» → «12.21.2022».'));
+  })();
+
+  /* календарь по кнопке — живой DatePicker (ds-datepicker.js) */
+  (function () {
+    const g = document.getElementById('beh-picker');
+    if (!g) return;
+    g.appendChild(cell('Кнопка-календарь · живой выбор', mkDate({
+      label: 'Дата подписания',
+      helper: 'Нажмите на иконку календаря',
+      value: '10.15.2025',
+      live: true,
+      width: 280
+    }), 'Клик по календарю поднимает DatePicker; выбор даты пишет её в поле.'));
   })();
 
   /* =========================== STATES =========================== */
@@ -15523,6 +16291,224 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/riskmetric.page.js", error: String((e && e.message) || e) }); }
+
+// scripts/screens-chrome.js
+try { (() => {
+/* ============================================================
+   SCREENS CHROME — общий рантайм оболочки приложения для раздела
+   «Примеры экранов». Собирает NavPanel из данных меню ДС и включает
+   её поведение (rail ⇄ drawer ⇄ fixed, тултип, оверлей), чтобы
+   компонент работал «из коробки», а не только как CSS-оболочка.
+
+   Монтаж: <aside class="scr__rail" data-screen-rail
+              data-active="<имя-иконки>" data-avatar="ИБ"
+              data-user="Александров Петр" data-role="Аналитик ДИД"
+              data-org="SMB Недвижимость +2"></aside>
+   Требует подключённых icons-data.js + ds-icons.js.
+   ============================================================ */
+(function () {
+  var host = document.querySelector('[data-screen-rail]');
+  if (!host) return;
+  var active = host.getAttribute('data-active') || 'main-page';
+  var avatar = host.getAttribute('data-avatar') || 'ИБ';
+  var uName = host.getAttribute('data-user') || 'Александров Петр Константинович';
+  var uRole = host.getAttribute('data-role') || 'Консультант-аналитик ДИД';
+  var uOrg = host.getAttribute('data-org') || 'SMB Недвижимость +2';
+  function ic(name) {
+    return '<i data-icon="' + name + '"></i>';
+  }
+
+  // Меню — тот же набор, что в проде IBP (см. nav-panel.page.js)
+  var HOME = {
+    icon: 'main-page',
+    label: 'Главная'
+  };
+  var BLOCKS = [{
+    label: 'Origination',
+    items: [{
+      icon: 'Important-deals',
+      label: 'Обязательные сделки'
+    }, {
+      icon: 'deals-possible-deals',
+      label: 'Возможные сделки'
+    }, {
+      icon: 'sales-projects',
+      label: 'Проекты продаж CIB'
+    }, {
+      icon: 'calc',
+      label: 'Калькулятор'
+    }, {
+      icon: 'funds',
+      label: 'Фонды'
+    }]
+  }, {
+    label: 'Pipeline',
+    items: [{
+      icon: 'pipeline',
+      label: 'Pipeline'
+    }, {
+      icon: 'corporate-transactions',
+      label: 'Корпоративные запросы'
+    }, {
+      icon: 'payments-ib',
+      label: 'Реестр платежей IB'
+    }]
+  }, {
+    label: 'Текущий портфель ДИД',
+    items: [{
+      icon: 'current-depo',
+      label: 'Текущий портфель ДИД'
+    }, {
+      icon: 'cash-flow',
+      label: 'Прогноз CashFlow'
+    }, {
+      icon: 'percent-circle',
+      label: 'Процентные схемы'
+    }]
+  }, {
+    label: 'Отчеты',
+    items: [{
+      icon: 'reports-1-c',
+      label: 'Отчёты 1C/Navision'
+    }, {
+      icon: 'reserve',
+      label: 'Расчет резерва'
+    }, {
+      icon: 'rwa',
+      label: 'RWA'
+    }, {
+      icon: 'bar-chart',
+      label: 'Метрики'
+    }]
+  }, {
+    label: 'Администрирование',
+    items: [{
+      icon: 'admin-panel-settings',
+      label: 'Администрирование'
+    }]
+  }];
+  function itemHTML(it, first) {
+    var sel = it.icon === active;
+    return '<a class="nav__item' + (sel ? ' nav__item--selected' : '') + '" href="#"' + (sel ? ' aria-current="page"' : '') + '>' + '<span class="nav__ico">' + ic(it.icon) + '</span>' + '<span class="nav__label">' + it.label + '</span>' + (it.badge ? '<span class="nav__badge"><span class="badge badge--xs badge--accent" aria-hidden="true">' + it.badge + '</span></span>' : '') + '</a>';
+  }
+  function build(mode) {
+    var s = '<nav class="nav nav--' + mode + '" aria-label="Главное меню">';
+    // top: бургер (+ pin в развёрнутых режимах)
+    s += '<div class="nav__top">';
+    s += '<button type="button" class="ibtn ibtn--neutral ibtn--m nav__burger" aria-label="' + (mode === 'rail' ? 'Развернуть меню' : 'Свернуть меню') + '">' + ic('left-menu') + '</button>';
+    if (mode !== 'rail') {
+      s += '<button type="button" class="ibtn ibtn--neutral ibtn--m nav__pin" aria-pressed="' + (mode === 'fixed') + '" aria-label="' + (mode === 'fixed' ? 'Открепить панель' : 'Закрепить панель') + '">' + ic(mode === 'fixed' ? 'unpin-menu' : 'pin-menu') + '</button>';
+    }
+    s += '</div>';
+    // list
+    s += '<div class="nav__list">';
+    s += itemHTML(HOME);
+    BLOCKS.forEach(function (b, i) {
+      s += '<div class="nav__block' + (i === 0 ? ' nav__block--first' : '') + '">';
+      s += '<div class="nav__block-label">' + b.label + '</div>';
+      b.items.forEach(function (it) {
+        s += itemHTML(it);
+      });
+      s += '</div>';
+    });
+    s += '</div>';
+    // footer: аватар + профиль + логаут
+    s += '<div class="nav__footer">' + '<div class="nav__user">' + '<span class="av av--circular av--m"><span class="av__text">' + avatar + '</span></span>' + '<span class="nav__user-text">' + '<span class="nav__user-name">' + uName + '</span>' + '<span class="nav__user-role">' + uRole + '</span>' + '<span class="nav__user-org">' + uOrg + '</span>' + '</span></div>' + '<button type="button" class="ibtn ibtn--neutral ibtn--m nav__logout" aria-label="Выйти">' + ic('logout') + '</button>' + '</div>';
+    s += '</nav>';
+    return s;
+  }
+  var scrim = null;
+  function removeScrim() {
+    if (scrim) {
+      scrim.remove();
+      scrim = null;
+    }
+  }
+  function addScrim() {
+    removeScrim();
+    scrim = document.createElement('div');
+    scrim.className = 'scr__scrim';
+    scrim.addEventListener('click', function () {
+      render('rail');
+    });
+    document.body.appendChild(scrim);
+  }
+  function render(mode) {
+    host.innerHTML = build(mode);
+    if (window.dsIcons) window.dsIcons.apply(host);
+    var nav = host.querySelector('.nav');
+    var burger = host.querySelector('.nav__burger');
+    var pin = host.querySelector('.nav__pin');
+
+    // rail: позиционирование тултипа (fixed label — как в nav-panel.page.js)
+    if (mode === 'rail') {
+      nav.addEventListener('mouseover', placeTip);
+      nav.addEventListener('focusin', placeTip);
+    }
+    function placeTip(e) {
+      var item = e.target.closest && e.target.closest('.nav__item');
+      if (!item || !nav.contains(item)) return;
+      var lbl = item.querySelector('.nav__label');
+      if (!lbl) return;
+      var r = item.getBoundingClientRect();
+      lbl.style.top = r.top + r.height / 2 + 'px';
+      lbl.style.left = r.right + 10 + 'px';
+    }
+
+    // бургер: rail → drawer (оверлей), drawer → rail
+    burger.addEventListener('click', function () {
+      render(mode === 'rail' ? 'drawer' : 'rail');
+    });
+    // pin: drawer → fixed (закрепить), fixed → drawer
+    if (pin) pin.addEventListener('click', function () {
+      render(mode === 'fixed' ? 'drawer' : 'fixed');
+    });
+
+    // drawer — оверлей поверх контента + скрим (клик вне / Esc → rail)
+    if (mode === 'drawer') addScrim();else removeScrim();
+  }
+  render('rail');
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && host.querySelector('.nav--drawer')) render('rail');
+  });
+})();
+
+/* ---------- RiskMetric: поповер по клику на информер (делегирование) ------- */
+(function () {
+  function closeAll(except) {
+    document.querySelectorAll('.pop-anchor .pop:not([hidden])').forEach(function (p) {
+      if (p === except) return;
+      p.hidden = true;
+      var t = p.closest('.pop-anchor').querySelector('.chip__info');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var closeBtn = e.target.closest ? e.target.closest('.pop__close') : null;
+    if (closeBtn) {
+      closeAll(null);
+      return;
+    }
+    var info = e.target.closest ? e.target.closest('.chip__info') : null;
+    if (info) {
+      var anchor = info.closest('.pop-anchor');
+      var pop = anchor && anchor.querySelector('.pop');
+      if (pop) {
+        e.preventDefault();
+        var willOpen = pop.hidden;
+        closeAll(willOpen ? pop : null);
+        pop.hidden = !willOpen;
+        info.setAttribute('aria-expanded', String(willOpen));
+        return;
+      }
+    }
+    if (!(e.target.closest && e.target.closest('.pop'))) closeAll(null);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAll(null);
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/screens-chrome.js", error: String((e && e.message) || e) }); }
 
 // scripts/segment-control.page.js
 try { (() => {

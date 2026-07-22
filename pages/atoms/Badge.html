@@ -238,7 +238,7 @@
 <main class="page" data-screen-label="Badge">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>21.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Badge</h1>
     <p class="lead">Бейдж — небольшой дочерний элемент, который накладывается на родительский компонент или ставится рядом с ним. Тип <b>Counter</b> показывает количество (счётчик), тип <b>Dot</b> — статус без числа. Пять размеров — M / S / XS / XXS / Dot — и семантические тона.</p>
@@ -320,7 +320,7 @@
         <div class="anat__stage"><div class="anat-dia" id="anat-diagram"></div></div>
         <ul class="anat__legend">
           <li><span class="n"></span><span class="t"><span class="k">Контейнер</span><span class="d">капсула со скруглением 999px; высота фиксирована, ширина тянется по контенту</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Значение</span><span class="d">число, SB Sans Text Semibold, tabular-nums; центрировано</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Значение</span><span class="d">число, токен Body (вес зашит в токен), tabular-nums; центрировано</span></span></li>
           <li><span class="n"></span><span class="t"><span class="k">Индикатор переполнения</span><span class="d">«+» при значении больше максимума</span></span></li>
         </ul>
       </div>
@@ -457,7 +457,7 @@
   <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Значение набирается гарнитурой <b>SB Sans Text</b> начертанием Semibold с моноширинными цифрами (<code class="tok">font-variant-numeric: tabular-nums</code>), чтобы счётчик не «прыгал» при смене цифр. Кегль зависит от размера.</p>
+    <p class="desc">Значение набирается токенами типографики ДС — вес зашит в токен и не переопределяется: M(32) — <code class="tok">--type-body-m</code>, S(24) и XS(20) — <code class="tok">--type-body-s</code>, XXS(16) — <code class="tok">--type-body-xs</code>. Моноширинные цифры (<code class="tok">font-variant-numeric: tabular-nums</code>), чтобы счётчик не «прыгал» при смене цифр.</p>
     <div class="panel" style="padding:8px 10px;">
       <table class="ref-table" id="typo-table">
         <thead><tr><th>Размер</th><th>Образец</th><th>Гарнитура</th><th>Кегль / вес</th></tr></thead>
@@ -469,7 +469,7 @@
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
-    <p class="desc">Компонент использует только семантические токены. Текст на цветных тонах — <code class="tok">--text-on-dark</code>; на amber для контраста — тёмный <code class="tok">--c-cgrey-800</code>.</p>
+    <p class="desc">Компонент использует только семантические токены. Текст на цветных тонах — <code class="tok">--text-on-dark</code>; на amber (warning) для контраста — <code class="tok">--text-primary</code>.</p>
     <div class="color-ref" id="color-ref"></div>
   </section>
 
@@ -580,7 +580,7 @@ function avatar(txt) {
 
 /* ---------- PLAYGROUND ---------- */
 (function(){
-  const state = { type:'counter', tone:'accent', size:'s', value:9, bordered:false, onParent:true };
+  const state = { type:'counter', tone:'accent', size:'s', value:9, bordered:false, onParent:true, text:false, muted:false };
   const controls = document.getElementById('pg-controls');
   const preview  = document.getElementById('pg-preview');
   const codeEl   = document.getElementById('pg-code');
@@ -625,7 +625,9 @@ function avatar(txt) {
   const toggles=document.createElement('div'); toggles.className='toggles';
   const tParent=sw('Наложить на родителя','onParent');
   const tBorder=sw('Обводка','bordered');
-  toggles.appendChild(tParent); toggles.appendChild(tBorder);
+  const tText=sw('Текстовый без фона (+N)','text');
+  const tMuted=sw('Disabled','muted');
+  toggles.appendChild(tParent); toggles.appendChild(tBorder); toggles.appendChild(tText); toggles.appendChild(tMuted);
   compWrap.appendChild(toggles); controls.appendChild(compWrap);
 
   function render(){
@@ -634,10 +636,18 @@ function avatar(txt) {
     valWrap.style.pointerEvents = state.type==='dot' ? 'none' : 'auto';
     sizeCtl.style.opacity = state.type==='dot' ? .4 : 1;
     sizeCtl.style.pointerEvents = state.type==='dot' ? 'none' : 'auto';
+    // text variant is inline-only and counter-only
+    tText.classList.toggle('is-off', state.type==='dot');
+    const asText = state.text && state.type!=='dot';
+    tParent.classList.toggle('is-off', asText);
+    tBorder.classList.toggle('is-off', asText);
+    tMuted.classList.toggle('is-off', asText);  // disabled не применим к безфоновому варианту
+    const muted = state.muted && !asText;
 
-    const o = { type:state.type, tone:state.tone, size:state.size, value:state.value, bordered:state.bordered, showZero:true };
+    const o = { type:state.type, tone:state.tone, size:state.size, value:state.value,
+                bordered:state.bordered && !asText, text:asText, muted:muted, showZero:true };
     preview.innerHTML='';
-    if (state.onParent) {
+    if (state.onParent && !asText) {
       const icon = navCell(ICONS.bell);
       preview.appendChild(anchor(icon, makeBadge(o), state.type==='dot'));
     } else {
@@ -647,8 +657,13 @@ function avatar(txt) {
     const cls=['badge'];
     if (state.type==='dot') cls.push('badge--dot'); else cls.push('badge--'+state.size);
     cls.push('badge--'+state.tone);
-    if (state.bordered) cls.push('badge--bordered');
-    const content = state.type==='dot' ? '' : (state.value>99 ? '99+' : state.value);
+    if (asText) cls.push('badge--text');
+    if (state.bordered && !asText) cls.push('badge--bordered');
+    if (state.muted && !asText) cls.push('badge--muted');
+    let content;
+    if (state.type==='dot') content='';
+    else if (asText) content = '+' + state.value;
+    else content = state.value>99 ? '99+' : state.value;
     codeEl.innerHTML = '<code>&lt;span class="'+cls.join(' ')+'"&gt;'+content+'&lt;/span&gt;</code>';
   }
   render();
@@ -837,10 +852,10 @@ function avatar(txt) {
 /* ---------- TYPOGRAPHY ---------- */
 (function(){
   const rows = [
-    ['M',  '128', 'SB Sans Text', '16 px / Semibold'],
-    ['S',  '128', 'SB Sans Text', '13 px / Semibold'],
-    ['XS', '128', 'SB Sans Text', '12 px / Semibold'],
-    ['XXS','128', 'SB Sans Text', '11 px / Semibold'],
+    ['M',  '128', 'SB Sans Text', '16 px / Regular (Body M)'],
+    ['S',  '128', 'SB Sans Text', '14 px / Regular (Body S)'],
+    ['XS', '128', 'SB Sans Text', '14 px / Regular (Body S)'],
+    ['XXS','128', 'SB Sans Text', '12 px / Regular (Body XS)'],
   ];
   const sizeMap={M:'m',S:'s',XS:'xs',XXS:'xxs'};
   const tb = document.querySelector('#typo-table tbody');
@@ -881,7 +896,7 @@ function avatar(txt) {
     { name:'Текст значения', rows:[
       ['На цветном фоне', '--text-on-dark'],
       ['На neutral', '--text-primary'],
-      ['На warning (amber)', '--c-cgrey-800'],
+      ['На warning (amber)', '--text-primary'],
     ]},
     { name:'Оверлей', rows:[
       ['Обводка bordered', '--bg-tile'],

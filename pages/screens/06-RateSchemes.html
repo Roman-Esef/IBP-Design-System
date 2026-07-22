@@ -1,0 +1,105 @@
+<!-- @dsCard group="Примеры экранов" viewport="1920x1080" name="06 · Процентные схемы" subtitle="Список процентных схем по периодам: цветные боксы ставок, тултип Floor/Cap, контекст-меню и стек тостов" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Процентные схемы — Пример экрана</title>
+<link rel="stylesheet" href="../../ds.css">
+<link rel="stylesheet" href="../../styles/screens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; font-family: var(--font-text), system-ui, sans-serif; color: var(--text-primary); }
+  a { color: var(--primary); } a:hover { color: var(--primary-dark); }
+  .rc-pos { position: relative; }
+  .toast-stack { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 40; }
+</style>
+</head>
+<body>
+<div class="scr">
+  <aside class="scr__rail" data-screen-rail data-active="main-page" data-avatar="ИБ"></aside>
+
+  <div class="scr__main">
+    <div class="ws" data-screen-label="Процентные схемы">
+      <div class="ws__top">
+        <nav class="crumbs ws__crumbs" aria-label="Хлебные крошки">
+          <span class="crumbs__item"><a class="link link--muted" href="../../index.html">Главная</a></span>
+          <span class="crumbs__item crumbs__ellipsis" aria-hidden="true">…</span>
+          <span class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">Процентные схемы</span></span>
+        </nav>
+        <div class="phead ws__head">
+          <div class="phead__main">
+            <div class="phead__title-row">
+              <div class="phead__title-group"><h1 class="phead__title">Процентные схемы</h1></div>
+              <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">В инструмент</span></button></span>
+            </div>
+          </div>
+          <div class="phead__actions">
+            <button class="btn btn--accent btn--m"><i data-icon="add"></i><span class="btn__label">Новая схема</span></button>
+            <button class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё" aria-haspopup="menu"><i data-icon="more-dots"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ws__body rc-pos">
+
+        <!-- стек тостов (статичная демонстрация) -->
+        <div class="toast-stack">
+          <div class="toast toast--success"><span class="toast__icon"><i data-icon="check-circle"></i></span><span class="toast__msg">Новый процентная схема добавлена</span></div>
+          <div class="toast toast--success"><span class="toast__icon"><i data-icon="check-circle"></i></span><span class="toast__msg">Процентная схема изменена</span></div>
+          <div class="toast toast--success"><span class="toast__icon"><i data-icon="check-circle"></i></span><span class="toast__msg">Процентная схема удалена</span></div>
+        </div>
+
+        <div id="cards" style="display:flex;flex-direction:column;gap:16px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/screens-chrome.js"></script>
+<script>
+(function () {
+  function box(cls, k, v, adorn) {
+    return '<div class="rate-box ' + cls + '"><span class="rate-box__k">' + k + '</span><span class="rate-box__v">' + v + (adorn || '') + '</span></div>';
+  }
+  function params() {
+    return '<div class="kv"><span class="kv__k">Базис</span><span class="kv__v">ACT/ACT</span></div>' +
+      '<div class="kv"><span class="kv__k">Рабочих дней до применения БИ</span><span class="kv__v">2</span></div>' +
+      '<div class="kv"><span class="kv__k">Floor ставка БИ</span><span class="kv__v">2%</span></div>' +
+      '<div class="kv"><span class="kv__k">Cap ставка БИ</span><span class="kv__v">50%</span></div>';
+  }
+  var expand = '<i data-icon="spacing-height"></i>';
+  var cards = [
+    { comment: true,  rate: [['cur','Текущая','2,25%'],['cap','Капитализированная','2,25%'],['def','Отложенная','2,25%']], special: [['plain','Текущая','2,25%'],['plain','Капитализированная','2,25%']], menu: false, tip: false },
+    { comment: false, rate: [['cur','Текущая','КС+2,25%',expand],['def','Отложенная','КС+2,25%'],['def','Отложенная','КС+2,25%']], special: [['plain','Текущая','2,25%'],['plain','Капитализированная','2,25%']], menu: false, tip: true },
+    { comment: true,  rate: [['cur','Текущая','2,25%'],['cap','Капитализированная','КС+2,25%'],['def','Отложенная','2,25%']], special: [['plain','Текущая','КС+2,25%',expand],['plain','Капитализированная','2,25%']], menu: true, tip: false },
+    { comment: false, rate: [['cur','Текущая','2,25%'],['cap','Капитализированная','2,25%'],['def','Отложенная','2,25%']], special: [['plain','Текущая','2,25%'],['plain','Капитализированная','2,25%']], menu: false, tip: false }
+  ];
+  var html = cards.map(function (c, i) {
+    var rateBoxes = c.rate.map(function (b, j) {
+      var wrap = (c.tip && j === 0) ? 'style="position:relative"' : '';
+      var tip = (c.tip && j === 0) ? '<span class="tip tip--main tip--top tip--center" role="tooltip" style="position:absolute;left:60%;top:-52px;white-space:nowrap">Floor: 2%<br>Cap: 15%<span class="tip__arrow"></span></span>' : '';
+      return '<div ' + wrap + '>' + box('rate-box--' + b[0], b[1], b[2], b[3]) + tip + '</div>';
+    }).join('');
+    var specBoxes = c.special.map(function (b) { return box('rate-box--' + b[0], b[1], b[2], b[3]); }).join('');
+    var menu = c.menu ? '<div class="menu" role="menu" style="position:absolute;right:-8px;top:36px;z-index:20;min-width:160px"><button class="menu__item" role="menuitem"><span class="menu__item-label">Изменить</span></button><button class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-label">Удалить</span></button></div>' : '';
+    var comment = c.comment ? '<div class="rate-comment"><p class="rate-comment__k">Комментарий</p><p class="rate-comment__v">Очень длинный текст комментария в одну строку Очень длинный текст комментария в одну строку Очень длинный текст комментария в одну строкуОчень длинный текст комментария в одну строку Очень длинный …</p></div>' : '';
+    return '<section class="tile"><div class="tile__body" style="padding-top:20px">' +
+      '<div class="rate-card">' +
+        '<div class="rate-card__period"><span>01.01.2021—31.12.2021</span><span style="position:relative"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Действия"><i data-icon="more-dots"></i></button>' + menu + '</span></div>' +
+        '<div class="kvgrid" style="grid-column:1 / 5;grid-template-columns:repeat(4,auto);gap:0 40px;align-self:start">' + params() + '</div>' +
+        '<div class="rate-groups">' +
+          '<div><p class="rate-grouptitle">Ставка</p><div class="rate-boxes">' + rateBoxes + '</div></div>' +
+          '<div><p class="rate-grouptitle">Особая ставка на капитализированные проценты</p><div class="rate-boxes">' + specBoxes + '</div></div>' +
+        '</div>' +
+        comment +
+      '</div></div></section>';
+  }).join('');
+  document.getElementById('cards').innerHTML = html;
+})();
+</script>
+</body>
+</html>

@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="../../styles/label-helper.css">
 <link rel="stylesheet" href="../../styles/chip.css">
 <link rel="stylesheet" href="../../styles/tooltip.css">
+<link rel="stylesheet" href="../../styles/icon-button.css">
+<link rel="stylesheet" href="../../styles/button.css">
+<link rel="stylesheet" href="../../styles/datepicker.css">
 <link rel="stylesheet" href="../../styles/input.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
@@ -23,10 +26,10 @@
 <main class="page" data-screen-label="InputDate">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>12.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>21.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputDate</h1>
-    <p class="lead">Компонент ввода даты: поле с маской и кнопкой-календарём. При фокусе на поле поднимается DatePicker (календарь — отдельный компонент, будет описан позже). Построен на той же базе Input_Content, что и <a class="inl" href="InputText.html">InputText</a> и <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a>, — состояния и размеры общие.</p>
+    <p class="lead">Компонент ввода даты: поле с маской и кнопкой-календарём. При фокусе на поле или по кнопке-календарю поднимается <a class="inl" href="DatePicker.html">DatePicker</a>. Построен на той же базе Input_Content, что и <a class="inl" href="InputText.html">InputText</a> и <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a>, — состояния и размеры общие.</p>
   </header>
 
   <!-- PLAYGROUND -->
@@ -145,7 +148,9 @@
 
     <div class="subsec" data-screen-label="DatePicker">
       <h3>DatePicker</h3>
-      <p class="desc">При фокусе на поле под ним поднимается календарь DatePicker; клик по кнопке-календарю открывает его явно. Выбор даты в календаре записывает значение в поле и закрывает календарь. DatePicker — отдельный компонент дизайн-системы; его страница будет добавлена позже, здесь описан только контракт вызова.</p>
+      <p class="desc">При фокусе на поле под ним поднимается календарь DatePicker; клик по кнопке-календарю открывает его явно. Выбор даты в календаре записывает значение в поле (маска ММ.ДД.ГГГГ) и закрывает календарь. Календарь — компонент <a class="inl" href="DatePicker.html">DatePicker</a>; здесь он подключён рантаймом <code class="tok">ds-datepicker.js</code> — кликните по кнопке-календарю в примерах ниже.</p>
+      <div class="panel"><div class="demo-grid" id="beh-picker"></div></div>
+      <p class="desc" style="display:none;"></p>
     </div>
   </section>
 
@@ -246,7 +251,6 @@
     <h2>Что предлагаем добавить</h2>
     <p class="desc">Кейсы, которых нет в текущей документации:</p>
     <ul class="bullets">
-      <li>страница компонента DatePicker (календарь) — контракт вызова уже описан здесь;</li>
       <li>диапазон дат DateRange — два поля «От» / «До» с одним календарём;</li>
       <li>ввод времени (ЧЧ:ММ) — расширение маски.</li>
     </ul>
@@ -259,6 +263,7 @@
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-datepicker.js"></script>
 <script src="../../scripts/input-kit.js"></script>
 <script src="../../scripts/input-date.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>

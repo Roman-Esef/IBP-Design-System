@@ -1,0 +1,298 @@
+<!-- @dsCard group="Components" name="DatePicker" viewport="1440x900" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script>window.__DS_ROOT = '../../';</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DatePicker — Дизайн-система</title>
+<link rel="stylesheet" href="../../styles/typography.css">
+<link rel="stylesheet" href="../../styles/colors.css">
+<link rel="stylesheet" href="../../styles/radius.css">
+<link rel="stylesheet" href="../../styles/shadow.css">
+<link rel="stylesheet" href="../../styles/icon-button.css">
+<link rel="stylesheet" href="../../styles/button.css">
+<link rel="stylesheet" href="../../styles/datepicker.css">
+<link rel="stylesheet" href="../../styles/input-pages.css">
+<link rel="stylesheet" href="../../styles/ds-nav.css">
+<link rel="stylesheet" href="../../styles/ds-toc.css">
+<link rel="stylesheet" href="../../styles/pg-kit.css">
+</head>
+<body>
+<main class="page" data-screen-label="DatePicker">
+
+  <header class="masthead">
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>21.07.2026</b></span></div>
+    <p class="eyebrow">Дизайн-система · Компоненты</p>
+    <h1>DatePicker</h1>
+    <p class="lead">Календарь — всплывающая поверхность выбора даты или диапазона дат. Поднимается полями <a class="inl" href="InputDate.html">InputDate</a> и <a class="inl" href="InputDateRange.html">InputDateRange</a> при фокусе или по кнопке-календарю. Material-подход, собранный на токенах и шрифтах ДС. Неделя начинается с понедельника, локаль — русская.</p>
+  </header>
+
+  <!-- PLAYGROUND -->
+  <section class="section" data-screen-label="Playground">
+    <h2>Конструктор</h2>
+    <p class="desc">Соберите календарь: режим выбора и футер. Выбор живой — кликайте по дням, листайте месяцы стрелками, откройте выбор года кликом по заголовку.</p>
+    <div class="panel pg">
+      <div class="pg__controls" id="pg-controls"></div>
+      <div class="pg__stage" id="pg-stage"></div>
+    </div>
+    <p class="pg__code" id="pg-code"></p>
+  </section>
+
+  <!-- USAGE -->
+  <section class="section" data-screen-label="Usage">
+    <h2>Использование</h2>
+    <p class="desc">DatePicker — единственный способ выбора даты указателем. Он не вводится в поток формы сам по себе, а всплывает над полем InputDate / InputDateRange (floating) либо встраивается в панель или модалку (inline). С клавиатуры дату можно ввести и без календаря — прямо в поле по маске.</p>
+    <div class="panel">
+      <div class="use-grid">
+        <div class="use-block">
+          <div class="use-block__stage" id="use-single"></div>
+          <div class="use-block__cap">Одиночная дата — выбор одного дня для поля InputDate.</div>
+        </div>
+        <div class="use-block">
+          <div class="use-block__stage" id="use-range"></div>
+          <div class="use-block__cap">Диапазон — начало и конец периода для InputDateRange, промежуток подсвечен.</div>
+        </div>
+        <div class="use-block">
+          <div class="use-block__stage" id="use-inline"></div>
+          <div class="use-block__cap">Inline — встроенный в модалку/панель, с кнопками подтверждения.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsec" data-screen-label="WhenToUse">
+      <h3>Когда использовать</h3>
+      <ul class="bullets" style="margin-bottom:26px;">
+        <li>выбор конкретной даты указателем: подписание, транш, плановая дата;</li>
+        <li>выбор периода «с … по …» — режим диапазона для InputDateRange;</li>
+        <li>выбор месяца целиком (отчётный период) — режим «Месяц».</li>
+      </ul>
+      <p class="desc">Для ручного ввода одной даты по маске поле <a class="inl" href="InputDate.html">InputDate</a> достаточно и без открытия календаря. Выбор из справочника значений — <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a>, не календарь.</p>
+    </div>
+
+    <div class="subsec" data-screen-label="WhenNotToUse">
+      <h3>Когда не использовать</h3>
+      <ul class="bullets">
+        <li>для быстрого ввода известной даты, когда календарь только мешает, — оставьте ввод по маске в поле;</li>
+        <li>для выбора из 2–6 фиксированных периодов (Неделя / Месяц / Год) — это <a class="inl" href="SegmentControl.html">SegmentControl</a>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ANATOMY -->
+  <section class="section" data-screen-label="Anatomy">
+    <h2>Анатомия</h2>
+    <p class="desc">Поверхность из трёх зон: шапка с навигацией, сетка дней и опциональный футер с подтверждением.</p>
+    <div class="panel">
+      <div class="anat">
+        <div class="anat__stage" id="anat-diagram"></div>
+        <ul class="anat__legend">
+          <li><span class="n"></span><span class="t"><span class="k">Заголовок</span><span class="d"> — месяц и год; клик открывает выбор года → месяца</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Навигация</span><span class="d"> — стрелки «назад / вперёд» листают месяцы (<code class="tok">.ibtn</code>)</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Дни недели</span><span class="d"> — строка Пн…Вс, Body XS, <code class="tok">--text-inactive</code></span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Сетка дней</span><span class="d"> — 6×7 ячеек 40px; сегодня, выбор, диапазон, недоступно</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Футер</span><span class="d"> — опционально: «Сегодня» слева, «Отмена / Готово» справа</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- VARIANTS -->
+  <section class="section" data-screen-label="Variants">
+    <h2>Варианты</h2>
+    <p class="desc">Оси конфигурации: режим выбора, текущее представление и наличие футера.</p>
+
+    <div class="subsec" data-screen-label="Modes">
+      <h3>Режимы выбора</h3>
+      <p class="desc">Одиночная дата, диапазон дат и выбор месяца целиком.</p>
+      <div class="panel"><div class="demo-grid" id="var-modes-grid">
+        <span id="var-single"></span><span id="var-range"></span><span id="var-month"></span>
+      </div></div>
+    </div>
+
+    <div class="subsec" data-screen-label="Views">
+      <h3>Представления</h3>
+      <p class="desc">Три внутренних представления одной поверхности: дни, месяцы, годы. Переключаются кликом по заголовку и стрелками.</p>
+      <div class="panel"><div class="demo-grid" id="var-views-grid">
+        <span id="var-view-day"></span><span id="var-view-month"></span><span id="var-view-year"></span>
+      </div></div>
+    </div>
+
+    <div class="subsec" data-screen-label="Footer">
+      <h3>С футером и без</h3>
+      <p class="desc">Без футера выбор применяется сразу (docked). Футер добавляют, когда нужно подтверждение (Отмена / Готово) или быстрый переход к сегодняшней дате.</p>
+      <div class="panel"><div class="demo-grid" id="var-foot-grid">
+        <span id="var-foot-none"></span><span id="var-foot-btns"></span><span id="var-foot-quick"></span>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- SIZES -->
+  <section class="section" data-screen-label="Sizes">
+    <h2>Размеры</h2>
+    <p class="desc">Один размер поверхности: фиксированная ширина 304px (7 ячеек по 40px + паддинг 12px), ячейка дня 40×40, кружок числа 36px. Меняется не размер, а способ размещения: floating (всплывает над полем, с тенью) и inline (встроен в контейнер, без тени, с рамкой).</p>
+    <div class="panel"><div class="demo-grid" id="sizes-grid">
+      <span id="sizes-floating"></span><span id="sizes-inline"></span>
+    </div></div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="section" data-screen-label="Content">
+    <h2>Контент</h2>
+    <p class="desc tight">Правила контента:</p>
+    <ul class="bullets" style="margin-bottom:26px;">
+      <li>неделя начинается с <b>понедельника</b>, дни недели — двухбуквенные (Пн…Вс);</li>
+      <li>заголовок — месяц в именительном падеже и год: «Октябрь 2025»;</li>
+      <li>дни соседних месяцев показываются приглушённо и остаются кликабельными (переводят на свой месяц);</li>
+      <li>границы <code class="tok">min</code> / <code class="tok">max</code> делают даты вне диапазона недоступными (disabled), а не скрывают их.</li>
+    </ul>
+    <div class="panel"><div class="demo-grid" id="content-demo-grid"><span id="content-demo"></span></div></div>
+    <p class="desc" style="margin-top:16px;">Здесь доступны только дни с 3 по 27 октября — остальные недоступны.</p>
+  </section>
+
+  <!-- BEHAVIOR -->
+  <section class="section" data-screen-label="Behavior">
+    <h2>Поведение</h2>
+    <p class="desc">Навигация по периодам, выбор диапазона и позиционирование относительно поля.</p>
+
+    <div class="subsec" data-screen-label="Navigation">
+      <h3>Навигация</h3>
+      <p class="desc">Стрелки листают на месяц назад / вперёд. Клик по заголовку открывает выбор года, затем месяца (представления year → month → day). В представлении года стрелки листают на 12 лет.</p>
+      <div class="panel"><div class="demo-grid" id="beh-nav-grid"><span id="beh-nav"></span></div></div>
+    </div>
+
+    <div class="subsec" data-screen-label="RangeSelection">
+      <h3>Выбор диапазона</h3>
+      <p class="desc">Первый клик задаёт начало (конец сбрасывается), второй — конец. Клик по дате раньше начала перезапускает выбор с новой начальной даты. Промежуток между концами подсвечивается полосой <code class="tok">--primary-bg</code>.</p>
+      <div class="panel"><div class="demo-grid" id="beh-range-grid"><span id="beh-range"></span></div></div>
+    </div>
+
+    <div class="subsec" data-screen-label="Positioning">
+      <h3>Позиционирование</h3>
+      <p class="desc">В режиме floating календарь всплывает под полем с зазором и авто-разворотом вверх, если внизу не хватает места, — приём идентичен <a class="inl" href="../organisms/Popover.html">Popover</a> (<code class="tok">role="dialog"</code>, <code class="tok">aria-modal="false"</code>). Одновременно открыт только один календарь. В режиме inline поверхность встроена в контейнер и не позиционируется.</p>
+    </div>
+  </section>
+
+  <!-- STATES -->
+  <section class="section" data-screen-label="States">
+    <h2>Состояния</h2>
+    <p class="desc">Состояния — на уровне ячейки дня. Наведение даёт мягкую заливку кружка, сегодня — обводка <code class="tok">--primary</code>, выбор и концы диапазона — заливка <code class="tok">--primary</code> с белым числом, промежуток — полоса, недоступные даты приглушены и не реагируют.</p>
+    <div class="panel"><div class="demo-grid" id="states-demo"></div></div>
+  </section>
+
+  <!-- ACCESSIBILITY -->
+  <section class="section" data-screen-label="A11y">
+    <h2>Доступность</h2>
+    <p class="desc">Поверхность — <code class="tok">role="dialog"</code> с <code class="tok">aria-modal="false"</code> и <code class="tok">aria-label="Выбор даты"</code>. Сетка — <code class="tok">role="grid"</code>, ячейки — <code class="tok">role="gridcell"</code> с полным <code class="tok">aria-label</code> даты («15 октября 2025»), выбранная несёт <code class="tok">aria-selected="true"</code>. Недоступные — <code class="tok">aria-disabled="true"</code>. Стрелки и заголовок — настоящие кнопки с <code class="tok">aria-label</code>.</p>
+    <div class="panel" style="max-width:640px;">
+      <p class="desc tight" style="margin-bottom:18px;">Клавиатура</p>
+      <table class="ref-table"><tbody>
+        <tr><td style="width:220px;"><kbd>←</kbd> <kbd>→</kbd></td><td class="dsc">предыдущий / следующий день</td></tr>
+        <tr><td><kbd>↑</kbd> <kbd>↓</kbd></td><td class="dsc">та же дата неделей раньше / позже</td></tr>
+        <tr><td><kbd>PageUp</kbd> / <kbd>PageDown</kbd></td><td class="dsc">предыдущий / следующий месяц</td></tr>
+        <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td class="dsc">начало / конец недели</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td class="dsc">выбрать дату в фокусе</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td class="dsc">закрыть календарь, фокус возвращается в поле</td></tr>
+      </tbody></table>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" data-screen-label="Typography">
+    <h2>Типографика</h2>
+    <p class="desc">Заголовок — <b>SB Sans Text</b> Body S Strong; числа и ячейки — Body S с табличными цифрами; дни недели — Body XS.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table" id="typo-table">
+        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- COLORS -->
+  <section class="section" data-screen-label="Colors">
+    <h2>Цвета</h2>
+    <p class="desc">Только семантические токены. Поверхность — <code class="tok">--bg-popup</code> с тенью <code class="tok">--elevation-5</code>; выбор и концы диапазона — <code class="tok">--primary</code>; промежуток — <code class="tok">--primary-bg</code>; сегодня — обводка <code class="tok">--primary</code>.</p>
+    <div class="color-ref" id="color-ref"></div>
+  </section>
+
+  <!-- DEVELOPER HANDOFF -->
+  <section class="section" data-screen-label="Dev">
+    <h2>Для разработчиков</h2>
+    <p class="desc">Хендофф-пакет: точные размеры поверхности и алгоритм построения сетки/выбора. Календарь framework-agnostic — верстка на токенах, логика описана псевдокодом.</p>
+
+    <p class="subhead">Точные размеры (redline)</p>
+    <p class="desc tight">Значения измерены на живом экземпляре (<code class="tok">getComputedStyle</code>), источник — токены в <code class="tok">styles/datepicker.css</code>.</p>
+    <div class="panel" style="padding:8px 10px; margin-bottom:34px;">
+      <table class="dev-table" id="dev-spec-table">
+        <thead><tr><th>Параметр</th><th>Значение</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="dev-intro">
+      <span class="req">Подключить (если переиспользуете этот CSS напрямую):</span>
+      <code class="tok">styles/typography.css</code>
+      <code class="tok">styles/colors.css</code>
+      <code class="tok">styles/radius.css</code>
+      <code class="tok">styles/shadow.css</code>
+      <code class="tok">styles/icon-button.css</code>
+      <code class="tok">styles/button.css</code>
+      <code class="tok">styles/datepicker.css</code>
+    </div>
+
+    <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
+<div class="code-panel">
+      <div class="code-panel__head">
+        <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
+        <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
+      </div>
+      <pre><code id="code-js"><span class="tk-cm">// 1. Сетка: firstOfMonth; lead = (firstOfMonth.weekday + 6) % 7 (Пн = 0);</span>
+<span class="tk-cm">//    gridStart = firstOfMonth − lead дней; рисуем 42 ячейки (6 недель).</span>
+<span class="tk-cm">//    Ячейка вне текущего месяца → класс outside (приглушённая).</span>
+
+<span class="tk-cm">// 2. Классы дня: today (обводка), selected (заливка), disabled (min/max),</span>
+<span class="tk-cm">//    range-start / range-end (заливка) + in-range (полоса между концами).</span>
+
+<span class="tk-cm">// 3. Выбор диапазона: клик1 → start, end = null; клик2 → если дата < start,</span>
+<span class="tk-cm">//    то start = дата (перезапуск), иначе end = дата.</span>
+
+<span class="tk-cm">// 4. Навигация: стрелки ±1 месяц (в day), ±1 год (в month), ±12 лет (в year).</span>
+<span class="tk-cm">//    Заголовок: day → year → month → day.</span>
+
+<span class="tk-cm">// 5. Позиционирование (floating): под полем, зазор 8px, авто-flip вверх,</span>
+<span class="tk-cm">//    как Popover; один открытый календарь; Esc — закрыть, фокус в поле.</span>
+
+<span class="tk-cm">// 6. Клавиатура: стрелки — по дням/неделям, PageUp/Down — месяц,</span>
+<span class="tk-cm">//    Home/End — неделя, Enter/Space — выбрать, Esc — закрыть.</span></code></pre>
+    </div>
+
+    </section>
+
+  <!-- BACKLOG -->
+  <div class="backlog" data-screen-label="Backlog">
+    <h2>Что предлагаем добавить</h2>
+    <p class="desc">Кейсы, которых пока нет в компоненте:</p>
+    <ul class="bullets">
+      <li>пресеты диапазонов (Сегодня, 7 дней, Месяц, Квартал) колонкой слева от сетки;</li>
+      <li>двухмесячная раскладка для выбора длинных диапазонов;</li>
+      <li>выбор времени (ЧЧ:ММ) под сеткой — DateTimePicker;</li>
+      <li>подсветка диапазона по наведению (hover-preview) до второго клика.</li>
+    </ul>
+  </div>
+
+  <footer class="page-foot">
+    <span>Дизайн-система · DatePicker</span>
+    <span>single / range / month · day / month / year · footer · min-max · Material в токенах ДС</span>
+  </footer>
+</main>
+
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/ds-datepicker.js"></script>
+<script src="../../scripts/datepicker.page.js"></script>
+<script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-toc.js"></script>
+<script src="../../scripts/pg-kit.js"></script>
+</body>
+</html>

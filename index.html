@@ -394,7 +394,7 @@
 
   <!-- MOLECULES -->
   <section class="sec" data-screen-label="Molecules">
-    <div class="sec-head"><h2>Молекулы</h2><span class="n">18 компонентов</span></div>
+    <div class="sec-head"><h2>Молекулы</h2><span class="n">19 компонентов</span></div>
     <div class="grid">
       <a class="card" href="pages/molecules/Alert.html">
         <div class="card__preview">
@@ -459,6 +459,34 @@
           <h3 class="card__title">Context Menu</h3>
           <p class="card__desc">Всплывающий список действий над объектом — вызывается с kebab-кнопки в шапке таблицы, строке или карточке. Иконки, горячие клавиши, подменю, деструктивные пункты.</p>
           <div class="card__meta"><span class="tag">Молекулы</span><span class="tag file">ContextMenu.html</span></div>
+          <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="pages/molecules/DatePicker.html">
+        <div class="card__preview">
+          <div style="transform:scale(.64); transform-origin:center; pointer-events:none;">
+            <div class="dpk" style="box-shadow:none; border:1px solid var(--border-light);">
+              <div class="dpk__head">
+                <span class="dpk__caption"><span class="dpk__cap-text">Октябрь 2025</span><span class="dpk__cap-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></span>
+                <span class="dpk__nav">
+                  <span class="ibtn ibtn--neutral ibtn--s"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+                  <span class="ibtn ibtn--neutral ibtn--s"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+                </span>
+              </div>
+              <div class="dpk__weekdays"><span class="dpk__weekday">Пн</span><span class="dpk__weekday">Вт</span><span class="dpk__weekday">Ср</span><span class="dpk__weekday">Чт</span><span class="dpk__weekday">Пт</span><span class="dpk__weekday">Сб</span><span class="dpk__weekday">Вс</span></div>
+              <div class="dpk__grid">
+                <span class="dpk__day"><span class="dpk__daynum">6</span></span><span class="dpk__day"><span class="dpk__daynum">7</span></span><span class="dpk__day dpk__day--range-start"><span class="dpk__daynum">8</span></span><span class="dpk__day dpk__day--in-range"><span class="dpk__daynum">9</span></span><span class="dpk__day dpk__day--in-range"><span class="dpk__daynum">10</span></span><span class="dpk__day dpk__day--in-range"><span class="dpk__daynum">11</span></span><span class="dpk__day dpk__day--range-end"><span class="dpk__daynum">12</span></span>
+                <span class="dpk__day"><span class="dpk__daynum">13</span></span><span class="dpk__day"><span class="dpk__daynum">14</span></span><span class="dpk__day dpk__day--today"><span class="dpk__daynum">15</span></span><span class="dpk__day"><span class="dpk__daynum">16</span></span><span class="dpk__day"><span class="dpk__daynum">17</span></span><span class="dpk__day"><span class="dpk__daynum">18</span></span><span class="dpk__day"><span class="dpk__daynum">19</span></span>
+                <span class="dpk__day"><span class="dpk__daynum">20</span></span><span class="dpk__day dpk__day--selected"><span class="dpk__daynum">21</span></span><span class="dpk__day"><span class="dpk__daynum">22</span></span><span class="dpk__day"><span class="dpk__daynum">23</span></span><span class="dpk__day"><span class="dpk__daynum">24</span></span><span class="dpk__day"><span class="dpk__daynum">25</span></span><span class="dpk__day"><span class="dpk__daynum">26</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">DatePicker</h3>
+          <p class="card__desc">Календарь для InputDate / InputDateRange: выбор даты, диапазона или месяца. Представления день / месяц / год, футер с подтверждением, границы min-max. Конструктор внутри.</p>
+          <div class="card__meta"><span class="tag">Молекулы</span><span class="tag file">DatePicker.html</span></div>
           <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
@@ -861,6 +889,13 @@
     </div>
   </section>
 
+  <!-- SCREENS -->
+  <section class="sec" data-screen-label="Screens">
+    <div class="sec-head"><h2>Примеры экранов</h2><span class="n">9 экранов</span></div>
+    <p style="font:var(--type-body-m);color:var(--text-secondary);margin:-12px 0 24px;max-width:760px">Реальные экраны продукта, собранные из компонентов и токенов ДС — как эталон применения. Не живой интерфейс: часть данных условна, а отсутствующие пока компоненты (график CashFlow, allocation-бар, AI-панель) показаны заглушками-плейсхолдерами.</p>
+    <div class="grid" id="screensGrid"></div>
+  </section>
+
   <footer class="foot">
     <span>Дизайн-система · Обзор</span>
     <span>Обновлено 03.07.2026</span>
@@ -1154,6 +1189,54 @@
         '<div class="pbar__track"><div class="pbar__fill" style="width:'+val+'%;"></div></div></div>';
     }
     host.innerHTML = bar('accent',65) + bar('success',90) + bar('warning',45) + bar('error',20);
+  })();
+
+  // screens grid
+  (function(){
+    const host = document.getElementById('screensGrid'); if(!host) return;
+    const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    const S = [
+      ['01','01-Portfolio.html','Текущий портфель ДИД','Реестр сделок: широкая таблица со статусами всех служб, закреплённые колонки и пагинация.','table'],
+      ['02','02-Deal.html','Карточка сделки','Детальная страница сделки: КНР, сроки, команда, финансовые метрики, дерево продуктов и финансовые инструменты.','deal'],
+      ['02v2','02-Deal-v2.html','Карточка сделки (v2)','Пересборка по новому процессу: компоненты ДС (Tile, ReadOnlyField, RiskMetric), плотность с макета, сверка на 1920.','deal'],
+      ['03','03-DealFixModal.html','Фиксация ЭПС/ВБС','Та же карточка сделки с открытой модальной формой фиксации ЭПС/ВБС по финансовому инструменту.','modal'],
+      ['04','04-Metrics.html','Финансовые метрики','Матрица метрик по инструментам: закреплённая колонка, группировка строк, даты-колонки с прокруткой.','matrix'],
+      ['05','05-Instrument.html','ФИ: Доп. доходность','Карточка финансового инструмента: данные ФИ, инструменты с тултипом, ID и счета 1С.','deal'],
+      ['06','06-RateSchemes.html','Процентные схемы','Список схем по периодам: цветные боксы ставок, тултип Floor/Cap, контекст-меню и стек тостов.','cards'],
+      ['07','07-CashFlow.html','Прогноз CashFlow','Прогноз денежного потока: график-заглушка с подсказкой, сводные карточки и правый агрегатор.','chart'],
+      ['08','08-Payments.html','Плановые платежи','Таблица платежей с чекбоксами строк, статусами, действием в строке и панелью групповых операций.','table'],
+      ['09','09-CorpRequest.html','Корпоративный запрос','Карточка корпзапроса с блоками общей информации и закреплённой правой AI-панелью.','ai']
+    ];
+    function thumb(kind){
+      const b='background:var(--border-light);border-radius:3px', a='background:var(--secondary);border-radius:3px', g='background:var(--bgtable-pinned);border-radius:4px';
+      const rail='<span style="width:18px;'+b+';align-self:stretch"></span>';
+      let body='';
+      if(kind==='table'||kind==='matrix'){
+        body='<span style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="height:12px;width:45%;'+a+'"></span>'+Array(5).fill('<span style="height:9px;'+b+'"></span>').join('')+'</span>';
+      } else if(kind==='chart'){
+        body='<span style="flex:1;display:flex;gap:6px"><span style="flex:1;'+g+';display:flex;align-items:flex-end;gap:3px;padding:8px">'+[30,55,40,70,50,65].map(h=>'<span style="flex:1;height:'+h+'%;'+a+'"></span>').join('')+'</span><span style="width:34px;display:flex;flex-direction:column;gap:4px">'+Array(6).fill('<span style="height:8px;'+b+'"></span>').join('')+'</span></span>';
+      } else if(kind==='ai'){
+        body='<span style="flex:1;display:flex;gap:6px"><span style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="height:11px;width:50%;'+a+'"></span><span style="flex:1;'+g+'"></span></span><span style="width:40px;'+g+';border:1px solid var(--st-dpurple);border-radius:4px"></span></span>';
+      } else if(kind==='modal'){
+        body='<span style="flex:1;position:relative;'+g+'"><span style="position:absolute;inset:14px 10px;background:var(--bg-tile);border:1px solid var(--border-primary);border-radius:5px;box-shadow:0 6px 16px rgba(40,50,55,.14)"></span></span>';
+      } else if(kind==='cards'){
+        body='<span style="flex:1;display:flex;flex-direction:column;gap:6px">'+Array(3).fill('<span style="height:20px;'+g+'"></span>').join('')+'</span>';
+      } else {
+        body='<span style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">'+Array(6).fill('<span style="'+g+'"></span>').join('')+'</span>';
+      }
+      return '<div style="width:100%;max-width:280px;height:124px;display:flex;gap:8px;padding:12px;background:var(--bg-tile);border:1px solid var(--border-light);border-radius:8px">'+rail+body+'</div>';
+    }
+    host.innerHTML = S.map(s=>
+      '<a class="card" href="pages/screens/'+s[1]+'">'+
+        '<div class="card__preview">'+thumb(s[4])+'</div>'+
+        '<div class="card__body">'+
+          '<h3 class="card__title"><span class="tag" style="background:var(--secondary);color:#fff">'+s[0]+'</span>'+s[2]+'</h3>'+
+          '<p class="card__desc">'+s[3]+'</p>'+
+          '<div class="card__meta"><span class="tag">Экраны</span><span class="tag file">'+s[1]+'</span></div>'+
+          '<span class="card__go">Открыть экран '+arrow+'</span>'+
+        '</div>'+
+      '</a>'
+    ).join('');
   })();
 </script>
 </body>

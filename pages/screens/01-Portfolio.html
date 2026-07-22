@@ -1,0 +1,154 @@
+<!-- @dsCard group="Примеры экранов" viewport="1440x900" name="01 · Текущий портфель ДИД" subtitle="Реестр сделок: широкая таблица со статусами, закреплённые колонки, пагинация" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Текущий портфель ДИД — Пример экрана</title>
+<link rel="stylesheet" href="../../ds.css">
+<link rel="stylesheet" href="../../styles/screens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { margin: 0; font-family: var(--font-text), system-ui, sans-serif; color: var(--text-primary); }
+  a { color: var(--primary); } a:hover { color: var(--primary-dark); }
+  .p01-num { color: var(--text-primary); }
+</style>
+</head>
+<body>
+<div class="scr">
+  <aside class="scr__rail" data-screen-rail data-active="main-page" data-avatar="ИБ"></aside>
+
+  <div class="scr__main">
+    <div class="ws ws--fill" data-screen-label="Текущий портфель ДИД">
+
+      <div class="ws__top">
+        <nav class="crumbs ws__crumbs" aria-label="Хлебные крошки">
+          <span class="crumbs__item"><a class="link link--muted" href="../../index.html">Главная</a></span>
+          <span class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">Текущий портфель ДИД</span></span>
+        </nav>
+        <div class="phead ws__head">
+          <div class="phead__main">
+            <div class="phead__title-row">
+              <div class="phead__title-group"><h1 class="phead__title">Текущий портфель ДИД</h1></div>
+            </div>
+          </div>
+          <div class="phead__actions">
+            <button type="button" class="btn btn--accent btn--m"><i data-icon="add"></i><span class="btn__label">Новая сделка</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ws__toolbar">
+        <div class="tfilter" role="group" aria-label="Фильтр таблицы">
+          <div class="tfilter__trigger">
+            <button class="btn btn--outline btn--xs" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dt-wrap">
+        <div class="dt-scroll">
+          <table class="dt" id="p01">
+            <thead>
+              <tr>
+                <th class="pin" style="left:0;min-width:150px"><span class="th-row"><span>Номер<br>сделки</span><span class="th-pin"><i data-icon="pin"></i></span></span></th>
+                <th class="pin pin--edge" style="left:150px;min-width:220px"><span class="th-row"><span>Наименование сделки</span><span class="th-pin"><i data-icon="pin"></i></span></span></th>
+                <th style="min-width:190px"><span class="th-row"><span>Статус</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:190px"><span class="th-row"><span>Статус ЦУП</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:200px"><span class="th-row"><span>Статус Operations</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:210px"><span class="th-row"><span>Статус Мониторинг</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:150px"><span class="th-row"><span>Ограниченный доступ</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:140px"><span class="th-row"><span>Деск</span></span></th>
+                <th style="min-width:130px"><span class="th-row"><span>Балансы<br>сделки</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:120px"><span class="th-row"><span>Private<br>Equity</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:160px"><span class="th-row"><span>Основной&nbsp;тип</span><span class="th-sort"><i data-icon="sort"></i></span></span></th>
+                <th style="min-width:48px;width:48px"></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ws__pager">
+        <div class="pgn-row">
+          <div class="pgn-row__left"></div>
+          <div class="pgn-row__right">
+            <div class="pgn">
+              <button class="pgn__pagesize" aria-haspopup="listbox">Показывать строк: <b>50</b> <i data-icon="chevron-down"></i></button>
+              <span class="pgn__range">1 из 16</span>
+              <nav class="pgn__nav" aria-label="Страницы">
+                <button class="pgn__arrow" aria-label="Предыдущая страница"><i data-icon="chevron-left"></i></button>
+                <button class="pgn__num">1</button>
+                <button class="pgn__num">2</button>
+                <button class="pgn__num" aria-current="page">3</button>
+                <span class="pgn__ellipsis" aria-hidden="true">…</span>
+                <button class="pgn__num">14</button>
+                <button class="pgn__num">15</button>
+                <button class="pgn__num">16</button>
+                <button class="pgn__arrow" aria-label="Следующая страница"><i data-icon="chevron-right"></i></button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/screens-chrome.js"></script>
+<script>
+(function () {
+  // [Статус, ЦУП, Operations, Мониторинг] = [текст, тон]
+  var N=['Черновик','neutral'], A=['Активная','success'], U=['Утверждена','success'], Un=['Утверждена','neutral'],
+      OP=['Ожидает подтверждения','warning'], K=['Корректировка','info'], PG=['Погашена','purple'],
+      VV=['Ввод изменений','info'], PI=['Подтверждение изменений','warning'], KI=['Корректировка изменений','info'],
+      NA=['На утверждении','warning'], MG=['На мониторинге ГК СБ','success'], OT=['Ожидает передачи на','warning'];
+  var rows = [
+    [N, N, N, NA],
+    [N, N, N, NA],
+    [N, N, N, NA],
+    [A, U, U, Un],
+    [A, U, U, MG],
+    [OP, OP, OP, NA],
+    [K, K, K, OT],
+    [PG, PG, PG, PG],
+    [VV, VV, VV, OT],
+    [PI, N, N, NA],
+    [KI, N, N, NA],
+    [A, N, N, NA],
+    [N, N, N, NA],
+    [N, N, N, NA],
+    [N, N, N, NA],
+    [N, N, N, NA],
+    [N, N, N, NA]
+  ];
+  function pill(st, mark) {
+    var m = mark ? '<span class="st__mark">'+mark+'</span>' : '';
+    return '<span class="st st--'+st[1]+'">'+m+'<span class="st__txt">'+st[0]+'</span></span>';
+  }
+  var tb = document.querySelector('#p01 tbody');
+  tb.innerHTML = rows.map(function (r) {
+    return '<tr>' +
+      '<td class="pin p01-num" style="left:0">123456</td>' +
+      '<td class="pin pin--edge" style="left:150px">ПАО Агрокомплекс</td>' +
+      '<td>'+pill(r[0], null)+'</td>' +
+      '<td>'+pill(r[1], 'Ц')+'</td>' +
+      '<td>'+pill(r[2], 'О')+'</td>' +
+      '<td>'+pill(r[3], 'М')+'</td>' +
+      '<td></td>' +
+      '<td class="muted">Природные…</td>' +
+      '<td class="muted">СБИ, SBIL</td>' +
+      '<td><span class="st st--warning" style="height:20px;padding:0 8px;font:var(--type-body-xs)">PE</span></td>' +
+      '<td class="muted">Акционерн…</td>' +
+      '<td style="text-align:center"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Действия"><i data-icon="more-dots"></i></button></td>' +
+    '</tr>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
