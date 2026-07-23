@@ -24,7 +24,7 @@
 <main class="page" data-screen-label="InputAmountRange">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>12.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputAmountRange</h1>
     <p class="lead">Поле ввода числового диапазона: два <a class="inl" href="InputText.html">InputAmount</a> с префиксами «От» / «До», размещённых горизонтально и соединённых линией Range_Line. Общая метка сверху и общий хелпер снизу. Каждое поле — самостоятельный экземпляр со своими состояниями. Стандартная высота поля 40px; размера S у InputAmountRange нет.</p>
@@ -53,7 +53,7 @@
         </div>
         <div class="use-block">
           <div class="use-block__stage" id="use-empty"></div>
-          <div class="use-block__cap">Пустой диапазон — оба поля показывают плейсхолдер «Amount».</div>
+          <div class="use-block__cap">Пустой диапазон — оба поля пустые, без плейсхолдера.</div>
         </div>
         <div class="use-block">
           <div class="use-block__stage" id="use-one"></div>
@@ -119,7 +119,7 @@
     <p class="desc tight">Правила контента:</p>
     <ul class="bullets" style="margin-bottom:26px;">
       <li>префикс «От» / «До» присутствует всегда — обозначает начало и конец диапазона, неизменяем;</li>
-      <li>пустое поле показывает плейсхолдер «Amount» — отдельный плейсхолдер-текст не пишется;</li>
+      <li>пустое поле остаётся без плейсхолдера — отдельный плейсхолдер-текст не пишется;</li>
       <li>метка — существительное с единицей: «Сумма, ₽», не «Введите сумму»;</li>
       <li>хелпер — правило заполнения; в состоянии Error заменяется текстом ошибки.</li>
     </ul>

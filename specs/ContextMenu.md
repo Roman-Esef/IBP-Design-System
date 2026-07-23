@@ -1,8 +1,8 @@
 ---
 component: ContextMenu
 title: "Context Menu"
-version: "v1.1"
-updated: "13.07.2026"
+version: "v1.3"
+updated: "22.07.2026"
 page: pages/molecules/ContextMenu.html
 page_js: scripts/context-menu.page.js
 css: styles/context-menu.css
@@ -124,6 +124,6 @@ interface ContextMenuProps {
 | .menu__item--sub | div | Пункт с подменю (каретка ›, .menu__sub внутри) |
 | .menu__item-icon / -label / -hint / -caret / -check | span | Части пункта: иконка, подпись, горячая клавиша, каретка, галочка |
 | .menu__label | div | Заголовок группы (Body XS uppercase) |
-| .menu__divider | hr | Разделитель между группами |
+| .menu__divider | hr | Разделитель между группами — линия переиспользует токены Divider (--dvd-color / --dvd-thickness) |
 | .is-hover / .is-focus / .is-active | пункт | Принудительные состояния (для доков/тестов) |
 | role / aria-haspopup / aria-expanded / aria-checked / aria-disabled | меню, триггер, пункт | Доступность: семантика меню и его состояний |

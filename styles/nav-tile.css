@@ -12,54 +12,55 @@
    (а не ширины окна) — корректно и на полноширинной главной странице,
    и в узкой демо-панели документации. */
 .ntile-grid {
-  container-type: inline-size;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 16px;
 }
-.ntile-grid > .ntile { grid-column: span 3; }
-
-@container (max-width: 1100px) { .ntile-grid > .ntile { grid-column: span 4; } }
-@container (max-width: 700px)  { .ntile-grid > .ntile { grid-column: span 6; } }
-@container (max-width: 450px)  { .ntile-grid > .ntile { grid-column: span 12; } }
 
 /* ---------- плитка ----------
-   Горизонтальная раскладка: текст слева, иллюстрация справа. */
+   Горизонтальная раскладка: текст слева, иллюстрация справа —
+   фиксированного размера 195×140, прижата к правому краю и закреплена
+   от верха (не центр по вертикали) — при росте тайла остаётся на месте. */
 .ntile {
-  --ntile-pad: 24px;
-  --ntile-illu: 96px;
+  --ntile-pad: 32px;
+  --ntile-illu-w: 195px;
+  --ntile-illu-h: 140px;
+  min-width: 400px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  min-height: 140px;
+  width: 442px;
+  min-height: 188px;
   padding: var(--ntile-pad);
-  padding-right: calc(var(--ntile-pad) + var(--ntile-illu) + 16px);
+  padding-right: 160px; /* чуть меньше ширины иллюстрации — текст может чуть перекрывать картинку, это нормально */
   background: var(--bg-tile);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-control);
   text-decoration: none;
   color: var(--text-primary);
   transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
+/* внутри адаптивной сетки плитка тянется на ширину колонки — 483×253 это размер по умолчанию вне сетки */
+.ntile-grid > .ntile { width: auto; }
 
 /* ---------- части ---------- */
 .ntile__illu {
   position: absolute;
-  right: var(--ntile-pad);
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: var(--ntile-illu);
-  height: var(--ntile-illu);
+  width: var(--ntile-illu-w);
+  height: var(--ntile-illu-h);
 }
 .ntile__title {
-  font: var(--type-h5-strong);
+  font: var(--type-h4-strong);
   color: var(--text-primary);
   margin: 0;
 }
 .ntile__desc {
-  font: var(--type-body-s);
+  font: var(--type-body-m);
   color: var(--text-secondary);
   margin: 0;
 }
@@ -67,9 +68,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 16px;
+  gap: 8px;
 }
 
 /* заголовок-ссылка в варианте --links */

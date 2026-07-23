@@ -17,8 +17,8 @@
             (см. RiskMetric — Чёрная зона).
    States:  default · hover · selected ← proposed · focus ← proposed
             disabled · loading ← proposed · error/invalid ← proposed
-   Slots:   leading icon / marker / badge / avatar · trailing remove (×) /
-            dropdown (chevron) / info-trigger (открывает Popover) ← proposed / counter
+   Slots:   leading icon / marker / avatar (компонент Avatar) · trailing remove (×) /
+            dropdown (chevron) / info-trigger (Popover) / counter
    Extras:  rounded (999px pill) · max-width 320px → ellipsis + tooltip
    Requires: typography.css, colors.css
    ========================================================================= */
@@ -93,22 +93,24 @@
 /* leading marker (graph-node / status dot proxy) */
 .chip__marker { color: var(--chip-icon-color); }
 
-/* mini leading avatar / badge — sits flush to the left edge */
-.chip__avatar,
-.chip__badge {
+/* mini leading avatar — переиспользует компонент Avatar (.av): форма и слоты
+   содержимого (text / icon / image), уменьшен под размер чипа. */
+.chip__avatar {
   flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: calc(var(--chip-height) - 6px);
   height: calc(var(--chip-height) - 6px);
-  margin-left: calc(0px - (var(--chip-pad-x) - 4px));
   border-radius: var(--radius-circle);
   background: var(--st-system-midlight);
   color: inherit;
   font: var(--weight-semibold) 10px/1 var(--font-text);
   overflow: hidden;
 }
+.chip__avatar .av__text { display: block; }
+.chip__avatar .av__icon { width: 62%; height: 62%; }
+.chip__avatar .av__img,
 .chip__avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 /* trailing counter — «(3)» style numeric suffix */
@@ -164,11 +166,27 @@
 .chip--s .chip__icon, .chip--s .chip__marker, .chip--s .chip__remove, .chip--s .chip__dropdown, .chip--s .chip__info, .chip--s .chip__spinner { width: 16px; height: 16px; }
 .chip--xs .chip__icon, .chip--xs .chip__marker, .chip--xs .chip__remove, .chip--xs .chip__dropdown, .chip--xs .chip__info, .chip--xs .chip__spinner { width: 16px; height: 16px; }
 
-/* per-size leading avatar / badge (mirror calc(--chip-height - 6) + margin from --chip-pad-x) */
-.chip--l .chip__avatar, .chip--l .chip__badge { width: 34px; height: 34px; margin-left: -10px; }
-.chip--m .chip__avatar, .chip--m .chip__badge { width: 26px; height: 26px; margin-left: -8px; }
-.chip--s .chip__avatar, .chip--s .chip__badge { width: 18px; height: 18px; margin-left: -6px; }
-.chip--xs .chip__avatar, .chip--xs .chip__badge { width: 14px; height: 14px; margin-left: -4px; }
+/* per-size leading avatar (mirror calc(--chip-height - 6)) */
+.chip--l .chip__avatar { width: 34px; height: 34px; }
+.chip--m .chip__avatar { width: 26px; height: 26px; }
+.chip--s .chip__avatar { width: 18px; height: 18px; }
+.chip--xs .chip__avatar { width: 14px; height: 14px; }
+
+/* ---------- padding по слотам (как у кнопок) ------------------------------ *
+   Сторона с иконкой/маркером/аватаром/действием получает меньший паддинг, чем
+   текстовая сторона. Значение — своё на каждый размер; аватар прижат сильнее. */
+.chip--l:has(.chip__marker), .chip--l:has(.chip__icon), .chip--l:has(.chip__spinner) { padding-left: 10px; }
+.chip--m:has(.chip__marker), .chip--m:has(.chip__icon), .chip--m:has(.chip__spinner) { padding-left: 8px; }
+.chip--s:has(.chip__marker), .chip--s:has(.chip__icon), .chip--s:has(.chip__spinner) { padding-left: 6px; }
+.chip--xs:has(.chip__marker), .chip--xs:has(.chip__icon), .chip--xs:has(.chip__spinner) { padding-left: 5px; }
+.chip--l:has(.chip__avatar) { padding-left: 6px; }
+.chip--m:has(.chip__avatar) { padding-left: 5px; }
+.chip--s:has(.chip__avatar) { padding-left: 4px; }
+.chip--xs:has(.chip__avatar) { padding-left: 3px; }
+.chip--l:has(.chip__remove), .chip--l:has(.chip__dropdown) { padding-right: 10px; }
+.chip--m:has(.chip__remove), .chip--m:has(.chip__dropdown) { padding-right: 8px; }
+.chip--s:has(.chip__remove), .chip--s:has(.chip__dropdown) { padding-right: 6px; }
+.chip--xs:has(.chip__remove), .chip--xs:has(.chip__dropdown) { padding-right: 5px; }
 
 /* ---------- style: outline (Border only) ---------------------------------- */
 .chip--outline { background: transparent; border-color: var(--st-system-mid); /* Swamp_400 56% */ }
@@ -222,13 +240,13 @@
 .chip--edit.chip--error:not(.chip--disabled):hover,   .chip--edit.chip--error:not(.chip--disabled).is-hover   { background: var(--st-red-midlight);     border-color: var(--st-red-light); }
 .chip--edit.chip--dark:not(.chip--disabled):hover,    .chip--edit.chip--dark:not(.chip--disabled).is-hover    { background: var(--st-grey-midlight);    border-color: var(--st-grey-light); }
 
-/* outline + tone — colour the border at Mid opacity (fill follows the tone rule above) */
-.chip--outline.chip--accent  { border-color: color-mix(in srgb, var(--primary) 56%, transparent); }
-.chip--outline.chip--success { border-color: var(--st-green-mid); }
-.chip--outline.chip--info    { border-color: var(--st-lblue-mid); }
-.chip--outline.chip--warning { border-color: var(--st-orange-mid); }
-.chip--outline.chip--error   { border-color: var(--st-red-mid); }
-.chip--outline.chip--dark    { border-color: var(--st-grey-mid); }
+/* outline + tone — только цвет рамки (Mid opacity); заливки НЕТ (прозрачный фон) */
+.chip--outline.chip--accent  { background: transparent; border-color: color-mix(in srgb, var(--primary) 56%, transparent); }
+.chip--outline.chip--success { background: transparent; border-color: var(--st-green-mid); }
+.chip--outline.chip--info    { background: transparent; border-color: var(--st-lblue-mid); }
+.chip--outline.chip--warning { background: transparent; border-color: var(--st-orange-mid); }
+.chip--outline.chip--error   { background: transparent; border-color: var(--st-red-mid); }
+.chip--outline.chip--dark    { background: transparent; border-color: var(--st-grey-mid); }
 
 /* ---------- solid tones — PROPOSED ---------------------------------------- *
    Насыщенная заливка = status base, текст и иконка белые (--c-mgrey-50).

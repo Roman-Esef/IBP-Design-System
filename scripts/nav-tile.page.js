@@ -28,7 +28,7 @@
 
     if (o.variant === 'links') {
       var links = o.links.slice(0, 4).map(function (t) {
-        return '<a class="link link--accent link--s"' + (disabled ? ' aria-disabled="true"' : ' href="#"') + '>' + t + '</a>';
+        return '<a class="link link--accent link--m"' + (disabled ? ' aria-disabled="true"' : ' href="#"') + '>' + t + '</a>';
       }).join('');
       return '<div class="' + cls + '"' + (disabled ? ' aria-disabled="true"' : '') + '>' +
         illu +
@@ -131,17 +131,14 @@
 
   /* ---------- Анатомия ---------- */
   put('anat-diagram',
-    '<div style="width:280px; margin:0 auto;">' +
-    tile({ variant: 'links', title: 'Отчётность', desc: 'Формы, выгрузки и регламентные отчёты', illu: 'reports-1-c', links: ['Регламентные', 'Выгрузки'] }) +
-    '</div>');
+    tile({ variant: 'links', title: 'Отчётность', desc: 'Формы, выгрузки и регламентные отчёты', illu: 'reports-1-c', links: ['Регламентные', 'Выгрузки'] }));
 
   /* ---------- Варианты ---------- */
-  put('var-base', '<div style="width:280px;">' + tile({}) + '</div>' +
-    '<div style="width:280px;">' + tile({ title: 'Контрагенты', desc: 'Компании, реквизиты и связанные лица', illu: 'clients' }) + '</div>');
-  put('var-links', '<div style="width:280px;">' +
-    tile({ variant: 'links', title: 'Отчётность', desc: 'Формы, выгрузки и регламентные отчёты', illu: 'reports-1-c', links: ['Регламентные', 'Выгрузки', 'Архив'] }) + '</div>' +
-    '<div style="width:280px;">' +
-    tile({ variant: 'links', title: 'Администрирование', desc: 'Пользователи, роли и справочники', illu: 'settings', links: ['Пользователи', 'Роли', 'Справочники', 'Журнал'] }) + '</div>');
+  put('var-base', tile({}) +
+    tile({ title: 'Контрагенты', desc: 'Компании, реквизиты и связанные лица', illu: 'clients' }));
+  put('var-links',
+    tile({ variant: 'links', title: 'Отчётность', desc: 'Формы, выгрузки и регламентные отчёты', illu: 'reports-1-c', links: ['Регламентные', 'Выгрузки', 'Архив'] }) +
+    tile({ variant: 'links', title: 'Администрирование', desc: 'Пользователи, роли и справочники', illu: 'settings', links: ['Пользователи', 'Роли', 'Справочники', 'Журнал'] }));
 
   /* ---------- Размеры ---------- */
   put('sizes-demo',
@@ -152,8 +149,8 @@
 
   /* ---------- Контент ---------- */
   put('content-demo',
-    '<div style="width:280px;">' + tile({ title: 'Сделки', desc: 'Кредитные линии, договоры и график платежей' }) + '</div>' +
-    '<div style="width:280px;">' + tile({ title: 'Переход к разделу сделок', desc: 'Здесь можно посмотреть все кредитные линии, договоры, график платежей, а также многое другое, что относится к сделкам.', illu: 'deals' }) + '</div>');
+    '<div>' + tile({ title: 'Сделки', desc: 'Кредитные линии, договоры и график платежей' }) + '</div>' +
+    '<div>' + tile({ title: 'Переход к разделу сделок', desc: 'Здесь можно посмотреть все кредитные линии, договоры, график платежей, а также многое другое, что относится к сделкам.', illu: 'deals' }) + '</div>');
   // подпись «плохо/хорошо»
   (function () {
     var g = document.getElementById('content-demo');
@@ -173,7 +170,7 @@
     var el = document.getElementById('states-demo');
     if (!el) return;
     var states = [['default', 'Default'], ['hover', 'Hover'], ['focus', 'Focus'], ['disabled', 'Disabled']];
-    el.style.cssText = 'display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px;';
+    el.style.cssText = 'display:grid; grid-template-columns:repeat(auto-fill,minmax(400px,1fr)); gap:16px;';
     el.innerHTML = states.map(function (s) {
       return '<div><p class="desc tight" style="margin:0 0 10px; font-size:13px;">' + s[1] + '</p>' +
         tile({ state: s[0], title: 'Сделки', desc: 'Кредитные линии и договоры' }) + '</div>';
@@ -183,7 +180,7 @@
   /* ---------- Redline: живые значения ---------- */
   (function () {
     var host = document.createElement('div');
-    host.style.cssText = 'position:absolute; left:0; top:0; visibility:hidden; width:300px;';
+    host.style.cssText = 'position:absolute; left:0; top:0; visibility:hidden;';
     host.innerHTML = tile({});
     document.body.appendChild(host);
     var t = host.querySelector('.ntile');
@@ -192,8 +189,9 @@
     var illu = host.querySelector('.ntile__illu');
     var cs = getComputedStyle(t);
     var rows = [
+      ['Ширина × высота по умолчанию', cs.width + ' × ' + cs.minHeight],
       ['Паддинг контейнера', cs.paddingTop],
-      ['Радиус скругления', cs.borderRadius + ' (--radius-card)'],
+      ['Радиус скругления', cs.borderRadius + ' (--radius-control)'],
       ['Рамка', cs.borderTopWidth + ' solid (--border-light)'],
       ['Мин. высота', cs.minHeight],
       ['Зазор между частями', cs.rowGap],

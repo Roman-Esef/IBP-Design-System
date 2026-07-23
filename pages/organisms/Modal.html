@@ -184,6 +184,11 @@
 
   footer.page-foot { margin-top:90px; padding-top:26px; border-top:1px solid var(--border-light);
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -398,10 +403,19 @@
     </div>
   </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Заголовок — <b>SB Sans Display</b>, контент подвала — произвольный, тело формы — <b>SB Sans Text</b>.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table">
+        <thead><tr><th>Часть</th><th>Токен</th><th>Шрифт</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody>
+          <tr><td>Заголовок (Modal_Top)</td><td><code class="tok">--type-h5-strong</code></td><td>SB Sans Display</td><td class="dsc">18 / 24</td></tr>
+          <tr><td>Контент (Modal_Body)</td><td><code class="tok">--type-body-m</code></td><td>SB Sans Text</td><td class="dsc">16 / 20</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- COLORS -->
@@ -478,7 +492,19 @@ onBodyScroll():
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Полноэкранный вариант на мобильных</b> — модалка растягивается на весь экран ниже определённой ширины вьюпорта.</li>
+        <li><b>Многошаговая форма (Wizard)</b> — индикатор шагов в Modal_Top, кнопки «Назад/Далее» в Modal_Bottom.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Modal</span>
     <span>Modal_Top / Modal_Body / Modal_Bottom · guarded-закрытие · confirm-диалог</span>
   </footer>

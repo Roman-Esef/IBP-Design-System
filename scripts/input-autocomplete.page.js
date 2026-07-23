@@ -66,10 +66,18 @@
     return c;
   }
 
-  /* Вставляет DropdownList в компонент сразу ПОД полем ввода (между
-     .inp__field и хелпером), чтобы список визуально примыкал к полю. */
-  function styleList(list) { list.style.width = '100%'; list.style.marginTop = '6px'; list.style.display = 'flex'; list.style.maxWidth = 'none'; }
-  function openUnder(node, list) { styleList(list); node._field.after(list); return list; }
+  /* Вставляет DropdownList ВНУТРЬ .inp__box (якорь, position:relative), поверх
+     поля — абсолютным позиционированием под ним. Список перекрывает то, что
+     идёт ниже (хелпер, внешний стек чипов Chips Ext), а не сдвигает их. */
+  function styleList(list) {
+    list.style.position = 'absolute';
+    list.style.left = '0'; list.style.right = '0'; list.style.top = '100%';
+    list.style.width = 'auto'; list.style.maxWidth = 'none';
+    list.style.marginTop = '0';
+    list.style.display = 'flex';
+    list.style.zIndex = '45';
+  }
+  function openUnder(node, list) { styleList(list); node._field.parentElement.appendChild(list); return list; }
 
   /* =========================== PLAYGROUND =========================== */
   (function () {
@@ -89,15 +97,6 @@
       sel.addEventListener('change', () => { state[key] = sel.value; render(); });
       box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
-    function ctlToggle(label, key) {
-      const wrap = document.createElement('div'); wrap.className = 'ctl'; wrap.dataset.key = key;
-      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = 'Список'; wrap.appendChild(l);
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'toggle';
-      b.setAttribute('aria-pressed', String(state[key]));
-      b.innerHTML = '<span class="sw-mini"></span><span>' + label + '</span>';
-      b.addEventListener('click', () => { state[key] = !state[key]; b.setAttribute('aria-pressed', String(state[key])); render(); });
-      wrap.appendChild(b); return wrap;
-    }
 
     controls.appendChild(ctlSelect('Размер', [['m', 'M'], ['s', 'S (Table Edit)']], 'size'));
     controls.appendChild(ctlSelect('Состояние', [
@@ -108,7 +107,6 @@
     ], 'state', true));
     controls.appendChild(ctlSelect('Показ выбора', [['summary', 'Сводка'], ['chips', 'Чипы в поле'], ['chips-ext', 'Чипы внешние']], 'display'));
     controls.appendChild(ctlSelect('Тип списка', [['text', 'Текст'], ['checkbox', 'Чекбоксы']], 'list'));
-    controls.appendChild(ctlToggle('Список раскрыт', 'open'));
 
     function render() {
       const table = state.size === 's';
@@ -145,6 +143,10 @@
         openUnder(node, makeList(CURRENCIES, { multiple: state.list === 'checkbox', selected: ['usd', 'eur'] }));
       }
       stage.appendChild(combo);
+
+      /* сворачивание — реальным кликом по шеврону в поле, а не отдельной настройкой конструктора */
+      const chev = node.querySelector('.inp__act--chev');
+      if (chev) chev.addEventListener('click', () => { state.open = !state.open; render(); });
 
       const cls = ['.inp', 'inp--' + state.size];
       if (state.state.startsWith('error')) cls.push('inp--error');
@@ -269,17 +271,28 @@
     const host = document.getElementById('beh-chips');
     if (!host) return;
     const selected = new Set(['usd']);
+    let displayMode = 'field'; // 'field' | 'ext'
+    const modeRow = document.createElement('div'); modeRow.className = 'ctl'; modeRow.style.marginBottom = '16px';
+    const modeLbl = document.createElement('div'); modeLbl.className = 'lbl'; modeLbl.textContent = 'Показ чипов'; modeRow.appendChild(modeLbl);
+    const modeBox = document.createElement('div'); modeBox.className = 'pg-select';
+    const modeSel = document.createElement('select');
+    [['field', 'В поле'], ['ext', 'Внешний стек']].forEach(([v, t]) => { const op = document.createElement('option'); op.value = v; op.textContent = t; modeSel.appendChild(op); });
+    modeSel.addEventListener('change', () => { displayMode = modeSel.value; build(); });
+    modeBox.appendChild(modeSel); modeRow.appendChild(modeBox);
+    host.appendChild(modeRow);
     const combo = document.createElement('div'); combo.style.maxWidth = '420px';
     let node, list;
 
     function build() {
       combo.innerHTML = '';
-      node = mk({
-        label: 'Валюты', helper: 'Выбирайте в списке; крестик на чипе — удалить',
-        chevron: true, placeholder: selected.size ? '' : 'Поиск…', clear: false, width: 'auto', open: true,
-        chips: [...selected].map(id => CURRENCIES.find(c => c.id === id).label),
+      const labels = [...selected].map(id => CURRENCIES.find(c => c.id === id).label);
+      const spec = {
+        label: 'Валюты', helper: displayMode === 'ext' ? 'Чипы вынесены под поле; выбирайте в списке' : 'Выбирайте в списке; крестик на чипе — удалить',
+        chevron: true, placeholder: selected.size && displayMode === 'field' ? '' : 'Поиск…', clear: false, width: 'auto', open: true,
         onChipRemove: (label) => { const o = CURRENCIES.find(c => c.label === label); if (o) selected.delete(o.id); build(); },
-      });
+      };
+      if (displayMode === 'ext') spec.ext = labels; else spec.chips = labels;
+      node = mk(spec);
       node.style.width = '100%';
       combo.appendChild(node);
       list = openUnder(node, makeList(CURRENCIES, {
@@ -398,7 +411,7 @@
       ['Шеврон', '20px', '18px'],
       ['Высота опции списка', fi ? fi.minHeight : '40px', fi ? fi.minHeight : '40px'],
       ['Радиус списка', ddl.borderRadius, ddl.borderRadius],
-      ['Отступ поле → список', '6px', '6px'],
+      ['Отступ поле → список', '0px', '0px'],
     ].forEach(([p, vm, vs]) => {
       const tr = document.createElement('tr');
       tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';

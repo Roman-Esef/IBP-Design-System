@@ -1,8 +1,8 @@
 ---
 component: ButtonGroup
 title: "ButtonGroup"
-version: "v1.0"
-updated: "13.07.2026"
+version: "v1.1"
+updated: "22.07.2026"
 page: pages/molecules/ButtonGroup.html
 css: styles/button-group.css
 deps: [button]

@@ -84,16 +84,16 @@
 
     function footHTML() {
       if (!st.foot) return '';
-      var left = st.quick ? '<div class="dpk__foot-left"><button type="button" class="btn btn--transparent btn--s dpk__today"><span class="btn__label">Сегодня</span></button></div>' : '<div class="dpk__foot-left"></div>';
+      var left = st.quick ? '<div class="dpk__foot-left"><button type="button" class="btn btn--transparent btn--xs dpk__today"><span class="btn__label">Сегодня</span></button></div>' : '<div class="dpk__foot-left"></div>';
       return '<div class="dpk__foot">' + left +
         '<div class="dpk__foot-right">' +
-          '<button type="button" class="btn btn--transparent btn--s dpk__cancel"><span class="btn__label">Отменить</span></button>' +
-          '<button type="button" class="btn btn--accent btn--s dpk__ok"><span class="btn__label">Применить</span></button>' +
+          '<button type="button" class="btn btn--transparent btn--xs dpk__cancel"><span class="btn__label">Отменить</span></button>' +
+          '<button type="button" class="btn btn--accent btn--xs dpk__ok"><span class="btn__label">Применить</span></button>' +
         '</div></div>';
     }
 
     function render() {
-      root.className = 'dpk' + (st.inline ? ' dpk--inline' : '') + (st.foot && st.quick ? ' dpk--wide' : '') + (st.view !== 'day' ? ' dpk--panel' : '');
+      root.className = 'dpk' + (st.inline ? ' dpk--inline' : '') + (st.view !== 'day' ? ' dpk--panel' : '');
       var html = '';
 
       if (st.view === 'year') {

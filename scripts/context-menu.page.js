@@ -200,6 +200,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
 
     menu = makeMenu(buildSpecs(), { floating: true });
     anchor.appendChild(menu);
+    wireSubmenu(menu);
     place();
     if (open) { menu.classList.add('is-open'); trigger.setAttribute('aria-expanded', 'true'); }
 
@@ -213,6 +214,31 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
   window.addEventListener('resize', () => { if (menu) place(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (menu) place(); });
 })();
+
+/* ---------- подменю: раскрытие по наведению + клавиатуре (→ / ←), любое меню ---------- */
+function wireSubmenu(menu, opts) {
+  const items = opts && opts.items || [{ label: 'PDF' }, { label: 'Excel (XLSX)' }, { label: 'CSV' }];
+  menu.querySelectorAll('.menu__item--sub').forEach(subHost => {
+    if (subHost.__wired) return;
+    subHost.__wired = true;
+    const sub = makeMenu(items, { floating: true });
+    sub.classList.add('menu__sub');
+    subHost.appendChild(sub);
+    let t;
+    const openSub  = () => { clearTimeout(t); sub.classList.add('is-open'); subHost.setAttribute('aria-expanded', 'true'); };
+    const closeSub = () => { t = setTimeout(() => { sub.classList.remove('is-open'); subHost.setAttribute('aria-expanded', 'false'); }, 160); };
+    subHost.setAttribute('aria-haspopup', 'menu');
+    subHost.setAttribute('aria-expanded', 'false');
+    subHost.addEventListener('mouseenter', openSub);
+    subHost.addEventListener('mouseleave', closeSub);
+    subHost.addEventListener('focus', openSub);
+    subHost.addEventListener('blur', closeSub);
+    subHost.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { openSub(); const f = sub.querySelector('.menu__item'); if (f) f.focus(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Escape') { closeSub(); subHost.focus(); }
+    });
+  });
+}
 
 /* =========================================================================
    ANATOMY
@@ -229,6 +255,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
   ]);
   m.style.minWidth = '240px';
   d.appendChild(m);
+  wireSubmenu(m);
 })();
 
 /* =========================================================================
@@ -248,6 +275,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
     const cell = document.createElement('div'); cell.className = 'type-item';
     const h = document.createElement('span'); h.className = 'th'; h.textContent = name;
     const box = makeMenu([spec]); box.style.minWidth = '210px';
+    wireSubmenu(box);
     cell.appendChild(h); cell.appendChild(box); host.appendChild(cell);
   });
 })();

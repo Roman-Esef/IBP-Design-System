@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"47802621d7d0","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f69ea4d3181c","scripts/context-menu.page.js":"74da50c59f0b","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"c98760f47497","scripts/ds-datepicker.js":"d242fba3500c","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"bf94aa11669b","scripts/ds-nav.js":"30de3340131b","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"cfb5ef10a557","scripts/input-autocomplete.page.js":"500352e53c47","scripts/input-date-range.page.js":"60c905f8a284","scripts/input-date.page.js":"08702f1eb912","scripts/input-kit.js":"b0fea98e1589","scripts/input-text.page.js":"a08a33a53a22","scripts/label-helper.page.js":"645d15c55fcc","scripts/modal.page.js":"c38f6d4fdc19","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"d2948a360399","scripts/page-header.page.js":"5fe8419ffc09","scripts/pagination.page.js":"a2fa1e42d751","scripts/pg-kit.js":"d86d16ba91aa","scripts/popover.page.js":"22c85f8063e5","scripts/read-only-field.page.js":"edfac382ed3a","scripts/riskmetric.page.js":"739839cd70fa","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"e400c6b7a51a","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"6fff47fa0113"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"5df6457afe08","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"c98760f47497","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"30de3340131b","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"ccab3df3f750","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"60c905f8a284","scripts/input-date.page.js":"08702f1eb912","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"76ad4c4b5508","scripts/label-helper.page.js":"0e5c98e7f22d","scripts/modal.page.js":"c38f6d4fdc19","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"5fe8419ffc09","scripts/pagination.page.js":"a2fa1e42d751","scripts/pg-kit.js":"d86d16ba91aa","scripts/popover.page.js":"22c85f8063e5","scripts/read-only-field.page.js":"edfac382ed3a","scripts/riskmetric.page.js":"739839cd70fa","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"e400c6b7a51a","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"6fff47fa0113"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -55,6 +55,9 @@ try { (() => {
     var text = o.text || '';
     var buttons = o.buttons || 'none'; // none | one | two | link
     var actions = o.actions || 'none'; // none | close | both
+    var layout = o.layout === 'row' ? ' alert--row' : '';
+    if (o.layout === 'row') actions = 'none'; // в раскладке «в строку» кнопок действий нет
+    var flush = o.flush ? ' alert--flush' : '';
     var collapsed = o.collapsed ? ' alert--collapsed' : '';
     var role = tone === 'error' || tone === 'warning' ? 'alert' : 'status';
     var live = tone === 'error' || tone === 'warning' ? 'assertive' : 'polite';
@@ -64,18 +67,23 @@ try { (() => {
     if (buttons === 'one') {
       body += '<div class="alert__buttons"><button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button></div>';
     } else if (buttons === 'two') {
-      body += '<div class="alert__buttons">' + '<button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button>' + '<button type="button" class="btn btn--transparent btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btn2Label || 'Позже') + '</span></button>' + '</div>';
+      // outline — основная кнопка, transparent — второстепенная. В раскладке
+      // «в строку» порядок обратный (ghost слева, outline справа): у правого
+      // края экономится место для быстрого выделения глазом важной кнопки.
+      var btnOutline = '<button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button>';
+      var btnGhost = '<button type="button" class="btn btn--transparent btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btn2Label || 'Позже') + '</span></button>';
+      body += '<div class="alert__buttons">' + (o.layout === 'row' ? btnGhost + btnOutline : btnOutline + btnGhost) + '</div>';
     } else if (buttons === 'link') {
       body += '<div class="alert__buttons"><a class="link link--' + tone + ' link--s" href="#" onclick="return false">' + esc(o.linkLabel || 'Подробнее') + '</a></div>';
     }
     var acts = '';
     if (actions === 'both') {
-      acts += '<button type="button" class="alert__act alert__collapse" aria-label="Свернуть" aria-expanded="' + (collapsed ? 'false' : 'true') + '"><i data-icon="chevron-up"></i></button>';
+      acts += '<button type="button" class="ibtn ibtn--m ibtn--neutral alert__act alert__collapse" aria-label="Свернуть" aria-expanded="' + (collapsed ? 'false' : 'true') + '"><i data-icon="chevron-up"></i></button>';
     }
     if (actions === 'close' || actions === 'both') {
-      acts += '<button type="button" class="alert__act alert__close" aria-label="Закрыть"><i data-icon="close"></i></button>';
+      acts += '<button type="button" class="ibtn ibtn--m ibtn--neutral alert__act alert__close" aria-label="Закрыть"><i data-icon="close"></i></button>';
     }
-    return '<div class="alert alert--' + tone + ' alert--' + size + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">' + (icon ? '<span class="alert__icon" aria-hidden="true"><i data-icon="' + TONE_ICON[tone] + '"></i></span>' : '') + '<div class="alert__body">' + body + '</div>' + (acts ? '<div class="alert__actions">' + acts + '</div>' : '') + '</div>';
+    return '<div class="alert alert--' + tone + ' alert--' + size + layout + flush + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">' + (icon ? '<span class="alert__icon" aria-hidden="true"><i data-icon="' + TONE_ICON[tone] + '"></i></span>' : '') + '<div class="alert__body">' + body + '</div>' + (acts ? '<div class="alert__actions">' + acts + '</div>' : '') + '</div>';
   }
   function paintIcons(root) {
     if (window.dsIcons) window.dsIcons.apply(root || document);
@@ -98,29 +106,39 @@ try { (() => {
     var title = document.getElementById('c-title');
     var text = document.getElementById('c-text');
     var iconT = document.getElementById('c-icon');
+    var titleT = document.getElementById('c-title-on');
+    var textT = document.getElementById('c-text-on');
+    var layout = document.getElementById('c-layout');
     if (!tone) return;
-    iconT.addEventListener('click', function () {
-      iconT.setAttribute('aria-pressed', iconT.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
-      render();
+    [iconT, titleT, textT].forEach(function (t) {
+      t.addEventListener('click', function () {
+        t.setAttribute('aria-pressed', t.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        render();
+      });
     });
     function render() {
+      var isRow = layout && layout.value === 'row';
+      // в раскладке «в строку» кнопок действий нет — скрываем настройку
+      var actsCtl = acts.closest('.ctl');
+      if (actsCtl) actsCtl.classList.toggle('is-off', isRow);
       var o = {
         tone: tone.value,
         size: size.value,
         buttons: btns.value,
-        actions: acts.value,
-        title: title.value.trim(),
-        text: text.value.trim(),
+        actions: isRow ? 'none' : acts.value,
+        layout: layout ? layout.value : 'stack',
+        title: titleT.getAttribute('aria-pressed') === 'true' ? title.value.trim() : '',
+        text: textT.getAttribute('aria-pressed') === 'true' ? text.value.trim() : '',
         icon: iconT.getAttribute('aria-pressed') === 'true'
       };
       setHTML('pg-preview', alertHTML(o));
-      var cls = 'alert alert--' + o.tone + ' alert--' + o.size;
+      var cls = 'alert alert--' + o.tone + ' alert--' + o.size + (o.layout === 'row' ? ' alert--row' : '');
       var code = document.getElementById('pg-code');
       if (code) {
         code.innerHTML = '<code>&lt;div class="' + cls + '" data-alert-tone="' + o.tone + '" role="' + (o.tone === 'error' || o.tone === 'warning' ? 'alert' : 'status') + '"&gt;…&lt;/div&gt;</code>';
       }
     }
-    [tone, size, btns, acts].forEach(function (s) {
+    [tone, size, btns, acts].concat(layout ? [layout] : []).forEach(function (s) {
       s.addEventListener('change', render);
     });
     [title, text].forEach(function (i) {
@@ -147,6 +165,31 @@ try { (() => {
       btn2Label: 'Позже'
     }));
 
+    // Встроенный в плитку/модалку — flush + row (без кнопок действий)
+    setHTML('embed-alert', alertHTML({
+      tone: 'warning',
+      size: 's',
+      layout: 'row',
+      flush: true,
+      text: 'Реквизиты изменились — проверьте перед отправкой.',
+      buttons: 'one',
+      btnLabel: 'Проверить'
+    }));
+    // Раскладка «в строку» — на всю ширину, без кнопок действий
+    setHTML('var-row', [alertHTML({
+      tone: 'info',
+      layout: 'row',
+      text: 'Черновик сохраняется автоматически каждые 30 секунд.'
+    }), alertHTML({
+      tone: 'warning',
+      layout: 'row',
+      title: 'Есть несохранённые изменения',
+      text: 'Покиньте страницу — и они будут потеряны.',
+      buttons: 'two',
+      btnLabel: 'Сохранить',
+      btn2Label: 'Отменить'
+    })].join(''));
+
     // Alert vs Toast vs SnackBar — витрина
     setHTML('diff-alert', alertHTML({
       tone: 'info',
@@ -157,7 +200,10 @@ try { (() => {
     var diffToast = document.getElementById('diff-toast');
     if (diffToast) diffToast.innerHTML = '<div style="display:inline-flex;align-items:center;gap:10px;background:var(--c-cgrey-700,#333F48);color:#fff;border-radius:8px;padding:10px 16px;font:var(--type-body-s)">Процесс запущен</div>';
     var diffSnack = document.getElementById('diff-snack');
-    if (diffSnack) diffSnack.innerHTML = '<div style="background:var(--bg-tile);border:1px solid var(--border-light);border-radius:12px;box-shadow:0 10px 30px rgba(40,50,55,.16);padding:12px 14px;max-width:260px"><div style="font:var(--type-body-s-strong);color:var(--text-primary);margin-bottom:2px">Готово</div><div style="font:var(--type-body-xs);color:var(--text-secondary)">Уведомление в углу экрана.</div></div>';
+    if (diffSnack) {
+      diffSnack.innerHTML = '' + '<div class="snack snack--info" data-snack-tone="info" role="status" aria-live="polite" style="position:static;width:auto;max-width:280px;box-shadow:var(--shadow-l,0 10px 30px rgba(40,50,55,.16))">' + '<span class="snack__icon" aria-hidden="true"><i data-icon="Info-circle-filled"></i></span>' + '<div class="snack__body"><div class="snack__title">Готово</div><div class="snack__text">Уведомление в углу экрана.</div></div>' + '<button type="button" class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>' + '</div>';
+      paintIcons(diffSnack);
+    }
 
     // Тоны
     setHTML('var-tones', TONES.map(function (t) {
@@ -345,7 +391,7 @@ try { (() => {
     if (!host) return;
     var rows = [['Default', 'Иконка-действие в покое', 'Цвет Text_Inactive, фон прозрачный'], ['Hover', 'Наведение курсора', 'Цвет Text_Secondary, лёгкая подложка в тон (12%)'], ['Active', 'Нажатие', 'Цвет акцента тона'], ['Focus', 'Фокус с клавиатуры', 'Обводка 2px тона, offset 1px']];
     host.innerHTML = rows.map(function (r) {
-      return '<div class="spec__row">' + '<div class="spec__state">' + r[0] + '<small>' + r[1] + '</small></div>' + '<div class="spec__sample"><button type="button" class="alert__act" aria-label="' + r[0] + '" style="color:var(--text-inactive)"><i data-icon="close"></i></button></div>' + '<div style="font:var(--type-body-s);color:var(--text-secondary)">' + r[2] + '</div>' + '</div>';
+      return '<div class="spec__row">' + '<div class="spec__state">' + r[0] + '<small>' + r[1] + '</small></div>' + '<div class="spec__sample"><button type="button" class="ibtn ibtn--m ibtn--neutral" aria-label="' + r[0] + '"><i data-icon="close"></i></button></div>' + '<div style="font:var(--type-body-s);color:var(--text-secondary)">' + r[2] + '</div>' + '</div>';
     }).join('');
     // тонируем sample через родителя-alert контекст (акцент info)
     host.querySelectorAll('.spec__sample').forEach(function (s) {
@@ -1206,8 +1252,10 @@ try { (() => {
       label = 'Text',
       leading = null,
       leadingIcon,
-      badgeText = 'A',
       avatarText = 'A',
+      avatarContent = 'text',
+      avatarIcon = null,
+      avatarImgId = null,
       removable = false,
       dropdown = false,
       count = null,
@@ -1253,15 +1301,17 @@ try { (() => {
       ic.className = 'chip__marker chip__marker--icon';
       ic.innerHTML = icon(resolvedLeadingIcon);
       el.appendChild(ic);
-    } else if (leading === 'badge') {
-      const b = document.createElement('span');
-      b.className = 'chip__badge';
-      b.textContent = badgeText;
-      el.appendChild(b);
     } else if (leading === 'avatar') {
+      // аватар = компонент Avatar (.av) с выбираемым содержимым: текст / иконка / фото
       const a = document.createElement('span');
-      a.className = 'chip__avatar';
-      a.textContent = avatarText;
+      a.className = 'chip__avatar av av--circular';
+      if (avatarContent === 'icon') {
+        a.innerHTML = '<span class="av__icon">' + (icon(avatarIcon || 'user') || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>') + '</span>';
+      } else if (avatarContent === 'image') {
+        a.innerHTML = '<span class="av__img"><image-slot' + (avatarImgId ? ' id="' + avatarImgId + '"' : '') + ' shape="circle" placeholder="Фото"></image-slot></span>';
+      } else {
+        a.innerHTML = '<span class="av__text">' + avatarText + '</span>';
+      }
       el.appendChild(a);
     }
 
@@ -1311,8 +1361,10 @@ try { (() => {
       size: 'm',
       tone: 'system',
       leading: 'none',
+      avatarContent: 'text',
       removable: true,
       dropdown: false,
+      count: false,
       rounded: false,
       chipState: 'default'
     };
@@ -1363,7 +1415,9 @@ try { (() => {
     controls.appendChild(select('Стиль', [['fill', 'Fill (Border + Fill)'], ['outline', 'Outline (Border)']], () => state.style, v => state.style = v));
     controls.appendChild(select('Размер', [['l', 'L · 40'], ['m', 'M · 32'], ['s', 'S · 24'], ['xs', 'XS · 20']], () => state.size, v => state.size = v));
     controls.appendChild(select('Тон', [['system', 'System'], ['accent', 'Accent'], ['success', 'Success'], ['info', 'Info'], ['warning', 'Warning'], ['error', 'Error'], ['dark', 'Dark'], ['success-solid', 'Success solid'], ['warning-solid', 'Warning solid'], ['error-solid', 'Error solid'], ['dark-solid', 'Dark solid']], () => state.tone, v => state.tone = v));
-    controls.appendChild(select('Дополнительный элемент', [['none', 'Нет'], ['marker', 'Маркер'], ['icon', 'Иконка'], ['badge', 'Бейдж'], ['avatar', 'Аватар']], () => state.leading, v => state.leading = v));
+    controls.appendChild(select('Дополнительный элемент', [['none', 'Нет'], ['marker', 'Маркер'], ['icon', 'Иконка'], ['avatar', 'Аватар']], () => state.leading, v => state.leading = v));
+    const avatarCtl = select('Содержимое аватара', [['text', 'Текст'], ['icon', 'Иконка'], ['image', 'Фото']], () => state.avatarContent, v => state.avatarContent = v);
+    controls.appendChild(avatarCtl);
     controls.appendChild(select('Состояние', [['default', 'Default'], ['selected', 'Selected'], ['focus', 'Focus'], ['loading', 'Loading'], ['invalid', 'Invalid'], ['disabled', 'Disabled']], () => state.chipState, v => state.chipState = v));
     const optWrap = document.createElement('div');
     optWrap.className = 'ctl';
@@ -1374,8 +1428,25 @@ try { (() => {
     const toggles = document.createElement('div');
     toggles.className = 'toggles';
     const rmToggle = sw('Крестик удаления', 'removable');
+    const ddToggle = sw('Выпадающий список', 'dropdown');
+    // крестик и выпадающий список — взаимоисключаются
+    rmToggle.addEventListener('click', () => {
+      if (state.removable && state.dropdown) {
+        state.dropdown = false;
+        ddToggle.setAttribute('aria-pressed', 'false');
+        render();
+      }
+    });
+    ddToggle.addEventListener('click', () => {
+      if (state.dropdown && state.removable) {
+        state.removable = false;
+        rmToggle.setAttribute('aria-pressed', 'false');
+        render();
+      }
+    });
     toggles.appendChild(rmToggle);
-    toggles.appendChild(sw('Выпадающий список', 'dropdown'));
+    toggles.appendChild(ddToggle);
+    toggles.appendChild(sw('Счётчик', 'count'));
     toggles.appendChild(sw('Rounded', 'rounded'));
     optWrap.appendChild(toggles);
     controls.appendChild(optWrap);
@@ -1383,6 +1454,8 @@ try { (() => {
       const disabled = state.chipState === 'disabled';
       /* у ReadOnly-чипа крестика удаления не бывает — скрываем настройку */
       rmToggle.classList.toggle('is-off', state.type !== 'edit');
+      /* содержимое аватара — только когда выбран аватар */
+      avatarCtl.classList.toggle('is-off', state.leading !== 'avatar');
       const o = {
         type: state.type,
         style: state.style,
@@ -1390,9 +1463,13 @@ try { (() => {
         tone: state.tone,
         label: 'Text',
         leading: state.leading === 'none' ? null : state.leading,
+        avatarContent: state.avatarContent,
+        avatarText: 'И',
+        avatarImgId: 'chip-pg-av-img',
         removable: state.removable && state.type === 'edit',
         dropdown: state.dropdown,
         rounded: state.rounded,
+        count: state.count ? '12' : null,
         state: disabled ? 'default' : state.chipState,
         disabled
       };
@@ -1764,20 +1841,7 @@ try { (() => {
       size: 'm',
       label: 'Text',
       leading: 'icon'
-    })]], ['.Chip_Badge', 'Мини-бейдж в начале чипа — категория или короткий код.', [makeChip({
-      type: 'edit',
-      size: 'm',
-      label: 'Text',
-      leading: 'badge',
-      badgeText: 'A',
-      removable: true
-    }), makeChip({
-      type: 'edit',
-      size: 'm',
-      label: 'Text',
-      leading: 'badge',
-      badgeText: 'B'
-    })]], ['Avatar', 'Аватар-инициалы для чипов-персон (InputAutocomplete).', [makeChip({
+    })]], ['Avatar', 'Ведущий аватар — компонент Avatar с выбираемым содержимым: текст-инициалы, иконка-фолбэк или фото. Бейдж как отдельный слот убран — он объединён с аватаром.', [makeChip({
       type: 'edit',
       size: 'm',
       label: 'Иван Б.',
@@ -1787,10 +1851,17 @@ try { (() => {
     }), makeChip({
       type: 'edit',
       size: 'm',
-      label: 'Мария А.',
+      label: 'Бот',
       leading: 'avatar',
-      avatarText: 'М'
-    })]], ['.Chip_Action', 'Завершающее действие: крестик удаления или шеврон выпадающего списка.', [makeChip({
+      avatarContent: 'icon'
+    }), makeChip({
+      type: 'edit',
+      size: 'm',
+      label: 'Фото',
+      leading: 'avatar',
+      avatarContent: 'image',
+      avatarImgId: 'chip-slot-av-img'
+    })]], ['.Chip_Action', 'Завершающее действие: крестик удаления ИЛИ шеврон выпадающего списка — они взаимоисключающие, вместе не ставятся.', [makeChip({
       type: 'edit',
       size: 'm',
       label: 'Удалить',
@@ -1800,12 +1871,6 @@ try { (() => {
       size: 'm',
       label: 'Список',
       dropdown: true
-    }), makeChip({
-      type: 'edit',
-      size: 'm',
-      label: 'Оба',
-      dropdown: true,
-      removable: true
     })]]];
     tiles.forEach(([name, desc, chips]) => {
       const t = document.createElement('div');
@@ -1949,12 +2014,13 @@ try { (() => {
   (function () {
     const off = document.getElementById('rounded-off');
     const on = document.getElementById('rounded-on');
-    [['marker', 'Маркер'], [null, 'Text'], ['badge', 'Бейдж']].forEach(([lead, lbl]) => {
+    [['marker', 'Маркер'], [null, 'Text'], ['avatar', 'Аватар']].forEach(([lead, lbl]) => {
       off.appendChild(makeChip({
         type: 'edit',
         size: 'm',
         label: lbl,
         leading: lead,
+        avatarText: 'А',
         removable: true
       }));
       on.appendChild(makeChip({
@@ -1962,6 +2028,7 @@ try { (() => {
         size: 'm',
         label: lbl,
         leading: lead,
+        avatarText: 'А',
         removable: true,
         rounded: true
       }));
@@ -1971,41 +2038,7 @@ try { (() => {
   /* ============================ PROPOSALS ============================ */
   (function () {
     const host = document.getElementById('proposals');
-    const props = [['Selected', 'Чип-фильтр как переключатель (toggle) с галкой и акцентным тоном.', [makeChip({
-      type: 'edit',
-      size: 'm',
-      label: 'Фильтр',
-      state: 'selected'
-    })]], ['Focus', 'Кольцо фокуса для доступности с клавиатуры (2px primary).', [makeChip({
-      type: 'edit',
-      size: 'm',
-      label: 'Фокус',
-      state: 'focus',
-      removable: true
-    })]], ['Loading', 'Асинхронная фильтрация: спиннер вместо ведущего слота.', [makeChip({
-      type: 'edit',
-      size: 'm',
-      label: 'Загрузка',
-      state: 'loading'
-    })]], ['Invalid', 'Невалидное значение в InputAutocomplete.', [makeChip({
-      type: 'edit',
-      size: 'm',
-      label: 'неверный e-mail',
-      state: 'invalid',
-      removable: true
-    })]], ['Статусные тона', 'Семантическая шкала на локальных статус-рампах. Статусы — только Rounded.', [makeChip({
-      type: 'edit',
-      size: 'm',
-      tone: 'success',
-      label: 'Активна',
-      leading: 'marker',
-      rounded: true
-    })]], ['Счётчик', 'Числовой суффикс «(N)» для группирующих фильтров.', [makeChip({
-      type: 'edit',
-      size: 'm',
-      label: 'Документы',
-      count: '12'
-    })]], ['Свёртка «+N»', 'Переполнение чиплиста сворачивается в чип-счётчик.', [makeChip({
+    const props = [['Свёртка «+N»', 'Переполнение чиплиста сворачивается в чип-счётчик, открывающий полный список. Требует измерения ширины на уровне чиплиста (JS) — пока не реализовано.', [makeChip({
       type: 'edit',
       style: 'outline',
       size: 'm',
@@ -2559,6 +2592,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
       floating: true
     });
     anchor.appendChild(menu);
+    wireSubmenu(menu);
     place();
     if (open) {
       menu.classList.add('is-open');
@@ -2585,6 +2619,55 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
     if (menu) place();
   });
 })();
+
+/* ---------- подменю: раскрытие по наведению + клавиатуре (→ / ←), любое меню ---------- */
+function wireSubmenu(menu, opts) {
+  const items = opts && opts.items || [{
+    label: 'PDF'
+  }, {
+    label: 'Excel (XLSX)'
+  }, {
+    label: 'CSV'
+  }];
+  menu.querySelectorAll('.menu__item--sub').forEach(subHost => {
+    if (subHost.__wired) return;
+    subHost.__wired = true;
+    const sub = makeMenu(items, {
+      floating: true
+    });
+    sub.classList.add('menu__sub');
+    subHost.appendChild(sub);
+    let t;
+    const openSub = () => {
+      clearTimeout(t);
+      sub.classList.add('is-open');
+      subHost.setAttribute('aria-expanded', 'true');
+    };
+    const closeSub = () => {
+      t = setTimeout(() => {
+        sub.classList.remove('is-open');
+        subHost.setAttribute('aria-expanded', 'false');
+      }, 160);
+    };
+    subHost.setAttribute('aria-haspopup', 'menu');
+    subHost.setAttribute('aria-expanded', 'false');
+    subHost.addEventListener('mouseenter', openSub);
+    subHost.addEventListener('mouseleave', closeSub);
+    subHost.addEventListener('focus', openSub);
+    subHost.addEventListener('blur', closeSub);
+    subHost.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') {
+        openSub();
+        const f = sub.querySelector('.menu__item');
+        if (f) f.focus();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'Escape') {
+        closeSub();
+        subHost.focus();
+      }
+    });
+  });
+}
 
 /* =========================================================================
    ANATOMY
@@ -2614,6 +2697,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
   }]);
   m.style.minWidth = '240px';
   d.appendChild(m);
+  wireSubmenu(m);
 })();
 
 /* =========================================================================
@@ -2652,6 +2736,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
     h.textContent = name;
     const box = makeMenu([spec]);
     box.style.minWidth = '210px';
+    wireSubmenu(box);
     cell.appendChild(h);
     cell.appendChild(box);
     host.appendChild(cell);
@@ -5523,11 +5608,11 @@ try { (() => {
     }
     function footHTML() {
       if (!st.foot) return '';
-      var left = st.quick ? '<div class="dpk__foot-left"><button type="button" class="btn btn--transparent btn--s dpk__today"><span class="btn__label">Сегодня</span></button></div>' : '<div class="dpk__foot-left"></div>';
-      return '<div class="dpk__foot">' + left + '<div class="dpk__foot-right">' + '<button type="button" class="btn btn--transparent btn--s dpk__cancel"><span class="btn__label">Отменить</span></button>' + '<button type="button" class="btn btn--accent btn--s dpk__ok"><span class="btn__label">Применить</span></button>' + '</div></div>';
+      var left = st.quick ? '<div class="dpk__foot-left"><button type="button" class="btn btn--transparent btn--xs dpk__today"><span class="btn__label">Сегодня</span></button></div>' : '<div class="dpk__foot-left"></div>';
+      return '<div class="dpk__foot">' + left + '<div class="dpk__foot-right">' + '<button type="button" class="btn btn--transparent btn--xs dpk__cancel"><span class="btn__label">Отменить</span></button>' + '<button type="button" class="btn btn--accent btn--xs dpk__ok"><span class="btn__label">Применить</span></button>' + '</div></div>';
     }
     function render() {
-      root.className = 'dpk' + (st.inline ? ' dpk--inline' : '') + (st.foot && st.quick ? ' dpk--wide' : '') + (st.view !== 'day' ? ' dpk--panel' : '');
+      root.className = 'dpk' + (st.inline ? ' dpk--inline' : '') + (st.view !== 'day' ? ' dpk--panel' : '');
       var html = '';
       if (st.view === 'year') {
         var ds = st.year - st.year % 12;
@@ -5884,6 +5969,23 @@ try { (() => {
   } else {
     render();
   }
+  // авто-рендер для слотов, добавленных в DOM позже (конструкторы/тайквики
+  // перестраивают innerHTML — без наблюдателя новые слоты остаются пустыми
+  // и показывают заглушку вместо иллюстрации).
+  new MutationObserver(function (muts) {
+    for (var i = 0; i < muts.length; i++) {
+      if (muts[i].addedNodes.length) {
+        render();
+        return;
+      }
+    }
+  }).observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+  window.DSIllustrations = {
+    render: render
+  };
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-illustrations.js", error: String((e && e.message) || e) }); }
 
@@ -7335,7 +7437,7 @@ try { (() => {
         live: true
       }
     })));
-    g.appendChild(cell('Пустое поле — плейсхолдер «Amount»', range({
+    g.appendChild(cell('Пустое поле — без плейсхолдера', range({
       label: 'Сумма, ₽',
       helper: 'Helper',
       from: {
@@ -7591,17 +7693,23 @@ try { (() => {
     return c;
   }
 
-  /* Вставляет DropdownList в компонент сразу ПОД полем ввода (между
-     .inp__field и хелпером), чтобы список визуально примыкал к полю. */
+  /* Вставляет DropdownList ВНУТРЬ .inp__box (якорь, position:relative), поверх
+     поля — абсолютным позиционированием под ним. Список перекрывает то, что
+     идёт ниже (хелпер, внешний стек чипов Chips Ext), а не сдвигает их. */
   function styleList(list) {
-    list.style.width = '100%';
-    list.style.marginTop = '6px';
-    list.style.display = 'flex';
+    list.style.position = 'absolute';
+    list.style.left = '0';
+    list.style.right = '0';
+    list.style.top = '100%';
+    list.style.width = 'auto';
     list.style.maxWidth = 'none';
+    list.style.marginTop = '0';
+    list.style.display = 'flex';
+    list.style.zIndex = '45';
   }
   function openUnder(node, list) {
     styleList(list);
-    node._field.after(list);
+    node._field.parentElement.appendChild(list);
     return list;
   }
 
@@ -7644,32 +7752,10 @@ try { (() => {
       wrap.appendChild(box);
       return wrap;
     }
-    function ctlToggle(label, key) {
-      const wrap = document.createElement('div');
-      wrap.className = 'ctl';
-      wrap.dataset.key = key;
-      const l = document.createElement('div');
-      l.className = 'lbl';
-      l.textContent = 'Список';
-      wrap.appendChild(l);
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'toggle';
-      b.setAttribute('aria-pressed', String(state[key]));
-      b.innerHTML = '<span class="sw-mini"></span><span>' + label + '</span>';
-      b.addEventListener('click', () => {
-        state[key] = !state[key];
-        b.setAttribute('aria-pressed', String(state[key]));
-        render();
-      });
-      wrap.appendChild(b);
-      return wrap;
-    }
     controls.appendChild(ctlSelect('Размер', [['m', 'M'], ['s', 'S (Table Edit)']], 'size'));
     controls.appendChild(ctlSelect('Состояние', [['default', 'Default'], ['hover', 'Hover'], ['focus', 'Focus'], ['error', 'Error'], ['error-focus', 'ErrorFocus'], ['warning', 'Warning'], ['warning-focus', 'WarningFocus'], ['disabled', 'Disabled']], 'state', true));
     controls.appendChild(ctlSelect('Показ выбора', [['summary', 'Сводка'], ['chips', 'Чипы в поле'], ['chips-ext', 'Чипы внешние']], 'display'));
     controls.appendChild(ctlSelect('Тип списка', [['text', 'Текст'], ['checkbox', 'Чекбоксы']], 'list'));
-    controls.appendChild(ctlToggle('Список раскрыт', 'open'));
     function render() {
       const table = state.size === 's';
       /* Table Edit сводкой: чипы не помещаются в ячейку */
@@ -7706,6 +7792,13 @@ try { (() => {
         }));
       }
       stage.appendChild(combo);
+
+      /* сворачивание — реальным кликом по шеврону в поле, а не отдельной настройкой конструктора */
+      const chev = node.querySelector('.inp__act--chev');
+      if (chev) chev.addEventListener('click', () => {
+        state.open = !state.open;
+        render();
+      });
       const cls = ['.inp', 'inp--' + state.size];
       if (state.state.startsWith('error')) cls.push('inp--error');
       if (state.state.startsWith('warning')) cls.push('inp--warning');
@@ -7977,26 +8070,52 @@ try { (() => {
     const host = document.getElementById('beh-chips');
     if (!host) return;
     const selected = new Set(['usd']);
+    let displayMode = 'field'; // 'field' | 'ext'
+    const modeRow = document.createElement('div');
+    modeRow.className = 'ctl';
+    modeRow.style.marginBottom = '16px';
+    const modeLbl = document.createElement('div');
+    modeLbl.className = 'lbl';
+    modeLbl.textContent = 'Показ чипов';
+    modeRow.appendChild(modeLbl);
+    const modeBox = document.createElement('div');
+    modeBox.className = 'pg-select';
+    const modeSel = document.createElement('select');
+    [['field', 'В поле'], ['ext', 'Внешний стек']].forEach(([v, t]) => {
+      const op = document.createElement('option');
+      op.value = v;
+      op.textContent = t;
+      modeSel.appendChild(op);
+    });
+    modeSel.addEventListener('change', () => {
+      displayMode = modeSel.value;
+      build();
+    });
+    modeBox.appendChild(modeSel);
+    modeRow.appendChild(modeBox);
+    host.appendChild(modeRow);
     const combo = document.createElement('div');
     combo.style.maxWidth = '420px';
     let node, list;
     function build() {
       combo.innerHTML = '';
-      node = mk({
+      const labels = [...selected].map(id => CURRENCIES.find(c => c.id === id).label);
+      const spec = {
         label: 'Валюты',
-        helper: 'Выбирайте в списке; крестик на чипе — удалить',
+        helper: displayMode === 'ext' ? 'Чипы вынесены под поле; выбирайте в списке' : 'Выбирайте в списке; крестик на чипе — удалить',
         chevron: true,
-        placeholder: selected.size ? '' : 'Поиск…',
+        placeholder: selected.size && displayMode === 'field' ? '' : 'Поиск…',
         clear: false,
         width: 'auto',
         open: true,
-        chips: [...selected].map(id => CURRENCIES.find(c => c.id === id).label),
         onChipRemove: label => {
           const o = CURRENCIES.find(c => c.label === label);
           if (o) selected.delete(o.id);
           build();
         }
-      });
+      };
+      if (displayMode === 'ext') spec.ext = labels;else spec.chips = labels;
+      node = mk(spec);
       node.style.width = '100%';
       combo.appendChild(node);
       list = openUnder(node, makeList(CURRENCIES, {
@@ -8100,7 +8219,7 @@ try { (() => {
     const item = list.querySelector('.ddl__item');
     const fi = item ? getComputedStyle(item) : null;
     const ddl = getComputedStyle(list);
-    [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор элементов', fm.columnGap, fs.columnGap], ['Радиус поля', fm.borderRadius, fs.borderRadius], ['Размер чипа', 'S · 24px', 'XS · 20px'], ['Шеврон', '20px', '18px'], ['Высота опции списка', fi ? fi.minHeight : '40px', fi ? fi.minHeight : '40px'], ['Радиус списка', ddl.borderRadius, ddl.borderRadius], ['Отступ поле → список', '6px', '6px']].forEach(([p, vm, vs]) => {
+    [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор элементов', fm.columnGap, fs.columnGap], ['Радиус поля', fm.borderRadius, fs.borderRadius], ['Размер чипа', 'S · 24px', 'XS · 20px'], ['Шеврон', '20px', '18px'], ['Высота опции списка', fi ? fi.minHeight : '40px', fi ? fi.minHeight : '40px'], ['Радиус списка', ddl.borderRadius, ddl.borderRadius], ['Отступ поле → список', '0px', '0px']].forEach(([p, vm, vs]) => {
       const tr = document.createElement('tr');
       tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';
       tb.appendChild(tr);
@@ -9112,6 +9231,7 @@ try { (() => {
     root.className = 'inp inp--' + size;
     if (s.table) root.classList.add('inp--table');
     if (s.multiline) root.classList.add('inp--multiline');
+    if (s.multiline && s.resizable) root.classList.add('inp--resizable');
     const st = s.state || 'default';
     if (st.startsWith('error')) root.classList.add('inp--error');
     if (st.startsWith('warning')) root.classList.add('inp--warning');
@@ -9164,7 +9284,8 @@ try { (() => {
     }
     const ctl = document.createElement(s.multiline ? 'textarea' : 'input');
     ctl.className = 'inp__control';
-    if (!s.multiline) ctl.type = 'text';else ctl.rows = s.rows || 2;
+    if (!s.multiline) ctl.type = s.password ? 'password' : 'text';else ctl.rows = s.rows || 2;
+    if (s.maxLength) ctl.maxLength = s.maxLength;
     if (s.id) ctl.id = s.id;
     if (s.value != null) ctl.value = s.value;
     if (s.placeholder) ctl.placeholder = s.placeholder;
@@ -9178,11 +9299,11 @@ try { (() => {
       f.appendChild(p);
     }
 
-    /* actions — порядок слева направо: информер · крестик очистки · календарь · шеврон.
+    /* actions — порядок слева направо: информер · крестик очистки (пароль — «показать/скрыть» вместо крестика) · календарь · шеврон.
        Информер (статичная иконка-подсказка) всегда левее крестика и шеврона. */
     const actions = [];
     if (s.informer) actions.push(['informer', 'info-circle', 'Подсказка']);
-    if (s.clear !== false && (s.clear || s.value || s.chips && s.chips.length || s.summary)) actions.push(['clear', 'close', 'Очистить поле']);
+    if (s.password) actions.push(['password', 'visibility-off', 'Показать пароль']);else if (s.clear !== false && (s.clear || s.value || s.chips && s.chips.length || s.summary)) actions.push(['clear', 'close', 'Очистить поле']);
     if (s.calendar) actions.push(['calendar', 'calendar', 'Открыть календарь']);
     if (s.chevron) actions.push(['chev', 'chevron-down', 'Показать список']);
     if (actions.length) {
@@ -9203,6 +9324,13 @@ try { (() => {
           ctl.focus();
         });
         if (kind === 'clear' && s.onClear) b.addEventListener('click', s.onClear);
+        if (kind === 'password') b.addEventListener('click', () => {
+          const showing = ctl.type === 'text';
+          ctl.type = showing ? 'password' : 'text';
+          b.innerHTML = icon(showing ? 'visibility-off' : 'visibility-on');
+          b.setAttribute('aria-label', showing ? 'Показать пароль' : 'Скрыть пароль');
+          ctl.focus();
+        });
         aw.appendChild(b);
       });
       f.appendChild(aw);
@@ -9225,8 +9353,28 @@ try { (() => {
     }
     root.appendChild(box);
 
-    /* helper */
-    if (s.helper && !s.table) {
+    /* helper (+ опциональный счётчик символов справа, когда задан maxLength) */
+    if (s.maxLength) {
+      const foot = document.createElement('div');
+      foot.className = 'inp__foot';
+      if (s.helper && !s.table) {
+        const h = document.createElement('span');
+        h.className = 'ds-helper ds-helper--left' + (s.helperError ? ' ds-helper--error' : '') + (disabled ? ' ds-helper--disabled' : '');
+        h.textContent = s.helper;
+        foot.appendChild(h);
+      }
+      const counter = document.createElement('span');
+      counter.className = 'inp__counter';
+      const syncCounter = () => {
+        const n = ctl.value.length;
+        counter.textContent = n + ' / ' + s.maxLength;
+        counter.classList.toggle('inp__counter--limit', n >= s.maxLength);
+      };
+      syncCounter();
+      ctl.addEventListener('input', syncCounter);
+      foot.appendChild(counter);
+      root.appendChild(foot);
+    } else if (s.helper && !s.table) {
       const h = document.createElement('span');
       h.className = 'ds-helper ds-helper--left' + (s.helperError ? ' ds-helper--error' : '') /* красный хелпер — только намеренное исключение */ + (disabled ? ' ds-helper--disabled' : '');
       h.textContent = s.helper;
@@ -9288,7 +9436,7 @@ try { (() => {
     row.className = 'inp-range__row';
     function field(side, sub) {
       sub = sub || {};
-      const placeholder = kind === 'date' ? 'ММ.ДД.ГГГГ' : 'Amount';
+      const placeholder = kind === 'date' ? 'ММ.ДД.ГГГГ' : null; /* Amount: пустое поле без плейсхолдера */
       const fspec = Object.assign({
         size,
         width: 'auto',
@@ -9351,7 +9499,8 @@ try { (() => {
       postfix: false,
       lead: false,
       informer: false,
-      multiline: false
+      multiline: false,
+      resizable: false
     };
     const controls = document.getElementById('pg-controls');
     const stage = document.getElementById('pg-stage');
@@ -9413,13 +9562,14 @@ try { (() => {
     controls.appendChild(ctlSelect('Размер', [['m', 'M'], ['s', 'S (Table Edit)']], 'size'));
     controls.appendChild(ctlSelect('Состояние', [['default', 'Default'], ['hover', 'Hover'], ['focus', 'Focus'], ['error', 'Error'], ['error-focus', 'ErrorFocus'], ['warning', 'Warning'], ['warning-focus', 'WarningFocus'], ['disabled', 'Disabled']], 'state', true));
     controls.appendChild(ctlSelect('Наполнение', [['empty', 'Пусто'], ['placeholder', 'Плейсхолдер'], ['value', 'Заполнено']], 'fill'));
-    controls.appendChild(ctlToggles([['Label', 'label'], ['Helper', 'helper'], ['Префикс', 'prefix'], ['Постфикс', 'postfix'], ['Иконка поиска', 'lead'], ['Информер', 'informer'], ['Многострочный', 'multiline']]));
+    controls.appendChild(ctlToggles([['Label', 'label'], ['Helper', 'helper'], ['Префикс', 'prefix'], ['Постфикс', 'postfix'], ['Иконка слева', 'lead'], ['Иконка справа', 'informer'], ['Многострочный', 'multiline'], ['Resize', 'resizable']]));
     function render() {
       const table = state.size === 's';
       /* неактуальные контролы: у Table Edit нет label/helper */
       controls.querySelectorAll('.toggle').forEach(b => {
         const k = b.dataset.key;
         if (k === 'label' || k === 'helper') b.classList.toggle('is-off', table);
+        if (k === 'resizable') b.classList.toggle('is-off', !state.multiline);
         b.setAttribute('aria-pressed', String(state[k]));
       });
       stage.innerHTML = '';
@@ -9434,6 +9584,7 @@ try { (() => {
         lead: state.lead,
         informer: state.informer,
         multiline: state.multiline,
+        resizable: state.multiline && state.resizable,
         value: state.fill === 'value' ? state.multiline ? 'Многострочный вариант поля InputText' : 'Text' : null,
         placeholder: state.fill === 'placeholder' ? 'Плейсхолдер' : null,
         tip: state.state === 'error-focus' ? 'Текст ошибки' : state.state === 'warning-focus' ? 'Указана информация, которая не блокирует действие, но требует внимания пользователя' : null,
@@ -9449,6 +9600,7 @@ try { (() => {
       if (state.state === 'hover') cls.push('is-hover');
       if (state.state === 'focus' || state.state.endsWith('-focus')) cls.push('is-focus');
       if (state.multiline) cls.push('inp--multiline');
+      if (state.multiline && state.resizable) cls.push('inp--resizable');
       codeEl.innerHTML = '<code>' + cls.join('.').replace(/^inp/, '.inp') + '</code>';
     }
     render();
@@ -9542,14 +9694,14 @@ try { (() => {
       value: 'Text',
       live: true
     })));
-    g.appendChild(cell('Иконка поиска', mk({
+    g.appendChild(cell('Иконка слева', mk({
       label: 'Label',
       lead: true,
       placeholder: 'Поиск…',
       clear: false,
       live: true
     })));
-    g.appendChild(cell('Информер', mk({
+    g.appendChild(cell('Иконка справа', mk({
       label: 'Label',
       value: 'Text',
       informer: true,
@@ -9571,6 +9723,14 @@ try { (() => {
       multiline: true,
       placeholder: 'Комментарий к сделке',
       clear: false,
+      live: true
+    })));
+    g.appendChild(cell('Многострочный · с изменением размера', mk({
+      label: 'Label',
+      helper: 'Потяните за правый нижний угол поля',
+      multiline: true,
+      resizable: true,
+      value: 'Поле растягивается по высоте стандартно, а также вручную потянув за угол',
       live: true
     })));
   })();
@@ -9607,6 +9767,42 @@ try { (() => {
       postfix: '₽',
       value: '1 234 567,00',
       state: 'disabled'
+    })));
+  })();
+  (function () {
+    const g = document.getElementById('var-password');
+    if (!g) return;
+    g.appendChild(cell('Пароль · скрыт', mk({
+      label: 'Пароль',
+      helper: 'Не короче 8 символов',
+      password: true,
+      value: 'sup3rSecret',
+      live: true
+    }), 'Действие справа — «показать/скрыть» вместо крестика очистки.'));
+    g.appendChild(cell('Пароль · пусто', mk({
+      label: 'Пароль',
+      helper: 'Не короче 8 символов',
+      password: true,
+      placeholder: 'Введите пароль',
+      live: true
+    })));
+  })();
+  (function () {
+    const g = document.getElementById('var-counter');
+    if (!g) return;
+    g.appendChild(cell('Ограничение длины · однострочный', mk({
+      label: 'Заголовок',
+      helper: 'Отображается в реестре',
+      maxLength: 40,
+      value: 'Кредитная линия ЮгСтрой',
+      live: true
+    })));
+    g.appendChild(cell('Ограничение длины · многострочный', mk({
+      label: 'Комментарий',
+      multiline: true,
+      maxLength: 140,
+      value: 'Выдача средств согласована с казначейством',
+      live: true
     })));
   })();
   (function () {
@@ -9890,6 +10086,7 @@ function lhIcon(name) {
    Выравнивание всегда задаётся обоим слотам одинаково — Label и Helper одной пары не
    бывают в разных ориентациях. */
 const LH_ICON_GLYPHS = ['<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-3.6L16 5.9a1.5 1.5 0 0 1 2.1 0l1.6 1.6a1.5 1.5 0 0 1 0 2.1L7.6 21H4z"/></svg>'];
+const LH_ICON_LABELS = ['Пояснение', 'Редактировать'];
 function makeLabel(o = {}) {
   const {
     text = 'Label',
@@ -9905,13 +10102,17 @@ function makeLabel(o = {}) {
   root.appendChild(t);
   const count = Math.max(0, Math.min(2, Number(icons) || 0));
   if (count > 0) {
+    // иконки в Label — IconButton S neutral
     const wrap = document.createElement('span');
     wrap.className = 'ds-label__icons';
     for (let i = 0; i < count; i++) {
-      const ic = document.createElement('span');
-      ic.className = 'is-action';
-      ic.innerHTML = LH_ICON_GLYPHS[i % LH_ICON_GLYPHS.length];
-      wrap.appendChild(ic);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ibtn ibtn--s ibtn--neutral';
+      btn.setAttribute('aria-label', LH_ICON_LABELS[i % LH_ICON_LABELS.length]);
+      if (disabled) btn.disabled = true;
+      btn.innerHTML = LH_ICON_GLYPHS[i % LH_ICON_GLYPHS.length];
+      wrap.appendChild(btn);
     }
     root.appendChild(wrap);
   }
@@ -10490,7 +10691,7 @@ function classListHelper(o) {
   }
   const groups = [{
     name: 'Label',
-    rows: [['Текст', '--text-secondary'], ['Иконки (редкий кейс)', '--text-inactive'], ['Disabled', '--text-inactive']]
+    rows: [['Текст', '--text-secondary'], ['Иконки — IconButton S neutral', '--secondary'], ['Disabled', '--text-inactive']]
   }, {
     name: 'Helper',
     rows: [['Текст', '--text-inactive'], ['Error', '--error'], ['Disabled', '--text-inactive']]
@@ -11596,7 +11797,7 @@ try { (() => {
     var desc = o.showDesc ? '<p class="ntile__desc">' + o.desc + '</p>' : '';
     if (o.variant === 'links') {
       var links = o.links.slice(0, 4).map(function (t) {
-        return '<a class="link link--accent link--s"' + (disabled ? ' aria-disabled="true"' : ' href="#"') + '>' + t + '</a>';
+        return '<a class="link link--accent link--m"' + (disabled ? ' aria-disabled="true"' : ' href="#"') + '>' + t + '</a>';
       }).join('');
       return '<div class="' + cls + '"' + (disabled ? ' aria-disabled="true"' : '') + '>' + illu + (disabled ? '<h3 class="ntile__title">' + o.title + '</h3>' : '<a class="ntile__title-link" href="#"><h3 class="ntile__title">' + o.title + '</h3></a>') + desc + '<nav class="ntile__links" aria-label="Подразделы">' + links + '</nav>' + '</div>';
     }
@@ -11699,33 +11900,33 @@ try { (() => {
   }));
 
   /* ---------- Анатомия ---------- */
-  put('anat-diagram', '<div style="width:280px; margin:0 auto;">' + tile({
+  put('anat-diagram', tile({
     variant: 'links',
     title: 'Отчётность',
     desc: 'Формы, выгрузки и регламентные отчёты',
     illu: 'reports-1-c',
     links: ['Регламентные', 'Выгрузки']
-  }) + '</div>');
+  }));
 
   /* ---------- Варианты ---------- */
-  put('var-base', '<div style="width:280px;">' + tile({}) + '</div>' + '<div style="width:280px;">' + tile({
+  put('var-base', tile({}) + tile({
     title: 'Контрагенты',
     desc: 'Компании, реквизиты и связанные лица',
     illu: 'clients'
-  }) + '</div>');
-  put('var-links', '<div style="width:280px;">' + tile({
+  }));
+  put('var-links', tile({
     variant: 'links',
     title: 'Отчётность',
     desc: 'Формы, выгрузки и регламентные отчёты',
     illu: 'reports-1-c',
     links: ['Регламентные', 'Выгрузки', 'Архив']
-  }) + '</div>' + '<div style="width:280px;">' + tile({
+  }) + tile({
     variant: 'links',
     title: 'Администрирование',
     desc: 'Пользователи, роли и справочники',
     illu: 'settings',
     links: ['Пользователи', 'Роли', 'Справочники', 'Журнал']
-  }) + '</div>');
+  }));
 
   /* ---------- Размеры ---------- */
   put('sizes-demo', tile({}) + tile({
@@ -11743,10 +11944,10 @@ try { (() => {
   }));
 
   /* ---------- Контент ---------- */
-  put('content-demo', '<div style="width:280px;">' + tile({
+  put('content-demo', '<div>' + tile({
     title: 'Сделки',
     desc: 'Кредитные линии, договоры и график платежей'
-  }) + '</div>' + '<div style="width:280px;">' + tile({
+  }) + '</div>' + '<div>' + tile({
     title: 'Переход к разделу сделок',
     desc: 'Здесь можно посмотреть все кредитные линии, договоры, график платежей, а также многое другое, что относится к сделкам.',
     illu: 'deals'
@@ -11770,7 +11971,7 @@ try { (() => {
     var el = document.getElementById('states-demo');
     if (!el) return;
     var states = [['default', 'Default'], ['hover', 'Hover'], ['focus', 'Focus'], ['disabled', 'Disabled']];
-    el.style.cssText = 'display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px;';
+    el.style.cssText = 'display:grid; grid-template-columns:repeat(auto-fill,minmax(400px,1fr)); gap:16px;';
     el.innerHTML = states.map(function (s) {
       return '<div><p class="desc tight" style="margin:0 0 10px; font-size:13px;">' + s[1] + '</p>' + tile({
         state: s[0],
@@ -11783,7 +11984,7 @@ try { (() => {
   /* ---------- Redline: живые значения ---------- */
   (function () {
     var host = document.createElement('div');
-    host.style.cssText = 'position:absolute; left:0; top:0; visibility:hidden; width:300px;';
+    host.style.cssText = 'position:absolute; left:0; top:0; visibility:hidden;';
     host.innerHTML = tile({});
     document.body.appendChild(host);
     var t = host.querySelector('.ntile');
@@ -11791,7 +11992,7 @@ try { (() => {
     var desc = host.querySelector('.ntile__desc');
     var illu = host.querySelector('.ntile__illu');
     var cs = getComputedStyle(t);
-    var rows = [['Паддинг контейнера', cs.paddingTop], ['Радиус скругления', cs.borderRadius + ' (--radius-card)'], ['Рамка', cs.borderTopWidth + ' solid (--border-light)'], ['Мин. высота', cs.minHeight], ['Зазор между частями', cs.rowGap], ['Иллюстрация', getComputedStyle(illu).width + ' × ' + getComputedStyle(illu).height], ['Название', getComputedStyle(title).fontSize + '/' + getComputedStyle(title).lineHeight + ' ' + getComputedStyle(title).fontWeight + ' (--type-h5-strong)'], ['Описание', getComputedStyle(desc).fontSize + '/' + getComputedStyle(desc).lineHeight + ' (--type-body-s)']];
+    var rows = [['Ширина × высота по умолчанию', cs.width + ' × ' + cs.minHeight], ['Паддинг контейнера', cs.paddingTop], ['Радиус скругления', cs.borderRadius + ' (--radius-control)'], ['Рамка', cs.borderTopWidth + ' solid (--border-light)'], ['Мин. высота', cs.minHeight], ['Зазор между частями', cs.rowGap], ['Иллюстрация', getComputedStyle(illu).width + ' × ' + getComputedStyle(illu).height], ['Название', getComputedStyle(title).fontSize + '/' + getComputedStyle(title).lineHeight + ' ' + getComputedStyle(title).fontWeight + ' (--type-h5-strong)'], ['Описание', getComputedStyle(desc).fontSize + '/' + getComputedStyle(desc).lineHeight + ' (--type-body-s)']];
     document.body.removeChild(host);
     var tb = document.querySelector('#dev-spec-table tbody');
     if (tb) tb.innerHTML = rows.map(function (r) {

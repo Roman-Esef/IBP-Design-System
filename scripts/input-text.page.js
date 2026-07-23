@@ -9,7 +9,7 @@
 
   /* =========================== PLAYGROUND =========================== */
   (function () {
-    const state = { size: 'm', state: 'default', fill: 'value', label: true, helper: true, prefix: false, postfix: false, lead: false, informer: false, multiline: false };
+    const state = { size: 'm', state: 'default', fill: 'value', label: true, helper: true, prefix: false, postfix: false, lead: false, informer: false, multiline: false, resizable: false };
     const controls = document.getElementById('pg-controls');
     const stage = document.getElementById('pg-stage');
     const codeEl = document.getElementById('pg-code');
@@ -51,8 +51,8 @@
     controls.appendChild(ctlToggles([
       ['Label', 'label'], ['Helper', 'helper'],
       ['Префикс', 'prefix'], ['Постфикс', 'postfix'],
-      ['Иконка поиска', 'lead'], ['Информер', 'informer'],
-      ['Многострочный', 'multiline'],
+      ['Иконка слева', 'lead'], ['Иконка справа', 'informer'],
+      ['Многострочный', 'multiline'], ['Resize', 'resizable'],
     ]));
 
     function render() {
@@ -61,6 +61,7 @@
       controls.querySelectorAll('.toggle').forEach(b => {
         const k = b.dataset.key;
         if (k === 'label' || k === 'helper') b.classList.toggle('is-off', table);
+        if (k === 'resizable') b.classList.toggle('is-off', !state.multiline);
         b.setAttribute('aria-pressed', String(state[k]));
       });
       stage.innerHTML = '';
@@ -75,6 +76,7 @@
         lead: state.lead,
         informer: state.informer,
         multiline: state.multiline,
+        resizable: state.multiline && state.resizable,
         value: state.fill === 'value' ? (state.multiline ? 'Многострочный вариант поля InputText' : 'Text') : null,
         placeholder: state.fill === 'placeholder' ? 'Плейсхолдер' : null,
         tip: state.state === 'error-focus' ? 'Текст ошибки' : (state.state === 'warning-focus' ? 'Указана информация, которая не блокирует действие, но требует внимания пользователя' : null),
@@ -90,6 +92,7 @@
       if (state.state === 'hover') cls.push('is-hover');
       if (state.state === 'focus' || state.state.endsWith('-focus')) cls.push('is-focus');
       if (state.multiline) cls.push('inp--multiline');
+      if (state.multiline && state.resizable) cls.push('inp--resizable');
       codeEl.innerHTML = '<code>' + cls.join('.').replace(/^inp/, '.inp') + '</code>';
     }
     render();
@@ -137,8 +140,8 @@
     if (!g) return;
     g.appendChild(cell('Только текст', mk({ label: 'Label', value: 'Text', live: true })));
     g.appendChild(cell('Префикс + постфикс', mk({ label: 'Label', prefix: 'Pref', postfix: 'Postf', value: 'Text', live: true })));
-    g.appendChild(cell('Иконка поиска', mk({ label: 'Label', lead: true, placeholder: 'Поиск…', clear: false, live: true })));
-    g.appendChild(cell('Информер', mk({ label: 'Label', value: 'Text', informer: true, live: true })));
+    g.appendChild(cell('Иконка слева', mk({ label: 'Label', lead: true, placeholder: 'Поиск…', clear: false, live: true })));
+    g.appendChild(cell('Иконка справа', mk({ label: 'Label', value: 'Text', informer: true, live: true })));
   })();
 
   (function () {
@@ -146,6 +149,7 @@
     if (!g) return;
     g.appendChild(cell('Многострочный', mk({ label: 'Label', helper: 'Helper', multiline: true, value: 'Многострочный вариант поля InputText', live: true })));
     g.appendChild(cell('Многострочный · пустой', mk({ label: 'Label', multiline: true, placeholder: 'Комментарий к сделке', clear: false, live: true })));
+    g.appendChild(cell('Многострочный · с изменением размера', mk({ label: 'Label', helper: 'Потяните за правый нижний угол поля', multiline: true, resizable: true, value: 'Поле растягивается по высоте стандартно, а также вручную потянув за угол', live: true })));
   })();
 
   (function () {
@@ -171,6 +175,20 @@
     });
     g.appendChild(cell('InputAmount · живой ввод', node, 'Печатайте: буквы игнорируются, точка становится запятой.'));
     g.appendChild(cell('Disabled', mk({ label: 'Сумма', helper: 'Helper', postfix: '₽', value: '1 234 567,00', state: 'disabled' })));
+  })();
+
+  (function () {
+    const g = document.getElementById('var-password');
+    if (!g) return;
+    g.appendChild(cell('Пароль · скрыт', mk({ label: 'Пароль', helper: 'Не короче 8 символов', password: true, value: 'sup3rSecret', live: true }), 'Действие справа — «показать/скрыть» вместо крестика очистки.'));
+    g.appendChild(cell('Пароль · пусто', mk({ label: 'Пароль', helper: 'Не короче 8 символов', password: true, placeholder: 'Введите пароль', live: true })));
+  })();
+
+  (function () {
+    const g = document.getElementById('var-counter');
+    if (!g) return;
+    g.appendChild(cell('Ограничение длины · однострочный', mk({ label: 'Заголовок', helper: 'Отображается в реестре', maxLength: 40, value: 'Кредитная линия ЮгСтрой', live: true })));
+    g.appendChild(cell('Ограничение длины · многострочный', mk({ label: 'Комментарий', multiline: true, maxLength: 140, value: 'Выдача средств согласована с казначейством', live: true })));
   })();
 
   (function () {

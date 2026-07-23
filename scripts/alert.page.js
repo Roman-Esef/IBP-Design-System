@@ -35,6 +35,9 @@
     var text = o.text || '';
     var buttons = o.buttons || 'none';   // none | one | two | link
     var actions = o.actions || 'none';   // none | close | both
+    var layout = o.layout === 'row' ? ' alert--row' : '';
+    if (o.layout === 'row') actions = 'none';   // в раскладке «в строку» кнопок действий нет
+    var flush = o.flush ? ' alert--flush' : '';
     var collapsed = o.collapsed ? ' alert--collapsed' : '';
     var role = (tone === 'error' || tone === 'warning') ? 'alert' : 'status';
     var live = (tone === 'error' || tone === 'warning') ? 'assertive' : 'polite';
@@ -45,23 +48,25 @@
     if (buttons === 'one') {
       body += '<div class="alert__buttons"><button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button></div>';
     } else if (buttons === 'two') {
-      body += '<div class="alert__buttons">'
-        + '<button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button>'
-        + '<button type="button" class="btn btn--transparent btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btn2Label || 'Позже') + '</span></button>'
-        + '</div>';
+      // outline — основная кнопка, transparent — второстепенная. В раскладке
+      // «в строку» порядок обратный (ghost слева, outline справа): у правого
+      // края экономится место для быстрого выделения глазом важной кнопки.
+      var btnOutline = '<button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btnLabel || 'Завести сделку') + '</span></button>';
+      var btnGhost = '<button type="button" class="btn btn--transparent btn--xs btn--' + tone + '"><span class="btn__label">' + esc(o.btn2Label || 'Позже') + '</span></button>';
+      body += '<div class="alert__buttons">' + (o.layout === 'row' ? (btnGhost + btnOutline) : (btnOutline + btnGhost)) + '</div>';
     } else if (buttons === 'link') {
       body += '<div class="alert__buttons"><a class="link link--' + tone + ' link--s" href="#" onclick="return false">' + esc(o.linkLabel || 'Подробнее') + '</a></div>';
     }
 
     var acts = '';
     if (actions === 'both') {
-      acts += '<button type="button" class="alert__act alert__collapse" aria-label="Свернуть" aria-expanded="' + (collapsed ? 'false' : 'true') + '"><i data-icon="chevron-up"></i></button>';
+      acts += '<button type="button" class="ibtn ibtn--m ibtn--neutral alert__act alert__collapse" aria-label="Свернуть" aria-expanded="' + (collapsed ? 'false' : 'true') + '"><i data-icon="chevron-up"></i></button>';
     }
     if (actions === 'close' || actions === 'both') {
-      acts += '<button type="button" class="alert__act alert__close" aria-label="Закрыть"><i data-icon="close"></i></button>';
+      acts += '<button type="button" class="ibtn ibtn--m ibtn--neutral alert__act alert__close" aria-label="Закрыть"><i data-icon="close"></i></button>';
     }
 
-    return '<div class="alert alert--' + tone + ' alert--' + size + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">'
+    return '<div class="alert alert--' + tone + ' alert--' + size + layout + flush + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">'
       + (icon ? '<span class="alert__icon" aria-hidden="true"><i data-icon="' + TONE_ICON[tone] + '"></i></span>' : '')
       + '<div class="alert__body">' + body + '</div>'
       + (acts ? '<div class="alert__actions">' + acts + '</div>' : '')
@@ -80,26 +85,35 @@
     var title = document.getElementById('c-title');
     var text = document.getElementById('c-text');
     var iconT = document.getElementById('c-icon');
+    var titleT = document.getElementById('c-title-on');
+    var textT = document.getElementById('c-text-on');
+    var layout = document.getElementById('c-layout');
     if (!tone) return;
 
-    iconT.addEventListener('click', function () {
-      iconT.setAttribute('aria-pressed', iconT.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
-      render();
+    [iconT, titleT, textT].forEach(function (t) {
+      t.addEventListener('click', function () {
+        t.setAttribute('aria-pressed', t.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        render();
+      });
     });
 
     function render() {
+      var isRow = layout && layout.value === 'row';
+      // в раскладке «в строку» кнопок действий нет — скрываем настройку
+      var actsCtl = acts.closest('.ctl'); if (actsCtl) actsCtl.classList.toggle('is-off', isRow);
       var o = {
         tone: tone.value,
         size: size.value,
         buttons: btns.value,
-        actions: acts.value,
-        title: title.value.trim(),
-        text: text.value.trim(),
+        actions: isRow ? 'none' : acts.value,
+        layout: layout ? layout.value : 'stack',
+        title: titleT.getAttribute('aria-pressed') === 'true' ? title.value.trim() : '',
+        text: textT.getAttribute('aria-pressed') === 'true' ? text.value.trim() : '',
         icon: iconT.getAttribute('aria-pressed') === 'true'
       };
       setHTML('pg-preview', alertHTML(o));
 
-      var cls = 'alert alert--' + o.tone + ' alert--' + o.size;
+      var cls = 'alert alert--' + o.tone + ' alert--' + o.size + (o.layout === 'row' ? ' alert--row' : '');
       var code = document.getElementById('pg-code');
       if (code) {
         code.innerHTML = '<code>&lt;div class="' + cls + '" data-alert-tone="' + o.tone + '" role="'
@@ -107,7 +121,7 @@
       }
     }
 
-    [tone, size, btns, acts].forEach(function (s) { s.addEventListener('change', render); });
+    [tone, size, btns, acts].concat(layout ? [layout] : []).forEach(function (s) { s.addEventListener('change', render); });
     [title, text].forEach(function (i) { i.addEventListener('input', render); });
     render();
   }
@@ -118,12 +132,27 @@
     setHTML('use-inline', alertHTML({ tone: 'info', title: DEMO_TITLE, text: DEMO_TEXT }));
     setHTML('use-action', alertHTML({ tone: 'warning', title: 'Требуется подтверждение', text: 'Реквизиты контрагента изменились. Проверьте их перед отправкой на согласование.', buttons: 'two', actions: 'close', btnLabel: 'Проверить', btn2Label: 'Позже' }));
 
+    // Встроенный в плитку/модалку — flush + row (без кнопок действий)
+    setHTML('embed-alert', alertHTML({ tone: 'warning', size: 's', layout: 'row', flush: true, text: 'Реквизиты изменились — проверьте перед отправкой.', buttons: 'one', btnLabel: 'Проверить' }));
+    // Раскладка «в строку» — на всю ширину, без кнопок действий
+    setHTML('var-row', [
+      alertHTML({ tone: 'info', layout: 'row', text: 'Черновик сохраняется автоматически каждые 30 секунд.' }),
+      alertHTML({ tone: 'warning', layout: 'row', title: 'Есть несохранённые изменения', text: 'Покиньте страницу — и они будут потеряны.', buttons: 'two', btnLabel: 'Сохранить', btn2Label: 'Отменить' })
+    ].join(''));
+
     // Alert vs Toast vs SnackBar — витрина
     setHTML('diff-alert', alertHTML({ tone: 'info', size: 's', title: 'Инлайн-сообщение', text: 'Живёт в потоке блока.' }));
     var diffToast = document.getElementById('diff-toast');
     if (diffToast) diffToast.innerHTML = '<div style="display:inline-flex;align-items:center;gap:10px;background:var(--c-cgrey-700,#333F48);color:#fff;border-radius:8px;padding:10px 16px;font:var(--type-body-s)">Процесс запущен</div>';
     var diffSnack = document.getElementById('diff-snack');
-    if (diffSnack) diffSnack.innerHTML = '<div style="background:var(--bg-tile);border:1px solid var(--border-light);border-radius:12px;box-shadow:0 10px 30px rgba(40,50,55,.16);padding:12px 14px;max-width:260px"><div style="font:var(--type-body-s-strong);color:var(--text-primary);margin-bottom:2px">Готово</div><div style="font:var(--type-body-xs);color:var(--text-secondary)">Уведомление в углу экрана.</div></div>';
+    if (diffSnack) { diffSnack.innerHTML = ''
+      + '<div class="snack snack--info" data-snack-tone="info" role="status" aria-live="polite" style="position:static;width:auto;max-width:280px;box-shadow:var(--shadow-l,0 10px 30px rgba(40,50,55,.16))">'
+      +   '<span class="snack__icon" aria-hidden="true"><i data-icon="Info-circle-filled"></i></span>'
+      +   '<div class="snack__body"><div class="snack__title">Готово</div><div class="snack__text">Уведомление в углу экрана.</div></div>'
+      +   '<button type="button" class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>'
+      + '</div>';
+      paintIcons(diffSnack);
+    }
 
     // Тоны
     setHTML('var-tones', TONES.map(function (t) {
@@ -225,7 +254,7 @@
     host.innerHTML = rows.map(function (r) {
       return '<div class="spec__row">'
         + '<div class="spec__state">' + r[0] + '<small>' + r[1] + '</small></div>'
-        + '<div class="spec__sample"><button type="button" class="alert__act" aria-label="' + r[0] + '" style="color:var(--text-inactive)"><i data-icon="close"></i></button></div>'
+        + '<div class="spec__sample"><button type="button" class="ibtn ibtn--m ibtn--neutral" aria-label="' + r[0] + '"><i data-icon="close"></i></button></div>'
         + '<div style="font:var(--type-body-s);color:var(--text-secondary)">' + r[2] + '</div>'
         + '</div>';
     }).join('');

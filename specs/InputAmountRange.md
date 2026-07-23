@@ -1,8 +1,8 @@
 ---
 component: InputAmountRange
 title: "InputAmountRange"
-version: "v1.3"
-updated: "12.07.2026"
+version: "v1.4"
+updated: "22.07.2026"
 page: pages/molecules/InputAmountRange.html
 page_js: scripts/input-amount-range.page.js
 css: styles/input-range.css
@@ -20,7 +20,7 @@ status: curated
 - **Анатомия** — Label (общая) · два InputAmount с префиксом «От»/«До» · Range_Line между ними · Helper (опц.). В полях всегда есть префикс. Толщина/цвет Range_Line = бордер инпута (1px, `--border-primary`).
 - **Варианты** — С хелпером/без · Наполнение (пусто / одно поле / оба).
 - **Размеры** — только M (высота поля 40px, Body M). Размера S нет. Ширину задаёт контейнер, поля делят её поровну.
-- **Контент** — префикс «От»/«До» неизменяем и всегда присутствует; пустое поле показывает плейсхолдер «Amount»; метка-существительное с единицей; хелпер = правило (в Error → текст ошибки).
+- **Контент** — префикс «От»/«До» неизменяем и всегда присутствует; пустое поле остаётся без плейсхолдера; метка-существительное с единицей; хелпер = правило (в Error → текст ошибки).
 - **Поведение** — правила InputAmount (фильтр `[0-9.,-]`, `.`→`,`, группировка по 3, обрезка нулей на blur). Поля независимы: hover/focus/error одного поля не влияют на другое; оба поля могут быть в ошибке одновременно. Крестик — только у заполненного поля.
 - **Состояния** — Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled — на каждом поле независимо. ПРАВИЛО: текст ошибки/предупреждения по умолчанию НЕ в хелпере — только в тултипе при *Focus; тултип не смещает хелпер (position:absolute, z-index выше поля). helperError:true — намеренное исключение.
 - **Доступность** — метка/хелпер связаны через `label`/`aria-describedby`; `aria-invalid` только на невалидном поле; Range_Line — `aria-hidden="true"`; поля озвучиваются отдельно.
@@ -41,7 +41,7 @@ status: curated
     <div class="inp inp--m inp-range__field">
       <div class="inp__field">
         <span class="inp__prefix">От</span>
-        <input class="inp__control" inputmode="decimal" placeholder="Amount">
+        <input class="inp__control" inputmode="decimal">
         <span class="inp__acts"><button class="inp__act" aria-label="Очистить поле">…✕…</button></span>
       </div>
     </div>

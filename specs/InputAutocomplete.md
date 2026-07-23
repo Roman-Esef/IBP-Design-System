@@ -1,8 +1,8 @@
 ---
 component: InputAutocomplete
 title: "InputAutocomplete"
-version: "v1.7"
-updated: "13.07.2026"
+version: "v1.8"
+updated: "22.07.2026"
 page: pages/molecules/InputAutocomplete.html
 page_js: scripts/input-autocomplete.page.js
 css: styles/input.css
@@ -55,7 +55,7 @@ status: curated
 
 ### Поведение · псевдокод (framework-agnostic)
 ```
-// раскрытие: фокус/шеврон → открыть, ширина = ширине поля, авто-разворот вверх
+// раскрытие: фокус/шеврон → открыть, список примыкает к полю вплотную (отступ 0), ширина = ширине поля, авто-разворот вверх
 // фильтрация: дебаунс, фильтр опций, подсветка .ddl__match; пусто → ddl__state--empty
 // одиночный: клик → значение в поле, закрыть. множественный: клик → toggle чекбокс+чип, НЕ закрывать
 // чипы: крестик/повтор — удалить; Backspace в пустом поле — последний; переполнение → «+N»

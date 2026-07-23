@@ -55,6 +55,7 @@
     root.className = 'inp inp--' + size;
     if (s.table) root.classList.add('inp--table');
     if (s.multiline) root.classList.add('inp--multiline');
+    if (s.multiline && s.resizable) root.classList.add('inp--resizable');
     const st = s.state || 'default';
     if (st.startsWith('error')) root.classList.add('inp--error');
     if (st.startsWith('warning')) root.classList.add('inp--warning');
@@ -90,8 +91,9 @@
 
     const ctl = document.createElement(s.multiline ? 'textarea' : 'input');
     ctl.className = 'inp__control';
-    if (!s.multiline) ctl.type = 'text';
+    if (!s.multiline) ctl.type = s.password ? 'password' : 'text';
     else ctl.rows = s.rows || 2;
+    if (s.maxLength) ctl.maxLength = s.maxLength;
     if (s.id) ctl.id = s.id;
     if (s.value != null) ctl.value = s.value;
     if (s.placeholder) ctl.placeholder = s.placeholder;
@@ -100,11 +102,12 @@
     f.appendChild(ctl);
     if (s.postfix) { const p = document.createElement('span'); p.className = 'inp__postfix'; p.textContent = s.postfix; f.appendChild(p); }
 
-    /* actions — порядок слева направо: информер · крестик очистки · календарь · шеврон.
+    /* actions — порядок слева направо: информер · крестик очистки (пароль — «показать/скрыть» вместо крестика) · календарь · шеврон.
        Информер (статичная иконка-подсказка) всегда левее крестика и шеврона. */
     const actions = [];
     if (s.informer) actions.push(['informer', 'info-circle', 'Подсказка']);
-    if (s.clear !== false && (s.clear || s.value || (s.chips && s.chips.length) || s.summary)) actions.push(['clear', 'close', 'Очистить поле']);
+    if (s.password) actions.push(['password', 'visibility-off', 'Показать пароль']);
+    else if (s.clear !== false && (s.clear || s.value || (s.chips && s.chips.length) || s.summary)) actions.push(['clear', 'close', 'Очистить поле']);
     if (s.calendar) actions.push(['calendar', 'calendar', 'Открыть календарь']);
     if (s.chevron) actions.push(['chev', 'chevron-down', 'Показать список']);
     if (actions.length) {
@@ -118,6 +121,13 @@
         b.innerHTML = icon(glyph);
         if (kind === 'clear' && s.live) b.addEventListener('click', () => { ctl.value = ''; ctl.dispatchEvent(new Event('input', { bubbles: true })); ctl.focus(); });
         if (kind === 'clear' && s.onClear) b.addEventListener('click', s.onClear);
+        if (kind === 'password') b.addEventListener('click', () => {
+          const showing = ctl.type === 'text';
+          ctl.type = showing ? 'password' : 'text';
+          b.innerHTML = icon(showing ? 'visibility-off' : 'visibility-on');
+          b.setAttribute('aria-label', showing ? 'Показать пароль' : 'Скрыть пароль');
+          ctl.focus();
+        });
         aw.appendChild(b);
       });
       f.appendChild(aw);
@@ -140,8 +150,28 @@
     }
     root.appendChild(box);
 
-    /* helper */
-    if (s.helper && !s.table) {
+    /* helper (+ опциональный счётчик символов справа, когда задан maxLength) */
+    if (s.maxLength) {
+      const foot = document.createElement('div'); foot.className = 'inp__foot';
+      if (s.helper && !s.table) {
+        const h = document.createElement('span');
+        h.className = 'ds-helper ds-helper--left'
+          + (s.helperError ? ' ds-helper--error' : '')
+          + (disabled ? ' ds-helper--disabled' : '');
+        h.textContent = s.helper;
+        foot.appendChild(h);
+      }
+      const counter = document.createElement('span'); counter.className = 'inp__counter';
+      const syncCounter = () => {
+        const n = ctl.value.length;
+        counter.textContent = n + ' / ' + s.maxLength;
+        counter.classList.toggle('inp__counter--limit', n >= s.maxLength);
+      };
+      syncCounter();
+      ctl.addEventListener('input', syncCounter);
+      foot.appendChild(counter);
+      root.appendChild(foot);
+    } else if (s.helper && !s.table) {
       const h = document.createElement('span');
       h.className = 'ds-helper ds-helper--left'
         + (s.helperError ? ' ds-helper--error' : '') /* красный хелпер — только намеренное исключение */
@@ -201,7 +231,7 @@
 
     function field(side, sub) {
       sub = sub || {};
-      const placeholder = kind === 'date' ? 'ММ.ДД.ГГГГ' : 'Amount';
+      const placeholder = kind === 'date' ? 'ММ.ДД.ГГГГ' : null; /* Amount: пустое поле без плейсхолдера */
       const fspec = Object.assign({
         size,
         width: 'auto',

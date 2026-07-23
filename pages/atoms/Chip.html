@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/label-helper.css">
+<link rel="stylesheet" href="../../styles/avatar.css">
 <link rel="stylesheet" href="../../styles/chip.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -245,6 +246,11 @@
   /* ---------- accessibility focus demo ---------- */
   .a11y-demo:focus-visible { outline: none; }
   .rof-mock { display: flex; flex-direction: column; gap: 4px; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -262,7 +268,7 @@
 <main class="page" data-screen-label="Chip">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Chip</h1>
     <p class="lead">Чип — компактный интерактивный элемент для фильтрации и группировки данных. Применяется как <b>тег</b>, <b>маркер</b> и <b>статус</b>, входит в состав чиплиста и InputAutocomplete. Два типа — <b>Edit</b> и <b>ReadOnly</b>, два стиля — <b>Fill</b> и <b>Outline</b>.</p>
@@ -419,7 +425,7 @@
 
 <div class="subsec" data-screen-label="Leading">
     <h3>Ведущие элементы</h3>
-    <p class="desc">Слева к тексту можно добавить дополнительный элемент. <code class="tok">.Chip_Content</code> — иконка-маркер; <b>Иконка</b> — смысловая пиктограмма, не завязанная на тон/статус; <code class="tok">.Chip_Badge</code> — мини-бейдж; аватар — для чипов-персон. Справа — действие: крестик удаления или шеврон выпадающего списка (<code class="tok">.Chip_Action</code>).</p>
+    <p class="desc">Слева к тексту можно добавить дополнительный элемент. <code class="tok">.Chip_Content</code> — иконка-маркер; <b>Иконка</b> — смысловая пиктограмма, не завязанная на тон/статус; <b>Аватар</b> — компонент <a class="inl" href="../atoms/Avatar.html">Avatar</a> с выбираемым содержимым (текст-инициалы, иконка или фото). Отдельный слот «бейдж» убран — он объединён с аватаром. Справа — действие: крестик удаления или шеврон выпадающего списка (<code class="tok">.Chip_Action</code>) — взаимоисключающие, вместе не ставятся.</p>
     <div class="panel">
       <div class="slot-tiles" id="slot-tiles"></div>
     </div>
@@ -608,7 +614,7 @@
     <p class="desc">Сверяясь с Material Design и практиками других ДС, в документации недостаёт ряда состояний и кейсов. Ниже — предлагаемые дополнения; все собраны на существующих токенах.</p>
     <div class="callout">
       <h3>Предлагаемые дополнения</h3>
-      <p>Текущая спецификация покрывает Default / Hover / Disabled. Для использования чипов как фильтров (toggle) и как статусов этого недостаточно — добавляем состояния выбора, фокуса, загрузки и валидации.</p>
+      <p>Состояния Selected / Focus / Loading / Invalid, статусные тона и числовой счётчик уже реализованы и переехали в «Варианты» / «Состояния». В бэклоге осталось одно нереализованное предложение.</p>
       <div class="prop-grid" id="proposals"></div>
     </div>
   </section>
@@ -620,6 +626,7 @@
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/image-slot.js"></script>
 <script src="../../scripts/chip.page.js"></script>
 <script>
 /* ---------- DEV: copy-to-clipboard on code panels ---------- */

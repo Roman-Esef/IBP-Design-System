@@ -221,6 +221,11 @@
   .dev-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
   .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -519,7 +524,19 @@
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Badge с иконкой</b> — статус-глиф вместо точки/числа (например, «в процессе») — частый кейс в Carbon/Ant Design.</li>
+        <li><b>Анимация счётчика</b> — плавная смена значения Counter при обновлении в реальном времени.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Badge</span>
     <span>Counter · Dot — M / S / XS / XXS / Dot · Neutral / Accent / Success / Info / Warning / Error</span>
   </footer>

@@ -138,7 +138,7 @@
     const g = document.getElementById('content-demo');
     if (!g) return;
     g.appendChild(cell('Префикс всегда присутствует', range({ label: 'Сумма, ₽', helper: 'Префиксы «От» / «До» неизменяемы', from: { value: '9 999', live: true }, to: { value: '9 999', live: true } })));
-    g.appendChild(cell('Пустое поле — плейсхолдер «Amount»', range({ label: 'Сумма, ₽', helper: 'Helper', from: { live: true }, to: { live: true } })));
+    g.appendChild(cell('Пустое поле — без плейсхолдера', range({ label: 'Сумма, ₽', helper: 'Helper', from: { live: true }, to: { live: true } })));
   })();
 
   /* =========================== BEHAVIOR =========================== */

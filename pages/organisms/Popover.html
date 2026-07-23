@@ -211,6 +211,11 @@
 
   footer.page-foot { margin-top:90px; padding-top:26px; border-top:1px solid var(--border-light);
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -476,10 +481,20 @@
     </div>
   </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Заголовок — strong-начертание, тело и служебный текст — гарнитура <b>SB Sans Text</b>.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table">
+        <thead><tr><th>Часть</th><th>Токен</th><th>Шрифт</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody>
+          <tr><td>Заголовок (Header)</td><td><code class="tok">--type-body-s-strong</code></td><td>SB Sans Text</td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Тело (Body)</td><td><code class="tok">--type-body-m</code></td><td>SB Sans Text</td><td class="dsc">16 / 20</td></tr>
+          <tr><td>Служебный текст (Footer)</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td class="dsc">14 / 16</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- COLORS -->
@@ -568,7 +583,19 @@ onBodyScroll():
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Вложенный Popover</b> — открытие второго поповера из первого (например, выбор из списка внутри деталей).</li>
+        <li><b>Автозакрытие по таймеру</b> — опция для информационных, не интерактивных поповеров.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Popover</span>
     <span>Trigger / Header / Body / Footer / Arrow · 5 ширин · 12 позиций · один открытый одновременно</span>
   </footer>

@@ -225,11 +225,13 @@
   letter-spacing: .04em;
   user-select: none;
 }
+/* Divider между группами — переиспользует токены компонента Divider
+   (--dvd-color / --dvd-thickness); фолбэки на случай отсутствия divider.css. */
 .ddl__divider {
-  height: 1px;
+  height: 0;
   margin: var(--ddl-pad-y) 0;
-  background: var(--border-light);
   border: 0;
+  border-top: var(--dvd-thickness, 1px) solid var(--dvd-color, var(--border-light));
 }
 
 /* =========================================================================

@@ -127,6 +127,11 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 /* off-screen sample for redline */
 .rl-sample{position:absolute;top:-9999px;left:0;width:320px;}
 footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-inactive);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
@@ -477,10 +482,20 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   </div>
 </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Заголовок и текст набираются гарнитурой <b>SB Sans Text</b>; текст всегда на ступень мельче заголовка.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table">
+        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody>
+          <tr><td>Заголовок (<code class="tok">.snack__title</code>)</td><td>Ошибка</td><td><code class="tok">--type-body-s</code></td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Текст (<code class="tok">.snack__text</code>)</td><td>Плановая дата подписания просрочена</td><td><code class="tok">--type-body-xs</code></td><td class="dsc">12 / 16</td></tr>
+          <tr><td>Счётчик дублей (<code class="tok">.snack__dupe</code>)</td><td>×2</td><td><code class="tok">--type-body-xs</code> · Semibold</td><td class="dsc">12 / 16</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- 8. ЦВЕТА -->
@@ -489,31 +504,31 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   <div class="cref">
     <div class="cref-group">
       <h3>Error</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--error-bg-light);"></span><b>--error-bg-light</b><span>Фон карточки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--error);"></span><b>--error</b><span>Иконка, close, кнопки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--error-dark);"></span><b>--error-dark</b><span>Hover кнопок</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--error-bg-light);"></span><b>--error-bg-light</b><span>Фон карточки · #FCF1F1</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--error);"></span><b>--error</b><span>Иконка, close, кнопки · #E5625C</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--error-dark);"></span><b>--error-dark</b><span>Hover кнопок · #D32F2F</span></div>
     </div>
     <div class="cref-group">
       <h3>Warning</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--warning-bg);"></span><b>--warning-bg</b><span>Фон карточки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--warning);"></span><b>--warning</b><span>Иконка, close, кнопки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--warning-dark);"></span><b>--warning-dark</b><span>Hover кнопок</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--warning-bg);"></span><b>--warning-bg</b><span>Фон карточки · #FFF8E1</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--warning);"></span><b>--warning</b><span>Иконка, close, кнопки · #FFB300</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--warning-dark);"></span><b>--warning-dark</b><span>Hover кнопок · #C68400</span></div>
     </div>
     <div class="cref-group">
       <h3>Info</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--info-bg);"></span><b>--info-bg</b><span>Фон карточки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--info);"></span><b>--info</b><span>Иконка, close, кнопки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--info-dark);"></span><b>--info-dark</b><span>Hover кнопок</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--info-bg);"></span><b>--info-bg</b><span>Фон карточки · #EAF8FE</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--info);"></span><b>--info</b><span>Иконка, close, кнопки · #1E88E5</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--info-dark);"></span><b>--info-dark</b><span>Hover кнопок · #01579B</span></div>
     </div>
     <div class="cref-group">
       <h3>Success</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--success-bg);"></span><b>--success-bg</b><span>Фон карточки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--success);"></span><b>--success</b><span>Иконка, close, кнопки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--success-dark);"></span><b>--success-dark</b><span>Hover кнопок</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--success-bg);"></span><b>--success-bg</b><span>Фон карточки · #E9F6DA</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--success);"></span><b>--success</b><span>Иконка, close, кнопки · #7CB342</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--success-dark);"></span><b>--success-dark</b><span>Hover кнопок · #558B2F</span></div>
     </div>
   </div>
   <div class="panel" style="margin-top:16px;padding:0;overflow:hidden;">
-    <div class="cref-row"><span class="sw" style="background:var(--text-primary);border-radius:50%;"></span><b>--text-primary</b><span>Заголовок (Body S)</span></div>
+    <div class="cref-row"><span class="sw" style="background:var(--text-primary);border-radius:50%;"></span><b>--text-primary</b><span>Заголовок (Body S) · #324844</span></div>
     <div class="cref-row" style="border-bottom:none;"><span class="sw" style="background:var(--text-secondary);border-radius:50%;"></span><b>--text-secondary</b><span>Текст (Body XS)</span></div>
   </div>
 </section>
@@ -587,7 +602,19 @@ function dismiss(id):
 
   </section>
 
-    <footer class="page-foot">
+      <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Группировка по типу</b> — сворачивание нескольких снеков одного тона в один со счётчиком (кроме дедупликации одинаковых).</li>
+        <li><b>Позиция снизу</b> — альтернативное размещение стека для мобильных макетов.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · SnackBar</span>
     <span>Info · Warning · Error · Success — стек, дедупликация, авто-скрытие</span>
   </footer>

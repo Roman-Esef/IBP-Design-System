@@ -22,9 +22,6 @@
 }
 /* встроенный (docked, без тени) — например, внутри модалки/панели */
 .dpk--inline { box-shadow: none; border: 1px solid var(--border-light); }
-/* шире — когда в футере три кнопки («Сегодня» + Отменить + Применить) */
-.dpk--wide { width: 360px; }
-.dpk--wide .dpk__weekdays, .dpk--wide .dpk__grid { margin-inline: auto; }
 
 /* ---------- шапка: заголовок + навигация ---------- */
 .dpk__head {
@@ -55,8 +52,7 @@
 .dpk__cap-icon svg { width: 18px; height: 18px; display: block; }
 .dpk--panel .dpk__cap-icon { transform: rotate(180deg); }
 .dpk__nav { display: inline-flex; gap: 2px; }
-/* стрелки скрываются в режиме выбора месяца/года — навигация идёт по заголовку */
-.dpk--panel .dpk__nav { visibility: hidden; }
+/* в режиме выбора месяца/года стрелки листают блок (±1 год у месяцев, ±12 лет у годов) */
 
 /* ---------- дни недели ---------- */
 .dpk__weekdays { display: grid; grid-template-columns: repeat(7, var(--dpk-cell)); margin-top: 4px; }

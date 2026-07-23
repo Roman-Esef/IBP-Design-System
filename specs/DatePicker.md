@@ -1,8 +1,8 @@
 ---
 component: DatePicker
 title: "DatePicker"
-version: "v1.0"
-updated: "21.07.2026"
+version: "v1.2"
+updated: "22.07.2026"
 page: pages/molecules/DatePicker.html
 page_js: scripts/datepicker.page.js
 css: styles/datepicker.css
@@ -19,9 +19,9 @@ status: curated
 - **Использование** — выбор даты указателем: одиночная дата (InputDate), диапазон «с … по …» (InputDateRange), месяц целиком. Ручной ввод по маске возможен в поле и без открытия календаря. Не для выбора из 2–6 фиксированных периодов — это SegmentControl.
 - **Анатомия** — три зоны: шапка (заголовок «Месяц Год» + стрелки навигации), дни недели + сетка 6×7, опциональный футер («Сегодня» слева, «Отмена / Готово» справа).
 - **Варианты** — режимы: single (дата) · range (диапазон) · month (выбор месяца); представления: day · month · year (переключаются заголовком и стрелками); футер: нет (авто-применение, docked) / кнопки / быстрое «Сегодня».
-- **Размеры** — один размер: ширина 304px (7×40 + паддинг 12), ячейка дня 40×40, кружок 36. Меняется способ размещения: floating (тень --elevation-5) / inline (рамка --border-light, без тени).
+- **Размеры** — один размер: ширина 304px (7×40 + паддинг 12), одинаковая для всех вариантов футера (сетка растянута на всю ширину, без пустот по бокам). Ячейка дня 40×40, кружок 36. Футерные кнопки — размер XS (24px), чтобы три кнопки помещались без переноса. Меняется способ размещения: floating (тень --elevation-5) / inline (рамка --border-light, без тени).
 - **Контент** — неделя с понедельника, дни Пн…Вс; заголовок — месяц в И.п. + год; дни соседних месяцев приглушены и кликабельны; min/max делают даты недоступными (disabled), не скрывают.
-- **Поведение** — стрелки: ±1 месяц (day), ±1 год (month), ±12 лет (year); заголовок day→year→month→day. Диапазон: клик1 = начало (конец сброшен), клик2 = конец; клик раньше начала перезапускает. Floating — под полем, зазор 8px, авто-flip вверх, как Popover; один открытый календарь.
+- **Поведение** — стрелки: ±1 месяц (day), ±1 год (month), ±12 лет (year) — видны во всех представлениях, включая month/year, чтобы можно было листать более ранние/поздние года; заголовок day→year→month→day. Диапазон: клик1 = начало (конец сброшен), клик2 = конец; клик раньше начала перезапускает. Floating — под полем, зазор 8px, авто-flip вверх, как Popover; один открытый календарь.
 - **Состояния** — на уровне ячейки дня: default · hover (заливка кружка) · today (обводка --primary) · selected / концы диапазона (заливка --primary, белое число) · in-range (полоса --primary-bg) · disabled (приглушено, не реагирует) · outside (сосед. месяц, приглушено).
 - **Доступность** — root `role="dialog"` + `aria-modal="false"` + `aria-label="Выбор даты"`; сетка `role="grid"`, ячейки `role="gridcell"` + полный `aria-label` даты + `aria-selected`; недоступные `aria-disabled="true"`. Клавиатура: ←→ день, ↑↓ неделя, PageUp/Down месяц, Home/End неделя, Enter/Space выбрать, Esc закрыть.
 - **Типографика** — заголовок Body S Strong; числа и ячейки месяца/года Body S (табличные цифры); дни недели Body XS.
@@ -52,10 +52,10 @@ status: curated
   </div>
   <!-- опц. футер -->
   <div class="dpk__foot">
-    <div class="dpk__foot-left"><button class="btn btn--transparent btn--s dpk__today"><span class="btn__label">Сегодня</span></button></div>
+    <div class="dpk__foot-left"><button class="btn btn--transparent btn--xs dpk__today"><span class="btn__label">Сегодня</span></button></div>
     <div class="dpk__foot-right">
-      <button class="btn btn--transparent btn--s dpk__cancel"><span class="btn__label">Отменить</span></button>
-      <button class="btn btn--accent btn--s dpk__ok"><span class="btn__label">Применить</span></button>
+      <button class="btn btn--transparent btn--xs dpk__cancel"><span class="btn__label">Отменить</span></button>
+      <button class="btn btn--accent btn--xs dpk__ok"><span class="btn__label">Применить</span></button>
     </div>
   </div>
 </div>

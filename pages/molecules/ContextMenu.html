@@ -223,6 +223,11 @@
   .dev-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
   .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -240,7 +245,7 @@
 <main class="page" data-screen-label="ContextMenu">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Context Menu</h1>
     <p class="lead">Контекстное меню — всплывающий список действий над объектом. Возникает по нажатию на кнопку действий (kebab «три точки» или дропдаун) в заголовке таблицы, строке таблицы или карточке. Ширина зависит от контента, набор пунктов — от объекта.</p>
@@ -540,7 +545,19 @@
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Подменю (nested)</b> — пункт, раскрывающий вложенный список — сейчас только плоский список и группы.</li>
+        <li><b>Поиск по пунктам</b> — строка фильтра наверху меню при большом числе действий.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Context Menu</span>
     <span>item / label / divider / submenu · danger · selected · disabled</span>
   </footer>

@@ -1,8 +1,8 @@
 ---
 component: Illustrations
 title: "Иллюстрации"
-version: "v1.1"
-updated: "14.07.2026"
+version: "v1.2"
+updated: "23.07.2026"
 page: pages/foundations/Illustrations.html
 css: styles/illustration.css
 deps: [colors, radius, typography]
@@ -10,7 +10,7 @@ deps: [colors, radius, typography]
 
 # Иллюстрации — библиотека продуктовых иллюстраций
 
-SVG-библиотека для NavTile, пустых состояний, ошибок и онбординга. Файлы лежат в `assets/illustrations/*.svg`, скрипт `scripts/ds-illustrations.js` подставляет их в слоты `.illu[data-illu]` (fallback на штриховую заглушку, если имени нет в библиотеке).
+SVG-библиотека для NavTile, пустых состояний, ошибок и онбординга. Файлы лежат в `assets/illustrations/*.svg`, скрипт `scripts/ds-illustrations.js` подставляет SVG при загрузке и автоматически дорендерит новые слоты, добавленные в DOM позже (MutationObserver на `document.documentElement`) — без этого слоты, пересобранные динамически (конструкторы/тайквики) после первого рендера страницы, оставались пустыми (заглушка). Рендер также доступен напрямую через `window.DSIllustrations.render()`.tions.js` подставляет их в слоты `.illu[data-illu]` (fallback на штриховую заглушку, если имени нет в библиотеке).
 
 ## Слот
 ```

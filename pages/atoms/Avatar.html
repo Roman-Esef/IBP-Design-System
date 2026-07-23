@@ -211,6 +211,11 @@
   .dev-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
   .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -228,7 +233,7 @@
 <main class="page" data-screen-label="Avatar">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Avatar</h1>
     <p class="lead">Аватар — компактное визуальное представление пользователя или сущности. Содержит инициалы (Text), запасную иконку (Icon) или фотографию (Image). Две формы — Circular и Rounded — четыре размера и опциональный бейдж: счётчик или индикатор статуса.</p>
@@ -324,7 +329,7 @@
 
 <div class="subsec" data-screen-label="Badge">
     <h3>Бейдж на аватаре</h3>
-    <p class="desc">Аватар может нести дочерний <a class="inl" href="../atoms/Badge.html">Badge</a>. <b>Counter</b> ставится в правый верхний угол — непрочитанные сообщения, количество задач. <b>Dot</b> ставится в правый нижний угол как индикатор присутствия. На фото у бейджа всегда белая обводка (<code class="tok">badge--bordered</code>).</p>
+    <p class="desc">Аватар может нести дочерний <a class="inl" href="../atoms/Badge.html">Badge</a>. <b>Counter</b> ставится в правый верхний угол (его правая и верхняя грани совпадают с гранями аватара, не выходя за габарит) — непрочитанные сообщения, количество задач; только у размеров <b>L</b> и <b>XL</b>. <b>Dot</b> — индикатор присутствия в правом нижнем углу описанного квадрата, касается его нижней и правой граней; на всех размерах. На фото у бейджа всегда белая обводка (<code class="tok">badge--bordered</code>).</p>
     <div class="panel">
       <div class="row" style="gap:44px; justify-content:center; align-items:center; padding:8px 0 28px;" id="badge-demo"></div>
       <p class="desc tight" style="margin:0 0 18px;">Индикатор присутствия — соответствие тона и статуса:</p>
@@ -493,7 +498,7 @@
 <span class="tk-cm">//    z-index каждого аватара = (общее число видимых узлов − индекс), чтобы левый лежал сверху</span>
 
 <span class="tk-cm">// 4. Бейдж позиционируется через CSS относительно .av-stack — отдельного JS не требуется;</span>
-<span class="tk-cm">//    Counter — правый верхний угол (translate 40%,-40%); Dot — правый нижний (7% / 7%)</span>
+<span class="tk-cm">//    Counter — правый верхний угол (top:0/right:0, грани совпадают с аватаром, только L/XL); Dot — правый нижний, касается кольца</span>
 
 <span class="tk-cm">// 5. Disabled: класс .av--disabled (opacity .5 + grayscale + pointer-events: none)</span></code></pre>
     </div>
@@ -501,7 +506,19 @@
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Тултип у «+N» в группе</b> — список остальных участников при наведении на счётчик переполнения (Ant Avatar.Group, Material).</li>
+        <li><b>Fallback при ошибке фото</b> — обработка неудачной загрузки изображения — сейчас неявно откатывается на инициалы, без явного состояния.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Avatar</span>
     <span>Circular / Rounded — XL / L / M / S · Text / Icon / Image · Badge · Avatar Group</span>
   </footer>
@@ -573,29 +590,43 @@ function makeGroup({ size='m', shape='circular', items=[], more=0 }) {
   const preview  = document.getElementById('pg-preview');
   const codeEl   = document.getElementById('pg-code');
 
-  function select(label, options, getCur, onPick){
+  function select(label, options, cur, onPick){
     const wrap=document.createElement('div'); wrap.className='ctl';
     const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
     const box=document.createElement('div'); box.className='pg-select';
     const sel=document.createElement('select');
-    options.forEach(([val,txt])=>{ const op=document.createElement('option'); op.value=val; op.textContent=txt; if(val===getCur()) op.selected=true; sel.appendChild(op); });
+    options.forEach(([val,txt])=>{ const op=document.createElement('option'); op.value=val; op.textContent=txt; if(val===cur) op.selected=true; sel.appendChild(op); });
     sel.addEventListener('change',()=>{ onPick(sel.value); render(); });
     box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
-  controls.appendChild(select('Форма', [['circular','Circular'],['rounded','Rounded']], ()=>state.shape, v=>state.shape=v));
-  controls.appendChild(select('Размер', [['xl','XL · 96'],['l','L · 40'],['m','M · 32'],['s','S · 24']], ()=>state.size, v=>state.size=v));
-  controls.appendChild(select('Содержимое', [['text','Text · инициалы'],['icon','Icon · глиф'],['image','Image · фото']], ()=>state.content, v=>state.content=v));
-  controls.appendChild(select('Бейдж', [['none','Нет'],['counter','Counter'],['dot','Статус-точка']], ()=>state.badge, v=>state.badge=v));
+
+  // Контролы строятся один раз (pg-kit улучшает их в SegmentControl при загрузке).
+  // Правило «Counter — только L/XL» реализуем ковыркой значений, не пересобирая панель.
+  const shapeCtl = select('Форма', [['circular','Circular'],['rounded','Rounded']], state.shape, v=>state.shape=v);
+  const sizeCtl  = select('Размер', [['xl','XL · 96'],['l','L · 40'],['m','M · 32'],['s','S · 24']], state.size, v=>{
+    state.size=v;
+    if ((v==='m'||v==='s') && state.badge==='counter'){ state.badge='none'; setSel(badgeSel,'none'); }
+  });
+  const contentCtl = select('Содержимое', [['text','Text · инициалы'],['icon','Icon · глиф'],['image','Image · фото']], state.content, v=>state.content=v);
+  const badgeCtl = select('Бейдж', [['none','Нет'],['counter','Counter'],['dot','Статус-точка']], state.badge, v=>{
+    state.badge=v;
+    // Counter доступен только у L / XL — при выборе на M/S поднимаем размер до L
+    if (v==='counter' && (state.size==='m'||state.size==='s')){ state.size='l'; setSel(sizeSel,'l'); }
+  });
+  controls.appendChild(shapeCtl); controls.appendChild(sizeCtl); controls.appendChild(contentCtl); controls.appendChild(badgeCtl);
+  const sizeSel = sizeCtl.querySelector('select');
+  const badgeSel = badgeCtl.querySelector('select');
+  function setSel(sel, val){ sel.value = val; sel.dispatchEvent(new Event('change', { bubbles:true })); }
 
   function render(){
     const av = makeAvatar({ shape:state.shape, size:state.size, content:state.content, text:'ИБ', imgId:'pg-av-img' });
     preview.innerHTML='';
     const square = state.shape==='rounded';
     if (state.badge==='counter') {
-      const b=document.createElement('span'); b.className='badge badge--'+ (state.size==='s'?'xxs':state.size==='xl'?'m':'xs') +' badge--accent badge--bordered'; b.textContent='5';
+      const b=document.createElement('span'); b.className='badge badge--'+ (state.size==='xl'?'m':'xs') +' badge--accent badge--bordered'; b.textContent='5';
       preview.appendChild(avStack(av, b, false));
     } else if (state.badge==='dot') {
-      preview.appendChild(avStack(av, dot('success', state.size==='xl'?'badge--dot-l':''), square));
+      preview.appendChild(avStack(av, dot('success'), square));
     } else {
       preview.appendChild(av);
     }
@@ -693,17 +724,27 @@ function makeGroup({ size='m', shape='circular', items=[], more=0 }) {
 /* ---------- BADGE ON AVATAR ---------- */
 (function(){
   const d = document.getElementById('badge-demo');
-  // counter top-right
-  const c1 = avStack(makeAvatar({shape:'circular',size:'xl',content:'text',text:'ИБ'}),
-    Object.assign(document.createElement('span'),{className:'badge badge--m badge--accent badge--bordered',textContent:'8'}), false);
-  // dot bottom-right (online)
-  const c2 = avStack(makeAvatar({shape:'circular',size:'xl',content:'text',text:'МА'}), dot('success','badge--dot-l'), false);
-  // rounded entity with warning dot at corner
-  const c3 = avStack(makeAvatar({shape:'rounded',size:'xl',content:'icon',icon:ICONS.entity,tone:'accent'}), dot('warning','badge--dot-l'), true);
-  [c1,c2,c3].forEach(el=>{
+  const sizes = [['xl','XL'],['l','L'],['m','M'],['s','S']];
+  // Статус-точка — на всех размерах
+  const rowDot = document.createElement('div'); rowDot.style.cssText='display:flex;gap:40px;align-items:flex-end;justify-content:center;flex-wrap:wrap;';
+  sizes.forEach(([sz,nm])=>{
     const col=document.createElement('div'); col.style.cssText='display:flex;flex-direction:column;align-items:center;gap:12px;';
-    col.appendChild(el); d.appendChild(col);
+    col.appendChild(avStack(makeAvatar({shape:'circular',size:sz,content:'text',text:'ИБ'}), dot('success'), false));
+    const cap=document.createElement('span'); cap.style.cssText='font:var(--type-body-s);color:var(--text-secondary);'; cap.textContent=nm;
+    col.appendChild(cap); rowDot.appendChild(col);
   });
+  // Counter — только L / XL
+  const rowCnt = document.createElement('div'); rowCnt.style.cssText='display:flex;gap:40px;align-items:flex-end;justify-content:center;flex-wrap:wrap;margin-top:28px;';
+  [['xl','XL','m'],['l','L','xs']].forEach(([sz,nm,bs])=>{
+    const col=document.createElement('div'); col.style.cssText='display:flex;flex-direction:column;align-items:center;gap:12px;';
+    const b=Object.assign(document.createElement('span'),{className:'badge badge--'+bs+' badge--accent badge--bordered',textContent:'8'});
+    col.appendChild(avStack(makeAvatar({shape:'circular',size:sz,content:'text',text:'ИБ'}), b, false));
+    const cap=document.createElement('span'); cap.style.cssText='font:var(--type-body-s);color:var(--text-secondary);'; cap.textContent=nm;
+    col.appendChild(cap); rowCnt.appendChild(col);
+  });
+  const h1=document.createElement('p'); h1.className='desc tight'; h1.style.cssText='margin:0 0 16px;'; h1.innerHTML='<b>Статус-точка (Dot)</b> — на всех размерах, в правом нижнем углу описанного квадрата; касается его нижней и правой граней. Размер точки: XL 22 · L 12 · M 10 · S 8.';
+  const h2=document.createElement('p'); h2.className='desc tight'; h2.style.cssText='margin:24px 0 16px;'; h2.innerHTML='<b>Counter</b> — только у размеров <b>L</b> и <b>XL</b>; в правом верхнем углу описанного квадрата, верхняя и правая грани бейджа касаются граней квадрата. У M и S счётчик не ставится.';
+  d.appendChild(h1); d.appendChild(rowDot); d.appendChild(h2); d.appendChild(rowCnt);
 
   const pres = document.getElementById('presence');
   [['success','В сети','online'],['warning','Нет на месте','away'],['error','Не беспокоить','busy'],['neutral','Не в сети','offline']].forEach(([tone,nm,rl])=>{

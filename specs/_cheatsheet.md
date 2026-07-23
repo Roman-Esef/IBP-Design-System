@@ -30,7 +30,7 @@ css: `styles/alert.css` · deps: [button, link]
 </div>
 ```
 
-Тоны — заливка/акцент: `--info-bg/--info` · `--warning-bg/--warning` · `--error-bg-light/--error` · `--success-bg/--success`. role/aria-live: error·warning → alert/assertive, info·success → status/polite. Кнопки и ссылки несут явный тон-класс Button (`.btn--info/--warning/--error/--success`, совпадающий с тоном Алерта); переопределение --primary/--link на .alert остаётся для ссылок. Свёрнуто — `.alert--collapsed`. Полная анатомия: specs/Alert.md.
+Тоны — заливка/акцент: `--info-bg/--info` · `--warning-bg/--warning` · `--error-bg-light/--error` · `--success-bg/--success`. role/aria-live: error·warning → alert/assertive, info·success → status/polite. Кнопки и ссылки несут явный тон-класс Button (`.btn--info/--warning/--error/--success`, совпадающий с тоном Алерта); переопределение --primary/--link на .alert остаётся для ссылок. Свёрнуто — `.alert--collapsed`. Заголовок/текст независимы (можно только один из них — для любых тонов, размеров, раскладок). Раскладка в строку — `.alert--row`: текст+кнопки в одну строку, кнопки прижаты вправо, без действий; иконка top-aligned рядом с заголовком, центрируется только блок кнопок; рамка 1px + радиус 8px в цвете тона (16% непрозрачности); при двух кнопках прозрачная — слева, аутлайн (основная) — справа. Встроенный в Плитку/Модалку без скруглений и отступов — `.alert--flush`. Полная анатомия: specs/Alert.md.
 
 ## Avatar
 css: `styles/avatar.css` · deps: [badge]
@@ -51,6 +51,8 @@ css: `styles/avatar.css` · deps: [badge]
 </span>
 <button type="button" class="av av--circular av--l av--button" aria-label="Открыть профиль Игоря Белова">…</button>
 ```
+
+Badge на аватаре: Counter — правый верхний угол описанного квадрата (top:0/right:0), только L/XL; Dot — правый нижний угол (right:0/bottom:0), на всех размерах, размер точки XL 22 / L 12 / M 10 / S 8.
 
 ## Badge
 css: `styles/badge.css`
@@ -166,7 +168,7 @@ css: `styles/checkbox.css` · deps: [label-helper]
 ```
 
 ## Chip
-css: `styles/chip.css` · deps: [label-helper]
+css: `styles/chip.css` · deps: [label-helper, avatar]
 
 Чип — компактный интерактивный элемент для фильтрации и группировки данных.
 
@@ -176,11 +178,13 @@ css: `styles/chip.css` · deps: [label-helper]
   <span class="chip__label">Активна</span>
   <span class="chip__remove" role="button" aria-label="Удалить Активна"><svg aria-hidden="true">…</svg></span>
 </span>
+<!-- ведущий аватар = компонент Avatar (.av), содержимое text/icon/image -->
+<span class="chip chip--edit chip--m"><span class="chip__avatar av av--circular"><span class="av__text">И</span></span><span class="chip__label">Иван Б.</span></span>
 <span class="chip chip--readonly chip--m"><span class="chip__label">Договор</span></span>
 <div class="chiplist" role="group" aria-label="Фильтры">…</div>
 ```
 
-Тона: `--accent/--success/--info/--warning/--error/--dark` (светлая заливка + *-dark текст) · solid: `--success-solid/--warning-solid/--error-solid/--dark-solid` (базовый тон + белый текст). `--rounded` = pill. Trailing `.chip__info` (button) — открывает Popover.
+Ведущие слоты: `.chip__marker` / `.chip__icon` / `.chip__avatar` (Avatar-компонент; бейдж объединён с аватаром). Trailing `.chip__remove` И `.chip__dropdown` — взаимоисключающие. Отступы по слотам (как у кнопок): сторона с иконкой/аватаром/действием — меньше. Outline (`.chip--outline`) — без заливки даже у тонов. Тона: `--accent/--success/--info/--warning/--error/--dark` (светлая заливка + *-dark текст) · solid: `--success-solid/--warning-solid/--error-solid/--dark-solid`. `--rounded` = pill. Trailing `.chip__info` (button) — открывает Popover.
 
 ## ContextMenu
 css: `styles/context-menu.css` · deps: [button]
@@ -209,7 +213,7 @@ css: `styles/datepicker.css` · deps: [icon-button, button]
 
 Рантайм `scripts/ds-datepicker.js` (out-of-box): `makeCalendar` · `openPicker(anchor, spec)` · автоподключение кнопки-календаря полей InputDate / InputDateRange.
 
-Календарь — всплывающая поверхность выбора даты/диапазона. Поднимается InputDate / InputDateRange (floating) или встраивается в панель/модалку (inline). Material в токенах ДС, неделя с Пн, локаль RU. Ширина 304px, ячейка дня 40×40.
+Календарь — всплывающая поверхность выбора даты/диапазона. Поднимается InputDate / InputDateRange (floating) или встраивается в панель/модалку (inline). Material в токенах ДС, неделя с Пн, локаль RU. Ширина 304px, ячейка дня 40×40 (единая для всех вариантов футера, футерные кнопки — XS).
 
 ```html
 <div class="dpk" role="dialog" aria-modal="false" aria-label="Выбор даты">
@@ -238,7 +242,7 @@ css: `styles/datepicker.css` · deps: [icon-button, button]
 </div>
 ```
 
-Режимы: single / range / month · представления: day / month / year (`.dpk--panel` + `.dpk__panel(.--years)` > `.dpk__panel-cell`, переключаются заголовком/стрелками). Состояния дня: default · hover · today (обводка `--primary`) · selected/концы диапазона (заливка `--primary`, число `--text-on-dark`) · in-range (полоса `--primary-bg`) · disabled (`--st-disabled`) · outside. Размещение: `--inline` (рамка, без тени) vs floating (`--elevation-5`, под полем, авто-flip как Popover). Полная анатомия: specs/DatePicker.md.
+Режимы: single / range / month · представления: day / month / year (`.dpk--panel` + `.dpk__panel(.--years)` > `.dpk__panel-cell`, переключаются заголовком/стрелками — стрелки навигации остаются видимыми и в month/year, листая блок ±1 год / ±12 лет). Состояния дня: default · hover · today (обводка `--primary`) · selected/концы диапазона (заливка `--primary`, число `--text-on-dark`) · in-range (полоса `--primary-bg`) · disabled (`--st-disabled`) · outside. Размещение: `--inline` (рамка, без тени) vs floating (`--elevation-5`, под полем, авто-flip как Popover). Полная анатомия: specs/DatePicker.md.
 
 ## Divider
 css: `styles/divider.css` · deps: [button]
@@ -277,9 +281,11 @@ css: `styles/icon-button.css` · deps: [badge]
 </button>
 ```
 
+`.ibtn__badge` — правый верхний угол рамки (top:0/right:0), не выходит за габарит; счётчик ≤ 2 символов, при значении > 99 показываем «9+».
+
 ## Illustrations (Иллюстрации)
-css: styles/illustration.css · deps: — · v1.1
-Слот продуктовой иллюстрации; scripts/ds-illustrations.js подставляет реальный SVG из assets/illustrations/<data-illu>.svg (32 тайловых 195×140 + 4 состояния + 1 фоновая). Размер = width/height слота, object-fit:contain. Неизвестное имя → штриховая заглушка (.illu:empty)dth/height слота (дефолт 96×96). Всегда aria-hidden. Имена: deals, partners, reports, tasks, admin, empty-search.
+css: styles/illustration.css · deps: — · v1.2
+Слот продуктовой иллюстрации; scripts/ds-illustrations.js подставляет реальный SVG из assets/illustrations/<data-illu>.svg (32 тайловых 195×140 + 4 состояния + 1 фоновая). Размер = width/height слота, object-fit:contain. Неизвестное имя → штриховая заглушка (.illu:empty). Скрипт авто-дорендерит слоты, добавленные в DOM позже (MutationObserver) — динамически пересобранные конструкторы/тайквики не остаются без иллюстрации; рендер также через window.DSIllustrations.render().dth/height слота (дефолт 96×96). Всегда aria-hidden. Имена: deals, partners, reports, tasks, admin, empty-search.
 ```
 <span class="illu" data-illu="deals" aria-hidden="true"></span>
 ```
@@ -287,7 +293,7 @@ css: styles/illustration.css · deps: — · v1.1
 ## InputText
 css: `styles/input.css` · deps: [label-helper, tooltip, chip]
 
-Базовое поле ввода текста. База `.inp` (метка + поле Input_Content + хелпер), общая для InputText / InputDate / InputAutocomplete. Текстовый слой: иконка поиска, префикс, значение, постфикс. Действия справа: крестик очистки, информер. Размеры M (40px) / S (32px, только Table Edit). Многострочный (`--multiline`, textarea) и числовой InputAmount. Состояния: Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled.
+Базовое поле ввода текста. База `.inp` (метка + поле Input_Content + хелпер) общая для InputText / InputDate / InputAutocomplete. Текстовый слой: иконка слева (любая из библиотеки ДС, не привязана к поиску), префикс, значение, постфикс. Действия справа: информер → крестик очистки (или «показать/скрыть» для пароля — крестика тогда нет) → календарь → шеврон. Опционально — счётчик символов (`maxLength`, справа под полем) и resize по вертикали у многострочного (`--resizable`). Размеры M (40px) / S (32px, только Table Edit). Состояния: Default/Hover/Focus/Error/ErrorFocus/Warning/WarningFocus/Disabled.
 
 ```html
 <div class="inp inp--m">
@@ -361,7 +367,7 @@ css: `styles/input-range.css` · deps: [input, label-helper, tooltip]
     <div class="inp inp--m inp-range__field">
       <div class="inp__field">
         <span class="inp__prefix">От</span>
-        <input class="inp__control" inputmode="decimal" placeholder="Amount">
+        <input class="inp__control" inputmode="decimal">
         <span class="inp__acts"><button class="inp__act" aria-label="Очистить поле">…✕…</button></span>
       </div>
     </div>
@@ -399,7 +405,7 @@ css: `styles/input-range.css` · deps: [input, label-helper, tooltip]
 ```
 
 ## LabelHelper
-css: `styles/label-helper.css` · deps: [checkbox, radio, switch]
+css: `styles/label-helper.css` · deps: [checkbox, radio, switch, icon-button]
 
 Общие вспомогательные текстовые слоты, вынесенные из нескольких родительских компонентов в отдельную группу.
 
@@ -413,6 +419,8 @@ css: `styles/label-helper.css` · deps: [checkbox, radio, switch]
   <span class="ds-helper__text">Нужно 10 или 12 цифр</span>
 </span>
 ```
+
+Иконки в Label (редкий кейс, 0–2) — IconButton S neutral (`.ibtn .ibtn--s .ibtn--neutral`), aria-label обязателен.
 
 ## Link
 css: `styles/link.css` · deps: [breadcrumbs]
@@ -506,8 +514,8 @@ css: `styles/nav-panel.css` · deps: [icon-button, badge, avatar]
 Пункт: Default текст/иконка `--text-secondary`; Hover заливка `--bgtable-row-hover`; Selected заливка `--bgtable-row-focus` + подпись Strong; Disabled `--text-inactive` + бейдж `badge--muted`. Высота пункта 44px, иконка 24, badge XS accent. Полная анатомия: specs/NavPanel.md.
 
 ## NavTile
-css: styles/nav-tile.css · deps: illustration, link · v1.0
-Навигационная плитка главной страницы: слева название (H5 Strong) + описание (Body S), справа иллюстрация 96×96 (absolute, вертикальный центр). Клик — переход в раздел. Один размер: span 3 из 12 колонок сетки .ntile-grid (gap 24, до 4 в ряд на полной ширине; адаптив — @container от ширины сетки, не окна: span 4/6/12 при ≤1100/≤700/≤450px), мин. высота 140, паддинг 24, радиус --radius-card. Состояния: hover (рамка --border-primary + elevation-2), focus (outline --primary), disabled (.is-disabled: текст --text-inactive, illu grayscale). Вариант --links: контейнер div (не <a> в <a>), название-ссылка .ntile__title-link + до 4 ссылок .link--s внизу. НЕ дашборд — без данных и графиков.
+css: styles/nav-tile.css · deps: illustration, link · v1.6
+Навигационная плитка главной страницы: слева название (H4 Strong) + описание (Body M), справа иллюстрация фиксированного размера 195×140, прижатая к правому краю плитки и центрированная по вертикали. Клик — переход в раздел. По умолчанию (вне сетки) 442×188px, минимальная ширина 400px; внутри `.ntile-grid` — `repeat(auto-fill, minmax(400px, 1fr))`, гэп 16px, перенос на следующий ряд автоматически (без контейнерных запросов), мин. высота 188, паддинг 24, справа фиксированные 160px под текст (чуть меньше ширины иллюстрации — лёгкое перекрытие нормально), радиус `--radius-control` (8px). Состояния: hover (рамка --border-primary + elevation-2), focus (outline --primary), disabled (.is-disabled: текст --text-inactive, illu grayscale). Вариант --links: контейнер div (не <a> в <a>), название-ссылка .ntile__title-link + до 4 ссылок .link--m сразу за описанием (не внизу). НЕ дашборд — без данных и графиков.
 ```
 <a class="ntile" href="/deals">
   <span class="illu ntile__illu" data-illu="deals" aria-hidden="true"></span>
@@ -733,7 +741,7 @@ css: — (композиция) · deps: [chip, popover, icon-button, divider]
 ## ProgressBar
 css: `styles/progress-bar.css` · deps: [label-helper]
 
-Линейный индикатор прогресса: заливка трека = доля значения от максимума. Определённый / неопределённый (Indeterminate) режимы, шесть тонов, три размера.
+Линейный индикатор прогресса: заливка трека = доля значения от максимума. Определённый / неопределённый (Indeterminate) режимы, шесть тонов, три размера. Вариант Disabled убран (индикатор неинтерактивен). У плавающего значения хелпер опционален и по умолчанию выключен.
 
 ```html
 <div class="pbar pbar--m pbar--accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Label">
@@ -883,6 +891,11 @@ css: `styles/switch.css` · deps: [label-helper]
 </label>
 <div class="sw-row">
   <label class="sw sw--on">…</label> <!-- .sw-row разворачивает .sw в row-reverse -->
+</div>
+<!-- группа + обязательный выбор (независимы): звёздочка .sw__req -->
+<div class="sw-group">
+  <p class="sw-group__title">Уведомления<span class="sw__req">*</span></p>
+  <div class="sw-group__items">…</div>
 </div>
 ```
 

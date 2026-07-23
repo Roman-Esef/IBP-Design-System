@@ -199,6 +199,11 @@
   .dev-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
   .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -217,7 +222,7 @@
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ButtonGroup</h1>
     <p class="lead">Объединяет связанные кнопки в единый визуальный блок с общим фоном или обводкой. Поддерживает 2–5 кнопок, типы Accent / Outline, все три размера, вариант Split&nbsp;Button и сегментированный выбор. Собирается из компонентов <b>Button</b> — кнопки наследуют свои свойства.</p>
@@ -394,10 +399,10 @@
     <p class="desc">Контейнер группы получает <code class="tok">role="group"</code> и осмысленный <code class="tok">aria-label</code> (например «Режим отображения»). В сегментированном выборе используется <code class="tok">aria-pressed</code> на кнопках; одиночный выбор удобно навигировать стрелками с roving&nbsp;tabindex. Split Button: текстовая кнопка — основное действие, у стрелки <code class="tok">aria-haspopup="menu"</code> и <code class="tok">aria-expanded</code>.</p>
   </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Не применимо: группа не вводит собственной типографики — кнопки внутри используют токены компонента <a class="crumb" style="display:inline; margin:0; padding:0;" href="../atoms/Buttons.html">Button</a>.</p>
   </section>
 
   <!-- COLORS -->
@@ -458,7 +463,19 @@
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Группа с бейджем</b> — счётчик на отдельной кнопке группы (например, число непрочитанных).</li>
+        <li><b>Адаптивное схлопывание</b> — при нехватке ширины лишние кнопки уходят в оверфлоу-меню.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · ButtonGroup</span>
     <span>Accent · Outline — Split · Toggle · Vertical · Fullwidth</span>
   </footer>

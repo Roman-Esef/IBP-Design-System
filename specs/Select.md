@@ -1,8 +1,8 @@
 ---
 component: Select
 title: "Select · DropdownList"
-version: "v1.1"
-updated: "13.07.2026"
+version: "v1.3"
+updated: "22.07.2026"
 page: pages/molecules/Select.html
 deps: [checkbox, label-helper, dropdown-list]
 status: auto

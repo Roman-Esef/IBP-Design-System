@@ -35,29 +35,30 @@
    зависимости): left — по умолчанию, right — когда родитель выровнен по
    правому краю (например, поле со значением, выровненным по правому краю). */
 .ds-label--right { justify-content: flex-end; }
+/* при выравнивании справа иконки (IconButton) идут слева от текста */
+.ds-label--right .ds-label__icons { order: -1; }
 .ds-label__text {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/* дополнительные иконки (одна или две, любого назначения) — редкий кейс, справа от текста */
+/* дополнительные иконки (одна или две, любого назначения) — редкий кейс, справа от текста.
+   Каждая иконка — IconButton S neutral (см. IconButton); контейнер задаёт раскладку. */
 .ds-label__icons {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   flex: none;
-  color: var(--text-inactive);
 }
-.ds-label__icons svg { width: 14px; height: 14px; display: block; }
-.ds-label__icons .is-action { cursor: pointer; transition: color .15s ease; }
-.ds-label__icons .is-action:hover { color: var(--text-secondary); }
+/* IconButton S внутри Label ужимается до 16px (высота строки Body XS),
+   чтобы Label не вырастал до 24px — глиф остаётся 16px. */
+.ds-label__icons .ibtn--s { width: 16px; height: 16px; }
 
 /* обязательное поле — звёздочка сразу после текста */
 .ds-label__req { color: var(--error); margin-left: 2px; }
 
-.ds-label--disabled,
-.ds-label--disabled .ds-label__icons { color: var(--text-inactive); }
+.ds-label--disabled { color: var(--text-inactive); }
 
 /* ---------- Helper ---------- */
 .ds-helper {

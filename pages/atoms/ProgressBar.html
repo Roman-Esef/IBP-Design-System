@@ -212,6 +212,11 @@
   .dev-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
   .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -229,7 +234,7 @@
 <main class="page" data-screen-label="ProgressBar">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ProgressBar</h1>
     <p class="lead">Линейный индикатор прогресса: заполнение трека отражает долю значения от максимума. Определённый режим (значение известно) и неопределённый (длительность неизвестна); шесть тональных вариантов на локальных статусных токенах; три размера.</p>
@@ -492,18 +497,17 @@ function pbarAutoTone(value, max, thresholds) {
   for (const t of list) { if (pct <= t.upTo) return t.tone; }
   return list[list.length - 1].tone;
 }
-/* o: { tone,size,value,max,valueFormat,label,showValue,helper,floating,indeterminate,disabled,compact,stack:[{value,color}] } */
+/* o: { tone,size,value,max,valueFormat,label,showValue,helper,floating,indeterminate,compact,stack:[{value,color}] } */
 function makePbar(o = {}) {
   const {
     tone='accent', size='m', value=50, max=100, valueFormat='percent',
     label=null, showValue=true, helper=null,
-    floating=false, indeterminate=false, disabled=false, compact=false,
+    floating=false, indeterminate=false, compact=false,
     stack=null,
   } = o;
   const v = pbClamp(value, max);
   const root = document.createElement('div');
   root.className = `pbar pbar--${size} pbar--${tone}`;
-  if (disabled) root.classList.add('pbar--disabled');
   if (floating) root.classList.add('pbar--floating');
   if (indeterminate) root.classList.add('pbar--indeterminate');
   if (compact) root.classList.add('pbar--compact');
@@ -598,7 +602,7 @@ function positionFloatingMarkers(scope) {
 /* ---------- PLAYGROUND ---------- */
 (function () {
   const state = { tone: 'system', size: 'm', value: 85, valueFormat: 'percent',
-    label: true, showValue: true, helper: true, floating: false, indeterminate: false, disabled: false, autoTone: false };
+    label: true, showValue: true, helper: false, floating: false, indeterminate: false, autoTone: false };
   const controls = document.getElementById('pg-controls');
   const preview = document.getElementById('pg-preview');
   const codeEl = document.getElementById('pg-code');
@@ -653,15 +657,16 @@ function positionFloatingMarkers(scope) {
   const tHelper = toggle('Хелпер', 'helper');
   const tFloating = toggle('Плавающее значение', 'floating');
   const tIndet = toggle('Неопределённый', 'indeterminate');
-  const tDisabled = toggle('Отключено', 'disabled');
   const tAutoTone = toggle('Авто-тон по порогам', 'autoTone');
-  [tLabel, tValue, tHelper, tFloating, tIndet, tDisabled, tAutoTone].forEach(t => toggles.appendChild(t));
+  [tLabel, tValue, tHelper, tFloating, tIndet, tAutoTone].forEach(t => toggles.appendChild(t));
   compWrap.appendChild(toggles); controls.appendChild(compWrap);
 
   function render() {
     valueCtl.classList.toggle('is-off', state.indeterminate);
     tValue.classList.toggle('is-off', state.floating);
     tFloating.classList.toggle('is-off', state.indeterminate);
+    // плавающее значение: хелпер отдельная опция, по умолчанию выключен
+    tHelper.classList.toggle('is-off', state.indeterminate);
     toneCtl.classList.toggle('is-off', state.autoTone);
 
     const tone = state.autoTone ? pbarAutoTone(state.value, 100) : state.tone;
@@ -670,10 +675,9 @@ function positionFloatingMarkers(scope) {
       showValue: state.showValue && !state.floating,
       floating: state.floating && !state.indeterminate,
       indeterminate: state.indeterminate,
-      disabled: state.disabled,
     };
     if (state.label) o.label = state.floating ? undefined : 'Заголовок';
-    if (state.helper || state.floating) o.helper = state.floating ? 'Вероятность сделки' : 'Хелпер';
+    if (state.helper) o.helper = state.floating ? 'Вероятность сделки' : 'Хелпер';
 
     preview.innerHTML = '';
     const el = makePbar(o);
@@ -683,7 +687,6 @@ function positionFloatingMarkers(scope) {
     const cls = ['pbar', 'pbar--' + state.size, 'pbar--' + tone];
     if (o.floating) cls.push('pbar--floating');
     if (o.indeterminate) cls.push('pbar--indeterminate');
-    if (o.disabled) cls.push('pbar--disabled');
     codeEl.innerHTML = '<code>&lt;div class="' + cls.join(' ') + '" role="progressbar" ' +
       (o.indeterminate ? 'aria-valuetext="Загрузка"' : 'aria-valuenow="' + Math.round(pbClamp(state.value,100)) + '"') + '&gt;</code>' +
       (state.autoTone ? ' <span style="color:var(--text-inactive)">— тон подобран автоматически (' + tone + ')</span>' : '');
@@ -742,7 +745,6 @@ function positionFloatingMarkers(scope) {
     ['Empty — 0%', 'Трек пуст, заливка не рендерится (без сливера)', () => makePbar({ tone: 'accent', value: 0, label: 'Заголовок' })],
     ['Complete — 100%', 'Заливка занимает весь трек', () => makePbar({ tone: 'success', value: 100, label: 'Заголовок' })],
     ['Indeterminate', 'Длительность неизвестна — анимированная полоса, value не отображается', () => makePbar({ tone: 'accent', indeterminate: true, label: 'Загрузка' })],
-    ['Disabled', 'Токены --disabled-*, анимация выключена', () => makePbar({ tone: 'accent', value: 45, label: 'Заголовок', disabled: true })],
   ];
   rows.forEach(([name, desc, build]) => {
     const row = document.createElement('div'); row.className = 'matrix-row';
@@ -879,7 +881,6 @@ function positionFloatingMarkers(scope) {
   const groups = [
     { name: 'Трек', rows: [
       ['Фон — все тона', '--border-light'],
-      ['Фон — Disabled', '--disabled-bg'],
     ]},
     { name: 'Заливка — тон', rows: [
       ['Accent', '--primary'],
@@ -888,13 +889,11 @@ function positionFloatingMarkers(scope) {
       ['Error', '--st-red'],
       ['Info', '--st-lblue'],
       ['System', '--st-system'],
-      ['Disabled', '--disabled'],
     ]},
     { name: 'Текст', rows: [
       ['Заголовок', '--text-secondary'],
       ['Значение / метка', '--text-primary'],
       ['Хелпер', '--text-inactive'],
-      ['Заголовок/значение — Disabled', '--text-inactive'],
     ]},
   ];
   const root = document.getElementById('color-ref');

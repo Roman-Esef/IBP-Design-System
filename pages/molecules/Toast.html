@@ -235,6 +235,11 @@
   .callout { border:1px solid var(--border-light); border-left:3px solid var(--warning); background: var(--warning-bg); border-radius:10px; padding:18px 22px; }
   .callout p { margin:0; font:var(--type-body-s); color:var(--text-primary); text-wrap:pretty; }
   .callout p + p { margin-top:8px; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -513,10 +518,18 @@
     </div>
   </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Единственный текстовый слой пилюли набирается гарнитурой <b>SB Sans Text</b>.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table">
+        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Шрифт</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody>
+          <tr><td>Текст сообщения (<code class="tok">.toast__msg</code>)</td><td>Выполняется маршрутизация</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td class="dsc">14 / 16</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- COLORS -->
@@ -588,7 +601,19 @@ MAX = 3
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Действие внутри тоста</b> — кнопка отмены/повтора рядом с сообщением — сейчас только текст + спиннер/иконка.</li>
+        <li><b>Прогресс в тосте</b> — процентный индикатор для длительных фоновых операций.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Toast</span>
     <span>ToastBar / ToastLoader — Neutral / Loading / Success / Error — Single / Stack</span>
   </footer>

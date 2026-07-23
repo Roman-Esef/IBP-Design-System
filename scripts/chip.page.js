@@ -17,7 +17,7 @@
     const {
       type = 'edit', style = 'fill', size = 's', tone = 'system',
       label = 'Text', leading = null, leadingIcon,
-      badgeText = 'A', avatarText = 'A',
+      avatarText = 'A', avatarContent = 'text', avatarIcon = null, avatarImgId = null,
       removable = false, dropdown = false, count = null, rounded = false,
       state = 'default', disabled = false, tooltip = null, maxWidth = null,
     } = o;
@@ -47,10 +47,17 @@
       const m = document.createElement('span'); m.className = 'chip__marker'; m.innerHTML = icon(resolvedLeadingIcon); el.appendChild(m);
     } else if (leading === 'icon') {
       const ic = document.createElement('span'); ic.className = 'chip__marker chip__marker--icon'; ic.innerHTML = icon(resolvedLeadingIcon); el.appendChild(ic);
-    } else if (leading === 'badge') {
-      const b = document.createElement('span'); b.className = 'chip__badge'; b.textContent = badgeText; el.appendChild(b);
     } else if (leading === 'avatar') {
-      const a = document.createElement('span'); a.className = 'chip__avatar'; a.textContent = avatarText; el.appendChild(a);
+      // аватар = компонент Avatar (.av) с выбираемым содержимым: текст / иконка / фото
+      const a = document.createElement('span'); a.className = 'chip__avatar av av--circular';
+      if (avatarContent === 'icon') {
+        a.innerHTML = '<span class="av__icon">' + (icon(avatarIcon || 'user') || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>') + '</span>';
+      } else if (avatarContent === 'image') {
+        a.innerHTML = '<span class="av__img"><image-slot' + (avatarImgId ? ' id="' + avatarImgId + '"' : '') + ' shape="circle" placeholder="Фото"></image-slot></span>';
+      } else {
+        a.innerHTML = '<span class="av__text">' + avatarText + '</span>';
+      }
+      el.appendChild(a);
     }
 
     // label
@@ -80,7 +87,7 @@
   (function () {
     const state = {
       type: 'edit', style: 'fill', size: 'm', tone: 'system',
-      leading: 'none', removable: true, dropdown: false, rounded: false, chipState: 'default',
+      leading: 'none', avatarContent: 'text', removable: true, dropdown: false, count: false, rounded: false, chipState: 'default',
     };
     const controls = document.getElementById('pg-controls');
     const preview = document.getElementById('pg-preview');
@@ -107,15 +114,22 @@
     controls.appendChild(select('Стиль', [['fill', 'Fill (Border + Fill)'], ['outline', 'Outline (Border)']], () => state.style, v => state.style = v));
     controls.appendChild(select('Размер', [['l', 'L · 40'], ['m', 'M · 32'], ['s', 'S · 24'], ['xs', 'XS · 20']], () => state.size, v => state.size = v));
     controls.appendChild(select('Тон', [['system', 'System'], ['accent', 'Accent'], ['success', 'Success'], ['info', 'Info'], ['warning', 'Warning'], ['error', 'Error'], ['dark', 'Dark'], ['success-solid', 'Success solid'], ['warning-solid', 'Warning solid'], ['error-solid', 'Error solid'], ['dark-solid', 'Dark solid']], () => state.tone, v => state.tone = v));
-    controls.appendChild(select('Дополнительный элемент', [['none', 'Нет'], ['marker', 'Маркер'], ['icon', 'Иконка'], ['badge', 'Бейдж'], ['avatar', 'Аватар']], () => state.leading, v => state.leading = v));
+    controls.appendChild(select('Дополнительный элемент', [['none', 'Нет'], ['marker', 'Маркер'], ['icon', 'Иконка'], ['avatar', 'Аватар']], () => state.leading, v => state.leading = v));
+    const avatarCtl = select('Содержимое аватара', [['text', 'Текст'], ['icon', 'Иконка'], ['image', 'Фото']], () => state.avatarContent, v => state.avatarContent = v);
+    controls.appendChild(avatarCtl);
     controls.appendChild(select('Состояние', [['default', 'Default'], ['selected', 'Selected'], ['focus', 'Focus'], ['loading', 'Loading'], ['invalid', 'Invalid'], ['disabled', 'Disabled']], () => state.chipState, v => state.chipState = v));
 
     const optWrap = document.createElement('div'); optWrap.className = 'ctl';
     const ol = document.createElement('div'); ol.className = 'lbl'; ol.textContent = 'Опции'; optWrap.appendChild(ol);
     const toggles = document.createElement('div'); toggles.className = 'toggles';
     const rmToggle = sw('Крестик удаления', 'removable');
+    const ddToggle = sw('Выпадающий список', 'dropdown');
+    // крестик и выпадающий список — взаимоисключаются
+    rmToggle.addEventListener('click', () => { if (state.removable && state.dropdown) { state.dropdown = false; ddToggle.setAttribute('aria-pressed', 'false'); render(); } });
+    ddToggle.addEventListener('click', () => { if (state.dropdown && state.removable) { state.removable = false; rmToggle.setAttribute('aria-pressed', 'false'); render(); } });
     toggles.appendChild(rmToggle);
-    toggles.appendChild(sw('Выпадающий список', 'dropdown'));
+    toggles.appendChild(ddToggle);
+    toggles.appendChild(sw('Счётчик', 'count'));
     toggles.appendChild(sw('Rounded', 'rounded'));
     optWrap.appendChild(toggles); controls.appendChild(optWrap);
 
@@ -123,11 +137,15 @@
       const disabled = state.chipState === 'disabled';
       /* у ReadOnly-чипа крестика удаления не бывает — скрываем настройку */
       rmToggle.classList.toggle('is-off', state.type !== 'edit');
+      /* содержимое аватара — только когда выбран аватар */
+      avatarCtl.classList.toggle('is-off', state.leading !== 'avatar');
       const o = {
         type: state.type, style: state.style, size: state.size, tone: state.tone,
         label: 'Text', leading: state.leading === 'none' ? null : state.leading,
+        avatarContent: state.avatarContent, avatarText: 'И', avatarImgId: 'chip-pg-av-img',
         removable: state.removable && state.type === 'edit',
         dropdown: state.dropdown, rounded: state.rounded,
+        count: state.count ? '12' : null,
         state: disabled ? 'default' : state.chipState, disabled,
       };
       preview.innerHTML = '';
@@ -353,18 +371,14 @@
         makeChip({ type: 'edit', size: 'm', label: 'Text', leading: 'icon', removable: true }),
         makeChip({ type: 'edit', size: 'm', label: 'Text', leading: 'icon' }),
       ]],
-      ['.Chip_Badge', 'Мини-бейдж в начале чипа — категория или короткий код.', [
-        makeChip({ type: 'edit', size: 'm', label: 'Text', leading: 'badge', badgeText: 'A', removable: true }),
-        makeChip({ type: 'edit', size: 'm', label: 'Text', leading: 'badge', badgeText: 'B' }),
-      ]],
-      ['Avatar', 'Аватар-инициалы для чипов-персон (InputAutocomplete).', [
+      ['Avatar', 'Ведущий аватар — компонент Avatar с выбираемым содержимым: текст-инициалы, иконка-фолбэк или фото. Бейдж как отдельный слот убран — он объединён с аватаром.', [
         makeChip({ type: 'edit', size: 'm', label: 'Иван Б.', leading: 'avatar', avatarText: 'И', removable: true }),
-        makeChip({ type: 'edit', size: 'm', label: 'Мария А.', leading: 'avatar', avatarText: 'М' }),
+        makeChip({ type: 'edit', size: 'm', label: 'Бот', leading: 'avatar', avatarContent: 'icon' }),
+        makeChip({ type: 'edit', size: 'm', label: 'Фото', leading: 'avatar', avatarContent: 'image', avatarImgId: 'chip-slot-av-img' }),
       ]],
-      ['.Chip_Action', 'Завершающее действие: крестик удаления или шеврон выпадающего списка.', [
+      ['.Chip_Action', 'Завершающее действие: крестик удаления ИЛИ шеврон выпадающего списка — они взаимоисключающие, вместе не ставятся.', [
         makeChip({ type: 'edit', size: 'm', label: 'Удалить', removable: true }),
         makeChip({ type: 'edit', size: 'm', label: 'Список', dropdown: true }),
-        makeChip({ type: 'edit', size: 'm', label: 'Оба', dropdown: true, removable: true }),
       ]],
     ];
     tiles.forEach(([name, desc, chips]) => {
@@ -446,9 +460,9 @@
   (function () {
     const off = document.getElementById('rounded-off');
     const on = document.getElementById('rounded-on');
-    [['marker', 'Маркер'], [null, 'Text'], ['badge', 'Бейдж']].forEach(([lead, lbl]) => {
-      off.appendChild(makeChip({ type: 'edit', size: 'm', label: lbl, leading: lead, removable: true }));
-      on.appendChild(makeChip({ type: 'edit', size: 'm', label: lbl, leading: lead, removable: true, rounded: true }));
+    [['marker', 'Маркер'], [null, 'Text'], ['avatar', 'Аватар']].forEach(([lead, lbl]) => {
+      off.appendChild(makeChip({ type: 'edit', size: 'm', label: lbl, leading: lead, avatarText: 'А', removable: true }));
+      on.appendChild(makeChip({ type: 'edit', size: 'm', label: lbl, leading: lead, avatarText: 'А', removable: true, rounded: true }));
     });
   })();
 
@@ -456,25 +470,7 @@
   (function () {
     const host = document.getElementById('proposals');
     const props = [
-      ['Selected', 'Чип-фильтр как переключатель (toggle) с галкой и акцентным тоном.', [
-        makeChip({ type: 'edit', size: 'm', label: 'Фильтр', state: 'selected' }),
-      ]],
-      ['Focus', 'Кольцо фокуса для доступности с клавиатуры (2px primary).', [
-        makeChip({ type: 'edit', size: 'm', label: 'Фокус', state: 'focus', removable: true }),
-      ]],
-      ['Loading', 'Асинхронная фильтрация: спиннер вместо ведущего слота.', [
-        makeChip({ type: 'edit', size: 'm', label: 'Загрузка', state: 'loading' }),
-      ]],
-      ['Invalid', 'Невалидное значение в InputAutocomplete.', [
-        makeChip({ type: 'edit', size: 'm', label: 'неверный e-mail', state: 'invalid', removable: true }),
-      ]],
-      ['Статусные тона', 'Семантическая шкала на локальных статус-рампах. Статусы — только Rounded.', [
-        makeChip({ type: 'edit', size: 'm', tone: 'success', label: 'Активна', leading: 'marker', rounded: true }),
-      ]],
-      ['Счётчик', 'Числовой суффикс «(N)» для группирующих фильтров.', [
-        makeChip({ type: 'edit', size: 'm', label: 'Документы', count: '12' }),
-      ]],
-      ['Свёртка «+N»', 'Переполнение чиплиста сворачивается в чип-счётчик.', [
+      ['Свёртка «+N»', 'Переполнение чиплиста сворачивается в чип-счётчик, открывающий полный список. Требует измерения ширины на уровне чиплиста (JS) — пока не реализовано.', [
         makeChip({ type: 'edit', style: 'outline', size: 'm', label: '+5', dropdown: true }),
       ]],
     ];

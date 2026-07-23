@@ -134,6 +134,11 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .rl-sample{position:absolute;top:-9999px;left:0;width:420px;}
 footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-inactive);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 .demo-tbl{max-width:640px;}
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
@@ -675,10 +680,21 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   </div>
 </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Весь текст ячеек — гарнитура <b>SB Sans Text</b>. Числа — <code class="tok">font-variant-numeric: tabular-nums</code>.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table">
+        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody>
+          <tr><td>Значение ячейки (<code class="tok">.tc__text</code>)</td><td>ООО ЮгСтрой</td><td><code class="tok">--type-body-s</code></td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Вторая строка (<code class="tok">.tc__subtext</code>)</td><td>подпись</td><td><code class="tok">--type-body-xs</code></td><td class="dsc">12 / 16</td></tr>
+          <tr><td>Prefix / Postfix</td><td>От</td><td><code class="tok">--type-body-s</code></td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Заголовок колонки (<code class="tok">.th</code>)</td><td>Контрагент</td><td><code class="tok">--type-body-s</code></td><td class="dsc">14 / 16</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- 8. ЦВЕТА -->
@@ -687,32 +703,32 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   <div class="cref">
     <div class="cref-group">
       <h3>Текст</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Значение, заголовок дерева</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-secondary);"></span><b>--text-secondary</b><span>Подпись шапки, subtext</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>Prefix/postfix, «—», disabled</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--error);"></span><b>--error</b><span>Текст ошибки</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Значение, заголовок дерева · #324844</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-secondary);"></span><b>--text-secondary</b><span>Подпись шапки, subtext · #6C8080</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>Prefix/postfix, «—», disabled · #AAB2B1</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--error);"></span><b>--error</b><span>Текст ошибки · #E5625C</span></div>
     </div>
     <div class="cref-group">
       <h3>Фон строки</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable);"></span><b>--bgtable</b><span>Обычный фон</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable-row-hover);"></span><b>--bgtable-row-hover</b><span>Hover</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable-row-focus);"></span><b>--bgtable-row-focus</b><span>Focus</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--primary-bg);"></span><b>--primary-bg</b><span>Selected</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--error-bg-light);"></span><b>--error-bg-light</b><span>Фон ошибки</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bgtable);"></span><b>--bgtable</b><span>Обычный фон · #FFFFFF</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bgtable-row-hover);"></span><b>--bgtable-row-hover</b><span>Hover · #F6FAFA</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bgtable-row-focus);"></span><b>--bgtable-row-focus</b><span>Focus · #DEEDEC</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--primary-bg);"></span><b>--primary-bg</b><span>Selected · 6% #00AA9B</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--error-bg-light);"></span><b>--error-bg-light</b><span>Фон ошибки · #FCF1F1</span></div>
     </div>
     <div class="cref-group">
       <h3>Фон колонки</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable-accent);"></span><b>--bgtable-accent</b><span>Accent</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable-accent-hover);"></span><b>--bgtable-accent-hover</b><span>Accent · hover</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable-pinned);"></span><b>--bgtable-pinned</b><span>Pinned</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable-pinned-hover);"></span><b>--bgtable-pinned-hover</b><span>Pinned · hover</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bgtable-accent);"></span><b>--bgtable-accent</b><span>Accent · #FFF8E1</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bgtable-accent-hover);"></span><b>--bgtable-accent-hover</b><span>Accent · hover · #FEF0C2</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bgtable-pinned);"></span><b>--bgtable-pinned</b><span>Pinned · #F5F7F7</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bgtable-pinned-hover);"></span><b>--bgtable-pinned-hover</b><span>Pinned · hover · #EEF2F1</span></div>
     </div>
     <div class="cref-group">
       <h3>Границы и акценты</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--border-light);"></span><b>--border-light</b><span>Разделитель ячеек</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--border-primary);"></span><b>--border-primary</b><span>Низ шапки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--primary);"></span><b>--primary</b><span>Фокус, активная сортировка, рамка input</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--chart-orange);"></span><b>--chart-orange</b><span>Уголок EditMark</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--border-light);"></span><b>--border-light</b><span>Разделитель ячеек · #E1EDE7</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--border-primary);"></span><b>--border-primary</b><span>Низ шапки · #B8CCCC</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--primary);"></span><b>--primary</b><span>Фокус, активная сортировка, рамка input · #00AA9B</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--chart-orange);"></span><b>--chart-orange</b><span>Уголок EditMark · #F9A580</span></div>
     </div>
   </div>
 </section>
@@ -789,6 +805,18 @@ if (truncateEnabled) {
 //    в каждой строке — не выбирается пользователем как тип контента.</code>
   </div>
 
+  </section>
+
+  <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Инлайн-график в ячейке</b> — мини-спарклайн как тип контента — частый кейс в финансовых таблицах.</li>
+        <li><b>Групповая шапка (colspan)</b> — заголовок, объединяющий несколько колонок.</li>
+      </ul>
+    </div>
   </section>
 
 <footer class="page-foot">

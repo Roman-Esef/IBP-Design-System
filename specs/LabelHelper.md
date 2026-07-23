@@ -1,12 +1,12 @@
 ---
 component: LabelHelper
 title: "Label / Helper"
-version: "v1.2"
-updated: "08.07.2026"
+version: "v1.3"
+updated: "22.07.2026"
 page: pages/atoms/LabelHelper.html
 page_js: scripts/label-helper.page.js
 css: styles/label-helper.css
-deps: [checkbox, radio, switch]
+deps: [checkbox, radio, switch, icon-button]
 status: auto
 ---
 
@@ -21,7 +21,7 @@ status: auto
 - **Использование · Используется в компонентах** — Каждый слот переиспользуется независимо — компонент может задействовать только Helper, только Label, или ни одного из них.
 - **Анатомия** — Оба слота набираются одним и тем же типографским токеном Body XS и отличаются только цветом и составом; выравнивание задаётся одной общей настройкой на оба слота.
 - **Размеры** — У Label и Helper нет собственной шкалы размеров — оба слота всегда набираются одним и тем же токеном Body XS, независимо от размера родительского компонента. Значения ниже измерены на живом экземпляре.
-- **Контент · Label** — Подпись над полем ввода. Используется в InputText, InputAutocomplete, InputDate, ReadOnlyField. Может содержать одну или две дополнительные иконки любого назначения (информирование, действие, статус и т.п.) — редкий кейс, только когда одной подписи недостаточно для контекста.
+- **Контент · Label** — Подпись над полем ввода. Используется в InputText, InputAutocomplete, InputDate, ReadOnlyField. Может содержать одну или две дополнительные иконки любого назначения (редкий кейс) — каждая иконка рендерится как IconButton размера S, тон neutral, с обязательным aria-label.
 - **Контент · Helper** — Пояснительный текст под контролом или полем. Используется в Checkbox, Radiobutton, Switch, InputText, InputAutocomplete, InputDate, ReadOnlyField, а также как вторая строка опции в Select · DropdownList. Выравнивание задаётся одной настройкой на всю пару — Label и Helper одного поля всегда идут в одной ориентации: left — базовое, right — когда этого требует ориентация родителя (например, поле с выравниванием значения по правому краю).
 - **Состояния** — Оба слота синхронизированы с состоянием родительского компонента: Default и Disabled — у обоих слотов, Error — только у Helper: Label визуально не меняется при ошибке родителя — сообщение об ошибке несёт только Helper.
 - **Контент** — Текстовые правила для обоих слотов:
@@ -108,7 +108,7 @@ interface InputTextProps {
 | .ds-label | label/span | Подпись; for связывает с полем |
 | .ds-label__text | span | Текст — обрезается многоточием, не переносится |
 | .ds-label--left / --right | label | Выравнивание — общее с Helper той же пары, задаётся синхронно |
-| .ds-label__icons .is-action | span | Иконка (0–2, любое назначение) — если интерактивна, обязателен aria-label |
+| .ds-label__icons .is-action | span | Иконка (0–2, любое назначение) — IconButton S neutral (классы .ibtn .ibtn--s .ibtn--neutral), aria-label обязателен |
 | .ds-label--disabled | label | Цвет — --text-inactive |
 | .ds-helper | span | Пояснение; id + aria-describedby на поле |
 | .ds-helper--left / --right | span | Выравнивание — по ориентации родителя |

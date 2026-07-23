@@ -89,6 +89,9 @@
 .inp--disabled .inp__summary,
 .inp--disabled .inp__act { color: var(--text-inactive); }
 .inp--disabled .inp__control { color: var(--text-inactive); }
+/* очистка недоступна и не показывается в Disabled — сброса значения быть не может */
+.inp--disabled .inp__act[aria-label="Очистить поле"],
+.inp--disabled .inp__act[aria-label="Очистить"] { display: none; }
 
 /* ---------- контейнер поля + оверлей тултипа ---------- */
 /* .inp__box оборачивает поле и служит якорем для тултипа ошибки/предупреждения. */
@@ -133,6 +136,33 @@
 }
 .inp__control::placeholder { color: var(--text-inactive); opacity: 1; }
 textarea.inp__control { resize: none; line-height: 20px; }
+/* растягивание по вертикали — за угол в правом нижнем углу поля (стандартный resize-хват браузера) */
+.inp--resizable .inp__field { padding: 0; align-items: stretch; }
+.inp--resizable textarea.inp__control {
+  resize: vertical;
+  min-height: var(--inp-h);
+  padding: 9px var(--inp-px);
+  border-radius: inherit;
+}
+.inp--resizable .inp__field:has(.inp__acts) textarea.inp__control {
+  padding-right: calc(var(--inp-px) + var(--inp-icon) + var(--inp-gap));
+}
+.inp--resizable .inp__acts { position: absolute; top: 9px; right: var(--inp-px); }
+.inp--resizable .inp__box { position: relative; }
+
+/* ---------- хелпер + счётчик символов в одной строке (maxLength) ---------- */
+.inp__foot { display: flex; align-items: flex-start; gap: 12px; margin-top: 6px; }
+.inp__foot .ds-helper { flex: 1 1 auto; margin-top: 0; min-width: 0; }
+.inp__counter {
+  flex: none;
+  margin-left: auto;
+  font: var(--type-body-xs);
+  color: var(--text-inactive);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.inp__counter--limit { color: var(--error); }
+.inp--disabled .inp__counter { color: var(--text-inactive); }
 
 /* сводка выбранного (InputAutocomplete): «Value 1, +4» */
 .inp__summary { flex: none; white-space: nowrap; color: var(--text-primary); }

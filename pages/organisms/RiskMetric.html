@@ -201,6 +201,11 @@
 
   footer.page-foot { margin-top:90px; padding-top:26px; border-top:1px solid var(--border-light);
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -398,10 +403,21 @@
     </div>
   </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Весь текст поповера — гарнитура <b>SB Sans Text</b>; выделенное значение (рейтинг) — strong.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table">
+        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody>
+          <tr><td>Значение строки (<code class="tok">.rm-block__value</code>)</td><td>Красная</td><td><code class="tok">--type-body-s</code></td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Значение выделенное (Рейтинг)</td><td>26</td><td><code class="tok">--type-body-m-strong</code></td><td class="dsc">16 / 20</td></tr>
+          <tr><td>Метка поля (<code class="tok">.rm-field__label</code>)</td><td>Риск-сегмент</td><td><code class="tok">--type-body-xs</code></td><td class="dsc">12 / 16</td></tr>
+          <tr><td>Значение поля (<code class="tok">.rm-field__value</code>)</td><td>Непроектный</td><td><code class="tok">--type-body-s</code></td><td class="dsc">14 / 16</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- COLORS -->
@@ -483,7 +499,19 @@ function onInfoClick(btn, pop, anchor):
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>История изменений рейтинга</b> — мини-график динамики зоны/рейтинга за период в теле поповера.</li>
+        <li><b>Сравнение с портфелем</b> — контекст «выше/ниже среднего» рядом со значением.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · RiskMetric</span>
     <span>Chip (ReadOnly, S) + Popover (w-m) · 4 зоны · один открытый поповер одновременно</span>
   </footer>

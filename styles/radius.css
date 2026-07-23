@@ -28,7 +28,7 @@
      Компоненты и лайауты ссылаются на них, а не на примитивы. */
   --radius-control-s: var(--radius-s);    /* кнопка XS, чип S/XS, icon-button S */
   --radius-control:   var(--radius-m);    /* кнопка M/S, чип L/M, тултип, инпут */
-  --radius-field:     var(--radius-m);    /* поля ввода, селекты               */
+  --radius-field:     var(--radius-xs);   /* поля ввода, селекты               */
   --radius-popup:     var(--radius-xl);   /* меню, поповеры, дропдауны          */
   --radius-card:      var(--radius-2xl);  /* карточки, панели, группы          */
   --radius-modal:     var(--radius-4xl);  /* модальные окна, шиты              */

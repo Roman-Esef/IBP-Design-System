@@ -11,7 +11,9 @@
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/shadow.css">
 <link rel="stylesheet" href="../../styles/button.css">
+<link rel="stylesheet" href="../../styles/icon-button.css">
 <link rel="stylesheet" href="../../styles/link.css">
+<link rel="stylesheet" href="../../styles/snackbar.css">
 <link rel="stylesheet" href="../../styles/alert.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -221,6 +223,11 @@
   .dev-table code.tok { white-space:nowrap; }
   .dev-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -239,7 +246,7 @@
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>17.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Alert</h1>
     <p class="lead">Инлайновое сообщение о состоянии, встроенное в поток контента. В отличие от <b>Toast</b> и <b>SnackBar</b> не всплывает и не исчезает само — занимает место на странице и остаётся, пока не закрыт пользователем или пока не исчезла причина. Четыре тона (Info · Warning · Error · Success), два размера (M · S) и набор опциональных частей: иконка, заголовок, текст, кнопки, действия.</p>
@@ -248,7 +255,7 @@
   <!-- PLAYGROUND -->
   <section class="section" data-screen-label="Playground">
     <h2>Конструктор</h2>
-    <p class="desc">Соберите Алерт: тон, размер, состав (заголовок, текст, кнопки, действия) и наличие иконки. Превью и код обновляются мгновенно.</p>
+    <p class="desc">Соберите Алерт: тон, размер, раскладка, свитчи наличия иконки/заголовка/текста, кнопки и действия. Превью и код обновляются мгновенно.</p>
     <div class="panel pg">
       <div class="pg__controls" id="pg-controls">
         <div class="ctl"><span class="lbl">Тон</span>
@@ -263,6 +270,12 @@
           <div class="pg-select"><select id="c-size" aria-label="Размер">
             <option value="m">M</option>
             <option value="s">S</option>
+          </select></div>
+        </div>
+        <div class="ctl"><span class="lbl">Раскладка</span>
+          <div class="pg-select"><select id="c-layout" aria-label="Раскладка">
+            <option value="stack">Стек</option>
+            <option value="row">В строку</option>
           </select></div>
         </div>
         <div class="ctl"><span class="lbl">Кнопки</span>
@@ -280,16 +293,18 @@
             <option value="both">Свернуть и закрыть</option>
           </select></div>
         </div>
-        <div class="ctl ctl--span"><span class="lbl">Заголовок</span>
+        <div class="ctl"><span class="lbl">Состав</span>
+          <div class="toggles">
+            <button class="toggle" id="c-icon" type="button" aria-pressed="true"><span class="sw"></span><span>Иконка</span></button>
+            <button class="toggle" id="c-title-on" type="button" aria-pressed="true"><span class="sw"></span><span>Заголовок</span></button>
+            <button class="toggle" id="c-text-on" type="button" aria-pressed="true"><span class="sw"></span><span>Текст</span></button>
+          </div>
+        </div>
+        <div class="ctl ctl--span"><span class="lbl">Текст заголовка</span>
           <div class="pg-text"><input id="c-title" type="text" value="Заголовок компонента" placeholder="Пусто — без заголовка"></div>
         </div>
-        <div class="ctl ctl--span"><span class="lbl">Текст</span>
+        <div class="ctl ctl--span"><span class="lbl">Текст сообщения</span>
           <div class="pg-text"><input id="c-text" type="text" value="Добавление холдинга в разработке. Для корректного отображения Клиента необходимо заводить сделку на головную компанию, либо другую компанию группы" placeholder="Пусто — без текста"></div>
-        </div>
-        <div class="ctl"><span class="lbl">Иконка</span>
-          <div class="toggles">
-            <button class="toggle" id="c-icon" type="button" aria-pressed="true"><span class="sw"></span><span>Показать иконку</span></button>
-          </div>
         </div>
       </div>
       <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
@@ -343,9 +358,22 @@
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ANATOMY -->
+    <div class="subsec" data-screen-label="Embedded">
+      <h3>Внутри Плитки или Модалки</h3>
+      <p class="desc">Когда Алерт относится ко всему блоку, он встраивается между шапкой компонента и контентной областью: <b>без скруглений</b> и <b>без отступа от краёв</b> — грани совпадают с гранями контейнера (модификатор <code class="tok">.alert--flush</code>; контейнер гасит свой горизонтальный паддинг). Раскладка «в строку» экономит высоту.</p>
+      <div class="panel">
+        <div id="use-embedded" style="max-width:560px; margin:0 auto; background:var(--bg-tile); border:1px solid var(--border-light); border-radius:12px; overflow:hidden;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 20px;">
+            <span style="font:var(--type-h6-strong); color:var(--text-primary);">Реквизиты контрагента</span>
+            <button type="button" class="btn btn--transparent btn--xs"><span class="btn__label">Изменить</span></button>
+          </div>
+          <div id="embed-alert"></div>
+          <div style="padding:18px 20px; font:var(--type-body-s); color:var(--text-secondary);">Контентная область блока — поля, таблица или текст.</div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="section" data-screen-label="Anatomy">
     <h2>Анатомия</h2>
     <p class="desc">Алерт — тонированная плашка с ведущей иконкой и телом. В теле — заголовок, текст и кнопки (каждый элемент опционален). Справа сверху — блок действий: свернуть и/или закрыть. Иконка выровнена по верхней строке.</p>
@@ -377,7 +405,7 @@
 
     <div class="subsec" data-screen-label="Compose">
       <h3>Состав</h3>
-      <p class="desc">Иконка, заголовок, текст, кнопки и действия — независимые опции. Минимальный Алерт — иконка + одна строка; максимальный — все части сразу.</p>
+      <p class="desc">Иконка, заголовок, текст, кнопки и действия — независимые опции. Минимальный Алерт — иконка + одна строка; максимальный — все части сразу. Заголовок и текст тоже независимы друг от друга: Алерт может содержать оба, только заголовок или только текст — правило работает для всех тонов, размеров и раскладок.</p>
       <div class="panel"><div class="stackdemo" id="var-compose"></div></div>
     </div>
 
@@ -385,6 +413,12 @@
       <h3>Кнопки и ссылки</h3>
       <p class="desc">В зоне действий Алерта — одна кнопка, две кнопки (основная + второстепенная) или текстовая ссылка. Все перекрашиваются в тон Алерта.</p>
       <div class="panel"><div class="stackdemo" id="var-buttons"></div></div>
+    </div>
+
+    <div class="subsec" data-screen-label="RowVar">
+      <h3>Раскладка «в строку»</h3>
+      <p class="desc">Модификатор <code class="tok">.alert--row</code>: текст и (опционально) обычные кнопки — в одну строку, кнопки прижаты вправо. Кнопок действий (свернуть/закрыть) в этой раскладке нет. Для алертов на всю ширину страницы или контентной области: тексту нужно меньше места, а высота компонента экономится. Иконка остаётся у верхней границы рядом с заголовком — по центру выравнивается только блок кнопок. Такой Алерт получает рамку 1px и радиус 8px в цвете тона (16% непрозрачности). При двух кнопках второстепенная (прозрачная) — слева, а основная (аутлайн) — справа: у края быстрее считывается более важное действие.</p>
+      <div class="panel"><div class="stackdemo" id="var-row"></div></div>
     </div>
   </section>
 
@@ -580,6 +614,21 @@ ICON = { info: <span class="tk-val">'Info-circle-filled'</span>, warning: <span 
     <p class="dev-note">Рабочий референс поведения (сворачивание, закрытие, карта глифов) — <code class="tok">alert.page.js</code>, функция <code class="tok">alertHTML</code> и обработчики раздела «Поведение».</p>
 
     </section>
+
+  <!-- БЭКЛОГ -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Идеи развития компонента по итогам обзора практик (Mobbin: Shopify, Loom, Confluence, Intercom, Better&nbsp;Stack). Не реализовано — предложения к обсуждению.</p>
+    <div class="panel">
+      <ol class="bullets" style="margin:0;">
+        <li><b>Announcement bar</b> — системная плашка на всю ширину вверху страницы/приложения (full-bleed, без скруглений, часто акцентный фон). Отдельный режим позиционирования поверх шапки (Shopify, Loom).</li>
+        <li><b>Ведущий элемент вместо иконки</b> — иллюстрация или аватар в онбординг-/промо-алертах, когда сообщение продуктовое, а не статусное.</li>
+        <li><b>Прогрессивное раскрытие</b> — ссылка «Подробнее» разворачивает дополнительный текст/список прямо в плашке (Confluence, Intercom), не открывая модалку.</li>
+        <li><b>Группировка повторов</b> — одинаковые алерты сворачиваются в один со счётчиком дублей (×N) — по аналогии со <code class="tok">snack__dupe</code> в SnackBar.</li>
+        <li><b>Прогресс-алерт</b> — инлайновый индикатор длительной операции на месте (полоска/спиннер + текст), фиксируется по завершении в success/error.</li>
+      </ol>
+    </div>
+  </section>
 
     <footer class="page-foot">
     <span>Дизайн-система · Alert</span>

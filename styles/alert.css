@@ -87,37 +87,15 @@
   margin-top: 6px;
 }
 
-/* ---------- действия (Alert_Actions): свернуть / закрыть ---------- */
+/* ---------- действия (Alert_Actions): свернуть / закрыть ---------- *
+   Кнопки действий — IconButton размера M (см. icon-button.css): габарит 20px,
+   выровнены по верхней границе вместе с иконкой и заголовком. */
 .alert__actions {
   flex: none;
   display: flex;
-  align-items: center;
-  gap: 2px;
+  align-items: flex-start;
+  gap: 8px;
 }
-
-.alert__act {
-  flex: none;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--text-inactive);
-  border-radius: var(--radius-s);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: color .12s ease, background-color .12s ease;
-}
-.alert__act:hover {
-  color: var(--text-secondary);
-  background: color-mix(in srgb, var(--alert-accent) 12%, transparent);
-}
-.alert__act:active { color: var(--alert-accent); }
-.alert__act:focus-visible { outline: 2px solid var(--alert-accent); outline-offset: 1px; }
-.alert__act > i,
-.alert__act > svg { width: 16px; height: 16px; display: block; }
 
 /* поворот шеврона у свёрнутого Алерта */
 .alert__collapse > i,
@@ -126,6 +104,35 @@
 .alert--collapsed .alert__collapse > svg { transform: rotate(180deg); }
 .alert--collapsed .alert__text,
 .alert--collapsed .alert__buttons { display: none; }
+
+/* ---------- раскладка «в строку» (Alert_Row) ---------- *
+   Для алертов на всю ширину страницы/контентной области: текст и опциональные
+   обычные кнопки — в одну строку, кнопки прижаты вправо. Кнопок действий
+   (свернуть/закрыть) в этой раскладке нет. Экономит высоту.
+   Иконка остаётся у верхней границы рядом с заголовком (align-items у .alert
+   уже flex-start — здесь не переопределяется); по центру выравнивается
+   только блок кнопок (align-self на .alert__buttons ниже). Рамка 1px и
+   радиус 8px в цвете тона (16% непрозрачности) — отличает раскладку «в
+   строку» от базовой заливки без обводки. */
+.alert--row { border: 1px solid color-mix(in srgb, var(--alert-accent) 16%, transparent); }
+.alert--row .alert__body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  /* 2 строки явно — иначе grid-row:1/-1 у кнопок резолвится по явной
+     (не фактической/implicit) сетке и не растягивается на заголовок+текст */
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 12px;
+}
+.alert--row .alert__title,
+.alert--row .alert__text { grid-column: 1; }
+.alert--row .alert__buttons { grid-column: 2; grid-row: 1 / -1; margin: 0; align-self: center; }
+
+/* ---------- встроенный в контейнер (Alert_Flush) ---------- *
+   Алерт внутри Плитки/Модалки встраивается между шапкой и контентной областью:
+   без скруглений и без отступа от краёв (грани совпадают с гранями контейнера).
+   Контейнер гасит свой горизонтальный паддинг отрицательным margin. */
+.alert--flush { border-radius: 0; }
 
 /* ---------- размеры ---------- *
    Размерные значения — прямыми свойствами (не через --* в модификаторе);
@@ -137,7 +144,6 @@
 .alert--s .alert__title { font: var(--type-body-s-strong); }
 .alert--s .alert__text  { font: var(--type-body-xs); }
 .alert--s .alert__buttons { margin-top: 4px; }
-.alert--s .alert__act { width: 22px; height: 22px; }
 
 /* ---------- кнопки/ссылки внутри Алерта — в тон ---------- */
 /* Штатные тоновые классы: .btn--<tone> на кнопках и .link--<tone> на ссылках

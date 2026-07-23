@@ -92,12 +92,18 @@
   pointer-events: none;
   z-index: 2;
 }
-/* counter — top-right corner */
-.av-stack > .badge:not(.badge--dot) { top: 0; right: 0; transform: translate(40%, -40%); }
-/* status dot — lower-right, sitting on a circular ring */
-.av-stack > .badge--dot { right: 7%; bottom: 7%; }
-/* on a rounded/square avatar the dot moves to the corner */
-.av-stack--square > .badge--dot { right: 0; bottom: 0; transform: translate(25%, 25%); }
+/* Counter — правый верхний угол; правая и верхняя грани бейджа совпадают с
+   гранями аватара, бейдж не выходит за габарит. Только у L / XL. */
+.av-stack > .badge:not(.badge--dot) { top: 0; right: 0; transform: none; }
+
+/* Status dot — правый нижний угол описанного квадрата; границы точки касаются
+   правой и нижней граней квадрата (не окружности). Размер точки — по размеру
+   аватара: XL 22 · L 12 · M 10 · S 8. */
+.av-stack:has(.av--xl) > .badge--dot { width: 22px; height: 22px; min-width: 22px; }
+.av-stack:has(.av--l)  > .badge--dot { width: 12px; height: 12px; min-width: 12px; }
+.av-stack:has(.av--m)  > .badge--dot { width: 10px; height: 10px; min-width: 10px; }
+.av-stack:has(.av--s)  > .badge--dot { width: 8px;  height: 8px;  min-width: 8px; }
+.av-stack > .badge--dot { right: 0; bottom: 0; top: auto; left: auto; transform: none; }
 
 /* =========================================================================
    AVATAR GROUP — overlapping stack with a white ring between avatars and an

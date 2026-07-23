@@ -225,6 +225,11 @@
   .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
   .ref-table .rt-tok code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; color: var(--primary); }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -242,7 +247,7 @@
 <main class="page" data-screen-label="Divider">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v2.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v2.0</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Divider</h1>
     <p class="lead">Разделительная черта — тонкая линия, которая визуально отделяет одни части интерфейса от других. Используется как часть молекул (заголовки и подвалы модальных окон, списки, меню) и как самостоятельный компонент. Горизонтальный или вертикальный; цвет и толщина при смене ориентации сохраняются.</p>
@@ -262,7 +267,7 @@
   <!-- USAGE (moved from Examples) -->
   <section class="section" data-screen-label="Usage">
     <h2>Использование</h2>
-    <p class="desc">Разделители встроены в другие компоненты — модальное окно выбора КНП: горизонтальные включены в шапку и подвал, вертикальные разделяют колонки. В списках уместен Inset-вариант, в меню — Full, в тулбаре — вертикальные линии между группами действий.</p>
+    <p class="desc">Разделители встроены в другие компоненты — модальное окно выбора КНП: горизонтальные включены в шапку и подвал, вертикальные разделяют колонки. В списках уместен Inset-вариант, в меню — Full, в тулбаре — вертикальные линии между группами действий. Линию разделителя переиспользуют и молекулы: <a class="inl" href="../molecules/ContextMenu.html">Context Menu</a> (<code class="tok">.menu__divider</code>) и <a class="inl" href="../molecules/Select.html">Select · DropdownList</a> (<code class="tok">.ddl__divider</code>) — обе берут цвет и толщину из токенов Divider (<code class="tok">--dvd-color</code> / <code class="tok">--dvd-thickness</code>), поэтому линия задаётся в одном месте.</p>
 
     <div class="panel" style="display:flex; justify-content:center; padding:36px;">
       <div id="ex-modal"></div>
@@ -524,7 +529,19 @@
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Разделитель с иконкой</b> — вариант <code class="tok">.dvd-text</code> с иконкой вместо/вместе с текстом (например, «или» + иконка).</li>
+        <li><b>Анимированное появление</b> — fade-in при динамической вставке секции, разделённой Divider.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Divider</span>
     <span>Horizontal · Vertical — Full / Inset / Middle / Section · с подписью</span>
   </footer>

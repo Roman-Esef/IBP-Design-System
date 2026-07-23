@@ -128,14 +128,5 @@
 .pbar__track--stack { display: flex; }
 .pbar__seg-stack { height: 100%; }
 
-/* ---------- disabled ---------- *
-   fill/track — прямыми свойствами (позже тонов — перекрывают их, как раньше). */
-.pbar--disabled .pbar__fill  { background: var(--disabled); }
-.pbar--disabled .pbar__track { background: var(--disabled-bg); }
-.pbar--disabled.pbar--indeterminate .pbar__fill { background: linear-gradient(90deg, transparent, var(--disabled) 35%, var(--disabled) 65%, transparent); }
-.pbar--disabled .pbar__label,
-.pbar--disabled .pbar__value { color: var(--text-inactive); }
-.pbar--disabled .pbar__fill { transition: none; }
-
 /* ---------- compact (composition: без head/helper — таблицы, списки) ---------- */
 .pbar--compact { gap: 0; }

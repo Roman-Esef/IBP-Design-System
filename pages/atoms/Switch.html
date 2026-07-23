@@ -211,6 +211,11 @@
   .dev-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
   .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -228,7 +233,7 @@
 <main class="page" data-screen-label="Switch">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>21.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Switch</h1>
     <p class="lead">Свитч мгновенно переключает состояние — например, включает или отключает определённую опцию. Действие применяется сразу, без подтверждения. Два состояния — Off / On — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Loading.</p>
@@ -512,7 +517,19 @@
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Подтверждение перед переключением</b> — например для необратимых настроек — модалка или тултип-предупреждение перед сменой состояния.</li>
+        <li><b>Текстовый индикатор состояния</b> — «Вкл/Выкл» рядом с контролом как опция для доступности и аналитики.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Switch</span>
     <span>Off · On — Default / Hover / Focus / Pressed / Disabled / Loading</span>
   </footer>
@@ -533,7 +550,7 @@ const UI_ICONS = {
    o: { state:'off'|'on', label, helper, disabled, loading, force, frozen } */
 function makeSw(o = {}) {
   const { state='off', label=null, helper=null, disabled=false,
-          loading=false, force=null, frozen=false } = o;
+          loading=false, force=null, frozen=false, required=false } = o;
   const root = document.createElement('label');
   root.className = 'sw sw--' + state;
   if (disabled) root.classList.add('sw--disabled');
@@ -558,6 +575,7 @@ function makeSw(o = {}) {
     const content = document.createElement('span'); content.className = 'sw__content';
     if (label != null) {
       const l = document.createElement('span'); l.className = 'sw__label'; l.textContent = label;
+      if (required) { const r = document.createElement('span'); r.className = 'sw__req'; r.textContent = '*'; l.appendChild(r); }
       content.appendChild(l);
     }
     if (helper != null) {
@@ -596,7 +614,7 @@ function wireToggle(root, onChange){
 
 /* ---------- PLAYGROUND ---------- */
 (function(){
-  const state = { sel:'on', istate:'default', label:true, helper:false };
+  const state = { sel:'on', istate:'default', label:true, helper:false, group:false, required:false };
   const controls = document.getElementById('pg-controls');
   const preview  = document.getElementById('pg-preview');
   const codeEl   = document.getElementById('pg-code');
@@ -630,6 +648,8 @@ function wireToggle(root, onChange){
   const toggles=document.createElement('div'); toggles.className='toggles';
   toggles.appendChild(sw('Название','label'));
   toggles.appendChild(sw('Хелпер','helper'));
+  toggles.appendChild(sw('Группа','group'));
+  toggles.appendChild(sw('Обязательный выбор (*)','required'));
   compWrap.appendChild(toggles); controls.appendChild(compWrap);
 
   function render(){
@@ -640,14 +660,31 @@ function wireToggle(root, onChange){
     o.loading  = state.istate==='loading';
     if (['hover','focus','pressed'].includes(state.istate)) o.force = state.istate;
     o.frozen = true;
-    preview.innerHTML=''; preview.appendChild(makeSw(o));
+    // одиночный свитч: звёздочка на названии, если обязательный и НЕ в группе
+    if (state.required && !state.group) o.required = true;
+    const swEl = makeSw(o);
+    preview.innerHTML='';
+    if (state.group){
+      const group=document.createElement('div'); group.className='sw-group';
+      const title=document.createElement('p'); title.className='sw-group__title';
+      title.innerHTML='Уведомления'+(state.required?'<span class="sw__req">*</span>':'');
+      const items=document.createElement('div'); items.className='sw-group__items';
+      items.appendChild(swEl);
+      group.appendChild(title); group.appendChild(items);
+      preview.appendChild(group);
+    } else {
+      preview.appendChild(swEl);
+    }
 
     const cls=['sw','sw--'+state.sel];
     if (o.disabled) cls.push('sw--disabled');
     if (o.loading)  cls.push('sw--loading');
     if (o.force) cls.push('sw--'+o.force);
     if (!state.label && !state.helper) cls.push('sw--no-content');
-    codeEl.innerHTML = '<code>&lt;label class="'+cls.join(' ')+'"&gt;</code>';
+    const labelCode='<code>&lt;label class="'+cls.join(' ')+'"&gt;</code>';
+    codeEl.innerHTML = state.group
+      ? '<code>&lt;div class="sw-group"&gt;&lt;p class="sw-group__title"&gt;…'+(state.required?'&lt;span class="sw__req"&gt;*&lt;/span&gt;':'')+'&lt;/p&gt;</code>'+labelCode
+      : labelCode;
   }
   render();
 })();

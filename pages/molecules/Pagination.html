@@ -248,6 +248,11 @@
   .dev-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
 
   .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -486,10 +491,22 @@
     <div class="panel"><div id="a11y-demo"></div></div>
   </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Номера страниц и служебный текст набираются гарнитурой <b>SB Sans Text</b>; текущая страница — тем же токеном, но strong.</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table">
+        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Шрифт</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody>
+          <tr><td>Номер страницы (default)</td><td>3</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Номер страницы (текущая)</td><td>3</td><td><code class="tok">--type-body-s-strong</code></td><td>SB Sans Text</td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Счётчик диапазона</td><td>3 из 16</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Триггер «Показывать строк»</td><td>Показывать строк: 50</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td class="dsc">14 / 16</td></tr>
+          <tr><td>Счётчик Bulk-режима</td><td>Выбрано: 5</td><td><code class="tok">--type-body-m</code></td><td>SB Sans Text</td><td class="dsc">16 / 20</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- COLORS -->
@@ -562,7 +579,19 @@ renderFooter({
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Переход «В начало / В конец»</b> — быстрые кнопки-стрелки к первой/последней странице.</li>
+        <li><b>Ввод номера страницы вручную</b> — поле для прямого перехода при большом количестве страниц.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Pagination</span>
     <span>Pager · Action panel · Pagi counters — Default / Hover / Current / Disabled / Loading — Адаптив l/m/s/xs</span>
   </footer>

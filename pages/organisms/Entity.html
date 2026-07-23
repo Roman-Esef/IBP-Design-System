@@ -141,6 +141,11 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .ent-chev{width:14px;height:14px;display:inline-block;}
 .entity__actions .btn i[data-icon]{width:14px;height:14px;}
 footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-inactive);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
 <style>
 /* unified-template: бывшие h2-разделы, понижены до подразделов */
@@ -607,10 +612,21 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   </div>
 </section>
 
-  <!-- TYPOGRAPHY (STUB) -->
+  <!-- TYPOGRAPHY -->
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
-    <p class="desc">Раздел требует ревизии: токены типографики компонента — в redline-таблице раздела «Для разработчиков».</p>
+    <p class="desc">Все текстовые слои — гарнитура <b>SB Sans Text</b>. Значения ниже — для размера M; у S и L своя ступень шкалы (см. <code class="tok">styles/entity.css</code>).</p>
+    <div class="panel" style="padding:8px 10px;">
+      <table class="ref-table">
+        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
+        <tbody>
+          <tr><td>Header (надзаголовок)</td><td>Header</td><td><code class="tok">--type-body-xs</code></td><td class="dsc">12 / 16</td></tr>
+          <tr><td>Label</td><td>Text Label</td><td><code class="tok">--type-body-m-strong</code></td><td class="dsc">16 / 20</td></tr>
+          <tr><td>Prefix / Postfix</td><td>Postf</td><td><code class="tok">--type-body-m</code></td><td class="dsc">16 / 20</td></tr>
+          <tr><td>Subheader</td><td>Subheader</td><td><code class="tok">--type-body-s</code></td><td class="dsc">14 / 16</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- 8. ЦВЕТА -->
@@ -619,28 +635,28 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   <div class="cref">
     <div class="cref-group">
       <h3>Текст</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Label</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Счётчик +N</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-secondary);"></span><b>--text-secondary</b><span>Подзаголовки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>Header, постфикс, «—»</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Label · #324844</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Счётчик +N · #324844</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-secondary);"></span><b>--text-secondary</b><span>Подзаголовки · #6C8080</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>Header, постфикс, «—» · #AAB2B1</span></div>
     </div>
     <div class="cref-group">
       <h3>Ведущая иконка</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--c-swamp-100);"></span><b>--c-swamp-100</b><span>Фон (по умолчанию)</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Глиф (по умолчанию)</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--primary-dark);"></span><b>--primary-dark</b><span>Глиф (тон accent)</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--c-cgrey-100);"></span><b>--c-cgrey-100</b><span>Фон (тон neutral)</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--c-swamp-100);"></span><b>--c-swamp-100</b><span>Фон (по умолчанию) · #E5ECEB</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Глиф (по умолчанию) · #324844</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--primary-dark);"></span><b>--primary-dark</b><span>Глиф (тон accent) · #007A6D</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--c-cgrey-100);"></span><b>--c-cgrey-100</b><span>Фон (тон neutral) · #E8EDED</span></div>
     </div>
     <div class="cref-group">
       <h3>Интерактив</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--bgtable-row-hover);"></span><b>--bgtable-row-hover</b><span>Фон hover</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--primary-bg);"></span><b>--primary-bg</b><span>Фон selected</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--primary);"></span><b>--primary</b><span>Закладка active, фокус</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bgtable-row-hover);"></span><b>--bgtable-row-hover</b><span>Фон hover · #F6FAFA</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--primary-bg);"></span><b>--primary-bg</b><span>Фон selected · 6% #00AA9B</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--primary);"></span><b>--primary</b><span>Закладка active, фокус · #00AA9B</span></div>
     </div>
     <div class="cref-group">
       <h3>Ошибка</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--error-bg-light);"></span><b>--error-bg-light</b><span>Фон иконки</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--error);"></span><b>--error</b><span>Иконка, Header</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--error-bg-light);"></span><b>--error-bg-light</b><span>Фон иконки · #FCF1F1</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--error);"></span><b>--error</b><span>Иконка, Header · #E5625C</span></div>
     </div>
   </div>
 </section>
@@ -707,7 +723,19 @@ if (more > 0) render(<span class="entity__subs-more">+{more}</span>)
 
   </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Inline-редактирование Label</b> — двойной клик переводит подпись в режим редактирования на месте.</li>
+        <li><b>Drag handle</b> — перетаскивание строки Entity в списках с ручной сортировкой.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · Entity</span>
     <span>Компании · люди · файлы · метрики — тайлы, списки и формы</span>
   </footer>

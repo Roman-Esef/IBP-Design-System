@@ -226,6 +226,11 @@
 
   footer.page-foot { margin-top:90px; padding-top:26px; border-top:1px solid var(--border-light);
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -243,7 +248,7 @@
 <main class="page" data-screen-label="IconButton">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>IconButton</h1>
     <p class="lead">Безрамочная кнопка с одной иконкой и круглым стейт-слоем (риплом). Цвет рипла соответствует цвету иконки. Тоны Neutral / Primary / Danger / Contrast, размеры L / M / S, состояния Default / Hover / Pressed / Focus / Disabled / Loading, режим-переключатель и встроенный вариант для полей ввода.</p>
@@ -336,7 +341,7 @@
 
 <div class="subsec" data-screen-label="Badge">
     <h3>С бейджем</h3>
-    <p class="desc">IconButton может нести индикатор-<a class="inl" href="../atoms/Badge.html">Badge</a> — счётчик непрочитанного или точку-индикатор. Бейдж прижимается к правому верхнему углу иконки и не перехватывает клики.</p>
+    <p class="desc">IconButton может нести индикатор-<a class="inl" href="../atoms/Badge.html">Badge</a> — счётчик непрочитанного или точку-индикатор. Бейдж прижимается к правому верхнему углу компонента (верхняя и правая грани касаются граней рамки, не выходя за неё) и не перехватывает клики. Счётчик — не более двух символов: при значении больше 99 показываем «9+».</p>
     <div class="panel">
       <div class="row" id="badge-row" style="gap:32px;"></div>
     </div>
@@ -346,16 +351,16 @@
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
-    <p class="desc tight">Три размера. Компонент квадратный; размер иконки привязан к размеру кнопки.<br>
-      <b>L&nbsp;— 40</b> · самостоятельные действия, тулбары &nbsp;·&nbsp; <b>M&nbsp;— 32</b> · карточки, шапки &nbsp;·&nbsp; <b>S&nbsp;— 24</b> · таблицы, поля ввода.</p>
+    <p class="desc tight">Три размера. Размер кнопки в лейауте = размеру иконки; стейт-слой больше и выходит за габарит на hover.<br>
+      <b>L&nbsp;— 24</b> · самостоятельные действия, тулбары &nbsp;·&nbsp; <b>M&nbsp;— 20</b> · карточки, шапки, действия в Alert &nbsp;·&nbsp; <b>S&nbsp;— 16</b> · таблицы, поля ввода.</p>
     <div class="panel" style="margin-bottom:20px;"><div class="row" id="sizes-row" style="gap:40px;"></div></div>
     <div class="panel" style="padding:8px 10px;">
       <table class="ref-table">
         <thead><tr><th>Размер</th><th>Кнопка</th><th>Иконка</th><th>Стейт-слой</th><th>Скругление (square)</th></tr></thead>
         <tbody>
-          <tr><td>L</td><td class="num">40 × 40</td><td class="num">24</td><td class="num">40 (круг)</td><td class="num">8</td></tr>
-          <tr><td>M</td><td class="num">32 × 32</td><td class="num">20</td><td class="num">32 (круг)</td><td class="num">8</td></tr>
-          <tr><td>S</td><td class="num">24 × 24</td><td class="num">16</td><td class="num">24 (круг)</td><td class="num">6</td></tr>
+          <tr><td>L</td><td class="num">24 × 24</td><td class="num">24</td><td class="num">40 (круг)</td><td class="num">8</td></tr>
+          <tr><td>M</td><td class="num">20 × 20</td><td class="num">20</td><td class="num">32 (круг)</td><td class="num">8</td></tr>
+          <tr><td>S</td><td class="num">16 × 16</td><td class="num">16</td><td class="num">24 (круг)</td><td class="num">6</td></tr>
         </tbody>
       </table>
     </div>
@@ -413,7 +418,7 @@
   <section class="section" data-screen-label="Accessibility">
     <h2>Доступность</h2>
     <p class="desc">У иконки нет видимого текста, поэтому каждому IconButton обязателен <code class="tok">aria-label</code>, описывающий действие, и, как правило, <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> по наведению. Управление с клавиатуры: <b>Tab</b> ставит фокус, <b>Space</b> / <b>Enter</b> активируют, фокус показывается обводкой <code class="tok">--primary</code>.</p>
-    <p class="desc">Минимальная рекомендованная область нажатия — 44×44px. Размеры S (24) и M (32) меньше неё, поэтому в тач-сценариях либо берите размер L, либо расширяйте кликабельную зону невидимым отступом, оставляя видимый стейт-слой прежнего размера.</p>
+    <p class="desc">Минимальная рекомендованная область нажатия — 44×44px. Стейт-слой (зона клика) больше иконки (40 / 32 / 24), но всё равно меньше 44px, поэтому в тач-сценариях либо берите размер L, либо ещё расширяйте кликабельную зону невидимым отступом, оставляя видимый стейт-слой прежним.</p>
     <div class="guide">
       <div class="guide-card bad">
         <div class="guide-card__bar"></div>
@@ -472,7 +477,7 @@
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
       </div>
-      <pre><code id="code-js"><span class="tk-cm">// 1. Стейт-слой — чистый CSS, отдельного DOM-элемента нет:</span>
+      <pre><code id="code-js"><span class="tk-cm">// 1. Стейт-слой — псевдоэлемент ::before, не влияет на размер кнопки:</span>
 <span class="tk-cm">//    background = color-mix(currentColor 12%, transparent) на :hover</span>
 <span class="tk-cm">//    background = color-mix(currentColor 22%, transparent) на :active</span>
 <span class="tk-cm">//    цвет рипла всегда следует за цветом иконки (тоном)</span>
@@ -490,17 +495,33 @@ glyph = selected ? iconSelected : icon
 <span class="tk-cm">// 4. Embedded (поля ввода): стейт-слоя нет, hover меняет цвет иконки</span>
 <span class="tk-cm">//    text-inactive → primary (на :active → primary-dark)</span>
 
-<span class="tk-cm">// 5. Тач-сценарии: при размерах S/M расширять зону клика до 44×44</span>
-<span class="tk-cm">//    невидимым псевдоэлементом, не увеличивая видимый стейт-слой</span>
+<span class="tk-cm">// 5. Зона клика: стейт-слой (::before) больше иконки и с pointer-events:auto</span>
+<span class="tk-cm">//    ловит клики; размер кнопки в лейауте = размеру иконки</span>
 
 <span class="tk-cm">// 6. Состояния hover/pressed — чистый CSS (:hover/:active);</span>
-<span class="tk-cm">//    классы .is-hover/.is-pressed/.is-focus — только для спецификаций в документации</span></code></pre>
+<span class="tk-cm">//    классы .is-hover/.is-pressed/.is-focus — только для спецификаций в документации</span>
+
+<span class="tk-cm">// 7. Badge (.ibtn__badge): правый верхний угол рамки, top:0/right:0 —</span>
+<span class="tk-cm">//    верхняя и правая грани заподлицо с рамкой, бейдж не выходит за габарит;</span>
+<span class="tk-cm">//    pointer-events:none. Counter — не более 2 символов: value > 99 → «9+»</span></code></pre>
     </div>
     <p class="dev-note">Это не готовый сниппет для вставки — алгоритм, который нужно реализовать поверх вашего стека (рабочий референс на vanilla JS — функция <code class="tok">makeIB</code> в коде этой страницы).</p>
 
     </section>
 
-  <footer class="page-foot">
+    <!-- BACKLOG -->
+  <section class="section" data-screen-label="Backlog">
+    <h2>Бэклог</h2>
+    <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
+    <div class="panel">
+      <ul class="rules">
+        <li><b>Группа IconButton</b> — сращенный по аналогии с ButtonGroup вариант — тулбар иконок с общей рамкой.</li>
+        <li><b>Долгое нажатие</b> — контекстное меню по long-press на мобильных устройствах.</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="page-foot">
     <span>Дизайн-система · IconButton</span>
     <span>Neutral · Primary · Danger · Contrast — L / M / S</span>
   </footer>
@@ -670,6 +691,7 @@ function makeIB(o = {}) {
   const items = [
     { icon:'Important-deals', badge:'<span class="badge badge--xs badge--accent">3</span>', label:'Сделки' },
     { icon:'settings', badge:'<span class="badge badge--xs badge--error">12</span>', label:'Настройки' },
+    { icon:'document-unread', badge:'<span class="badge badge--xs badge--accent">9+</span>', label:'Уведомления (>99)' },
     { icon:'activity-heart', badge:'<span class="badge badge--dot badge--success"></span>', label:'Активность' },
   ];
   items.forEach(it=>{

@@ -21,6 +21,7 @@ const LH_ICON_GLYPHS = [
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>',
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-3.6L16 5.9a1.5 1.5 0 0 1 2.1 0l1.6 1.6a1.5 1.5 0 0 1 0 2.1L7.6 21H4z"/></svg>',
 ];
+const LH_ICON_LABELS = ['Пояснение', 'Редактировать'];
 function makeLabel(o = {}) {
   const { text = 'Label', icons = 0, align = 'left', disabled = false } = o;
   const root = document.createElement('span');
@@ -31,11 +32,16 @@ function makeLabel(o = {}) {
   root.appendChild(t);
   const count = Math.max(0, Math.min(2, Number(icons) || 0));
   if (count > 0) {
+    // иконки в Label — IconButton S neutral
     const wrap = document.createElement('span'); wrap.className = 'ds-label__icons';
     for (let i = 0; i < count; i++) {
-      const ic = document.createElement('span'); ic.className = 'is-action';
-      ic.innerHTML = LH_ICON_GLYPHS[i % LH_ICON_GLYPHS.length];
-      wrap.appendChild(ic);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ibtn ibtn--s ibtn--neutral';
+      btn.setAttribute('aria-label', LH_ICON_LABELS[i % LH_ICON_LABELS.length]);
+      if (disabled) btn.disabled = true;
+      btn.innerHTML = LH_ICON_GLYPHS[i % LH_ICON_GLYPHS.length];
+      wrap.appendChild(btn);
     }
     root.appendChild(wrap);
   }
@@ -409,7 +415,7 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
   const groups = [
     { name:'Label', rows:[
       ['Текст', '--text-secondary'],
-      ['Иконки (редкий кейс)', '--text-inactive'],
+      ['Иконки — IconButton S neutral', '--secondary'],
       ['Disabled', '--text-inactive'],
     ]},
     { name:'Helper', rows:[

@@ -128,6 +128,11 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .copy-btn:hover{background:rgba(255,255,255,.2);}
 .copy-btn.is-copied{border-color:rgba(100,220,150,.5);background:rgba(100,220,150,.15);}
 footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-inactive);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+
+.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
+.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
+.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
+.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
 </style>
 </head>
 <body>
@@ -468,18 +473,18 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   <div class="cref">
     <div class="cref-group">
       <h3>Текст</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Title</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-secondary);"></span><b>--text-secondary</b><span>Subtitle</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>Мета-элементы, иконка слева</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-primary);"></span><b>--text-primary</b><span>Title · #324844</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-secondary);"></span><b>--text-secondary</b><span>Subtitle · #6C8080</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>Мета-элементы, иконка слева · #AAB2B1</span></div>
     </div>
     <div class="cref-group">
       <h3>Иконки</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>IconLeft, иконки мета</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--success);"></span><b>--success</b><span>Иконка сабтайтла, мета-ок</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--text-inactive);"></span><b>--text-inactive</b><span>IconLeft, иконки мета · #AAB2B1</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--success);"></span><b>--success</b><span>Иконка сабтайтла, мета-ок · #7CB342</span></div>
     </div>
     <div class="cref-group">
       <h3>Вариант Dashboard</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--bg-tile);"></span><b>--bg-tile</b><span>Белая подложка</span></div>
+      <div class="cref-row"><span class="sw" style="background:var(--bg-tile);"></span><b>--bg-tile</b><span>Белая подложка · #FFFFFF</span></div>
     </div>
   </div>
 </section>

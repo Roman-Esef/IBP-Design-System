@@ -22,4 +22,13 @@
   } else {
     render();
   }
+  // авто-рендер для слотов, добавленных в DOM позже (конструкторы/тайквики
+  // перестраивают innerHTML — без наблюдателя новые слоты остаются пустыми
+  // и показывают заглушку вместо иллюстрации).
+  new MutationObserver(function (muts) {
+    for (var i = 0; i < muts.length; i++) {
+      if (muts[i].addedNodes.length) { render(); return; }
+    }
+  }).observe(document.documentElement, { childList: true, subtree: true });
+  window.DSIllustrations = { render: render };
 })();

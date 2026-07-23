@@ -38,6 +38,7 @@
 .illu:empty::after {
   content: attr(data-illu);
   font: var(--type-body-xs);
+  line-height: 1;
   color: var(--text-inactive);
   max-width: 90%;
   overflow: hidden;

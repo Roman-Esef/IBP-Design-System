@@ -24,7 +24,7 @@
 <main class="page" data-screen-label="InputText">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>12.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputText</h1>
     <p class="lead">Базовое поле ввода произвольного текста. Собирается из компонентов подкачки <a class="inl" href="../atoms/LabelHelper.html">LabelHelper</a> (метка и хелпер) и Input_Content (поле с рамкой: префикс / текст / постфикс, иконки и действия). На той же базе построены <a class="inl" href="InputDate.html">InputDate</a> и <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a>, а также числовой вариант InputAmount.</p>
@@ -33,7 +33,7 @@
   <!-- PLAYGROUND -->
   <section class="section" data-screen-label="Playground">
     <h2>Конструктор</h2>
-    <p class="desc">Соберите поле: размер, состояние, наполнение текстового слоя (префикс, постфикс, иконка поиска), действия и многострочный режим.</p>
+    <p class="desc">Соберите поле: размер, состояние, наполнение текстового слоя (префикс, постфикс, иконка слева), действия и многострочный режим.</p>
     <div class="panel pg">
       <div class="pg__controls" id="pg-controls"></div>
       <div class="pg__stage" id="pg-stage"></div>
@@ -82,9 +82,9 @@
         <div class="anat__stage" id="anat-diagram"></div>
         <ul class="anat__legend">
           <li><span class="n"></span><span class="t"><span class="k">Label</span><span class="d"> — метка поля, компонент подкачки <code class="tok">.ds-label</code> (Body XS)</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Поле (Input_Content)</span><span class="d"> — рамка 1px, радиус 8px, высота 40px (M)</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Текстовый слой (Text_MASTER)</span><span class="d"> — иконка поиска · префикс · текст · постфикс</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Действия (Input_Action)</span><span class="d"> — информер и крестик очистки, справа (информер левее крестика)</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Поле (Input_Content)</span><span class="d"> — рамка 1px, радиус 4px, высота 40px (M)</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Текстовый слой (Text_MASTER)</span><span class="d"> — иконка слева (любая, не привязана к конкретному глифу) · префикс · текст · постфикс</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Действия (Input_Action)</span><span class="d"> — иконка справа и крестик очистки (информер левее крестика)</span></span></li>
           <li><span class="n"></span><span class="t"><span class="k">Helper</span><span class="d"> — подсказка под полем, <code class="tok">.ds-helper</code> (Body XS)</span></span></li>
         </ul>
       </div>
@@ -98,13 +98,13 @@
 
     <div class="subsec" data-screen-label="ContentVariants">
       <h3>Текстовый слой</h3>
-      <p class="desc">Слой Text_MASTER комбинирует префикс, текст и постфикс с иконкой поиска слева. Все элементы независимы; лишние не показываются.</p>
+      <p class="desc">Слой Text_MASTER комбинирует префикс, текст и постфикс с ведущей иконкой слева. Иконки — любые из библиотеки ДС, компонент не привязывается к конкретному глифу (в примерах — иллюстративные). Все элементы независимы; лишние не показываются.</p>
       <div class="panel"><div class="demo-grid" id="var-content"></div></div>
     </div>
 
     <div class="subsec" data-screen-label="Multiline">
       <h3>Многострочный</h3>
-      <p class="desc">Для длинного текста (комментарии, описания) поле растёт по высоте. Действия прижаты к верхней строке.</p>
+      <p class="desc">Для длинного текста (комментарии, описания) поле растёт по высоте. Действия прижаты к верхней строке. Опционально пользователь может потянуть за правый нижний угол и изменить высоту вручную (resize по вертикали, как в других ДС).</p>
       <div class="panel"><div class="demo-grid" id="var-multiline"></div></div>
     </div>
 
@@ -119,6 +119,18 @@
         <li>незначащие нули убираются при потере фокуса («01» → «1», «…,010» → «…,01»); запись «1,00» с двумя нулями допустима.</li>
       </ul>
       <div class="panel"><div class="demo-grid" id="var-amount"></div></div>
+    </div>
+
+    <div class="subsec" data-screen-label="Password">
+      <h3>Пароль</h3>
+      <p class="desc">Действие справа переключает видимость введённого значения — «показать/скрыть» вместо крестика очистки, крестика в этом варианте нет.</p>
+      <div class="panel"><div class="demo-grid" id="var-password"></div></div>
+    </div>
+
+    <div class="subsec" data-screen-label="LengthLimit">
+      <h3>Ограничение длины</h3>
+      <p class="desc">При заданном максимуме символов под полем справа появляется счётчик «введено / максимум» (Body XS); если есть хелпер — счётчик делит с ним одну строку.</p>
+      <div class="panel"><div class="demo-grid" id="var-counter"></div></div>
     </div>
 
     <div class="subsec" data-screen-label="TableEdit">
@@ -264,15 +276,13 @@
     <p class="desc">Кейсы, которых нет в текущей документации; все собираются на существующих токенах:</p>
     <ul class="bullets">
       <li>маска ввода (телефон, счёт, ИНН) — как у InputDate, но с настраиваемым шаблоном;</li>
-      <li>счётчик символов при ограничении длины — справа под полем, Body XS;</li>
-      <li>вариант для пароля — действие «показать/скрыть» вместо крестика;</li>
       <li>required-метка — звёздочка <code class="tok">.ds-label__req</code> уже есть в LabelHelper.</li>
     </ul>
   </div>
 
   <footer class="page-foot">
     <span>Дизайн-система · InputText</span>
-    <span>m / s · prefix / postfix / search · clear / informer · error / warning / disabled · multiline · amount</span>
+    <span>m / s · prefix / postfix / lead / action icon · clear / password / counter · error / warning / disabled · multiline / resizable · amount</span>
   </footer>
 </main>
 
