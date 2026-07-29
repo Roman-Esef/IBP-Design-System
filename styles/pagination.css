@@ -51,7 +51,7 @@
   gap: 24px;
   min-width: 0;
   flex: 1 1 auto;
-  overflow: hidden;
+  overflow: visible;   /* сводка не обрезается никогда: не влезает — строка складывается в вертикаль */
 }
 .pgn-row__right { flex: none; }
 
@@ -60,36 +60,39 @@
 .pgn-row--sticky { position: sticky; left: 0; }
 
 /* =========================================================================
-   PAGESIZE — селектор «Показывать строк»
+   PAGESIZE — «Показывать строк»: неинтерактивный текст + IconButton-чеврон.
+   Единственный интерактивный элемент селектора — чеврон-кнопка (IconButton,
+   размер M, тон нейтральный). Клик по чеврону открывает DropdownList.
    ========================================================================= */
-.pgn__pagesize {
+.pgn__pagesize.ddl-anchor {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.pgn__pagesize-label { font: var(--type-body-s); color: var(--text-secondary); }
+.pgn__pagesize-label b { color: var(--text-primary); font-weight: 600; }
+/* чеврон — IconButton M: круглый стейт-слой 32px, translucent-рипл currentColor */
+.pgn__pagesize-btn {
+  flex: none;
+  width: var(--pgn-num-size);
+  height: var(--pgn-num-size);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  height: 32px;
-  padding: 0 8px;
-  border: 1px solid transparent;
-  border-radius: var(--pgn-radius);
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--text-secondary);
-  font: var(--type-body-s);
-  white-space: nowrap;
   cursor: pointer;
-  user-select: none;
-  transition: background-color .12s ease, border-color .12s ease, color .12s ease;
+  transition: background-color .12s ease, color .12s ease;
 }
-.pgn__pagesize b { color: var(--text-primary); font-weight: 600; }
-.pgn__pagesize:hover { background: var(--tertiary-light); color: var(--text-primary); }
-.pgn__pagesize.is-open,
-.pgn__pagesize:focus-visible {
-  background: var(--tertiary-light);
-  border-color: var(--border-primary);
-  color: var(--text-primary);
-  outline: none;
-}
-.pgn__pagesize__chev { flex: none; width: 14px; height: 14px; color: var(--text-inactive); display: inline-flex; transition: transform .15s ease; }
-.pgn__pagesize__chev svg { width: 100%; height: 100%; display: block; }
-.pgn__pagesize.is-open .pgn__pagesize__chev { transform: rotate(180deg); }
+.pgn__pagesize-btn svg { width: 20px; height: 20px; display: block; transition: transform .15s ease; }
+.pgn__pagesize-btn:hover  { background: color-mix(in srgb, currentColor 12%, transparent); }
+.pgn__pagesize-btn:active { background: color-mix(in srgb, currentColor 22%, transparent); }
+.pgn__pagesize-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.pgn__pagesize-btn.is-open svg { transform: rotate(180deg); }
 
 /* =========================================================================
    PAGER — сам пагинатор: pagesize + range + nav в один ряд
@@ -120,6 +123,8 @@
   gap: var(--pgn-num-gap);
 }
 
+/* стрелки и номера — IconButton M, тон нейтральный: круглый стейт-слой 32px,
+   translucent-рипл currentColor (12% hover / 22% active), цвет Text_Secondary */
 .pgn__arrow {
   flex: none;
   width: var(--pgn-num-size);
@@ -128,15 +133,16 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: var(--pgn-radius);
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
   transition: background-color .12s ease, color .12s ease;
 }
-.pgn__arrow svg { width: 18px; height: 18px; display: block; }
-.pgn__arrow:hover { background: var(--tertiary-light); color: var(--text-primary); }
-.pgn__arrow:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.pgn__arrow svg { width: 20px; height: 20px; display: block; }
+.pgn__arrow:hover  { background: color-mix(in srgb, currentColor 12%, transparent); }
+.pgn__arrow:active { background: color-mix(in srgb, currentColor 22%, transparent); }
+.pgn__arrow:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .pgn__arrow:disabled,
 .pgn__arrow[aria-disabled="true"] { color: var(--text-inactive); cursor: default; pointer-events: none; background: transparent; }
 
@@ -148,7 +154,7 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: var(--pgn-radius);
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--text-secondary);
   font: var(--type-body-s);
@@ -156,8 +162,9 @@
   cursor: pointer;
   transition: background-color .12s ease, color .12s ease;
 }
-.pgn__num:hover { background: var(--tertiary-light); color: var(--text-primary); }
-.pgn__num:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.pgn__num:hover  { background: color-mix(in srgb, currentColor 12%, transparent); }
+.pgn__num:active { background: color-mix(in srgb, currentColor 22%, transparent); }
+.pgn__num:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 /* текущая страница */
 .pgn__num[aria-current="page"] {
@@ -191,34 +198,34 @@
 .pgn__nav .pgn__range { padding: 0 8px; }
 
 /* =========================================================================
-   RESPONSIVE — адаптив по ширине контейнера строки.
-   Уровень (tier) выставляется скриптом в атрибут data-tier на .pgn и .pgn-row
-   через ResizeObserver. Число видимых номеров сокращается в JS (см.
-   pagination.page.js → applyTier/renderNav); CSS отвечает за перестроение
-   раскладки. Пороги (ширина строки): l ≥ 680 · m ≥ 520 · s ≥ 380 · xs < 380.
+   RESPONSIVE — адаптив по фактически доступному месту (не по порогам вьюпорта).
+   Скрипт (pagination.page.js → fit) измеряет ширину строки и натуральную
+   ширину инфо-сводки, после чего выставляет две независимые оси:
+     data-tier на .pgn      — уровень навигации: l | m | sm | c | xs
+     data-layout на .pgn-row — раскладка строки: row | stack
 
-     l  — горизонтально, полный набор номеров (до 7)
-     m  — горизонтально, сокращённый набор (до 5): 1 … N … Last
-     s  — строка в столбик; пагинатор compact (стрелки + счётчик)
-     xs — строка в столбик; пагинатор тоже переносится: pagesize/range
-          сверху, стрелки отдельной строкой по краям
+     l   — полный набор номеров (до 7)
+     m   — сокращённый набор (до 5): 1 … N … Last
+     sm  — между стрелок только текущая страница
+     c   — номера скрыты, между стрелок счётчик «N из M» (compact),
+           строка при этом ещё горизонтальная
+     xs  — compact + сам пагинатор переносится в две строки
+
+   Инфо-сводка никогда не обрезается: пока она с пагинатором не влезает
+   в одну строку — сокращается пагинатор; дальше строка идёт в stack.
    ========================================================================= */
 
-/* s / xs — строка колонтитула перестраивается в вертикаль */
-.pgn-row[data-tier="s"],
-.pgn-row[data-tier="xs"] {
+/* stack — строка колонтитула перестраивается в вертикаль */
+.pgn-row[data-layout="stack"] {
   flex-direction: column;
   align-items: stretch;
   gap: 12px;
   padding-top: 14px;
   padding-bottom: 14px;
 }
-.pgn-row[data-tier="s"]  .pgn-row__left,
-.pgn-row[data-tier="xs"] .pgn-row__left { flex: none; overflow: visible; }
-.pgn-row[data-tier="s"]  .pgn-row__right,
-.pgn-row[data-tier="xs"] .pgn-row__right { width: 100%; }
-.pgn-row[data-tier="s"]  .pgn,
-.pgn-row[data-tier="xs"] .pgn { width: 100%; justify-content: space-between; }
+.pgn-row[data-layout="stack"] .pgn-row__left { flex: none; width: 100%; overflow: visible; }
+.pgn-row[data-layout="stack"] .pgn-row__right { width: 100%; }
+.pgn-row[data-layout="stack"] .pgn { width: 100%; justify-content: space-between; }
 
 /* xs — сам пагинатор переносится в две строки */
 .pgn[data-tier="xs"] {
@@ -229,30 +236,6 @@
   flex: 1 0 100%;
   justify-content: space-between;
 }
-
-/* =========================================================================
-   STATE — disabled / loading (весь пагинатор)
-   ========================================================================= */
-.pgn--disabled .pgn__pagesize,
-.pgn--disabled .pgn__num,
-.pgn--disabled .pgn__arrow { pointer-events: none; color: var(--text-inactive); }
-.pgn--disabled .pgn__num[aria-current="page"] { background: var(--disabled-bg); color: var(--text-inactive); }
-.pgn--disabled .pgn__range { color: var(--text-inactive); }
-
-.pgn--loading .pgn__nav,
-.pgn--loading .pgn__pagesize { pointer-events: none; opacity: .5; }
-.pgn__spinner {
-  display: inline-flex;
-  flex: none;
-  width: 16px;
-  height: 16px;
-  border-radius: var(--radius-circle);
-  border: 2px solid var(--border-primary);
-  border-top-color: var(--text-secondary);
-  animation: pgn-spin .7s linear infinite;
-}
-@keyframes pgn-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .pgn__spinner { animation-duration: 1.6s; } }
 
 /* =========================================================================
    FOOTER — обёртка колонтитула: опциональная строка Action_panel НАД

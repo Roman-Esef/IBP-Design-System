@@ -1,8 +1,8 @@
 ---
 component: Switch
 title: "Switch"
-version: "v1.4"
-updated: "22.07.2026"
+version: "v1.5"
+updated: "25.07.2026"
 page: pages/atoms/Switch.html
 css: styles/switch.css
 deps: [label-helper]

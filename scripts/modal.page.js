@@ -6,7 +6,7 @@
 const MODAL_CONTENT = {
   form() {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:20px;';
+    wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:8px;">
         <label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>
@@ -26,7 +26,7 @@ const MODAL_CONTENT = {
   },
   error() {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:20px;';
+    wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:8px;">
         <label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>
@@ -78,7 +78,7 @@ const MODAL_CONTENT = {
   },
   skeleton() {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:20px;';
+    wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     for (let i = 0; i < 3; i++) {
       const row = document.createElement('div');
       row.style.cssText = 'display:flex; flex-direction:column; gap:8px;';
@@ -94,7 +94,7 @@ function buildModal(o = {}) {
   const {
     width = 6, title = 'Новая сделка',
     footLeft = 'none', footRight = 'primary',
-    content = 'form', inline = false, saving = false,
+    content = 'form', inline = false, saving = false, alert = 'none',
   } = o;
 
   const scrim = document.createElement('div');
@@ -110,7 +110,10 @@ function buildModal(o = {}) {
   const head = document.createElement('div');
   head.className = 'modal__head';
   head.innerHTML = `<h2 class="modal__title" id="${titleId}">${title}</h2>
-    <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><i data-icon="close"></i></button></span>`;
+    <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span>`;
+
+  /* необязательная зона между шапкой и телом — Alert уровня всей модалки */
+  const alertZone = alert === 'none' ? null : buildModalAlert(alert);
 
   const body = document.createElement('div');
   body.className = 'modal__body';
@@ -128,7 +131,10 @@ function buildModal(o = {}) {
     : `<button type="button" class="btn btn--accent btn--m"><span class="btn__label">Сохранить</span></button>`;
   foot.appendChild(left); foot.appendChild(right);
 
-  modal.appendChild(head); modal.appendChild(body); modal.appendChild(foot);
+  modal.appendChild(head);
+  if (alertZone) modal.appendChild(alertZone);
+  modal.appendChild(body);
+  modal.appendChild(foot);
   scrim.appendChild(modal);
 
   /* тень у шапки/подвала при прокрутке тела */
@@ -143,6 +149,25 @@ function buildModal(o = {}) {
   return { scrim, modal, head, body, foot, syncScrollShadow };
 }
 
+/* ---------- Alert между шапкой и телом (ошибка отправки / предупреждение) ---------- */
+const MODAL_ALERT = {
+  error: { tone: 'error', icon: 'alert-circle-filled', title: 'Не удалось сохранить сделку', text: 'Сервис лимитов недоступен. Попробуйте сохранить ещё раз через минуту.' },
+  warning: { tone: 'warning', icon: 'alert-triangle-filled', title: 'Данные контрагента устарели', text: 'Последняя проверка — 12.05.2026. Значения полей могли измениться.' },
+};
+function buildModalAlert(kind) {
+  const cfg = MODAL_ALERT[kind] || MODAL_ALERT.error;
+  const zone = document.createElement('div');
+  zone.className = 'modal__alert';
+  zone.innerHTML = `<div class="alert alert--${cfg.tone} alert--m alert--flush" data-alert-tone="${cfg.tone}" role="alert">
+    <span class="alert__icon" aria-hidden="true"><i data-icon="${cfg.icon}"></i></span>
+    <div class="alert__body">
+      <p class="alert__title">${cfg.title}</p>
+      <p class="alert__text">${cfg.text}</p>
+    </div>
+  </div>`;
+  return zone;
+}
+
 /* ---------- диалог подтверждения удаления (вложенный поверх модалки) ---------- */
 function buildDangerDialog(onCancel) {
   const scrim = document.createElement('div');
@@ -153,8 +178,8 @@ function buildDangerDialog(onCancel) {
   modal.setAttribute('aria-modal', 'true');
   modal.innerHTML = `
     <div class="modal__head">
-      <h2 class="modal__title">Удалить сделку?</h2>
-      <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><i data-icon="close"></i></button></span>
+      <h2 class="modal__title">Удаление сделки</h2>
+      <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span>
     </div>
     <div class="modal__body">
       <p style="margin:0;">Сделка «1-Кредит-199» будет удалена без возможности восстановления.</p>
@@ -180,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const controls = document.getElementById('pg-controls');
     const stage = document.getElementById('pg-stage');
     if (!controls || !stage) return;
-    const state = { width: '6', footLeft: 'none', footRight: 'primary', content: 'form', mode: 'default' };
+    const state = { width: '6', footLeft: 'none', footRight: 'primary', content: 'form', mode: 'default', alert: 'none' };
 
     function ctl(labelText, options, get, set) {
       const wrap = document.createElement('div'); wrap.className = 'ctl';
@@ -193,10 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
       return wrap;
     }
 
-    controls.appendChild(ctl('Ширина', [
-      ['1','1 · 140px'],['2','2 · 290px'],['3','3 · 440px'],['4','4 · 600px'],['5','5 · 750px'],
-      ['6','6 · 900px'],['7','7 · 1050px'],['8','8 · 1200px'],['9','9 · 1360px'],
-      ['10','10 · 1510px'],['11','11 · 1660px'],['12','12 · 1820px'],
+    controls.appendChild(ctl('Ширина · колонок', [
+      ['2','2 · 289px'],['3','3 · 442px'],['4','4 · 595px'],['5','5 · 747px'],
+      ['6','6 · 900px'],['7','7 · 1053px'],['8','8 · 1205px'],['9','9 · 1358px'],
+      ['10','10 · 1511px'],['11','11 · 1663px'],['12','12 · 1816px'],
     ], () => state.width, v => state.width = v));
 
     controls.appendChild(ctl('Подвал · слева', [
@@ -212,6 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ['scroll','Длинный скролл'],['skeleton','Загрузка (скелетон)'],['error','Ошибка валидации'],
     ], () => state.content, v => state.content = v));
 
+    controls.appendChild(ctl('Алерт над контентом', [
+      ['none','Нет'],['error','Ошибка'],['warning','Предупреждение'],
+    ], () => state.alert, v => state.alert = v));
+
     controls.appendChild(ctl('Состояние', [
       ['default','По умолчанию'],['scrolled','Прокручен'],['saving','Сохранение'],['nested','Вложенный диалог'],
     ], () => state.mode, v => state.mode = v));
@@ -221,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const { scrim, modal, body, syncScrollShadow } = buildModal({
         width: state.width, footLeft: state.footLeft, footRight: state.footRight,
         content: state.mode === 'scrolled' ? 'scroll' : state.content,
-        inline: true, saving: state.mode === 'saving',
+        inline: true, saving: state.mode === 'saving', alert: state.alert,
       });
       stage.appendChild(scrim);
       if (state.mode === 'scrolled') { body.scrollTop = 40; syncScrollShadow(); }
@@ -278,21 +307,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = [
       { label: 'Загрузка контента', opts: { content: 'skeleton' } },
       { label: 'Сохранение (форма заблокирована)', opts: { content: 'form', saving: true } },
-      { label: 'Ошибка валидации', opts: { content: 'error' } },
-      { label: 'Прокрутка — тень у шапки/подвала', opts: { content: 'scroll' }, scrolled: true },
+      { label: 'Ошибка валидации — Helper поля', opts: { content: 'error' } },
+      { label: 'Ошибка уровня модалки — Alert между шапкой и телом', opts: { content: 'form', alert: 'error' } },
+      { label: 'Прокрутка — тень у шапки/подвала', opts: { content: 'scroll' }, scrolled: true, clamp: true },
     ];
     items.forEach(it => {
       const cell = document.createElement('div'); cell.className = 'state-cell';
       const cap = document.createElement('div'); cap.className = 'state-cap'; cap.textContent = it.label; cell.appendChild(cap);
-      const box = document.createElement('div'); box.style.cssText = 'width:100%; max-width:360px;';
-      const { scrim, modal, body, syncScrollShadow } = buildModal({ width: 4, ...it.opts, inline: true });
-      // витрина — модалка заполняет свою карточку целиком, а не буквальный шаг ширины
-      modal.style.width = '100%';
-      modal.style.maxWidth = '100%';
-      modal.style.cssText += 'max-height:280px; box-shadow:0 1px 2px rgba(40,50,55,.12); position:relative;';
+      const box = document.createElement('div'); box.style.cssText = 'width:100%;';
+      /* витрина — реальный шаг ширины 3 (442px), по две модалки в ряд; высота по контенту,
+         кроме примера с прокруткой, где потолок задан искусственно */
+      const { scrim, modal, body, syncScrollShadow } = buildModal({ width: 3, ...it.opts, inline: true });
+      modal.style.cssText += 'max-width:100%; max-height:' + (it.clamp ? '380px' : 'none') + '; box-shadow:0 1px 2px rgba(40,50,55,.12); position:relative;';
       scrim.style.cssText = 'position:static; background:transparent; padding:0; display:block;';
       if (it.scrolled) { requestAnimationFrame(() => { body.scrollTop = 30; syncScrollShadow(); }); }
       box.appendChild(scrim); cell.appendChild(box); host.appendChild(cell);
+    });
+  })();
+
+  /* ---------------- ВАРИАНТЫ: алерт между шапкой и телом ---------------- */
+  (function () {
+    const host = document.getElementById('alert-demo');
+    if (!host) return;
+    host.className = 'alert-demo';
+    [
+      { alert: 'error', cap: 'Ошибка уровня модалки — не привязана к конкретному полю, форма остаётся открытой' },
+      { alert: 'warning', cap: 'Предупреждение — отправить можно, но данные требуют внимания' },
+    ].forEach(cfg => {
+      const cell = document.createElement('div'); cell.className = 'alert-demo__cell';
+      const cap = document.createElement('div'); cap.className = 'state-cap'; cap.textContent = cfg.cap;
+      const stageEl = document.createElement('div'); stageEl.className = 'alert-demo__stage';
+      const { scrim, modal } = buildModal({ width: 3, content: 'form', alert: cfg.alert, inline: true });
+      modal.style.cssText += 'max-width:100%; max-height:none; box-shadow:0 1px 2px rgba(40,50,55,.12); position:relative;';
+      scrim.style.cssText = 'position:static; background:transparent; padding:0; display:block; width:100%;';
+      stageEl.appendChild(scrim);
+      cell.appendChild(cap); cell.appendChild(stageEl); host.appendChild(cell);
     });
   })();
 
@@ -360,12 +409,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const r = n => Math.round(parseFloat(n) * 10) / 10;
     const rows = [
       ['Радиус модалки', r(csModal.borderTopLeftRadius) + ' px'],
-      ['Паддинг шапки (Y / X)', r(csHead.paddingTop) + ' / ' + r(csHead.paddingLeft) + ' px'],
-      ['Паддинг тела (Y / X)', r(csBody.paddingTop) + ' / ' + r(csBody.paddingLeft) + ' px'],
-      ['Паддинг подвала (Y / X)', r(csFoot.paddingTop) + ' / ' + r(csFoot.paddingLeft) + ' px'],
+      ['Максимальная высота', csModal.maxHeight === 'none' ? '80% вьюпорта' : '80% вьюпорта (' + r(csModal.maxHeight) + ' px при текущем экране)'],
+      ['Шапка: паддинги (верх / право / низ / лево)', [csHead.paddingTop, csHead.paddingRight, csHead.paddingBottom, csHead.paddingLeft].map(r).join(' / ') + ' px'],
+      ['Шапка: высота строки «заголовок + крестик»', r(csHead.minHeight) + ' px'],
+      ['Шапка: зазор заголовок ↔ крестик', r(csHead.columnGap) + ' px'],
+      ['Тело: паддинги (верх / бок / низ)', [csBody.paddingTop, csBody.paddingLeft, csBody.paddingBottom].map(r).join(' / ') + ' px'],
+      ['Тело: зазор между вложенными компонентами', r(csBody.rowGap) + ' px'],
+      ['Подвал: паддинги (Y / X)', r(csFoot.paddingTop) + ' / ' + r(csFoot.paddingLeft) + ' px'],
       ['Зазор в подвале между кнопками', r(getComputedStyle(foot.querySelector('.modal__foot-right')).columnGap) + ' px'],
       ['Толщина разделителя шапка/подвал', r(csHead.borderBottomWidth) + ' px'],
-      ['Типографика заголовка', csHead.querySelector ? '' : ''],
     ].filter(r => r[1] !== '');
     // типографика заголовка отдельным запросом (querySelector недоступен на csHead)
     const csTitle = getComputedStyle(head.querySelector('.modal__title'));

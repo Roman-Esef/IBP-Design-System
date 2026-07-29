@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="../../styles/tooltip.css">
 <link rel="stylesheet" href="../../styles/dropdown-list.css">
 <link rel="stylesheet" href="../../styles/input.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -30,10 +31,10 @@
 <main class="page" data-screen-label="InputAutocomplete">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.9</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.10</b></span><span>Обновлено: <b>29.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputAutocomplete</h1>
-    <p class="lead">Поле с выпадающим списком: пользователь вводит запрос, а под полем раскрывается <a class="inl" href="Select.html">DropdownList</a> с подходящими опциями. Список содержит как текстовые опции (одиночный выбор), так и опции с чекбоксами (множественный выбор). Выбранные значения показываются в поле сводкой, чипами внутри поля или чипами во внешнем стеке под полем. Построен на той же базе Input_Content, что и <a class="inl" href="InputText.html">InputText</a> и <a class="inl" href="InputDate.html">InputDate</a>.</p>
+    <p class="lead">Поле с выпадающим списком: пользователь вводит запрос, а под полем раскрывается <a class="inl" href="DropdownList.html">DropdownList</a> с подходящими опциями. Список содержит как текстовые опции (одиночный выбор), так и опции с чекбоксами (множественный выбор). Выбранные значения показываются в поле сводкой, чипами внутри поля или чипами во внешнем стеке под полем. Построен на той же базе Input_Content, что и <a class="inl" href="InputText.html">InputText</a> и <a class="inl" href="InputDate.html">InputDate</a>.</p>
   </header>
 
   <!-- PLAYGROUND -->
@@ -42,7 +43,7 @@
     <p class="desc">Соберите поле автокомплита: способ показа выбора (сводка / чипы в поле / чипы во внешнем стеке), тип списка (текст / чекбоксы), размер, состояние и раскрытие списка.</p>
     <div class="panel pg">
       <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage" id="pg-stage"></div>
+      <div class="pg__stage pg__stage--pop" id="pg-stage"></div>
     </div>
     <p class="pg__code" id="pg-code"></p>
   </section>
@@ -75,7 +76,7 @@
         <li>множественный выбор из перечня — с чипами или сводкой;</li>
         <li>ввод с подсказками, где допустимо и свободное значение (action-строка «создать»).</li>
       </ul>
-      <p class="desc">Если вариантов мало и поиск не нужен — <a class="inl" href="Select.html">Select</a>. Для свободного текста без списка — <a class="inl" href="InputText.html">InputText</a>. Устройство самого списка (опции, состояния, системные строки) описано на странице <a class="inl" href="Select.html">Select · DropdownList</a>.</p>
+      <p class="desc">Если вариантов мало и поиск не нужен — <a class="inl" href="DropdownList.html">Select</a>. Для свободного текста без списка — <a class="inl" href="InputText.html">InputText</a>. Устройство самого списка (опции, состояния, системные строки) описано на странице <a class="inl" href="DropdownList.html">Select · DropdownList</a>.</p>
     </div>
   </section>
 
@@ -122,7 +123,7 @@
 
     <div class="subsec" data-screen-label="ListContent">
       <h3>Наполнение списка</h3>
-      <p class="desc">DropdownList под полем: одиночный выбор — текстовые опции с подсветкой совпадения; множественный — опции с ведущим чекбоксом. Подробнее — на странице <a class="inl" href="Select.html">Select · DropdownList</a>.</p>
+      <p class="desc">DropdownList под полем: одиночный выбор — текстовые опции с подсветкой совпадения; множественный — опции с ведущим чекбоксом. Подробнее — на странице <a class="inl" href="DropdownList.html">Select · DropdownList</a>.</p>
       <div class="panel"><div class="row" id="var-list" style="gap:32px;"></div></div>
     </div>
 
@@ -149,7 +150,7 @@
       <li>сводка множественного выбора — «первое значение, +N»; N — число остальных;</li>
       <li>подсветка совпадения (<code class="tok">.ddl__match</code>) показывает, почему опция найдена;</li>
       <li>текст чипа обрезается многоточием при переполнении, полный текст — в тултипе;</li>
-      <li>системные строки списка (загрузка, «ничего не найдено», ошибка) — по правилам <a class="inl" href="Select.html">DropdownList</a>.</li>
+      <li>системные строки списка (загрузка, «ничего не найдено», ошибка) — по правилам <a class="inl" href="DropdownList.html">DropdownList</a>.</li>
     </ul>
     <div class="panel"><div class="demo-grid" id="content-demo"></div></div>
   </section>
@@ -175,7 +176,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc">Восемь состояний поля-триггера, общих со всеми типами поля. Текст ошибки или предупреждения по умолчанию не выносится в хелпер — хелпер остаётся правилом заполнения — и показывается только в тултипе в ErrorFocus и WarningFocus. Тултип не смещает хелпер: лежит поверх потока, z-index выше поля. Исключение из правила допустимо, если оно намеренно заложено при разработке. Состояния опций списка — на странице <a class="inl" href="Select.html">DropdownList</a>.</p>
+    <p class="desc">Восемь состояний поля-триггера, общих со всеми типами поля. Текст ошибки или предупреждения по умолчанию не выносится в хелпер — хелпер остаётся правилом заполнения — и показывается только в тултипе в ErrorFocus и WarningFocus. Тултип не смещает хелпер: лежит поверх потока, z-index выше поля. Исключение из правила допустимо, если оно намеренно заложено при разработке. Состояния опций списка — на странице <a class="inl" href="DropdownList.html">DropdownList</a>.</p>
     <div class="panel"><div class="demo-grid" id="states-demo"></div></div>
   </section>
 
@@ -198,25 +199,49 @@
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
     <p class="desc">Ввод и сводка набираются гарнитурой <b>SB Sans Text</b>. Чипы — по своим токенам (Body S / XS). Опции списка — Body M, helper и группа — Body XS.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table" id="typo-table">
-        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
-        <tbody></tbody>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
+        <tbody>
+          <tr><td>Ввод / сводка · M</td><td><code class="tok">--type-body-m</code></td><td>SB Sans Text</td><td>Regular</td><td>16 / 20</td><td><span style="font:var(--type-body-m)">Образец</span></td></tr>
+          <tr><td>Ввод / сводка · S</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
+          <tr><td>Чип в поле · M → S</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
+          <tr><td>Опция списка</td><td><code class="tok">--type-body-m</code></td><td>SB Sans Text</td><td>Regular</td><td>16 / 20</td><td><span style="font:var(--type-body-m)">Образец</span></td></tr>
+          <tr><td>Helper опции / группа</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
+        </tbody>
       </table>
     </div>
+    <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
 
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
     <p class="desc">Поле — токены InputText. Список — токены DropdownList: фон <code class="tok">--bg-popup</code>, hover опции <code class="tok">--tertiary-light</code>, выбранная строка <code class="tok">--bgtable-row-focus</code>, подсветка совпадения — <code class="tok">--primary</code>.</p>
-    <div class="color-ref" id="color-ref"></div>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
+        <tbody>
+          <tr><td>Поле-триггер</td><td>Фон поля</td><td><code class="tok">--bg-tile</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-tile)"></span></td><td>#FFFFFF</td></tr>
+          <tr><td>Поле-триггер</td><td>Рамка</td><td><code class="tok">--border-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-primary)"></span></td><td>#B8CCCC</td></tr>
+          <tr><td>Поле-триггер</td><td>Рамка · hover/focus</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+          <tr><td>Поле-триггер</td><td>Сводка / значение</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
+          <tr><td>Поле-триггер</td><td>Плейсхолдер</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
+          <tr><td>Поле-триггер</td><td>Иконки (шеврон / крестик)</td><td><code class="tok">--secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--secondary)"></span></td><td>#B8D6D3</td></tr>
+          <tr><td>Список (DropdownList)</td><td>Фон списка</td><td><code class="tok">--bg-popup</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-popup)"></span></td><td>#FFFFFF</td></tr>
+          <tr><td>Список (DropdownList)</td><td>Hover опции</td><td><code class="tok">--tertiary-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--tertiary-light)"></span></td><td>#EEF2F1</td></tr>
+          <tr><td>Список (DropdownList)</td><td>Выбранная строка</td><td><code class="tok">--bgtable-row-focus</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bgtable-row-focus)"></span></td><td>#DEEDEC</td></tr>
+          <tr><td>Список (DropdownList)</td><td>Подсветка совпадения</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="color-ref" style="display:none"></div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->
   <section class="section" data-screen-label="Dev">
     <h2>Для разработчиков</h2>
-    <p class="desc">Хендофф-пакет: точные размеры триггера, эталонная структура DOM (поле + список), поведение и рекомендуемый API. Устройство списка берётся из компонента <a class="inl" href="Select.html">DropdownList</a>.</p>
+    <p class="desc">Хендофф-пакет: точные размеры триггера, эталонная структура DOM (поле + список), поведение и рекомендуемый API. Устройство списка берётся из компонента <a class="inl" href="DropdownList.html">DropdownList</a>.</p>
 
     <p class="subhead">Точные размеры (redline)</p>
     <p class="desc tight">Значения измерены на живом экземпляре компонента (<code class="tok">getComputedStyle</code>), источник — токены в <code class="tok">styles/input.css</code> и <code class="tok">styles/dropdown-list.css</code>.</p>
@@ -264,7 +289,7 @@
 
   <!-- BACKLOG -->
   <div class="backlog" data-screen-label="Backlog">
-    <h2>Что предлагаем добавить</h2>
+    <h2>Бэклог</h2>
     <p class="desc">Кейсы, которых нет в текущей документации:</p>
     <ul class="bullets">
       <li>action-строка «создать значение» при отсутствии совпадений (свободный ввод в список);</li>

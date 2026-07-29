@@ -1,8 +1,8 @@
 ---
 component: InputDate
 title: "InputDate"
-version: "v1.7"
-updated: "22.07.2026"
+version: "v1.8"
+updated: "29.07.2026"
 page: pages/molecules/InputDate.html
 page_js: scripts/input-date.page.js
 css: styles/input.css

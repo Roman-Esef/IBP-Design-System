@@ -97,6 +97,9 @@
 
 /* icon-only segment — square-ish, needs an aria-label */
 .segctrl__item--icon-only { padding: 0 calc(var(--seg-px) - 4px); gap: 0; }
+/* …но если рядом с иконкой стоит счётчик — зазор тот же 6px, что и в варианте
+   с текстом, иначе цифра прилипает к глифу */
+.segctrl__item--icon-only:has(.badge) { gap: 6px; }
 
 /* text label — truncates with ellipsis when constrained (fullwidth narrow) */
 .segctrl__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }

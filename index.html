@@ -138,7 +138,7 @@
     <p class="lead">Единый источник правды: токены типографики и цвета, на которых собраны все компоненты. Гарнитуры SB Sans, семантическая палитра, библиотека UI.</p>
     <div class="meta">
       <div class="m"><p class="k">Основы</p><p class="v">Типографика · Цвета</p></div>
-      <div class="m"><p class="k">Компоненты</p><p class="v">28 компонентов · 11 атомов · 15 молекул · 2 организма</p></div>
+      <div class="m"><p class="k">Компоненты</p><p class="v">41 компонент · 12 атомов · 19 молекул · 10 организмов</p></div>
       <div class="m"><p class="k">Шрифты</p><p class="v">SB Sans Display · Text · Screen</p></div>
     </div>
     <div class="stripe" id="stripe"></div>
@@ -491,6 +491,25 @@
         </div>
       </a>
 
+      <a class="card" href="pages/molecules/DropdownList.html">
+        <div class="card__preview">
+          <div class="ddl" style="width:100%; max-width:230px; box-shadow:none; border-color:var(--border-light);">
+            <button type="button" class="ddl__item" aria-selected="true" tabindex="-1">
+              <span class="ddl__item-body"><span class="ddl__item-label">Доллар США</span></span>
+              <span class="ddl__item-trail"><span class="ddl__item-check-single"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span></span>
+            </button>
+            <button type="button" class="ddl__item" tabindex="-1"><span class="ddl__item-body"><span class="ddl__item-label">Евро</span></span></button>
+            <button type="button" class="ddl__item" tabindex="-1"><span class="ddl__item-body"><span class="ddl__item-label">Фунт стерлингов</span></span></button>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">DropdownList</h3>
+          <p class="card__desc">Выпадающий список, раскрывающийся под полем Select или InputAutocomplete. Одиночный и множественный выбор, автодополнение с подсветкой совпадения, группы, авто-разворот.</p>
+          <div class="card__meta"><span class="tag">Молекулы</span><span class="tag file">DropdownList.html</span></div>
+          <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
       <a class="card" href="pages/molecules/InputAmountRange.html">
         <div class="card__preview">
           <div style="width:100%; max-width:280px;">
@@ -608,7 +627,7 @@
         </div>
         <div class="card__body">
           <h3 class="card__title">Pagination</h3>
-          <p class="card__desc">Нижняя строка многостраничной таблицы: селектор размера страницы, счётчик диапазона, стрелки и номера. Composable с Action panel (массовый выбор) и Pagi counters. Конструктор внутри.</p>
+          <p class="card__desc">Нижняя строка многостраничной таблицы: выбор размера страницы, счётчик диапазона, стрелки и номера. Composable с Action panel (массовый выбор) и Pagi counters. Конструктор внутри.</p>
           <div class="card__meta"><span class="tag">Молекулы</span><span class="tag file">Pagination.html</span></div>
           <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
@@ -641,24 +660,6 @@
         </div>
       </a>
 
-      <a class="card" href="pages/molecules/Select.html">
-        <div class="card__preview">
-          <div class="ddl" style="width:100%; max-width:230px; box-shadow:none; border-color:var(--border-light);">
-            <button type="button" class="ddl__item" aria-selected="true" tabindex="-1">
-              <span class="ddl__item-body"><span class="ddl__item-label">Доллар США</span></span>
-              <span class="ddl__item-trail"><span class="ddl__item-check-single"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span></span>
-            </button>
-            <button type="button" class="ddl__item" tabindex="-1"><span class="ddl__item-body"><span class="ddl__item-label">Евро</span></span></button>
-            <button type="button" class="ddl__item" tabindex="-1"><span class="ddl__item-body"><span class="ddl__item-label">Фунт стерлингов</span></span></button>
-          </div>
-        </div>
-        <div class="card__body">
-          <h3 class="card__title">Select · DropdownList</h3>
-          <p class="card__desc">Выпадающий список, раскрывающийся под полем Select или InputAutocomplete. Одиночный и множественный выбор, автодополнение с подсветкой совпадения, группы, авто-разворот.</p>
-          <div class="card__meta"><span class="tag">Молекулы</span><span class="tag file">Select.html</span></div>
-          <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </div>
-      </a>
 
       <a class="card" href="pages/molecules/Splitter.html">
         <div class="card__preview">
@@ -889,9 +890,30 @@
     </div>
   </section>
 
+  <!-- PATTERNS -->
+  <section class="sec" data-screen-label="Patterns">
+    <div class="sec-head"><h2>Правила и паттерны</h2><span class="n">1 раздел</span></div>
+    <div class="grid">
+      <a class="card" href="pages/patterns/SectionsAudit.html">
+        <div class="card__preview">
+          <div style="display:flex; align-items:center; gap:12px; width:100%; max-width:260px;">
+            <span style="flex:none; width:40px; height:40px; border-radius:12px; background:var(--c-swamp-100,#E1EDE7); color:var(--text-primary,#6E8A82); display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+            <span style="min-width:0;"><span style="display:block; font:400 11px/1.3 var(--font-text,sans-serif); color:var(--text-inactive,#9DB2AC);">Инициатива · RFC</span><span style="display:block; font:600 15px/1.3 var(--font-text,sans-serif); color:var(--text-primary,#1F2D2A);">3 фазы</span></span>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Аудит разделов</h3>
+          <p class="card__desc">Рабочая память инициативы «ДС из коробки»: план переноса переиспользуемого поведения и композиционных стилей с витрины в глобальный рантайм.</p>
+          <div class="card__meta"><span class="tag">Паттерны</span><span class="tag file">SectionsAudit.html</span></div>
+          <span class="card__go">Открыть страницу <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- SCREENS -->
   <section class="sec" data-screen-label="Screens">
-    <div class="sec-head"><h2>Примеры экранов</h2><span class="n">9 экранов</span></div>
+    <div class="sec-head"><h2>Примеры экранов</h2><span class="n">10 экранов</span></div>
     <p style="font:var(--type-body-m);color:var(--text-secondary);margin:-12px 0 24px;max-width:760px">Реальные экраны продукта, собранные из компонентов и токенов ДС — как эталон применения. Не живой интерфейс: часть данных условна, а отсутствующие пока компоненты (график CashFlow, allocation-бар, AI-панель) показаны заглушками-плейсхолдерами.</p>
     <div class="grid" id="screensGrid"></div>
   </section>
@@ -1197,7 +1219,7 @@
     const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
     const S = [
       ['01','01-Portfolio.html','Текущий портфель ДИД','Реестр сделок: широкая таблица со статусами всех служб, закреплённые колонки и пагинация.','table'],
-      ['02','02-Deal.html','Карточка сделки','Детальная страница сделки: КНР, сроки, команда, финансовые метрики, дерево продуктов и финансовые инструменты.','deal'],
+      ['02','02-Deal.html','Карточка сделки (v1)','Детальная страница сделки: КНР, сроки, команда, финансовые метрики, дерево продуктов и финансовые инструменты.','deal'],
       ['02v2','02-Deal-v2.html','Карточка сделки (v2)','Пересборка по новому процессу: компоненты ДС (Tile, ReadOnlyField, RiskMetric), плотность с макета, сверка на 1920.','deal'],
       ['03','03-DealFixModal.html','Фиксация ЭПС/ВБС','Та же карточка сделки с открытой модальной формой фиксации ЭПС/ВБС по финансовому инструменту.','modal'],
       ['04','04-Metrics.html','Финансовые метрики','Матрица метрик по инструментам: закреплённая колонка, группировка строк, даты-колонки с прокруткой.','matrix'],

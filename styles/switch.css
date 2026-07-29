@@ -51,7 +51,7 @@
   width: 16px;
   height: 16px;
   border-radius: var(--radius-circle);
-  background: #fff;
+  background: var(--c-mgrey-50);
   box-shadow: 0 1px 2px rgba(40, 50, 55, .28);
   display: flex;
   align-items: center;
@@ -130,7 +130,7 @@
 /* ---------- disabled ------------------------------------------------------ */
 .sw--disabled .sw__control { background: var(--disabled-bg); box-shadow: none; }
 .sw--disabled .sw__thumb {
-  background: #fff;
+  background: var(--c-mgrey-50);
   box-shadow: 0 1px 1px rgba(40, 50, 55, .12);
 }
 .sw--disabled.sw--on .sw__control { background: color-mix(in srgb, var(--secondary-light) 60%, var(--disabled-bg)); }

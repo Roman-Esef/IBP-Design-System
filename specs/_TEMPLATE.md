@@ -3,7 +3,7 @@ component: ИмяКомпонента          # = имя файла стран�
 title: "Название по-русски"
 version: "v1.0"                    # держать равным версии на странице
 updated: "ДД.ММ.ГГГГ"              # держать равным дате на странице
-page: pages/<atoms|molecules|organisms|loading>/ИмяКомпонента.html
+page: pages/<atoms|molecules|organisms>/ИмяКомпонента.html
 page_js: scripts/имя-компонента.page.js    # если есть; иначе удалить строку
 css: styles/имя-компонента.css
 deps: [button, tooltip]            # CSS-зависимости (имена файлов без .css); нет — удалить строку

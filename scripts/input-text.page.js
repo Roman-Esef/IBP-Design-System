@@ -355,8 +355,8 @@
       ['Рамка', fm.borderTopWidth + ' solid', fs.borderTopWidth + ' solid'],
       ['Шрифт значения', fm.fontSize + ' / ' + fm.lineHeight, fs.fontSize + ' / ' + fs.lineHeight],
       ['Иконки и действия', lead ? getComputedStyle(lead).width : '20px', '18px'],
-      ['Отступ метки → поле', '6px', '—'],
-      ['Отступ поле → хелпер', '6px', '—'],
+      ['Отступ метки → поле', '4px', '—'],
+      ['Отступ поле → хелпер', '4px', '—'],
     ];
     rows.forEach(([p, vm, vs]) => {
       const tr = document.createElement('tr');

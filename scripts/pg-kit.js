@@ -172,7 +172,7 @@
       const controls = panel.querySelector(':scope > .pg__controls');
       const stage = panel.querySelector(':scope > .pg__stage');
       if (!controls || !stage) return;
-      insertSplitter(panel, controls, stage);
+      if (panel.dataset.pgNoSplit === undefined) insertSplitter(panel, controls, stage);
       enhanceSelects(controls);
       observeNarrow(controls);
     });

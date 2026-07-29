@@ -20,7 +20,7 @@
   --toast-pad-y:   11px;
   --toast-pad-x:   16px;
   --toast-gap:     8px;                          /* зазор ведущий-слот ↔ текст         */
-  --toast-icon:    20px;                         /* размер иконки / спиннера           */
+  --toast-icon:    16px;                         /* размер иконки / спиннера           */
   --toast-shadow:  var(--elevation-2);           /* 0 10px 30px rgba(40,50,55,.16)     */
   --toast-maxw:    60%;                           /* макс. ширина = 60% рабочей области */
   --toast-guard:   24px;                          /* охранное поле вокруг компонента    */
@@ -57,8 +57,10 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  /* центрируем слот по высоте первой строки текста */
-  height: calc(1em * (var(--toast-lh, 20) / var(--toast-fs, 14)));
+  /* центрируем слот по высоте первой строки текста.
+     Фолбэк для браузеров без единицы lh: 16/14 — line-height/font-size --type-body-s. */
+  height: calc(1em * 16 / 14);
+  height: 1lh;
 }
 .toast__lead:empty { display: none; }
 

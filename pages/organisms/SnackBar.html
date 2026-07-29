@@ -16,52 +16,22 @@
 <link rel="stylesheet" href="../../styles/pg-kit.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <style>
-*,*::before,*::after{box-sizing:border-box;}
-html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
-body{margin:0;font-family:var(--font-text),system-ui,sans-serif;color:var(--text-primary);background:var(--bg-page);background-attachment:fixed;}
-.page{max-width:1320px;margin:0 auto;padding:clamp(40px,7vw,96px) clamp(24px,5vw,72px) 140px;}
-.masthead{border-bottom:1px solid var(--border-light);padding-bottom:30px;}
-.masthead .meta{font:var(--type-body-xs);color:var(--text-inactive);display:flex;gap:24px;margin:0 0 22px;flex-wrap:wrap;}
-.masthead .meta b{color:var(--text-secondary);font-weight:600;}
-.eyebrow{font:var(--type-button-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin:0 0 14px;}
-.masthead h1{font:var(--type-h1);margin:0 0 14px;color:var(--text-primary);}
-@media(max-width:600px){.masthead h1{font-size:40px;line-height:48px;}}
-.masthead p.lead{font:var(--type-body-l);color:var(--text-secondary);margin:0;max-width:66ch;text-wrap:pretty;}
-.crumb{display:inline-flex;align-items:center;gap:7px;font:var(--type-body-s);color:var(--text-inactive);text-decoration:none;margin-bottom:20px;}
-.crumb:hover{color:var(--primary);}
+
 a{color:var(--link);} a:hover{color:var(--link-dark);}
-.section{margin-top:76px;}
-.section>h2{font:var(--type-h3-strong);margin:0 0 8px;color:var(--text-primary);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+
 .section>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 28px;max-width:80ch;text-wrap:pretty;}
-.panel{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:16px;padding:32px 34px;}
-.panel+.panel{margin-top:16px;}
+
 .subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:32px 0 14px;}
-.subhead:first-child{margin-top:0;}
-ul.bullets{margin:0 0 0 2px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;}
-ul.bullets li{position:relative;padding-left:18px;font:var(--type-body-m);color:var(--text-secondary);}
-ul.bullets li::before{content:"";position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--text-inactive);}
-ul.bullets li b{color:var(--text-primary);}
-code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;color:var(--primary);background:var(--primary-bg);padding:1px 6px;border-radius:5px;}
+
 /* playground */
-.panel.pg{padding:0;overflow:hidden;display:grid;}
+.panel.pg{padding:0;overflow:hidden;display:grid; }
 .pg__stage{display:flex;align-items:stretch;min-height:300px;padding:24px 26px;min-width:0;}
 .pg__stagebox{width:100%;display:flex;flex-direction:column;min-width:0;}
 .ctl{display:flex;flex-direction:column;gap:10px;}
 .ctl.is-off{display:none;}
 .ctl>.lbl{font:600 11px/1 var(--font-text),sans-serif;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;}
-.pg-text input{width:100%;height:40px;padding:0 14px;border:1px solid var(--border-primary);border-radius:9px;background:var(--bg-tile);color:var(--text-primary);font:var(--type-body-m);}
-.pg-text input:focus-visible{outline:2px solid var(--primary);outline-offset:1px;}
-.pg-select{position:relative;}
-.pg-select select{appearance:none;-webkit-appearance:none;width:100%;height:40px;padding:0 38px 0 14px;border:1px solid var(--border-primary);border-radius:9px;background:var(--bg-tile);color:var(--text-primary);font:var(--type-body-m);cursor:pointer;}
-.pg-select select:focus-visible{outline:2px solid var(--primary);outline-offset:1px;}
-.pg-select::after{content:"";position:absolute;right:15px;top:50%;width:9px;height:9px;border-right:2px solid var(--text-secondary);border-bottom:2px solid var(--text-secondary);transform:translateY(-65%) rotate(45deg);pointer-events:none;}
-.pg-toggle{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font:var(--type-body-m);color:var(--text-primary);user-select:none;}
-.pg-toggle input{position:absolute;opacity:0;pointer-events:none;}
-.pg-toggle__sw{width:36px;height:20px;border-radius:999px;background:var(--c-cgrey-200);position:relative;flex:none;transition:.15s;}
-.pg-toggle__sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:.15s;}
-.pg-toggle input:checked~.pg-toggle__sw{background:var(--primary);}
-.pg-toggle input:checked~.pg-toggle__sw::after{transform:translateX(16px);}
 /* mock screen */
 .mock-screen{position:relative;border-radius:12px;border:1px solid var(--border-light);background:var(--bg-page);overflow:hidden;min-height:380px;display:flex;flex-direction:column;}
 .mock-topbar{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--bg-tile);border-bottom:1px solid var(--border-light);flex:none;}
@@ -69,7 +39,7 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .mock-time{font:var(--type-body-xs);color:var(--text-inactive);}
 .mock-body{flex:1;padding:14px;}
 .mock-rows{display:flex;flex-direction:column;gap:8px;}
-.mock-row{height:11px;border-radius:5px;background:color-mix(in srgb,var(--c-swamp-400) 13%,transparent);}
+.mock-row{height:11px;border-radius:var(--radius-xs);background:color-mix(in srgb,var(--c-swamp-400) 13%,transparent);}
 .mock-row:nth-child(2){width:88%;}.mock-row:nth-child(3){width:72%;}.mock-row:nth-child(4){width:82%;}.mock-row:nth-child(5){width:66%;}.mock-row:nth-child(6){width:79%;}
 .snack-demo-layer{position:absolute;top:14px;right:14px;width:272px;display:flex;flex-direction:column;gap:10px;pointer-events:none;z-index:10;}
 .snack-demo-layer .snack{pointer-events:all;}
@@ -84,8 +54,6 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .anat__legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
 .anat__legend li{display:flex;gap:12px;align-items:flex-start;}
 .anat__legend li .n{width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font:700 12px/22px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;}
-.anat__legend li .k{font:var(--type-body-m-strong);color:var(--text-primary);display:block;}
-.anat__legend li .d{font:var(--type-body-s);color:var(--text-secondary);}
 /* states */
 .states-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 @media(max-width:900px){.states-grid{grid-template-columns:repeat(2,1fr);}}
@@ -93,53 +61,23 @@ code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em
 .states-sep{grid-column:1/-1;height:1px;background:var(--border-light);margin:4px 0;}
 .stack-demo{display:flex;flex-direction:column;gap:10px;max-width:320px;}
 /* ref table */
-.ref-table{width:100%;border-collapse:collapse;}
 .ref-table th,.ref-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--border-light);font:var(--type-body-m);color:var(--text-primary);vertical-align:middle;}
-.ref-table th{font:var(--type-body-s-strong);color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em;font-size:12px;}
-.ref-table tr:last-child td{border-bottom:none;}
 /* code blocks */
-.code-wrap{position:relative;background:var(--c-cgrey-800);border-radius:12px;padding:20px 22px;margin:0;overflow-x:auto;}
-.code-wrap code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--text-on-dark);white-space:pre;display:block;line-height:1.65;}
-.copy-btn{position:absolute;top:12px;right:12px;appearance:none;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font:var(--type-button-xs);border-radius:7px;padding:5px 11px;cursor:pointer;transition:.15s;}
-.copy-btn:hover{background:rgba(255,255,255,.2);}
-.copy-btn.is-copied{border-color:rgba(100,220,150,.5);background:rgba(100,220,150,.15);}
 /* guide */
 .guide{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:700px){.guide{grid-template-columns:1fr;}}
 .guide-card{border-radius:12px;overflow:hidden;border:1px solid var(--border-light);background:var(--bg-tile);}
-.guide-card__bar{height:4px;}
-.guide-card.bad .guide-card__bar{background:var(--error);}
-.guide-card.good .guide-card__bar{background:var(--success);}
 .guide-card__tag{font:var(--type-body-s-strong);padding:12px 18px 0;}
-.guide-card.bad .guide-card__tag{color:var(--error-dark);}
-.guide-card.good .guide-card__tag{color:var(--success-dark);}
 .guide-card__body{padding:20px 18px;display:flex;justify-content:center;}
 .guide-card__cap{padding:0 18px 16px;font:var(--type-body-xs);color:var(--text-inactive);}
 /* colors */
-.cref{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
 @media(max-width:700px){.cref{grid-template-columns:1fr;}}
-.cref-group{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:14px;overflow:hidden;}
+
 .cref-group>h3{font:var(--type-body-m-strong);margin:0;padding:14px 18px;border-bottom:1px solid var(--border-light);color:var(--text-primary);}
 .cref-row{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-secondary);}
-.cref-row:last-child{border-bottom:none;}
-.cref-row .sw{width:16px;height:16px;border-radius:4px;border:1px solid rgba(40,50,55,.1);}
-.cref-row b{color:var(--text-primary);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;font-weight:600;}
 /* off-screen sample for redline */
 .rl-sample{position:absolute;top:-9999px;left:0;width:320px;}
-footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-inactive);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 
-.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
-.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
-.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
-.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
-</style>
-<style>
-/* unified-template: бывшие h2-разделы, понижены до подразделов */
-.section .subsec{margin-top:48px;}
-.section .subsec>h3{font:var(--type-h4-strong);margin:0 0 8px;color:var(--text-primary);}
-.section .subsec>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 24px;max-width:82ch;text-wrap:pretty;}
-.section .subsec>p.desc.tight{margin-bottom:20px;}
-.section .subsec>p.desc+p.desc{margin-top:-16px;}
 </style>
 </head>
 <body>
@@ -326,7 +264,7 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
         <div class="snack__text">Текст</div>
         <div class="snack__buttons"><button class="btn btn--outline btn--xs btn--error"><span class="btn__label">Действие</span></button></div>
       </div>
-      <button class="snack__close"><i data-icon="close"></i></button>
+      <button class="snack__close" aria-label="Закрыть"><i data-icon="close"></i></button>
     </div>
   </div>
 </section>
@@ -486,52 +424,45 @@ footer.page-foot{margin-top:90px;padding-top:26px;border-top:1px solid var(--bor
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
     <p class="desc">Заголовок и текст набираются гарнитурой <b>SB Sans Text</b>; текст всегда на ступень мельче заголовка.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table">
-        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
         <tbody>
-          <tr><td>Заголовок (<code class="tok">.snack__title</code>)</td><td>Ошибка</td><td><code class="tok">--type-body-s</code></td><td class="dsc">14 / 16</td></tr>
-          <tr><td>Текст (<code class="tok">.snack__text</code>)</td><td>Плановая дата подписания просрочена</td><td><code class="tok">--type-body-xs</code></td><td class="dsc">12 / 16</td></tr>
-          <tr><td>Счётчик дублей (<code class="tok">.snack__dupe</code>)</td><td>×2</td><td><code class="tok">--type-body-xs</code> · Semibold</td><td class="dsc">12 / 16</td></tr>
+          <tr><td>Заголовок (.snack__title)</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
+          <tr><td>Текст (.snack__text)</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
+          <tr><td>Счётчик дублей (.snack__dupe)</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Semibold</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
         </tbody>
       </table>
     </div>
+    <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
 
   <!-- 8. ЦВЕТА -->
 <section class="section" id="colors" data-screen-label="Цвета">
   <h2>Цвета</h2>
-  <div class="cref">
-    <div class="cref-group">
-      <h3>Error</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--error-bg-light);"></span><b>--error-bg-light</b><span>Фон карточки · #FCF1F1</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--error);"></span><b>--error</b><span>Иконка, close, кнопки · #E5625C</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--error-dark);"></span><b>--error-dark</b><span>Hover кнопок · #D32F2F</span></div>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
+        <tbody>
+          <tr><td>Error</td><td>Фон карточки</td><td><code class="tok">--error-bg-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--error-bg-light)"></span></td><td>#FCF1F1</td></tr>
+          <tr><td>Error</td><td>Иконка, close, кнопки</td><td><code class="tok">--error</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--error)"></span></td><td>#E5625C</td></tr>
+          <tr><td>Error</td><td>Hover кнопок</td><td><code class="tok">--error-dark</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--error-dark)"></span></td><td>#D32F2F</td></tr>
+          <tr><td>Warning</td><td>Фон карточки</td><td><code class="tok">--warning-bg</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--warning-bg)"></span></td><td>#FFF8E1</td></tr>
+          <tr><td>Warning</td><td>Иконка, close, кнопки</td><td><code class="tok">--warning</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--warning)"></span></td><td>#FFB300</td></tr>
+          <tr><td>Warning</td><td>Hover кнопок</td><td><code class="tok">--warning-dark</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--warning-dark)"></span></td><td>#C68400</td></tr>
+          <tr><td>Info</td><td>Фон карточки</td><td><code class="tok">--info-bg</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--info-bg)"></span></td><td>#EAF8FE</td></tr>
+          <tr><td>Info</td><td>Иконка, close, кнопки</td><td><code class="tok">--info</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--info)"></span></td><td>#1E88E5</td></tr>
+          <tr><td>Info</td><td>Hover кнопок</td><td><code class="tok">--info-dark</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--info-dark)"></span></td><td>#01579B</td></tr>
+          <tr><td>Success</td><td>Фон карточки</td><td><code class="tok">--success-bg</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--success-bg)"></span></td><td>#E9F6DA</td></tr>
+          <tr><td>Success</td><td>Иконка, close, кнопки</td><td><code class="tok">--success</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--success)"></span></td><td>#7CB342</td></tr>
+          <tr><td>Success</td><td>Hover кнопок</td><td><code class="tok">--success-dark</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--success-dark)"></span></td><td>#558B2F</td></tr>
+          <tr><td>Success</td><td>Заголовок (Body S)</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
+          <tr><td>Success</td><td>Текст (Body XS)</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="cref-group">
-      <h3>Warning</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--warning-bg);"></span><b>--warning-bg</b><span>Фон карточки · #FFF8E1</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--warning);"></span><b>--warning</b><span>Иконка, close, кнопки · #FFB300</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--warning-dark);"></span><b>--warning-dark</b><span>Hover кнопок · #C68400</span></div>
-    </div>
-    <div class="cref-group">
-      <h3>Info</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--info-bg);"></span><b>--info-bg</b><span>Фон карточки · #EAF8FE</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--info);"></span><b>--info</b><span>Иконка, close, кнопки · #1E88E5</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--info-dark);"></span><b>--info-dark</b><span>Hover кнопок · #01579B</span></div>
-    </div>
-    <div class="cref-group">
-      <h3>Success</h3>
-      <div class="cref-row"><span class="sw" style="background:var(--success-bg);"></span><b>--success-bg</b><span>Фон карточки · #E9F6DA</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--success);"></span><b>--success</b><span>Иконка, close, кнопки · #7CB342</span></div>
-      <div class="cref-row"><span class="sw" style="background:var(--success-dark);"></span><b>--success-dark</b><span>Hover кнопок · #558B2F</span></div>
-    </div>
-  </div>
-  <div class="panel" style="margin-top:16px;padding:0;overflow:hidden;">
-    <div class="cref-row"><span class="sw" style="background:var(--text-primary);border-radius:50%;"></span><b>--text-primary</b><span>Заголовок (Body S) · #324844</span></div>
-    <div class="cref-row" style="border-bottom:none;"><span class="sw" style="background:var(--text-secondary);border-radius:50%;"></span><b>--text-secondary</b><span>Текст (Body XS)</span></div>
-  </div>
-</section>
+    <div id="color-ref" style="display:none"></div>
+  </section>
 
   <!-- 9. ДЛЯ РАЗРАБОТЧИКОВ -->
 <section class="section" id="dev" data-screen-label="Для разработчиков">

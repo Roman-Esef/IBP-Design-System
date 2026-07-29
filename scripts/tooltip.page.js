@@ -17,14 +17,30 @@ const ARROW_INSET = 13; /* 6px edge gap + 7px to triangle apex centre */
 /* ---------- tooltip factory ---------- */
 function makeTip(text, o = {}) {
   const { type='main', placement='top', align='center',
-          arrow=true, multiline=false, floating=false, pinned=false } = o;
+          arrow=true, multiline=false, floating=false, pinned=false,
+          rich=false, title='', action='' } = o;
   const el = document.createElement('span');
   el.className = 'tip tip--' + type + ' tip--' + placement + ' tip--' + align;
   if (!arrow)     el.classList.add('tip--no-arrow');
   if (multiline)  el.classList.add('tip--multiline');
   if (floating)   el.classList.add('tip--floating');
   if (pinned)     el.classList.add('tip--pinned');
-  el.append(document.createTextNode(text));
+  if (rich) {
+    el.classList.add('tip--rich');
+    if (title) {
+      const t = document.createElement('span'); t.className = 'tip__title'; t.textContent = title;
+      el.appendChild(t);
+    }
+    const p = document.createElement('span'); p.className = 'tip__text'; p.textContent = text;
+    el.appendChild(p);
+    if (action) {
+      const box = document.createElement('span'); box.className = 'tip__actions';
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'tip__action'; b.textContent = action;
+      box.appendChild(b); el.appendChild(box);
+    }
+  } else {
+    el.append(document.createTextNode(text));
+  }
   const a = document.createElement('span'); a.className = 'tip__arrow';
   el.appendChild(a);
   return el;
@@ -63,7 +79,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
    ========================================================================= */
 (function () {
   const state = { type:'main', placement:'top', align:'center', arrow:true, multiline:false,
-                  text:'Подсказка' };
+                  rich:false, text:'Подсказка' };
   const controls = document.getElementById('pg-controls');
   const stage    = document.getElementById('pg-stage');
   const target   = document.getElementById('pg-target');
@@ -100,17 +116,23 @@ function placeTip(stage, tip, target, placement, align, gap) {
   controls.appendChild(select('Размещение', [['top','Top'],['bottom','Bottom'],['left','Left'],['right','Right']], () => state.placement, v => state.placement = v));
   controls.appendChild(select('Стрелка (выравнивание)', [['start','Start'],['center','Center'],['end','End']], () => state.align, v => state.align = v));
   controls.appendChild(toggle('Стрелка', 'arrow'));
-  controls.appendChild(toggle('Перенос (multiline)', 'multiline'));
+  controls.appendChild(toggle('Богатый контент', 'rich'));
+  const multilineCtl = toggle('Перенос (multiline)', 'multiline');
+  controls.appendChild(multilineCtl);
 
   function render() {
     if (tip) tip.remove();
-    tip = makeTip(state.text, { ...state, floating:true, pinned:true });
-    if (state.multiline) tip.style.maxWidth = '180px';
+    // rich уже переносит текст — тумблер переноса в этом режиме не нужен
+    multilineCtl.classList.toggle('is-off', state.rich);
+    tip = makeTip(state.rich ? 'Максимальная сумма, которую банк держит на одном контрагенте. Пересчитывается ночью.' : state.text,
+                  { ...state, floating:true, pinned:true, title: state.rich ? state.text : '', action: state.rich ? 'Открыть методику' : '' });
+    if (state.multiline && !state.rich) tip.style.maxWidth = '180px';
     stage.appendChild(tip);
     placeTip(stage, tip, target, state.placement, state.align, 8);
     const cls = ['tip','tip--'+state.type,'tip--'+state.placement,'tip--'+state.align];
     if (!state.arrow) cls.push('tip--no-arrow');
-    if (state.multiline) cls.push('tip--multiline');
+    if (state.rich) cls.push('tip--rich');
+    if (state.multiline && !state.rich) cls.push('tip--multiline');
     codeEl.innerHTML = '<code>&lt;span class="' + cls.join(' ') + '"&gt;</code>';
   }
   render();
@@ -162,6 +184,39 @@ function placeTip(stage, tip, target, placement, align, gap) {
     box.appendChild(makeTip(txt, { type, placement:'bottom', align:'center' }));
     item.appendChild(h); item.appendChild(box); host.appendChild(item);
   });
+})();
+
+/* =========================================================================
+   RICH CONTENT — заголовок + описание + действие; тултип интерактивный
+   ========================================================================= */
+(function () {
+  const host = document.getElementById('rich-demo');
+  if (!host) return;
+  const wrap = document.createElement('span'); wrap.className = 'tip-anchor';
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'iconbtn'; btn.innerHTML = UI_ICONS.help;
+  btn.setAttribute('aria-label', 'Что такое лимит риска');
+  btn.setAttribute('aria-describedby', 'tt-rich');
+  wrap.appendChild(btn);
+
+  const tip = makeTip('Максимальная сумма, которую банк держит на одном контрагенте. Пересчитывается ночью после закрытия операционного дня.',
+    { placement:'bottom', align:'center', floating:true, rich:true,
+      title:'Лимит риска', action:'Открыть методику' });
+  tip.id = 'tt-rich'; tip.setAttribute('role', 'tooltip');
+  wrap.appendChild(tip);
+  host.appendChild(wrap);
+
+  let showT = null, hideT = null;
+  const open  = () => { clearTimeout(hideT); showT = setTimeout(() => { placeTip(wrap, tip, btn, 'bottom', 'center', 8); tip.classList.add('is-visible'); }, 400); };
+  const close = () => { clearTimeout(showT); hideT = setTimeout(() => tip.classList.remove('is-visible'), 300); };
+  btn.addEventListener('mouseenter', open);
+  btn.addEventListener('mouseleave', close);
+  btn.addEventListener('focus', () => { clearTimeout(hideT); placeTip(wrap, tip, btn, 'bottom', 'center', 8); tip.classList.add('is-visible'); });
+  btn.addEventListener('blur', close);
+  // курсор может зайти в сам тултип — это отличие rich от обычного
+  tip.addEventListener('mouseenter', () => clearTimeout(hideT));
+  tip.addEventListener('mouseleave', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { clearTimeout(showT); tip.classList.remove('is-visible'); } });
 })();
 
 /* =========================================================================

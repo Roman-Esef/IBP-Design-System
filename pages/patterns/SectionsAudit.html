@@ -10,33 +10,18 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
+<link rel="stylesheet" href="../../styles/radius.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <style>
-*,*::before,*::after{box-sizing:border-box;}
-html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
-body{margin:0;font-family:var(--font-text),system-ui,sans-serif;color:var(--text-primary);background:var(--bg-page);background-attachment:fixed;}
+
 .page{max-width:1560px;margin:0 auto;padding:clamp(40px,7vw,96px) clamp(24px,4vw,56px) 140px;}
-.masthead{border-bottom:1px solid var(--border-light);padding-bottom:30px;}
-.masthead .meta{font:var(--type-body-xs);color:var(--text-inactive);display:flex;gap:24px;margin:0 0 22px;flex-wrap:wrap;}
-.masthead .meta b{color:var(--text-secondary);font-weight:600;}
-.eyebrow{font:var(--type-button-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin:0 0 14px;}
-.masthead h1{font:var(--type-h1);margin:0 0 14px;color:var(--text-primary);}
-@media(max-width:600px){.masthead h1{font-size:40px;line-height:48px;}}
-.masthead p.lead{font:var(--type-body-l);color:var(--text-secondary);margin:0;max-width:74ch;text-wrap:pretty;}
-.crumb{display:inline-flex;align-items:center;gap:7px;font:var(--type-body-s);color:var(--text-inactive);text-decoration:none;margin-bottom:20px;}
-.crumb:hover{color:var(--primary);}
+
 a{color:var(--link);} a:hover{color:var(--link-dark);}
-.section{margin-top:76px;}
-.section>h2{font:var(--type-h3-strong);margin:0 0 8px;color:var(--text-primary);}
+
 .section>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 28px;max-width:88ch;text-wrap:pretty;}
 .panel{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:16px;padding:28px 32px;}
-.panel+.panel{margin-top:16px;}
+
 .subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:28px 0 14px;}
-.subhead:first-child{margin-top:0;}
-ul.bullets{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;}
-ul.bullets li{position:relative;padding-left:18px;font:var(--type-body-m);color:var(--text-secondary);text-wrap:pretty;}
-ul.bullets li::before{content:"";position:absolute;left:2px;top:9px;width:5px;height:5px;border-radius:50%;background:var(--text-inactive);}
-ul.bullets li b{color:var(--text-primary);}
-code.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;color:var(--primary);background:var(--primary-bg);padding:1px 6px;border-radius:5px;white-space:nowrap;}
 
 /* ---- легенда ---- */
 .legend{display:flex;gap:22px;flex-wrap:wrap;margin:0 0 16px;font:var(--type-body-s);color:var(--text-secondary);align-items:center;}
@@ -98,7 +83,7 @@ table.matrix{border-collapse:separate;border-spacing:0;width:100%;font:var(--typ
 .tpl-list li b{color:var(--text-primary);}
 .wave{display:flex;flex-direction:column;gap:10px;}
 .wave__row{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border-light);border-radius:10px;background:var(--bg-tile);}
-.wave__badge{flex:none;}
+.wave__badge{flex:none;min-width:64px;}
 .wave__body{font:var(--type-body-m);color:var(--text-secondary);}
 .wave__body b{color:var(--text-primary);}
 .wave__body .comps{margin-top:4px;font:var(--type-body-s);color:var(--text-inactive);}
@@ -112,7 +97,7 @@ pre.code .c{color:var(--text-inactive);}
   <header class="masthead">
     <p class="eyebrow">Инициатива по ДС</p>
     <h1>Аудит: дизайн-система из коробки</h1>
-    <p class="meta"><span>Тип: <b>Аудит / RFC</b></span><span>Обновлено: <b>21.07.2026</b></span><span>Покрытие: <b>все компоненты ДС</b></span></p>
+    <p class="meta"><span>Тип: <b>Аудит / RFC</b></span><span>Обновлено: <b>26.07.2026</b></span><span>Покрытие: <b>все компоненты ДС</b></span></p>
     <p class="lead">Рабочая память инициативы: возвращаясь к вопросу, начинай с этой страницы. Цель — чтобы потребитель, подключив ДС, получал <b>рабочий</b> компонент (позиционирование, открытие, клавнавигация), а не мёртвую вёрстку. Сейчас переиспользуемое поведение и композиционные стили многих компонентов живут только на странице-витрине (в <code class="tok">*.page.js</code> внутри playground-обёрток и в inline-<code class="tok">&lt;style&gt;</code>), а не в глобальном рантайме/CSS.</p>
   </header>
 
@@ -123,7 +108,7 @@ pre.code .c{color:var(--text-inactive);}
     <div class="wave">
       <div class="wave__row">
         <span class="wave__badge"><span class="prio prio-phase">Фаза 1</span></span>
-        <div class="wave__body"><b>Правки существующих компонентов</b> &nbsp;<span style="color:var(--primary);font:var(--type-body-s-strong)">← текущая</span><br>Многое реализовано не совсем верно — сначала выверяем корректность имеющегося. Лог правок ведём в разделе «Фаза 1» ниже (заполняется по мере ревью).</div>
+        <div class="wave__body"><b>Правки существующих компонентов</b> &nbsp;<span style="color:var(--primary);font:var(--type-body-s-strong)">← текущая</span><br>Визуальная выверка глазами: компонент на странице ДС сравнивается с макетом в <b>Pixso</b> и расхождения (выравнивание, отступы, размеры, цвета, состояния) правятся по компоненту за раз. Лог на этой странице не ведём — по завершении фаза отмечается выполненной.</div>
       </div>
       <div class="wave__row">
         <span class="wave__badge"><span class="prio prio-phase">Фаза 2</span></span>
@@ -133,15 +118,50 @@ pre.code .c{color:var(--text-inactive);}
         <span class="wave__badge"><span class="prio prio-phase">Фаза 3</span></span>
         <div class="wave__body"><b>ДС из коробки.</b><br>Экстракция поведения (<code class="tok">*.page.js</code> → <code class="tok">ds-&lt;comp&gt;.js</code>) и композиции-стилей (inline → <code class="tok">styles/&lt;comp&gt;.css</code>) в общий рантайм. Матрица, план и порядок — в разделах ниже.</div>
       </div>
+      <div class="wave__row">
+        <span class="wave__badge"><span class="prio prio-phase">трек</span></span>
+        <div class="wave__body"><b>Парность документации и кода.</b><br>Не фаза, а параллельный трек: расхождения между сниппетами документации и фактическим CSS. Находится скриптом, не глазами. Идёт после текущих UI-правок и до экстракции. Раздел «Парность документации и кода» ниже.</div>
+      </div>
     </div>
   </section>
 
-  <!-- PHASE 1 — FIXES LOG -->
+  <!-- PHASE 1 -->
   <section class="section" data-screen-label="Фаза 1">
     <p class="phase-tag"><span class="prio prio-phase">Фаза 1</span> текущая</p>
     <h2>Правки существующих компонентов</h2>
-    <p class="desc">Running-log: сюда выписываем найденные неточности реализации по мере ревью компонентов. По каждому — что не так, как надо, статус. Правим по одному, проверяем на живом экране.</p>
-    <div class="matrix-wrap" style="max-height:none;"><table class="matrix" id="fixes"></table></div>
+    <p class="desc">Визуальная выверка: каждый компонент на странице ДС сравнивается с макетом в <b>Pixso</b>, расхождения — выравнивание, отступы, размеры, радиусы, цвета, отсутствующие состояния — правятся сразу, по компоненту за раз. Лог правок на этой странице не ведётся: фаза считается закрытой, когда пройдены все компоненты.</p>
+    <p class="desc" style="margin-top:-16px;">Дефекты другого рода — когда документация обещает класс, которого нет в CSS — живут в разделе <b>«Парность документации и кода»</b> ниже: они находятся скриптом и не требуют решений по визуалу.</p>
+  </section>
+
+  <!-- PARITY TRACK -->
+  <section class="section" data-screen-label="Парность">
+    <p class="phase-tag"><span class="prio prio-phase">трек</span> не фаза</p>
+    <h2>Парность документации и кода</h2>
+    <p class="desc">Другой класс дефектов, чем в Фазе 1. Там — «нарисовано не так, как в макете», видно глазами. Здесь — «документация обещает класс, которого нет в CSS»: сборщик экрана копирует сниппет буквально и получает дефект, которого в макете нет. Находится скриптом, решений по визуалу не требует. Место в порядке работ — после текущих UI-правок компонентов, до экстракции рантайма Фазы 3.</p>
+    <div class="matrix-wrap" style="max-height:none;"><table class="matrix" id="parity"></table></div>
+
+    <div class="subsec">
+      <h3>Сверка 10 экранов с ДС · 26.07.2026</h3>
+      <p class="desc">Откуда взяты позиции выше. Скриптом сопоставлены все class-токены экранов <code class="tok">pages/screens/*</code> (10 файлов) с 1051 классом из 48 файлов <code class="tok">styles/*.css</code> и с локальным <code class="tok">&lt;style&gt;</code> каждого экрана. Отдельно посчитаны инлайн-<code class="tok">&lt;svg&gt;</code>, <code class="tok">.btn</code> без размерного класса, hex-цвета и радиусы числом в локальном CSS.</p>
+      <div class="panel">
+        <p class="subhead">Что показала сверка</p>
+        <ul class="bullets">
+          <li><b>Правило, зашитое в копируемый сниппет, соблюдается без исключений.</b> Инлайн-<code class="tok">&lt;svg&gt;</code> на экранах — <b>0</b> при 267 вхождениях <code class="tok">&lt;i data-icon&gt;</code>. <code class="tok">.btn</code> без размерного класса — <b>0</b> из 83. Ни одного отступления на 10 экранах.</li>
+          <li><b>Все найденные нарушения — там, где документация обещает класс, которого нет в CSS.</b> Сборщик исполняет сниппет буквально, поэтому расхождение doc↔code превращается в дефект экрана: 7 позиций в таблице выше, 6 из них — классы на состояние по умолчанию (<code class="tok">chip--readonly</code>, <code class="tok">tab--horiz</code>, <code class="tok">ds-label--left</code>, <code class="tok">inp--m</code>, <code class="tok">st--neutral</code>, <code class="tok">crumbs__ellipsis</code>), седьмая — живой визуальный дефект тона Алерта.</li>
+          <li><b>Переизобретение вместо переиспользования — 3 случая, разного происхождения.</b> <code class="tok">.cf-tip*</code> на 07-CashFlow — свой тултип при живом <code class="tok">.tip</code> (причина — Фаза 3: рантайм позиционирования заперт в <code class="tok">tooltip.page.js</code>). <code class="tok">.bulkbar*</code> на 08-Payments — компонента нет в ДС, в Фазу 2. <code class="tok">knr-*</code>, <code class="tok">t-zav / t-metrics / fin-grid</code>, <code class="tok">cbx</code> — таблицы и чекбоксы руками, ждут Table / DataGrid.</li>
+          <li><b>Локальный CSS экранов в целом здоров.</b> Из 0–34 локальных классов на экран почти все — раскладка (<code class="tok">grid12</code>, <code class="tok">deal-grid</code>, <code class="tok">*-pos</code>), это разрешено. Hex-цветов 2, радиусов числом 2 — на весь набор экранов.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="subhead">Что это значит для инициативы</p>
+        <ul class="bullets">
+          <li><b>Документация уже работает — и потому расхождение с кодом стоит дефекта.</b> Наращивать прозу вредно: каждая новая формулировка — ещё одна поверхность, на которой документация может разойтись с CSS. Правильное направление обратное: сокращать текст и переносить обязательность в код.</li>
+          <li><b>Источник API — только CSS. Канал доставки — только сниппет</b> в <code class="tok">specs/_cheatsheet.md</code>. Третий реестр (json-манифест «возможности для сборщика») не нужен и вреден: ручная синхронизация реестров в этом проекте уже проваливалась — 33 строки <code class="tok">specs/_index.md</code> из 48 были устаревшими.</li>
+          <li><b>За md остаётся то, что кодом не выразить:</b> когда компонент не использовать, границы с соседями, чего в ДС нет.</li>
+          <li><b>Фаза 3 нужна не всем компонентам, а тем, чей рантайм заперт на витрине.</b> Признак теперь доказан фактом: такой компонент сборщик обходит и рисует свой (Tooltip → <code class="tok">cf-tip</code>). Это уточняет приоритет P1: первыми выносить те, у которых уже есть локальная замена на экранах.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- PHASE 2 — MISSING COMPONENTS -->
@@ -205,6 +225,7 @@ pre.code .c{color:var(--text-inactive);}
         <li><b>Экстракция поведения.</b> Переиспользуемую логику из <code class="tok">*.page.js</code> — в <code class="tok">scripts/ds-&lt;comp&gt;.js</code>: самоинициализация по классам/data-атрибутам, публичный API там, где нужен императивный вызов (Toast, SnackBar, Modal). Страница-витрина после этого лишь подключает общий скрипт + свой playground-код поверх.</li>
         <li><b>Экстракция стилей.</b> Композиционные классы (как <code class="tok">.rm-block</code>) — в глобальный <code class="tok">styles/&lt;comp&gt;.css</code>, добавить <code class="tok">@import</code> в <code class="tok">ds.css</code> и <code class="tok">styles.css</code>. Убрать инлайн-дубли со страниц и экранов.</li>
         <li><b>Документация.</b> В <code class="tok">specs/_cheatsheet.md</code> каждому компоненту — блок «умеет из коробки»: какой скрипт, какие data-атрибуты, какое поведение включается.</li>
+        <li><b>Гейт парности.</b> Прогнать проверку «документация = код» (панель ниже). Без неё экстракция создаёт новый слой обещаний, которые снова разойдутся с CSS.</li>
         <li><b>Проверка.</b> Собрать/пересобрать реальный экран на общем рантайме — убедиться, что поведение работает без кода на странице.</li>
       </ol>
     </div>
@@ -219,13 +240,30 @@ pre.code .c{color:var(--text-inactive);}
   window.DSPopover = { bind, place, closeAll };
 })();</pre>
     </div>
+    <div class="panel">
+      <p class="subhead">Гейт парности документации и кода</p>
+      <p style="margin:0 0 16px;font:var(--type-body-s);color:var(--text-secondary);text-wrap:pretty;">Скрипт-проверка, а не правило в тексте: md носит совещательный характер, гейт — обязательный. Гонять после каждой волны правок и перед приёмкой экрана, рядом с <code class="tok">check_design_system</code>.</p>
+      <ul class="bullets">
+        <li>Каждый класс из сниппетов <code class="tok">specs/_cheatsheet.md</code> и спек <code class="tok">specs/*.md</code> существует в <code class="tok">styles/*.css</code>. Сравнение — точным совпадением имени, не подстрокой (<code class="tok">.inp--m</code> ложно находится в <code class="tok">.inp--multiline</code>).</li>
+        <li>Каждый class-токен в <code class="tok">pages/**</code> определён либо в ДС, либо в локальном <code class="tok">&lt;style&gt;</code> этой же страницы.</li>
+        <li>Разметка Алерта несёт <code class="tok">data-alert-tone</code>; тон кнопок и ссылок внутри Алерта и Снекбара совпадает с тоном плашки.</li>
+        <li><code class="tok">.btn</code> несёт размерный класс; icon-only кнопки несут <code class="tok">aria-label</code>.</li>
+        <li>В локальном CSS страниц и экранов нет hex-цветов и радиусов числом.</li>
+        <li>Локальный класс экрана, похожий на компонент (не раскладку), — сигнал: либо компонент не из коробки, либо его нет в ДС. Оба случая идут в лог правок или в Фазу 2, а не остаются на экране молча.</li>
+      </ul>
+    </div>
   </section>
 
   <!-- ORDER -->
   <section class="section" data-screen-label="Порядок">
     <h2>Порядок работ</h2>
-    <p class="desc">Приоритет по частоте на экранах и по «разблокировке» зависимых компонентов.</p>
+    <p class="desc">Приоритет по частоте на экранах и по «разблокировке» зависимых компонентов. Экстракции предшествует парность: она дешёвая, механическая и снимает 7 из 8 позиций трека «Парность документации и кода».</p>
     <div class="wave">
+      <div class="wave__row">
+        <span class="wave__badge"><span class="prio prio-phase">P0</span></span>
+        <div class="wave__body"><b>Парность документации и кода.</b> После текущих UI-правок уже созданных компонентов и до экстракции рантайма.
+          <div class="comps">Alert (тоновые классы) · сниппеты Chip / Tab / LabelHelper / Input* / Breadcrumbs · гейт парности скриптом</div></div>
+      </div>
       <div class="wave__row">
         <span class="wave__badge"><span class="prio prio-P1">P1</span></span>
         <div class="wave__body"><b>Фундамент.</b> Разблокирует зависимые компоненты и чаще всего встречается на экранах.
@@ -282,7 +320,7 @@ const ROWS = [
  {cat:'molecules', name:'Tab', page:'molecules/Tab', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P2', todo:'Roving arrow-nav, <code class="tok">aria-selected</code>, overflow-скролл — в tab.page.js. <b>Вынести:</b> ds-tabs.js (авто <code class="tok">[role=tablist]</code>).'},
  {cat:'molecules', name:'SegmentControl', page:'molecules/SegmentControl', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P2', todo:'Сдвиг <code class="tok">.segctrl__thumb</code> под выбранный, клавиши, ResizeObserver — в segment-control.page.js. <b>Вынести:</b> ds-segment.js.'},
  {cat:'molecules', name:'Splitter', page:'molecules/Splitter', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P2', todo:'<code class="tok">createSplitPane()</code>: drag, min/max, клавиши, dblclick-сброс, <code class="tok">aria-valuenow</code> — целиком в splitter.page.js. <b>Вынести:</b> ds-splitter.js (авто <code class="tok">.splitpane</code>/<code class="tok">[data-splitter]</code>).'},
- {cat:'molecules', name:'Select', page:'molecules/Select', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P2', todo:'Open/close, roving+typeahead, фильтр-подсветка <code class="tok">.ddl__match</code>, checkbox-мульти — в dropdown-list.page.js. <b>Вынести:</b> ds-dropdown.js (общий для Select / Autocomplete / Pagination pagesize).'},
+ {cat:'molecules', name:'DropdownList', page:'molecules/DropdownList', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P2', todo:'Open/close, roving+typeahead, фильтр-подсветка <code class="tok">.ddl__match</code>, checkbox-мульти — в dropdown-list.page.js. <b>Вынести:</b> ds-dropdown.js (общий для Select / Autocomplete / Pagination pagesize).'},
  {cat:'molecules', name:'InputAutocomplete', page:'molecules/InputAutocomplete', rt:'yes', lives:'page', css:'global', oob:'part', todo:'Поле — уже <code class="tok">DSInputKit</code>. Открытие списка + фильтр — в input-autocomplete.page.js. <b>Зависит от</b> ds-dropdown.js.'},
  {cat:'molecules', name:'InputText', page:'molecules/InputText', rt:'yes', lives:'shared', css:'global', oob:'ok', prio:'', todo:'<b>Из коробки:</b> <code class="tok">DSInputKit.makeInput()</code>. Фабрика, не авто-init по разметке — но рантайм общий.'},
  {cat:'molecules', name:'InputAmountRange', page:'molecules/InputAmountRange', rt:'yes', lives:'shared', css:'global', oob:'ok', prio:'', todo:'<b>Из коробки:</b> <code class="tok">DSInputKit.makeRange()</code>.'},
@@ -356,28 +394,54 @@ document.getElementById('stat').innerHTML =
   "<div class='card'><div class='num'>"+oob+"</div><div class='lbl'>уже из коробки</div></div>" +
   "<div class='card'><div class='num'>"+p1+"</div><div class='lbl'>в приоритете P1</div></div>";
 
-/* ---- ФАЗА 1: лог правок существующих компонентов ----
-   Заполняется по мере ревью. Формат объекта:
-   {comp:'RiskMetric', page:'organisms/RiskMetric', issue:'что не так', fix:'как надо', status:'todo'|'wip'|'done'}
-   status → бейдж: todo (не начато) · wip (в работе) · done (готово) */
-const FIXES = [
+/* ---- ТРЕК ПАРНОСТИ: расхождения сниппетов документации с фактическим CSS ----
+   Формат тот же. Находится скриптом (сверка class-токенов страниц и экранов с styles/*.css). */
+const PARITY = [
+ {comp:'Alert', page:'molecules/Alert', status:'todo',
+  issue:'Тон живёт на атрибуте <code class="tok">[data-alert-tone]</code>, а сниппет чит-шита даёт только класс <code class="tok">.alert--&lt;тон&gt;</code> — в <code class="tok">alert.css</code> у этого класса правил нет. На экране 04-Metrics плашка <code class="tok">alert alert--warning</code> без атрибута: акцент и фон не применяются, Алерт рисуется нейтральным. В <code class="tok">Tile.html</code> атрибут есть — там писали по странице, а не по чит-шиту.',
+  fix:'Определить <code class="tok">.alert--info/--warning/--error/--success</code> в <code class="tok">alert.css</code> вторым источником скоупа (те же <code class="tok">--alert-accent/--alert-surface</code>), чтобы класс работал сам. Атрибут оставить для совместимости. В сниппет чит-шита добавить атрибут рядом с классом.'},
+ {comp:'Chip', page:'atoms/Chip', status:'todo',
+  issue:'<code class="tok">.chip--readonly</code> нет в <code class="tok">chip.css</code> (есть только <code class="tok">.chip--edit</code>): readonly — это база без модификатора. Класс стоит в сниппете чит-шита и в 4 спеках (Chip, PageHeader, ReadOnlyField, RiskMetric) и разошёлся по 5 экранам.',
+  fix:'Выбрать одно решение и применить ко всем компонентам с таким же случаем: либо определить класс-маркер в CSS (пустое правило-документация), либо убрать из сниппетов и написать в блоке строку «readonly — база, класс не нужен».'},
+ {comp:'Tab', page:'molecules/Tab', status:'todo',
+  issue:'<code class="tok">.tab--horiz</code> на кнопке таба не существует; ориентацию задаёт контейнер <code class="tok">.tabs--horiz</code> (он в CSS есть). Класс из сниппета разошёлся по 6 экранам.',
+  fix:'Убрать <code class="tok">tab--horiz</code> из сниппета чит-шита и спеки Tab, оставить только <code class="tok">.tabs--horiz</code> на контейнере.'},
+ {comp:'Label + Helper', page:'atoms/LabelHelper', status:'todo',
+  issue:'<code class="tok">.ds-label--left</code> нет в <code class="tok">label-helper.css</code> (определён только <code class="tok">--right</code>, left — база). Класс стоит в сниппетах 5 страниц Input и в спеке.',
+  fix:'То же решение, что для <code class="tok">chip--readonly</code> — единообразно.'},
+ {comp:'InputText', page:'molecules/InputText', status:'todo',
+  issue:'<code class="tok">.inp--m</code> нет в <code class="tok">input.css</code> (есть <code class="tok">--s</code>, M — база). Стоит в сниппетах всех страниц Input*.',
+  fix:'Убрать из сниппетов Input*. Проверять именно точным совпадением: подстрочный поиск даёт ложное срабатывание на <code class="tok">.inp--multiline</code>.'},
+ {comp:'Breadcrumbs', page:'molecules/Breadcrumbs', status:'todo',
+  issue:'Экран 06-RateSchemes использует <code class="tok">.crumbs__ellipsis</code>, в ДС элемент свёртки — <code class="tok">.crumbs__more</code>. Класс не документирован нигде: выдуман при сборке.',
+  fix:'Поправить экран на <code class="tok">.crumbs__more</code>; в блок чит-шита добавить строку про свёртку длинного трейла, чтобы вариант не додумывали.'},
+ {comp:'Экраны (screens.css)', status:'todo',
+  issue:'<code class="tok">.st--neutral</code> на 3 экранах; в <code class="tok">screens.css</code> нейтральный тон статус-пилюли — это база <code class="tok">.st</code>, модификатора нет (тона: success / warning / info / error / purple).',
+  fix:'Убрать модификатор с экранов — либо, если хочется симметрии тонов, завести <code class="tok">.st--neutral</code> явным пустым правилом. Решение общее с <code class="tok">chip--readonly</code>.'},
+ {comp:'Tooltip', page:'molecules/Tooltip', status:'todo',
+  issue:'Экран 07-CashFlow рисует свой тултип графика (<code class="tok">.cf-tip</code> и 6 дочерних классов) вместо компонента <code class="tok">.tip</code>. Причина не в незнании: рантайм позиционирования Tooltip живёт в <code class="tok">tooltip.page.js</code> и потребителю недоступен.',
+  fix:'Не править экран сейчас. После экстракции Tooltip (P1 Фазы 3) переписать <code class="tok">cf-tip</code> на <code class="tok">.tip</code> + <code class="tok">ds-tooltip.js</code> — это и будет проверкой экстракции на живом экране.'},
 ];
 (function(){
-  const t = document.getElementById('fixes');
-  let h = "<thead><tr><th class='name'>Компонент</th><th>Что не так</th><th>Как надо</th><th>Статус</th></tr></thead>";
-  if (!FIXES.length){
-    t.innerHTML = h + "<tbody><tr><td colspan='4'><div class='empty-log'>Пока пусто. Правки выписываются сюда по мере ревью компонентов.</div></td></tr></tbody>";
-    return;
-  }
   const badge = {todo:['b-none','не начато'],wip:['b-mock','в работе'],done:['b-shared','готово']};
-  let b='';
-  FIXES.forEach(r=>{
-    const [bc,bt]=badge[r.status]||badge.todo;
-    b += "<tr><td class='name'>"+(r.page?"<a href='../"+r.page+".html'>"+r.comp+"</a>":r.comp)+"</td>"
-      + "<td class='todo'>"+r.issue+"</td><td class='todo'>"+r.fix+"</td>"
-      + "<td class='c'><span class='b "+bc+"'>"+bt+"</span></td></tr>";
-  });
-  t.innerHTML = h + "<tbody>"+b+"</tbody>";
+  const head = "<thead><tr><th class='name'>Компонент</th><th>Что не так</th><th>Как надо</th><th>Статус</th></tr></thead>";
+  function render(id, rows, empty){
+    const t = document.getElementById(id);
+    if (!t) return;
+    if (!rows.length){
+      t.innerHTML = head + "<tbody><tr><td colspan='4'><div class='empty-log'>"+empty+"</div></td></tr></tbody>";
+      return;
+    }
+    let b='';
+    rows.forEach(r=>{
+      const [bc,bt]=badge[r.status]||badge.todo;
+      b += "<tr><td class='name'>"+(r.page?"<a href='../"+r.page+".html'>"+r.comp+"</a>":r.comp)+"</td>"
+        + "<td class='todo'>"+r.issue+"</td><td class='todo'>"+r.fix+"</td>"
+        + "<td class='c'><span class='b "+bc+"'>"+bt+"</span></td></tr>";
+    });
+    t.innerHTML = head + "<tbody>"+b+"</tbody>";
+  }
+  render('parity', PARITY, 'Пусто.');
 })();
 
 /* ---- ФАЗА 2: недостающие компоненты ---- */

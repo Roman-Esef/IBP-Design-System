@@ -17,8 +17,15 @@
 @import url("splitter.css");
 @import url("segment-control.css");
 
-/* ---------- раскладка панели: настройки | сплиттер | превью ---------- */
-.panel.pg {
+/* ---------- раскладка панели: настройки | сплиттер | превью ----------
+   display/padding/overflow задаются здесь же: страницы, у которых нет своего
+   правила .panel.pg (Input*, DatePicker, NavTile — весь хром из input-pages.css),
+   иначе остаются блочными и панель рассыпается в один столбец.
+   Панели с data-pg-no-split (Pagination, Modal — настройки снизу) не трогаем. */
+.panel.pg:not([data-pg-no-split]) {
+  display: grid;
+  padding: 0;
+  overflow: hidden;
   grid-template-columns: var(--pg-controls-w, 360px) var(--spl-size, 11px) minmax(0,1fr) !important;
 }
 .panel.pg > .pg__controls {

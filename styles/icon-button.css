@@ -27,7 +27,6 @@
   user-select: none;
   overflow: visible;
   -webkit-tap-highlight-color: transparent;
-  color: var(--ibtn-fg);
   transition: color .15s ease;
 }
 

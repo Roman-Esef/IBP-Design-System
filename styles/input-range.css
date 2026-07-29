@@ -19,8 +19,8 @@
 }
 
 /* метка и хелпер — общие для всего диапазона (LabelHelper) */
-.inp-range > .ds-label { margin-bottom: 6px; }
-.inp-range > .ds-helper { margin-top: 6px; }
+.inp-range > .ds-label { margin-bottom: 4px; }
+.inp-range > .ds-helper { margin-top: 4px; }
 
 /* строка с двумя полями и линией */
 .inp-range__row {

@@ -288,7 +288,7 @@
       ['Рамка', fm.borderTopWidth + ' solid', fs.borderTopWidth + ' solid'],
       ['Шрифт значения', fm.fontSize + ' / ' + fm.lineHeight, fs.fontSize + ' / ' + fs.lineHeight],
       ['Иконки действий', '20px', '18px'],
-      ['Отступ метки → поле / поле → хелпер', '6px', '—'],
+      ['Отступ метки → поле / поле → хелпер', '4px', '—'],
     ].forEach(([p, vm, vs]) => {
       const tr = document.createElement('tr');
       tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';

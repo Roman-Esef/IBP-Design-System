@@ -1,6 +1,8 @@
 ---
 component: Typography
 title: "Типографика"
+version: "v1.0"
+updated: "30.06.2026"
 page: pages/foundations/Typography.html
 css: styles/typography.css
 status: curated

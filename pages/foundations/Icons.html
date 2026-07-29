@@ -9,23 +9,14 @@
 <link rel="stylesheet" href="../../styles/typography.css">
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-  body {
-    margin: 0; font-family: var(--font-text), system-ui, sans-serif;
-    color: var(--text-primary); background: var(--bg-page); background-attachment: fixed;
-  }
-  .page { max-width: 1320px; margin: 0 auto; padding: clamp(40px,7vw,96px) clamp(24px,5vw,72px) 140px; }
 
   /* masthead */
-  .masthead { border-bottom: 1px solid var(--border-light); padding-bottom: 30px; }
-  .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
-  .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
-  .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
-  @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
-  .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:60ch; text-wrap:pretty; }
+
+  
+
+  
 
   /* ---------- toolbar (interactive — first) ---------- */
   .toolbar {
@@ -53,8 +44,6 @@
 
   .seg { display:inline-flex; background: var(--tertiary); border-radius:10px; padding:3px; gap:3px; }
   .seg button { border:none; background:transparent; padding:8px 13px; border-radius:7px; font: var(--type-button-s); color: var(--text-secondary); cursor:pointer; transition:.12s; font-variant-numeric:tabular-nums; }
-  .seg button:hover { color: var(--text-primary); }
-  .seg button[aria-selected="true"] { background: var(--bg-tile); color: var(--primary); box-shadow:0 1px 2px rgba(40,50,55,.10); }
 
   .count { font: var(--type-body-s); color: var(--text-inactive); margin-left:auto; white-space:nowrap; }
   .count b { color: var(--text-secondary); font-weight:600; }
@@ -120,8 +109,6 @@
   .toast.show { opacity:1; transform: translate(-50%, 0); }
   .toast code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px; color: var(--primary-light, #58DCCC); }
 
-  footer.page-foot { margin-top:90px; padding-top:26px; border-top:1px solid var(--border-light);
-    font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
 </head>

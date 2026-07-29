@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"5df6457afe08","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"c98760f47497","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"30de3340131b","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"ccab3df3f750","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"60c905f8a284","scripts/input-date.page.js":"08702f1eb912","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"76ad4c4b5508","scripts/label-helper.page.js":"0e5c98e7f22d","scripts/modal.page.js":"c38f6d4fdc19","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"5fe8419ffc09","scripts/pagination.page.js":"a2fa1e42d751","scripts/pg-kit.js":"d86d16ba91aa","scripts/popover.page.js":"22c85f8063e5","scripts/read-only-field.page.js":"edfac382ed3a","scripts/riskmetric.page.js":"739839cd70fa","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"e400c6b7a51a","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"6fff47fa0113"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"5df6457afe08","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"a986dffd28c8","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"c53d9373d1d0","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"5fe8419ffc09","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"22c85f8063e5","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"739839cd70fa","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"33e608a53c42","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -4485,6 +4485,7 @@ function icon(name) {
 }
 const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
 const CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+const DASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 12h12"/></svg>';
 const SEARCH = icon('search');
 const UI = {
   bad: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
@@ -4539,16 +4540,18 @@ function makeItem(spec) {
   it.className = 'ddl__item';
   it.setAttribute('role', 'option');
   if (spec.checkbox) it.classList.add('ddl__item--checkbox');
+  if (spec.all) it.classList.add('ddl__item--all');
   if (spec.wrap) it.classList.add('ddl__item--wrap');
   if (spec.danger) it.classList.add('ddl__item--danger');
   if (spec.action) it.classList.add('ddl__item--action');
   if (spec.state) it.classList.add('is-' + spec.state);
   if (spec.disabled) it.setAttribute('aria-disabled', 'true');
   if (spec.checkbox) {
-    it.setAttribute('aria-checked', String(!!spec.checked));
+    const st = spec.checked === 'mixed' ? 'mixed' : String(!!spec.checked);
+    it.setAttribute('aria-checked', st);
     const cb = document.createElement('span');
     cb.className = 'ddl__item-check';
-    cb.innerHTML = '<span class="cb__box"><span class="cb__mark">' + CHECK + '</span></span>';
+    cb.innerHTML = '<span class="cb__box"><span class="cb__mark">' + (st === 'mixed' ? DASH : CHECK) + '</span></span>';
     it.appendChild(cb);
   } else if (spec.selectable !== false && spec.selected != null) {
     it.setAttribute('aria-selected', String(!!spec.selected));
@@ -4605,6 +4608,36 @@ function makeList(items, o = {}) {
   return el;
 }
 
+/* ---------- множественный выбор и строка «Выбрать всё» ----------
+   Состояние строки «Выбрать всё»: все опции → true, часть → mixed, ничего → false. */
+function setChecked(it, v) {
+  it.setAttribute('aria-checked', v === 'mixed' ? 'mixed' : String(!!v));
+  const mark = it.querySelector('.cb__mark');
+  if (mark) mark.innerHTML = v === 'mixed' ? DASH : CHECK;
+}
+function wireMulti(list, onChange) {
+  const allRow = list.querySelector('.ddl__item--all');
+  const rows = Array.from(list.querySelectorAll('.ddl__item--checkbox:not(.ddl__item--all)')).filter(r => r.getAttribute('aria-disabled') !== 'true');
+  function refresh() {
+    const on = rows.filter(r => r.getAttribute('aria-checked') === 'true').length;
+    if (allRow) setChecked(allRow, on === rows.length ? true : on ? 'mixed' : false);
+    if (onChange) onChange(on, rows.length);
+  }
+  rows.forEach(r => r.addEventListener('click', () => {
+    setChecked(r, r.getAttribute('aria-checked') !== 'true');
+    refresh();
+  }));
+  if (allRow) allRow.addEventListener('click', () => {
+    const turnOn = allRow.getAttribute('aria-checked') !== 'true';
+    rows.forEach(r => setChecked(r, turnOn));
+    refresh();
+  });
+  refresh();
+  return {
+    refresh
+  };
+}
+
 /* ---------- поле-триггер (Select / Autocomplete) ---------- */
 function makeField(o = {}) {
   const f = document.createElement('div');
@@ -4612,10 +4645,18 @@ function makeField(o = {}) {
   f.style.width = (o.width || 260) + 'px';
   let inner = '';
   if (o.search) inner += '<span class="fld__lead">' + SEARCH + '</span>';
+  if (o.prefix) inner += '<span class="fld__prefix">' + escapeHtml(o.prefix) + '</span>';
   inner += '<span class="fld__value' + (o.placeholder ? ' is-ph' : '') + '">' + escapeHtml(o.value || o.placeholder || '') + '</span>';
   inner += '<span class="fld__chev">' + CHEVRON + '</span>';
   f.innerHTML = inner;
   return f;
+}
+
+/* сводка множественного выбора в поле: «Выбрано:» — префикс, N — значение */
+function setSummary(field, n) {
+  const pre = field.querySelector('.fld__prefix');
+  if (pre) pre.style.display = n ? '' : 'none';
+  field.querySelector('.fld__value').textContent = n ? String(n) : 'Не выбрано';
 }
 
 /* ---------- позиционирование floating-списка под полем ---------- */
@@ -4642,7 +4683,9 @@ function placeList(anchor, list, field, placement, gap) {
     group: false,
     count: '6',
     disabled: false,
-    system: 'none'
+    system: 'none',
+    all: false,
+    create: false
   };
   const controls = document.getElementById('pg-controls');
   const stage = document.getElementById('pg-stage');
@@ -4698,7 +4741,9 @@ function placeList(anchor, list, field, placement, gap) {
   const cMatch = ctlToggle('Подсветка совпадения', 'match');
   const cGroup = ctlToggle('Группировка', 'group');
   const cDisabled = ctlToggle('Отключённая опция', 'disabled');
-  controls.append(cVariant, cCount, cSystem, cHelper, cIcons, cMatch, cGroup, cDisabled);
+  const cAll = ctlToggle('Строка «Выбрать всё»', 'all');
+  const cCreate = ctlToggle('Строка создания', 'create');
+  controls.append(cVariant, cCount, cSystem, cHelper, cIcons, cMatch, cGroup, cDisabled, cAll, cCreate);
   const POOL = [{
     label: 'Российский рубль',
     helper: 'RUB · 643',
@@ -4764,6 +4809,14 @@ function placeList(anchor, list, field, placement, gap) {
     const n = parseInt(state.count, 10);
     const q = state.match ? 'дол' : null;
     const specs = [];
+    if (isCb && state.all) specs.push({
+      checkbox: true,
+      all: true,
+      label: 'Выбрать всё',
+      checked: 'mixed'
+    }, {
+      divider: true
+    });
     if (state.group) specs.push({
       group: 'Популярные'
     });
@@ -4794,9 +4847,11 @@ function placeList(anchor, list, field, placement, gap) {
   let anchor, field, list;
   function render() {
     /* контекстная доступность контролов */
-    toggleOff(cIcons, state.variant === 'checkbox'); // иконка и чекбокс — взаимоисключающий ведущий слот
     const sys = state.system !== 'none';
-    [cVariant, cCount, cHelper, cIcons, cMatch, cGroup, cDisabled].forEach(c => toggleOff(c, sys));
+    toggleOff(cIcons, sys || state.variant === 'checkbox'); // иконка и чекбокс — взаимоисключающий ведущий слот
+    toggleOff(cAll, sys || state.variant !== 'checkbox'); // «Выбрать всё» — только множественный выбор
+    toggleOff(cCreate, state.system !== 'empty'); // строка создания — только пустой результат
+    [cVariant, cCount, cHelper, cMatch, cGroup, cDisabled].forEach(c => toggleOff(c, sys));
     stage.innerHTML = '';
     anchor = document.createElement('span');
     anchor.className = 'ddl-anchor';
@@ -4804,7 +4859,8 @@ function placeList(anchor, list, field, placement, gap) {
       width: 300,
       open: true,
       search: state.variant === 'checkbox' ? false : state.match,
-      value: state.match ? 'дол' : state.variant === 'checkbox' ? '2 выбрано' : 'Доллар США',
+      prefix: !state.match && state.variant === 'checkbox' ? 'Выбрано:' : null,
+      value: state.match ? 'дол' : state.variant === 'checkbox' ? '2' : 'Доллар США',
       placeholder: null
     });
     anchor.appendChild(field);
@@ -4812,7 +4868,16 @@ function placeList(anchor, list, field, placement, gap) {
     if (state.system === 'loading') items = [{
       system: 'loading',
       label: 'Поиск в справочнике'
-    }];else if (state.system === 'empty') items = [{
+    }];else if (state.system === 'empty') items = state.create ? [{
+      system: 'empty',
+      label: 'Ничего не найдено'
+    }, {
+      divider: true
+    }, {
+      action: true,
+      icon: 'add-circle',
+      actionHtml: 'Создать «<strong>SBI Voskhod</strong>»'
+    }] : [{
       system: 'empty',
       label: 'Ничего не найдено'
     }];else if (state.system === 'error') items = [{
@@ -4829,6 +4894,9 @@ function placeList(anchor, list, field, placement, gap) {
     if (!sys) list.style.setProperty('--ddl-max-h', '312px');
     anchor.appendChild(list);
     stage.appendChild(anchor);
+    if (state.variant === 'checkbox' && !sys) {
+      wireMulti(list, n => setSummary(field, n));
+    }
     place();
     const tag = state.variant === 'checkbox' ? 'aria-multiselectable="true"' : '';
     codeEl.innerHTML = '<code>&lt;div class="ddl" role="listbox" ' + tag + '&gt;…&lt;/div&gt;</code>';
@@ -4954,6 +5022,37 @@ function placeList(anchor, list, field, placement, gap) {
     d.textContent = text;
     return d;
   }
+})();
+
+/* =========================================================================
+   SELECT ALL — три состояния строки «Выбрать всё»
+   ========================================================================= */
+(function () {
+  const host = document.getElementById('var-all');
+  if (!host) return;
+  const opts = ['Российский рубль', 'Доллар США', 'Евро'];
+  [['Ничего не выбрано', false], ['Выбрана часть · mixed', 'mixed'], ['Выбрано всё', true]].forEach(([cap, st]) => {
+    const box = makeList([{
+      checkbox: true,
+      all: true,
+      label: 'Выбрать всё',
+      checked: st
+    }, {
+      divider: true
+    }].concat(opts.map((l, i) => ({
+      checkbox: true,
+      label: l,
+      checked: st === true || st === 'mixed' && i === 1
+    }))));
+    box.style.minWidth = '240px';
+    const cell = document.createElement('div');
+    cell.className = 'stack';
+    const h = document.createElement('span');
+    h.className = 'th';
+    h.textContent = cap;
+    cell.append(h, box);
+    host.appendChild(cell);
+  });
 })();
 
 /* =========================================================================
@@ -5273,26 +5372,28 @@ function openable(anchor, field, list, prefer) {
     anchor.className = 'ddl-anchor';
     const field = makeField({
       width: 280,
-      value: '2 выбрано'
+      prefix: 'Выбрано:',
+      value: '2'
     });
     anchor.appendChild(field);
     const opts = ['Российский рубль', 'Доллар США', 'Евро', 'Фунт стерлингов', 'Китайский юань'];
-    const list = makeList(opts.map((l, i) => ({
+    const list = makeList([{
+      checkbox: true,
+      all: true,
+      label: 'Выбрать всё'
+    }, {
+      divider: true
+    }].concat(opts.map((l, i) => ({
       checkbox: true,
       checked: i === 1 || i === 2,
       label: l
-    })), {
+    }))), {
       floating: true
     });
     anchor.appendChild(list);
     s2.appendChild(anchor);
-    const api = openable(anchor, field, list, 'bottom');
-    list.querySelectorAll('.ddl__item').forEach(it => it.addEventListener('click', () => {
-      const on = it.getAttribute('aria-checked') === 'true';
-      it.setAttribute('aria-checked', String(!on));
-      const cnt = list.querySelectorAll('.ddl__item[aria-checked="true"]').length;
-      field.querySelector('.fld__value').textContent = cnt ? cnt + ' выбрано' : 'Не выбрано';
-    }));
+    openable(anchor, field, list, 'bottom');
+    wireMulti(list, n => setSummary(field, n));
     // не закрывать по клику — оставляем открытым при мультивыборе (закрытие вне/Esc)
   }
 
@@ -6080,6 +6181,9 @@ try { (() => {
         label: 'DatePicker',
         href: 'pages/molecules/DatePicker.html'
       }, {
+        label: 'DropdownList',
+        href: 'pages/molecules/DropdownList.html'
+      }, {
         label: 'InputAmountRange',
         href: 'pages/molecules/InputAmountRange.html'
       }, {
@@ -6106,9 +6210,6 @@ try { (() => {
       }, {
         label: 'SegmentControl',
         href: 'pages/molecules/SegmentControl.html'
-      }, {
-        label: 'Select',
-        href: 'pages/molecules/Select.html'
       }, {
         label: 'Splitter',
         href: 'pages/molecules/Splitter.html'
@@ -6177,7 +6278,7 @@ try { (() => {
         label: '01 · Текущий портфель ДИД',
         href: 'pages/screens/01-Portfolio.html'
       }, {
-        label: '02 · Карточка сделки',
+        label: '02 · Карточка сделки (v1)',
         href: 'pages/screens/02-Deal.html'
       }, {
         label: '02 · Карточка сделки (v2)',
@@ -7566,7 +7667,7 @@ try { (() => {
     const ff = getComputedStyle(r._from._field);
     const line = getComputedStyle(r._row.querySelector('.inp-range__line'));
     const bar = getComputedStyle(r._row.querySelector('.inp-range__line'), '::before');
-    [['Высота поля', ff.height], ['Паддинг поля горизонтальный', ff.paddingLeft], ['Зазор между элементами поля', ff.columnGap], ['Радиус поля', ff.borderRadius], ['Рамка поля', ff.borderTopWidth + ' solid'], ['Range_Line — ширина зоны', line.width], ['Range_Line — толщина линии', bar.height || '1px'], ['Иконки действий', '20px'], ['Мин. ширина поля', 'от контента (' + ff.minWidth + ')'], ['Отступ метки → поля / поля → хелпер', '6px']].forEach(([p, v]) => {
+    [['Высота поля', ff.height], ['Паддинг поля горизонтальный', ff.paddingLeft], ['Зазор между элементами поля', ff.columnGap], ['Радиус поля', ff.borderRadius], ['Рамка поля', ff.borderTopWidth + ' solid'], ['Range_Line — ширина зоны', line.width], ['Range_Line — толщина линии', bar.height || '1px'], ['Иконки действий', '20px'], ['Мин. ширина поля', 'от контента (' + ff.minWidth + ')'], ['Отступ метки → поля / поля → хелпер', '4px']].forEach(([p, v]) => {
       const tr = document.createElement('tr');
       tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + v + '</td>';
       tb.appendChild(tr);
@@ -8700,7 +8801,7 @@ try { (() => {
     const ff = getComputedStyle(r._from._field);
     const line = getComputedStyle(r._row.querySelector('.inp-range__line'));
     const bar = getComputedStyle(r._row.querySelector('.inp-range__line'), '::before');
-    [['Высота поля', ff.height], ['Паддинг поля горизонтальный', ff.paddingLeft], ['Зазор между элементами поля', ff.columnGap], ['Радиус поля', ff.borderRadius], ['Рамка поля', ff.borderTopWidth + ' solid'], ['Range_Line — ширина зоны', line.width], ['Range_Line — толщина линии', bar.height || '1px'], ['Иконки действий', '20px'], ['Мин. ширина поля', getComputedStyle(r._from).minWidth + ' (186px)'], ['Отступ метки → поля / поля → хелпер', '6px']].forEach(([p, v]) => {
+    [['Высота поля', ff.height], ['Паддинг поля горизонтальный', ff.paddingLeft], ['Зазор между элементами поля', ff.columnGap], ['Радиус поля', ff.borderRadius], ['Рамка поля', ff.borderTopWidth + ' solid'], ['Range_Line — ширина зоны', line.width], ['Range_Line — толщина линии', bar.height || '1px'], ['Иконки действий', '20px'], ['Мин. ширина поля', getComputedStyle(r._from).minWidth + ' (186px)'], ['Отступ метки → поля / поля → хелпер', '4px']].forEach(([p, v]) => {
       const tr = document.createElement('tr');
       tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + v + '</td>';
       tb.appendChild(tr);
@@ -9140,7 +9241,7 @@ try { (() => {
     holder.appendChild(s);
     const fm = getComputedStyle(m._field),
       fs = getComputedStyle(s._field);
-    [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор между элементами', fm.columnGap, fs.columnGap], ['Радиус', fm.borderRadius, fs.borderRadius], ['Рамка', fm.borderTopWidth + ' solid', fs.borderTopWidth + ' solid'], ['Шрифт значения', fm.fontSize + ' / ' + fm.lineHeight, fs.fontSize + ' / ' + fs.lineHeight], ['Иконки действий', '20px', '18px'], ['Отступ метки → поле / поле → хелпер', '6px', '—']].forEach(([p, vm, vs]) => {
+    [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор между элементами', fm.columnGap, fs.columnGap], ['Радиус', fm.borderRadius, fs.borderRadius], ['Рамка', fm.borderTopWidth + ' solid', fs.borderTopWidth + ' solid'], ['Шрифт значения', fm.fontSize + ' / ' + fm.lineHeight, fs.fontSize + ' / ' + fs.lineHeight], ['Иконки действий', '20px', '18px'], ['Отступ метки → поле / поле → хелпер', '4px', '—']].forEach(([p, vm, vs]) => {
       const tr = document.createElement('tr');
       tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';
       tb.appendChild(tr);
@@ -10026,7 +10127,7 @@ try { (() => {
     const fm = getComputedStyle(m._field),
       fs = getComputedStyle(s._field);
     const lead = m.querySelector('.inp__lead');
-    const rows = [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор между элементами', fm.columnGap, fs.columnGap], ['Радиус', fm.borderRadius, fs.borderRadius], ['Рамка', fm.borderTopWidth + ' solid', fs.borderTopWidth + ' solid'], ['Шрифт значения', fm.fontSize + ' / ' + fm.lineHeight, fs.fontSize + ' / ' + fs.lineHeight], ['Иконки и действия', lead ? getComputedStyle(lead).width : '20px', '18px'], ['Отступ метки → поле', '6px', '—'], ['Отступ поле → хелпер', '6px', '—']];
+    const rows = [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор между элементами', fm.columnGap, fs.columnGap], ['Радиус', fm.borderRadius, fs.borderRadius], ['Рамка', fm.borderTopWidth + ' solid', fs.borderTopWidth + ' solid'], ['Шрифт значения', fm.fontSize + ' / ' + fm.lineHeight, fs.fontSize + ' / ' + fs.lineHeight], ['Иконки и действия', lead ? getComputedStyle(lead).width : '20px', '18px'], ['Отступ метки → поле', '4px', '—'], ['Отступ поле → хелпер', '4px', '—']];
     rows.forEach(([p, vm, vs]) => {
       const tr = document.createElement('tr');
       tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';
@@ -10397,7 +10498,7 @@ function classListHelper(o) {
 (function () {
   const tb = document.querySelector('#usage-table tbody');
   if (!tb) return;
-  const rows = [['InputText', null, true, true], ['InputAutocomplete', 'InputAutocomplete.html', true, true], ['InputDate', null, true, true], ['ReadOnlyField', 'ReadOnlyField.html', true, true], ['Checkbox', 'Checkbox.html', false, true], ['Radiobutton', 'Radiobutton.html', false, true], ['Switch', 'Switch.html', false, true], ['Select · DropdownList', 'Select.html', false, true]];
+  const rows = [['InputText', null, true, true], ['InputAutocomplete', '../molecules/InputAutocomplete.html', true, true], ['InputDate', null, true, true], ['ReadOnlyField', '../molecules/ReadOnlyField.html', true, true], ['Checkbox', 'Checkbox.html', false, true], ['Radiobutton', 'Radiobutton.html', false, true], ['Switch', 'Switch.html', false, true], ['DropdownList', '../molecules/DropdownList.html', false, true]];
   function cell(v) {
     return v ? '<span class="yes">' + LH_ICONS.check + '</span>' : '<span class="no">' + LH_ICONS.dash + '</span>';
   }
@@ -10832,7 +10933,7 @@ try { (() => {
 const MODAL_CONTENT = {
   form() {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:20px;';
+    wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:8px;">
         <label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>
@@ -10852,7 +10953,7 @@ const MODAL_CONTENT = {
   },
   error() {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:20px;';
+    wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:8px;">
         <label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>
@@ -10904,7 +11005,7 @@ const MODAL_CONTENT = {
   },
   skeleton() {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:20px;';
+    wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     for (let i = 0; i < 3; i++) {
       const row = document.createElement('div');
       row.style.cssText = 'display:flex; flex-direction:column; gap:8px;';
@@ -10924,7 +11025,8 @@ function buildModal(o = {}) {
     footRight = 'primary',
     content = 'form',
     inline = false,
-    saving = false
+    saving = false,
+    alert = 'none'
   } = o;
   const scrim = document.createElement('div');
   scrim.className = 'modal-scrim' + (inline ? ' modal-scrim--inline' : '');
@@ -10937,7 +11039,10 @@ function buildModal(o = {}) {
   const head = document.createElement('div');
   head.className = 'modal__head';
   head.innerHTML = `<h2 class="modal__title" id="${titleId}">${title}</h2>
-    <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><i data-icon="close"></i></button></span>`;
+    <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span>`;
+
+  /* необязательная зона между шапкой и телом — Alert уровня всей модалки */
+  const alertZone = alert === 'none' ? null : buildModalAlert(alert);
   const body = document.createElement('div');
   body.className = 'modal__body';
   body.appendChild(MODAL_CONTENT[content] ? MODAL_CONTENT[content]() : MODAL_CONTENT.form());
@@ -10954,6 +11059,7 @@ function buildModal(o = {}) {
   foot.appendChild(left);
   foot.appendChild(right);
   modal.appendChild(head);
+  if (alertZone) modal.appendChild(alertZone);
   modal.appendChild(body);
   modal.appendChild(foot);
   scrim.appendChild(modal);
@@ -10976,6 +11082,35 @@ function buildModal(o = {}) {
   };
 }
 
+/* ---------- Alert между шапкой и телом (ошибка отправки / предупреждение) ---------- */
+const MODAL_ALERT = {
+  error: {
+    tone: 'error',
+    icon: 'alert-circle-filled',
+    title: 'Не удалось сохранить сделку',
+    text: 'Сервис лимитов недоступен. Попробуйте сохранить ещё раз через минуту.'
+  },
+  warning: {
+    tone: 'warning',
+    icon: 'alert-triangle-filled',
+    title: 'Данные контрагента устарели',
+    text: 'Последняя проверка — 12.05.2026. Значения полей могли измениться.'
+  }
+};
+function buildModalAlert(kind) {
+  const cfg = MODAL_ALERT[kind] || MODAL_ALERT.error;
+  const zone = document.createElement('div');
+  zone.className = 'modal__alert';
+  zone.innerHTML = `<div class="alert alert--${cfg.tone} alert--m alert--flush" data-alert-tone="${cfg.tone}" role="alert">
+    <span class="alert__icon" aria-hidden="true"><i data-icon="${cfg.icon}"></i></span>
+    <div class="alert__body">
+      <p class="alert__title">${cfg.title}</p>
+      <p class="alert__text">${cfg.text}</p>
+    </div>
+  </div>`;
+  return zone;
+}
+
 /* ---------- диалог подтверждения удаления (вложенный поверх модалки) ---------- */
 function buildDangerDialog(onCancel) {
   const scrim = document.createElement('div');
@@ -10986,8 +11121,8 @@ function buildDangerDialog(onCancel) {
   modal.setAttribute('aria-modal', 'true');
   modal.innerHTML = `
     <div class="modal__head">
-      <h2 class="modal__title">Удалить сделку?</h2>
-      <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><i data-icon="close"></i></button></span>
+      <h2 class="modal__title">Удаление сделки</h2>
+      <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span>
     </div>
     <div class="modal__body">
       <p style="margin:0;">Сделка «1-Кредит-199» будет удалена без возможности восстановления.</p>
@@ -11020,7 +11155,8 @@ document.addEventListener('DOMContentLoaded', () => {
       footLeft: 'none',
       footRight: 'primary',
       content: 'form',
-      mode: 'default'
+      mode: 'default',
+      alert: 'none'
     };
     function ctl(labelText, options, get, set) {
       const wrap = document.createElement('div');
@@ -11047,10 +11183,11 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.appendChild(box);
       return wrap;
     }
-    controls.appendChild(ctl('Ширина', [['1', '1 · 140px'], ['2', '2 · 290px'], ['3', '3 · 440px'], ['4', '4 · 600px'], ['5', '5 · 750px'], ['6', '6 · 900px'], ['7', '7 · 1050px'], ['8', '8 · 1200px'], ['9', '9 · 1360px'], ['10', '10 · 1510px'], ['11', '11 · 1660px'], ['12', '12 · 1820px']], () => state.width, v => state.width = v));
+    controls.appendChild(ctl('Ширина · колонок', [['2', '2 · 289px'], ['3', '3 · 442px'], ['4', '4 · 595px'], ['5', '5 · 747px'], ['6', '6 · 900px'], ['7', '7 · 1053px'], ['8', '8 · 1205px'], ['9', '9 · 1358px'], ['10', '10 · 1511px'], ['11', '11 · 1663px'], ['12', '12 · 1816px']], () => state.width, v => state.width = v));
     controls.appendChild(ctl('Подвал · слева', [['none', 'Нет'], ['edit', 'Изменить'], ['delete', 'Удалить'], ['both', 'Оба']], () => state.footLeft, v => state.footLeft = v));
     controls.appendChild(ctl('Подвал · справа', [['primary', 'Только Primary'], ['both', 'Secondary + Primary']], () => state.footRight, v => state.footRight = v));
     controls.appendChild(ctl('Контент', [['form', 'Форма'], ['table', 'Таблица'], ['empty', 'Пустое состояние'], ['scroll', 'Длинный скролл'], ['skeleton', 'Загрузка (скелетон)'], ['error', 'Ошибка валидации']], () => state.content, v => state.content = v));
+    controls.appendChild(ctl('Алерт над контентом', [['none', 'Нет'], ['error', 'Ошибка'], ['warning', 'Предупреждение']], () => state.alert, v => state.alert = v));
     controls.appendChild(ctl('Состояние', [['default', 'По умолчанию'], ['scrolled', 'Прокручен'], ['saving', 'Сохранение'], ['nested', 'Вложенный диалог']], () => state.mode, v => state.mode = v));
     function render() {
       stage.innerHTML = '';
@@ -11065,7 +11202,8 @@ document.addEventListener('DOMContentLoaded', () => {
         footRight: state.footRight,
         content: state.mode === 'scrolled' ? 'scroll' : state.content,
         inline: true,
-        saving: state.mode === 'saving'
+        saving: state.mode === 'saving',
+        alert: state.alert
       });
       stage.appendChild(scrim);
       if (state.mode === 'scrolled') {
@@ -11167,16 +11305,23 @@ document.addEventListener('DOMContentLoaded', () => {
         saving: true
       }
     }, {
-      label: 'Ошибка валидации',
+      label: 'Ошибка валидации — Helper поля',
       opts: {
         content: 'error'
+      }
+    }, {
+      label: 'Ошибка уровня модалки — Alert между шапкой и телом',
+      opts: {
+        content: 'form',
+        alert: 'error'
       }
     }, {
       label: 'Прокрутка — тень у шапки/подвала',
       opts: {
         content: 'scroll'
       },
-      scrolled: true
+      scrolled: true,
+      clamp: true
     }];
     items.forEach(it => {
       const cell = document.createElement('div');
@@ -11186,21 +11331,20 @@ document.addEventListener('DOMContentLoaded', () => {
       cap.textContent = it.label;
       cell.appendChild(cap);
       const box = document.createElement('div');
-      box.style.cssText = 'width:100%; max-width:360px;';
+      box.style.cssText = 'width:100%;';
+      /* витрина — реальный шаг ширины 3 (442px), по две модалки в ряд; высота по контенту,
+         кроме примера с прокруткой, где потолок задан искусственно */
       const {
         scrim,
         modal,
         body,
         syncScrollShadow
       } = buildModal({
-        width: 4,
+        width: 3,
         ...it.opts,
         inline: true
       });
-      // витрина — модалка заполняет свою карточку целиком, а не буквальный шаг ширины
-      modal.style.width = '100%';
-      modal.style.maxWidth = '100%';
-      modal.style.cssText += 'max-height:280px; box-shadow:0 1px 2px rgba(40,50,55,.12); position:relative;';
+      modal.style.cssText += 'max-width:100%; max-height:' + (it.clamp ? '380px' : 'none') + '; box-shadow:0 1px 2px rgba(40,50,55,.12); position:relative;';
       scrim.style.cssText = 'position:static; background:transparent; padding:0; display:block;';
       if (it.scrolled) {
         requestAnimationFrame(() => {
@@ -11210,6 +11354,43 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       box.appendChild(scrim);
       cell.appendChild(box);
+      host.appendChild(cell);
+    });
+  })();
+
+  /* ---------------- ВАРИАНТЫ: алерт между шапкой и телом ---------------- */
+  (function () {
+    const host = document.getElementById('alert-demo');
+    if (!host) return;
+    host.className = 'alert-demo';
+    [{
+      alert: 'error',
+      cap: 'Ошибка уровня модалки — не привязана к конкретному полю, форма остаётся открытой'
+    }, {
+      alert: 'warning',
+      cap: 'Предупреждение — отправить можно, но данные требуют внимания'
+    }].forEach(cfg => {
+      const cell = document.createElement('div');
+      cell.className = 'alert-demo__cell';
+      const cap = document.createElement('div');
+      cap.className = 'state-cap';
+      cap.textContent = cfg.cap;
+      const stageEl = document.createElement('div');
+      stageEl.className = 'alert-demo__stage';
+      const {
+        scrim,
+        modal
+      } = buildModal({
+        width: 3,
+        content: 'form',
+        alert: cfg.alert,
+        inline: true
+      });
+      modal.style.cssText += 'max-width:100%; max-height:none; box-shadow:0 1px 2px rgba(40,50,55,.12); position:relative;';
+      scrim.style.cssText = 'position:static; background:transparent; padding:0; display:block; width:100%;';
+      stageEl.appendChild(scrim);
+      cell.appendChild(cap);
+      cell.appendChild(stageEl);
       host.appendChild(cell);
     });
   })();
@@ -11291,7 +11472,7 @@ document.addEventListener('DOMContentLoaded', () => {
       csBody = getComputedStyle(body),
       csFoot = getComputedStyle(foot);
     const r = n => Math.round(parseFloat(n) * 10) / 10;
-    const rows = [['Радиус модалки', r(csModal.borderTopLeftRadius) + ' px'], ['Паддинг шапки (Y / X)', r(csHead.paddingTop) + ' / ' + r(csHead.paddingLeft) + ' px'], ['Паддинг тела (Y / X)', r(csBody.paddingTop) + ' / ' + r(csBody.paddingLeft) + ' px'], ['Паддинг подвала (Y / X)', r(csFoot.paddingTop) + ' / ' + r(csFoot.paddingLeft) + ' px'], ['Зазор в подвале между кнопками', r(getComputedStyle(foot.querySelector('.modal__foot-right')).columnGap) + ' px'], ['Толщина разделителя шапка/подвал', r(csHead.borderBottomWidth) + ' px'], ['Типографика заголовка', csHead.querySelector ? '' : '']].filter(r => r[1] !== '');
+    const rows = [['Радиус модалки', r(csModal.borderTopLeftRadius) + ' px'], ['Максимальная высота', csModal.maxHeight === 'none' ? '80% вьюпорта' : '80% вьюпорта (' + r(csModal.maxHeight) + ' px при текущем экране)'], ['Шапка: паддинги (верх / право / низ / лево)', [csHead.paddingTop, csHead.paddingRight, csHead.paddingBottom, csHead.paddingLeft].map(r).join(' / ') + ' px'], ['Шапка: высота строки «заголовок + крестик»', r(csHead.minHeight) + ' px'], ['Шапка: зазор заголовок ↔ крестик', r(csHead.columnGap) + ' px'], ['Тело: паддинги (верх / бок / низ)', [csBody.paddingTop, csBody.paddingLeft, csBody.paddingBottom].map(r).join(' / ') + ' px'], ['Тело: зазор между вложенными компонентами', r(csBody.rowGap) + ' px'], ['Подвал: паддинги (Y / X)', r(csFoot.paddingTop) + ' / ' + r(csFoot.paddingLeft) + ' px'], ['Зазор в подвале между кнопками', r(getComputedStyle(foot.querySelector('.modal__foot-right')).columnGap) + ' px'], ['Толщина разделителя шапка/подвал', r(csHead.borderBottomWidth) + ' px']].filter(r => r[1] !== '');
     // типографика заголовка отдельным запросом (querySelector недоступен на csHead)
     const csTitle = getComputedStyle(head.querySelector('.modal__title'));
     rows.push(['Типографика заголовка (кегль / интерлиньяж)', r(csTitle.fontSize) + ' / ' + r(csTitle.lineHeight) + ' px']);
@@ -12444,28 +12625,29 @@ try { (() => {
       pageSizeOptions: DEFAULT_SIZES,
       showPageSize: true,
       compact: false,
-      disabled: false,
-      loading: false,
       responsive: true,
       onChange: null,
       onPageSizeChange: null
     }, o);
     const host = document.createElement('div');
-    host.className = 'pgn' + (opts.compact ? ' pgn--compact' : '') + (opts.disabled ? ' pgn--disabled' : '') + (opts.loading ? ' pgn--loading' : '');
-    if (opts.disabled) host.setAttribute('aria-disabled', 'true');
+    host.className = 'pgn' + (opts.compact ? ' pgn--compact' : '');
     const tp = totalPages(opts.total, opts.pageSize);
     const page = Math.min(Math.max(1, opts.page), tp);
 
-    /* ---------- pagesize ---------- */
+    /* ---------- pagesize — неинтерактивный текст + IconButton-M чеврон ---------- */
     if (opts.showPageSize) {
+      const CHEV_D = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
       const anchor = document.createElement('span');
-      anchor.className = 'ddl-anchor';
+      anchor.className = 'pgn__pagesize ddl-anchor';
+      const label = document.createElement('span');
+      label.className = 'pgn__pagesize-label';
+      label.innerHTML = 'Показывать строк: <b>' + sizeLabel(opts.pageSize) + '</b>';
       const trg = document.createElement('button');
       trg.type = 'button';
-      trg.className = 'pgn__pagesize';
+      trg.className = 'pgn__pagesize-btn';
       trg.setAttribute('aria-haspopup', 'listbox');
-      trg.innerHTML = 'Показывать строк: <b>' + sizeLabel(opts.pageSize) + '</b><span class="pgn__pagesize__chev">' + (icon('chevron-down') || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>') + '</span>';
-      if (opts.disabled) trg.disabled = true;
+      trg.setAttribute('aria-label', 'Изменить размер страницы');
+      trg.innerHTML = icon('chevron-down') || CHEV_D;
       const list = document.createElement('div');
       list.className = 'ddl ddl--floating';
       list.setAttribute('role', 'listbox');
@@ -12482,8 +12664,7 @@ try { (() => {
         });
         list.appendChild(it);
       });
-      anchor.appendChild(trg);
-      anchor.appendChild(list);
+      anchor.append(label, trg, list);
       host.appendChild(anchor);
       let open = false;
       function place() {
@@ -12519,9 +12700,7 @@ try { (() => {
       function onEsc(e) {
         if (e.key === 'Escape') set(false);
       }
-      trg.addEventListener('click', () => {
-        if (!opts.disabled) set(!open);
-      });
+      trg.addEventListener('click', () => set(!open));
       window.addEventListener('resize', () => {
         if (open) place();
       });
@@ -12532,11 +12711,6 @@ try { (() => {
     rangeEl.className = 'pgn__range';
     rangeEl.textContent = page + ' из ' + tp;
     host.appendChild(rangeEl);
-    if (opts.loading) {
-      const sp = document.createElement('span');
-      sp.className = 'pgn__spinner';
-      host.appendChild(sp);
-    }
 
     /* ---------- nav (перестраиваемый: число номеров зависит от tier) ---------- */
     const CHEV_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
@@ -12551,18 +12725,51 @@ try { (() => {
       b.setAttribute('aria-label', dir < 0 ? 'Предыдущая страница' : 'Следующая страница');
       b.innerHTML = dir < 0 ? icon('chevron-left') || CHEV_L : icon('chevron-right') || CHEV_R;
       const atBound = dir < 0 ? page <= 1 : page >= tp;
-      if (atBound || opts.disabled) b.setAttribute('aria-disabled', 'true');
+      if (atBound) b.setAttribute('aria-disabled', 'true');
       b.addEventListener('click', () => {
-        if (opts.disabled) return;
         const target = page + dir;
         if (target >= 1 && target <= tp && opts.onChange) opts.onChange(target);
       });
       return b;
     }
-    function renderNav(sibling, boundary, inNavRange) {
+
+    /* уровни деградации навигации — от полного набора к «стрелки + N из M» */
+    const LEVELS = [{
+      t: 'l',
+      sibling: 1,
+      boundary: 1,
+      mode: 'nums'
+    }, {
+      t: 'm',
+      sibling: 0,
+      boundary: 1,
+      mode: 'nums'
+    }, {
+      t: 'sm',
+      sibling: 0,
+      boundary: 0,
+      mode: 'current'
+    }, {
+      t: 'c',
+      sibling: 0,
+      boundary: 0,
+      mode: 'compact'
+    }];
+    const LEVEL_XS = {
+      t: 'xs',
+      sibling: 0,
+      boundary: 0,
+      mode: 'compact'
+    };
+    function navItems(level) {
+      if (level.mode === 'compact') return [];
+      if (level.mode === 'current') return [page];
+      return pageWindow(page, tp, level.sibling, level.boundary);
+    }
+    function renderNav(level) {
       nav.innerHTML = '';
       nav.appendChild(makeArrow(-1));
-      pageWindow(page, tp, sibling, boundary).forEach(p => {
+      navItems(level).forEach(p => {
         if (p === '...') {
           const e = document.createElement('span');
           e.className = 'pgn__ellipsis';
@@ -12577,12 +12784,11 @@ try { (() => {
         b.textContent = String(p);
         b.setAttribute('aria-label', 'Страница ' + p);
         if (p === page) b.setAttribute('aria-current', 'page');else b.addEventListener('click', () => {
-          if (!opts.disabled && opts.onChange) opts.onChange(p);
+          if (opts.onChange) opts.onChange(p);
         });
-        if (opts.disabled) b.disabled = true;
         nav.appendChild(b);
       });
-      if (inNavRange) {
+      if (level.mode === 'compact') {
         const r = document.createElement('span');
         r.className = 'pgn__range';
         r.textContent = page + ' из ' + tp;
@@ -12590,65 +12796,214 @@ try { (() => {
       }
       nav.appendChild(makeArrow(1));
     }
-    renderNav(1, 1, opts.compact);
+    renderNav(opts.compact ? LEVELS[LEVELS.length - 1] : LEVELS[0]);
     host.appendChild(nav);
 
-    /* ---------- responsive controller (ResizeObserver → data-tier) ---------- */
-    const TIERS = {
-      l: {
-        sibling: 1,
-        boundary: 1,
-        compact: false
-      },
-      m: {
-        sibling: 0,
-        boundary: 1,
-        compact: false
-      },
-      s: {
-        sibling: 0,
-        boundary: 1,
-        compact: true
-      },
-      xs: {
-        sibling: 0,
-        boundary: 0,
-        compact: true
-      }
+    /* ---------- responsive controller — fit по доступному месту ----------
+       Уровень выбирается не по порогам вьюпорта, а измерением: сколько места
+       остаётся пагинатору после инфо-сводки левого слота. Пока пара
+       «сводка + пагинатор» не влезает в одну строку — сокращается пагинатор
+       (номера → только текущая → «N из M»); когда сокращать больше нечего,
+       строка складывается в вертикаль и сводка получает всю ширину.
+       Ничто не обрезается и не выходит за границы строки.
+       -------------------------------------------------------------------- */
+    const M = {
+      slot: 32,
+      gap: 2,
+      section: 28,
+      pagesize: 0,
+      range: 56,
+      ell: 24,
+      done: false
     };
-    function tierFor(w) {
-      return w >= 680 ? 'l' : w >= 520 ? 'm' : w >= 380 ? 's' : 'xs';
+    function calibrate() {
+      M.section = parseFloat(getComputedStyle(host).columnGap) || 28;
+      M.gap = parseFloat(getComputedStyle(nav).columnGap) || 2;
+      const n = nav.querySelector('.pgn__num');
+      if (n) M.slot = n.getBoundingClientRect().width || M.slot;
+      const e = nav.querySelector('.pgn__ellipsis');
+      if (e) M.ell = e.getBoundingClientRect().width || M.ell;
+      const ps = host.querySelector('.pgn__pagesize');
+      M.pagesize = ps ? ps.getBoundingClientRect().width : 0;
+      M.range = rangeEl.getBoundingClientRect().width || M.range;
+      M.done = true;
     }
-    function applyTier(w) {
-      const t = tierFor(w);
-      if (host.dataset.tier === t) return;
-      host.dataset.tier = t;
-      const row = host.closest('.pgn-row');
-      if (row) {
-        row.dataset.tier = t;
-        const footer = row.closest('.pgn-footer');
-        if (footer) footer.querySelectorAll(':scope > .pgn-row').forEach(r => {
-          r.dataset.tier = t;
-        });
+    /* требуемая ширина пагинатора на уровне level (+ буфер 8px) */
+    function needOf(level) {
+      let w = 0,
+        sections = 1; // sections — nav + опциональные pagesize/range
+      if (M.pagesize) {
+        w += M.pagesize;
+        sections++;
       }
-      const c = TIERS[t];
-      host.classList.toggle('pgn--compact', c.compact);
-      renderNav(c.sibling, c.boundary, c.compact);
+      if (level.mode === 'compact') {
+        w += 2 * M.slot + M.range + 16 + M.gap * 2; // range переезжает внутрь nav (padding 0 8px)
+      } else {
+        const items = navItems(level);
+        const nums = items.filter(p => p !== '...').length;
+        w += M.range;
+        sections++;
+        w += (2 + nums) * M.slot + (items.length - nums) * M.ell + M.gap * (items.length + 1);
+      }
+      return w + M.section * (sections - 1) + 8;
     }
+    /* ширина инфо-сводки: full — в одну строку, min — самый широкий пункт
+       (пункты можно переносить, но не резать) */
+    function leftNeed(row) {
+      const left = row && row.querySelector('.pgn-row__left');
+      const info = left && left.firstElementChild;
+      if (!info) return {
+        full: 0,
+        min: 0,
+        count: 0
+      };
+      const kids = Array.prototype.filter.call(info.children, el => el.getBoundingClientRect().width > 0);
+      if (!kids.length) {
+        const w = left.getBoundingClientRect().width;
+        return {
+          full: w,
+          min: w,
+          count: 1
+        };
+      }
+      const gap = parseFloat(getComputedStyle(info).columnGap) || 24;
+      let full = gap * (kids.length - 1),
+        min = 0;
+      kids.forEach(el => {
+        const w = el.getBoundingClientRect().width;
+        full += w;
+        if (w > min) min = w;
+      });
+      return {
+        full,
+        min,
+        count: kids.length
+      };
+    }
+    let applied = '',
+      appliedIdx = 0;
+    function apply(level, layout, idx) {
+      const key = level.t + '|' + layout + '|' + page + '|' + tp;
+      appliedIdx = idx;
+      if (applied === key) return;
+      applied = key;
+      host.dataset.tier = level.t;
+      host.classList.toggle('pgn--compact', level.mode === 'compact');
+      renderNav(level);
+      const row = host.closest('.pgn-row');
+      if (!row) return;
+      const footer = row.closest('.pgn-footer');
+      const rows = footer ? footer.querySelectorAll(':scope > .pgn-row') : [row];
+      Array.prototype.forEach.call(rows, r => {
+        r.dataset.tier = level.t;
+        r.dataset.layout = layout;
+      });
+    }
+    /* HYST — переход к менее компактному уровню требует запаса, иначе рост высоты
+       строки (появление скроллбара у контейнера) вызывает дребезг решения */
+    const HYST = 24;
+    function fit() {
+      const row = host.closest('.pgn-row');
+      const box = row || host.parentElement || host;
+      const cs = getComputedStyle(box);
+      const inner = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+      if (!(inner > 0)) return;
+      if (!M.done) calibrate();
+      const L = leftNeed(row);
+      const gapRow = L.full ? parseFloat(cs.columnGap) || 20 : 0;
+      const stacked = row && row.dataset.layout === 'stack';
+      /* первый уровень, влезающий в avail; подъём к более полному набору — с запасом */
+      function pick(avail, hyst) {
+        for (let i = 0; i < LEVELS.length; i++) {
+          if (needOf(LEVELS[i]) <= avail - (hyst && (i < appliedIdx || stacked) ? HYST : 0)) return i;
+        }
+        return -1;
+      }
+      /* Выбираем раскладку по правилу «максимум номеров»: если в одну строку
+         помещается не хуже, чем в вертикаль — остаёмся в строке (колонтитул ниже);
+         иначе складываемся в вертикаль — там сводка и пагинатор получают всю ширину. */
+      const iRow = pick(inner - L.full - gapRow, true);
+      const iStack = pick(inner, false);
+      if (iRow >= 0 && (iStack < 0 || iRow <= iStack)) {
+        apply(LEVELS[iRow], 'row', iRow);
+        return;
+      }
+      if (iStack >= 0) {
+        apply(LEVELS[iStack], 'stack', iStack);
+        return;
+      }
+      apply(LEVEL_XS, 'stack', LEVELS.length);
+    }
+    /* один пересчёт на кадр + предохранитель от осцилляции (скроллбар контейнера) */
+    let raf = 0,
+      hits = 0,
+      since = 0,
+      lastW = -1,
+      tail = 0;
+    /* Отброшенный вызов не теряется: любое гашение (кадр уже запланирован
+       или сработал предохранитель) ставит хвостовой пересчёт по покою —
+       иначе после быстрого ресайза финальная ширина осталась бы без пересчёта */
+    function scheduleTail() {
+      clearTimeout(tail);
+      tail = setTimeout(() => {
+        tail = 0;
+        hits = 0;
+        since = 0;
+        fit();
+      }, 300);
+    }
+    function scheduleFit() {
+      if (raf) {
+        scheduleTail();
+        return;
+      }
+      const run = () => {
+        raf = 0;
+        const now = Date.now();
+        if (now - since > 400) {
+          since = now;
+          hits = 0;
+        }
+        if (++hits > 8) {
+          scheduleTail();
+          return;
+        }
+        fit();
+      };
+      raf = 1;
+      if (typeof requestAnimationFrame === 'function' && !document.hidden) requestAnimationFrame(run);else setTimeout(run, 16);
+    }
+    host.__pgnFit = fit;
     const AUTO = !opts.compact && opts.responsive !== false;
     if (AUTO && typeof ResizeObserver !== 'undefined') {
-      requestAnimationFrame(() => {
+      /* бутстрап без rAF: на скрытой вкладке (document.hidden) кадры не идут вовсе */
+      const boot = () => {
         const measured = host.closest('.pgn-row') || host.parentElement || host;
-        applyTier(measured.getBoundingClientRect().width || 800);
+        calibrate();
+        setTimeout(fit, 0); /* первый расчёт вне доставки RO — без loop-предупреждения */
+        /* реагируем только на изменение ШИРИНЫ: высоту меняет сам пересчёт —
+           если слушать её, RO зацикливается */
         const ro = new ResizeObserver(es => {
           if (!host.isConnected) {
             ro.disconnect();
             return;
           }
-          applyTier(es[0].target.getBoundingClientRect().width);
+          const w = Math.round(es[0].contentRect.width);
+          if (w === lastW && applied) return;
+          lastW = w;
+          scheduleFit();
         });
         ro.observe(measured);
-      });
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, {
+        once: true
+      });else setTimeout(boot, 0);
+      /* если на момент бутстрапа ширины ещё не было (display:none, скрытая вкладка) — догоняем */
+      const retry = () => {
+        if (host.isConnected && !applied) fit();
+      };
+      document.addEventListener('visibilitychange', retry);
+      window.addEventListener('load', retry);
     }
     return host;
   }
@@ -12730,6 +13085,9 @@ try { (() => {
         count: selectionCount
       }, o.bulk || {})));
       wrap.appendChild(bulkRow);
+      const dvd = document.createElement('hr');
+      dvd.className = 'dvd dvd--h';
+      wrap.appendChild(dvd);
     }
     wrap.appendChild(buildRow(o));
     return wrap;
@@ -12752,9 +13110,29 @@ try { (() => {
       page: 3,
       left: 'none',
       selection: 0,
-      system: 'default',
-      showPageSize: true
+      showPageSize: true,
+      width: 680
     };
+    function widthSlider() {
+      const wrap = document.createElement('div');
+      wrap.className = 'ctl pg__widthctl';
+      const l = document.createElement('div');
+      l.className = 'lbl';
+      l.innerHTML = 'Ширина компонента: <b>' + state.width + 'px</b>';
+      const r = document.createElement('input');
+      r.type = 'range';
+      r.min = '320';
+      r.max = '960';
+      r.step = '10';
+      r.value = String(state.width);
+      r.addEventListener('input', () => {
+        state.width = +r.value;
+        l.innerHTML = 'Ширина компонента: <b>' + state.width + 'px</b>';
+        preview.style.width = state.width + 'px';
+      });
+      wrap.append(l, r);
+      return wrap;
+    }
     function select(label, options, getCur, onPick) {
       const wrap = document.createElement('div');
       wrap.className = 'ctl';
@@ -12794,6 +13172,7 @@ try { (() => {
       });
       return t;
     }
+    controls.appendChild(widthSlider());
     controls.appendChild(select('Всего строк', [['16', '16'], ['84', '84'], ['320', '320'], ['800', '800'], ['15000', '15 000']], () => state.total, v => {
       state.total = +v;
       if (state.page > totalPages(state.total, state.pageSize)) state.page = totalPages(state.total, state.pageSize);
@@ -12805,7 +13184,6 @@ try { (() => {
     }));
     controls.appendChild(select('Левый слот', [['none', 'Нет'], ['info', 'Инфо-сводка']], () => state.left, v => state.left = v));
     controls.appendChild(select('Выбрано строк (Action panel)', [['0', 'Нет'], ['2', '2'], ['4', '4'], ['12', '12']], () => state.selection, v => state.selection = +v));
-    controls.appendChild(select('Состояние', [['default', 'Default'], ['disabled', 'Disabled'], ['loading', 'Loading']], () => state.system, v => state.system = v));
     const optWrap = document.createElement('div');
     optWrap.className = 'ctl';
     const ol = document.createElement('div');
@@ -12814,15 +13192,13 @@ try { (() => {
     optWrap.appendChild(ol);
     const toggles = document.createElement('div');
     toggles.className = 'toggles';
-    toggles.appendChild(sw('Селектор размера страницы', 'showPageSize'));
+    toggles.appendChild(sw('Выбор размера страницы', 'showPageSize'));
     optWrap.appendChild(toggles);
     controls.appendChild(optWrap);
     function render() {
       preview.innerHTML = '';
       const tp = totalPages(state.total, state.pageSize);
       if (state.page > tp) state.page = tp;
-      const disabled = state.system === 'disabled';
-      const loading = state.system === 'loading';
       const node = buildFooter({
         selectionCount: state.selection,
         info: state.left === 'info' ? {} : null,
@@ -12831,8 +13207,6 @@ try { (() => {
           pageSize: state.pageSize,
           page: state.page,
           showPageSize: state.showPageSize,
-          disabled,
-          loading,
           onChange: p => {
             state.page = p;
             render();
@@ -12845,9 +13219,9 @@ try { (() => {
         }
       });
       node.style.width = '100%';
+      preview.style.width = state.width + 'px';
       preview.appendChild(node);
-      const cls = 'pgn' + (disabled ? ' pgn--disabled' : '') + (loading ? ' pgn--loading' : '');
-      codeEl.innerHTML = '<code>&lt;div class="pgn-row"&gt;…&lt;div class="' + cls + '"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — страница ' + Math.min(state.page, tp) + ' из ' + tp;
+      codeEl.innerHTML = '<code>&lt;div class="pgn-row"&gt;…&lt;div class="pgn"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — страница ' + Math.min(state.page, tp) + ' из ' + tp;
     }
     render();
     window.addEventListener('resize', render);
@@ -13080,11 +13454,15 @@ try { (() => {
     const host = document.getElementById('content-pagesize');
     if (!host) return;
     const anchor = document.createElement('span');
-    anchor.className = 'ddl-anchor';
+    anchor.className = 'pgn__pagesize ddl-anchor';
+    const label = document.createElement('span');
+    label.className = 'pgn__pagesize-label';
+    label.innerHTML = 'Показывать строк: <b>20</b>';
     const trg = document.createElement('button');
     trg.type = 'button';
-    trg.className = 'pgn__pagesize is-open';
-    trg.innerHTML = 'Показывать строк: <b>20</b><span class="pgn__pagesize__chev">' + icon('chevron-down') + '</span>';
+    trg.className = 'pgn__pagesize-btn is-open';
+    trg.setAttribute('aria-label', 'Изменить размер страницы');
+    trg.innerHTML = icon('chevron-down');
     const list = document.createElement('div');
     list.className = 'ddl ddl--floating ddl--pinned';
     DEFAULT_SIZES.forEach(v => {
@@ -13095,7 +13473,7 @@ try { (() => {
       it.innerHTML = '<span class="ddl__item-body"><span class="ddl__item-label">' + sizeLabel(v) + '</span></span>';
       list.appendChild(it);
     });
-    anchor.append(trg, list);
+    anchor.append(label, trg, list);
     host.appendChild(anchor);
     requestAnimationFrame(() => {
       list.style.position = 'static';
@@ -13162,12 +13540,11 @@ try { (() => {
         b.className = 'pgn__num' + (p === 2 ? ' is-hover' : '');
         b.textContent = p;
         if (p === 2) {
-          b.style.background = 'var(--tertiary-light)';
-          b.style.color = 'var(--text-primary)';
+          b.style.background = 'color-mix(in srgb, currentColor 12%, transparent)';
         }
         nav.appendChild(b);
       });
-    }), [['Фон', '--tertiary-light', 'Tertiary_Light', 'Swamp_50'], ['Текст', '--text-primary', 'Text_Primary', 'CGrey_600']]], ['Current (текущая)', () => miniNav(nav => {
+    }), [['Стейт-слой', '--text-secondary', 'currentColor 12%', 'IconButton neutral'], ['Текст', '--text-secondary', 'Text_Secondary', 'CGrey_500']]], ['Current (текущая)', () => miniNav(nav => {
       [1, 2, 3].forEach(p => {
         const b = document.createElement('span');
         b.className = 'pgn__num';
@@ -13175,7 +13552,7 @@ try { (() => {
         if (p === 2) b.setAttribute('aria-current', 'page');
         nav.appendChild(b);
       });
-    }), [['Фон', '--bgtable-row-focus', 'BGTable_RowFocus', 'Swamp_a700'], ['Текст', '--text-primary', 'Text_Primary', 'CGrey_800']]], ['Arrow · Default / Disabled', () => miniNav(nav => {
+    }), [['Фон', '--bgtable-row-focus', 'BGTable_RowFocus', 'Swamp_a700'], ['Текст', '--text-primary', 'Text_Primary', 'CGrey_800']]], ['Arrow · Default / граница', () => miniNav(nav => {
       const p = document.createElement('span');
       p.className = 'pgn__arrow';
       p.innerHTML = icon('chevron-left');
@@ -13185,22 +13562,7 @@ try { (() => {
       n.setAttribute('aria-disabled', 'true');
       n.innerHTML = icon('chevron-right');
       nav.appendChild(n);
-    }), [['Default', '--text-secondary', 'Text_Secondary', 'CGrey_500'], ['Disabled', '--text-inactive', 'Text_Inactive', 'CGrey_300']]], ['Disabled (весь компонент)', () => {
-      const nav = miniNav(nav => {
-        [1, 2].forEach(p => {
-          const b = document.createElement('span');
-          b.className = 'pgn__num';
-          if (p === 1) b.setAttribute('aria-current', 'page');
-          b.textContent = p;
-          nav.appendChild(b);
-        });
-      });
-      nav.closest && null;
-      const wrap = document.createElement('div');
-      wrap.className = 'pgn pgn--disabled';
-      wrap.appendChild(nav);
-      return wrap;
-    }, [['Текст', '--text-inactive', 'Text_Inactive', 'CGrey_300'], ['Current фон', '--disabled-bg', 'DisabledBG', 'CGrey_50']]]];
+    }), [['Default', '--text-secondary', 'Text_Secondary', 'CGrey_500'], ['Граница', '--text-inactive', 'Text_Inactive', 'CGrey_300']]]];
     const host = document.getElementById('state-specs');
     if (!host) return;
     rows.forEach(([title, mkr, colors]) => {
@@ -13226,34 +13588,29 @@ try { (() => {
     probe.remove();
   })();
 
-  /* ============================ LOADING demo ============================ */
-  (function () {
-    mount('demo-loading', buildPager({
-      total: 800,
-      pageSize: 50,
-      page: 3,
-      loading: true,
-      onChange() {}
-    }));
-  })();
-
   /* ============================ ADAPTIVITY demos ============================ */
   (function () {
     // фиксированные снимки уровней
     const host = document.getElementById('adapt-tiers');
     if (host) {
-      const samples = [['l · ≥ 680px — полный набор', 720], ['m · ≥ 520px — сокращённый (1 … N … Last)', 560], ['s · ≥ 380px — вертикаль, только стрелки', 420], ['xs · < 380px — пагинатор в две строки', 320]];
-      samples.forEach(([label, w]) => {
+      const LBL = {
+        l: 'полный набор номеров',
+        m: 'сокращённый набор: 1 … N … Last',
+        sm: 'между стрелок только текущая страница',
+        c: 'номера скрыты, между стрелок счётчик «N из M»',
+        xs: 'пагинатор переносится в две строки'
+      };
+      [960, 800, 700, 640, 520, 340].forEach(w => {
         const wrap = document.createElement('div');
         wrap.className = 'adapt-sample';
         const cap = document.createElement('p');
         cap.className = 'demo-rowlabel';
-        cap.textContent = label;
+        cap.textContent = w + 'px';
         const frame = document.createElement('div');
         frame.className = 'adapt-frame';
         frame.style.width = w + 'px';
         frame.style.maxWidth = '100%';
-        frame.appendChild(buildRow({
+        const row = buildRow({
           info: {},
           pager: {
             total: 480,
@@ -13261,9 +13618,17 @@ try { (() => {
             page: 6,
             onChange() {}
           }
-        }));
+        });
+        frame.appendChild(row);
         wrap.append(cap, frame);
         host.appendChild(wrap);
+        // подпись берём из фактически применённого уровня — чтобы не расходилась с поведением
+        setTimeout(() => {
+          const p = row.querySelector('.pgn');
+          const t = p && p.dataset.tier;
+          if (!t) return;
+          cap.textContent = w + 'px · tier ' + t + (row.dataset.layout === 'stack' ? ' · вертикаль' : '') + ' — ' + (LBL[t] || '');
+        }, 120);
       });
     }
     // живой ресайз
@@ -13290,12 +13655,11 @@ try { (() => {
       b.textContent = text;
       if (opt.current) b.setAttribute('aria-current', 'page');
       if (opt.hover) {
-        b.style.background = 'var(--tertiary-light)';
-        b.style.color = 'var(--text-primary)';
+        b.style.background = 'color-mix(in srgb, currentColor 12%, transparent)';
       }
       if (opt.focus) {
         b.style.outline = '2px solid var(--primary)';
-        b.style.outlineOffset = '1px';
+        b.style.outlineOffset = '2px';
       }
       if (opt.disabled) {
         b.disabled = true;
@@ -13310,8 +13674,7 @@ try { (() => {
       b.innerHTML = icon(dir < 0 ? 'chevron-left' : 'chevron-right');
       if (opt.disabled) b.setAttribute('aria-disabled', 'true');
       if (opt.hover) {
-        b.style.background = 'var(--tertiary-light)';
-        b.style.color = 'var(--text-primary)';
+        b.style.background = 'color-mix(in srgb, currentColor 12%, transparent)';
       }
       return b;
     }
@@ -13732,7 +14095,7 @@ try { (() => {
       const controls = panel.querySelector(':scope > .pg__controls');
       const stage = panel.querySelector(':scope > .pg__stage');
       if (!controls || !stage) return;
-      insertSplitter(panel, controls, stage);
+      if (panel.dataset.pgNoSplit === undefined) insertSplitter(panel, controls, stage);
       enhanceSelects(controls);
       observeNarrow(controls);
     });
@@ -14589,17 +14952,31 @@ try { (() => {
     const arrow = document.createElement('span');
     arrow.className = 'tip__arrow';
     el.appendChild(arrow);
+    /* Тултип живёт в <body> и позиционируется fixed относительно цели: строка
+       значения слишком низкая, чтобы вместить тултип НАД иконкой внутри себя —
+       раньше он прижимался к верху строки, перекрывал иконку и мигал (курсор
+       уходил с цели). pointer-events:none — курсор всегда остаётся на цели. */
+    el.style.position = 'fixed';
+    el.style.pointerEvents = 'none';
+    el.style.zIndex = '1000';
     return el;
   }
+  /* По центру НАД целью с зазором 8px; если сверху не помещается — переворот
+     вниз; по горизонтали прижимается к границам вьюпорта. */
   function positionTipAbove(container, tip, target) {
-    const cr = container.getBoundingClientRect();
     const tr = target.getBoundingClientRect();
     const tw = tip.offsetWidth,
       th = tip.offsetHeight;
-    const cx = tr.left - cr.left + tr.width / 2;
-    const top = tr.top - cr.top - th - 8;
-    tip.style.left = cx - tw / 2 + 'px';
-    tip.style.top = Math.max(0, top) + 'px';
+    let left = tr.left + tr.width / 2 - tw / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+    let top = tr.top - th - 8;
+    if (top < 8) {
+      top = tr.bottom + 8;
+      tip.classList.remove('tip--top');
+      tip.classList.add('tip--bottom');
+    }
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
   }
   /* getText: string, or a function re-evaluated on every hover (used to only
      show the tip when the value is actually overflowing at that moment). */
@@ -14612,13 +14989,16 @@ try { (() => {
       clearTimeout(timer);
       timer = setTimeout(() => {
         tip = makeFloatingTip(text, opts);
-        container.appendChild(tip);
+        document.body.appendChild(tip);
         positionTipAbove(container, tip, target);
-        requestAnimationFrame(() => tip && tip.classList.add('is-visible'));
+        window.addEventListener('scroll', hide, true);
+        void tip.offsetHeight; // reflow вместо rAF: кадры могут быть заморожены в фоновой вкладке
+        tip.classList.add('is-visible');
       }, 280);
     }
     function hide() {
       clearTimeout(timer);
+      window.removeEventListener('scroll', hide, true);
       if (tip) {
         tip.remove();
         tip = null;
@@ -14633,9 +15013,10 @@ try { (() => {
     const tip = makeFloatingTip(text, {
       type: 'main'
     });
-    container.appendChild(tip);
+    document.body.appendChild(tip);
     positionTipAbove(container, tip, target);
-    requestAnimationFrame(() => tip.classList.add('is-visible'));
+    void tip.offsetHeight;
+    tip.classList.add('is-visible');
     setTimeout(() => {
       tip.classList.remove('is-visible');
       setTimeout(() => tip.remove(), 160);
@@ -15052,7 +15433,8 @@ try { (() => {
     controls.appendChild(groupHead('Значение'));
     controls.appendChild(seg('Тип значения', [['text', 'Текст'], ['chips', 'Чипы'], ['link', 'Ссылка']], () => state.type, v => state.type = v));
     controls.appendChild(seg('Выравнивание', [['left', 'Слева'], ['right', 'Справа']], () => state.align, v => state.align = v));
-    controls.appendChild(seg('Цвет значения', [['default', 'Default'], ['positive', 'Positive'], ['negative', 'Negative'], ['empty', 'Empty']], () => state.tone, v => state.tone = v, true));
+    const toneCtl = seg('Цвет значения', [['default', 'Default'], ['positive', 'Positive'], ['negative', 'Negative'], ['empty', 'Empty']], () => state.tone, v => state.tone = v, true);
+    controls.appendChild(toneCtl);
     const clampCtl = seg('Обрезание текста (строк)', [['none', 'Нет'], ['1', '1'], ['2', '2'], ['3', '3']], () => state.clamp, v => state.clamp = v);
     controls.appendChild(clampCtl);
     const chipRowsCtl = seg('Ряды чипов', [['none', 'Перенос'], ['1', '1 ряд'], ['2', '2 ряда']], () => state.chipRows, v => state.chipRows = v);
@@ -15072,8 +15454,10 @@ try { (() => {
 
     /* --- Обрамление слева --- */
     controls.appendChild(groupHead('Обрамление'));
-    controls.appendChild(textInput('Префикс', () => state.prefixText, v => state.prefixText = v, 'напр. ≈'));
-    controls.appendChild(textInput('Постфикс', () => state.postfixText, v => state.postfixText = v, 'напр. ₽'));
+    const prefixCtl = textInput('Префикс', () => state.prefixText, v => state.prefixText = v, 'напр. ≈');
+    controls.appendChild(prefixCtl);
+    const postfixCtl = textInput('Постфикс', () => state.postfixText, v => state.postfixText = v, 'напр. ₽');
+    controls.appendChild(postfixCtl);
     controls.appendChild(iconPick('Иконка слева', () => state.iconLeft, v => state.iconLeft = v));
 
     /* --- Иконка справа --- */
@@ -15090,8 +15474,16 @@ try { (() => {
     function render() {
       preview.innerHTML = '';
       const isChips = state.type === 'chips';
+      const isText = state.type === 'text';
+      /* цвет значения — только у текста; аффиксы — не у чипов */
+      const tone = isText ? state.tone : 'default';
+      const prefix = isChips ? null : state.prefixText || null;
+      const postfix = isChips ? null : state.postfixText || null;
       const useClamp = !isChips ? state.clamp : 'none';
       const hasIconRight = state.iconRight !== 'none';
+      toneCtl.classList.toggle('is-off', !isText);
+      prefixCtl.classList.toggle('is-off', isChips);
+      postfixCtl.classList.toggle('is-off', isChips);
       clampCtl.classList.toggle('is-off', isChips);
       chipRowsCtl.classList.toggle('is-off', !isChips);
       iconActionCtl.classList.toggle('is-off', !hasIconRight);
@@ -15104,24 +15496,24 @@ try { (() => {
         chipsMaxRows: isChips && state.chipRows !== 'none' ? Number(state.chipRows) : null,
         showLabel: state.label,
         label: 'Название поля',
-        helper: state.helper ? state.tone === 'empty' ? 'Данные ещё не загружены' : 'Пояснение к значению' : null,
+        helper: state.helper ? tone === 'empty' ? 'Данные ещё не загружены' : 'Пояснение к значению' : null,
         iconLeft: state.iconLeft === 'none' ? null : state.iconLeft,
-        prefix: state.prefixText || null,
-        postfix: state.postfixText || null,
+        prefix: prefix,
+        postfix: postfix,
         iconRight: hasIconRight ? state.iconRight : null,
         iconRightAction: state.iconRightAction,
         iconRightTone: state.iconRightTone,
         iconRightTip: state.iconRightTipText,
-        tone: state.tone,
+        tone: tone,
         clampMode: useClamp,
         align: state.align
       };
       preview.appendChild(makeROF(o));
       const parts = ['type=' + state.type];
-      if (state.tone !== 'default') parts.push('tone=' + state.tone);
+      if (tone !== 'default') parts.push('tone=' + tone);
       if (state.iconLeft !== 'none') parts.push('iconLeft=' + state.iconLeft);
-      if (state.prefixText) parts.push('prefix="' + state.prefixText + '"');
-      if (state.postfixText) parts.push('postfix="' + state.postfixText + '"');
+      if (prefix) parts.push('prefix="' + prefix + '"');
+      if (postfix) parts.push('postfix="' + postfix + '"');
       if (hasIconRight) {
         parts.push('iconRight=' + state.iconRight);
         if (state.iconRightAction !== 'none') parts.push('iconRightAction=' + state.iconRightAction);
@@ -15295,7 +15687,12 @@ try { (() => {
         label: 'Label',
         type: 'chips',
         chips: ['Text', 'Text', 'Text'],
-        helper: 'Helper'
+        helper: 'Helper',
+        iconLeft: 'search',
+        iconRight: 'alert-triangle-filled',
+        iconRightAction: 'tooltip',
+        iconRightTone: 'warning',
+        iconRightTip: 'Комментарий'
       }),
       'link-default': () => makeROF({
         label: 'Label',
@@ -15520,50 +15917,6 @@ try { (() => {
     });
   })();
 
-  /* ============================ PROPOSALS ============================ */
-  (function () {
-    const host = document.getElementById('proposals');
-    if (!host) return;
-    const props = [['Empty-состояние', 'Явный плейсхолдер «—» вместо пустой строки, когда значения ещё нет.', [makeROF({
-      label: 'Курс',
-      tone: 'empty'
-    })]], ['Loading-скелетон', 'Шиммер вместо значения (и лейбла) на время загрузки данных из внешней системы.', [makeROF({
-      label: 'Курс',
-      state: 'loading'
-    })]], ['Подтверждение копирования', 'Иконка временно меняется на галочку, всплывает тултип «Скопировано» — сейчас в материалах есть только статичная иконка без обратной связи.', [makeROF({
-      label: 'ID',
-      value: '123456789012',
-      iconRight: 'copy',
-      iconRightAction: 'copy'
-    })]], ['Правое выравнивание', 'Для колонок чисел/дат — по аналогии с правилом Label/Helper для полей ввода.', [makeROF({
-      label: 'Сумма',
-      value: '120 000 ₽',
-      align: 'right'
-    })]], ['Семантика для скринридеров', 'Рекомендуем оборачивать пары label/value в <dl>/<dt>/<dd> или связывать aria-labelledby, чтобы значения озвучивались вместе с подписью.', []], ['Свёртка чип-листа «+N»', 'Работает через chipsMaxRows: когда чипов больше, чем помещается в заданное число рядов, лишние сворачиваются в чип-счётчик (см. раздел «Переполнение») — по аналогии с предложением для компонента Chip.', [makeROF({
-      label: 'Категории',
-      type: 'chips',
-      chips: ['Договор', 'Поставка', 'Опт', 'VIP'],
-      chipsMaxRows: 1
-    })]]];
-    props.forEach(([name, desc, nodes]) => {
-      const p = document.createElement('div');
-      p.className = 'prop';
-      const demo = document.createElement('div');
-      demo.className = 'pdemo';
-      nodes.forEach(n => demo.appendChild(n));
-      p.appendChild(demo);
-      const n = document.createElement('div');
-      n.className = 'pname';
-      n.textContent = name;
-      p.appendChild(n);
-      const d = document.createElement('div');
-      d.className = 'pdesc';
-      d.textContent = desc;
-      p.appendChild(d);
-      host.appendChild(p);
-    });
-  })();
-
   /* ============================ TYPOGRAPHY ============================ */
   (function () {
     const rows = [['Label', '--type-body-xs', 'SB Sans Text', '12 / 16', '--text-secondary'], ['Значение', '--type-body-m', 'SB Sans Text', '16 / 20', '--text-primary'], ['Helper', '--type-body-xs', 'SB Sans Text', '12 / 16', '--text-inactive']];
@@ -15601,17 +15954,31 @@ try { (() => {
       wrap.appendChild(box);
       bad1.appendChild(wrap);
     }
+
+    /* пример читается только в узкой колонке карточки: там обрезка до 2 строк
+       и свободный поток дают разную высоту поля и разное положение соседа */
+    const DELIVERY = 'Курьером в течение дня по указанному адресу и в согласованный с получателем интервал, кроме выходных и праздничных дней';
+    function deliveryCard(clamp) {
+      const w = document.createElement('div');
+      w.style.cssText = 'width:224px;display:grid;gap:14px;';
+      w.append(makeROF(clamp ? {
+        label: 'Способ доставки',
+        value: DELIVERY,
+        clampMode: '2'
+      } : {
+        label: 'Способ доставки',
+        value: DELIVERY
+      }), makeROF({
+        label: 'Стоимость доставки',
+        value: '1 200',
+        postfix: '₽'
+      }));
+      return w;
+    }
     const good2 = document.getElementById('guide-good2');
-    if (good2) good2.appendChild(makeROF({
-      label: 'Способ доставки',
-      value: 'Курьером в течение дня по указанному адресу и в согласованный интервал',
-      clampMode: '2'
-    }));
+    if (good2) good2.appendChild(deliveryCard(true));
     const bad2 = document.getElementById('guide-bad2');
-    if (bad2) bad2.appendChild(makeROF({
-      label: 'Способ доставки',
-      value: 'Курьером в течение дня по указанному адресу и в согласованный интервал'
-    }));
+    if (bad2) bad2.appendChild(deliveryCard(false));
     const good3 = document.getElementById('guide-good3');
     if (good3) good3.appendChild(makeROF({
       label: 'Дата платежа',
@@ -19736,7 +20103,7 @@ try { (() => {
       const scrim = document.createElement('div');
       scrim.className = 'modal-scrim modal-scrim--nested';
       const w = danger ? 3 : 4;
-      scrim.innerHTML = '<div class="modal modal--w' + w + '" role="alertdialog" aria-modal="true">' + '<div class="modal__head"><h2 class="modal__title">' + title + '</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' + '<div class="modal__body">' + body + '</div>' + '<div class="modal__foot"><div class="modal__foot-left"></div><div class="modal__foot-right">' + '<button type="button" class="btn btn--outline btn--m nested-cancel"><span class="btn__label">Отмена</span></button>' + '<button type="button" class="btn btn--accent btn--m' + (danger ? ' btn--danger' : '') + ' nested-ok"><span class="btn__label">' + confirmLabel + '</span></button>' + '</div></div>' + '</div>';
+      scrim.innerHTML = '<div class="modal modal--w' + w + '" role="alertdialog" aria-modal="true">' + '<div class="modal__head"><h2 class="modal__title">' + title + '</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' + '<div class="modal__body">' + body + '</div>' + '<div class="modal__foot"><div class="modal__foot-left"></div><div class="modal__foot-right">' + '<button type="button" class="btn btn--outline btn--m nested-cancel"><span class="btn__label">Отмена</span></button>' + '<button type="button" class="btn btn--accent btn--m' + (danger ? ' btn--danger' : '') + ' nested-ok"><span class="btn__label">' + confirmLabel + '</span></button>' + '</div></div>' + '</div>';
       parentScrim.appendChild(scrim);
       const close = () => scrim.remove();
       scrim.querySelector('.modal__close button').addEventListener('click', close);
@@ -19813,7 +20180,7 @@ try { (() => {
         label: 'Сохранённые фильтры'
       }];
       const nav = '<div class="tabs tabs--vert tfm__nav" role="tablist" aria-label="Разделы фильтра">' + tabs.map((t, i) => '<button type="button" class="tab tab--m tab--vert' + (i === 0 ? ' tab--selected' : '') + '" role="tab" aria-selected="' + (i === 0) + '" tabindex="' + (i === 0 ? 0 : -1) + '" data-tab="' + t.id + '"><span class="tab__label">' + t.label + '</span></button>').join('') + '</div>';
-      modal.innerHTML = '<div class="modal__head"><h2 class="modal__title">Фильтр</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' + '<div class="modal__body modal__body--flush"><div class="tfm__body">' + nav + '<div class="tfm__panel" id="tfm-panel"></div></div></div>' + '<div class="modal__foot"><div class="modal__foot-left">' + '<button type="button" class="btn btn--transparent btn--m tfm-save"><i data-icon="bookmark-add"></i><span class="btn__label">Сохранить фильтр</span></button>' + '</div><div class="modal__foot-right">' + '<button type="button" class="btn btn--transparent btn--m tfm-clear"><span class="btn__label">Очистить</span></button>' + '<button type="button" class="btn btn--accent btn--m tfm-apply"><span class="btn__label">Применить</span></button>' + '</div></div>';
+      modal.innerHTML = '<div class="modal__head"><h2 class="modal__title">Фильтр</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' + '<div class="modal__body modal__body--flush"><div class="tfm__body">' + nav + '<div class="tfm__panel" id="tfm-panel"></div></div></div>' + '<div class="modal__foot"><div class="modal__foot-left">' + '<button type="button" class="btn btn--transparent btn--m tfm-save"><i data-icon="bookmark-add"></i><span class="btn__label">Сохранить фильтр</span></button>' + '</div><div class="modal__foot-right">' + '<button type="button" class="btn btn--transparent btn--m tfm-clear"><span class="btn__label">Очистить</span></button>' + '<button type="button" class="btn btn--accent btn--m tfm-apply"><span class="btn__label">Применить</span></button>' + '</div></div>';
       scrim.appendChild(modal);
       document.body.appendChild(scrim);
       activeScrim = scrim;
@@ -20930,7 +21297,10 @@ function makeTip(text, o = {}) {
     arrow = true,
     multiline = false,
     floating = false,
-    pinned = false
+    pinned = false,
+    rich = false,
+    title = '',
+    action = ''
   } = o;
   const el = document.createElement('span');
   el.className = 'tip tip--' + type + ' tip--' + placement + ' tip--' + align;
@@ -20938,7 +21308,31 @@ function makeTip(text, o = {}) {
   if (multiline) el.classList.add('tip--multiline');
   if (floating) el.classList.add('tip--floating');
   if (pinned) el.classList.add('tip--pinned');
-  el.append(document.createTextNode(text));
+  if (rich) {
+    el.classList.add('tip--rich');
+    if (title) {
+      const t = document.createElement('span');
+      t.className = 'tip__title';
+      t.textContent = title;
+      el.appendChild(t);
+    }
+    const p = document.createElement('span');
+    p.className = 'tip__text';
+    p.textContent = text;
+    el.appendChild(p);
+    if (action) {
+      const box = document.createElement('span');
+      box.className = 'tip__actions';
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tip__action';
+      b.textContent = action;
+      box.appendChild(b);
+      el.appendChild(box);
+    }
+  } else {
+    el.append(document.createTextNode(text));
+  }
   const a = document.createElement('span');
   a.className = 'tip__arrow';
   el.appendChild(a);
@@ -20978,6 +21372,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
     align: 'center',
     arrow: true,
     multiline: false,
+    rich: false,
     text: 'Подсказка'
   };
   const controls = document.getElementById('pg-controls');
@@ -21050,20 +21445,27 @@ function placeTip(stage, tip, target, placement, align, gap) {
   controls.appendChild(select('Размещение', [['top', 'Top'], ['bottom', 'Bottom'], ['left', 'Left'], ['right', 'Right']], () => state.placement, v => state.placement = v));
   controls.appendChild(select('Стрелка (выравнивание)', [['start', 'Start'], ['center', 'Center'], ['end', 'End']], () => state.align, v => state.align = v));
   controls.appendChild(toggle('Стрелка', 'arrow'));
-  controls.appendChild(toggle('Перенос (multiline)', 'multiline'));
+  controls.appendChild(toggle('Богатый контент', 'rich'));
+  const multilineCtl = toggle('Перенос (multiline)', 'multiline');
+  controls.appendChild(multilineCtl);
   function render() {
     if (tip) tip.remove();
-    tip = makeTip(state.text, {
+    // rich уже переносит текст — тумблер переноса в этом режиме не нужен
+    multilineCtl.classList.toggle('is-off', state.rich);
+    tip = makeTip(state.rich ? 'Максимальная сумма, которую банк держит на одном контрагенте. Пересчитывается ночью.' : state.text, {
       ...state,
       floating: true,
-      pinned: true
+      pinned: true,
+      title: state.rich ? state.text : '',
+      action: state.rich ? 'Открыть методику' : ''
     });
-    if (state.multiline) tip.style.maxWidth = '180px';
+    if (state.multiline && !state.rich) tip.style.maxWidth = '180px';
     stage.appendChild(tip);
     placeTip(stage, tip, target, state.placement, state.align, 8);
     const cls = ['tip', 'tip--' + state.type, 'tip--' + state.placement, 'tip--' + state.align];
     if (!state.arrow) cls.push('tip--no-arrow');
-    if (state.multiline) cls.push('tip--multiline');
+    if (state.rich) cls.push('tip--rich');
+    if (state.multiline && !state.rich) cls.push('tip--multiline');
     codeEl.innerHTML = '<code>&lt;span class="' + cls.join(' ') + '"&gt;</code>';
   }
   render();
@@ -21132,6 +21534,65 @@ function placeTip(stage, tip, target, placement, align, gap) {
     item.appendChild(h);
     item.appendChild(box);
     host.appendChild(item);
+  });
+})();
+
+/* =========================================================================
+   RICH CONTENT — заголовок + описание + действие; тултип интерактивный
+   ========================================================================= */
+(function () {
+  const host = document.getElementById('rich-demo');
+  if (!host) return;
+  const wrap = document.createElement('span');
+  wrap.className = 'tip-anchor';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'iconbtn';
+  btn.innerHTML = UI_ICONS.help;
+  btn.setAttribute('aria-label', 'Что такое лимит риска');
+  btn.setAttribute('aria-describedby', 'tt-rich');
+  wrap.appendChild(btn);
+  const tip = makeTip('Максимальная сумма, которую банк держит на одном контрагенте. Пересчитывается ночью после закрытия операционного дня.', {
+    placement: 'bottom',
+    align: 'center',
+    floating: true,
+    rich: true,
+    title: 'Лимит риска',
+    action: 'Открыть методику'
+  });
+  tip.id = 'tt-rich';
+  tip.setAttribute('role', 'tooltip');
+  wrap.appendChild(tip);
+  host.appendChild(wrap);
+  let showT = null,
+    hideT = null;
+  const open = () => {
+    clearTimeout(hideT);
+    showT = setTimeout(() => {
+      placeTip(wrap, tip, btn, 'bottom', 'center', 8);
+      tip.classList.add('is-visible');
+    }, 400);
+  };
+  const close = () => {
+    clearTimeout(showT);
+    hideT = setTimeout(() => tip.classList.remove('is-visible'), 300);
+  };
+  btn.addEventListener('mouseenter', open);
+  btn.addEventListener('mouseleave', close);
+  btn.addEventListener('focus', () => {
+    clearTimeout(hideT);
+    placeTip(wrap, tip, btn, 'bottom', 'center', 8);
+    tip.classList.add('is-visible');
+  });
+  btn.addEventListener('blur', close);
+  // курсор может зайти в сам тултип — это отличие rich от обычного
+  tip.addEventListener('mouseenter', () => clearTimeout(hideT));
+  tip.addEventListener('mouseleave', close);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      clearTimeout(showT);
+      tip.classList.remove('is-visible');
+    }
   });
 })();
 

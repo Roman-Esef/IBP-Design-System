@@ -1,8 +1,8 @@
 ---
 component: InputText
 title: "InputText"
-version: "v1.6"
-updated: "22.07.2026"
+version: "v1.7"
+updated: "29.07.2026"
 page: pages/molecules/InputText.html
 page_js: scripts/input-text.page.js
 css: styles/input.css

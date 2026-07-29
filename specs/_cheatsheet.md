@@ -284,7 +284,7 @@ css: `styles/icon-button.css` · deps: [badge]
 `.ibtn__badge` — правый верхний угол рамки (top:0/right:0), не выходит за габарит; счётчик ≤ 2 символов, при значении > 99 показываем «9+».
 
 ## Illustrations (Иллюстрации)
-css: styles/illustration.css · deps: — · v1.2
+css: styles/illustration.css · deps: — · v1.3
 Слот продуктовой иллюстрации; scripts/ds-illustrations.js подставляет реальный SVG из assets/illustrations/<data-illu>.svg (32 тайловых 195×140 + 4 состояния + 1 фоновая). Размер = width/height слота, object-fit:contain. Неизвестное имя → штриховая заглушка (.illu:empty). Скрипт авто-дорендерит слоты, добавленные в DOM позже (MutationObserver) — динамически пересобранные конструкторы/тайквики не остаются без иллюстрации; рендер также через window.DSIllustrations.render().dth/height слота (дефолт 96×96). Всегда aria-hidden. Имена: deals, partners, reports, tasks, admin, empty-search.
 ```
 <span class="illu" data-illu="deals" aria-hidden="true"></span>
@@ -349,7 +349,12 @@ css: `styles/input.css` · deps: [label-helper, checkbox, chip, tooltip, dropdow
     </span>
   </div>
   <div id="ac-list" class="ddl ddl--floating ddl--scroll" role="listbox" aria-multiselectable="true">
-    <button class="ddl__item ddl__item--checkbox" role="option" aria-checked="true">…</button>
+    <button class="ddl__item ddl__item--checkbox ddl__item--all" role="option" aria-checked="mixed">
+    <span class="ddl__item-check"><span class="cb__box"><span class="cb__mark">…</span></span></span>
+    <span class="ddl__item-body"><span class="ddl__item-label">Выбрать всё</span></span>
+  </button>
+  <hr class="ddl__divider">
+  <button class="ddl__item ddl__item--checkbox" role="option" aria-checked="true">…</button>
   </div>
   <!-- вариант Chips Ext: <div class="inp-ext" role="group">…чипы…</div> вместо .inp__chips -->
 </div>
@@ -449,17 +454,19 @@ css: `styles/link.css` · deps: [breadcrumbs]
 ```
 
 ## Modal
-css: `styles/modal.css` · deps: [button, icon-button, label-helper, checkbox]
+css: `styles/modal.css` · deps: [button, icon-button, label-helper, checkbox, alert]
 
-Не компонент в привычном смысле — свод правил построения модальных форм. Обязательны шапка (Modal_Top: заголовок + крестик) и подвал (Modal_Bottom: опционально слева, обязательно Primary справа); между ними Modal_Body — произвольный прокручиваемый контент. 12 шагов ширины (--modal-w-1…12, 140–1820px). Закрытие: крестик/Esc/скрим — кроме guarded-форм с несохранённым вводом (скрим игнорируется). Диалог подтверждения удаления — вложенный `.modal-scrim--nested` с Primary в тоне `.btn--danger`.
+Не компонент в привычном смысле — свод правил построения модальных форм. Обязательны шапка (Modal_Top: заголовок H4 Strong 22/24 + крестик IconButton Neutral L; строка 24px, зазор 24px, паддинги 20/20/20/24) и подвал (Modal_Bottom, паддинги 16px, всегда один ряд: опционально слева, обязательно Primary справа); между ними — необязательный Alert уровня модалки (`.modal__alert` + `.alert--flush`) и Modal_Body (паддинги 16/24/24, зазор 16px) — произвольный прокручиваемый контент. Радиус 8px. Ширина — шаги шкалы колонок 2–12 (`--modal-w-2…12`, 289–1816px на 1920; варианта в 1 колонку нет). Высота — по контенту до 80vh, дальше скролл тела. Закрытие: крестик/Esc/скрим — кроме guarded-форм с несохранённым вводом (скрим игнорируется). Диалог подтверждения удаления — вложенный `.modal-scrim--nested` с Primary в тоне `.btn--danger`.
 
 ```html
 <div class="modal-scrim">
   <div class="modal modal--w6" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <header class="modal__head">
       <h2 class="modal__title" id="modal-title">Новая сделка</h2>
-      <button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><svg aria-hidden="true">…</svg></button>
+      <button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><svg aria-hidden="true">…</svg></button>
     </header>
+    <!-- опционально: ошибка/предупреждение уровня всей модалки -->
+    <div class="modal__alert"><div class="alert alert--error alert--m alert--flush" data-alert-tone="error" role="alert">…</div></div>
     <div class="modal__body">…любой контент — форма, таблица, пустое состояние…</div>
     <footer class="modal__foot">
       <div class="modal__foot-left">
@@ -560,7 +567,7 @@ Title `--type-h3-strong` (28/32), усечение + Tooltip; Subtitle Body S; �
 ## Pagination
 css: `styles/pagination.css` · deps: [dropdown-list, checkbox, label-helper, button, splitter]
 
-Нижняя строка многостраничной таблицы: переключение страниц, выбор количества строк на странице и счётчик диапазона.
+Нижняя строка многостраничной таблицы: переключение страниц, выбор количества строк на странице и счётчик диапазона. Адаптив — измерением доступного места (не пороги ширины): `data-tier` на `.pgn` (l → m → sm «только текущая» → c compact → xs) и `data-layout` на `.pgn-row` (row / stack). Раскладка — по правилу «максимума номеров»: одна строка, пока в неё помещается не худший уровень, чем в вертикали. Инфо-сводка никогда не обрезается, пагинатор не выходит за правый край.
 
 ```html
 <div class="pgn-row">
@@ -569,7 +576,7 @@ css: `styles/pagination.css` · deps: [dropdown-list, checkbox, label-helper, bu
   </div>
   <div class="pgn-row__right">
     <div class="pgn">
-      <button class="pgn__pagesize" aria-haspopup="listbox">Показывать строк: <b>50</b></button>
+      <span class="pgn__pagesize"><span class="pgn__pagesize-label">Показывать строк: <b>50</b></span><button class="pgn__pagesize-btn" aria-haspopup="listbox"><i data-icon="chevron-down"></i></button></span>
       <span class="pgn__range">3 из 16</span>
       <nav class="pgn__nav" aria-label="Страницы">
         <button class="pgn__arrow" aria-label="Предыдущая страница">‹</button>
@@ -792,7 +799,7 @@ css: `styles/radio.css` · deps: [label-helper]
 ## ReadOnlyField
 css: `styles/read-only-field.css` · deps: [label-helper, chip, link, tooltip, segment-control, splitter]
 
-Поле для отображения данных без возможности редактирования.
+Поле для отображения данных без возможности редактирования. Аффиксы (prefix/postfix) и цвет значения — только у типа «Текст»; чипам доступны иконки слева/справа, лейбл и хэлпер. Чип-счётчик «+N» обязан иметь тултип со списком скрытых чипов.
 
 ```html
 <div class="rof">
@@ -807,6 +814,21 @@ css: `styles/read-only-field.css` · deps: [label-helper, chip, link, tooltip, s
   <span class="ds-label"><span class="ds-label__text">Регионы присутствия</span></span>
   <div class="rof__row"><div class="rof__value rof__value--chips"><div class="chiplist chiplist--s">…</div></div></div>
 </div>
+```
+
+## Screens
+pages: pages/screens/*.html · shared_css: styles/screens.css · shared_js: scripts/screens-chrome.js
+
+Эталонные экраны продукта (статичные мокапы, не кликабельные прототипы), собранные из компонентов и токенов ДС. Общий каркас/раскладки без отдельных компонентов — в styles/screens.css.
+
+```html
+<div class="scr">
+  <nav data-screen-rail data-active="main-page" data-avatar="ИИ"></nav>
+  <main class="ws">…</main>
+</div>
+<script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/screens-chrome.js"></script>
 ```
 
 ## SegmentControl
@@ -830,10 +852,10 @@ css: `styles/segment-control.css` · deps: [tab, button, button-group, badge]
 </div>
 ```
 
-## Select
-css: `—` · deps: [checkbox, label-helper, dropdown-list]
+## DropdownList
+css: `styles/dropdown-list.css` · deps: [checkbox, label-helper]
 
-Выпадающий список — всплывающая поверхность со списком опций, которая раскрывается под полем Select или InputAutocomplete.
+Выпадающий список — всплывающая поверхность со списком опций, которая раскрывается под полем Select или InputAutocomplete. Мультивыбор — ведущие чекбоксы + опциональная первая строка «Выбрать всё» (`.ddl__item--all`, три-стейт `aria-checked="mixed"`).
 
 ```html
 <div role="combobox" aria-expanded="true" aria-controls="ccy">…</div>
@@ -845,6 +867,11 @@ css: `—` · deps: [checkbox, label-helper, dropdown-list]
       <span class="ds-helper">USD · 840</span>
     </span>
   </button>
+  <button class="ddl__item ddl__item--checkbox ddl__item--all" role="option" aria-checked="mixed">
+    <span class="ddl__item-check"><span class="cb__box"><span class="cb__mark">…</span></span></span>
+    <span class="ddl__item-body"><span class="ddl__item-label">Выбрать всё</span></span>
+  </button>
+  <hr class="ddl__divider">
   <button class="ddl__item ddl__item--checkbox" role="option" aria-checked="true">
     <span class="ddl__item-check"><span class="cb__box"><span class="cb__mark">…</span></span></span>
     <span class="ddl__item-body">…</span>
@@ -954,6 +981,14 @@ css: `styles/tooltip.css` · deps: [button]
   <span class="tip__arrow"></span>
 </span>
 <span class="tip tip--error tip--bottom tip--start tip--no-arrow tip--multiline" role="tooltip">…</span>
+
+<!-- rich: заголовок + описание + одно действие; интерактивен (курсор может зайти внутрь) -->
+<span class="tip tip--main tip--rich tip--bottom tip--center tip--floating" role="tooltip">
+  <span class="tip__title">Лимит риска</span>
+  <span class="tip__text">Максимальная сумма на одном контрагенте.</span>
+  <span class="tip__actions"><button type="button" class="tip__action">Открыть методику</button></span>
+  <span class="tip__arrow"></span>
+</span>
 ```
 
 ## TableFilter

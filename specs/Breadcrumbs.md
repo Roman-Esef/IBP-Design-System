@@ -2,7 +2,7 @@
 component: Breadcrumbs
 title: "Breadcrumbs"
 version: "v1.2"
-updated: "13.07.2026"
+updated: "25.07.2026"
 page: pages/molecules/Breadcrumbs.html
 page_js: scripts/breadcrumbs.page.js
 css: styles/breadcrumbs.css

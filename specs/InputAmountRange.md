@@ -1,8 +1,8 @@
 ---
 component: InputAmountRange
 title: "InputAmountRange"
-version: "v1.4"
-updated: "22.07.2026"
+version: "v1.5"
+updated: "29.07.2026"
 page: pages/molecules/InputAmountRange.html
 page_js: scripts/input-amount-range.page.js
 css: styles/input-range.css

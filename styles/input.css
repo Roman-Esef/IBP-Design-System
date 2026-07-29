@@ -27,8 +27,8 @@
 .inp--fullwidth { width: 100%; }
 
 /* метка и хелпер — компоненты подкачки LabelHelper */
-.inp > .ds-label { margin-bottom: 6px; }
-.inp > .ds-helper { margin-top: 6px; }
+.inp > .ds-label { margin-bottom: 4px; }
+.inp > .ds-helper { margin-top: 4px; }
 
 /* ---------- поле (Input_Content) ---------- */
 .inp__field {
@@ -151,7 +151,7 @@ textarea.inp__control { resize: none; line-height: 20px; }
 .inp--resizable .inp__box { position: relative; }
 
 /* ---------- хелпер + счётчик символов в одной строке (maxLength) ---------- */
-.inp__foot { display: flex; align-items: flex-start; gap: 12px; margin-top: 6px; }
+.inp__foot { display: flex; align-items: flex-start; gap: 12px; margin-top: 4px; }
 .inp__foot .ds-helper { flex: 1 1 auto; margin-top: 0; min-width: 0; }
 .inp__counter {
   flex: none;

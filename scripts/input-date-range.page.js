@@ -275,7 +275,7 @@
       ['Range_Line — толщина линии', bar.height || '1px'],
       ['Иконки действий', '20px'],
       ['Мин. ширина поля', getComputedStyle(r._from).minWidth + ' (186px)'],
-      ['Отступ метки → поля / поля → хелпер', '6px'],
+      ['Отступ метки → поля / поля → хелпер', '4px'],
     ].forEach(([p, v]) => {
       const tr = document.createElement('tr');
       tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + v + '</td>';

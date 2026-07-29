@@ -1,11 +1,14 @@
 ---
+component: Screens
+title: "Примеры экранов"
+version: "v1.1"
 purpose: Раздел «Примеры экранов» — эталонные экраны продукта, собранные из компонентов и токенов ДС.
 section: Правила и паттерны → Примеры экранов
 pages: pages/screens/*.html
 shared_css: styles/screens.css
 shared_js: scripts/screens-chrome.js
 status: curated
-updated: "17.07.2026"
+updated: "25.07.2026"
 ---
 
 # Примеры экранов

@@ -19,10 +19,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--btn-gap);
-  height: var(--btn-h);
-  padding: 0 var(--btn-px);
-  border-radius: var(--btn-radius);
+  /* высота/паддинги/gap задаются размерным классом .btn--m|--s|--xs (обязателен) */
+  border-radius: var(--radius-control);
   border: 1px solid transparent;
   box-sizing: border-box;
 
@@ -43,8 +41,7 @@
 }
 
 /* icons */
-.btn svg { flex: none; width: var(--btn-icon); height: var(--btn-icon); display: block; }
-.btn .btn__chevron { width: calc(var(--btn-icon) * .8); height: calc(var(--btn-icon) * .8); }
+.btn svg { flex: none; display: block; }
 
 /* ---------- sizes ---------------------------------------------------------- *
    Размеры — прямыми свойствами (не через --btn-* в модификаторе), чтобы
@@ -264,8 +261,6 @@
 .btn--loading { pointer-events: none; }
 .btn__spinner {
   flex: none;
-  width: var(--btn-icon);
-  height: var(--btn-icon);
   border-radius: var(--radius-circle);
   border: 2px solid currentColor;
   border-top-color: transparent;

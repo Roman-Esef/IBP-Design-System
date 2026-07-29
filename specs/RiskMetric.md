@@ -2,7 +2,7 @@
 component: RiskMetric
 title: "Риск-метрика"
 version: "v1.0"
-updated: "07.07.2026"
+updated: "08.07.2026"
 page: pages/organisms/RiskMetric.html
 page_js: scripts/riskmetric.page.js
 css: — (композиция, стили в chip.css/popover.css)

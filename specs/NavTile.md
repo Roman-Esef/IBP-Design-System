@@ -6,6 +6,7 @@ updated: "23.07.2026"
 page: pages/molecules/NavTile.html
 css: styles/nav-tile.css
 deps: [illustration, link, colors, radius, shadow, typography]
+status: curated
 ---
 
 # NavTile — навигационная плитка

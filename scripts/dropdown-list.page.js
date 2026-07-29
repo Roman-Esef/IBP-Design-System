@@ -9,6 +9,7 @@ function icon(name) {
 }
 const CHECK   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
 const CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+const DASH    = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 12h12"/></svg>';
 const SEARCH  = icon('search');
 const UI = {
   bad:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
@@ -52,6 +53,7 @@ function makeItem(spec) {
   it.className = 'ddl__item';
   it.setAttribute('role', 'option');
   if (spec.checkbox) it.classList.add('ddl__item--checkbox');
+  if (spec.all)      it.classList.add('ddl__item--all');
   if (spec.wrap)     it.classList.add('ddl__item--wrap');
   if (spec.danger)   it.classList.add('ddl__item--danger');
   if (spec.action)   it.classList.add('ddl__item--action');
@@ -59,9 +61,10 @@ function makeItem(spec) {
   if (spec.disabled) it.setAttribute('aria-disabled', 'true');
 
   if (spec.checkbox) {
-    it.setAttribute('aria-checked', String(!!spec.checked));
+    const st = spec.checked === 'mixed' ? 'mixed' : String(!!spec.checked);
+    it.setAttribute('aria-checked', st);
     const cb = document.createElement('span'); cb.className = 'ddl__item-check';
-    cb.innerHTML = '<span class="cb__box"><span class="cb__mark">' + CHECK + '</span></span>';
+    cb.innerHTML = '<span class="cb__box"><span class="cb__mark">' + (st === 'mixed' ? DASH : CHECK) + '</span></span>';
     it.appendChild(cb);
   } else if (spec.selectable !== false && spec.selected != null) {
     it.setAttribute('aria-selected', String(!!spec.selected));
@@ -104,6 +107,32 @@ function makeList(items, o = {}) {
   return el;
 }
 
+/* ---------- множественный выбор и строка «Выбрать всё» ----------
+   Состояние строки «Выбрать всё»: все опции → true, часть → mixed, ничего → false. */
+function setChecked(it, v) {
+  it.setAttribute('aria-checked', v === 'mixed' ? 'mixed' : String(!!v));
+  const mark = it.querySelector('.cb__mark');
+  if (mark) mark.innerHTML = (v === 'mixed' ? DASH : CHECK);
+}
+function wireMulti(list, onChange) {
+  const allRow = list.querySelector('.ddl__item--all');
+  const rows = Array.from(list.querySelectorAll('.ddl__item--checkbox:not(.ddl__item--all)'))
+    .filter(r => r.getAttribute('aria-disabled') !== 'true');
+  function refresh() {
+    const on = rows.filter(r => r.getAttribute('aria-checked') === 'true').length;
+    if (allRow) setChecked(allRow, on === rows.length ? true : (on ? 'mixed' : false));
+    if (onChange) onChange(on, rows.length);
+  }
+  rows.forEach(r => r.addEventListener('click', () => { setChecked(r, r.getAttribute('aria-checked') !== 'true'); refresh(); }));
+  if (allRow) allRow.addEventListener('click', () => {
+    const turnOn = allRow.getAttribute('aria-checked') !== 'true';
+    rows.forEach(r => setChecked(r, turnOn));
+    refresh();
+  });
+  refresh();
+  return { refresh };
+}
+
 /* ---------- поле-триггер (Select / Autocomplete) ---------- */
 function makeField(o = {}) {
   const f = document.createElement('div');
@@ -111,10 +140,18 @@ function makeField(o = {}) {
   f.style.width = (o.width || 260) + 'px';
   let inner = '';
   if (o.search) inner += '<span class="fld__lead">' + SEARCH + '</span>';
+  if (o.prefix) inner += '<span class="fld__prefix">' + escapeHtml(o.prefix) + '</span>';
   inner += '<span class="fld__value' + (o.placeholder ? ' is-ph' : '') + '">' + escapeHtml(o.value || o.placeholder || '') + '</span>';
   inner += '<span class="fld__chev">' + CHEVRON + '</span>';
   f.innerHTML = inner;
   return f;
+}
+
+/* сводка множественного выбора в поле: «Выбрано:» — префикс, N — значение */
+function setSummary(field, n) {
+  const pre = field.querySelector('.fld__prefix');
+  if (pre) pre.style.display = n ? '' : 'none';
+  field.querySelector('.fld__value').textContent = n ? String(n) : 'Не выбрано';
 }
 
 /* ---------- позиционирование floating-списка под полем ---------- */
@@ -133,7 +170,7 @@ function placeList(anchor, list, field, placement, gap) {
    PLAYGROUND
    ========================================================================= */
 (function () {
-  const state = { variant: 'text', helper: false, icons: false, match: false, group: false, count: '6', disabled: false, system: 'none' };
+  const state = { variant: 'text', helper: false, icons: false, match: false, group: false, count: '6', disabled: false, system: 'none', all: false, create: false };
   const controls = document.getElementById('pg-controls');
   const stage    = document.getElementById('pg-stage');
   const codeEl   = document.getElementById('pg-code');
@@ -165,8 +202,10 @@ function placeList(anchor, list, field, placement, gap) {
   const cMatch   = ctlToggle('Подсветка совпадения', 'match');
   const cGroup   = ctlToggle('Группировка', 'group');
   const cDisabled= ctlToggle('Отключённая опция', 'disabled');
+  const cAll     = ctlToggle('Строка «Выбрать всё»', 'all');
+  const cCreate  = ctlToggle('Строка создания', 'create');
 
-  controls.append(cVariant, cCount, cSystem, cHelper, cIcons, cMatch, cGroup, cDisabled);
+  controls.append(cVariant, cCount, cSystem, cHelper, cIcons, cMatch, cGroup, cDisabled, cAll, cCreate);
 
   const POOL = [
     { label: 'Российский рубль', helper: 'RUB · 643', icon: 'bank' },
@@ -192,6 +231,7 @@ function placeList(anchor, list, field, placement, gap) {
     const n = parseInt(state.count, 10);
     const q = state.match ? 'дол' : null;
     const specs = [];
+    if (isCb && state.all) specs.push({ checkbox: true, all: true, label: 'Выбрать всё', checked: 'mixed' }, { divider: true });
     if (state.group) specs.push({ group: 'Популярные' });
     for (let i = 0; i < n; i++) {
       const base = POOL[i % POOL.length];
@@ -211,18 +251,22 @@ function placeList(anchor, list, field, placement, gap) {
   let anchor, field, list;
   function render() {
     /* контекстная доступность контролов */
-    toggleOff(cIcons, state.variant === 'checkbox');   // иконка и чекбокс — взаимоисключающий ведущий слот
     const sys = state.system !== 'none';
-    [cVariant, cCount, cHelper, cIcons, cMatch, cGroup, cDisabled].forEach(c => toggleOff(c, sys));
+    toggleOff(cIcons, sys || state.variant === 'checkbox');  // иконка и чекбокс — взаимоисключающий ведущий слот
+    toggleOff(cAll, sys || state.variant !== 'checkbox');    // «Выбрать всё» — только множественный выбор
+    toggleOff(cCreate, state.system !== 'empty');            // строка создания — только пустой результат
+    [cVariant, cCount, cHelper, cMatch, cGroup, cDisabled].forEach(c => toggleOff(c, sys));
 
     stage.innerHTML = '';
     anchor = document.createElement('span'); anchor.className = 'ddl-anchor';
-    field = makeField({ width: 300, open: true, search: state.variant === 'checkbox' ? false : state.match, value: state.match ? 'дол' : (state.variant === 'checkbox' ? '2 выбрано' : 'Доллар США'), placeholder: null });
+    field = makeField({ width: 300, open: true, search: state.variant === 'checkbox' ? false : state.match, prefix: (!state.match && state.variant === 'checkbox') ? 'Выбрано:' : null, value: state.match ? 'дол' : (state.variant === 'checkbox' ? '2' : 'Доллар США'), placeholder: null });
     anchor.appendChild(field);
 
     let items;
     if (state.system === 'loading') items = [{ system: 'loading', label: 'Поиск в справочнике' }];
-    else if (state.system === 'empty') items = [{ system: 'empty', label: 'Ничего не найдено' }];
+    else if (state.system === 'empty') items = state.create
+      ? [{ system: 'empty', label: 'Ничего не найдено' }, { divider: true }, { action: true, icon: 'add-circle', actionHtml: 'Создать «<strong>SBI Voskhod</strong>»' }]
+      : [{ system: 'empty', label: 'Ничего не найдено' }];
     else if (state.system === 'error') items = [{ system: 'error', label: 'Не удалось загрузить справочник', sub: 'Проверьте соединение и повторите' }];
     else items = buildSpecs();
 
@@ -231,6 +275,9 @@ function placeList(anchor, list, field, placement, gap) {
     if (!sys) list.style.setProperty('--ddl-max-h', '312px');
     anchor.appendChild(list);
     stage.appendChild(anchor);
+    if (state.variant === 'checkbox' && !sys) {
+      wireMulti(list, n => setSummary(field, n));
+    }
     place();
 
     const tag = state.variant === 'checkbox' ? 'aria-multiselectable="true"' : '';
@@ -299,6 +346,23 @@ function placeList(anchor, list, field, placement, gap) {
     });
   });
   function cell(text, cls) { const d = document.createElement('div'); d.className = cls; d.textContent = text; return d; }
+})();
+
+/* =========================================================================
+   SELECT ALL — три состояния строки «Выбрать всё»
+   ========================================================================= */
+(function () {
+  const host = document.getElementById('var-all');
+  if (!host) return;
+  const opts = ['Российский рубль', 'Доллар США', 'Евро'];
+  [['Ничего не выбрано', false], ['Выбрана часть · mixed', 'mixed'], ['Выбрано всё', true]].forEach(([cap, st]) => {
+    const box = makeList([{ checkbox: true, all: true, label: 'Выбрать всё', checked: st }, { divider: true }]
+      .concat(opts.map((l, i) => ({ checkbox: true, label: l, checked: st === true || (st === 'mixed' && i === 1) }))));
+    box.style.minWidth = '240px';
+    const cell = document.createElement('div'); cell.className = 'stack';
+    const h = document.createElement('span'); h.className = 'th'; h.textContent = cap;
+    cell.append(h, box); host.appendChild(cell);
+  });
 })();
 
 /* =========================================================================
@@ -496,18 +560,14 @@ function openable(anchor, field, list, prefer) {
   const s2 = document.getElementById('use-multi');
   if (s2) {
     const anchor = document.createElement('span'); anchor.className = 'ddl-anchor';
-    const field = makeField({ width: 280, value: '2 выбрано' });
+    const field = makeField({ width: 280, prefix: 'Выбрано:', value: '2' });
     anchor.appendChild(field);
     const opts = ['Российский рубль', 'Доллар США', 'Евро', 'Фунт стерлингов', 'Китайский юань'];
-    const list = makeList(opts.map((l, i) => ({ checkbox: true, checked: i === 1 || i === 2, label: l })), { floating: true });
+    const list = makeList([{ checkbox: true, all: true, label: 'Выбрать всё' }, { divider: true }]
+      .concat(opts.map((l, i) => ({ checkbox: true, checked: i === 1 || i === 2, label: l }))), { floating: true });
     anchor.appendChild(list); s2.appendChild(anchor);
-    const api = openable(anchor, field, list, 'bottom');
-    list.querySelectorAll('.ddl__item').forEach(it => it.addEventListener('click', () => {
-      const on = it.getAttribute('aria-checked') === 'true';
-      it.setAttribute('aria-checked', String(!on));
-      const cnt = list.querySelectorAll('.ddl__item[aria-checked="true"]').length;
-      field.querySelector('.fld__value').textContent = cnt ? cnt + ' выбрано' : 'Не выбрано';
-    }));
+    openable(anchor, field, list, 'bottom');
+    wireMulti(list, n => setSummary(field, n));
     // не закрывать по клику — оставляем открытым при мультивыборе (закрытие вне/Esc)
   }
 

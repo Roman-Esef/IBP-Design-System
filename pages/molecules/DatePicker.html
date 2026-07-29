@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="../../styles/icon-button.css">
 <link rel="stylesheet" href="../../styles/button.css">
 <link rel="stylesheet" href="../../styles/datepicker.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -201,19 +202,43 @@
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
     <p class="desc">Заголовок — <b>SB Sans Text</b> Body S Strong; числа и ячейки — Body S с табличными цифрами; дни недели — Body XS.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table" id="typo-table">
-        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
-        <tbody></tbody>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
+        <tbody>
+          <tr><td>Заголовок (месяц/год)</td><td><code class="tok">--type-body-s-strong</code></td><td>SB Sans Text</td><td>Semibold</td><td>14 / 16</td><td><span style="font:var(--type-body-s-strong)">Образец</span></td></tr>
+          <tr><td>Дни недели</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
+          <tr><td>Число дня</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
+          <tr><td>Ячейка месяца / года</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
+        </tbody>
       </table>
     </div>
+    <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
 
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
     <p class="desc">Только семантические токены. Поверхность — <code class="tok">--bg-popup</code> с тенью <code class="tok">--elevation-5</code>; выбор и концы диапазона — <code class="tok">--primary</code>; промежуток — <code class="tok">--primary-bg</code>; сегодня — обводка <code class="tok">--primary</code>.</p>
-    <div class="color-ref" id="color-ref"></div>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
+        <tbody>
+          <tr><td>Поверхность</td><td>Фон календаря</td><td><code class="tok">--bg-popup</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-popup)"></span></td><td>#FFFFFF</td></tr>
+          <tr><td>Поверхность</td><td>Тень (floating)</td><td><code class="tok">--elevation-5</code></td><td>—</td><td>—</td></tr>
+          <tr><td>Поверхность</td><td>Рамка (inline)</td><td><code class="tok">--border-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-light)"></span></td><td>#E1EDE7</td></tr>
+          <tr><td>Поверхность</td><td>Радиус</td><td><code class="tok">--radius-m</code></td><td>—</td><td>—</td></tr>
+          <tr><td>Дни и статусы</td><td>Число дня</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
+          <tr><td>Дни и статусы</td><td>Дни недели / соседний месяц</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
+          <tr><td>Дни и статусы</td><td>Ховер дня</td><td><code class="tok">--bgtable-row-hover</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bgtable-row-hover)"></span></td><td>#F6FAFA</td></tr>
+          <tr><td>Дни и статусы</td><td>Сегодня (обводка)</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+          <tr><td>Дни и статусы</td><td>Выбрано / концы диапазона (фон)</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+          <tr><td>Дни и статусы</td><td>В диапазоне (полоса)</td><td><code class="tok">--primary-bg</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary-bg)"></span></td><td>6% #00AA9B</td></tr>
+          <tr><td>Дни и статусы</td><td>Недоступно</td><td><code class="tok">--st-disabled</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--st-disabled)"></span></td><td>24% #324844</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="color-ref" style="display:none"></div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->
@@ -271,7 +296,7 @@
 
   <!-- BACKLOG -->
   <div class="backlog" data-screen-label="Backlog">
-    <h2>Что предлагаем добавить</h2>
+    <h2>Бэклог</h2>
     <p class="desc">Кейсы, которых пока нет в компоненте:</p>
     <ul class="bullets">
       <li>пресеты диапазонов (Сегодня, 7 дней, Месяц, Квартал) колонкой слева от сетки;</li>

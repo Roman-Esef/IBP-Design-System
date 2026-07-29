@@ -16,38 +16,44 @@
 
 :root {
   /* ---------------------------------------------------------------------
-     Шкала ширины — 12 шагов. Значения сведены (округление до 10px) из
-     референса, где ширина растёт линейно шагом ≈150px. Практический
-     диапазон для форм — 3–9; 1–2 годятся только для короткого
-     подтверждающего диалога (заголовок + 1-2 строки + кнопки), 10–12 —
-     широкие формы с таблицами/колонками внутри.
+     Шкала ширины — по колонкам сетки экрана. Шаг = число колонок, которые
+     накрывает модалка: ширина = N колонок + (N−1) межколоночных отступов
+     (на 1920×1080 колонка ≈136,7px, отступ 16px). Практический диапазон
+     для форм — 3–9; 2 — только короткий подтверждающий диалог, 10–12 —
+     широкие формы с таблицами внутри.
+     Варианта в одну колонку нет и не может быть — минимум 2 колонки.
      --------------------------------------------------------------------- */
-  --modal-w-1:  140px;
-  --modal-w-2:  290px;
-  --modal-w-3:  440px;
-  --modal-w-4:  600px;
-  --modal-w-5:  750px;
+  --modal-w-2:  289px;
+  --modal-w-3:  442px;
+  --modal-w-4:  595px;
+  --modal-w-5:  747px;
   --modal-w-6:  900px;
-  --modal-w-7:  1050px;
-  --modal-w-8:  1200px;
-  --modal-w-9:  1360px;
-  --modal-w-10: 1510px;
-  --modal-w-11: 1660px;
-  --modal-w-12: 1820px;
+  --modal-w-7:  1053px;
+  --modal-w-8:  1205px;
+  --modal-w-9:  1358px;
+  --modal-w-10: 1511px;
+  --modal-w-11: 1663px;
+  --modal-w-12: 1816px;
 
   /* ---------------------------------------------------------------------
-     Геометрия — общий горизонтальный паддинг связывает шапку, контент
-     и подвал по одной левой/правой линии.
+     Геометрия. Левая линия 24px общая для заголовка, контента и подвала;
+     справа в шапке 20px — крестик оптически компенсирует разницу.
      --------------------------------------------------------------------- */
-  --modal-pad-x:      28px;
-  --modal-head-pad-y: 22px;
-  --modal-body-pad-y: 28px;
-  --modal-foot-pad-y: 20px;
-  --modal-gap:        16px;   /* зазор между заголовком и крестиком, между левой/правой группой кнопок подвала */
+  --modal-pad-x:           24px;
+  --modal-head-pad-y:      20px;
+  --modal-head-pad-right:  20px;
+  --modal-head-row-h:      24px;  /* строка «заголовок + крестик» */
+  --modal-head-gap:        24px;  /* зазор заголовок ↔ крестик */
+  --modal-body-pad-top:    16px;
+  --modal-body-pad-bottom: 24px;  /* 32px, когда контенту нужен воздух — .modal__body--roomy */
+  --modal-body-gap:        16px;  /* зазор между вложенными компонентами */
+  --modal-foot-pad-y:      16px;
+  --modal-foot-gap:        16px;  /* зазор между левой и правой группами кнопок */
+  --modal-max-h:           80vh;  /* выше не растёт — прокручивается тело */
   --modal-viewport-guard: 24px; /* охранное поле от края вьюпорта */
 
   /* поверхность */
-  --modal-radius: var(--radius-modal);      /* 24px — общая шкала радиусов */
+  --modal-radius: var(--radius-modal);      /* 8px — общая шкала радиусов */
   --modal-shadow: var(--shadow-modal-form); /* именованная тень под модалки */
   --modal-bg:     var(--bg-popup);
 
@@ -109,13 +115,12 @@
   box-shadow: var(--modal-shadow);
   width: var(--modal-w-6); /* дефолт — шаг 6, переопределяется модификатором */
   max-width: calc(100vw - (var(--modal-viewport-guard) * 2));
-  max-height: calc(100vh - (var(--modal-viewport-guard) * 2));
+  max-height: var(--modal-max-h); /* 80% экрана — дальше скроллится только тело */
   box-sizing: border-box;
   overflow: hidden; /* скругление реза́лось бы содержимым без этого */
 }
 
-/* модификаторы ширины — 12 шагов шкалы */
-.modal--w1  { width: var(--modal-w-1); }
+/* модификаторы ширины — шаги шкалы колонок (2–12) */
 .modal--w2  { width: var(--modal-w-2); }
 .modal--w3  { width: var(--modal-w-3); }
 .modal--w4  { width: var(--modal-w-4); }
@@ -137,8 +142,12 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--modal-gap);
-  padding: var(--modal-head-pad-y) var(--modal-pad-x);
+  gap: var(--modal-head-gap);
+  /* строка «заголовок + крестик» — ровно 24px (интерлиньяж H4 Strong = габарит
+     IconButton L), паддинги считаются от неё: content-box не даёт им «съесть» высоту */
+  box-sizing: content-box;
+  min-height: var(--modal-head-row-h);
+  padding: var(--modal-head-pad-y) var(--modal-head-pad-right) var(--modal-head-pad-y) var(--modal-pad-x);
   border-bottom: 1px solid var(--border-light);
   position: relative;
   transition: box-shadow .15s ease;
@@ -149,14 +158,28 @@
 
 .modal__title {
   margin: 0;
-  font: var(--type-h5-strong);
+  font: var(--type-h4-strong);
   color: var(--text-primary);
   flex: 1 1 auto;
   min-width: 0;
   text-wrap: pretty; /* заголовок переносится на 2 строки, а не обрезается */
+  /* оптическая компенсация: у SB Sans Display ink-бокс в строке 24px сидит выше
+     геометрического центра, поэтому заголовок опускаем на 2px, не меняя высоту строки */
+  padding-top: 2px;
+  margin-top: -2px;
 }
 
-.modal__close { flex: none; margin-top: 1px; } /* класс-якорь; сама кнопка — ibtn ibtn--neutral ibtn--m */
+.modal__close { flex: none; display: flex; } /* класс-якорь; сама кнопка — ibtn ibtn--neutral ibtn--l */
+
+/* =========================================================================
+   АЛЕРТ МЕЖДУ ШАПКОЙ И ТЕЛОМ — необязательная зона: ошибка отправки формы
+   или предупреждение, которое относится ко всей модалке, а не к полю.
+   Alert берётся as is (.alert--flush — без скруглений, во всю ширину).
+   ========================================================================= */
+
+.modal__alert { flex: none; }
+.modal > .alert,
+.modal__alert > .alert { flex: none; border-radius: 0; }
 
 /* =========================================================================
    КОНТЕНТ — Modal_Body: единственная зона, которая варьируется. Здесь
@@ -168,10 +191,10 @@
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
-  padding: var(--modal-body-pad-y) var(--modal-pad-x);
+  padding: var(--modal-body-pad-top) var(--modal-pad-x) var(--modal-body-pad-bottom);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--modal-body-gap);
   font: var(--type-body-m);
   color: var(--text-primary);
 }
@@ -181,6 +204,9 @@
 /* тело без внутреннего паддинга — когда контент сам управляет отступами
    (например таблица на всю ширину модалки) */
 .modal__body--flush { padding: 0; gap: 0; }
+
+/* тело с увеличенным нижним отступом — когда контенту нужен воздух перед подвалом */
+.modal__body--roomy { padding-bottom: 32px; }
 
 /* =========================================================================
    ПОДВАЛ — Modal_Bottom: Modal_Bottom_Left (Изменить/Удалить, опционально)
@@ -194,8 +220,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--modal-gap);
-  flex-wrap: wrap;
+  gap: var(--modal-foot-gap);
+  /* подвал — всегда один ряд. Кнопки не переносятся на второй этаж: если
+     четыре кнопки не влезают, модалку делают шире, а не подвал двухрядным */
+  flex-wrap: nowrap;
   padding: var(--modal-foot-pad-y) var(--modal-pad-x);
   border-top: 1px solid var(--border-light);
   position: relative;
@@ -207,8 +235,9 @@
 .modal__foot-right {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
   gap: 8px;
-  min-width: 0;
 }
 .modal__foot-right { margin-left: auto; gap: 12px; }
 .modal__foot-left:empty { display: none; }

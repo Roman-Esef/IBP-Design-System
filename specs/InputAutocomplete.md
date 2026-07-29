@@ -1,8 +1,8 @@
 ---
 component: InputAutocomplete
 title: "InputAutocomplete"
-version: "v1.8"
-updated: "22.07.2026"
+version: "v1.10"
+updated: "29.07.2026"
 page: pages/molecules/InputAutocomplete.html
 page_js: scripts/input-autocomplete.page.js
 css: styles/input.css

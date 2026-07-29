@@ -10,39 +10,27 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-  body {
-    margin: 0; font-family: var(--font-text), system-ui, sans-serif;
-    color: var(--text-primary); background: var(--bg-page); background-attachment: fixed;
-  }
+
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
-  .page { max-width: 1320px; margin: 0 auto; padding: clamp(40px,7vw,96px) clamp(24px,5vw,72px) 140px; }
-
   /* masthead */
-  .masthead { border-bottom: 1px solid var(--border-light); padding-bottom: 30px; }
-  .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
-  .masthead .meta b { color: var(--text-secondary); font-weight:600; }
-  .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
-  @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
-  .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:60ch; text-wrap:pretty; }
+
+  
+
+  
 
   /* section */
-  .section { margin-top: 72px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
+
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:72ch; text-wrap:pretty; }
 
-  code.tok { font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius: var(--radius-xs); }
-
   /* ---------- playground ---------- */
-  .panel { background: var(--bg-tile); border:1px solid var(--border-light); border-radius: var(--radius-2xl); }
-  .panel.pg { padding:0; overflow:hidden; display:grid; grid-template-columns: 340px 1fr; }
-  @media (max-width:860px){ .panel.pg { grid-template-columns:1fr; } }
-  .pg__controls { padding:30px; display:flex; flex-direction:column; gap:24px; border-right:1px solid var(--border-light); }
-  @media (max-width:860px){ .pg__controls { border-right:none; border-bottom:1px solid var(--border-light); } }
+  
+  .panel.pg { padding:0; overflow:hidden; display:grid; }
+  
+  .pg__controls { flex-direction:column; }
+  @media (max-width:860px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
   .pg__stage { padding:44px 40px; display:flex; align-items:center; justify-content:center; min-height:280px;
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
@@ -50,15 +38,6 @@
 
   .ctl { display:flex; flex-direction:column; gap:10px; }
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
-  .ctl select {
-    appearance:none; -webkit-appearance:none; width:100%;
-    font: var(--type-body-m); color: var(--text-primary);
-    background: var(--bg-tile); border:1px solid var(--border-primary); border-radius: var(--radius-field);
-    padding:10px 38px 10px 14px; cursor:pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364787d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat:no-repeat; background-position:right 12px center; background-size:18px;
-  }
-  .ctl select:focus-visible { outline:2px solid var(--primary); outline-offset:2px; border-color:var(--primary); }
   .ctl input[type=range] { width:100%; accent-color: var(--primary); }
   .ctl .rng-row { display:flex; align-items:center; justify-content:space-between; }
   .ctl .rng-row .val { font: var(--type-body-s-strong); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
@@ -131,7 +110,7 @@
 <main class="page" data-screen-label="Radius">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>25.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Основы</p>
     <h1>Скругления</h1>
     <p class="lead">Единая шкала радиусов скругления. Компоненты и лайауты ссылаются на семантические токены <code class="tok">--radius-*</code>, а не на «магические» пиксели — так скругления остаются согласованными и управляются из одной точки.</p>
@@ -145,7 +124,7 @@
       <div class="pg__controls">
         <div class="ctl">
           <span class="lbl">Токен радиуса</span>
-          <select id="pgToken"></select>
+          <div class="pg-select"><select id="pgToken"></select></div>
         </div>
         <div class="ctl">
           <div class="rng-row"><span class="lbl">Размер элемента</span><span class="val" id="pgSizeVal">200&nbsp;px</span></div>
@@ -254,10 +233,10 @@
   var ALIASES = [
     {token:'--radius-control-s', map:'--radius-s',      px:'6',   use:'Кнопка XS, чип S/XS, icon-button S'},
     {token:'--radius-control',   map:'--radius-m',      px:'8',   use:'Кнопка M/S, чип L/M, тултип'},
-    {token:'--radius-field',     map:'--radius-xs',     px:'4',   use:'Поля ввода, селекты'},
+    {token:'--radius-field',     map:'--radius-xs',     px:'4',   use:'Поля ввода, выпадающие списки'},
     {token:'--radius-popup',     map:'--radius-xl',     px:'12',  use:'Меню, поповеры, дропдауны'},
     {token:'--radius-card',      map:'--radius-2xl',    px:'16',  use:'Карточки, панели, группы'},
-    {token:'--radius-modal',     map:'--radius-4xl',    px:'24',  use:'Модальные окна, шиты'},
+    {token:'--radius-modal',     map:'--radius-m',      px:'8',   use:'Модальные окна, шиты'},
     {token:'--radius-pill',      map:'--radius-full',   px:'999', use:'Пилюли'},
     {token:'--radius-round',     map:'--radius-circle', px:'50%', use:'Круглые элементы'}
   ];

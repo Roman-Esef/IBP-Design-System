@@ -19,16 +19,26 @@
     el.appendChild(document.createTextNode(text));
     const arrow = document.createElement('span'); arrow.className = 'tip__arrow';
     el.appendChild(arrow);
+    /* Тултип живёт в <body> и позиционируется fixed относительно цели: строка
+       значения слишком низкая, чтобы вместить тултип НАД иконкой внутри себя —
+       раньше он прижимался к верху строки, перекрывал иконку и мигал (курсор
+       уходил с цели). pointer-events:none — курсор всегда остаётся на цели. */
+    el.style.position = 'fixed';
+    el.style.pointerEvents = 'none';
+    el.style.zIndex = '1000';
     return el;
   }
+  /* По центру НАД целью с зазором 8px; если сверху не помещается — переворот
+     вниз; по горизонтали прижимается к границам вьюпорта. */
   function positionTipAbove(container, tip, target) {
-    const cr = container.getBoundingClientRect();
     const tr = target.getBoundingClientRect();
     const tw = tip.offsetWidth, th = tip.offsetHeight;
-    const cx = (tr.left - cr.left) + tr.width / 2;
-    const top = (tr.top - cr.top) - th - 8;
-    tip.style.left = (cx - tw / 2) + 'px';
-    tip.style.top = Math.max(0, top) + 'px';
+    let left = tr.left + tr.width / 2 - tw / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+    let top = tr.top - th - 8;
+    if (top < 8) { top = tr.bottom + 8; tip.classList.remove('tip--top'); tip.classList.add('tip--bottom'); }
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
   }
   /* getText: string, or a function re-evaluated on every hover (used to only
      show the tip when the value is actually overflowing at that moment). */
@@ -40,13 +50,16 @@
       clearTimeout(timer);
       timer = setTimeout(() => {
         tip = makeFloatingTip(text, opts);
-        container.appendChild(tip);
+        document.body.appendChild(tip);
         positionTipAbove(container, tip, target);
-        requestAnimationFrame(() => tip && tip.classList.add('is-visible'));
+        window.addEventListener('scroll', hide, true);
+        void tip.offsetHeight; // reflow вместо rAF: кадры могут быть заморожены в фоновой вкладке
+        tip.classList.add('is-visible');
       }, 280);
     }
     function hide() {
       clearTimeout(timer);
+      window.removeEventListener('scroll', hide, true);
       if (tip) { tip.remove(); tip = null; }
     }
     target.addEventListener('mouseenter', show);
@@ -56,9 +69,10 @@
   }
   function flashTip(container, target, text, ms = 1300) {
     const tip = makeFloatingTip(text, { type: 'main' });
-    container.appendChild(tip);
+    document.body.appendChild(tip);
     positionTipAbove(container, tip, target);
-    requestAnimationFrame(() => tip.classList.add('is-visible'));
+    void tip.offsetHeight;
+    tip.classList.add('is-visible');
     setTimeout(() => {
       tip.classList.remove('is-visible');
       setTimeout(() => tip.remove(), 160);
@@ -347,7 +361,8 @@
     controls.appendChild(groupHead('Значение'));
     controls.appendChild(seg('Тип значения', [['text', 'Текст'], ['chips', 'Чипы'], ['link', 'Ссылка']], () => state.type, v => state.type = v));
     controls.appendChild(seg('Выравнивание', [['left', 'Слева'], ['right', 'Справа']], () => state.align, v => state.align = v));
-    controls.appendChild(seg('Цвет значения', [['default', 'Default'], ['positive', 'Positive'], ['negative', 'Negative'], ['empty', 'Empty']], () => state.tone, v => state.tone = v, true));
+    const toneCtl = seg('Цвет значения', [['default', 'Default'], ['positive', 'Positive'], ['negative', 'Negative'], ['empty', 'Empty']], () => state.tone, v => state.tone = v, true);
+    controls.appendChild(toneCtl);
     const clampCtl = seg('Обрезание текста (строк)', [['none', 'Нет'], ['1', '1'], ['2', '2'], ['3', '3']], () => state.clamp, v => state.clamp = v);
     controls.appendChild(clampCtl);
     const chipRowsCtl = seg('Ряды чипов', [['none', 'Перенос'], ['1', '1 ряд'], ['2', '2 ряда']], () => state.chipRows, v => state.chipRows = v);
@@ -362,8 +377,10 @@
 
     /* --- Обрамление слева --- */
     controls.appendChild(groupHead('Обрамление'));
-    controls.appendChild(textInput('Префикс', () => state.prefixText, v => state.prefixText = v, 'напр. ≈'));
-    controls.appendChild(textInput('Постфикс', () => state.postfixText, v => state.postfixText = v, 'напр. ₽'));
+    const prefixCtl = textInput('Префикс', () => state.prefixText, v => state.prefixText = v, 'напр. ≈');
+    controls.appendChild(prefixCtl);
+    const postfixCtl = textInput('Постфикс', () => state.postfixText, v => state.postfixText = v, 'напр. ₽');
+    controls.appendChild(postfixCtl);
     controls.appendChild(iconPick('Иконка слева', () => state.iconLeft, v => state.iconLeft = v));
 
     /* --- Иконка справа --- */
@@ -382,8 +399,16 @@
     function render() {
       preview.innerHTML = '';
       const isChips = state.type === 'chips';
+      const isText = state.type === 'text';
+      /* цвет значения — только у текста; аффиксы — не у чипов */
+      const tone = isText ? state.tone : 'default';
+      const prefix = isChips ? null : (state.prefixText || null);
+      const postfix = isChips ? null : (state.postfixText || null);
       const useClamp = !isChips ? state.clamp : 'none';
       const hasIconRight = state.iconRight !== 'none';
+      toneCtl.classList.toggle('is-off', !isText);
+      prefixCtl.classList.toggle('is-off', isChips);
+      postfixCtl.classList.toggle('is-off', isChips);
       clampCtl.classList.toggle('is-off', isChips);
       chipRowsCtl.classList.toggle('is-off', !isChips);
       iconActionCtl.classList.toggle('is-off', !hasIconRight);
@@ -394,23 +419,23 @@
         value: useClamp !== 'none' ? LONG_TEXT : (state.type === 'link' ? 'ссылка-на-документ.pdf' : 'Значение атрибута'),
         chips: CHIP_SET, chipsMaxRows: isChips && state.chipRows !== 'none' ? Number(state.chipRows) : null,
         showLabel: state.label, label: 'Название поля',
-        helper: state.helper ? (state.tone === 'empty' ? 'Данные ещё не загружены' : 'Пояснение к значению') : null,
+        helper: state.helper ? (tone === 'empty' ? 'Данные ещё не загружены' : 'Пояснение к значению') : null,
         iconLeft: state.iconLeft === 'none' ? null : state.iconLeft,
-        prefix: state.prefixText || null,
-        postfix: state.postfixText || null,
+        prefix: prefix,
+        postfix: postfix,
         iconRight: hasIconRight ? state.iconRight : null,
         iconRightAction: state.iconRightAction,
         iconRightTone: state.iconRightTone,
         iconRightTip: state.iconRightTipText,
-        tone: state.tone, clampMode: useClamp, align: state.align,
+        tone: tone, clampMode: useClamp, align: state.align,
       };
       preview.appendChild(makeROF(o));
 
       const parts = ['type=' + state.type];
-      if (state.tone !== 'default') parts.push('tone=' + state.tone);
+      if (tone !== 'default') parts.push('tone=' + tone);
       if (state.iconLeft !== 'none') parts.push('iconLeft=' + state.iconLeft);
-      if (state.prefixText) parts.push('prefix="' + state.prefixText + '"');
-      if (state.postfixText) parts.push('postfix="' + state.postfixText + '"');
+      if (prefix) parts.push('prefix="' + prefix + '"');
+      if (postfix) parts.push('postfix="' + postfix + '"');
       if (hasIconRight) { parts.push('iconRight=' + state.iconRight); if (state.iconRightAction !== 'none') parts.push('iconRightAction=' + state.iconRightAction); }
       if (useClamp !== 'none') parts.push('clamp=' + useClamp);
       if (isChips && state.chipRows !== 'none') parts.push('chipsMaxRows=' + state.chipRows);
@@ -516,7 +541,7 @@
       'text-default': () => makeROF({ label: 'Label', value: 'Text' }),
       'text-full': () => makeROF({ label: 'Label', value: 'Text', helper: 'Helper', iconLeft: 'search', prefix: 'Pref', postfix: 'Postf', iconRight: 'alert-triangle-filled', iconRightAction: 'tooltip', iconRightTone: 'warning', iconRightTip: 'Комментарий' }),
       'chips-default': () => makeROF({ label: 'Label', type: 'chips', chips: ['Text', 'Text', 'Text'] }),
-      'chips-full': () => makeROF({ label: 'Label', type: 'chips', chips: ['Text', 'Text', 'Text'], helper: 'Helper' }),
+      'chips-full': () => makeROF({ label: 'Label', type: 'chips', chips: ['Text', 'Text', 'Text'], helper: 'Helper', iconLeft: 'search', iconRight: 'alert-triangle-filled', iconRightAction: 'tooltip', iconRightTone: 'warning', iconRightTip: 'Комментарий' }),
       'link-default': () => makeROF({ label: 'Label', type: 'link', value: 'Link' }),
       'link-full': () => makeROF({ label: 'Label', type: 'link', value: 'Link', helper: 'Helper', iconLeft: 'search', prefix: 'Pref', postfix: 'Postf', iconRight: 'alert-triangle-filled', iconRightAction: 'tooltip', iconRightTone: 'warning', iconRightTip: 'Комментарий' }),
     };
@@ -605,27 +630,6 @@
     });
   })();
 
-  /* ============================ PROPOSALS ============================ */
-  (function () {
-    const host = document.getElementById('proposals');
-    if (!host) return;
-    const props = [
-      ['Empty-состояние', 'Явный плейсхолдер «—» вместо пустой строки, когда значения ещё нет.', [makeROF({ label: 'Курс', tone: 'empty' })]],
-      ['Loading-скелетон', 'Шиммер вместо значения (и лейбла) на время загрузки данных из внешней системы.', [makeROF({ label: 'Курс', state: 'loading' })]],
-      ['Подтверждение копирования', 'Иконка временно меняется на галочку, всплывает тултип «Скопировано» — сейчас в материалах есть только статичная иконка без обратной связи.', [makeROF({ label: 'ID', value: '123456789012', iconRight: 'copy', iconRightAction: 'copy' })]],
-      ['Правое выравнивание', 'Для колонок чисел/дат — по аналогии с правилом Label/Helper для полей ввода.', [makeROF({ label: 'Сумма', value: '120 000 ₽', align: 'right' })]],
-      ['Семантика для скринридеров', 'Рекомендуем оборачивать пары label/value в <dl>/<dt>/<dd> или связывать aria-labelledby, чтобы значения озвучивались вместе с подписью.', []],
-      ['Свёртка чип-листа «+N»', 'Работает через chipsMaxRows: когда чипов больше, чем помещается в заданное число рядов, лишние сворачиваются в чип-счётчик (см. раздел «Переполнение») — по аналогии с предложением для компонента Chip.', [makeROF({ label: 'Категории', type: 'chips', chips: ['Договор', 'Поставка', 'Опт', 'VIP'], chipsMaxRows: 1 })]],
-    ];
-    props.forEach(([name, desc, nodes]) => {
-      const p = document.createElement('div'); p.className = 'prop';
-      const demo = document.createElement('div'); demo.className = 'pdemo'; nodes.forEach(n => demo.appendChild(n)); p.appendChild(demo);
-      const n = document.createElement('div'); n.className = 'pname'; n.textContent = name; p.appendChild(n);
-      const d = document.createElement('div'); d.className = 'pdesc'; d.textContent = desc; p.appendChild(d);
-      host.appendChild(p);
-    });
-  })();
-
   /* ============================ TYPOGRAPHY ============================ */
   (function () {
     const rows = [
@@ -655,10 +659,22 @@
       bad1.appendChild(wrap);
     }
 
+    /* пример читается только в узкой колонке карточки: там обрезка до 2 строк
+       и свободный поток дают разную высоту поля и разное положение соседа */
+    const DELIVERY = 'Курьером в течение дня по указанному адресу и в согласованный с получателем интервал, кроме выходных и праздничных дней';
+    function deliveryCard(clamp) {
+      const w = document.createElement('div');
+      w.style.cssText = 'width:224px;display:grid;gap:14px;';
+      w.append(
+        makeROF(clamp ? { label: 'Способ доставки', value: DELIVERY, clampMode: '2' } : { label: 'Способ доставки', value: DELIVERY }),
+        makeROF({ label: 'Стоимость доставки', value: '1 200', postfix: '₽' }),
+      );
+      return w;
+    }
     const good2 = document.getElementById('guide-good2');
-    if (good2) good2.appendChild(makeROF({ label: 'Способ доставки', value: 'Курьером в течение дня по указанному адресу и в согласованный интервал', clampMode: '2' }));
+    if (good2) good2.appendChild(deliveryCard(true));
     const bad2 = document.getElementById('guide-bad2');
-    if (bad2) bad2.appendChild(makeROF({ label: 'Способ доставки', value: 'Курьером в течение дня по указанному адресу и в согласованный интервал' }));
+    if (bad2) bad2.appendChild(deliveryCard(false));
 
     const good3 = document.getElementById('guide-good3');
     if (good3) good3.appendChild(makeROF({ label: 'Дата платежа', value: '22.02.2023', iconRight: 'alert-triangle-filled', iconRightAction: 'tooltip', iconRightTone: 'warning', iconRightTip: 'Платёж просрочен на 4 дня' }));

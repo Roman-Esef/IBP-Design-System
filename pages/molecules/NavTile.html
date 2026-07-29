@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="../../styles/link.css">
 <link rel="stylesheet" href="../../styles/illustration.css">
 <link rel="stylesheet" href="../../styles/nav-tile.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -163,38 +164,40 @@
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
     <p class="desc">Название — гарнитура <b>SB Sans Display</b>, текст — <b>SB Sans Text</b>.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table">
-        <thead><tr><th>Часть</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
         <tbody>
-          <tr><td>Название</td><td><code class="tok">--type-h4-strong</code></td><td class="dsc">22/24 · Semibold · Display</td></tr>
-          <tr><td>Описание</td><td><code class="tok">--type-body-m</code></td><td class="dsc">16/20 · Regular · Text</td></tr>
-          <tr><td>Ссылки</td><td><code class="tok">.link--m</code></td><td class="dsc">16/20 · Regular · Text</td></tr>
+          <tr><td>Название</td><td><code class="tok">--type-h4-strong</code></td><td>SB Sans Display</td><td>Semibold</td><td>22/24 · Semibold · Display</td><td><span style="font:var(--type-h4-strong)">Образец</span></td></tr>
+          <tr><td>Описание</td><td><code class="tok">--type-body-m</code></td><td>SB Sans Text</td><td>Regular</td><td>16/20 · Regular · Text</td><td><span style="font:var(--type-body-m)">Образец</span></td></tr>
+          <tr><td>Ссылки</td><td>—</td><td>—</td><td>Regular</td><td>16/20 · Regular · Text</td><td>Образец</td></tr>
         </tbody>
       </table>
     </div>
+    <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
 
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
     <p class="desc">Только семантические токены.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table">
-        <thead><tr><th>Образец</th><th>Часть</th><th>Состояние</th><th>Токен</th><th>Hex</th></tr></thead>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
         <tbody>
-          <tr><td><span class="sw" style="display:inline-block;width:20px;height:20px;border-radius:5px;border:1px solid rgba(40,50,55,.12);background:var(--bg-tile);"></span></td><td>Фон</td><td>Default</td><td><code class="tok">--bg-tile</code></td><td>#FFFFFF</td></tr>
-          <tr><td><span class="sw" style="display:inline-block;width:20px;height:20px;border-radius:5px;border:1px solid rgba(40,50,55,.12);background:var(--border-light);"></span></td><td>Рамка</td><td>Default / Disabled</td><td><code class="tok">--border-light</code></td><td>#E1EDE7</td></tr>
-          <tr><td><span class="sw" style="display:inline-block;width:20px;height:20px;border-radius:5px;border:1px solid rgba(40,50,55,.12);background:var(--border-primary);"></span></td><td>Рамка</td><td>Hover</td><td><code class="tok">--border-primary</code></td><td>#B8CCCC</td></tr>
-          <tr><td>—</td><td>Тень</td><td>Hover</td><td><code class="tok">--elevation-2</code></td><td>—</td></tr>
-          <tr><td><span class="sw" style="display:inline-block;width:20px;height:20px;border-radius:5px;border:1px solid rgba(40,50,55,.12);background:var(--primary);"></span></td><td>Обводка фокуса</td><td>Focus</td><td><code class="tok">--primary</code></td><td>#00AA9B</td></tr>
-          <tr><td><span class="sw" style="display:inline-block;width:20px;height:20px;border-radius:5px;border:1px solid rgba(40,50,55,.12);background:var(--text-primary);"></span></td><td>Название</td><td>Default</td><td><code class="tok">--text-primary</code></td><td>#324844</td></tr>
-          <tr><td><span class="sw" style="display:inline-block;width:20px;height:20px;border-radius:5px;border:1px solid rgba(40,50,55,.12);background:var(--text-inactive);"></span></td><td>Название</td><td>Disabled</td><td><code class="tok">--text-inactive</code></td><td>#AAB2B1</td></tr>
-          <tr><td><span class="sw" style="display:inline-block;width:20px;height:20px;border-radius:5px;border:1px solid rgba(40,50,55,.12);background:var(--text-secondary);"></span></td><td>Описание</td><td>Default</td><td><code class="tok">--text-secondary</code></td><td>#6C8080</td></tr>
-          <tr><td><span class="sw" style="display:inline-block;width:20px;height:20px;border-radius:5px;border:1px solid rgba(40,50,55,.12);background:var(--text-inactive);"></span></td><td>Описание</td><td>Disabled</td><td><code class="tok">--text-inactive</code></td><td>#AAB2B1</td></tr>
+          <tr><td>—</td><td>Фон · Default</td><td><code class="tok">--bg-tile</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-tile)"></span></td><td>#FFFFFF</td></tr>
+          <tr><td>—</td><td>Рамка · Default / Disabled</td><td><code class="tok">--border-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-light)"></span></td><td>#E1EDE7</td></tr>
+          <tr><td>—</td><td>Рамка · Hover</td><td><code class="tok">--border-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-primary)"></span></td><td>#B8CCCC</td></tr>
+          <tr><td>—</td><td>Тень · Hover</td><td><code class="tok">--elevation-2</code></td><td>—</td><td>—</td></tr>
+          <tr><td>—</td><td>Обводка фокуса · Focus</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+          <tr><td>—</td><td>Название · Default</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
+          <tr><td>—</td><td>Название · Disabled</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
+          <tr><td>—</td><td>Описание · Default</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
+          <tr><td>—</td><td>Описание · Disabled</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
         </tbody>
       </table>
     </div>
+    <div id="color-ref" style="display:none"></div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->
@@ -238,7 +241,7 @@
 
   <!-- BACKLOG -->
   <div class="backlog" data-screen-label="Backlog">
-    <h2>Что предлагаем добавить</h2>
+    <h2>Бэклог</h2>
     <p class="desc">Кейсы вне текущей документации; собираются на существующих токенах:</p>
     <ul class="bullets">
       <li>бейдж-счётчик на плитке («Задачи · 12») — компонент Badge уже есть;</li>

@@ -236,13 +236,13 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
   if (!tb) return;
   const rows = [
     ['InputText',          null, true,  true],
-    ['InputAutocomplete',  'InputAutocomplete.html', true, true],
+    ['InputAutocomplete',  '../molecules/InputAutocomplete.html', true, true],
     ['InputDate',          null, true,  true],
-    ['ReadOnlyField',      'ReadOnlyField.html', true,  true],
+    ['ReadOnlyField',      '../molecules/ReadOnlyField.html', true,  true],
     ['Checkbox',           'Checkbox.html', false, true],
     ['Radiobutton',        'Radiobutton.html', false, true],
     ['Switch',             'Switch.html', false, true],
-    ['Select · DropdownList', 'Select.html', false, true],
+    ['DropdownList',       '../molecules/DropdownList.html', false, true],
   ];
   function cell(v){ return v ? '<span class="yes">'+LH_ICONS.check+'</span>' : '<span class="no">'+LH_ICONS.dash+'</span>'; }
   tb.innerHTML = rows.map(([name, href, hasLabel, hasHelper])=>`

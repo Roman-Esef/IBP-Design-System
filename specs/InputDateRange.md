@@ -1,8 +1,8 @@
 ---
 component: InputDateRange
 title: "InputDateRange"
-version: "v1.5"
-updated: "22.07.2026"
+version: "v1.6"
+updated: "29.07.2026"
 page: pages/molecules/InputDateRange.html
 page_js: scripts/input-date-range.page.js
 css: styles/input-range.css

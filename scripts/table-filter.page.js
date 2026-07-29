@@ -410,7 +410,7 @@
       scrim.innerHTML =
         '<div class="modal modal--w' + w + '" role="alertdialog" aria-modal="true">' +
           '<div class="modal__head"><h2 class="modal__title">' + title + '</h2>' +
-          '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' +
+          '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' +
           '<div class="modal__body">' + body + '</div>' +
           '<div class="modal__foot"><div class="modal__foot-left"></div><div class="modal__foot-right">' +
             '<button type="button" class="btn btn--outline btn--m nested-cancel"><span class="btn__label">Отмена</span></button>' +
@@ -499,7 +499,7 @@
 
       modal.innerHTML =
         '<div class="modal__head"><h2 class="modal__title">Фильтр</h2>' +
-          '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' +
+          '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' +
         '<div class="modal__body modal__body--flush"><div class="tfm__body">' + nav + '<div class="tfm__panel" id="tfm-panel"></div></div></div>' +
         '<div class="modal__foot"><div class="modal__foot-left">' +
           '<button type="button" class="btn btn--transparent btn--m tfm-save"><i data-icon="bookmark-add"></i><span class="btn__label">Сохранить фильтр</span></button>' +

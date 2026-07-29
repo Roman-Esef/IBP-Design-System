@@ -1,5 +1,5 @@
 /* =========================================================================
-   Design System — DropdownList (всплывающий список компонента Select)
+   Design System — DropdownList (выпадающий список — выбор значения из перечня)
    ---------------------------------------------------------------------
    Поверхность-поповер со списком опций, которая раскрывается под полем
    Select / InputAutocomplete. В отличие от Context Menu (список команд-
@@ -10,11 +10,12 @@
 
    Container:   .ddl                (+ --scroll · --floating · --pinned)
    Group:       .ddl__group
-   Item:        .ddl__item          (+ --selected · --wrap · --danger)
+   Item:        .ddl__item          (+ --selected · --wrap · --danger · --all)
      parts:     .ddl__item-check · .ddl__item-icon · .ddl__item-body
                 .ddl__item-label · .ddl__item-helper · .ddl__item-trail
      match:     .ddl__match         (подсветка совпадения в автокомплите)
-   States:      default · hover · focus · active · selected · disabled
+   States:      default · hover · focus · active · selected · disabled · mixed
+                (mixed — строка «Выбрать всё» при частичном выборе)
    System row:  .ddl__state         (+ --loading · --empty · --error)
 
    Локальные токены (наследуются от семантических токенов ДС):
@@ -78,8 +79,12 @@
 /* content column — подпись + опциональный helper */
 .ddl__item-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1 1 auto; }
 
-/* опция с helper — вторая строка, увеличенная высота с вертикальным паддингом */
-.ddl__item:has(.ds-helper) { min-height: 52px; padding-top: 7px; padding-bottom: 7px; }
+/* опция с helper — вторая строка, увеличенная высота с вертикальным паддингом.
+   Ведущий слот (чекбокс/иконка 20px) и правая часть выравниваются по ПЕРВОЙ
+   строке подписи: line-height Body M = 20px, поэтому достаточно flex-start. */
+.ddl__item:has(.ds-helper) { min-height: 52px; padding-top: 7px; padding-bottom: 7px; align-items: flex-start; }
+.ddl__item:has(.ds-helper) .ddl__item-trail,
+.ddl__item--wrap .ddl__item-trail { align-items: flex-start; height: 20px; }
 
 .ddl__item-label {
   min-width: 0;
@@ -108,7 +113,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
+  /* Active · Secondary — токен --secondary */
+  color: var(--secondary);
 }
 .ddl__item-icon svg { width: 100%; height: 100%; display: block; }
 
@@ -124,6 +130,12 @@
   border-color: var(--primary);
 }
 .ddl__item[aria-checked="true"] .cb__mark svg { opacity: 1; }
+/* mixed — «Выбрать всё» при частичном выборе: чёрточка вместо галочки */
+.ddl__item[aria-checked="mixed"] .cb__mark {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.ddl__item[aria-checked="mixed"] .cb__mark svg { opacity: 1; }
 
 /* ---------- trailing part (галочка одиночного выбора / доп. значение) ---------- */
 .ddl__item-trail {
@@ -184,6 +196,11 @@
 .ddl__item--checkbox[aria-checked="true"]:hover,
 .ddl__item--checkbox[aria-checked="true"].is-hover { background: var(--ddl-item-hover); }
 .ddl__item--checkbox[aria-checked="true"] .ddl__item-label { color: var(--text-primary); font: var(--type-body-m); }
+
+/* ---------- «Выбрать всё» — первая строка множественного выбора ---------- */
+.ddl__item--all .ddl__item-label,
+.ddl__item--checkbox.ddl__item--all .ddl__item-label { font: var(--type-body-m-strong); }
+.ddl__item--all + .ddl__divider { margin-top: 0; }
 
 /* disabled */
 .ddl__item[aria-disabled="true"],
@@ -258,6 +275,9 @@
   color: var(--text-inactive);
 }
 .ddl__state-icon svg { width: 100%; height: 100%; display: block; }
+/* строка с пояснением (ошибка) — иконка выравнивается по первой строке текста */
+.ddl__state:has(.ddl__state-sub) { align-items: flex-start; }
+.ddl__state:has(.ddl__state-sub) .ddl__state-icon { margin-top: -2px; }
 .ddl__state-text { min-width: 0; }
 .ddl__state-sub {
   display: block;

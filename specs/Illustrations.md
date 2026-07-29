@@ -1,11 +1,12 @@
 ---
 component: Illustrations
 title: "Иллюстрации"
-version: "v1.2"
-updated: "23.07.2026"
+version: "v1.3"
+updated: "25.07.2026"
 page: pages/foundations/Illustrations.html
 css: styles/illustration.css
 deps: [colors, radius, typography]
+status: curated
 ---
 
 # Иллюстрации — библиотека продуктовых иллюстраций

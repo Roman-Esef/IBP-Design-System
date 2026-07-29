@@ -31,7 +31,7 @@
   --radius-field:     var(--radius-xs);   /* поля ввода, селекты               */
   --radius-popup:     var(--radius-xl);   /* меню, поповеры, дропдауны          */
   --radius-card:      var(--radius-2xl);  /* карточки, панели, группы          */
-  --radius-modal:     var(--radius-4xl);  /* модальные окна, шиты              */
+  --radius-modal:     var(--radius-m);    /* модальные окна, шиты (8px)        */
   --radius-pill:      var(--radius-full); /* пилюли                            */
   --radius-round:     var(--radius-circle); /* круглые элементы                */
 }

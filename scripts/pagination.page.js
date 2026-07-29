@@ -54,27 +54,30 @@
   function buildPager(o = {}) {
     const opts = Object.assign({
       total: 800, pageSize: 50, page: 1, pageSizeOptions: DEFAULT_SIZES,
-      showPageSize: true, compact: false, disabled: false, loading: false, responsive: true,
+      showPageSize: true, compact: false, responsive: true,
       onChange: null, onPageSizeChange: null,
     }, o);
 
     const host = document.createElement('div');
-    host.className = 'pgn' + (opts.compact ? ' pgn--compact' : '') + (opts.disabled ? ' pgn--disabled' : '') + (opts.loading ? ' pgn--loading' : '');
-    if (opts.disabled) host.setAttribute('aria-disabled', 'true');
+    host.className = 'pgn' + (opts.compact ? ' pgn--compact' : '');
 
     const tp = totalPages(opts.total, opts.pageSize);
     const page = Math.min(Math.max(1, opts.page), tp);
 
-    /* ---------- pagesize ---------- */
+    /* ---------- pagesize — неинтерактивный текст + IconButton-M чеврон ---------- */
     if (opts.showPageSize) {
+      const CHEV_D = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
       const anchor = document.createElement('span');
-      anchor.className = 'ddl-anchor';
+      anchor.className = 'pgn__pagesize ddl-anchor';
+      const label = document.createElement('span');
+      label.className = 'pgn__pagesize-label';
+      label.innerHTML = 'Показывать строк: <b>' + sizeLabel(opts.pageSize) + '</b>';
       const trg = document.createElement('button');
       trg.type = 'button';
-      trg.className = 'pgn__pagesize';
+      trg.className = 'pgn__pagesize-btn';
       trg.setAttribute('aria-haspopup', 'listbox');
-      trg.innerHTML = 'Показывать строк: <b>' + sizeLabel(opts.pageSize) + '</b><span class="pgn__pagesize__chev">' + (icon('chevron-down') || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>') + '</span>';
-      if (opts.disabled) trg.disabled = true;
+      trg.setAttribute('aria-label', 'Изменить размер страницы');
+      trg.innerHTML = icon('chevron-down') || CHEV_D;
       const list = document.createElement('div');
       list.className = 'ddl ddl--floating';
       list.setAttribute('role', 'listbox');
@@ -91,7 +94,7 @@
         });
         list.appendChild(it);
       });
-      anchor.appendChild(trg); anchor.appendChild(list);
+      anchor.append(label, trg, list);
       host.appendChild(anchor);
 
       let open = false;
@@ -117,7 +120,7 @@
       }
       function outside(e) { if (!anchor.contains(e.target)) set(false); }
       function onEsc(e) { if (e.key === 'Escape') set(false); }
-      trg.addEventListener('click', () => { if (!opts.disabled) set(!open); });
+      trg.addEventListener('click', () => set(!open));
       window.addEventListener('resize', () => { if (open) place(); });
     }
 
@@ -126,10 +129,6 @@
     rangeEl.className = 'pgn__range';
     rangeEl.textContent = page + ' из ' + tp;
     host.appendChild(rangeEl);
-
-    if (opts.loading) {
-      const sp = document.createElement('span'); sp.className = 'pgn__spinner'; host.appendChild(sp);
-    }
 
     /* ---------- nav (перестраиваемый: число номеров зависит от tier) ---------- */
     const CHEV_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
@@ -144,19 +143,33 @@
       b.setAttribute('aria-label', dir < 0 ? 'Предыдущая страница' : 'Следующая страница');
       b.innerHTML = dir < 0 ? (icon('chevron-left') || CHEV_L) : (icon('chevron-right') || CHEV_R);
       const atBound = dir < 0 ? page <= 1 : page >= tp;
-      if (atBound || opts.disabled) b.setAttribute('aria-disabled', 'true');
+      if (atBound) b.setAttribute('aria-disabled', 'true');
       b.addEventListener('click', () => {
-        if (opts.disabled) return;
         const target = page + dir;
         if (target >= 1 && target <= tp && opts.onChange) opts.onChange(target);
       });
       return b;
     }
 
-    function renderNav(sibling, boundary, inNavRange) {
+    /* уровни деградации навигации — от полного набора к «стрелки + N из M» */
+    const LEVELS = [
+      { t: 'l',  sibling: 1, boundary: 1, mode: 'nums' },
+      { t: 'm',  sibling: 0, boundary: 1, mode: 'nums' },
+      { t: 'sm', sibling: 0, boundary: 0, mode: 'current' },
+      { t: 'c',  sibling: 0, boundary: 0, mode: 'compact' },
+    ];
+    const LEVEL_XS = { t: 'xs', sibling: 0, boundary: 0, mode: 'compact' };
+
+    function navItems(level) {
+      if (level.mode === 'compact') return [];
+      if (level.mode === 'current') return [page];
+      return pageWindow(page, tp, level.sibling, level.boundary);
+    }
+
+    function renderNav(level) {
       nav.innerHTML = '';
       nav.appendChild(makeArrow(-1));
-      pageWindow(page, tp, sibling, boundary).forEach((p) => {
+      navItems(level).forEach((p) => {
         if (p === '...') {
           const e = document.createElement('span'); e.className = 'pgn__ellipsis';
           e.setAttribute('aria-hidden', 'true'); e.textContent = '\u2026'; nav.appendChild(e);
@@ -166,53 +179,158 @@
         b.type = 'button'; b.className = 'pgn__num'; b.textContent = String(p);
         b.setAttribute('aria-label', 'Страница ' + p);
         if (p === page) b.setAttribute('aria-current', 'page');
-        else b.addEventListener('click', () => { if (!opts.disabled && opts.onChange) opts.onChange(p); });
-        if (opts.disabled) b.disabled = true;
+        else b.addEventListener('click', () => { if (opts.onChange) opts.onChange(p); });
         nav.appendChild(b);
       });
-      if (inNavRange) {
+      if (level.mode === 'compact') {
         const r = document.createElement('span'); r.className = 'pgn__range';
         r.textContent = page + ' из ' + tp;
         nav.appendChild(r);
       }
       nav.appendChild(makeArrow(1));
     }
-    renderNav(1, 1, opts.compact);
+    renderNav(opts.compact ? LEVELS[LEVELS.length - 1] : LEVELS[0]);
     host.appendChild(nav);
 
-    /* ---------- responsive controller (ResizeObserver → data-tier) ---------- */
-    const TIERS = {
-      l:  { sibling: 1, boundary: 1, compact: false },
-      m:  { sibling: 0, boundary: 1, compact: false },
-      s:  { sibling: 0, boundary: 1, compact: true  },
-      xs: { sibling: 0, boundary: 0, compact: true  },
-    };
-    function tierFor(w) { return w >= 680 ? 'l' : w >= 520 ? 'm' : w >= 380 ? 's' : 'xs'; }
-    function applyTier(w) {
-      const t = tierFor(w);
-      if (host.dataset.tier === t) return;
-      host.dataset.tier = t;
-      const row = host.closest('.pgn-row');
-      if (row) {
-        row.dataset.tier = t;
-        const footer = row.closest('.pgn-footer');
-        if (footer) footer.querySelectorAll(':scope > .pgn-row').forEach((r) => { r.dataset.tier = t; });
-      }
-      const c = TIERS[t];
-      host.classList.toggle('pgn--compact', c.compact);
-      renderNav(c.sibling, c.boundary, c.compact);
+    /* ---------- responsive controller — fit по доступному месту ----------
+       Уровень выбирается не по порогам вьюпорта, а измерением: сколько места
+       остаётся пагинатору после инфо-сводки левого слота. Пока пара
+       «сводка + пагинатор» не влезает в одну строку — сокращается пагинатор
+       (номера → только текущая → «N из M»); когда сокращать больше нечего,
+       строка складывается в вертикаль и сводка получает всю ширину.
+       Ничто не обрезается и не выходит за границы строки.
+       -------------------------------------------------------------------- */
+    const M = { slot: 32, gap: 2, section: 28, pagesize: 0, range: 56, ell: 24, done: false };
+    function calibrate() {
+      M.section = parseFloat(getComputedStyle(host).columnGap) || 28;
+      M.gap = parseFloat(getComputedStyle(nav).columnGap) || 2;
+      const n = nav.querySelector('.pgn__num');
+      if (n) M.slot = n.getBoundingClientRect().width || M.slot;
+      const e = nav.querySelector('.pgn__ellipsis');
+      if (e) M.ell = e.getBoundingClientRect().width || M.ell;
+      const ps = host.querySelector('.pgn__pagesize');
+      M.pagesize = ps ? ps.getBoundingClientRect().width : 0;
+      M.range = rangeEl.getBoundingClientRect().width || M.range;
+      M.done = true;
     }
+    /* требуемая ширина пагинатора на уровне level (+ буфер 8px) */
+    function needOf(level) {
+      let w = 0, sections = 1;               // sections — nav + опциональные pagesize/range
+      if (M.pagesize) { w += M.pagesize; sections++; }
+      if (level.mode === 'compact') {
+        w += 2 * M.slot + M.range + 16 + M.gap * 2;   // range переезжает внутрь nav (padding 0 8px)
+      } else {
+        const items = navItems(level);
+        const nums = items.filter((p) => p !== '...').length;
+        w += M.range; sections++;
+        w += (2 + nums) * M.slot + (items.length - nums) * M.ell + M.gap * (items.length + 1);
+      }
+      return w + M.section * (sections - 1) + 8;
+    }
+    /* ширина инфо-сводки: full — в одну строку, min — самый широкий пункт
+       (пункты можно переносить, но не резать) */
+    function leftNeed(row) {
+      const left = row && row.querySelector('.pgn-row__left');
+      const info = left && left.firstElementChild;
+      if (!info) return { full: 0, min: 0, count: 0 };
+      const kids = Array.prototype.filter.call(info.children, (el) => el.getBoundingClientRect().width > 0);
+      if (!kids.length) { const w = left.getBoundingClientRect().width; return { full: w, min: w, count: 1 }; }
+      const gap = parseFloat(getComputedStyle(info).columnGap) || 24;
+      let full = gap * (kids.length - 1), min = 0;
+      kids.forEach((el) => { const w = el.getBoundingClientRect().width; full += w; if (w > min) min = w; });
+      return { full, min, count: kids.length };
+    }
+    let applied = '', appliedIdx = 0;
+    function apply(level, layout, idx) {
+      const key = level.t + '|' + layout + '|' + page + '|' + tp;
+      appliedIdx = idx;
+      if (applied === key) return;
+      applied = key;
+      host.dataset.tier = level.t;
+      host.classList.toggle('pgn--compact', level.mode === 'compact');
+      renderNav(level);
+      const row = host.closest('.pgn-row');
+      if (!row) return;
+      const footer = row.closest('.pgn-footer');
+      const rows = footer ? footer.querySelectorAll(':scope > .pgn-row') : [row];
+      Array.prototype.forEach.call(rows, (r) => { r.dataset.tier = level.t; r.dataset.layout = layout; });
+    }
+    /* HYST — переход к менее компактному уровню требует запаса, иначе рост высоты
+       строки (появление скроллбара у контейнера) вызывает дребезг решения */
+    const HYST = 24;
+    function fit() {
+      const row = host.closest('.pgn-row');
+      const box = row || host.parentElement || host;
+      const cs = getComputedStyle(box);
+      const inner = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+      if (!(inner > 0)) return;
+      if (!M.done) calibrate();
+      const L = leftNeed(row);
+      const gapRow = L.full ? (parseFloat(cs.columnGap) || 20) : 0;
+      const stacked = row && row.dataset.layout === 'stack';
+      /* первый уровень, влезающий в avail; подъём к более полному набору — с запасом */
+      function pick(avail, hyst) {
+        for (let i = 0; i < LEVELS.length; i++) {
+          if (needOf(LEVELS[i]) <= avail - (hyst && (i < appliedIdx || stacked) ? HYST : 0)) return i;
+        }
+        return -1;
+      }
+      /* Выбираем раскладку по правилу «максимум номеров»: если в одну строку
+         помещается не хуже, чем в вертикаль — остаёмся в строке (колонтитул ниже);
+         иначе складываемся в вертикаль — там сводка и пагинатор получают всю ширину. */
+      const iRow = pick(inner - L.full - gapRow, true);
+      const iStack = pick(inner, false);
+      if (iRow >= 0 && (iStack < 0 || iRow <= iStack)) { apply(LEVELS[iRow], 'row', iRow); return; }
+      if (iStack >= 0) { apply(LEVELS[iStack], 'stack', iStack); return; }
+      apply(LEVEL_XS, 'stack', LEVELS.length);
+    }
+    /* один пересчёт на кадр + предохранитель от осцилляции (скроллбар контейнера) */
+    let raf = 0, hits = 0, since = 0, lastW = -1, tail = 0;
+    /* Отброшенный вызов не теряется: любое гашение (кадр уже запланирован
+       или сработал предохранитель) ставит хвостовой пересчёт по покою —
+       иначе после быстрого ресайза финальная ширина осталась бы без пересчёта */
+    function scheduleTail() {
+      clearTimeout(tail);
+      tail = setTimeout(() => { tail = 0; hits = 0; since = 0; fit(); }, 300);
+    }
+    function scheduleFit() {
+      if (raf) { scheduleTail(); return; }
+      const run = () => {
+        raf = 0;
+        const now = Date.now();
+        if (now - since > 400) { since = now; hits = 0; }
+        if (++hits > 8) { scheduleTail(); return; }
+        fit();
+      };
+      raf = 1;
+      if (typeof requestAnimationFrame === 'function' && !document.hidden) requestAnimationFrame(run);
+      else setTimeout(run, 16);
+    }
+    host.__pgnFit = fit;
     const AUTO = !opts.compact && opts.responsive !== false;
     if (AUTO && typeof ResizeObserver !== 'undefined') {
-      requestAnimationFrame(() => {
+      /* бутстрап без rAF: на скрытой вкладке (document.hidden) кадры не идут вовсе */
+      const boot = () => {
         const measured = host.closest('.pgn-row') || host.parentElement || host;
-        applyTier(measured.getBoundingClientRect().width || 800);
+        calibrate();
+        setTimeout(fit, 0);   /* первый расчёт вне доставки RO — без loop-предупреждения */
+        /* реагируем только на изменение ШИРИНЫ: высоту меняет сам пересчёт —
+           если слушать её, RO зацикливается */
         const ro = new ResizeObserver((es) => {
           if (!host.isConnected) { ro.disconnect(); return; }
-          applyTier(es[0].target.getBoundingClientRect().width);
+          const w = Math.round(es[0].contentRect.width);
+          if (w === lastW && applied) return;
+          lastW = w;
+          scheduleFit();
         });
         ro.observe(measured);
-      });
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
+      else setTimeout(boot, 0);
+      /* если на момент бутстрапа ширины ещё не было (display:none, скрытая вкладка) — догоняем */
+      const retry = () => { if (host.isConnected && !applied) fit(); };
+      document.addEventListener('visibilitychange', retry);
+      window.addEventListener('load', retry);
     }
 
     return host;
@@ -274,6 +392,8 @@
       const bulkRow = document.createElement('div'); bulkRow.className = 'pgn-row pgn-row--bulk';
       bulkRow.appendChild(buildBulk(Object.assign({ count: selectionCount }, o.bulk || {})));
       wrap.appendChild(bulkRow);
+      const dvd = document.createElement('hr'); dvd.className = 'dvd dvd--h';
+      wrap.appendChild(dvd);
     }
     wrap.appendChild(buildRow(o));
     return wrap;
@@ -289,7 +409,16 @@
     const codeEl = document.getElementById('pg-code');
     if (!controls || !preview) return;
 
-    const state = { total: 800, pageSize: 50, page: 3, left: 'none', selection: 0, system: 'default', showPageSize: true };
+    const state = { total: 800, pageSize: 50, page: 3, left: 'none', selection: 0, showPageSize: true, width: 680 };
+
+    function widthSlider() {
+      const wrap = document.createElement('div'); wrap.className = 'ctl pg__widthctl';
+      const l = document.createElement('div'); l.className = 'lbl';
+      l.innerHTML = 'Ширина компонента: <b>' + state.width + 'px</b>';
+      const r = document.createElement('input'); r.type = 'range'; r.min = '320'; r.max = '960'; r.step = '10'; r.value = String(state.width);
+      r.addEventListener('input', () => { state.width = +r.value; l.innerHTML = 'Ширина компонента: <b>' + state.width + 'px</b>'; preview.style.width = state.width + 'px'; });
+      wrap.append(l, r); return wrap;
+    }
 
     function select(label, options, getCur, onPick) {
       const wrap = document.createElement('div'); wrap.className = 'ctl';
@@ -308,24 +437,22 @@
       return t;
     }
 
+    controls.appendChild(widthSlider());
     controls.appendChild(select('Всего строк', [['16', '16'], ['84', '84'], ['320', '320'], ['800', '800'], ['15000', '15 000']], () => state.total, v => { state.total = +v; if (state.page > totalPages(state.total, state.pageSize)) state.page = totalPages(state.total, state.pageSize); }));
     controls.appendChild(select('Размер страницы', DEFAULT_SIZES.map(v => [String(v), sizeLabel(v)]), () => state.pageSize, v => { state.pageSize = v === 'all' ? 'all' : +v; const tp = totalPages(state.total, state.pageSize); if (state.page > tp) state.page = tp; }));
     controls.appendChild(select('Левый слот', [['none', 'Нет'], ['info', 'Инфо-сводка']], () => state.left, v => state.left = v));
     controls.appendChild(select('Выбрано строк (Action panel)', [['0', 'Нет'], ['2', '2'], ['4', '4'], ['12', '12']], () => state.selection, v => state.selection = +v));
-    controls.appendChild(select('Состояние', [['default', 'Default'], ['disabled', 'Disabled'], ['loading', 'Loading']], () => state.system, v => state.system = v));
 
     const optWrap = document.createElement('div'); optWrap.className = 'ctl';
     const ol = document.createElement('div'); ol.className = 'lbl'; ol.textContent = 'Опции'; optWrap.appendChild(ol);
     const toggles = document.createElement('div'); toggles.className = 'toggles';
-    toggles.appendChild(sw('Селектор размера страницы', 'showPageSize'));
+    toggles.appendChild(sw('Выбор размера страницы', 'showPageSize'));
     optWrap.appendChild(toggles); controls.appendChild(optWrap);
 
     function render() {
       preview.innerHTML = '';
       const tp = totalPages(state.total, state.pageSize);
       if (state.page > tp) state.page = tp;
-      const disabled = state.system === 'disabled';
-      const loading = state.system === 'loading';
 
       const node = buildFooter({
         selectionCount: state.selection,
@@ -333,16 +460,15 @@
         pager: {
           total: state.total, pageSize: state.pageSize, page: state.page,
           showPageSize: state.showPageSize,
-          disabled, loading,
           onChange: (p) => { state.page = p; render(); },
           onPageSizeChange: (v) => { state.pageSize = v; state.page = 1; render(); },
         },
       });
       node.style.width = '100%';
+      preview.style.width = state.width + 'px';
       preview.appendChild(node);
 
-      const cls = 'pgn' + (disabled ? ' pgn--disabled' : '') + (loading ? ' pgn--loading' : '');
-      codeEl.innerHTML = '<code>&lt;div class="pgn-row"&gt;…&lt;div class="' + cls + '"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — страница ' + Math.min(state.page, tp) + ' из ' + tp;
+      codeEl.innerHTML = '<code>&lt;div class="pgn-row"&gt;…&lt;div class="pgn"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — страница ' + Math.min(state.page, tp) + ' из ' + tp;
     }
     render();
     window.addEventListener('resize', render);
@@ -509,9 +635,11 @@
   (function () {
     const host = document.getElementById('content-pagesize');
     if (!host) return;
-    const anchor = document.createElement('span'); anchor.className = 'ddl-anchor';
-    const trg = document.createElement('button'); trg.type = 'button'; trg.className = 'pgn__pagesize is-open';
-    trg.innerHTML = 'Показывать строк: <b>20</b><span class="pgn__pagesize__chev">' + icon('chevron-down') + '</span>';
+    const anchor = document.createElement('span'); anchor.className = 'pgn__pagesize ddl-anchor';
+    const label = document.createElement('span'); label.className = 'pgn__pagesize-label'; label.innerHTML = 'Показывать строк: <b>20</b>';
+    const trg = document.createElement('button'); trg.type = 'button'; trg.className = 'pgn__pagesize-btn is-open';
+    trg.setAttribute('aria-label', 'Изменить размер страницы');
+    trg.innerHTML = icon('chevron-down');
     const list = document.createElement('div'); list.className = 'ddl ddl--floating ddl--pinned';
     DEFAULT_SIZES.forEach(v => {
       const it = document.createElement('div'); it.className = 'ddl__item'; it.setAttribute('role', 'option');
@@ -519,7 +647,7 @@
       it.innerHTML = '<span class="ddl__item-body"><span class="ddl__item-label">' + sizeLabel(v) + '</span></span>';
       list.appendChild(it);
     });
-    anchor.append(trg, list);
+    anchor.append(label, trg, list);
     host.appendChild(anchor);
     requestAnimationFrame(() => { list.style.position = 'static'; list.style.marginTop = '6px'; list.style.opacity = '1'; list.style.visibility = 'visible'; list.style.transform = 'none'; });
   })();
@@ -556,10 +684,10 @@
         ['Фон', 'transparent', '—', 'без заливки'],
       ]],
       ['Hover', () => miniNav(nav => {
-        [1, 2, 3].forEach(p => { const b = document.createElement('span'); b.className = 'pgn__num' + (p === 2 ? ' is-hover' : ''); b.textContent = p; if (p === 2) { b.style.background = 'var(--tertiary-light)'; b.style.color = 'var(--text-primary)'; } nav.appendChild(b); });
+        [1, 2, 3].forEach(p => { const b = document.createElement('span'); b.className = 'pgn__num' + (p === 2 ? ' is-hover' : ''); b.textContent = p; if (p === 2) { b.style.background = 'color-mix(in srgb, currentColor 12%, transparent)'; } nav.appendChild(b); });
       }), [
-        ['Фон', '--tertiary-light', 'Tertiary_Light', 'Swamp_50'],
-        ['Текст', '--text-primary', 'Text_Primary', 'CGrey_600'],
+        ['Стейт-слой', '--text-secondary', 'currentColor 12%', 'IconButton neutral'],
+        ['Текст', '--text-secondary', 'Text_Secondary', 'CGrey_500'],
       ]],
       ['Current (текущая)', () => miniNav(nav => {
         [1, 2, 3].forEach(p => { const b = document.createElement('span'); b.className = 'pgn__num'; b.textContent = p; if (p === 2) b.setAttribute('aria-current', 'page'); nav.appendChild(b); });
@@ -567,23 +695,12 @@
         ['Фон', '--bgtable-row-focus', 'BGTable_RowFocus', 'Swamp_a700'],
         ['Текст', '--text-primary', 'Text_Primary', 'CGrey_800'],
       ]],
-      ['Arrow · Default / Disabled', () => miniNav(nav => {
+      ['Arrow · Default / граница', () => miniNav(nav => {
         const p = document.createElement('span'); p.className = 'pgn__arrow'; p.innerHTML = icon('chevron-left'); nav.appendChild(p);
         const n = document.createElement('span'); n.className = 'pgn__arrow'; n.setAttribute('aria-disabled', 'true'); n.innerHTML = icon('chevron-right'); nav.appendChild(n);
       }), [
         ['Default', '--text-secondary', 'Text_Secondary', 'CGrey_500'],
-        ['Disabled', '--text-inactive', 'Text_Inactive', 'CGrey_300'],
-      ]],
-      ['Disabled (весь компонент)', () => {
-        const nav = miniNav(nav => {
-          [1, 2].forEach(p => { const b = document.createElement('span'); b.className = 'pgn__num'; if (p === 1) b.setAttribute('aria-current', 'page'); b.textContent = p; nav.appendChild(b); });
-        });
-        nav.closest && null;
-        const wrap = document.createElement('div'); wrap.className = 'pgn pgn--disabled'; wrap.appendChild(nav);
-        return wrap;
-      }, [
-        ['Текст', '--text-inactive', 'Text_Inactive', 'CGrey_300'],
-        ['Current фон', '--disabled-bg', 'DisabledBG', 'CGrey_50'],
+        ['Граница', '--text-inactive', 'Text_Inactive', 'CGrey_300'],
       ]],
     ];
     const host = document.getElementById('state-specs');
@@ -599,29 +716,33 @@
     probe.remove();
   })();
 
-  /* ============================ LOADING demo ============================ */
-  (function () {
-    mount('demo-loading', buildPager({ total: 800, pageSize: 50, page: 3, loading: true, onChange() {} }));
-  })();
-
   /* ============================ ADAPTIVITY demos ============================ */
   (function () {
     // фиксированные снимки уровней
     const host = document.getElementById('adapt-tiers');
     if (host) {
-      const samples = [
-        ['l · ≥ 680px — полный набор', 720],
-        ['m · ≥ 520px — сокращённый (1 … N … Last)', 560],
-        ['s · ≥ 380px — вертикаль, только стрелки', 420],
-        ['xs · < 380px — пагинатор в две строки', 320],
-      ];
-      samples.forEach(([label, w]) => {
+      const LBL = {
+        l:  'полный набор номеров',
+        m:  'сокращённый набор: 1 … N … Last',
+        sm: 'между стрелок только текущая страница',
+        c:  'номера скрыты, между стрелок счётчик «N из M»',
+        xs: 'пагинатор переносится в две строки',
+      };
+      [960, 800, 700, 640, 520, 340].forEach((w) => {
         const wrap = document.createElement('div'); wrap.className = 'adapt-sample';
-        const cap = document.createElement('p'); cap.className = 'demo-rowlabel'; cap.textContent = label;
+        const cap = document.createElement('p'); cap.className = 'demo-rowlabel'; cap.textContent = w + 'px';
         const frame = document.createElement('div'); frame.className = 'adapt-frame'; frame.style.width = w + 'px'; frame.style.maxWidth = '100%';
-        frame.appendChild(buildRow({ info: {}, pager: { total: 480, pageSize: 20, page: 6, onChange() {} } }));
+        const row = buildRow({ info: {}, pager: { total: 480, pageSize: 20, page: 6, onChange() {} } });
+        frame.appendChild(row);
         wrap.append(cap, frame);
         host.appendChild(wrap);
+        // подпись берём из фактически применённого уровня — чтобы не расходилась с поведением
+        setTimeout(() => {
+          const p = row.querySelector('.pgn');
+          const t = p && p.dataset.tier;
+          if (!t) return;
+          cap.textContent = w + 'px · tier ' + t + (row.dataset.layout === 'stack' ? ' · вертикаль' : '') + ' — ' + (LBL[t] || '');
+        }, 120);
       });
     }
     // живой ресайз
@@ -637,8 +758,8 @@
       const b = document.createElement('button'); b.type = 'button'; b.className = 'pgn__num';
       b.textContent = text;
       if (opt.current) b.setAttribute('aria-current', 'page');
-      if (opt.hover) { b.style.background = 'var(--tertiary-light)'; b.style.color = 'var(--text-primary)'; }
-      if (opt.focus) { b.style.outline = '2px solid var(--primary)'; b.style.outlineOffset = '1px'; }
+      if (opt.hover) { b.style.background = 'color-mix(in srgb, currentColor 12%, transparent)'; }
+      if (opt.focus) { b.style.outline = '2px solid var(--primary)'; b.style.outlineOffset = '2px'; }
       if (opt.disabled) { b.disabled = true; b.style.color = 'var(--text-inactive)'; }
       return b;
     }
@@ -646,7 +767,7 @@
       const b = document.createElement('button'); b.type = 'button'; b.className = 'pgn__arrow';
       b.innerHTML = icon(dir < 0 ? 'chevron-left' : 'chevron-right');
       if (opt.disabled) b.setAttribute('aria-disabled', 'true');
-      if (opt.hover) { b.style.background = 'var(--tertiary-light)'; b.style.color = 'var(--text-primary)'; }
+      if (opt.hover) { b.style.background = 'color-mix(in srgb, currentColor 12%, transparent)'; }
       return b;
     }
     const cells = [

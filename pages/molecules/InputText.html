@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="../../styles/tooltip.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/input.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -24,7 +25,7 @@
 <main class="page" data-screen-label="InputText">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.7</b></span><span>Обновлено: <b>29.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputText</h1>
     <p class="lead">Базовое поле ввода произвольного текста. Собирается из компонентов подкачки <a class="inl" href="../atoms/LabelHelper.html">LabelHelper</a> (метка и хелпер) и Input_Content (поле с рамкой: префикс / текст / постфикс, иконки и действия). На той же базе построены <a class="inl" href="InputDate.html">InputDate</a> и <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a>, а также числовой вариант InputAmount.</p>
@@ -69,7 +70,7 @@
         <li>ввод чисел и сумм — вариант InputAmount (разряды, запятая, децималы);</li>
         <li>редактирование значения прямо в ячейке таблицы — размер S (Table Edit).</li>
       </ul>
-      <p class="desc">Если значение выбирается из справочника — возьмите <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a> или <a class="inl" href="Select.html">Select</a>. Для даты — <a class="inl" href="InputDate.html">InputDate</a>. Показ значения без редактирования — <a class="inl" href="ReadOnlyField.html">ReadOnlyField</a>.</p>
+      <p class="desc">Если значение выбирается из справочника — возьмите <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a> или <a class="inl" href="DropdownList.html">Select</a>. Для даты — <a class="inl" href="InputDate.html">InputDate</a>. Показ значения без редактирования — <a class="inl" href="ReadOnlyField.html">ReadOnlyField</a>.</p>
     </div>
   </section>
 
@@ -208,19 +209,44 @@
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
     <p class="desc">Текст поля набирается гарнитурой <b>SB Sans Text</b>. Метка и хелпер — Body XS.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table" id="typo-table">
-        <thead><tr><th>Часть</th><th>Образец</th><th>Токен</th><th>Размер / интерлиньяж</th></tr></thead>
-        <tbody></tbody>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
+        <tbody>
+          <tr><td>Текст поля · M</td><td><code class="tok">--type-body-m</code></td><td>SB Sans Text</td><td>Regular</td><td>16 / 20</td><td><span style="font:var(--type-body-m)">Образец</span></td></tr>
+          <tr><td>Текст поля · S (Table Edit)</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
+          <tr><td>Label</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
+          <tr><td>Helper</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
+        </tbody>
       </table>
     </div>
+    <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
 
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
     <p class="desc">Компонент использует только семантические токены. Рамка — <code class="tok">--border-primary</code>, фокус — <code class="tok">--primary</code>, ошибка — <code class="tok">--error</code>, предупреждение — <code class="tok">--warning</code>.</p>
-    <div class="color-ref" id="color-ref"></div>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
+        <tbody>
+          <tr><td>Поле</td><td>Фон поля</td><td><code class="tok">--bg-tile</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-tile)"></span></td><td>#FFFFFF</td></tr>
+          <tr><td>Поле</td><td>Рамка</td><td><code class="tok">--border-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-primary)"></span></td><td>#B8CCCC</td></tr>
+          <tr><td>Поле</td><td>Рамка · hover/focus</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+          <tr><td>Поле</td><td>Тень фокуса</td><td><code class="tok">--primary-bg-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary-bg-light)"></span></td><td>3% #00AA9B</td></tr>
+          <tr><td>Поле</td><td>Фон · disabled</td><td><code class="tok">--st-disabled-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--st-disabled-light)"></span></td><td>4% #324844</td></tr>
+          <tr><td>Текст</td><td>Значение</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
+          <tr><td>Текст</td><td>Плейсхолдер / префикс / постфикс</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
+          <tr><td>Текст</td><td>Метка</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
+          <tr><td>Текст</td><td>Действия (иконки)</td><td><code class="tok">--secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--secondary)"></span></td><td>#B8D6D3</td></tr>
+          <tr><td>Статусы</td><td>Рамка · Error</td><td><code class="tok">--error</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--error)"></span></td><td>#E5625C</td></tr>
+          <tr><td>Статусы</td><td>Рамка · Warning</td><td><code class="tok">--warning</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--warning)"></span></td><td>#FFB300</td></tr>
+          <tr><td>Статусы</td><td>Хелпер · Error</td><td><code class="tok">--error</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--error)"></span></td><td>#E5625C</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="color-ref" style="display:none"></div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->
@@ -272,7 +298,7 @@
 
   <!-- BACKLOG -->
   <div class="backlog" data-screen-label="Backlog">
-    <h2>Что предлагаем добавить</h2>
+    <h2>Бэклог</h2>
     <p class="desc">Кейсы, которых нет в текущей документации; все собираются на существующих токенах:</p>
     <ul class="bullets">
       <li>маска ввода (телефон, счёт, ИНН) — как у InputDate, но с настраиваемым шаблоном;</li>

@@ -14,52 +14,29 @@
 <link rel="stylesheet" href="../../styles/badge.css">
 <link rel="stylesheet" href="../../styles/avatar.css">
 <link rel="stylesheet" href="../../styles/nav-panel.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-  body {
-    margin: 0; font-family: var(--font-text), system-ui, sans-serif;
-    color: var(--text-primary); background: var(--bg-page); background-attachment: fixed;
-  }
-  a.inl { color: var(--link); text-decoration: none; font-weight: 600; border-bottom: 1px solid color-mix(in srgb, var(--link) 35%, transparent); }
-  a.inl:hover { color: var(--link-dark); }
+
   a { color: var(--link); }
   a:hover { color: var(--link-dark); }
-  .page { max-width: 1320px; margin: 0 auto; padding: clamp(40px,7vw,96px) clamp(24px,5vw,72px) 140px; }
 
-  .masthead { border-bottom: 1px solid var(--border-light); padding-bottom: 30px; }
-  .masthead .meta { font: var(--type-body-xs); color: var(--text-inactive); display:flex; gap:24px; margin:0 0 22px; }
-  .masthead .meta b { color: var(--text-secondary); font: var(--type-body-xs); font-weight:600; }
-  .eyebrow { font: var(--type-button-xs); letter-spacing:.14em; text-transform:uppercase; color: var(--primary); margin:0 0 14px; }
-  .masthead h1 { font: var(--type-h1); margin:0 0 14px; color: var(--text-primary); }
-  @media (max-width:600px){ .masthead h1{ font-size:40px; line-height:48px; } }
-  .masthead p.lead { font: var(--type-body-l); color: var(--text-secondary); margin:0; max-width:70ch; text-wrap:pretty; }
+  
 
-  .section { margin-top: 76px; }
-  .section > h2 { font: var(--type-h3-strong); margin:0 0 8px; color: var(--text-primary); }
+  
+
+  
+  
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:76ch; text-wrap:pretty; }
-  .section > p.desc.tight { margin-bottom:20px; }
 
-  .subsec { margin-top:48px; }
-  .subsec > h3 { font: var(--type-h4-strong); margin:0 0 8px; color: var(--text-primary); }
-  .subsec > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 24px; max-width:82ch; text-wrap:pretty; }
-
-  .panel { background: var(--bg-tile); border:1px solid var(--border-light); border-radius:16px; padding: 32px 34px; }
   .row { display:flex; flex-wrap:wrap; align-items:flex-start; gap:40px; }
 
-  ul.bullets { margin: 0 0 0 2px; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
-  ul.bullets li { position:relative; padding-left:18px; font: var(--type-body-m); color: var(--text-secondary); }
-  ul.bullets li::before { content:""; position:absolute; left:2px; top:8px; width:5px; height:5px; border-radius:50%; background: var(--text-inactive); }
+  
 
-  ul.rules { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px; }
-  ul.rules li { font: var(--type-body-m); color: var(--text-primary); padding-left:26px; position:relative; text-wrap:pretty; }
-  ul.rules li::before { content:""; position:absolute; left:2px; top:9px; width:7px; height:7px; border-radius:50%; background: var(--primary); }
-
-  code.tok { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86em; color: var(--primary); background: var(--primary-bg); padding:1px 6px; border-radius:5px; }
+  
 
   /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; grid-template-columns: 340px 1fr; }
-  .pg__controls { padding:30px; display:flex; flex-direction:column; gap:22px; border-right:1px solid var(--border-light); }
+  .panel.pg { padding:0; overflow:hidden; display:grid; }
+  .pg__controls { flex-direction:column; }
   .pg__stage { padding:32px; min-height:280px; position:relative; overflow:auto;
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
@@ -73,9 +50,6 @@
   .toggle input:checked + .toggle__track::after { transform:translateX(16px); }
   .toggle input:focus-visible + .toggle__track { outline:2px solid var(--primary); outline-offset:2px; }
   .toggle__label { font: var(--type-body-m); color: var(--text-primary); }
-  .pg-select { position:relative; }
-  .pg-select select { appearance:none; -webkit-appearance:none; width:100%; height:40px; padding:0 38px 0 14px; border:1px solid var(--border-primary); border-radius:9px; background: var(--bg-tile); color: var(--text-primary); font: var(--type-body-m); cursor:pointer; }
-  .pg-select::after { content:""; position:absolute; right:15px; top:50%; width:9px; height:9px; border-right:2px solid var(--text-secondary); border-bottom:2px solid var(--text-secondary); transform:translateY(-65%) rotate(45deg); pointer-events:none; }
 
   /* ---------- nav frame ---------- */
   .nav-frame { display:inline-flex; align-items:stretch; }
@@ -88,9 +62,7 @@
   .anat__legend { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; counter-reset:a; }
   .anat__legend li { display:flex; gap:14px; align-items:flex-start; }
   .anat__legend li .n { counter-increment:a; flex:none; width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font: var(--type-body-s-strong); display:flex; align-items:center; justify-content:center; }
-  .anat__legend li .n::before { content:counter(a); }
   .anat__legend li .t .k { font: var(--type-body-m-strong); color: var(--text-primary); }
-  .anat__legend li .t .d { font: var(--type-body-s); color: var(--text-secondary); }
 
   /* ---------- modes ---------- */
   .modes { display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start; }
@@ -122,16 +94,12 @@
   .size-table th, .dev-table th, .ref-table th { font: var(--type-body-s-strong); color: var(--text-secondary); text-transform:uppercase; letter-spacing:.04em; font-size:12px; }
   .size-table tr:last-child td, .dev-table tr:last-child td, .ref-table tr:last-child td { border-bottom:none; }
   .size-table td.num, .dev-table td.rt-num { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
-  .size-table td.rec { color: var(--text-inactive); font: var(--type-body-s); }
-  .ref-table td.dsc { color: var(--text-secondary); font: var(--type-body-s); }
-  kbd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; color: var(--text-primary); background: var(--bgtable-row-focus); border:1px solid var(--border-primary); border-radius:5px; padding:1px 7px; }
-  .dev-note { font: var(--type-body-s); color: var(--text-inactive); margin:16px 2px 0; text-wrap:pretty; }
+  kbd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; color: var(--text-primary); background: var(--bgtable-row-focus); border:1px solid var(--border-primary); border-radius:var(--radius-xs); padding:1px 7px; }
 
   /* ---------- states ---------- */
   .states { display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
   @media (max-width:760px){ .states { grid-template-columns: 1fr; } }
   .state-cell { display:flex; flex-direction:column; gap:12px; align-items:flex-start; padding:20px 22px; border:1px solid var(--border-light); border-radius:14px; background: var(--bg-tile); }
-  .state-cap { font: var(--type-body-s-strong); color: var(--text-secondary); }
   .state-desc { font: var(--type-body-s); color: var(--text-inactive); text-wrap:pretty; }
   /* демонстрация hover (нельзя навести программно) */
   .state-cell .nav__item.is-hover { background: var(--bgtable-row-hover); color: var(--text-primary); }
@@ -140,57 +108,26 @@
   .guide { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
   @media (max-width:720px){ .guide { grid-template-columns:1fr; } }
   .guide-card { border:1px solid var(--border-light); border-radius:12px; overflow:hidden; background: var(--bg-tile); display:flex; flex-direction:column; }
-  .guide-card__bar { height:4px; }
-  .guide-card.bad  .guide-card__bar { background: var(--error); }
-  .guide-card.good .guide-card__bar { background: var(--success); }
   .guide-card__tag { display:inline-flex; align-items:center; gap:7px; font: var(--type-body-s-strong); padding:14px 20px 0; }
-  .guide-card.bad  .guide-card__tag { color: var(--error-dark); }
-  .guide-card.good .guide-card__tag { color: var(--success-dark); }
-  .guide-card__tag .ic { width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; flex:none; }
-  .guide-card.bad  .guide-card__tag .ic { background: var(--error); }
-  .guide-card.good .guide-card__tag .ic { background: var(--success); }
-  .guide-card__tag .ic svg { width:12px; height:12px; }
   .guide-card__body { padding:16px 20px 22px; font: var(--type-body-m); color: var(--text-primary); }
   .guide-card__cap { padding:0 20px 20px; font: var(--type-body-xs); color: var(--text-inactive); text-wrap:pretty; }
 
   /* ---------- colors ---------- */
-  .color-ref { display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  
   @media (max-width:900px){ .color-ref { grid-template-columns:1fr; } }
-  .cref-group { background: var(--bg-tile); border:1px solid var(--border-light); border-radius:16px; overflow:hidden; }
+  
   .cref-group > h3 { font: var(--type-h5-strong); margin:0; color: var(--text-primary); padding:18px 22px; border-bottom:1px solid var(--border-light); }
-  .cref-rows { padding:6px 0; }
   .cref-row { display:grid; grid-template-columns: 36px 1fr; gap:14px; align-items:center; padding:9px 22px; }
-  .cref-sw { width:36px; height:36px; border-radius:8px; border:1px solid rgba(40,50,55,.12); position:relative; overflow:hidden; flex:none; }
   .cref-sw .cf { position:absolute; inset:0; }
-  .cref-meta { min-width:0; }
-  .cref-meta .role { font: var(--type-body-s); color: var(--text-inactive); margin:0; }
-  .cref-meta .tname { font: var(--type-body-m-strong); color: var(--text-primary); margin:1px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px; word-break:break-all; }
 
   /* ---------- developer handoff ---------- */
   .subhead { font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px; }
-  .dev-intro { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
-  .dev-intro .req { font: var(--type-body-s); color: var(--text-inactive); }
-  .code-panel { background: var(--c-cgrey-800); border-radius: 12px; overflow:hidden; }
-  .code-panel__head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 16px; border-bottom:1px solid rgba(255,255,255,.08); }
   .code-panel__name { color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; font-weight:600; }
-  .code-panel__copy { display:inline-flex; align-items:center; gap:6px; border:0; padding:6px 11px; border-radius:7px; background: rgba(255,255,255,.08); color: rgba(255,255,255,.86); font: var(--type-body-xs); cursor:pointer; transition: background-color .12s ease; }
-  .code-panel__copy:hover { background: rgba(255,255,255,.16); }
-  .code-panel__copy svg { width:14px; height:14px; flex:none; }
-  .code-panel__copy.is-copied { background: color-mix(in srgb, var(--success) 30%, transparent); color:#fff; }
-  .code-panel pre { margin:0; padding:18px 20px; overflow-x:auto; }
-  .code-panel code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13px; line-height:1.65; color: rgba(255,255,255,.82); white-space:pre; }
-  .code-panel .tk-cm { color: rgba(255,255,255,.4); font-style:italic; }
 
   .backlog { margin-top:90px; }
   .backlog > h2 { font: var(--type-h4-strong); margin:0 0 8px; color: var(--text-primary); }
   .backlog > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 24px; max-width:76ch; }
-  footer.page-foot { margin-top:90px; padding-top:26px; border-top:1px solid var(--border-light);
-    font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
-
-.color-ref,.cref{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;background:var(--bg-tile);}
-.color-ref .cref-group,.cref .cref-group{background:none;border:none;border-radius:0;}
-.color-ref .cref-group+.cref-group,.cref .cref-group+.cref-group{border-top:1px solid var(--border-light);}
-.color-ref .cref-group>h3,.cref .cref-group>h3{font:var(--type-body-xs);text-transform:uppercase;letter-spacing:.04em;margin:0;color:var(--text-inactive);padding:14px 22px 4px;border-bottom:none;background:none;}
+  
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
   <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -391,22 +328,47 @@
   <section class="section" data-screen-label="Typography">
     <h2>Типографика</h2>
     <p class="desc">Три текстовых слоя панели на гарнитуре SB Sans Text.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table"><tbody>
-        <tr><td>Подпись пункта</td><td class="dsc">Body M — <code class="tok">--type-body-m</code> (Selected — Body M Strong)</td></tr>
-        <tr><td>Заголовок блока</td><td class="dsc">Body XS — <code class="tok">--type-body-xs</code>, цвет Text_Inactive</td></tr>
-        <tr><td>Профиль: ФИО</td><td class="dsc">Body S Strong — <code class="tok">--type-body-s-strong</code></td></tr>
-        <tr><td>Профиль: должность / организация</td><td class="dsc">Body XS — <code class="tok">--type-body-xs</code></td></tr>
-        <tr><td>Тултип Rail</td><td class="dsc">Body S — <code class="tok">--type-body-s</code>, цвет Text_on_dark</td></tr>
-      </tbody></table>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
+        <tbody>
+          <tr><td>Подпись пункта</td><td><code class="tok">--type-body-m</code></td><td>SB Sans Text</td><td>Regular</td><td>16 / 20</td><td><span style="font:var(--type-body-m)">Образец</span></td></tr>
+          <tr><td>Заголовок блока</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
+          <tr><td>Профиль: ФИО</td><td><code class="tok">--type-body-s-strong</code></td><td>SB Sans Text</td><td>Semibold</td><td>14 / 16</td><td><span style="font:var(--type-body-s-strong)">Образец</span></td></tr>
+          <tr><td>Профиль: должность / организация</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
+          <tr><td>Тултип Rail</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
+        </tbody>
+      </table>
     </div>
+    <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
 
   <!-- COLORS -->
   <section class="section" data-screen-label="Colors">
     <h2>Цвета</h2>
     <p class="desc">Только семантические токены. Фон панели — Main Menu; пункты используют табличные состояния строк.</p>
-    <div class="color-ref" id="color-ref"></div>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <table class="ref-table ref-table--cols">
+        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
+        <tbody>
+          <tr><td>Панель</td><td>Фон панели</td><td><code class="tok">--bg-mainmenu</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-mainmenu)"></span></td><td>#FEFEFE</td></tr>
+          <tr><td>Панель</td><td>Шов Fixed / разделители</td><td><code class="tok">--border-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-light)"></span></td><td>#E1EDE7</td></tr>
+          <tr><td>Панель</td><td>Тень Drawer</td><td><code class="tok">--shadow-modal-form</code></td><td>—</td><td>—</td></tr>
+          <tr><td>Пункт меню</td><td>Текст подписи Default</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
+          <tr><td>Пункт меню</td><td>Текст подписи Hover · Selected</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
+          <tr><td>Пункт меню</td><td>Иконка Default</td><td><code class="tok">--secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--secondary)"></span></td><td>#B8D6D3</td></tr>
+          <tr><td>Пункт меню</td><td>Иконка Hover · Selected</td><td><code class="tok">--secondary-dark</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--secondary-dark)"></span></td><td>#639994</td></tr>
+          <tr><td>Пункт меню</td><td>Заливка Hover</td><td><code class="tok">--bgtable-row-hover</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bgtable-row-hover)"></span></td><td>#F6FAFA</td></tr>
+          <tr><td>Пункт меню</td><td>Заливка Selected</td><td><code class="tok">--bgtable-row-focus</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bgtable-row-focus)"></span></td><td>#DEEDEC</td></tr>
+          <tr><td>Пункт меню</td><td>Текст / иконка Disabled</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
+          <tr><td>Служебное</td><td>Заголовок блока</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
+          <tr><td>Служебное</td><td>Бейдж (accent)</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+          <tr><td>Служебное</td><td>Тултип Rail (фон)</td><td><code class="tok">--bg-hint</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-hint)"></span></td><td>#283237</td></tr>
+          <tr><td>Служебное</td><td>Тултип Rail (текст)</td><td><code class="tok">--text-on-dark</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-on-dark)"></span></td><td>#FFFFFF</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="color-ref" style="display:none"></div>
   </section>
 
   <!-- DEVELOPER HANDOFF -->
@@ -468,7 +430,7 @@
 
   <!-- BACKLOG -->
   <section class="backlog" data-screen-label="Backlog">
-    <h2>Что предлагаем добавить</h2>
+    <h2>Бэклог</h2>
     <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
     <div class="panel">
       <ul class="rules">
