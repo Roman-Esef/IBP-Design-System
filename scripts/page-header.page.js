@@ -29,7 +29,7 @@ function buildPhead(o){
 
   var chipsHtml = '';
   if (o.chips === 'one' || o.chips === 'list'){
-    var chip = function(t){ return '<span class="chip chip--readonly chip--s"><span class="chip__label">' + t + '</span></span>'; };
+    var chip = function(t){ return '<span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">' + t + '</span></span>'; };
     var chips = (o.chips === 'one') ? chip('Черновик') : chip('Черновик') + chip('На утверждении') + chip('PE');
     chipsHtml = '<div class="phead__chips">' + chips + '</div>';
   }
@@ -83,9 +83,11 @@ function mount(id, opts){
 
 /* ---------- конструктор ---------- */
 function rebuild(){
-  var width = document.getElementById('ctl-width').value;
+  var width = Number(document.getElementById('ctl-width').value);
   var vp = document.getElementById('demo-viewport');
   vp.style.width = width + 'px';
+  var wOut = document.getElementById('ctl-width-val');
+  if (wOut) wOut.textContent = width;
 
   var o = {
     title:   document.getElementById('ctl-title').value.trim() || 'D-007. ПАО «Газпром»',
@@ -97,41 +99,58 @@ function rebuild(){
     actions: document.getElementById('ctl-actions').value,
     menu:    document.getElementById('ctl-menu').checked,
     dashboard: document.getElementById('ctl-dash').checked,
-    stack:   width === '375',
-    wrapChips: width !== '1100'
+    stack:   width < 720,
+    wrapChips: width < 1024
   };
   /* MenuButton неактуален, когда действий нет вовсе */
   document.getElementById('demo-phead').innerHTML = buildPhead(o);
-  closeDemoMenu();
+  closePheadMenus();
   fitViewport();
 }
 
-/* ---------- MenuButton в конструкторе: клик открывает выпадающее меню ---------- */
-function closeDemoMenu(){
-  var existing = document.querySelector('#demo-phead .menu--floating');
-  if (existing) existing.remove();
-  var trg = document.querySelector('#demo-phead [aria-haspopup="menu"]');
-  if (trg) trg.setAttribute('aria-expanded','false');
+/* ---------- MenuButton: интерактивное меню поверх страницы (все демо) ------
+   Меню рендерится в document.body с position:fixed, поэтому не обрезается
+   контейнерами демо-блоков и всегда лежит поверх остального. */
+function menuMarkup(){
+  return '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('download-report',20) + '</span><span class="menu__item-label">Выгрузить в XLSX</span></button>' +
+         '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('history',20) + '</span><span class="menu__item-label">История изменений</span></button>' +
+         '<hr class="menu__divider">' +
+         '<button type="button" class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-icon">' + getIcon('trash',20) + '</span><span class="menu__item-label">Удалить сделку</span></button>';
+}
+function closePheadMenus(){
+  document.querySelectorAll('.phead-menu-pop').forEach(function(m){ m.remove(); });
+  document.querySelectorAll('[aria-haspopup="menu"][aria-expanded="true"]').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+}
+function openPheadMenu(btn){
+  var pop = document.createElement('div');
+  pop.className = 'menu menu--floating is-open phead-menu-pop';
+  pop.setAttribute('role','menu');
+  pop.style.cssText = 'position:fixed;z-index:9000;';
+  pop.innerHTML = menuMarkup();
+  document.body.appendChild(pop);
+  var r = btn.getBoundingClientRect();
+  var w = pop.offsetWidth, h = pop.offsetHeight;
+  var left = Math.min(Math.max(8, r.right - w), window.innerWidth - w - 8);
+  var top = r.bottom + 6;
+  if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - 6 - h);
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  btn.setAttribute('aria-expanded','true');
 }
 document.addEventListener('click', function(e){
-  var menuBtn = e.target.closest && e.target.closest('#demo-phead [aria-haspopup="menu"]');
-  if (menuBtn){
-    var already = menuBtn.parentElement.querySelector('.menu--floating');
-    closeDemoMenu();
-    if (already) return; /* повторный клик по той же кнопке — просто закрыть */
-    menuBtn.setAttribute('aria-expanded','true');
-    menuBtn.parentElement.style.position = 'relative';
-    menuBtn.insertAdjacentHTML('afterend',
-      '<div class="menu menu--floating is-open" role="menu" style="position:absolute;top:calc(100% + 6px);right:0;z-index:20;">' +
-        '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('download-report',20) + '</span><span class="menu__item-label">Выгрузить в XLSX</span></button>' +
-        '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('history',20) + '</span><span class="menu__item-label">История изменений</span></button>' +
-        '<hr class="menu__divider">' +
-        '<button type="button" class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-icon">' + getIcon('trash',20) + '</span><span class="menu__item-label">Удалить сделку</span></button>' +
-      '</div>');
+  if (!e.target.closest) return;
+  var btn = e.target.closest('.phead [aria-haspopup="menu"], .phx [aria-haspopup="menu"]');
+  if (btn){
+    var wasOpen = btn.getAttribute('aria-expanded') === 'true';
+    closePheadMenus();
+    if (!wasOpen) openPheadMenu(btn);
     return;
   }
-  if (!e.target.closest || !e.target.closest('#demo-phead .menu--floating')) closeDemoMenu();
+  if (!e.target.closest('.phead-menu-pop')) closePheadMenus();
 });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closePheadMenus(); });
+window.addEventListener('resize', closePheadMenus);
+window.addEventListener('scroll', closePheadMenus, true);
 
 /* масштабирование вьюпорта под ширину фрейма */
 function fitViewport(){
@@ -183,25 +202,81 @@ function renderDemos(){
   mount('v-dash',      { edit:true, chips:'one', sub:'custom', actions:'2', menu:true, dashboard:true, hLevel:3 });
 
   /* Поведение */
-  mount('b-menu', { edit:true, actions:'2', menu:true, menuOpen:true, hLevel:3 });
-  var bm = document.getElementById('b-menu');
-  if (bm){
-    var anchor = bm.querySelector('.phead__actions');
-    if (anchor){
-      anchor.style.position = 'relative';
-      anchor.insertAdjacentHTML('beforeend',
-        '<div class="menu menu--floating is-open" role="menu" style="position:absolute;top:calc(100% + 6px);right:0;z-index:5;">' +
-          '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('download-report',20) + '</span><span class="menu__item-label">Выгрузить в XLSX</span></button>' +
-          '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('history',20) + '</span><span class="menu__item-label">История изменений</span></button>' +
-          '<hr class="menu__divider">' +
-          '<button type="button" class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-icon">' + getIcon('trash',20) + '</span><span class="menu__item-label">Удалить сделку</span></button>' +
-        '</div>');
-    }
-  }
-  mount('b-trunc', { title:'ФИ: 111-Акции-2 · КГ ГАЗНЕФТЕХИМПРОМСТРОЙ НЕДВИЖИМОСТЬ, внутригрупповой кредит', edit:true, actions:'1', hLevel:3 });
+  mount('b-menu', { edit:true, actions:'2', menu:true, hLevel:3 });
+  mount('b-multiline', { title:'ФИ: 111-Акции-2 · КГ ГАЗНЕФТЕХИМПРОМСТРОЙ НЕДВИЖИМОСТЬ, внутригрупповой кредит', edit:true, actions:'1', hLevel:3 });
   mount('b-ad-desktop', { edit:true, chips:'one', sub:'custom', actions:'2', menu:true, hLevel:3 });
   mount('b-ad-tablet',  { edit:true, chips:'one', ret:true, sub:'custom', actions:'1', menu:true, wrapChips:true, hLevel:3 });
   mount('b-ad-mobile',  { edit:true, chips:'one', sub:'custom', actions:'1', menu:true, stack:true, wrapChips:true, hLevel:3 });
+}
+
+/* ---------- ТЕСТОВАЯ СРЕДА: экспериментальная раскладка (.phx) -------------
+   Не часть компонента. Return над заголовком (transparent), подзаголовок
+   неразрывен с заголовком и ограничен его шириной, не поместившиеся чипы
+   уходят под подзаголовок. */
+function buildPhx(){
+  return '<div class="phx">' +
+    '<div class="phx__return"><button type="button" class="btn btn--transparent btn--xs">' + getIcon('flip-backward',16) + '<span class="btn__label">К списку сделок</span></button></div>' +
+    '<div class="phx__row">' +
+      '<div class="phx__main">' +
+        '<div class="phx__title-row"><h3 class="phx__title">1234. СамолётИнвестПродакшн</h3>' +
+          '<div class="phx__chips"><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">Черновик</span></span><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">На утверждении</span></span></div>' +
+        '</div>' +
+        '<div class="phx__subtitle">Дата фактического погашения 12.01.2021 · ответственный Александров П. К. · последнее изменение 07.02.2021</div>' +
+      '</div>' +
+      '<div class="phx__actions"><button type="button" class="btn btn--outline btn--m">' + getIcon('star',20) + '<span class="btn__label">В избранное</span></button>' +
+        '<button type="button" class="btn btn--accent btn--m">' + getIcon('download',20) + '<span class="btn__label">Выгрузить</span></button>' +
+        '<button type="button" class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё действия" aria-haspopup="menu" aria-expanded="false">' + getIcon('more-dots',20) + '</button></div>' +
+    '</div>' +
+  '</div>';
+}
+function layoutPhx(){
+  var host = document.getElementById('phx-demo'); if (!host) return;
+  var root = host.querySelector('.phx'); if (!root) return;
+  var main = root.querySelector('.phx__main');
+  var row = root.querySelector('.phx__title-row');
+  var chips = root.querySelector('.phx__chips');
+  var sub = root.querySelector('.phx__subtitle');
+  if (!main || !row || !chips || !sub) return;
+  /* вернуть чипы в строку заголовка и померить, помещаются ли они рядом с заголовком.
+     Заголовок сжимаем flex-ом, поэтому переполнения строки не возникает — считаем
+     по естественной (max-content) ширине заголовка. */
+  if (chips.parentElement !== row) row.appendChild(chips);
+  root.classList.remove('phx--chips-below');
+  root.classList.remove('phx--stack');
+  /* мало места под заголовок рядом с действиями — actions уходят вниз на всю ширину */
+  const outer = root.querySelector('.phx__row');
+  const actions = root.querySelector('.phx__actions');
+  if (outer && actions && outer.clientWidth - actions.offsetWidth - 16 < 280) root.classList.add('phx--stack');
+  const title = row.querySelector('.phx__title');
+  if (!title) return;
+  const prevWs = title.style.whiteSpace, prevW = title.style.width;
+  title.style.whiteSpace = 'nowrap';
+  title.style.width = 'max-content';
+  const titleNatural = title.scrollWidth;
+  title.style.whiteSpace = prevWs;
+  title.style.width = prevW;
+  const gap = parseFloat(getComputedStyle(row).columnGap) || 8;
+  const fits = Math.min(titleNatural, row.clientWidth) + gap + chips.offsetWidth <= row.clientWidth;
+  if (!fits){
+    root.classList.add('phx--chips-below');
+    main.appendChild(chips);   /* под подзаголовок */
+  }
+}
+function initPhx(){
+  var host = document.getElementById('phx-demo'); if (!host) return;
+  host.innerHTML = buildPhx();
+  var slider = document.getElementById('phx-width');
+  var vp = document.getElementById('phx-vp');
+  var out = document.getElementById('phx-width-val');
+  if (slider && vp){
+    slider.addEventListener('input', function(){
+      vp.style.width = slider.value + 'px';
+      if (out) out.textContent = slider.value;
+      layoutPhx();
+    });
+  }
+  layoutPhx();
+  window.addEventListener('resize', layoutPhx);
 }
 
 /* ---------- redline ---------- */
@@ -237,6 +312,8 @@ document.querySelectorAll('.copy-btn').forEach(function(btn){
 });
 
 renderDemos();
+initPhx();
 setTimeout(fitViewport, 250);
+setTimeout(layoutPhx, 300);
 setTimeout(measureRedline, 300);
 })();

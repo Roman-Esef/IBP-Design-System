@@ -546,7 +546,7 @@ css: `styles/page-header.css` · deps: [button, icon-button, chip, badge, contex
         <h1 class="phead__title">D-007. ПАО «Газпром»</h1>
         <button class="ibtn ibtn--neutral ibtn--s phead__edit" aria-label="Переименовать"><i data-icon="edit"></i></button><!-- опц. -->
       </div>
-      <div class="phead__chips"><span class="chip chip--readonly chip--s"><span class="chip__label">Черновик</span></span></div><!-- опц. -->
+      <div class="phead__chips"><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">Черновик</span></span></div><!-- опц. -->
       <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">В сделку</span></button></span><!-- опц. -->
     </div>
     <div class="phead__subtitle"><!-- опц.: стандартный (иконка+текст Body S) или кастомный (мета-элементы) -->
@@ -721,7 +721,7 @@ css: `styles/table-cell.css` · deps: [checkbox, chip, icon-button, button, tool
 ## RiskMetric
 css: — (композиция) · deps: [chip, popover, icon-button, divider]
 
-Рейтинг + зона проблемности контрагента. Chip (ReadOnly, S, pill), тон — по зоне: зелёная=success, watchlist=warning (светлые); красная=error-solid, чёрная=dark-solid (белый текст); без зоны — outline. Клик по `.chip__info` открывает Popover_RiskMetric (w-m, без Footer) — неотъемлемая часть компонента. Body: 2 серых блока (Зона/Рейтинг + дата расчёта) + Риск-сегмент/Риск-профиль. Нет данных ни по рейтингу, ни по зоне → информер отсутствует.
+Рейтинг + зона проблемности контрагента. Chip (ReadOnly, S, pill), тон — по зоне: зелёная=success, watchlist=warning (светлые); красная=error-solid, чёрная=dark-solid (белый текст); без зоны — outline. Клик по `.chip__info` открывает Popover_RiskMetric (w-m, без Footer) — неотъемлемая часть компонента. Body (`.rm-body`, gap 16): `.rm-blocks` (gap 8) с двумя блоками «Зона»/«Рейтинг» + дата расчёта, ниже Риск-сегмент/Риск-профиль. Отсутствующие значения — прочерк «—», поля не скрываются. Информер есть, если есть хоть что-то (зона, рейтинг, сегмент или профиль); нет вообще ничего → информера нет и поповер не открывается.
 
 ```html
 <span class="pop-anchor">
@@ -734,9 +734,9 @@ css: — (композиция) · deps: [chip, popover, icon-button, divider]
       <h3 class="pop__title" id="rm-pop-1-title">Рейтинг и зона проблемности</h3>
       <button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть">…</button>
     </div>
-    <div class="pop__body">
-      <div class="rm-block"><div class="rm-block__row"><span class="rm-block__label">Зона проблемности</span><span class="rm-block__value rm-block__value--strong">Красная</span></div><div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">24.10.2025</span></div></div>
-      <div class="rm-block"><!-- Рейтинг контрагента + дата --></div>
+    <div class="pop__body rm-body">
+      <div class="rm-blocks"><div class="rm-block"><div class="rm-block__row"><span class="rm-block__label">Зона проблемности</span><span class="rm-block__value rm-block__value--strong">Красная</span></div><div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">24.10.2025</span></div></div>
+      <div class="rm-block"><!-- Рейтинг контрагента + дата --></div></div>
       <div class="rm-field"><p class="rm-field__label">Риск-сегмент</p><p class="rm-field__value">…</p></div>
       <div class="rm-field"><p class="rm-field__label">Риск-профиль</p><p class="rm-field__value">Непроектный</p></div>
     </div>

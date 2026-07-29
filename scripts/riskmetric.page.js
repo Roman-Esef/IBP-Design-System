@@ -10,7 +10,7 @@ const RM_ZONES = {
   red:       { label: 'Красная',   name: 'красная',       code: 'Red Zone',    tone: 'error-solid' },
   black:     { label: 'Черная',    name: 'черная',        code: 'Black Zone',  tone: 'dark-solid' },
 };
-const RM_ZONE_TOKEN = { green: '--st-green-dark', watchlist: '--st-orange-dark', red: '--st-red-dark', black: '--st-grey-dark' };
+const RM_ZONE_TOKEN = { green: '--st-green', watchlist: '--st-orange', red: '--st-red', black: '--st-grey' };
 
 let rmSeq = 0;
 
@@ -22,10 +22,11 @@ function rmAriaLabel(rating, zoneKey) {
 
 /* ---------- фабрика чипа: label (рейтинг/тире) + кнопка-информер ---------- */
 function makeRiskChip(o = {}) {
-  const { rating = null, zone = 'none', size = 's' } = o;
+  const { rating = null, zone = 'none', size = 's', details = false } = o;
   const z = RM_ZONES[zone] || RM_ZONES.none;
   const hasZone = zone !== 'none';
-  const hasInfo = hasZone || rating != null;
+  /* информер есть, если раскрывать есть что: зона, рейтинг ИЛИ риск-сегмент/профиль */
+  const hasInfo = hasZone || rating != null || details;
 
   const el = document.createElement('span');
   el.className = 'chip chip--readonly chip--rounded chip--' + size + (hasZone ? ' chip--' + z.tone : ' chip--outline');
@@ -57,6 +58,7 @@ function buildRiskPopover(o = {}) {
     segment = 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%',
     profile = 'Непроектный', state = 'default', width = 'm',
   } = o;
+  const dash = '—';
   const titleId = 'rm-pop-title-' + (++rmSeq);
   const pop = document.createElement('div');
   pop.className = 'pop pop--w-' + width + ' pop--bottom pop--start pop--floating';
@@ -71,7 +73,7 @@ function buildRiskPopover(o = {}) {
   pop.appendChild(head);
 
   const body = document.createElement('div');
-  body.className = 'pop__body';
+  body.className = 'pop__body rm-body';
 
   if (state === 'loading') {
     body.setAttribute('aria-busy', 'true');
@@ -86,10 +88,9 @@ function buildRiskPopover(o = {}) {
       '<p style="margin:0; font:var(--type-body-s); color:var(--text-primary);">Не удалось загрузить риск-метрику. Проверьте соединение и попробуйте ещё раз.</p></div>';
   } else {
     body.innerHTML =
-      rmZoneBlockHTML(zone, zoneDate) +
-      rmRateBlockHTML(rating, ratingDate) +
-      '<div class="rm-field"><p class="rm-field__label">Риск-сегмент</p><p class="rm-field__value">' + segment + '</p></div>' +
-      '<div class="rm-field"><p class="rm-field__label">Риск-профиль</p><p class="rm-field__value">' + profile + '</p></div>';
+      '<div class="rm-blocks">' + rmZoneBlockHTML(zone, zoneDate) + rmRateBlockHTML(rating, ratingDate) + '</div>' +
+      '<div class="rm-field"><p class="rm-field__label">Риск-сегмент</p><p class="rm-field__value">' + (segment || dash) + '</p></div>' +
+      '<div class="rm-field"><p class="rm-field__label">Риск-профиль</p><p class="rm-field__value">' + (profile || dash) + '</p></div>';
   }
   pop.appendChild(body);
   const arrowEl = document.createElement('span'); arrowEl.className = 'pop__arrow'; pop.appendChild(arrowEl);
@@ -154,12 +155,14 @@ function rmRateBlockHTML(rating, ratingDate) {
 function mountRiskMetric(container, o = {}) {
   const anchor = document.createElement('span');
   anchor.className = 'pop-anchor';
-  const { el, btn } = makeRiskChip(o);
+  const pv = o.popover || {};
+  const hasDetails = !!(pv.segment || pv.profile);
+  const { el, btn } = makeRiskChip(Object.assign({}, o, { details: hasDetails }));
   anchor.appendChild(el);
   container.appendChild(anchor);
   if (!btn) { window.dsIcons && window.dsIcons.apply(anchor); return { anchor, btn: null, pop: null }; }
 
-  const { pop } = buildRiskPopover(Object.assign({ rating: o.rating, zone: o.zone }, o.popover || {}));
+  const { pop } = buildRiskPopover(Object.assign({ rating: o.rating, zone: o.zone }, pv));
   anchor.appendChild(pop);
   pop.id = 'rm-pop-' + (++rmSeq);
   btn.setAttribute('aria-controls', pop.id);
@@ -191,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stage = document.getElementById('pg-stage');
     if (!controls || !stage) return;
 
-    const state = { zone: 'red', rating: '26', popState: 'default' };
+    const state = { zone: 'red', rating: '26', details: 'yes', popState: 'default' };
     let inst = null;
 
     function ctl(labelText, options, get, set) {
@@ -212,22 +215,31 @@ document.addEventListener('DOMContentLoaded', () => {
       ['none', 'Нет данных'], ['1', '1'], ['5', '5'], ['12', '12'], ['18', '18'], ['26', '26'],
     ], () => state.rating, v => state.rating = v));
 
+    controls.appendChild(ctl('Риск-сегмент и профиль', [
+      ['yes', 'Есть'], ['no', 'Нет данных'],
+    ], () => state.details, v => state.details = v));
+
     controls.appendChild(ctl('Состояние поповера', [
       ['default', 'Обычное'], ['loading', 'Загрузка'], ['error', 'Ошибка'],
     ], () => state.popState, v => state.popState = v));
 
     const hint = document.createElement('p');
     hint.style.cssText = 'font:var(--type-body-s); color:var(--text-inactive); margin:-8px 0 0;';
-    hint.textContent = 'Кликните по иконке-информеру в превью, чтобы открыть Popover_RiskMetric.';
+    hint.textContent = 'Кликните по иконке-информеру в превью, чтобы открыть Popover_RiskMetric. Если нет ни зоны, ни рейтинга, ни риск-сегмента с профилем — информера нет и поповер не открывается.';
     controls.appendChild(hint);
 
     function render() {
       stage.innerHTML = '';
       const box = document.createElement('div'); box.style.cssText = 'padding-top:60px;';
       const rating = state.rating === 'none' ? null : Number(state.rating);
+      const withDetails = state.details === 'yes';
       inst = mountRiskMetric(box, {
         rating, zone: state.zone,
-        popover: { rating, zone: state.zone, state: state.popState },
+        popover: {
+          rating, zone: state.zone, state: state.popState,
+          segment: withDetails ? 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%' : null,
+          profile: withDetails ? 'Непроектный' : null,
+        },
       });
       stage.appendChild(box);
     }
@@ -294,10 +306,15 @@ document.addEventListener('DOMContentLoaded', () => {
     mountRiskMetric(rateCell, { rating: 26, zone: 'none', popover: { rating: 26, zone: 'none' } });
     const rateNote = document.createElement('span'); rateNote.className = 'rm-matrix__note'; rateNote.textContent = 'не зависит от зоны — всегда outline, дефолтный бордер'; rateCell.appendChild(rateNote);
 
-    const noneRowLabel = document.createElement('div'); noneRowLabel.className = 'rm-matrix__rowhead'; noneRowLabel.textContent = 'None'; grid.appendChild(noneRowLabel);
+    const noneRowLabel = document.createElement('div'); noneRowLabel.className = 'rm-matrix__rowhead'; noneRowLabel.textContent = 'Details'; grid.appendChild(noneRowLabel);
     const noneCell = document.createElement('div'); noneCell.className = 'rm-matrix__cell rm-matrix__cell--span'; grid.appendChild(noneCell);
-    mountRiskMetric(noneCell, { rating: null, zone: 'none' });
-    const noneNote = document.createElement('span'); noneNote.className = 'rm-matrix__note'; noneNote.textContent = 'нет ни рейтинга, ни зоны — иконка-информер отсутствует'; noneCell.appendChild(noneNote);
+    mountRiskMetric(noneCell, { rating: null, zone: 'none', popover: { rating: null, zone: 'none', segment: 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%', profile: 'Непроектный' } });
+    const noneNote = document.createElement('span'); noneNote.className = 'rm-matrix__note'; noneNote.textContent = 'нет ни рейтинга, ни зоны, но есть риск-сегмент и риск-профиль — информер остаётся, в поповере зона и рейтинг показаны прочерками'; noneCell.appendChild(noneNote);
+
+    const emptyRowLabel = document.createElement('div'); emptyRowLabel.className = 'rm-matrix__rowhead'; emptyRowLabel.textContent = 'None'; grid.appendChild(emptyRowLabel);
+    const emptyCell = document.createElement('div'); emptyCell.className = 'rm-matrix__cell rm-matrix__cell--span'; grid.appendChild(emptyCell);
+    mountRiskMetric(emptyCell, { rating: null, zone: 'none' });
+    const emptyNote = document.createElement('span'); emptyNote.className = 'rm-matrix__note'; emptyNote.textContent = 'данных нет вообще — ни зоны, ни рейтинга, ни риск-сегмента с профилем: иконка-информер отсутствует, поповер не открывается'; emptyCell.appendChild(emptyNote);
   })();
 
   /* ---------------- Один поповер одновременно ---------------- */
@@ -440,27 +457,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const cell = document.getElementById(map[zone]);
       if (!cell) return;
       mountRiskMetric(cell, zone === 'none' ? { rating: null, zone: 'none' } : { rating: 26, zone, popover: { rating: 26, zone } });
-    });
-  })();
-
-  /* ---------------- ПРЕДЛАГАЕМЫЕ ДОПОЛНЕНИЯ ---------------- */
-  (function () {
-    const host = document.getElementById('proposals');
-    if (!host) return;
-    const items = [
-      { name: 'Disabled / нет доступа', desc: 'Пользователю не хватает прав на риск-данные контрагента — чип приглушается (StDisabled), информер неактивен, tooltip «Нет доступа к риск-метрике».' },
-      { name: 'Индикатор тренда', desc: 'Стрелка рядом с рейтингом (arrow-trend-up/down) — сравнение с прошлым расчётом. Не влияет на тон чипа, только на смысловую пиктограмму слева.' },
-      { name: 'Компактный вариант «только зона»', desc: 'Для узких колонок — чип без числа, только цветной индикатор зоны + информер. Тот же Popover, тот же набор тонов.' },
-    ];
-    items.forEach(it => {
-      const p = document.createElement('div'); p.className = 'prop';
-      const demo = document.createElement('div'); demo.className = 'pdemo';
-      const chip = document.createElement('span'); chip.className = 'chip chip--readonly chip--rounded chip--s chip--error-solid'; chip.style.opacity = '.55';
-      chip.innerHTML = '<span class="chip__label">26</span>';
-      demo.appendChild(chip);
-      const n = document.createElement('div'); n.className = 'pname'; n.textContent = it.name;
-      const d = document.createElement('div'); d.className = 'pdesc'; d.textContent = it.desc;
-      p.append(demo, n, d); host.appendChild(p);
     });
   })();
 

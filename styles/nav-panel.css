@@ -32,24 +32,20 @@
    TOP — бургер (+ пин в развёрнутых режимах)
    ========================================================================== */
 /* бургер, пункты и аватар — на одной вертикальной оси.
-   Шапка и футер резервируют тот ЖЕ гаттер, что и список (scrollbar-gutter),
-   поэтому ось совпадает при любой фактической ширине скроллбара:
-   центр иконки пункта = gutter + 12 + 12 = gutter + 24
-   центр бургера (ibtn 32)  = gutter + 8 + 16  = gutter + 24
-   центр аватара (av 32)    = gutter + 8 + 16  = gutter + 24 */
+   Ось = 28px от левого края панели во ВСЕХ режимах (= центр rail-панели 56/2):
+   иконка пункта      = list 4 + item 12 + 12 = 28
+   бургер (ibtn--m 20) = top 18 + 10 = 28
+   аватар (av--m 32)   = footer 12 + 16 = 28
+   Скроллбар списка — overlay-гаттер только справа, ось слева не смещает. */
 .nav__top,
-.nav__footer {
-  overflow-y: hidden;
-  scrollbar-gutter: stable both-edges;
-  scrollbar-width: thin;
-}
+.nav__footer { overflow-y: hidden; }
 .nav__top {
   display: flex;
   align-items: center;
   gap: 4px;
   height: 56px;
   flex: none;
-  padding: 0 8px;
+  padding: 0 12px 0 18px;
 }
 .nav--rail .nav__top { justify-content: center; padding: 0; }
 .nav__pin { margin-left: auto; }
@@ -63,10 +59,10 @@
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
-  padding: 6px 0 10px;
+  padding: 6px 4px 10px;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -74,14 +70,12 @@
 /* в Rail скроллбар скрыт полностью (скролл колесом работает),
    гаттеры не резервируются — иконки центрируются по всей ширине 56px */
 .nav--rail .nav__list {
-  padding: 6px 8px 10px;
+  padding: 6px 4px 10px;
   align-items: center;
   scrollbar-gutter: auto;
   scrollbar-width: none;
 }
 .nav--rail .nav__list::-webkit-scrollbar { display: none; }
-.nav--rail .nav__top,
-.nav--rail .nav__footer { scrollbar-gutter: auto; }
 
 /* скроллбар виден только при наведении на панель */
 .nav:hover .nav__list { scrollbar-color: var(--border-light) transparent; }
@@ -138,7 +132,7 @@
   transition: background-color .12s ease, color .12s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.nav--rail .nav__item { width: 40px; padding: 0; justify-content: center; }
+.nav--rail .nav__item { width: 44px; padding: 0; justify-content: center; }
 
 .nav__ico { width: 24px; height: 24px; flex: none; display: flex; align-items: center; justify-content: center; color: var(--secondary); transition: color .12s ease; }
 .nav__ico [data-icon] { width: 24px; height: 24px; }
@@ -212,7 +206,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 8px;
+  padding: 12px;
   border-top: 1px solid var(--border-light);
 }
 .nav--rail .nav__footer { justify-content: center; padding: 12px 0; }

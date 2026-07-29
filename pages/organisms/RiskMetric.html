@@ -42,10 +42,7 @@
   
   .pg__controls { flex-direction:column; }
   @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:40px 32px; display:flex; align-items:flex-start; justify-content:safe center; min-height:340px; position:relative; overflow:auto;
-    background:
-      linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
-      repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
+  .pg__stage { padding:40px 32px 56px; display:flex; align-items:flex-start; justify-content:safe center; min-height:620px; position:relative; overflow:auto; background: var(--bg-page); }
 
   .ctl { display:flex; flex-direction:column; gap:8px; }
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
@@ -76,14 +73,15 @@
   .rm-usage-row__metric { position:relative; flex:none; }
 
   /* ---------- popover body: серые блоки подкачки (Зона / Рейтинг) + текстовые поля ---------- */
-  .rm-block { background: var(--c-cgrey-50); border-radius: 8px; padding: 10px 12px; display:flex; flex-direction:column; gap:4px; }
-  .rm-block + .rm-block { margin-top: 8px; }
+  .rm-body { gap: 16px; }
+  .rm-blocks { display:flex; flex-direction:column; gap:8px; }
+  .rm-block { background: var(--bg-page); border-radius: 8px; padding: 10px 12px; display:flex; flex-direction:column; gap:4px; margin:0; }
   .rm-block__row { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
-  .rm-block__label { font: var(--type-body-s); color: var(--text-inactive); }
-  .rm-block__value { font: var(--type-body-s); color: var(--text-secondary); text-align:right; }
-  .rm-block__value--strong { font: var(--type-body-m-strong); color: var(--text-primary); }
-  .rm-field { display:flex; flex-direction:column; gap:4px; margin-top:14px; }
-  .rm-field__label { margin:0; font: var(--type-body-xs); color: var(--text-inactive); }
+  .rm-block__label { font: var(--type-body-s); color: var(--text-secondary); }
+  .rm-block__value { font: var(--type-body-s); color: var(--text-primary); text-align:right; }
+  .rm-block__value--strong { font: var(--type-body-s-strong); color: var(--text-primary); }
+  .rm-field { display:flex; flex-direction:column; gap:4px; margin:0; }
+  .rm-field__label { margin:0; font: var(--type-body-xs); color: var(--text-secondary); }
   .rm-field__value { margin:0; font: var(--type-body-s); color: var(--text-primary); text-wrap:pretty; }
 
   /* ---------- feeder blocks (standalone demo) ---------- */
@@ -106,8 +104,6 @@
   .state-cell { display:flex; flex-direction:column; gap:12px; align-items:flex-start; position:relative; }
 
   .single-open-demo { display:flex; flex-direction:column; }
-
-  /* ---------- proposals ---------- */
 
   /* ---------- reference tables ---------- */
   .ref-table th, .ref-table td { text-align:left; padding:14px 16px; border-bottom:1px solid var(--border-light); font: var(--type-body-m); color: var(--text-primary); vertical-align:top; }
@@ -133,7 +129,7 @@
 <main class="page" data-screen-label="RiskMetric">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>29.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>RiskMetric</h1>
     <p class="lead">Компонент для обозначения уровня надёжности контрагентов: рейтинг (число) и зона проблемности (цвет). Собран из <a class="inl" href="../atoms/Chip.html">Chip</a> (ReadOnly, S, pill) и <a class="inl" href="Popover.html">Popover</a>. <b>Popover_RiskMetric — неотъемлемая часть компонента</b>, а не опциональная зависимость: клик по иконке-информеру всегда открывает карточку с деталями расчёта. Собственных состояний наведения или клика по самому чипу нет.</p>
@@ -248,9 +244,11 @@
       <ul class="rules">
         <li><b>Рейтинг</b> — целое число 1–26. Если данных нет — на месте числа длинное тире «—».</li>
         <li><b>Зона</b> — если данных нет, чип не имеет заливки, только бордер дефолтного цвета (Outline, StSystem).</li>
-        <li><b>Ни рейтинга, ни зоны</b> — чип с дефолтным бордером, тире вместо числа, <b>иконка-информер отсутствует</b> — раскрывать нечего, чип становится чисто декоративным.</li>
+        <li><b>Ни рейтинга, ни зоны, но есть риск-сегмент и риск-профиль</b> — чип с дефолтным бордером и тире вместо числа, <b>информер остаётся</b>: в поповере зона, рейтинг и обе даты расчёта показаны прочерками, заполнены только риск-сегмент и риск-профиль.</li>
+        <li><b>Нет данных вообще</b> (ни зоны, ни рейтинга, ни риск-сегмента с профилем) — чип с дефолтным бордером и тире, <b>иконка-информер отсутствует</b>, поповер не открывается.</li>
+        <li><b>Нет риск-сегмента и профиля</b> при наличии зоны/рейтинга — поля остаются в поповере с прочерками, а не скрываются.</li>
         <li><b>Даты расчёта</b> в Popover — формат ДД.ММ.ГГГГ, отдельно для зоны и для рейтинга (пересчитываются независимо).</li>
-        <li><b>Риск-сегмент и Риск-профиль</b> — свободный текст без ограничения символов; перенос по словам, лимита строк нет (см. «Предлагаемые дополнения» — сворачивание длинного текста).</li>
+        <li><b>Риск-сегмент и Риск-профиль</b> — свободный текст без ограничения символов; перенос по словам, лимита строк нет.</li>
       </ul>
     </div>
   </section>
@@ -264,7 +262,7 @@
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc tight">Четыре комбинации наличия данных, каждая — по четырём зонам. Rate и None не зависят от зоны, поэтому показаны одной ячейкой.</p>
+    <p class="desc tight">Комбинации наличия данных, каждая — по четырём зонам. Rate, Details и None не зависят от зоны, поэтому показаны одной ячейкой.</p>
     <div class="panel" style="margin-bottom:20px;">
       <div class="rm-matrix" id="states-matrix"></div>
     </div>
@@ -281,9 +279,6 @@
       <div class="states" id="states-load-error"></div>
     </div>
 
-    <p class="subhead">Предлагаемые дополнения</p>
-    <p class="desc tight">Чего не хватает в текущей спеке — три корневых случая, которые почти наверняка встретятся в проде. Собраны на существующих токенах, не требуют новых цветов.</p>
-    <div class="prop-grid" id="proposals"></div>
   </section>
 
   <!-- ACCESSIBILITY -->
@@ -322,7 +317,7 @@
         <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
         <tbody>
           <tr><td>Значение строки (.rm-block__value)</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
-          <tr><td>Значение выделенное (Рейтинг)</td><td><code class="tok">--type-body-m-strong</code></td><td>SB Sans Text</td><td>Semibold</td><td>16 / 20</td><td><span style="font:var(--type-body-m-strong)">Образец</span></td></tr>
+          <tr><td>Значение выделенное (Зона / Рейтинг)</td><td><code class="tok">--type-body-s-strong</code></td><td>SB Sans Text</td><td>Semibold</td><td>14 / 16</td><td><span style="font:var(--type-body-m-strong)">Образец</span></td></tr>
           <tr><td>Метка поля (.rm-field__label)</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
           <tr><td>Значение поля (.rm-field__value)</td><td><code class="tok">--type-body-s</code></td><td>SB Sans Text</td><td>Regular</td><td>14 / 16</td><td><span style="font:var(--type-body-s)">Образец</span></td></tr>
         </tbody>
@@ -424,8 +419,9 @@ function onInfoClick(btn, pop, anchor):
 <span class="tk-cm">// 4. Состояния Body — взаимоисключающие:
 //    loading  → aria-busy="true" + skeleton вместо блоков
 //    error    → role="alert" + сообщение, Header остаётся кликабельным (✕ работает)
-//    default  → 2 × rm-block (Зона / Рейтинг, каждый со своей датой расчёта)
-//               + 2 × rm-field (Риск-сегмент / Риск-профиль), разделены отступом (без Divider)</span></code></pre>
+//    default  → rm-blocks: 2 × rm-block (Зона / Рейтинг со своей датой расчёта, зазор 8px)
+//               + 2 × rm-field (Риск-сегмент / Риск-профиль), зазор тела 16px, без Divider
+//    отсутствующие значения выводятся прочерком «—», поля не скрываются</span></code></pre>
     </div>
     <p class="dev-note">Рабочий референс на vanilla JS — функции <code class="tok">makeRiskChip</code>, <code class="tok">buildRiskPopover</code> и <code class="tok">rmPlacePop</code> в <code class="tok">riskmetric.page.js</code>.</p>
 

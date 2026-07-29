@@ -41,10 +41,7 @@
   
   .pg__controls { flex-direction:column; }
   @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:40px 32px; display:flex; align-items:flex-start; justify-content:safe center; min-height:420px; position:relative; overflow:auto;
-    background:
-      linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
-      repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
+  .pg__stage { padding:40px 32px; display:flex; align-items:flex-start; justify-content:safe center; min-height:420px; position:relative; overflow:auto; background: var(--bg-page); }
 
   .ctl { display:flex; flex-direction:column; gap:8px; }
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
@@ -90,7 +87,7 @@
   .pop-trigger-link i { width:14px; height:14px; color: var(--text-inactive); flex:none; }
 
   /* ---------- auto-flip demo ---------- */
-  .flip-vp { position:relative; height:190px; border:1px solid var(--border-light); border-radius:14px; background: var(--tertiary-light); }
+  .flip-vp { position:relative; height:420px; border:1px solid var(--border-light); border-radius:14px; background: var(--tertiary-light); }
   .flip-controls { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
 
   /* ---------- single-open demo ---------- */
@@ -136,7 +133,7 @@
 <main class="page" data-screen-label="Popover">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>13.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>29.07.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Popover</h1>
     <p class="lead">Popover — нон-модальный всплывающий контейнер, привязанный к триггеру. Показывает расширенный контекстный контент (текст с форматированием, интерактивные элементы, формы, легенды, списки). В отличие от <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> — требует клика для открытия и не закрывается при уходе курсора; в отличие от <b>Modal</b> — не блокирует страницу, не имеет скрима и закрывается кликом вне себя.</p>
@@ -171,7 +168,7 @@
       <p class="dev-note">Правило переключения: если контенту не хватает ширины свыше 560px или вертикальная прокрутка тела превышает разумный предел (см. «Размеры») — это сигнал перейти на Modal.</p>
     </div>
     <div class="panel" style="margin-bottom:20px;">
-      <p class="desc tight" style="margin-bottom:18px;">Правила Header и Footer — как у Modal, но с одним отличием: <b>в Header не размещаются кнопки действий</b> — только заголовок и ✕ (опционально — служебная метка/ссылка). Все действия живут в Footer.</p>
+      <p class="desc tight" style="margin-bottom:18px;">Правила Header и Footer — как у Modal: <b>кнопки действий живут только в Footer</b>, в шапке их нет ни там, ни там. Отличие поповера — рядом с заголовком в Header может стоять примыкающий чип или служебная ссылка (метка, статус, «Сбросить»), которых в шапке модалки не бывает.</p>
       <table class="dev-table">
         <thead><tr><th>Зона</th><th>Что можно</th><th>Чего нельзя</th></tr></thead>
         <tbody>
@@ -326,6 +323,7 @@
           </select>
         </div>
       </div>
+      <p class="desc tight" style="margin:0 0 12px;">Триггер перетаскивается мышью по обеим осям — <span id="flip-state" style="font: var(--type-body-s-strong); color: var(--text-primary);">placement: bottom · align: start</span></p>
       <div class="flip-vp" id="flip-vp"></div>
     </div>
   </div>

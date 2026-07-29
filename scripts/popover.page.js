@@ -217,8 +217,31 @@ function placePop(stage, pop, target, placement, align, gap) {
     else if (align === 'start') y = cy - POP_ARROW_INSET_V;
     else y = cy - (ph - POP_ARROW_INSET_V);
   }
+  /* не выпускаем поповер за границы контейнера-стенда */
+  const guard = 8;
+  const maxX = Math.max(guard, stage.clientWidth - pw - guard);
+  const maxY = Math.max(guard, stage.clientHeight - ph - guard);
+  if (placement === 'top' || placement === 'bottom') x = Math.min(Math.max(guard, x), maxX);
+  else y = Math.min(Math.max(guard, y), maxY);
+
   pop.style.left = x + 'px';
   pop.style.top = y + 'px';
+
+  /* стрелка всегда смотрит в центр триггера — даже после clamp и flip */
+  const arrow = pop.querySelector('.pop__arrow');
+  if (arrow && pop.classList.contains('pop--arrow')) {
+    if (placement === 'top' || placement === 'bottom') {
+      const off = Math.min(Math.max(12, cx - x), pw - 12);
+      arrow.style.left = off + 'px';
+      arrow.style.right = 'auto';
+      arrow.style.transform = 'translateX(-50%)';
+    } else {
+      const off = Math.min(Math.max(12, cy - y), ph - 12);
+      arrow.style.top = off + 'px';
+      arrow.style.bottom = 'auto';
+      arrow.style.transform = 'translateY(-50%)';
+    }
+  }
 }
 
 /* ========================================================================= */
@@ -285,6 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (state.arrow === 'yes') pop.style.marginTop = '8px';
       wrap.appendChild(pop);
       stage.appendChild(wrap);
+      window.dsIcons && window.dsIcons.apply(stage);
     }
     render();
   })();
@@ -296,9 +320,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.createElement('div');
     wrap.style.cssText = 'display:flex; flex-direction:column; align-items:flex-start; gap:10px;';
     wrap.innerHTML = makeTrigger('button', true);
-    const { pop } = buildPopover({ width: 'l', header: true, footLeft: 'none', footRight: 'both', content: 'form', title: 'Изменить тег' });
+    const { pop } = buildPopover({ width: 'l', header: true, footLeft: 'none', footRight: 'both', content: 'form', title: 'Изменить тег', arrow: true });
+    wrap.style.gap = '0';
+    pop.style.marginTop = '8px';
     wrap.appendChild(pop);
     host.appendChild(wrap);
+    window.dsIcons && window.dsIcons.apply(host);
   })();
 
   /* ---------------- HEADER: варианты (заголовок / +чип / +ссылка) ---------------- */
@@ -388,22 +415,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!vp || !select) return;
     const target = document.createElement('button');
     target.type = 'button'; target.className = 'ibtn ibtn--neutral ibtn--m'; target.setAttribute('aria-label', 'Информация');
-    target.style.position = 'absolute'; target.style.top = '50%'; target.style.marginTop = '-16px';
+    target.style.position = 'absolute'; target.style.top = '24px'; target.style.marginTop = '0';
     target.style.touchAction = 'none'; target.style.cursor = 'grab';
     target.innerHTML = '<i data-icon="info-circle"></i>';
     vp.appendChild(target);
     const { pop } = buildPopover({ width: 'm', header: true, title: 'Пояснение', footLeft: 'none', footRight: 'primary', content: 'text', arrow: true, floating: true, pinned: true, placement: 'bottom', align: 'start' });
     vp.appendChild(pop);
 
+    const stateOut = document.getElementById('flip-state');
     function reposition() {
       const br = vp.getBoundingClientRect();
       const tr = target.getBoundingClientRect();
-      const pw = pop.offsetWidth;
+      const pw = pop.offsetWidth, ph = pop.offsetHeight;
+      /* сторона: снизу не хватает места — переворачиваем наверх */
+      const below = br.bottom - tr.bottom, above = tr.top - br.top;
+      let placement = 'bottom';
+      if (below < ph + 8 && above > below) placement = 'top';
+      /* выравнивание: справа не хватает места — прижимаем к правому краю */
       const spaceRight = br.right - tr.right, spaceLeft = tr.left - br.left;
       let align = 'start';
       if (spaceRight < pw - POP_ARROW_INSET_H && spaceLeft > spaceRight) align = 'end';
-      pop.className = 'pop pop--w-m pop--bottom pop--' + align + ' pop--arrow pop--floating pop--pinned';
-      placePop(vp, pop, target, 'bottom', align, 8);
+      pop.className = 'pop pop--w-m pop--' + placement + ' pop--' + align + ' pop--arrow pop--floating pop--pinned';
+      placePop(vp, pop, target, placement, align, 8);
+      if (stateOut) stateOut.textContent = 'placement: ' + placement + ' · align: ' + align;
     }
     function applyPreset(posVal) {
       target.style.left = posVal === 'left' ? '12px' : posVal === 'right' ? 'calc(100% - 44px)' : 'calc(50% - 16px)';
@@ -411,18 +445,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     select.addEventListener('change', () => applyPreset(select.value));
 
-    /* перетаскивание триггера вручную по горизонтали */
-    let dragging = false, startX = 0, startLeft = 0;
+    /* перетаскивание триггера по обеим осям */
+    let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
     target.addEventListener('pointerdown', (e) => {
       dragging = true; target.setPointerCapture(e.pointerId); target.style.cursor = 'grabbing';
-      startX = e.clientX; startLeft = target.getBoundingClientRect().left - vp.getBoundingClientRect().left;
+      const vr = vp.getBoundingClientRect(), tr = target.getBoundingClientRect();
+      startX = e.clientX; startY = e.clientY;
+      startLeft = tr.left - vr.left; startTop = tr.top - vr.top;
     });
     target.addEventListener('pointermove', (e) => {
       if (!dragging) return;
-      const dx = e.clientX - startX;
       const maxLeft = Math.max(0, vp.clientWidth - target.offsetWidth);
-      const left = Math.max(0, Math.min(maxLeft, startLeft + dx));
-      target.style.left = left + 'px';
+      const maxTop = Math.max(0, vp.clientHeight - target.offsetHeight);
+      target.style.left = Math.max(0, Math.min(maxLeft, startLeft + (e.clientX - startX))) + 'px';
+      target.style.top = Math.max(0, Math.min(maxTop, startTop + (e.clientY - startY))) + 'px';
       reposition();
     });
     target.addEventListener('pointerup', (e) => { dragging = false; target.style.cursor = 'grab'; target.releasePointerCapture(e.pointerId); });

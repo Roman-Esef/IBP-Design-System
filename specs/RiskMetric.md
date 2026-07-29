@@ -1,8 +1,8 @@
 ---
 component: RiskMetric
 title: "Риск-метрика"
-version: "v1.0"
-updated: "08.07.2026"
+version: "v1.1"
+updated: "29.07.2026"
 page: pages/organisms/RiskMetric.html
 page_js: scripts/riskmetric.page.js
 css: — (композиция, стили в chip.css/popover.css)
@@ -17,12 +17,13 @@ status: curated
 
 ## Ключевые правила
 - **Использование** — колонка в таблице контрагентов; клик по информеру раскрывает даты расчёта и риск-сегмент/профиль без ухода со страницы. Один открытый Popover одновременно (как у базового Popover).
-- **Анатомия** — Chip (ReadOnly, S, pill) → label (число/«—») + `.chip__info` (button, открывает Popover) → Popover_RiskMetric: Header (заголовок + ✕) + Body (2× rm-block серый блок + 2× rm-field), **Footer отсутствует**. rm-row с датами + 2× rm-field), **Footer отсутствует**.
+- **Анатомия** — Chip (ReadOnly, S, pill) → label (число/«—») + `.chip__info` (button, открывает Popover) → Popover_RiskMetric: Header (заголовок + ✕) + Body `.pop__body.rm-body` (gap 16px): `.rm-blocks` (зазор 8px) с 2× `.rm-block` + 2× `.rm-field`. **Footer отсутствует.** Маржинов у блоков и полей нет — раскладка только на gap.
 - **Размеры** — фиксированный: только Chip S (24px). Ширина растёт по контенту. Popover фиксирован на `pop--w-m` (320px).
-- **Контент** — рейтинг: целое 1–26 или «—». Зона: green/watchlist/red/black или нет данных. Риск-сегмент/профиль — свободный текст без лимита.
-- **Состояния** — 4 зоны × (Rate+Zone / Zone / Rate / None). Rate и None не зависят от зоны. Popover: default / loading (skeleton, `aria-busy`) / error (`role="alert"`). Нет ни рейтинга, ни зоны → информер отсутствует.
+- **Контент** — рейтинг: целое 1–26 или «—». Зона: green/watchlist/red/black или нет данных. Риск-сегмент/профиль — свободный текст без лимита; при отсутствии — прочерк, поле не скрывается.
+- **Типографика** — метки строк блока Body S `--text-secondary`; значения и даты Body S `--text-primary`; выделенное значение (зона/рейтинг) Body S Strong.
+- **Состояния** — 4 зоны × (Rate+Zone / Zone / Rate) + Details + None. Rate, Details и None не зависят от зоны. Popover: default / loading (skeleton, `aria-busy`) / error (`role="alert"`). Нет зоны и рейтинга, но есть риск-сегмент/профиль (Details) → информер остаётся, зона, рейтинг и даты в поповере — прочерки. Нет вообще ничего (None) → информер отсутствует, поповер не открывается. Нет риск-сегмента/профиля при наличии зоны или рейтинга → поля остаются с прочерками.
 - **Доступность** — сам чип вне таб-порядка, несёт описательный `aria-label`. Единственный фокусируемый элемент — `.chip__info` (`aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`). Esc закрывает, фокус возвращается на информер. Зона никогда не кодируется только цветом — текстовое название всегда рядом.
-- **Цвета** — только Local-токены: StGreen/StOrange/StRed/StGrey (алиасы success/warning/error/dark в Chip), плюс StSystem для outline без данных. Новых цветов нет.
+- **Цвета** — только Local-токены: StGreen/StOrange/StRed/StGrey (алиасы success/warning/error/dark в Chip), плюс StSystem для outline без данных. Значение зоны в поповере окрашено базовым тоном (`--st-green/--st-orange/--st-red/--st-grey`, без `-dark`). Фон блоков «Зона»/«Рейтинг» — `--bg-page`. Новых цветов нет.
 
 ## Для разработчиков (выжимка)
 
@@ -59,6 +60,8 @@ function resolveChip(rating, zone):
   label = rating != null ? String(rating) : '—'
   tone  = hasZone ? ZONE_TONE[zone] : null      // null → chip--outline; красная/чёрная → *-solid
   return { label, tone, showInfoButton: hasInfo, rounded: true }
+  // hasInfo = hasZone || rating != null || riskSegment != null || riskProfile != null
+  // ничего из этого нет — информера нет, поповер не открывается
 
 // Открытие/позиционирование идентично Popover (gap 8px, align 'start'),
 // координаты — от .pop-anchor. Один открытый поповер на странице.
@@ -92,12 +95,13 @@ interface RiskMetricProps {
 | `.chip__info` | Кнопка-информер (button, не span) — открывает Popover; отсутствует без данных |
 | `.pop-anchor` | position:relative обёртка, точка отсчёта позиционирования |
 | `.pop.pop--w-m` | Popover_RiskMetric, без Footer |
+| `.rm-blocks` | Обёртка блоков «Зона»/«Рейтинг», зазор 8px |
 | `.rm-block / .rm-block__row / .rm-block__label / .rm-block__value` | Серый блок «Зона»/«Рейтинг»: значение + дата расчёта (`--strong` — жирное значение, у зоны окрашено) |
 | `.rm-field / .rm-field__label / .rm-field__value` | Текстовое поле (Риск-сегмент/Риск-профиль) |
 | `aria-busy="true"` (на `.pop__body`) | Состояние загрузки |
 | `role="alert"` (на `.pop__body`) | Ошибка загрузки деталей |
 
-## Предложено на странице (ждёт решения)
+## Бэклог
 - Disabled/нет доступа к риск-данным.
 - Индикатор тренда (стрелка вверх/вниз) рядом с рейтингом.
 - Компактный вариант «только зона» (без числа) для узких колонок.

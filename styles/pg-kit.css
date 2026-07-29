@@ -54,10 +54,11 @@
 .pg__controls .ctl.is-off { display: none !important; }
 .pg__controls .toggle.is-off { display: none !important; }
 
-/* переключатели-свитчи — в ряд на всю ширину, а не колонкой */
+/* переключатели-свитчи: в узкой панели — колонкой с воздухом, в широкой — в ряд */
 .pg__controls .ctl:has(.toggles) { grid-column: 1 / -1; }
-.pg__controls .toggles { flex-direction: row !important; flex-wrap: wrap; gap: 10px; }
-.pg__controls .toggles .toggle { flex: 1 1 auto; justify-content: flex-start; }
+.pg__controls .toggles { flex-direction: column !important; flex-wrap: wrap; gap: 14px; }
+.pg__controls--wide .toggles { flex-direction: row !important; column-gap: 24px; row-gap: 14px; }
+.pg__controls .toggles .toggle { flex: 0 1 auto; justify-content: flex-start; }
 .pg__controls .toggle > span:last-child { white-space: nowrap; }
 
 /* легаси-сегменты страниц (.seg) — на всю ширину ячейки, без переноса в 2 ряда */

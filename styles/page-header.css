@@ -45,15 +45,16 @@
   min-width:0;
   flex:0 1 auto;
 }
+/* Title многострочный: заголовок страницы всегда виден целиком, усечения нет */
 .phead__title{
   font:var(--type-h3-strong);
   letter-spacing:0;
   color:var(--text-primary);
   margin:0;
   min-width:120px;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  text-wrap:pretty;
 }
 /* Edit (IconButton S) — слот, стили из icon-button.css */
 .phead__edit{flex:none;}
@@ -131,6 +132,5 @@
 
 /* ---- Адаптивная раскладка (мобильная): actions переносятся вниз ---- */
 .phead--stack{flex-direction:column;gap:12px;}
-.phead--stack .phead__title{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 .phead--stack .phead__actions{margin-left:0;width:100%;}
 .phead--stack .phead__actions .btn:not(.btn--icon-only){flex:1 1 auto;}

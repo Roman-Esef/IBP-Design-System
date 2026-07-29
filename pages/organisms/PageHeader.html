@@ -32,7 +32,10 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 .subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:32px 0 14px;}
 
 /* playground */
-.panel.pg{padding:0;overflow:hidden;display:grid; }
+.panel.pg{padding:0;overflow:hidden;display:flex;flex-direction:column;}
+.panel.pg>.pg__controls{border-top:1px solid var(--border-light);grid-template-columns:repeat(auto-fit,minmax(190px,1fr));}
+.ctl--span{grid-column:1/-1;}
+.pg-range{width:100%;accent-color:var(--primary);}
 .pg__stage{display:flex;align-items:stretch;min-height:340px;padding:24px 26px;min-width:0;}
 .pg__stagebox{width:100%;display:flex;flex-direction:column;min-width:0;}
 .ctl{display:flex;flex-direction:column;gap:10px;}
@@ -72,6 +75,21 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 /* ref table */
 .ref-table th,.ref-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--border-light);font:var(--type-body-m);color:var(--text-primary);vertical-align:middle;}
 .rl-sample{position:absolute;top:-9999px;left:0;width:900px;}
+/* тестовая среда: экспериментальная раскладка заголовка (не часть компонента) */
+.phx{display:flex;flex-direction:column;gap:8px;width:100%;min-width:0;}
+.phx__return{margin-left:-8px;}
+.phx__row{display:flex;align-items:flex-start;gap:16px;min-width:0;}
+.phx__main{flex:0 1 auto;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px;}
+.phx__title-row{display:flex;align-items:center;gap:8px;max-width:100%;min-width:0;}
+.phx__title{flex:1 1 auto;min-width:0;font:var(--type-h3-strong);color:var(--text-primary);margin:0;text-wrap:pretty;overflow-wrap:break-word;}
+/* ширина подзаголовка не превышает ширину заголовка: 0-базовая ширина + min-width:100% */
+.phx__subtitle{width:0;min-width:100%;font:var(--type-body-s);color:var(--text-secondary);text-wrap:pretty;}
+.phx__chips{display:flex;align-items:center;gap:8px;flex:none;}
+.phx--stack .phx__row{flex-direction:column;align-items:flex-start;}
+.phx--stack .phx__actions{margin-left:0;width:100%;}
+.phx--stack .phx__actions .btn:not(.btn--icon-only){flex:1 1 auto;}
+.phx--chips-below .phx__chips{flex-wrap:wrap;}
+.phx__actions{flex:none;margin-left:auto;display:flex;align-items:center;gap:8px;}
 /* code blocks */
 
 </style>
@@ -85,8 +103,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.4</b></span>
-    <span>Обновлено <b>14.07.2026</b></span>
+    <span>Версия <b>v1.5</b></span>
+    <span>Обновлено <b>29.07.2026</b></span>
     <span>CSS <b>styles/page-header.css</b></span>
     <span>Зависимости <b>button, icon-button, chip, badge, context-menu, tooltip, breadcrumbs</b></span>
   </div>
@@ -98,7 +116,19 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <!-- 1. КОНСТРУКТОР -->
 <section class="section" id="constructor" data-screen-label="Конструктор">
   <h2>Конструктор</h2>
-  <div class="panel pg">
+  <div class="panel pg" data-pg-no-split>
+    <div class="pg__stage">
+      <div class="pg__stagebox">
+        <div class="pg-stage-frame">
+          <div class="pg-scale" id="demo-scale">
+            <div class="pg-viewport" id="demo-viewport" style="width:1100px;">
+              <div id="demo-phead"></div>
+            </div>
+          </div>
+        </div>
+        <p class="ws-cap">Ползунок ширины меняет ширину контейнера заголовка. Ниже 1024px чипы и кнопка возврата переносятся отдельной строкой под подзаголовок (<code class="tok">.phead__extras</code>); ниже 720px компонент переключается в раскладку <code class="tok">.phead--stack</code>: actions переносятся вниз на всю ширину. Заголовок никогда не усекается — он становится многострочным.</p>
+      </div>
+    </div>
     <div class="pg__controls">
       <div class="ctl">
         <div class="lbl">Заголовок</div>
@@ -150,25 +180,9 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="lbl">Dashboard (подложка)</div>
         <label class="pg-toggle"><input id="ctl-dash" type="checkbox"><span class="pg-toggle__sw"></span><span>На подложке</span></label>
       </div>
-      <div class="ctl">
-        <div class="lbl">Ширина контейнера</div>
-        <div class="pg-select" data-pg-keep-select><select id="ctl-width">
-          <option value="1100" selected>Desktop · 1100</option>
-          <option value="720">Tablet · 720</option>
-          <option value="375">Mobile · 375</option>
-        </select></div>
-      </div>
-    </div>
-    <div class="pg__stage">
-      <div class="pg__stagebox">
-        <div class="pg-stage-frame">
-          <div class="pg-scale" id="demo-scale">
-            <div class="pg-viewport" id="demo-viewport" style="width:1100px;">
-              <div id="demo-phead"></div>
-            </div>
-          </div>
-        </div>
-        <p class="ws-cap">На ширине Tablet чипы и кнопка возврата переносятся отдельной строкой под подзаголовок (<code class="tok">.phead__extras</code>); на Mobile компонент переключается в раскладку <code class="tok">.phead--stack</code>: actions переносятся вниз на всю ширину, Title переносится максимум в две строки.</p>
+      <div class="ctl ctl--span">
+        <div class="lbl">Ширина контейнера · <span id="ctl-width-val">1100</span> px</div>
+        <input class="pg-range" id="ctl-width" type="range" min="320" max="1440" step="10" value="1100" aria-label="Ширина контейнера заголовка">
       </div>
     </div>
   </div>
@@ -181,11 +195,11 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
   <div class="subsec">
     <h3>Когда использовать</h3>
+    <p class="desc tight">Всегда: PageHeader — обязательный заголовок страницы рабочей области, отдельного обоснования он не требует. Редкие страницы без заголовка описываются как исключения индивидуально.</p>
     <ul class="bullets">
-      <li>На каждой странице рабочей области — списке сущностей, карточке сделки, странице инструмента, отчёте.</li>
-      <li>Когда странице нужны основные действия (выгрузка, расчёт, создание) — они живут в Header_Actions, а не в контенте.</li>
-      <li>Когда нужно показать статус сущности — чипы после заголовка.</li>
-      <li>Когда со страницы есть возврат на уровень выше — кнопка Return после заголовка.</li>
+      <li>Основные действия страницы (выгрузка, расчёт, создание) живут в Header_Actions, а не в контенте.</li>
+      <li>Статус сущности — чипы после заголовка.</li>
+      <li>Возврат на уровень выше — кнопка Return.</li>
     </ul>
   </div>
 
@@ -238,7 +252,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         </div>
       </div>
       <ol class="anat__legend">
-        <li><span class="n">1</span><span><span class="k">Header_Title</span><span class="d">Наименование сущности, h1 страницы. Токен H3 Strong, усечение в одну строку. Опциональная информационная иконка слева (24px).</span></span></li>
+        <li><span class="n">1</span><span><span class="k">Header_Title</span><span class="d">Наименование сущности, h1 страницы. Токен H3 Strong, многострочный, перенос в одну строку. Опциональная информационная иконка слева (24px).</span></span></li>
         <li><span class="n">2</span><span><span class="k">Иконка слева · IconLeft</span><span class="d">Опциональная, информационная роль. 24px, цвет --text-inactive.</span></span></li>
         <li><span class="n">3</span><span><span class="k">Edit · IconButton</span><span class="d">Опциональная кнопка справа от Title — переименование сущности (страницы типа «Сделка»).</span></span></li>
         <li><span class="n">4</span><span><span class="k">Header_Title_Chips</span><span class="d">Один чип или список — статусы сущности. Chip ReadOnly S.</span></span></li>
@@ -310,7 +324,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <table class="ref-table">
       <thead><tr><th>Элемент</th><th>Размер</th><th>Примечание</th></tr></thead>
       <tbody>
-        <tr><td>Title</td><td>28/32 · H3 Strong</td><td>одна строка, усечение ellipsis</td></tr>
+        <tr><td>Title</td><td>28/32 · H3 Strong</td><td>многострочный, перенос по словам</td></tr>
         <tr><td>Иконка слева</td><td>24×24</td><td>--text-inactive</td></tr>
         <tr><td>Edit</td><td>IconButton S · 24×24</td><td>глиф 20</td></tr>
         <tr><td>Чип</td><td>Chip ReadOnly S · 24</td><td>gap между чипами 8</td></tr>
@@ -344,26 +358,26 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <h3>Переполнение действий</h3>
     <p class="desc">В Actions допускается не больше трёх кнопок. Если действий больше — сверх лимита они попадают в MenuButton: клик по «⋮» открывает контекстное меню со списком опций. Приоритетное действие остаётся кнопкой Accent, второстепенные уходят в меню первыми.</p>
     <div class="panel demo-stack">
-      <div class="demo-item"><div class="cap">MenuButton открыт</div><div class="stagebg" style="padding-bottom:150px;" id="b-menu"></div></div>
+      <div class="demo-item"><div class="cap">MenuButton · кликните «⋮» — меню открывается поверх страницы</div><div class="stagebg" id="b-menu"></div></div>
     </div>
   </div>
 
   <div class="subsec">
-    <h3>Усечение заголовка</h3>
-    <p class="desc">Title занимает одну строку и усекается многоточием, когда не помещается. Если текст усечён (scrollWidth &gt; clientWidth) — по наведению показывается Tooltip с полным значением. Chips, Return и Actions при усечении не сжимаются.</p>
+    <h3>Многострочный заголовок</h3>
+    <p class="desc">Title не усекается: это заголовок страницы, его важно видеть целиком. Когда текст не помещается в строку, он переносится по словам на нужное число строк; Chips, Return и Actions при этом не сжимаются и остаются на своих местах.</p>
     <div class="panel demo-stack">
-      <div class="demo-item"><div class="cap">Усечённый Title · контейнер 640px</div><div class="stagebg" id="b-trunc" style="max-width:640px;"></div></div>
+      <div class="demo-item"><div class="cap">Длинный Title · контейнер 640px</div><div class="stagebg" id="b-multiline" style="max-width:640px;"></div></div>
     </div>
   </div>
 
   <div class="subsec">
     <h3>Редактирование заголовка</h3>
-    <p class="desc">Кнопка Edit присутствует на страницах сущностей типа «Сделка», где Title — редактируемое наименование. Клик переводит заголовок в режим переименования (инлайн-поле или модалка — по решению страницы); после подтверждения Title обновляется.</p>
+    <p class="desc">Кнопка Edit присутствует на страницах сущностей типа «Сделка», где Title — редактируемое наименование. Переименование выполняется только через модальное окно: клик по Edit открывает модалку с полем ввода; инлайн-редактирования заголовка в продукте нет. После подтверждения Title обновляется.</p>
   </div>
 
   <div class="subsec">
     <h3>Адаптивность</h3>
-    <p class="desc">Компонент адаптируется к ширине контентной области вплоть до мобильной версии: сначала второстепенные кнопки Actions сворачиваются в MenuButton, а чипы и кнопка возврата переносятся отдельной строкой под подзаголовок (<code class="tok">.phead__extras</code>); затем блок Actions переносится под заголовок на всю ширину, Title получает право на перенос максимум в две строки.</p>
+    <p class="desc">Компонент адаптируется к ширине контентной области вплоть до мобильной версии: сначала второстепенные кнопки Actions сворачиваются в MenuButton, а чипы и кнопка возврата переносятся отдельной строкой под подзаголовок (<code class="tok">.phead__extras</code>); затем блок Actions переносится под заголовок на всю ширину. Заголовок на любой ширине показывается целиком и переносится на столько строк, сколько нужно.</p>
     <div class="panel demo-stack">
       <div class="demo-item"><div class="cap">≥ 1024 · полный ряд</div><div class="stagebg" id="b-ad-desktop"></div></div>
       <div class="demo-item"><div class="cap">&lt; 1024 · чипы и Return отдельной строкой, второстепенные действия в меню</div><div class="stagebg" id="b-ad-tablet" style="max-width:720px;"></div></div>
@@ -475,23 +489,21 @@ onMenuToggle():
   menuBtn.setAttribute('aria-expanded', String(open))
   // меню — компонент ContextMenu, позиционирование от кнопки, край right
 
-// 2. Усечение Title
-//    одна строка, ellipsis; полный текст — в Tooltip.
-onTitleRender():
-  truncated = title.scrollWidth > title.clientWidth
-  if truncated: attach Tooltip(fullText)   // и title-атрибут как фолбэк
+// 2. Заголовок многострочный
+//    усечения нет: перенос по словам на нужное число строк,
+//    Tooltip с полным значением не требуется.
 
 // 3. Адаптивность (по ширине контентной области, не вьюпорта)
 layout(width):
   if width < 1024: collapse secondary actions into MenuButton
   if width < 720:  root.classList.add('phead--stack')
-                   // actions вниз на всю ширину; Title — max 2 строки (line-clamp)
+                   // actions вниз на всю ширину; Title — без ограничения строк
   else:            root.classList.remove('phead--stack')
 
 // 4. Редактирование Title (страницы типа «Сделка»)
 onEditClick():
-  открыть режим переименования (инлайн-поле или модалка — по странице)
-  после подтверждения: title.textContent = newName; пересчитать усечение</code>
+  открыть модальное окно переименования (инлайн-режима нет)
+  onModalSubmit(newName): title.textContent = newName</code>
   </div>
 </section>
 
@@ -504,6 +516,18 @@ onEditClick():
     <li><b>Слот табов</b> — регламентированное место строки Tab под PageHeader (сейчас табы кладутся в контент страницы).</li>
     <li><b>Переполнение чипов</b> — чип-счётчик «+N» по образцу InputAutocomplete, если статусов больше трёх.</li>
   </ul>
+
+  <div class="subsec">
+    <h3>Тестовая среда</h3>
+    <p class="desc">Экспериментальная раскладка заголовка — живёт только в этом разделе и <b>не является частью компонента</b>. Отличия от основного PageHeader: кнопка возврата стоит <b>над</b> заголовком и выполнена транспарентной кнопкой; подзаголовок неразрывен с заголовком — чипы, не поместившиеся в строку заголовка, уходят <b>под</b> подзаголовок, а не над ним; ширина подзаголовка ограничена шириной заголовка, поэтому длинный подзаголовок переносится в две и более строки.</p>
+    <div class="panel demo-stack">
+      <div class="demo-item">
+        <div class="cap">Экспериментальный заголовок · <span id="phx-width-val">1200</span> px</div>
+        <input class="pg-range" id="phx-width" type="range" min="320" max="1600" step="10" value="1200" aria-label="Ширина контейнера экспериментального заголовка">
+        <div class="stagebg" style="overflow:auto;"><div id="phx-vp" style="width:1200px;"><div id="phx-demo"></div></div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer class="page-foot">

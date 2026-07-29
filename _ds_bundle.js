@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"5df6457afe08","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"a986dffd28c8","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"c53d9373d1d0","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"5fe8419ffc09","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"22c85f8063e5","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"739839cd70fa","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"33e608a53c42","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"5df6457afe08","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"a986dffd28c8","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"c53d9373d1d0","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"1fc49308cda2","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"005cc7ad432b","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"33e608a53c42","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -12245,7 +12245,7 @@ try { (() => {
     var chipsHtml = '';
     if (o.chips === 'one' || o.chips === 'list') {
       var chip = function (t) {
-        return '<span class="chip chip--readonly chip--s"><span class="chip__label">' + t + '</span></span>';
+        return '<span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">' + t + '</span></span>';
       };
       var chips = o.chips === 'one' ? chip('Черновик') : chip('Черновик') + chip('На утверждении') + chip('PE');
       chipsHtml = '<div class="phead__chips">' + chips + '</div>';
@@ -12290,9 +12290,11 @@ try { (() => {
 
   /* ---------- конструктор ---------- */
   function rebuild() {
-    var width = document.getElementById('ctl-width').value;
+    var width = Number(document.getElementById('ctl-width').value);
     var vp = document.getElementById('demo-viewport');
     vp.style.width = width + 'px';
+    var wOut = document.getElementById('ctl-width-val');
+    if (wOut) wOut.textContent = width;
     var o = {
       title: document.getElementById('ctl-title').value.trim() || 'D-007. ПАО «Газпром»',
       ico: document.getElementById('ctl-ico').checked,
@@ -12303,35 +12305,62 @@ try { (() => {
       actions: document.getElementById('ctl-actions').value,
       menu: document.getElementById('ctl-menu').checked,
       dashboard: document.getElementById('ctl-dash').checked,
-      stack: width === '375',
-      wrapChips: width !== '1100'
+      stack: width < 720,
+      wrapChips: width < 1024
     };
     /* MenuButton неактуален, когда действий нет вовсе */
     document.getElementById('demo-phead').innerHTML = buildPhead(o);
-    closeDemoMenu();
+    closePheadMenus();
     fitViewport();
   }
 
-  /* ---------- MenuButton в конструкторе: клик открывает выпадающее меню ---------- */
-  function closeDemoMenu() {
-    var existing = document.querySelector('#demo-phead .menu--floating');
-    if (existing) existing.remove();
-    var trg = document.querySelector('#demo-phead [aria-haspopup="menu"]');
-    if (trg) trg.setAttribute('aria-expanded', 'false');
+  /* ---------- MenuButton: интерактивное меню поверх страницы (все демо) ------
+     Меню рендерится в document.body с position:fixed, поэтому не обрезается
+     контейнерами демо-блоков и всегда лежит поверх остального. */
+  function menuMarkup() {
+    return '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('download-report', 20) + '</span><span class="menu__item-label">Выгрузить в XLSX</span></button>' + '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('history', 20) + '</span><span class="menu__item-label">История изменений</span></button>' + '<hr class="menu__divider">' + '<button type="button" class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-icon">' + getIcon('trash', 20) + '</span><span class="menu__item-label">Удалить сделку</span></button>';
+  }
+  function closePheadMenus() {
+    document.querySelectorAll('.phead-menu-pop').forEach(function (m) {
+      m.remove();
+    });
+    document.querySelectorAll('[aria-haspopup="menu"][aria-expanded="true"]').forEach(function (b) {
+      b.setAttribute('aria-expanded', 'false');
+    });
+  }
+  function openPheadMenu(btn) {
+    var pop = document.createElement('div');
+    pop.className = 'menu menu--floating is-open phead-menu-pop';
+    pop.setAttribute('role', 'menu');
+    pop.style.cssText = 'position:fixed;z-index:9000;';
+    pop.innerHTML = menuMarkup();
+    document.body.appendChild(pop);
+    var r = btn.getBoundingClientRect();
+    var w = pop.offsetWidth,
+      h = pop.offsetHeight;
+    var left = Math.min(Math.max(8, r.right - w), window.innerWidth - w - 8);
+    var top = r.bottom + 6;
+    if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - 6 - h);
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+    btn.setAttribute('aria-expanded', 'true');
   }
   document.addEventListener('click', function (e) {
-    var menuBtn = e.target.closest && e.target.closest('#demo-phead [aria-haspopup="menu"]');
-    if (menuBtn) {
-      var already = menuBtn.parentElement.querySelector('.menu--floating');
-      closeDemoMenu();
-      if (already) return; /* повторный клик по той же кнопке — просто закрыть */
-      menuBtn.setAttribute('aria-expanded', 'true');
-      menuBtn.parentElement.style.position = 'relative';
-      menuBtn.insertAdjacentHTML('afterend', '<div class="menu menu--floating is-open" role="menu" style="position:absolute;top:calc(100% + 6px);right:0;z-index:20;">' + '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('download-report', 20) + '</span><span class="menu__item-label">Выгрузить в XLSX</span></button>' + '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('history', 20) + '</span><span class="menu__item-label">История изменений</span></button>' + '<hr class="menu__divider">' + '<button type="button" class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-icon">' + getIcon('trash', 20) + '</span><span class="menu__item-label">Удалить сделку</span></button>' + '</div>');
+    if (!e.target.closest) return;
+    var btn = e.target.closest('.phead [aria-haspopup="menu"], .phx [aria-haspopup="menu"]');
+    if (btn) {
+      var wasOpen = btn.getAttribute('aria-expanded') === 'true';
+      closePheadMenus();
+      if (!wasOpen) openPheadMenu(btn);
       return;
     }
-    if (!e.target.closest || !e.target.closest('#demo-phead .menu--floating')) closeDemoMenu();
+    if (!e.target.closest('.phead-menu-pop')) closePheadMenus();
   });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePheadMenus();
+  });
+  window.addEventListener('resize', closePheadMenus);
+  window.addEventListener('scroll', closePheadMenus, true);
 
   /* масштабирование вьюпорта под ширину фрейма */
   function fitViewport() {
@@ -12461,18 +12490,9 @@ try { (() => {
       edit: true,
       actions: '2',
       menu: true,
-      menuOpen: true,
       hLevel: 3
     });
-    var bm = document.getElementById('b-menu');
-    if (bm) {
-      var anchor = bm.querySelector('.phead__actions');
-      if (anchor) {
-        anchor.style.position = 'relative';
-        anchor.insertAdjacentHTML('beforeend', '<div class="menu menu--floating is-open" role="menu" style="position:absolute;top:calc(100% + 6px);right:0;z-index:5;">' + '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('download-report', 20) + '</span><span class="menu__item-label">Выгрузить в XLSX</span></button>' + '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('history', 20) + '</span><span class="menu__item-label">История изменений</span></button>' + '<hr class="menu__divider">' + '<button type="button" class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-icon">' + getIcon('trash', 20) + '</span><span class="menu__item-label">Удалить сделку</span></button>' + '</div>');
-      }
-    }
-    mount('b-trunc', {
+    mount('b-multiline', {
       title: 'ФИ: 111-Акции-2 · КГ ГАЗНЕФТЕХИМПРОМСТРОЙ НЕДВИЖИМОСТЬ, внутригрупповой кредит',
       edit: true,
       actions: '1',
@@ -12506,6 +12526,67 @@ try { (() => {
       wrapChips: true,
       hLevel: 3
     });
+  }
+
+  /* ---------- ТЕСТОВАЯ СРЕДА: экспериментальная раскладка (.phx) -------------
+     Не часть компонента. Return над заголовком (transparent), подзаголовок
+     неразрывен с заголовком и ограничен его шириной, не поместившиеся чипы
+     уходят под подзаголовок. */
+  function buildPhx() {
+    return '<div class="phx">' + '<div class="phx__return"><button type="button" class="btn btn--transparent btn--xs">' + getIcon('flip-backward', 16) + '<span class="btn__label">К списку сделок</span></button></div>' + '<div class="phx__row">' + '<div class="phx__main">' + '<div class="phx__title-row"><h3 class="phx__title">1234. СамолётИнвестПродакшн</h3>' + '<div class="phx__chips"><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">Черновик</span></span><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">На утверждении</span></span></div>' + '</div>' + '<div class="phx__subtitle">Дата фактического погашения 12.01.2021 · ответственный Александров П. К. · последнее изменение 07.02.2021</div>' + '</div>' + '<div class="phx__actions"><button type="button" class="btn btn--outline btn--m">' + getIcon('star', 20) + '<span class="btn__label">В избранное</span></button>' + '<button type="button" class="btn btn--accent btn--m">' + getIcon('download', 20) + '<span class="btn__label">Выгрузить</span></button>' + '<button type="button" class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё действия" aria-haspopup="menu" aria-expanded="false">' + getIcon('more-dots', 20) + '</button></div>' + '</div>' + '</div>';
+  }
+  function layoutPhx() {
+    var host = document.getElementById('phx-demo');
+    if (!host) return;
+    var root = host.querySelector('.phx');
+    if (!root) return;
+    var main = root.querySelector('.phx__main');
+    var row = root.querySelector('.phx__title-row');
+    var chips = root.querySelector('.phx__chips');
+    var sub = root.querySelector('.phx__subtitle');
+    if (!main || !row || !chips || !sub) return;
+    /* вернуть чипы в строку заголовка и померить, помещаются ли они рядом с заголовком.
+       Заголовок сжимаем flex-ом, поэтому переполнения строки не возникает — считаем
+       по естественной (max-content) ширине заголовка. */
+    if (chips.parentElement !== row) row.appendChild(chips);
+    root.classList.remove('phx--chips-below');
+    root.classList.remove('phx--stack');
+    /* мало места под заголовок рядом с действиями — actions уходят вниз на всю ширину */
+    const outer = root.querySelector('.phx__row');
+    const actions = root.querySelector('.phx__actions');
+    if (outer && actions && outer.clientWidth - actions.offsetWidth - 16 < 280) root.classList.add('phx--stack');
+    const title = row.querySelector('.phx__title');
+    if (!title) return;
+    const prevWs = title.style.whiteSpace,
+      prevW = title.style.width;
+    title.style.whiteSpace = 'nowrap';
+    title.style.width = 'max-content';
+    const titleNatural = title.scrollWidth;
+    title.style.whiteSpace = prevWs;
+    title.style.width = prevW;
+    const gap = parseFloat(getComputedStyle(row).columnGap) || 8;
+    const fits = Math.min(titleNatural, row.clientWidth) + gap + chips.offsetWidth <= row.clientWidth;
+    if (!fits) {
+      root.classList.add('phx--chips-below');
+      main.appendChild(chips); /* под подзаголовок */
+    }
+  }
+  function initPhx() {
+    var host = document.getElementById('phx-demo');
+    if (!host) return;
+    host.innerHTML = buildPhx();
+    var slider = document.getElementById('phx-width');
+    var vp = document.getElementById('phx-vp');
+    var out = document.getElementById('phx-width-val');
+    if (slider && vp) {
+      slider.addEventListener('input', function () {
+        vp.style.width = slider.value + 'px';
+        if (out) out.textContent = slider.value;
+        layoutPhx();
+      });
+    }
+    layoutPhx();
+    window.addEventListener('resize', layoutPhx);
   }
 
   /* ---------- redline ---------- */
@@ -12549,7 +12630,9 @@ try { (() => {
     });
   });
   renderDemos();
+  initPhx();
   setTimeout(fitViewport, 250);
+  setTimeout(layoutPhx, 300);
   setTimeout(measureRedline, 300);
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/page-header.page.js", error: String((e && e.message) || e) }); }
@@ -14327,8 +14410,29 @@ function placePop(stage, pop, target, placement, align, gap) {
   } else {
     if (align === 'center') y = cy - ph / 2;else if (align === 'start') y = cy - POP_ARROW_INSET_V;else y = cy - (ph - POP_ARROW_INSET_V);
   }
+  /* не выпускаем поповер за границы контейнера-стенда */
+  const guard = 8;
+  const maxX = Math.max(guard, stage.clientWidth - pw - guard);
+  const maxY = Math.max(guard, stage.clientHeight - ph - guard);
+  if (placement === 'top' || placement === 'bottom') x = Math.min(Math.max(guard, x), maxX);else y = Math.min(Math.max(guard, y), maxY);
   pop.style.left = x + 'px';
   pop.style.top = y + 'px';
+
+  /* стрелка всегда смотрит в центр триггера — даже после clamp и flip */
+  const arrow = pop.querySelector('.pop__arrow');
+  if (arrow && pop.classList.contains('pop--arrow')) {
+    if (placement === 'top' || placement === 'bottom') {
+      const off = Math.min(Math.max(12, cx - x), pw - 12);
+      arrow.style.left = off + 'px';
+      arrow.style.right = 'auto';
+      arrow.style.transform = 'translateX(-50%)';
+    } else {
+      const off = Math.min(Math.max(12, cy - y), ph - 12);
+      arrow.style.top = off + 'px';
+      arrow.style.bottom = 'auto';
+      arrow.style.transform = 'translateY(-50%)';
+    }
+  }
 }
 
 /* ========================================================================= */
@@ -14402,6 +14506,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (state.arrow === 'yes') pop.style.marginTop = '8px';
       wrap.appendChild(pop);
       stage.appendChild(wrap);
+      window.dsIcons && window.dsIcons.apply(stage);
     }
     render();
   })();
@@ -14421,10 +14526,14 @@ document.addEventListener('DOMContentLoaded', () => {
       footLeft: 'none',
       footRight: 'both',
       content: 'form',
-      title: 'Изменить тег'
+      title: 'Изменить тег',
+      arrow: true
     });
+    wrap.style.gap = '0';
+    pop.style.marginTop = '8px';
     wrap.appendChild(pop);
     host.appendChild(wrap);
+    window.dsIcons && window.dsIcons.apply(host);
   })();
 
   /* ---------------- HEADER: варианты (заголовок / +чип / +ссылка) ---------------- */
@@ -14594,8 +14703,8 @@ document.addEventListener('DOMContentLoaded', () => {
     target.className = 'ibtn ibtn--neutral ibtn--m';
     target.setAttribute('aria-label', 'Информация');
     target.style.position = 'absolute';
-    target.style.top = '50%';
-    target.style.marginTop = '-16px';
+    target.style.top = '24px';
+    target.style.marginTop = '0';
     target.style.touchAction = 'none';
     target.style.cursor = 'grab';
     target.innerHTML = '<i data-icon="info-circle"></i>';
@@ -14616,16 +14725,25 @@ document.addEventListener('DOMContentLoaded', () => {
       align: 'start'
     });
     vp.appendChild(pop);
+    const stateOut = document.getElementById('flip-state');
     function reposition() {
       const br = vp.getBoundingClientRect();
       const tr = target.getBoundingClientRect();
-      const pw = pop.offsetWidth;
+      const pw = pop.offsetWidth,
+        ph = pop.offsetHeight;
+      /* сторона: снизу не хватает места — переворачиваем наверх */
+      const below = br.bottom - tr.bottom,
+        above = tr.top - br.top;
+      let placement = 'bottom';
+      if (below < ph + 8 && above > below) placement = 'top';
+      /* выравнивание: справа не хватает места — прижимаем к правому краю */
       const spaceRight = br.right - tr.right,
         spaceLeft = tr.left - br.left;
       let align = 'start';
       if (spaceRight < pw - POP_ARROW_INSET_H && spaceLeft > spaceRight) align = 'end';
-      pop.className = 'pop pop--w-m pop--bottom pop--' + align + ' pop--arrow pop--floating pop--pinned';
-      placePop(vp, pop, target, 'bottom', align, 8);
+      pop.className = 'pop pop--w-m pop--' + placement + ' pop--' + align + ' pop--arrow pop--floating pop--pinned';
+      placePop(vp, pop, target, placement, align, 8);
+      if (stateOut) stateOut.textContent = 'placement: ' + placement + ' · align: ' + align;
     }
     function applyPreset(posVal) {
       target.style.left = posVal === 'left' ? '12px' : posVal === 'right' ? 'calc(100% - 44px)' : 'calc(50% - 16px)';
@@ -14633,23 +14751,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     select.addEventListener('change', () => applyPreset(select.value));
 
-    /* перетаскивание триггера вручную по горизонтали */
+    /* перетаскивание триггера по обеим осям */
     let dragging = false,
       startX = 0,
-      startLeft = 0;
+      startY = 0,
+      startLeft = 0,
+      startTop = 0;
     target.addEventListener('pointerdown', e => {
       dragging = true;
       target.setPointerCapture(e.pointerId);
       target.style.cursor = 'grabbing';
+      const vr = vp.getBoundingClientRect(),
+        tr = target.getBoundingClientRect();
       startX = e.clientX;
-      startLeft = target.getBoundingClientRect().left - vp.getBoundingClientRect().left;
+      startY = e.clientY;
+      startLeft = tr.left - vr.left;
+      startTop = tr.top - vr.top;
     });
     target.addEventListener('pointermove', e => {
       if (!dragging) return;
-      const dx = e.clientX - startX;
       const maxLeft = Math.max(0, vp.clientWidth - target.offsetWidth);
-      const left = Math.max(0, Math.min(maxLeft, startLeft + dx));
-      target.style.left = left + 'px';
+      const maxTop = Math.max(0, vp.clientHeight - target.offsetHeight);
+      target.style.left = Math.max(0, Math.min(maxLeft, startLeft + (e.clientX - startX))) + 'px';
+      target.style.top = Math.max(0, Math.min(maxTop, startTop + (e.clientY - startY))) + 'px';
       reposition();
     });
     target.addEventListener('pointerup', e => {
@@ -16178,10 +16302,10 @@ const RM_ZONES = {
   }
 };
 const RM_ZONE_TOKEN = {
-  green: '--st-green-dark',
-  watchlist: '--st-orange-dark',
-  red: '--st-red-dark',
-  black: '--st-grey-dark'
+  green: '--st-green',
+  watchlist: '--st-orange',
+  red: '--st-red',
+  black: '--st-grey'
 };
 let rmSeq = 0;
 function rmAriaLabel(rating, zoneKey) {
@@ -16195,11 +16319,13 @@ function makeRiskChip(o = {}) {
   const {
     rating = null,
     zone = 'none',
-    size = 's'
+    size = 's',
+    details = false
   } = o;
   const z = RM_ZONES[zone] || RM_ZONES.none;
   const hasZone = zone !== 'none';
-  const hasInfo = hasZone || rating != null;
+  /* информер есть, если раскрывать есть что: зона, рейтинг ИЛИ риск-сегмент/профиль */
+  const hasInfo = hasZone || rating != null || details;
   const el = document.createElement('span');
   el.className = 'chip chip--readonly chip--rounded chip--' + size + (hasZone ? ' chip--' + z.tone : ' chip--outline');
   el.setAttribute('aria-label', rmAriaLabel(rating, zone));
@@ -16236,6 +16362,7 @@ function buildRiskPopover(o = {}) {
     state = 'default',
     width = 'm'
   } = o;
+  const dash = '—';
   const titleId = 'rm-pop-title-' + ++rmSeq;
   const pop = document.createElement('div');
   pop.className = 'pop pop--w-' + width + ' pop--bottom pop--start pop--floating';
@@ -16247,7 +16374,7 @@ function buildRiskPopover(o = {}) {
   head.innerHTML = '<h3 class="pop__title" id="' + titleId + '">Рейтинг и зона проблемности</h3>' + '<span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span>';
   pop.appendChild(head);
   const body = document.createElement('div');
-  body.className = 'pop__body';
+  body.className = 'pop__body rm-body';
   if (state === 'loading') {
     body.setAttribute('aria-busy', 'true');
     body.innerHTML = '<span class="pop__skeleton pop__skeleton--title" style="--sk-w:55%;"></span>' + '<span class="pop__skeleton" style="--sk-w:100%;"></span>' + '<span class="pop__skeleton pop__skeleton--title" style="--sk-w:45%;"></span>' + '<span class="pop__skeleton" style="--sk-w:80%;"></span>';
@@ -16255,7 +16382,7 @@ function buildRiskPopover(o = {}) {
     body.setAttribute('role', 'alert');
     body.innerHTML = '<div style="display:flex; gap:10px; align-items:flex-start;">' + '<span style="flex:none; width:20px; height:20px; color:var(--error);"><i data-icon="alert-circle"></i></span>' + '<p style="margin:0; font:var(--type-body-s); color:var(--text-primary);">Не удалось загрузить риск-метрику. Проверьте соединение и попробуйте ещё раз.</p></div>';
   } else {
-    body.innerHTML = rmZoneBlockHTML(zone, zoneDate) + rmRateBlockHTML(rating, ratingDate) + '<div class="rm-field"><p class="rm-field__label">Риск-сегмент</p><p class="rm-field__value">' + segment + '</p></div>' + '<div class="rm-field"><p class="rm-field__label">Риск-профиль</p><p class="rm-field__value">' + profile + '</p></div>';
+    body.innerHTML = '<div class="rm-blocks">' + rmZoneBlockHTML(zone, zoneDate) + rmRateBlockHTML(rating, ratingDate) + '</div>' + '<div class="rm-field"><p class="rm-field__label">Риск-сегмент</p><p class="rm-field__value">' + (segment || dash) + '</p></div>' + '<div class="rm-field"><p class="rm-field__label">Риск-профиль</p><p class="rm-field__value">' + (profile || dash) + '</p></div>';
   }
   pop.appendChild(body);
   const arrowEl = document.createElement('span');
@@ -16324,10 +16451,14 @@ function rmRateBlockHTML(rating, ratingDate) {
 function mountRiskMetric(container, o = {}) {
   const anchor = document.createElement('span');
   anchor.className = 'pop-anchor';
+  const pv = o.popover || {};
+  const hasDetails = !!(pv.segment || pv.profile);
   const {
     el,
     btn
-  } = makeRiskChip(o);
+  } = makeRiskChip(Object.assign({}, o, {
+    details: hasDetails
+  }));
   anchor.appendChild(el);
   container.appendChild(anchor);
   if (!btn) {
@@ -16343,7 +16474,7 @@ function mountRiskMetric(container, o = {}) {
   } = buildRiskPopover(Object.assign({
     rating: o.rating,
     zone: o.zone
-  }, o.popover || {}));
+  }, pv));
   anchor.appendChild(pop);
   pop.id = 'rm-pop-' + ++rmSeq;
   btn.setAttribute('aria-controls', pop.id);
@@ -16386,6 +16517,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const state = {
       zone: 'red',
       rating: '26',
+      details: 'yes',
       popState: 'default'
     };
     let inst = null;
@@ -16416,23 +16548,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     controls.appendChild(ctl('Зона проблемности', [['none', 'Нет данных'], ['green', 'Зелёная'], ['watchlist', 'Watchlist'], ['red', 'Красная'], ['black', 'Чёрная']], () => state.zone, v => state.zone = v));
     controls.appendChild(ctl('Рейтинг контрагента', [['none', 'Нет данных'], ['1', '1'], ['5', '5'], ['12', '12'], ['18', '18'], ['26', '26']], () => state.rating, v => state.rating = v));
+    controls.appendChild(ctl('Риск-сегмент и профиль', [['yes', 'Есть'], ['no', 'Нет данных']], () => state.details, v => state.details = v));
     controls.appendChild(ctl('Состояние поповера', [['default', 'Обычное'], ['loading', 'Загрузка'], ['error', 'Ошибка']], () => state.popState, v => state.popState = v));
     const hint = document.createElement('p');
     hint.style.cssText = 'font:var(--type-body-s); color:var(--text-inactive); margin:-8px 0 0;';
-    hint.textContent = 'Кликните по иконке-информеру в превью, чтобы открыть Popover_RiskMetric.';
+    hint.textContent = 'Кликните по иконке-информеру в превью, чтобы открыть Popover_RiskMetric. Если нет ни зоны, ни рейтинга, ни риск-сегмента с профилем — информера нет и поповер не открывается.';
     controls.appendChild(hint);
     function render() {
       stage.innerHTML = '';
       const box = document.createElement('div');
       box.style.cssText = 'padding-top:60px;';
       const rating = state.rating === 'none' ? null : Number(state.rating);
+      const withDetails = state.details === 'yes';
       inst = mountRiskMetric(box, {
         rating,
         zone: state.zone,
         popover: {
           rating,
           zone: state.zone,
-          state: state.popState
+          state: state.popState,
+          segment: withDetails ? 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%' : null,
+          profile: withDetails ? 'Непроектный' : null
         }
       });
       stage.appendChild(box);
@@ -16551,19 +16687,40 @@ document.addEventListener('DOMContentLoaded', () => {
     rateCell.appendChild(rateNote);
     const noneRowLabel = document.createElement('div');
     noneRowLabel.className = 'rm-matrix__rowhead';
-    noneRowLabel.textContent = 'None';
+    noneRowLabel.textContent = 'Details';
     grid.appendChild(noneRowLabel);
     const noneCell = document.createElement('div');
     noneCell.className = 'rm-matrix__cell rm-matrix__cell--span';
     grid.appendChild(noneCell);
     mountRiskMetric(noneCell, {
       rating: null,
-      zone: 'none'
+      zone: 'none',
+      popover: {
+        rating: null,
+        zone: 'none',
+        segment: 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%',
+        profile: 'Непроектный'
+      }
     });
     const noneNote = document.createElement('span');
     noneNote.className = 'rm-matrix__note';
-    noneNote.textContent = 'нет ни рейтинга, ни зоны — иконка-информер отсутствует';
+    noneNote.textContent = 'нет ни рейтинга, ни зоны, но есть риск-сегмент и риск-профиль — информер остаётся, в поповере зона и рейтинг показаны прочерками';
     noneCell.appendChild(noneNote);
+    const emptyRowLabel = document.createElement('div');
+    emptyRowLabel.className = 'rm-matrix__rowhead';
+    emptyRowLabel.textContent = 'None';
+    grid.appendChild(emptyRowLabel);
+    const emptyCell = document.createElement('div');
+    emptyCell.className = 'rm-matrix__cell rm-matrix__cell--span';
+    grid.appendChild(emptyCell);
+    mountRiskMetric(emptyCell, {
+      rating: null,
+      zone: 'none'
+    });
+    const emptyNote = document.createElement('span');
+    emptyNote.className = 'rm-matrix__note';
+    emptyNote.textContent = 'данных нет вообще — ни зоны, ни рейтинга, ни риск-сегмента с профилем: иконка-информер отсутствует, поповер не открывается';
+    emptyCell.appendChild(emptyNote);
   })();
 
   /* ---------------- Один поповер одновременно ---------------- */
@@ -16791,41 +16948,6 @@ document.addEventListener('DOMContentLoaded', () => {
           zone
         }
       });
-    });
-  })();
-
-  /* ---------------- ПРЕДЛАГАЕМЫЕ ДОПОЛНЕНИЯ ---------------- */
-  (function () {
-    const host = document.getElementById('proposals');
-    if (!host) return;
-    const items = [{
-      name: 'Disabled / нет доступа',
-      desc: 'Пользователю не хватает прав на риск-данные контрагента — чип приглушается (StDisabled), информер неактивен, tooltip «Нет доступа к риск-метрике».'
-    }, {
-      name: 'Индикатор тренда',
-      desc: 'Стрелка рядом с рейтингом (arrow-trend-up/down) — сравнение с прошлым расчётом. Не влияет на тон чипа, только на смысловую пиктограмму слева.'
-    }, {
-      name: 'Компактный вариант «только зона»',
-      desc: 'Для узких колонок — чип без числа, только цветной индикатор зоны + информер. Тот же Popover, тот же набор тонов.'
-    }];
-    items.forEach(it => {
-      const p = document.createElement('div');
-      p.className = 'prop';
-      const demo = document.createElement('div');
-      demo.className = 'pdemo';
-      const chip = document.createElement('span');
-      chip.className = 'chip chip--readonly chip--rounded chip--s chip--error-solid';
-      chip.style.opacity = '.55';
-      chip.innerHTML = '<span class="chip__label">26</span>';
-      demo.appendChild(chip);
-      const n = document.createElement('div');
-      n.className = 'pname';
-      n.textContent = it.name;
-      const d = document.createElement('div');
-      d.className = 'pdesc';
-      d.textContent = it.desc;
-      p.append(demo, n, d);
-      host.appendChild(p);
     });
   })();
 

@@ -102,7 +102,7 @@
   --bg-tile:     var(--c-mgrey-50);
   --bg-mainmenu: var(--c-mgrey-100);
   --bg-hint:     var(--c-cgrey-800);
-  --bg-page:     linear-gradient(180deg, #F5F7F7 0%, #F2F7F7 100%);
+  --bg-page:     #F5F7F7;
 
   /* Border */
   --border-primary: var(--c-swamp-300);
