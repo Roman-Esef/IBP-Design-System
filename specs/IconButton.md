@@ -1,8 +1,8 @@
 ---
 component: IconButton
 title: "IconButton"
-version: "v1.5"
-updated: "25.07.2026"
+version: "v1.6"
+updated: "04.08.2026"
 page: pages/atoms/IconButton.html
 css: styles/icon-button.css
 deps: [badge]

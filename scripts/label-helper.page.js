@@ -346,7 +346,8 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
   // Radiobutton
   (function(){
     const root = document.createElement('label'); root.className='rb rb--selected'; root.style.pointerEvents='none';
-    root.innerHTML = '<span class="rb__box"><span class="rb__mark"></span></span>';
+    const rbIcon = ((window.DS_ICONS||{})['radio-button-checked']||'').replace(/fill="(?!none)[^"]*"/g,'fill="currentColor"');
+    root.innerHTML = '<span class="rb__box"><span class="rb__mark">'+rbIcon+'</span></span>';
     const content = document.createElement('span'); content.className='rb__content';
     const t=document.createElement('span'); t.style.cssText='font:var(--type-body-m); color:var(--text-primary);'; t.textContent='Ежемесячно';
     content.appendChild(t); content.appendChild(makeHelper({ text:'Списание 1-го числа' }));

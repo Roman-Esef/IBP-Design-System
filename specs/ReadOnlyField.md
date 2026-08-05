@@ -1,8 +1,8 @@
 ---
 component: ReadOnlyField
 title: "ReadOnlyField"
-version: "v1.2"
-updated: "27.07.2026"
+version: "v1.3"
+updated: "05.08.2026"
 page: pages/molecules/ReadOnlyField.html
 page_js: scripts/read-only-field.page.js
 css: styles/read-only-field.css

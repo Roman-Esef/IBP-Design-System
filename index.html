@@ -993,8 +993,12 @@
     cb('selected','Выбран') + cb('unselected','Не выбран') + cb('indeterminate','Частично');
 
   // radiobutton preview
+  function rbIcon(state){
+    const raw = (window.DS_ICONS||{})[state==='selected' ? 'radio-button-checked' : 'radio-button-unchecked'] || '';
+    return raw.replace(/fill="(?!none)[^"]*"/g, 'fill="currentColor"');
+  }
   function rb(state,label){
-    return `<span class="rb rb--${state}" style="pointer-events:none;"><span class="rb__box"><span class="rb__mark"></span></span><span class="rb__content"><span class="rb__label">${label}</span></span></span>`;
+    return `<span class="rb rb--${state}" style="pointer-events:none;"><span class="rb__box"><span class="rb__mark">${rbIcon(state)}</span></span><span class="rb__content"><span class="rb__label">${label}</span></span></span>`;
   }
   document.getElementById('pvRb').innerHTML =
     rb('selected','Выбран') + rb('unselected','Вариант 2') + rb('unselected','Вариант 3');

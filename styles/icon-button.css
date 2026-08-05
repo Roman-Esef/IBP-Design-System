@@ -32,6 +32,9 @@
 
 /* иконка — поверх стейт-слоя */
 .ibtn svg { position: relative; z-index: 1; width: var(--ibtn-icon, 20px); height: var(--ibtn-icon, 20px); display: block; flex: none; }
+/* глиф, вставленный через <i data-icon> (ds-icons.js): бокс <i> должен быть
+   размера иконки кнопки, иначе он остаётся 24px по умолчанию и растягивает svg */
+.ibtn [data-icon] { width: var(--ibtn-icon, 20px); height: var(--ibtn-icon, 20px); }
 
 /* ---------- стейт-слой (::before) — больше кнопки, hover-only, оверфлоу ---- *
    Размер слоя повторяет прежние габариты кнопки (L 40 · M 32 · S 24): визуально
@@ -65,6 +68,9 @@
 .ibtn--l svg, .ibtn--l .ibtn__spinner { width: 24px; height: 24px; }
 .ibtn--m svg, .ibtn--m .ibtn__spinner { width: 20px; height: 20px; }
 .ibtn--s svg, .ibtn--s .ibtn__spinner { width: 16px; height: 16px; }
+.ibtn--l [data-icon] { width: 24px; height: 24px; }
+.ibtn--m [data-icon] { width: 20px; height: 20px; }
+.ibtn--s [data-icon] { width: 16px; height: 16px; }
 /* square / embedded — стейт-слой со скруглением control вместо круга */
 .ibtn--l.ibtn--square::before, .ibtn--l.ibtn--embedded::before { border-radius: var(--radius-control); }
 .ibtn--m.ibtn--square::before, .ibtn--m.ibtn--embedded::before { border-radius: var(--radius-control); }

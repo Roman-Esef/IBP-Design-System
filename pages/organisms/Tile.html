@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../../styles/label-helper.css">
 <link rel="stylesheet" href="../../styles/read-only-field.css">
 <link rel="stylesheet" href="../../styles/alert.css">
+<link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/tile.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
@@ -47,6 +48,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 .ws-cap{font:var(--type-body-xs);color:var(--text-inactive);margin:12px 0 0;text-wrap:pretty;}
 /* demo content inside tiles */
 .tl-fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.tl-fieldgrid>.rof{min-width:0;}
 .tl-field{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .tl-field__label{font:var(--type-body-xs);color:var(--text-inactive);}
 .tl-field__value{font:var(--type-body-m-strong);color:var(--text-primary);}
@@ -106,14 +108,14 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.1</b></span>
-    <span>Обновлено <b>13.07.2026</b></span>
+    <span>Версия <b>v1.2</b></span>
+    <span>Обновлено <b>05.08.2026</b></span>
     <span>CSS <b>styles/tile.css</b></span>
-    <span>Зависимости <b>icon-button, button, link, chip, badge, alert, divider</b></span>
+    <span>Зависимости <b>icon-button, button, link, chip, badge, alert, divider, read-only-field, table-cell</b></span>
   </div>
   <div class="eyebrow">Дизайн-система · Организмы</div>
   <h1>Tile</h1>
-  <p class="lead">Один из основных компонентов интерфейса — плашка на рабочей области страницы. Состоит из TileHeader и контентной области; наполнение контента индивидуально под задачу и тип тайла.</p>
+  <p class="lead">Один из основных компонентов интерфейса — тайл на рабочей области страницы. Состоит из TileHeader и контентной области; наполнение контента индивидуально под задачу и тип тайла.</p>
 </header>
 
 <!-- 1. КОНСТРУКТОР -->
@@ -162,15 +164,86 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="lbl">Chiplist в хэдере</div>
         <label class="pg-toggle"><input id="ctl-chips" type="checkbox"><span class="pg-toggle__sw"></span><span>Ряд чипов</span></label>
       </div>
-      <div class="ctl" id="wrap-actions">
+      <div class="ctl" id="wrap-actions" data-pg-keep-select>
         <div class="lbl">Actions (трейлинг)</div>
         <div class="pg-select"><select id="ctl-actions">
-          <option value="none">Нет</option>
-          <option value="one" selected>IconButton</option>
-          <option value="two">2 IconButton</option>
-          <option value="three">3 IconButton</option>
-          <option value="button">Кнопка</option>
+          <option value="none">Нет действий</option>
+          <option value="one" selected>Одно действие</option>
+          <option value="two">Два действия</option>
+          <option value="three">Три действия</option>
         </select></div>
+      </div>
+      <div class="ctl" id="wrap-act1">
+        <div class="lbl">Действие 1</div>
+        <div class="pg-select"><select id="ctl-act1-kind">
+          <option value="ibtn" selected>IconButton</option>
+          <option value="btn">Кнопка</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-act1-icon">
+        <div class="lbl">Иконка действия 1</div>
+        <div class="pg-select"><select id="ctl-act1-icon">
+          <option value="edit" selected>edit</option>
+          <option value="document-check">document-check</option>
+          <option value="copy">copy</option>
+          <option value="download">download</option>
+          <option value="attach">attach</option>
+          <option value="calendar">calendar</option>
+          <option value="archive">archive</option>
+          <option value="bar-chart">bar-chart</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-act1-label">
+        <div class="lbl">Название кнопки 1</div>
+        <div class="pg-text"><input id="ctl-act1-label" type="text" placeholder="Применить" maxlength="24"></div>
+      </div>
+      <div class="ctl" id="wrap-act2">
+        <div class="lbl">Действие 2</div>
+        <div class="pg-select"><select id="ctl-act2-kind">
+          <option value="ibtn" selected>IconButton</option>
+          <option value="btn">Кнопка</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-act2-icon">
+        <div class="lbl">Иконка действия 2</div>
+        <div class="pg-select"><select id="ctl-act2-icon">
+          <option value="edit">edit</option>
+          <option value="document-check" selected>document-check</option>
+          <option value="copy">copy</option>
+          <option value="download">download</option>
+          <option value="attach">attach</option>
+          <option value="calendar">calendar</option>
+          <option value="archive">archive</option>
+          <option value="bar-chart">bar-chart</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-act2-label">
+        <div class="lbl">Название кнопки 2</div>
+        <div class="pg-text"><input id="ctl-act2-label" type="text" placeholder="Применить" maxlength="24"></div>
+      </div>
+      <div class="ctl" id="wrap-act3">
+        <div class="lbl">Действие 3</div>
+        <div class="pg-select"><select id="ctl-act3-kind">
+          <option value="ibtn" selected>IconButton</option>
+          <option value="btn">Кнопка</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-act3-icon">
+        <div class="lbl">Иконка действия 3</div>
+        <div class="pg-select"><select id="ctl-act3-icon">
+          <option value="edit">edit</option>
+          <option value="document-check">document-check</option>
+          <option value="copy" selected>copy</option>
+          <option value="download">download</option>
+          <option value="attach">attach</option>
+          <option value="calendar">calendar</option>
+          <option value="archive">archive</option>
+          <option value="bar-chart">bar-chart</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="wrap-act3-label">
+        <div class="lbl">Название кнопки 3</div>
+        <div class="pg-text"><input id="ctl-act3-label" type="text" placeholder="Применить" maxlength="24"></div>
       </div>
       <div class="ctl" id="wrap-alert">
         <div class="lbl">Alert-слот</div>
@@ -178,6 +251,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
           <option value="none" selected>Нет</option>
           <option value="warning">Warning</option>
           <option value="info">Info</option>
+          <option value="error">Error</option>
         </select></div>
       </div>
     </div>
@@ -197,13 +271,13 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <!-- 2. ИСПОЛЬЗОВАНИЕ -->
 <section class="section" id="usage" data-screen-label="Использование">
   <h2>Использование</h2>
-  <p class="desc">Tile — основная плашка рабочей области страницы: группирует связанные данные и действия по объекту (сделка, продукт, инструмент, контрагент). Описаны общие правила построения; для каждой конкретной плашки в проекте заводится локальный компонент, разработанный по этим правилам.</p>
+  <p class="desc">Tile — основной тайл рабочей области страницы: группирует связанные данные и действия по объекту (сделка, продукт, инструмент, контрагент). Описаны общие правила построения; для каждого конкретного тайла в проекте заводится локальный компонент, разработанный по этим правилам.</p>
 
   <div class="disclaimer" role="note">
     <h2>Дисклеймер</h2>
     <p>Описаны общие правила построения и использования тайла.</p>
-    <p>Для каждой конкретной плашки в проекте заводится локальный компонент, разработанный по правилам этой страницы.</p>
-    <p>Контент в контентной области отличается в зависимости от типа и задачи плашки и может быть любым.</p>
+    <p>Для каждого конкретного тайла в проекте заводится локальный компонент, разработанный по правилам этой страницы.</p>
+    <p>Контент в контентной области отличается в зависимости от типа и задачи тайла и может быть любым.</p>
   </div>
 
   <div class="subsec">
@@ -227,16 +301,46 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
   <div class="subsec">
     <h3>Tile · TileHeadless · Card</h3>
-    <p class="desc tight">Три родственные плашки с общим TileHeader, но разной областью применения и системой отступов.</p>
+    <p class="desc tight">Три родственных тайла с общим TileHeader, но разной областью применения и системой отступов.</p>
     <div class="panel" style="padding:0;overflow:hidden;">
-      <table class="ref-table">
-        <thead><tr><th>Компонент</th><th>Где</th><th>Хэдер</th><th>Отступы контента</th><th>Состояния</th></tr></thead>
-        <tbody>
-          <tr><td><b>Tile</b></td><td>рабочая область страницы</td><td>TileHeader M</td><td>10 / 20 / 24 / 20</td><td>нет</td></tr>
-          <tr><td><b>TileHeadless</b></td><td>рабочая область страницы</td><td>нет</td><td>24 / 24 / 32 / 24</td><td>нет</td></tr>
-          <tr><td><b>Card</b></td><td>модальные окна</td><td>TileHeader Card</td><td>8 / 16 / 20 / 16</td><td>Default / Hover / Active / Move / Disabled</td></tr>
-        </tbody>
-      </table>
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">
+        <div class="tbl__row" style="grid-template-columns:8px 130px 1.3fr 1fr 1.1fr 1.9fr 8px;">
+          <div class="th th--separator"></div>
+          <div class="th"><span class="th__label">Компонент</span></div>
+          <div class="th"><span class="th__label">Где</span></div>
+          <div class="th"><span class="th__label">Хэдер</span></div>
+          <div class="th"><span class="th__label">Отступы контента</span></div>
+          <div class="th"><span class="th__label">Состояния</span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 130px 1.3fr 1fr 1.1fr 1.9fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text"><b>Tile</b></span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">рабочая область страницы</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">TileHeader M</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">10 / 20 / 24 / 20</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">нет</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 130px 1.3fr 1fr 1.1fr 1.9fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text"><b>TileHeadless</b></span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">рабочая область страницы</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">нет</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">20 / 20 / 32 / 20</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">нет</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 130px 1.3fr 1fr 1.1fr 1.9fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text"><b>Card</b></span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">модальные окна</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">TileHeader Card</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">8 / 16 / 20 / 16</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Default / Hover / Active / Move / Disabled</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -256,12 +360,12 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
               </div>
               <div class="tile__subtitle"><span class="tile__subtitle-icon"><i data-icon="check-circle-filled"></i></span>Нерезидент</div>
               <div class="tile__chiplist">
-                <span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span>
+                <span class="chip chip--readonly chip--xs"><span class="chip__label">Погашен</span></span>
               </div>
             </div>
             <div class="tile__actions">
-              <button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы"><i data-icon="document-check"></i></button>
-              <button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button>
+              <button class="ibtn ibtn--neutral ibtn--m" aria-label="Документы"><i data-icon="document-check"></i></button>
+              <button class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button>
             </div>
           </div>
           <div class="tile__alert">
@@ -272,8 +376,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
           </div>
           <div class="tile__body">
             <div class="tl-fieldgrid">
-              <div class="tl-field"><span class="tl-field__label">Объём по продукту, млн ед.</span><span class="tl-field__value">17 560 <span class="u">RUB</span></span></div>
-              <div class="tl-field"><span class="tl-field__label">Валовая маржа, %</span><span class="tl-field__value">3</span></div>
+              <div class="rof"><span class="ds-label"><span class="ds-label__text">Объём по продукту, млн ед.</span></span><div class="rof__row"><span class="rof__value">17 560</span><span class="rof__affix">RUB</span></div></div>
+              <div class="rof"><span class="ds-label"><span class="ds-label__text">Валовая маржа, %</span></span><div class="rof__row"><span class="rof__value">3</span></div></div>
             </div>
           </div>
         </div>
@@ -286,7 +390,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <ol class="anat__legend">
       <li><span class="n">1</span><span><span class="k">TileHeader — Title</span><span class="d">H5 Strong. Опц. Addition: Link / Icon / Chip / Badge.</span></span></li>
       <li><span class="n">2</span><span><span class="k">Subtitle + Chiplist</span><span class="d">Subtitle — Body XS с опц. иконкой; ниже — ряд чипов (маркеры).</span></span></li>
-      <li><span class="n">3</span><span><span class="k">Actions</span><span class="d">Трейлинг: IconButton ×1–3 или Button.</span></span></li>
+      <li><span class="n">3</span><span><span class="k">Actions</span><span class="d">Трейлинг: 1–3 действия — IconButton (размер M, 20×20) и/или Button в любом сочетании, зазор 8.</span></span></li>
       <li><span class="n">4</span><span><span class="k">Alert-слот + контентная область</span><span class="d">Опц. полноширинный Alert, затем контент (индивидуальный).</span></span></li>
     </ol>
   </div>
@@ -307,12 +411,12 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
             <div class="tile__title-row"><h4 class="tile__title">Сроки сделки</h4></div>
             <div class="tile__subtitle"><span class="tile__subtitle-icon"><i data-icon="check-circle-filled"></i></span>Нерезидент</div>
           </div>
-          <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
+          <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
         </div>
         <div class="tile__body">
           <div class="tl-fieldgrid">
-            <div class="tl-field"><span class="tl-field__label">Дата начала</span><span class="tl-field__value">12.09.2024</span></div>
-            <div class="tl-field"><span class="tl-field__label">Дата погашения</span><span class="tl-field__value">22.04.2027</span></div>
+            <div class="rof"><span class="ds-label"><span class="ds-label__text">Дата начала</span></span><div class="rof__row"><span class="rof__value">12.09.2024</span></div></div>
+            <div class="rof"><span class="ds-label"><span class="ds-label__text">Дата погашения</span></span><div class="rof__row"><span class="rof__value">22.04.2027</span></div></div>
           </div>
         </div>
       </div>
@@ -321,7 +425,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
   <div class="subsec">
     <h3>AccordionTile</h3>
-    <p class="desc tight">Плашка, способная разворачиваться и сворачиваться. Полный коллапс — скрывается весь контент; частичный — часть контента остаётся видимой, сворачивается только вложенный блок.</p>
+    <p class="desc tight">Тайл, способный разворачиваться и сворачиваться. Полный коллапс — скрывается весь контент; частичный — часть контента остаётся видимой, сворачивается только вложенный блок.</p>
     <div class="mini-grid">
       <div class="mini">
         <div class="mini__cap">Полный коллапс · <b>клик по шеврону</b></div>
@@ -332,15 +436,15 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
                 <div class="tile__title-row"><h4 class="tile__title">1. Кредит</h4><span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span></div>
               </div>
               <div class="tile__actions">
-                <button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button>
-                <button class="ibtn ibtn--neutral ibtn--s tile__toggle" aria-expanded="true" aria-controls="acc-full-body" aria-label="Свернуть"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button>
+                <button class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button>
+                <button class="ibtn ibtn--neutral ibtn--m tile__toggle" aria-expanded="true" aria-controls="acc-full-body" aria-label="Свернуть"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button>
               </div>
             </div>
             <div class="tile__collapsible" id="acc-full-body">
               <div class="tile__body">
                 <div class="tl-fieldgrid">
-                  <div class="tl-field"><span class="tl-field__label">Баланс</span><span class="tl-field__value">—</span></div>
-                  <div class="tl-field"><span class="tl-field__label">Тип отчётности</span><span class="tl-field__value">Только МСФО</span></div>
+                  <div class="rof"><span class="ds-label"><span class="ds-label__text">Баланс</span></span><div class="rof__row"><span class="rof__value">—</span></div></div>
+                  <div class="rof"><span class="ds-label"><span class="ds-label__text">Тип отчётности</span></span><div class="rof__row"><span class="rof__value">Только МСФО</span></div></div>
                 </div>
               </div>
             </div>
@@ -357,18 +461,18 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
                 <div class="tile__subtitle">Корпоративный договор</div>
               </div>
               <div class="tile__actions">
-                <button class="ibtn ibtn--neutral ibtn--s tile__toggle" aria-expanded="true" aria-controls="acc-part-body" aria-label="Свернуть"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button>
+                <button class="ibtn ibtn--neutral ibtn--m tile__toggle" aria-expanded="true" aria-controls="acc-part-body" aria-label="Свернуть"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button>
               </div>
             </div>
             <div class="tile__body" style="padding-bottom:8px;">
-              <div class="tl-field"><span class="tl-field__label">1234-КД-1</span><span class="tl-field__value">Корпоративный договор</span></div>
+              <div class="rof"><span class="ds-label"><span class="ds-label__text">1234-КД-1</span></span><div class="rof__row"><span class="rof__value">Корпоративный договор</span></div></div>
             </div>
             <div class="tile__collapsible" id="acc-part-body">
               <div class="tile__body" style="padding-top:0;">
                 <hr class="dvd dvd--h" style="margin:0 0 12px;">
                 <div class="tl-fieldgrid">
-                  <div class="tl-field"><span class="tl-field__label">Валюта расчётов</span><span class="tl-field__value">RUB</span></div>
-                  <div class="tl-field"><span class="tl-field__label">FV/AC</span><span class="tl-field__value">MCDO и PCSV</span></div>
+                  <div class="rof"><span class="ds-label"><span class="ds-label__text">Валюта расчётов</span></span><div class="rof__row"><span class="rof__value">RUB</span></div></div>
+                  <div class="rof"><span class="ds-label"><span class="ds-label__text">FV/AC</span></span><div class="rof__row"><span class="rof__value">MCDO и PCSV</span></div></div>
                 </div>
               </div>
             </div>
@@ -380,13 +484,13 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
   <div class="subsec">
     <h3>TileHeadless</h3>
-    <p class="desc tight">Тайл без заголовка: только контентная область. Хэдера нет, состояний нет, отступы 24/24/32/24.</p>
+    <p class="desc tight">Тайл без заголовка: только контентная область. Хэдера нет, состояний нет, отступы 20/20/32/20.</p>
     <div class="stagebg">
       <div class="tile tile--headless" style="max-width:420px;">
         <div class="tile__body">
           <div class="tl-fieldgrid">
-            <div class="tl-field"><span class="tl-field__label">Баланс</span><span class="tl-field__value">SBIL</span></div>
-            <div class="tl-field"><span class="tl-field__label">Валюта</span><span class="tl-field__value">RUB</span></div>
+            <div class="rof"><span class="ds-label"><span class="ds-label__text">Баланс</span></span><div class="rof__row"><span class="rof__value">SBIL</span></div></div>
+            <div class="rof"><span class="ds-label"><span class="ds-label__text">Валюта</span></span><div class="rof__row"><span class="rof__value">RUB</span></div></div>
           </div>
         </div>
       </div>
@@ -395,12 +499,12 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
   <div class="subsec">
     <h3>С Alert-слотом</h3>
-    <p class="desc tight">Полноширинный Alert между хэдером и контентом — статус, требующий внимания. В Card Alert-слот не предполагается.</p>
-    <div class="stagebg">
+    <p class="desc tight">Полноширинный Alert между хэдером и контентом — статус, требующий внимания. Тона: Warning, Info, Error. В Card Alert-слот не предполагается.</p>
+    <div class="stagebg" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:24px;">
       <div class="tile" style="max-width:420px;">
         <div class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h4 class="tile__title">1. Кредит</h4></div></div>
-          <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
+          <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
         </div>
         <div class="tile__alert">
           <div class="alert alert--warning alert--s" data-alert-tone="warning" role="status">
@@ -409,7 +513,22 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
           </div>
         </div>
         <div class="tile__body">
-          <div class="tl-field"><span class="tl-field__label">Контрагент</span><span class="tl-field__value">—</span></div>
+          <div class="rof"><span class="ds-label"><span class="ds-label__text">Контрагент</span></span><div class="rof__row"><span class="rof__value">—</span></div></div>
+        </div>
+      </div>
+      <div class="tile" style="max-width:420px;">
+        <div class="tile__header">
+          <div class="tile__header-main"><div class="tile__title-row"><h4 class="tile__title">2. Акции</h4></div></div>
+          <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
+        </div>
+        <div class="tile__alert">
+          <div class="alert alert--error alert--s" data-alert-tone="error" role="alert">
+            <span class="alert__icon" aria-hidden="true"><i data-icon="alert-circle-filled"></i></span>
+            <div class="alert__body"><p class="alert__text">Не удалось загрузить данные</p></div>
+          </div>
+        </div>
+        <div class="tile__body">
+          <div class="rof"><span class="ds-label"><span class="ds-label__text">Контрагент</span></span><div class="rof__row"><span class="rof__value">—</span></div></div>
         </div>
       </div>
     </div>
@@ -419,7 +538,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <!-- 5. РАЗМЕРЫ -->
 <section class="section" id="sizes" data-screen-label="Размеры">
   <h2>Размеры</h2>
-  <p class="desc">Ширина плашки привязана к колонкам контентной области страницы и может занимать от 3 до 12 колонок. Высота в строке фиксированная — определяется плашкой с максимальным объёмом контента с учётом возможных алертов; при изменении состояния/наполнения высота может меняться.</p>
+  <p class="desc">Ширина тайла привязана к колонкам контентной области страницы и может занимать от 3 до 12 колонок. Высота в строке фиксированная — определяется тайлом с максимальным объёмом контента с учётом возможных алертов; при изменении состояния/наполнения высота может меняться.</p>
   <div class="panel">
     <div class="size-row">
       <div class="size-tag">3 колонки<small>минимум</small></div>
@@ -445,7 +564,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <div class="subsec">
     <h3>Внутренние отступы и ритм</h3>
     <ul class="bullets">
-      <li><b>Отступы контентной области</b> — 10 / 20 / 24 / 20 (top / right / bottom / left). TileHeadless — 24 / 24 / 32 / 24.</li>
+      <li><b>Отступы контентной области</b> — 10 / 20 / 24 / 20 (top / right / bottom / left), где 10 сверху даёт паддинг хэдера снизу. TileHeadless — 20 / 20 / 32 / 20.</li>
       <li><b>Расстояние между строками</b> — 16 или 24px.</li>
       <li><b>Расстояние между колонками</b> — 16px.</li>
       <li>TileHeader размещается над контентом вплотную, без отступа; Alert (если есть) — между ними полноширинным блоком.</li>
@@ -480,7 +599,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
   <div class="subsec">
     <h3>Высота в строке</h3>
-    <p class="desc tight">Высота плашки в строке одинаковая и выставляется по тайлу с наибольшим объёмом контента (с учётом возможных алертов). При изменении состояния или наполнения одной плашки высота всей строки может пересчитаться.</p>
+    <p class="desc tight">Высота тайла в строке одинаковая и выставляется по тайлу с наибольшим объёмом контента (с учётом возможных алертов). При изменении состояния или наполнения одного тайла высота всей строки может пересчитаться.</p>
   </div>
 
   <div class="subsec">
@@ -492,7 +611,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <!-- 8. СОСТОЯНИЯ -->
 <section class="section" id="states" data-screen-label="Состояния">
   <h2>Состояния</h2>
-  <p class="desc">Tile собственных состояний <b>не имеет</b> — нет hover / active / selected у самой плашки. Интерактивны только вложенные элементы: IconButton в хэдере, а также Button и Link в алертах и контентной области. Состояния перетаскивания/выбора есть только у родственного компонента Card.</p>
+  <p class="desc">Tile собственных состояний <b>не имеет</b> — нет hover / active / selected у самого тайла. Интерактивны только вложенные элементы: IconButton в хэдере, а также Button и Link в алертах и контентной области. Состояния перетаскивания/выбора есть только у родственного компонента Card.</p>
   <div class="panel">
     <ul class="bullets">
       <li><b>IconButton в хэдере</b> — собственные состояния Default / Hover / Focus / Disabled (см. IconButton).</li>
@@ -522,16 +641,68 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <section class="section" id="typography" data-screen-label="Типографика">
   <h2>Типографика</h2>
     <div class="panel" style="padding:0;overflow:hidden;">
-      <table class="ref-table ref-table--cols">
-        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
-        <tbody>
-          <tr><td>Title (Tile M)</td><td><code class="tok">--type-h5-strong</code></td><td>SB Sans Display</td><td>Bold</td><td>18 / 24, SemiBold</td><td><span style="font:var(--type-h5-strong)">Образец</span></td></tr>
-          <tr><td>Title (Card)</td><td><code class="tok">--type-h6-strong</code></td><td>SB Sans Display</td><td>Bold</td><td>16 / 20, SemiBold</td><td><span style="font:var(--type-h6-strong)">Образец</span></td></tr>
-          <tr><td>Subtitle</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16, Regular</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
-          <tr><td>Метка поля контента</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16, Regular</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
-          <tr><td>Значение поля</td><td><code class="tok">--type-body-m-strong</code></td><td>SB Sans Text</td><td>Bold</td><td>16 / 20, SemiBold</td><td><span style="font:var(--type-body-m-strong)">Образец</span></td></tr>
-        </tbody>
-      </table>
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">
+        <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
+          <div class="th th--separator"></div>
+          <div class="th"><span class="th__label">Часть</span></div>
+          <div class="th"><span class="th__label">Токен</span></div>
+          <div class="th"><span class="th__label">Гарнитура</span></div>
+          <div class="th"><span class="th__label">Начертание</span></div>
+          <div class="th"><span class="th__label">Размер / интерлиньяж</span></div>
+          <div class="th"><span class="th__label">Образец</span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Title (Tile M)</span></span></div>
+          <div class="tc"><code class="tok">--type-h5-strong</code></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">SB Sans Display</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Bold</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">18 / 24, SemiBold</span></span></div>
+          <div class="tc"><span style="font:var(--type-h5-strong)">Образец</span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Title (Card)</span></span></div>
+          <div class="tc"><code class="tok">--type-h6-strong</code></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">SB Sans Display</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Bold</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">16 / 20, SemiBold</span></span></div>
+          <div class="tc"><span style="font:var(--type-h6-strong)">Образец</span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Subtitle</span></span></div>
+          <div class="tc"><code class="tok">--type-body-xs</code></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">SB Sans Text</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Regular</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">12 / 16, Regular</span></span></div>
+          <div class="tc"><span style="font:var(--type-body-xs)">Образец</span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Метка поля контента</span></span></div>
+          <div class="tc"><code class="tok">--type-body-xs</code></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">SB Sans Text</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Regular</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">12 / 16, Regular</span></span></div>
+          <div class="tc"><span style="font:var(--type-body-xs)">Образец</span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Значение поля</span></span></div>
+          <div class="tc"><code class="tok">--type-body-m-strong</code></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">SB Sans Text</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Bold</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">16 / 20, SemiBold</span></span></div>
+          <div class="tc"><span style="font:var(--type-body-m-strong)">Образец</span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
     </div>
     <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
@@ -540,21 +711,107 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <section class="section" id="colors" data-screen-label="Цвета">
   <h2>Цвета</h2>
     <div class="panel" style="padding:0;overflow:hidden;">
-      <table class="ref-table ref-table--cols">
-        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
-        <tbody>
-          <tr><td>Контейнер</td><td>Фон плашки</td><td><code class="tok">--bg-tile</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-tile)"></span></td><td>#FFFFFF</td></tr>
-          <tr><td>Контейнер</td><td>Бордер 1px</td><td><code class="tok">--border-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-light)"></span></td><td>#E1EDE7</td></tr>
-          <tr><td>Текст</td><td>Title, значение</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
-          <tr><td>Текст</td><td>Subtitle</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
-          <tr><td>Текст</td><td>Метка поля</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
-          <tr><td>Addition в тайтле</td><td>Иконка-предупреждение</td><td><code class="tok">--warning</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--warning)"></span></td><td>#FFB300</td></tr>
-          <tr><td>Addition в тайтле</td><td>Иконка сабтайтла</td><td><code class="tok">--success</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--success)"></span></td><td>#7CB342</td></tr>
-          <tr><td>Addition в тайтле</td><td>Ссылка-Addition</td><td><code class="tok">--link</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--link)"></span></td><td>#00AA9B</td></tr>
-          <tr><td>Alert-слот</td><td>Фон (warning)</td><td><code class="tok">--warning-bg</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--warning-bg)"></span></td><td>#FFF8E1</td></tr>
-          <tr><td>Alert-слот</td><td>Фон (info)</td><td><code class="tok">--info-bg</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--info-bg)"></span></td><td>#EAF8FE</td></tr>
-        </tbody>
-      </table>
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="th th--separator"></div>
+          <div class="th"><span class="th__label">Раздел</span></div>
+          <div class="th"><span class="th__label">Роль</span></div>
+          <div class="th"><span class="th__label">Токен</span></div>
+          <div class="th"><span class="th__label">Образец</span></div>
+          <div class="th"><span class="th__label">Hex</span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Контейнер</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Фон тайла</span></span></div>
+          <div class="tc"><code class="tok">--bg-tile</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--bg-tile)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#FFFFFF</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Контейнер</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Бордер 1px</span></span></div>
+          <div class="tc"><code class="tok">--border-light</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--border-light)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#E1EDE7</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Текст</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Title, значение</span></span></div>
+          <div class="tc"><code class="tok">--text-primary</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--text-primary)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#324844</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Текст</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Subtitle</span></span></div>
+          <div class="tc"><code class="tok">--text-secondary</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--text-secondary)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#6C8080</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Текст</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Метка поля</span></span></div>
+          <div class="tc"><code class="tok">--text-inactive</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--text-inactive)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#AAB2B1</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Addition в тайтле</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Иконка-предупреждение</span></span></div>
+          <div class="tc"><code class="tok">--warning</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--warning)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#FFB300</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Addition в тайтле</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Иконка сабтайтла</span></span></div>
+          <div class="tc"><code class="tok">--success</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--success)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#7CB342</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Addition в тайтле</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Ссылка-Addition</span></span></div>
+          <div class="tc"><code class="tok">--link</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--link)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#00AA9B</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Alert-слот</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Фон (warning)</span></span></div>
+          <div class="tc"><code class="tok">--warning-bg</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--warning-bg)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#FFF8E1</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Alert-слот</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Фон (info)</span></span></div>
+          <div class="tc"><code class="tok">--info-bg</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);background:var(--info-bg)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#EAF8FE</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
     </div>
     <div id="color-ref" style="display:none"></div>
   </section>
@@ -566,19 +823,71 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
   <p class="subhead">Точные размеры (redline)</p>
   <div class="panel" style="padding:0;overflow:hidden;">
-    <table class="ref-table">
-      <thead><tr><th>Свойство</th><th>Значение</th><th>Токен / описание</th></tr></thead>
-      <tbody>
-        <tr><td>Радиус плашки</td><td id="rl-radius">—</td><td><code class="tok">--radius-m</code> · 8px</td></tr>
-        <tr><td>Бордер</td><td id="rl-border">—</td><td>1px solid <code class="tok">--border-light</code></td></tr>
-        <tr><td>Паддинг хэдера (top / side)</td><td id="rl-head">—</td><td>сверху 20, по бокам 20</td></tr>
-        <tr><td>Зазор Title ↔ Subtitle</td><td id="rl-headgap">—</td><td>8px</td></tr>
-        <tr><td>Паддинг контента</td><td id="rl-body">—</td><td>10 / 20 / 24 / 20</td></tr>
-        <tr><td>Зазор строк контента</td><td id="rl-rowgap">—</td><td>16px (или 24)</td></tr>
-        <tr><td>Зазор колонок контента</td><td id="rl-colgap">—</td><td>16px</td></tr>
-        <tr><td>Размер шрифта Title</td><td id="rl-title">—</td><td><code class="tok">--type-h5-strong</code></td></tr>
-      </tbody>
-    </table>
+    <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="th th--separator"></div>
+        <div class="th"><span class="th__label">Свойство</span></div>
+        <div class="th"><span class="th__label">Значение</span></div>
+        <div class="th"><span class="th__label">Токен / описание</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Радиус тайла</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-radius">—</span></span></div>
+        <div class="tc"><code class="tok">--radius-m</code> · 8px</div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Бордер</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-border">—</span></span></div>
+        <div class="tc">1px solid <code class="tok">--border-light</code></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Паддинг хэдера (top / side / bottom)</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-head">—</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">сверху 20, по бокам 20, снизу 10</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Зазор Title ↔ Subtitle ↔ Chiplist</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-headgap">—</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">8px</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Паддинг контента</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-body">—</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">0 / 20 / 24 / 20 · зазор 10 сверху даёт паддинг хэдера</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Зазор строк контента</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-rowgap">—</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">16px (или 24)</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Зазор колонок контента</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-colgap">—</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">16px</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Размер шрифта Title</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-title">—</span></span></div>
+        <div class="tc"><code class="tok">--type-h5-strong</code></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
   </div>
   <div class="rl-sample" aria-hidden="true">
     <div class="tile" id="rl-tile">
@@ -630,7 +939,7 @@ onToggle():
     <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
     <div class="panel">
       <ul class="rules">
-        <li><b>Экспорт/печать содержимого</b> — действие в <code class="tok">.tile__actions</code> для печати/экспорта данных плашки.</li>
+        <li><b>Экспорт/печать содержимого</b> — действие в <code class="tok">.tile__actions</code> для печати/экспорта данных тайла.</li>
         <li><b>Единый паттерн пустого состояния</b> — заглушка, когда <code class="tok">.tile__body</code> не содержит данных.</li>
       </ul>
     </div>
@@ -638,7 +947,7 @@ onToggle():
 
 <footer class="page-foot">
   <span>Дизайн-система · Tile</span>
-  <span>Основная плашка рабочей области — TileHeader + контентная область</span>
+  <span>Основной тайл рабочей области — TileHeader + контентная область</span>
 </footer>
 </main><!-- .page -->
 
@@ -677,6 +986,17 @@ function buildTile(){
     document.getElementById(id).classList.toggle('is-off', headless);
   });
 
+  /* per-action controls: показываем только актуальные */
+  var actCount = { none:0, one:1, two:2, three:3 }[actions] || 0;
+  var actKind = {};
+  [1,2,3].forEach(function(i){
+    var on = !headless && actCount >= i;
+    actKind[i] = document.getElementById('ctl-act' + i + '-kind').value;
+    document.getElementById('wrap-act' + i).classList.toggle('is-off', !on);
+    document.getElementById('wrap-act' + i + '-icon').classList.toggle('is-off', !on || actKind[i] !== 'ibtn');
+    document.getElementById('wrap-act' + i + '-label').classList.toggle('is-off', !on || actKind[i] !== 'btn');
+  });
+
   /* width by columns */
   document.getElementById('demo-tile-wrap').style.gridColumn = 'span ' + cols;
 
@@ -690,8 +1010,8 @@ function buildTile(){
   /* ---- content (individual sample) ---- */
   var content =
     '<div class="tile__body"><div class="tl-fieldgrid">' +
-      '<div class="tl-field"><span class="tl-field__label">Объём по продукту, млн ед.</span><span class="tl-field__value">17 560 <span class="u">RUB</span></span></div>' +
-      '<div class="tl-field"><span class="tl-field__label">Валовая маржа, %</span><span class="tl-field__value">3</span></div>' +
+      '<div class="rof"><span class="ds-label"><span class="ds-label__text">Объём по продукту, млн ед.</span></span><div class="rof__row"><span class="rof__value">17 560</span><span class="rof__affix">RUB</span></div></div>' +
+      '<div class="rof"><span class="ds-label"><span class="ds-label__text">Валовая маржа, %</span></span><div class="rof__row"><span class="rof__value">3</span></div></div>' +
     '</div></div>';
 
   if (headless){
@@ -708,22 +1028,23 @@ function buildTile(){
 
   var titleRow = '<div class="tile__title-row"><h3 class="tile__title">' + esc(title) + '</h3>' + addHtml + '</div>';
   var subHtml = sub ? '<p class="tile__subtitle"><span class="tile__subtitle-icon">' + getIcon('check-circle-filled',16) + '</span>Нерезидент</p>' : '';
-  var chipsHtml = chips ? '<div class="tile__chiplist"><span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span><span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span></div>' : '';
+  var chipsHtml = chips ? '<div class="tile__chiplist"><span class="chip chip--readonly chip--xs"><span class="chip__label">Погашен</span></span><span class="chip chip--readonly chip--xs"><span class="chip__label">Погашен</span></span></div>' : '';
 
-  /* ---- actions ---- */
-  var actHtml = '';
-  if (actions === 'button'){
-    actHtml = '<div class="tile__actions"><button class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button></div>';
-  } else if (actions !== 'none'){
-    var ib = '<button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать">' + getIcon('edit',20) + '</button>';
-    var extra = '';
-    if (actions === 'two') extra = '<button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы">' + getIcon('document-check',20) + '</button>';
-    if (actions === 'three') extra = '<button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы">' + getIcon('document-check',20) + '</button><button class="ibtn ibtn--neutral ibtn--s" aria-label="История">' + getIcon('history',20) + '</button>';
-    actHtml = '<div class="tile__actions">' + ib + extra + '</div>';
+  /* ---- actions: 1..3 действия, каждое — IconButton или Button ---- */
+  var items = '';
+  for (var i = 1; i <= actCount; i++){
+    if (actKind[i] === 'btn'){
+      var lbl = document.getElementById('ctl-act' + i + '-label').value.trim() || 'Применить';
+      items += '<button class="btn btn--outline btn--xs"><span class="btn__label">' + esc(lbl) + '</span></button>';
+    } else {
+      var icn = document.getElementById('ctl-act' + i + '-icon').value;
+      items += '<button class="ibtn ibtn--neutral ibtn--m" aria-label="' + esc(icn) + '">' + getIcon(icn,20) + '</button>';
+    }
   }
+  var actHtml = items ? '<div class="tile__actions">' + items + '</div>' : '';
   /* accordion toggle always present in actions */
   if (type === 'accordion'){
-    var toggle = '<button class="ibtn ibtn--neutral ibtn--s tile__toggle" aria-expanded="true" aria-controls="demo-acc" aria-label="Свернуть"><span class="tile__chevron">' + getIcon('chevron-up',20) + '</span></button>';
+    var toggle = '<button class="ibtn ibtn--neutral ibtn--m tile__toggle" aria-expanded="true" aria-controls="demo-acc" aria-label="Свернуть"><span class="tile__chevron">' + getIcon('chevron-up',20) + '</span></button>';
     if (actHtml) actHtml = actHtml.replace('</div>', toggle + '</div>');
     else actHtml = '<div class="tile__actions">' + toggle + '</div>';
   }
@@ -734,6 +1055,7 @@ function buildTile(){
   var alertHtml = '';
   if (alert === 'warning') alertHtml = '<div class="tile__alert"><div class="alert alert--warning alert--s" data-alert-tone="warning" role="status"><span class="alert__icon" aria-hidden="true">' + getIcon('alert-triangle-filled',18) + '</span><div class="alert__body"><p class="alert__text">Функционал в разработке</p></div></div></div>';
   else if (alert === 'info') alertHtml = '<div class="tile__alert"><div class="alert alert--info alert--s" data-alert-tone="info" role="status"><span class="alert__icon" aria-hidden="true">' + getIcon('Info-circle-filled',18) + '</span><div class="alert__body"><p class="alert__text">Данные обновлены 12.07.2026</p></div></div></div>';
+  else if (alert === 'error') alertHtml = '<div class="tile__alert"><div class="alert alert--error alert--s" data-alert-tone="error" role="alert"><span class="alert__icon" aria-hidden="true">' + getIcon('alert-circle-filled',18) + '</span><div class="alert__body"><p class="alert__text">Не удалось загрузить данные</p></div></div></div>';
 
   var body = (type === 'accordion')
     ? '<div class="tile__collapsible" id="demo-acc">' + content + '</div>'
@@ -742,7 +1064,8 @@ function buildTile(){
   host.innerHTML = header + alertHtml + body;
 }
 
-['ctl-type','ctl-cols','ctl-title','ctl-add','ctl-sub','ctl-chips','ctl-actions','ctl-alert'].forEach(function(id){
+['ctl-type','ctl-cols','ctl-title','ctl-add','ctl-sub','ctl-chips','ctl-actions','ctl-alert',
+ 'ctl-act1-kind','ctl-act1-icon','ctl-act1-label','ctl-act2-kind','ctl-act2-icon','ctl-act2-label','ctl-act3-kind','ctl-act3-icon','ctl-act3-label'].forEach(function(id){
   var el = document.getElementById(id);
   if (el){ el.addEventListener('change', buildTile); el.addEventListener('input', buildTile); }
 });
@@ -769,7 +1092,7 @@ function measureRedline(){
   function set(id,v){ var n=document.getElementById(id); if(n) n.textContent=v; }
   set('rl-radius', cs.borderTopLeftRadius);
   set('rl-border', cs.borderTopWidth + ' solid');
-  set('rl-head', head.paddingTop + ' / ' + head.paddingLeft);
+  set('rl-head', head.paddingTop + ' / ' + head.paddingLeft + ' / ' + head.paddingBottom);
   set('rl-headgap', main.rowGap || main.gap);
   set('rl-body', body.paddingTop + ' / ' + body.paddingRight + ' / ' + body.paddingBottom + ' / ' + body.paddingLeft);
   set('rl-rowgap', grid.rowGap);

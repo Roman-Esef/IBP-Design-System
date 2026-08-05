@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"5df6457afe08","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"9df856784a22","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"a986dffd28c8","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"c53d9373d1d0","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"1fc49308cda2","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"005cc7ad432b","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-filter.page.js":"33e608a53c42","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"5df6457afe08","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"238ac150f3d3","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"a986dffd28c8","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"03963b1c72ef","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"1fc49308cda2","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"005cc7ad432b","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-cell.page.js":"4b1f63d3ddfb","scripts/table-filter.page.js":"43967744b3d5","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -5995,11 +5995,13 @@ try { (() => {
    Использование:
      <i data-icon="check"></i>
    Цвет — через color родителя (перекрашивается в currentColor),
-   размер — width/height элемента (по умолчанию 24px).
+   размер — width/height элемента (по умолчанию 24px через :where(),
+   поэтому любое компонентное правило — даже равной специфичности —
+   всегда переопределяет дефолт независимо от порядка загрузки скрипта).
    Имена глифов — specs/Icons.md. Динамика: window.dsIcons.apply(root).
    ============================================================ */
 (function () {
-  var css = '[data-icon]{display:inline-flex;width:24px;height:24px;flex:none;font-style:normal}' + '[data-icon] svg{width:100%;height:100%;display:block}';
+  var css = ':where([data-icon]){display:inline-flex;width:24px;height:24px;flex:none;font-style:normal}' + ':where([data-icon]) svg{width:100%;height:100%;display:block}';
   var tag = document.createElement('style');
   tag.textContent = css;
   document.head.appendChild(tag);
@@ -10688,7 +10690,8 @@ function classListHelper(o) {
     const root = document.createElement('label');
     root.className = 'rb rb--selected';
     root.style.pointerEvents = 'none';
-    root.innerHTML = '<span class="rb__box"><span class="rb__mark"></span></span>';
+    const rbIcon = ((window.DS_ICONS || {})['radio-button-checked'] || '').replace(/fill="(?!none)[^"]*"/g, 'fill="currentColor"');
+    root.innerHTML = '<span class="rb__box"><span class="rb__mark">' + rbIcon + '</span></span>';
     const content = document.createElement('span');
     content.className = 'rb__content';
     const t = document.createElement('span');
@@ -19718,18 +19721,734 @@ try { (() => {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/tab.page.js", error: String((e && e.message) || e) }); }
 
+// scripts/table-cell.page.js
+try { (() => {
+/* =========================================================================
+   TableCell — скрипт страницы: конструктор (шапка + ячейка + строка),
+   интерактив демо, redline-измерения, Tooltip усечения, copy-кнопки.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  /* галочка и минус чекбокса — те же инлайн-глифы, что в компоненте Checkbox */
+  var CB_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+  var CB_MINUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>';
+  function icon(name, size) {
+    size = size || 16;
+    if (!window.DS_ICONS) return '';
+    var raw = window.DS_ICONS[name] || '';
+    if (!raw) return '';
+    var d = document.createElement('div');
+    d.innerHTML = raw;
+    var s = d.firstElementChild;
+    if (!s) return '';
+    s.setAttribute('width', size);
+    s.setAttribute('height', size);
+    s.setAttribute('aria-hidden', 'true');
+    return s.outerHTML;
+  }
+  window.getIcon = icon;
+  function esc(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ---------------- состояние демо (то, что живёт по клику) ---------------- */
+  var S = {
+    sortDir: 'none',
+    pinned: false,
+    sel: [false, false, false],
+    treeOpen: true,
+    focusRow: -1,
+    acOpen: -1
+  };
+  var TEXT_DEFAULTS = {
+    text: 'ООО ЮгСтройИнвестМонтаж',
+    tree: 'Дочернее ООО «Восток»',
+    'input-text': 'Договор поставки',
+    'input-date': '12.05.2026',
+    'input-autocomplete': 'Услуги подряда'
+  };
+  var VALUE_TYPES = ['text', 'tree'];
+  var INPUT_TYPES = ['input-text', 'input-date', 'input-autocomplete'];
+  function el(id) {
+    return document.getElementById(id);
+  }
+  function has(arr, v) {
+    return arr.indexOf(v) !== -1;
+  }
+  function fmtNum(v) {
+    var s = String(v).trim();
+    if (!s) return v;
+    var n = Number(s.replace(/\s|\u00a0/g, '').replace(',', '.'));
+    if (!isFinite(n)) return v;
+    return n.toLocaleString('ru-RU', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  /* ---------------- чтение панели ---------------- */
+  function readCfg() {
+    var type = el('ctl-type').value;
+    var numeric = el('ctl-numeric').checked && type === 'text';
+    var textIn = el('ctl-text').value.trim();
+    var text = textIn || (numeric ? '1 240 500,00' : TEXT_DEFAULTS[type] || 'Значение ячейки');
+    if (numeric) text = fmtNum(text);
+    return {
+      type: type,
+      sortOn: el('ctl-sort-on').checked,
+      pinOn: el('ctl-pin-on').checked,
+      align: el('ctl-align').value,
+      numeric: numeric,
+      text: text,
+      level: parseInt(el('ctl-level').value, 10) || 0,
+      prefixOn: el('ctl-prefix-on').checked,
+      prefixText: el('ctl-prefix-text').value.trim(),
+      postfixOn: el('ctl-postfix-on').checked,
+      postfixText: el('ctl-postfix-text').value.trim(),
+      leadOn: el('ctl-lead-on').checked,
+      leadGlyph: el('ctl-lead-glyph').value,
+      iconOn: el('ctl-icon-on').checked,
+      iconGlyph: el('ctl-icon-glyph').value,
+      subtextOn: el('ctl-subtext-on').checked,
+      subtextText: el('ctl-subtext-text').value.trim(),
+      truncate: el('ctl-truncate').checked,
+      chipsCount: parseInt(el('ctl-chips-count').value, 10) || 2,
+      chipsTone: el('ctl-chips-tone').value,
+      chipsRounded: el('ctl-chips-rounded').checked,
+      hiddenOn: el('ctl-hidden').checked,
+      edited: el('ctl-edited').checked,
+      bg: el('ctl-bg').value,
+      state: el('ctl-state').value
+    };
+  }
+  function syncControls(cfg) {
+    var valueRow = has(VALUE_TYPES, cfg.type);
+    var isInput = has(INPUT_TYPES, cfg.type);
+    function off(id, cond) {
+      var n = el(id);
+      if (n) n.classList.toggle('is-off', cond);
+    }
+    off('ctl-sort-dir-wrap', !cfg.sortOn);
+    off('ctl-pinned-wrap', !cfg.pinOn);
+    off('ctl-align-wrap', !valueRow || cfg.numeric);
+    off('ctl-numeric-wrap', cfg.type !== 'text');
+    off('ctl-text-wrap', !valueRow && !isInput);
+    off('ctl-level-wrap', cfg.type !== 'tree');
+    off('ctl-prefix-wrap', !valueRow);
+    off('ctl-postfix-wrap', !valueRow);
+    off('ctl-lead-wrap', !valueRow);
+    off('ctl-icon-wrap', !valueRow);
+    off('ctl-subtext-wrap', !valueRow);
+    off('ctl-truncate-wrap', !valueRow);
+    off('ctl-chips-count-wrap', cfg.type !== 'chips');
+    off('ctl-chips-tone-wrap', cfg.type !== 'chips');
+    off('ctl-chips-rounded-wrap', cfg.type !== 'chips');
+    off('ctl-hidden-wrap', isInput || cfg.type === 'checkbox');
+    off('ctl-edited-wrap', cfg.type === 'checkbox');
+  }
+
+  /* ---------------- разметка ---------------- */
+  function checkbox(state, extra) {
+    var cls = 'cb cb--no-content cb--' + state;
+    var mark = state === 'selected' ? CB_CHECK : state === 'indeterminate' ? CB_MINUS : '';
+    return '<label class="' + cls + '"><input type="checkbox" class="cb__input" ' + (state === 'selected' ? 'checked ' : '') + (extra || '') + '><span class="cb__box"><span class="cb__mark">' + mark + '</span></span></label>';
+  }
+  function valueRow(cfg) {
+    var lead = cfg.leadOn ? '<span class="tc__icon tc__icon--lead">' + icon(cfg.leadGlyph, 16) + '</span>' : '';
+    var pre = cfg.prefixOn ? '<span class="tc__prefix">' + esc(cfg.prefixText || 'от') + '</span>' : '';
+    var post = cfg.postfixOn ? '<span class="tc__postfix">' + esc(cfg.postfixText || '₽') + '</span>' : '';
+    var ico = cfg.iconOn ? '<span class="tc__icon">' + icon(cfg.iconGlyph, 16) + '</span>' : '';
+    var text = '<span class="tc__text' + (cfg.truncate ? ' tc__text--truncate' : '') + '">' + esc(cfg.text) + '</span>';
+    return '<span class="tc__row">' + lead + pre + text + post + ico + '</span>';
+  }
+  function withSubtext(row, cfg) {
+    if (!cfg.subtextOn) return row;
+    return '<span class="tc__body">' + row + '<span class="tc__subtext">' + esc(cfg.subtextText || 'Дополнительная строка') + '</span></span>';
+  }
+  function hiddenActions() {
+    return '<div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить">' + icon('edit', 16) + '</button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Ещё">' + icon('more-dots', 16) + '</button></div>';
+  }
+  function inputCell(cfg, i) {
+    var kind = cfg.type.replace('input-', '');
+    var isErr = cfg.state === 'error';
+    var acts = '<button class="inp__act" aria-label="Очистить поле" tabindex="-1">' + icon('close', 16) + '</button>';
+    if (kind === 'date') acts += '<button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog" tabindex="-1">' + icon('calendar', 16) + '</button>';
+    if (kind === 'autocomplete') acts += '<button class="inp__act inp__act--chev" aria-label="Показать список" data-ac="' + i + '" tabindex="-1">' + icon('chevron-down', 16) + '</button>';
+    var open = kind === 'autocomplete' && S.acOpen === i;
+    var ddl = '';
+    if (open) {
+      ddl = '<div class="ddl ddl--floating" role="listbox">' + ['Услуги подряда', 'Поставка оборудования', 'Монтажные работы'].map(function (t, k) {
+        return '<button class="ddl__item" role="option" aria-selected="' + (k === 0) + '"><span class="ddl__item-body"><span class="ddl__item-label">' + t + '</span></span></button>';
+      }).join('') + '</div>';
+    }
+    var ph = kind === 'date' ? 'ММ.ДД.ГГГГ' : 'Значение';
+    return '<div class="inp inp--s inp--fullwidth' + (isErr ? ' inp--error' : '') + (open ? ' is-open' : '') + '">' + '<div class="inp__field"' + (kind === 'autocomplete' ? ' role="combobox" aria-expanded="' + open + '"' : '') + '>' + '<input class="inp__control" value="' + esc(cfg.text) + '" placeholder="' + ph + '" aria-label="Значение ячейки"' + (kind === 'date' ? ' inputmode="numeric"' : '') + '>' + '<span class="inp__acts">' + acts + '</span></div>' + ddl + '</div>';
+  }
+  function cellContent(cfg, i) {
+    if (cfg.state === 'skeleton') return '<span class="tc__skeleton"></span>';
+    if (cfg.state === 'empty') return '<span class="tc__empty">—</span>';
+    var extra = cfg.hiddenOn && !has(INPUT_TYPES, cfg.type) && cfg.type !== 'checkbox' ? hiddenActions() : '';
+    switch (cfg.type) {
+      case 'text':
+        return withSubtext(valueRow(cfg), cfg) + extra;
+      case 'tree':
+        {
+          var leaf = cfg.rowLeaf;
+          var tw = leaf ? '<span class="tc__twisty tc__twisty--leaf"></span>' : '<button class="tc__twisty" aria-expanded="' + S.treeOpen + '" aria-label="' + (S.treeOpen ? 'Свернуть' : 'Развернуть') + '">' + icon('chevron-right', 16) + '</button>';
+          return tw + withSubtext(valueRow(cfg), cfg) + extra;
+        }
+      case 'chips':
+        {
+          var toneCls = cfg.chipsTone ? ' chip--' + cfg.chipsTone : '';
+          var roundCls = cfg.chipsRounded ? ' chip--rounded' : '';
+          var labels = ['Активна', 'VIP', 'Новый'];
+          var html = '<div class="tc__controls">';
+          for (var k = 0; k < cfg.chipsCount; k++) {
+            html += '<span class="chip chip--readonly chip--s' + roundCls + toneCls + '"><span class="chip__label">' + labels[k % labels.length] + '</span></span>';
+          }
+          return html + '</div>' + extra;
+        }
+      case 'button':
+        return '<div class="tc__controls"><button class="btn btn--outline btn--xs"><span class="btn__label">Открыть</span></button></div>' + extra;
+      case 'iconbuttons':
+        return '<div class="tc__controls"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить">' + icon('edit', 16) + '</button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить">' + icon('trash', 16) + '</button></div>';
+      case 'checkbox':
+        return checkbox(S.sel[i] ? 'selected' : 'unselected', 'data-row="' + i + '" aria-label="Выбрать строку ' + (i + 1) + '"');
+      default:
+        return inputCell(cfg, i);
+    }
+  }
+  function cellCls(cfg) {
+    var c = 'tc';
+    if (cfg.type === 'text' || cfg.type === 'tree') {
+      if (cfg.numeric) c += ' tc--numbers';else if (cfg.align === 'right' && cfg.type === 'text') c += ' tc--right';
+    }
+    if (cfg.type === 'tree') c += ' tc--tree';
+    if (cfg.type === 'checkbox') c += ' tc--center' + (cfg.sortOn || cfg.pinOn ? ' tc--select' : '');
+    if (has(INPUT_TYPES, cfg.type)) c += ' tc--input';
+    if (cfg.pinOn && S.pinned) c += ' tc--pinned';else if (cfg.bg === 'accent') c += ' tc--accent';
+    if (cfg.state === 'error') c += ' tc--error' + (cfg.type === 'text' ? ' tc--error-bg' : '');
+    if (cfg.state === 'skeleton') c += ' tc--skeleton';
+    if (cfg.edited && cfg.type !== 'checkbox') c += ' tc--edited';
+    if (has(VALUE_TYPES, cfg.type) && !cfg.truncate) c += ' tc--wrap';
+    return c;
+  }
+  function sepCls(cfg) {
+    var c = 'tc tc--separator';
+    if (cfg.pinOn && S.pinned) c += ' tc--pinned';else if (cfg.bg === 'accent') c += ' tc--accent';
+    return c;
+  }
+  function rowCls(i, cfg) {
+    var c = 'tbl__row';
+    if (cfg.state === 'hover') c += ' tbl__row--hover';
+    if (cfg.state === 'focus') c += ' tbl__row--focus';
+    if (cfg.state === 'selected') c += ' tbl__row--selected';
+    if (cfg.type === 'checkbox' && S.sel[i]) c += ' tbl__row--selected';
+    if (S.focusRow === i) c += ' tbl__row--focus';
+    return c;
+  }
+  var GRID = 'grid-template-columns:8px 1fr 8px;';
+  function headerRow(cfg) {
+    var cls = 'th';
+    if (cfg.numeric || cfg.align === 'right' && cfg.type === 'text') cls += ' th--right';else if (cfg.type === 'checkbox') cls += ' th--center' + (cfg.sortOn || cfg.pinOn ? ' th--select' : '');
+    if (cfg.sortOn && S.sortDir !== 'none') cls += ' th--sorted';
+    if (cfg.pinOn && S.pinned) cls += ' th--pinned';else if (cfg.bg === 'accent') cls += ' tc--accent';
+    var tools = '';
+    if (cfg.pinOn) {
+      tools += '<button class="ibtn ibtn--neutral ibtn--s th__pin" data-pin="1" aria-pressed="' + S.pinned + '" aria-label="' + (S.pinned ? 'Открепить колонку' : 'Закрепить колонку') + '">' + icon(S.pinned ? 'pin-filled' : 'pin', 16) + '</button>';
+    }
+    if (cfg.sortOn) {
+      var glyph = S.sortDir === 'asc' ? 'arrow-narrow-up' : S.sortDir === 'desc' ? 'arrow-narrow-down' : 'arrow-up-down';
+      var lbl = S.sortDir === 'asc' ? 'Сортировка от меньшего к большему' : S.sortDir === 'desc' ? 'Сортировка от большего к меньшему' : 'Сортировать';
+      tools += '<button class="ibtn ibtn--neutral ibtn--s th__sort" data-sort="1" aria-label="' + lbl + '">' + icon(glyph, 16) + '</button>';
+    }
+    if (tools) tools = '<span class="th__tools">' + tools + '</span>';
+    var label = cfg.type === 'checkbox' ? checkbox(allState(), 'data-all="1" aria-label="Выбрать все строки"') : '<span class="th__label">Заголовок</span>';
+    var aria = cfg.sortOn ? ' aria-sort="' + (S.sortDir === 'asc' ? 'ascending' : S.sortDir === 'desc' ? 'descending' : 'none') + '"' : '';
+    var sep = 'th th--separator' + (cfg.pinOn && S.pinned ? ' th--pinned' : cfg.bg === 'accent' ? ' tc--accent' : '');
+    return '<div class="tbl__row" style="' + GRID + '"><div class="' + sep + '"></div>' + '<div class="' + cls + '"' + aria + '>' + label + tools + '</div>' + '<div class="' + sep + '"></div></div>';
+  }
+  function allState() {
+    var n = S.sel.filter(Boolean).length;
+    return n === 0 ? 'unselected' : n === S.sel.length ? 'selected' : 'indeterminate';
+  }
+  function bodyRows(cfg) {
+    var rows = [];
+    if (cfg.type === 'tree') {
+      rows.push({
+        level: cfg.level,
+        leaf: false,
+        text: cfg.text
+      });
+      if (S.treeOpen) {
+        rows.push({
+          level: cfg.level + 1,
+          leaf: true,
+          text: 'Филиал в Казани'
+        });
+        rows.push({
+          level: cfg.level + 1,
+          leaf: true,
+          text: 'Филиал в Самаре'
+        });
+      }
+      rows.push({
+        level: cfg.level,
+        leaf: true,
+        text: 'ЗАО «Запад»'
+      });
+    } else {
+      rows = [{}, {}, {}];
+    }
+    return rows.map(function (r, i) {
+      var rcfg = Object.assign({}, cfg);
+      if (cfg.type === 'tree') {
+        rcfg.text = r.text;
+        rcfg.rowLeaf = r.leaf;
+      }
+      var style = cfg.type === 'tree' ? ' style="--tc-level:' + r.level + ';"' : '';
+      return '<div class="' + rowCls(i, cfg) + '" style="' + GRID + '" data-row="' + i + '">' + '<div class="' + sepCls(cfg) + '"></div>' + '<div class="' + cellCls(rcfg) + '"' + style + (cfg.state === 'skeleton' ? ' aria-busy="true"' : '') + '>' + cellContent(rcfg, i) + '</div>' + '<div class="' + sepCls(cfg) + '"></div></div>';
+    }).join('');
+  }
+  function render(focusInput) {
+    var cfg = readCfg();
+    syncControls(cfg);
+    var tbl = el('demo-tbl');
+    if (!tbl) return;
+    tbl.innerHTML = headerRow(cfg) + bodyRows(cfg);
+    if (focusInput && S.focusRow >= 0) {
+      var row = tbl.querySelector('.tbl__row[data-row="' + S.focusRow + '"] .inp__control');
+      if (row) row.focus();
+    }
+  }
+
+  /* ---------------- интерактив демо ---------------- */
+  function bind() {
+    ['ctl-type', 'ctl-sort-on', 'ctl-sort-dir', 'ctl-pin-on', 'ctl-pinned', 'ctl-align', 'ctl-numeric', 'ctl-text', 'ctl-level', 'ctl-prefix-on', 'ctl-prefix-text', 'ctl-postfix-on', 'ctl-postfix-text', 'ctl-lead-on', 'ctl-lead-glyph', 'ctl-icon-on', 'ctl-icon-glyph', 'ctl-subtext-on', 'ctl-subtext-text', 'ctl-truncate', 'ctl-chips-count', 'ctl-chips-tone', 'ctl-chips-rounded', 'ctl-hidden', 'ctl-edited', 'ctl-bg', 'ctl-state'].forEach(function (id) {
+      var n = el(id);
+      if (!n) return;
+      n.addEventListener('change', function () {
+        if (id === 'ctl-sort-dir') S.sortDir = n.value;
+        if (id === 'ctl-pinned') S.pinned = n.checked;
+        if (id === 'ctl-type') {
+          S.focusRow = -1;
+          S.acOpen = -1;
+        }
+        render();
+      });
+      n.addEventListener('input', function () {
+        render();
+      });
+    });
+    var tbl = el('demo-tbl');
+    if (!tbl) return;
+    tbl.addEventListener('click', function (e) {
+      var t = e.target;
+      var sortBtn = t.closest('[data-sort]');
+      if (sortBtn) {
+        S.sortDir = S.sortDir === 'none' ? 'asc' : S.sortDir === 'asc' ? 'desc' : 'none';
+        var dirSel = el('ctl-sort-dir');
+        if (dirSel) {
+          dirSel.value = S.sortDir;
+          dirSel.dispatchEvent(new Event('pg:sync'));
+        }
+        render();
+        return;
+      }
+      var pinBtn = t.closest('[data-pin]');
+      if (pinBtn) {
+        S.pinned = !S.pinned;
+        var pinChk = el('ctl-pinned');
+        if (pinChk) pinChk.checked = S.pinned;
+        render();
+        return;
+      }
+      var tw = t.closest('.tc__twisty:not(.tc__twisty--leaf)');
+      if (tw) {
+        S.treeOpen = !S.treeOpen;
+        render();
+        return;
+      }
+      var chev = t.closest('[data-ac]');
+      if (chev) {
+        var i = parseInt(chev.getAttribute('data-ac'), 10);
+        S.acOpen = S.acOpen === i ? -1 : i;
+        S.focusRow = i;
+        render(true);
+        return;
+      }
+      var opt = t.closest('.ddl__item');
+      if (opt) {
+        var txt = opt.textContent.trim();
+        var input = el('ctl-text');
+        if (input) input.value = txt;
+        S.acOpen = -1;
+        render(true);
+        return;
+      }
+      /* клик по строке — фокус всей строки: все ячейки в фокусе и доступны */
+      var row = t.closest('.tbl__row[data-row]');
+      if (row && !t.closest('.cb')) {
+        S.focusRow = parseInt(row.getAttribute('data-row'), 10);
+        var isInput = t.closest('.tc--input');
+        render(!!isInput);
+      }
+    });
+    tbl.addEventListener('change', function (e) {
+      var input = e.target.closest('.cb__input');
+      if (!input) return;
+      if (input.hasAttribute('data-all')) {
+        var next = allState() !== 'selected';
+        S.sel = S.sel.map(function () {
+          return next;
+        });
+      } else {
+        var i = parseInt(input.getAttribute('data-row'), 10);
+        S.sel[i] = !S.sel[i];
+      }
+      render();
+    });
+
+    /* capture-фаза: до перерисовки демо, иначе e.target уже отсоединён от DOM */
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest || e.target.closest('#demo-tbl') || e.target.closest('.pg__controls')) return;
+      if (S.focusRow === -1 && S.acOpen === -1) return;
+      S.focusRow = -1;
+      S.acOpen = -1;
+      render();
+    }, true);
+  }
+
+  /* ---------------- redline ---------------- */
+  function measureRedline() {
+    var c = el('rl-cell');
+    if (!c) return;
+    var cs = getComputedStyle(c);
+    var t = c.querySelector('.tc__text');
+    function set(id, v) {
+      var n = el(id);
+      if (n) n.textContent = v;
+    }
+    var px = function (v) {
+      return Math.round(parseFloat(v)) + 'px';
+    };
+    set('rl-minh', px(cs.minHeight));
+    set('rl-px', px(cs.paddingLeft));
+    set('rl-gap', px(cs.columnGap || cs.gap));
+    set('rl-border', px(cs.borderBottomWidth) + ' solid');
+    set('rl-font', t ? getComputedStyle(t).fontWeight + ' · ' + getComputedStyle(t).fontSize + '/' + getComputedStyle(t).lineHeight : '400 · 14px');
+    var ib = document.querySelector('#rl-sample .th__sort');
+    if (ib) {
+      var ics = getComputedStyle(ib);
+      set('rl-sort', Math.round(parseFloat(ics.width)) + ' × ' + Math.round(parseFloat(ics.height)) + ' px');
+    }
+    var fld = document.querySelector('#rl-sample .inp__field');
+    if (fld) {
+      var fcs = getComputedStyle(fld);
+      set('rl-field', Math.round(parseFloat(fcs.height)) + 'px · радиус ' + fcs.borderRadius);
+    }
+  }
+
+  /* ---------------- Tooltip усечения ---------------- */
+  function tooltips() {
+    var tip = document.createElement('span');
+    tip.className = 'tip tip--main tip--top tip--center tip--floating tip--multiline';
+    tip.setAttribute('role', 'tooltip');
+    tip.innerHTML = '<span class="tip__content"></span><span class="tip__arrow"></span>';
+    document.body.appendChild(tip);
+    function show(target) {
+      if (target.scrollWidth <= target.clientWidth + 1) return;
+      tip.querySelector('.tip__content').textContent = target.textContent;
+      tip.classList.add('is-visible');
+      var r = target.getBoundingClientRect();
+      var tr = tip.getBoundingClientRect();
+      var left = r.left + window.scrollX + r.width / 2 - tr.width / 2;
+      left = Math.max(8, Math.min(left, document.documentElement.clientWidth - tr.width - 8));
+      tip.style.top = r.top + window.scrollY - tr.height - 8 + 'px';
+      tip.style.left = left + 'px';
+    }
+    document.addEventListener('mouseover', function (e) {
+      var t = e.target.closest && e.target.closest('.tc__text--truncate');
+      if (t) show(t);
+    });
+    document.addEventListener('mouseout', function (e) {
+      var t = e.target.closest && e.target.closest('.tc__text--truncate');
+      if (t) tip.classList.remove('is-visible');
+    });
+  }
+
+  /* ---------------- copy ---------------- */
+  function copyButtons() {
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var node = el('code-' + btn.getAttribute('data-copy'));
+        if (!node) return;
+        navigator.clipboard.writeText(node.textContent).then(function () {
+          btn.textContent = 'Скопировано ✓';
+          btn.classList.add('is-copied');
+          setTimeout(function () {
+            btn.textContent = 'Скопировать';
+            btn.classList.remove('is-copied');
+          }, 2000);
+        });
+      });
+    });
+  }
+  function init() {
+    if (!el('demo-tbl')) return;
+    S.sortDir = el('ctl-sort-dir') ? el('ctl-sort-dir').value : 'none';
+    S.pinned = el('ctl-pinned') ? el('ctl-pinned').checked : false;
+    render();
+    bind();
+    tooltips();
+    copyButtons();
+    setTimeout(measureRedline, 300);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);else init();
+})();
+
+/* =========================================================================
+   Демо «Ширина и порядок колонок» (раздел «Поведение»).
+   Ширина — перетаскивание правой границы шапки; порядок — перетаскивание
+   подписи шапки. Других органов управления у колонки нет.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var root = document.getElementById('cols-demo');
+  if (!root) return;
+  var icon = window.getIcon || function () {
+    return '';
+  };
+  var MIN = 96;
+  var cols = [{
+    k: 'name',
+    t: 'Контрагент',
+    w: 240
+  }, {
+    k: 'status',
+    t: 'Статус',
+    w: 150
+  }, {
+    k: 'sum',
+    t: 'Сумма, ₽',
+    w: 160,
+    num: true
+  }, {
+    k: 'date',
+    t: 'Дата',
+    w: 130
+  }, {
+    k: 'mgr',
+    t: 'Менеджер',
+    w: 180
+  }];
+  cols.forEach(function (c) {
+    c.vis = true;
+    c.w0 = c.w;
+  });
+  var rows = [{
+    name: 'ООО ЮгСтройИнвестМонтаж',
+    status: ['success', 'Активна'],
+    sum: '1 240 500,00',
+    date: '12.05.2026',
+    mgr: 'Смирнова А.'
+  }, {
+    name: 'ПАО Ростелеком',
+    status: ['', 'На проверке'],
+    sum: '986 300,00',
+    date: '28.04.2026',
+    mgr: 'Волков И.'
+  }, {
+    name: 'АО Тандер',
+    status: ['error', 'Просрочена'],
+    sum: '432 100,00',
+    date: '05.03.2026',
+    mgr: 'Гаврилова Е.'
+  }, {
+    name: 'ИП Смирнов А.В.',
+    status: ['warning', 'Продление'],
+    sum: '57 800,00',
+    date: '19.06.2026',
+    mgr: 'Волков И.'
+  }];
+  var dragKey = null;
+  function vis() {
+    return cols.filter(function (c) {
+      return c.vis;
+    });
+  }
+  function find(k) {
+    return cols.filter(function (c) {
+      return c.k === k;
+    })[0];
+  }
+  function tpl() {
+    return '8px ' + vis().map(function (c) {
+      return c.w + 'px';
+    }).join(' ') + ' minmax(8px,1fr)';
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  }
+  function headCell(c) {
+    return '<div class="th th--movable' + (c.num ? ' th--right' : '') + (dragKey === c.k ? ' th--dragging' : '') + '" data-k="' + c.k + '">' + '<span class="th__label" data-grab="' + c.k + '">' + esc(c.t) + '</span>' + '<span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" data-resize="' + c.k + '" aria-label="Изменить ширину колонки «' + esc(c.t) + '»"></span>' + '</div>';
+  }
+  function bodyCell(c, r) {
+    var cls = 'tc' + (c.num ? ' tc--numbers' : '') + (dragKey === c.k ? ' tc--dragging' : '');
+    if (c.k === 'status') {
+      var tone = r.status[0] ? ' chip--' + r.status[0] : '';
+      return '<div class="' + cls + '"><span class="chip chip--readonly chip--s chip--rounded' + tone + '"><span class="chip__label">' + r.status[1] + '</span></span></div>';
+    }
+    return '<div class="' + cls + '"><span class="tc__row"><span class="tc__text tc__text--truncate">' + esc(r[c.k]) + '</span></span></div>';
+  }
+  function render() {
+    var t = tpl();
+    var html = '<div class="tbl__row" style="grid-template-columns:' + t + ';"><div class="th th--separator"></div>' + vis().map(headCell).join('') + '<div class="th th--separator"></div></div>';
+    html += rows.map(function (r) {
+      return '<div class="tbl__row" style="grid-template-columns:' + t + ';"><div class="tc tc--separator"></div>' + vis().map(function (c) {
+        return bodyCell(c, r);
+      }).join('') + '<div class="tc tc--separator"></div></div>';
+    }).join('');
+    root.innerHTML = html + '<span class="tbl__guide"></span>';
+  }
+  function applyWidths() {
+    var t = tpl();
+    [].forEach.call(root.querySelectorAll('.tbl__row'), function (n) {
+      n.style.gridTemplateColumns = t;
+    });
+  }
+  function guideAt(clientX) {
+    var g = root.querySelector('.tbl__guide');
+    if (g) g.style.left = clientX - root.getBoundingClientRect().left + root.scrollLeft + 'px';
+  }
+
+  /* ---------- изменение ширины ---------- */
+  function startResize(e, k) {
+    e.preventDefault();
+    var col = find(k),
+      x0 = e.clientX,
+      w0 = col.w;
+    var th = root.querySelector('.th[data-k="' + k + '"]');
+    root.classList.add('tbl--resizing');
+    if (th) th.classList.add('th--resizing');
+    function move(ev) {
+      col.w = Math.max(MIN, Math.round(w0 + (ev.clientX - x0)));
+      applyWidths();
+      guideAt(th.getBoundingClientRect().right);
+    }
+    function up() {
+      root.classList.remove('tbl--resizing');
+      if (th) th.classList.remove('th--resizing');
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+    }
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+    move(e);
+  }
+
+  /* ---------- порядок колонок: только перетаскивание ---------- */
+  function boundaries() {
+    return [].map.call(root.querySelectorAll('.th[data-k]'), function (n) {
+      return n.getBoundingClientRect();
+    });
+  }
+  function dropIndex(clientX) {
+    var rects = boundaries(),
+      i;
+    for (i = 0; i < rects.length; i++) {
+      if (clientX < rects[i].left + rects[i].width / 2) return i;
+    }
+    return rects.length;
+  }
+  function guideAtIndex(i) {
+    var rects = boundaries();
+    if (!rects.length) return;
+    guideAt(i >= rects.length ? rects[rects.length - 1].right : rects[i].left);
+  }
+  function startDrag(e, k) {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    var x0 = e.clientX,
+      started = false,
+      target = -1;
+    function move(ev) {
+      if (!started) {
+        if (Math.abs(ev.clientX - x0) < 4) return;
+        started = true;
+        dragKey = k;
+        root.classList.add('tbl--reordering');
+        render();
+      }
+      target = dropIndex(ev.clientX);
+      guideAtIndex(target);
+    }
+    function up() {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+      root.classList.remove('tbl--reordering');
+      if (started && target >= 0) moveTo(k, target);
+      dragKey = null;
+      render();
+    }
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+  }
+  /* перенос колонки на позицию среди видимых */
+  function moveTo(k, visTarget) {
+    var v = vis(),
+      col = find(k),
+      from = v.indexOf(col);
+    if (from < 0) return;
+    var to = visTarget > from ? visTarget - 1 : visTarget;
+    if (to === from) return;
+    v.splice(from, 1);
+    v.splice(Math.max(0, Math.min(v.length, to)), 0, col);
+    var order = v.slice();
+    cols.sort(function (a, b) {
+      var ia = order.indexOf(a),
+        ib = order.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    });
+  }
+
+  /* ---------- события ---------- */
+  root.addEventListener('pointerdown', function (e) {
+    var h = e.target.closest('[data-resize]');
+    if (h) {
+      startResize(e, h.getAttribute('data-resize'));
+      return;
+    }
+    var g = e.target.closest('[data-grab]');
+    if (g) startDrag(e, g.getAttribute('data-grab'));
+  });
+  /* клавиатура на ручке: ← → меняют ширину шагом 16px */
+  root.addEventListener('keydown', function (e) {
+    var h = e.target.closest('[data-resize]');
+    if (!h || e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    var c = find(h.getAttribute('data-resize'));
+    c.w = Math.max(MIN, c.w + (e.key === 'ArrowRight' ? 16 : -16));
+    applyWidths();
+  });
+  render();
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/table-cell.page.js", error: String((e && e.message) || e) }); }
+
 // scripts/table-filter.page.js
 try { (() => {
 /* =========================================================================
    TableFilter — страница ДС: конструктор, витрины, модалка фильтра.
-   Ядро — бар над таблицей: кнопка «Фильтр» (+ сплит-сброс), чиплист
-   применённых параметров, счётчик «+N» и шеврон-аккордеон.
+   Ядро — бар над таблицей: кнопка «Фильтр» (Outline S) + один чип-счётчик
+   «Применено: N» (Chip Edit M), крестик которого сбрасывает все параметры.
    ========================================================================= */
 (function () {
   const L = window.DS_ICONS || {};
   const glyph = n => L[n] || '';
 
-  /* ---------- пул демонстрационных параметров ---------- */
+  /* ---------- пул демонстрационных параметров (для таблиц пресетов) ---------- */
   const PARAM_POOL = [['ТБ', 'ЦА, МБ, СРБ, СЗБ'], ['Скрыть сделки', 'ЦЭ'], ['Дески', 'RE, TMT, CND'], ['Группа продуктов', 'Продукты ДИД, Кредиты, Лизинг'], ['Валюта', 'RUB, USD, EUR'], ['Стадия', 'Согласование, Подписание'], ['Клиентский менеджер', 'Иванов И. И.'], ['Сумма', 'от 100 млн ₽']];
   function paramsFor(n) {
     const out = [];
@@ -19737,196 +20456,175 @@ try { (() => {
     return out;
   }
 
-  /* ---------- чип-параметр ---------- */
-  function makeChip([label, values]) {
-    const el = document.createElement('span');
-    el.className = 'chip chip--edit chip--s';
-    el.tabIndex = 0;
-    const text = values ? label + ': ' + values : label;
-    const lb = document.createElement('span');
-    lb.className = 'chip__label';
-    lb.textContent = text;
-    el.appendChild(lb);
-    const rm = document.createElement('span');
-    rm.className = 'chip__remove';
-    rm.setAttribute('role', 'button');
-    rm.setAttribute('aria-label', 'Убрать ' + label);
-    rm.innerHTML = glyph('close');
-    el.appendChild(rm);
-    return el;
+  /* ---------- блокировка скролла страницы под скримом + inert фона ---------- */
+  let scrollLocks = 0,
+    savedOverflow = '',
+    savedPadRight = '';
+  function lockScroll() {
+    if (scrollLocks++ > 0) return;
+    const b = document.body;
+    const gap = window.innerWidth - document.documentElement.clientWidth;
+    savedOverflow = b.style.overflow;
+    savedPadRight = b.style.paddingRight;
+    b.style.overflow = 'hidden';
+    if (gap > 0) b.style.paddingRight = gap + 'px';
+    Array.from(b.children).forEach(el => {
+      if (!el.classList.contains('modal-scrim')) {
+        el.inert = true;
+        el.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+  function unlockScroll() {
+    if (scrollLocks === 0) return;
+    if (--scrollLocks > 0) return;
+    document.body.style.overflow = savedOverflow;
+    document.body.style.paddingRight = savedPadRight;
+    Array.from(document.body.children).forEach(el => {
+      el.inert = false;
+      el.removeAttribute('aria-hidden');
+    });
   }
 
-  /* ---------- кластер-триггер ---------- */
-  function makeTrigger(applied) {
-    const wrap = document.createElement('div');
-    wrap.className = 'tfilter__trigger';
-    wrap.setAttribute('role', 'group');
-    wrap.setAttribute('aria-label', 'Фильтр таблицы');
-    wrap.innerHTML = '<button type="button" class="btn btn--outline btn--xs tfilter__open" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>';
-    if (applied) {
-      wrap.insertAdjacentHTML('beforeend', '<button type="button" class="btn btn--outline btn--xs btn--icon-only tfilter__reset" aria-label="Сбросить фильтры"><i data-icon="filter-reset"></i></button>');
-    }
-    return wrap;
+  /* ---------- focus trap на активном слое ---------- */
+  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
+  function trapFocus(scrim) {
+    scrim.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const layer = scrim.querySelector('.modal-scrim--nested') || scrim;
+      const items = Array.from(layer.querySelectorAll(FOCUSABLE)).filter(el => el.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0],
+        last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
+  /* ---------- чип-счётчик «Применено: N» ---------- */
+  function makeAppliedChip(count) {
+    const el = document.createElement('span');
+    el.className = 'chip chip--edit chip--m tfilter__applied';
+    el.tabIndex = 0;
+    el.innerHTML = '<span class="chip__label">Применено: ' + count + '</span>' + '<span class="chip__remove" role="button" aria-label="Сбросить все фильтры">' + glyph('close') + '</span>';
+    return el;
   }
 
   /* ---------- сборка бара ---------- */
   function buildBar(o = {}) {
     const {
       applied = false,
-      params = [],
-      expanded = false,
-      disabled = false
+      count = 0,
+      disabled = false,
+      onReset = null,
+      presetList = null,
+      onApplyPreset = null
     } = o;
     const bar = document.createElement('div');
     bar.className = 'tfilter';
     bar.setAttribute('role', 'group');
     bar.setAttribute('aria-label', 'Фильтр таблицы');
-    if (!expanded) bar.classList.add('tfilter--collapsed');
     if (disabled) {
       bar.classList.add('tfilter--disabled');
       bar.setAttribute('aria-disabled', 'true');
     }
-    bar.dataset.expanded = String(expanded);
-    bar.appendChild(makeTrigger(applied && params.length > 0));
-    if (applied && params.length) {
-      const chips = document.createElement('div');
-      chips.className = 'tfilter__chips';
-      chips.setAttribute('role', 'group');
-      chips.setAttribute('aria-label', 'Применённые параметры');
-      params.forEach(p => {
-        const chip = makeChip(p);
-        const rm = chip.querySelector('.chip__remove');
-        rm.addEventListener('click', () => {
-          chip.style.transition = 'opacity .18s, transform .18s';
-          chip.style.opacity = '0';
-          chip.style.transform = 'scale(.85)';
-          setTimeout(() => {
-            chip.remove();
-            updateBar(bar);
-            if (!chips.querySelector('.chip')) collapseToEmpty(bar);
-          }, 180);
-        });
-        chip.addEventListener('keydown', e => {
-          if (e.key === 'Backspace' || e.key === 'Delete') {
-            e.preventDefault();
-            rm.click();
-          }
-        });
-        chips.appendChild(chip);
+    const openBtn = '<button type="button" class="btn btn--outline btn--s tfilter__open" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>';
+    if (presetList && presetList.length) {
+      /* есть сохранённые пресеты → Split Button: «Фильтр» + шеврон со списком */
+      bar.innerHTML = '<span class="menu-anchor tfilter__split">' + '<span class="btn-group btn-group--outline btn-group--split" role="group" aria-label="Фильтр">' + openBtn + '<button type="button" class="btn btn--outline btn--s btn--icon-only tfilter__presets" aria-haspopup="menu" aria-expanded="false" aria-label="Сохранённые пресеты"><span class="btn__chevron tfilter__chev"><i data-icon="chevron-down"></i></span></button>' + '</span>' + '<div class="menu menu--floating tfilter__menu" role="menu" aria-label="Сохранённые пресеты" hidden>' + '<div class="menu__label">Сохранённые пресеты</div>' + presetList.map((p, i) => '<button type="button" class="menu__item" role="menuitem" data-preset="' + i + '">' + '<span class="menu__item-label">' + p.name + '</span>' + '<span class="menu__item-hint">' + p.params.length + '</span></button>').join('') + '</div>' + '</span>';
+    } else {
+      bar.innerHTML = openBtn;
+    }
+    if (applied && count > 0) {
+      const chip = makeAppliedChip(count);
+      bar.appendChild(chip);
+      const reset = () => {
+        chip.style.transition = 'opacity .18s, transform .18s';
+        chip.style.opacity = '0';
+        chip.style.transform = 'scale(.85)';
+        setTimeout(() => {
+          chip.remove();
+          onReset && onReset();
+        }, 180);
+      };
+      chip.querySelector('.chip__remove').addEventListener('click', reset);
+      chip.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' || e.key === 'Delete') {
+          e.preventDefault();
+          reset();
+        }
       });
-      bar.appendChild(chips);
-      const tail = document.createElement('div');
-      tail.className = 'tfilter__tail';
-      tail.innerHTML = '<span class="badge badge--xs badge--neutral badge--text tfilter__more" aria-hidden="true"></span>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s tfilter__toggle" aria-label="Развернуть фильтр" aria-expanded="' + expanded + '"><span class="tfilter__chev"><i data-icon="chevron-down"></i></span></button>';
-      bar.appendChild(tail);
-      tail.querySelector('.tfilter__toggle').addEventListener('click', () => {
-        const now = bar.dataset.expanded !== 'true';
-        bar.dataset.expanded = String(now);
-        bar.classList.toggle('tfilter--collapsed', !now);
-        updateBar(bar);
+    }
+
+    /* выпадающий список пресетов */
+    const chevBtn = bar.querySelector('.tfilter__presets');
+    if (chevBtn) {
+      const menu = bar.querySelector('.tfilter__menu');
+      const closeMenu = () => {
+        menu.classList.remove('is-open');
+        menu.hidden = true;
+        chevBtn.setAttribute('aria-expanded', 'false');
+        document.removeEventListener('mousedown', outside, true);
+      };
+      const outside = e => {
+        if (!bar.contains(e.target)) closeMenu();
+      };
+      chevBtn.addEventListener('click', () => {
+        const open = chevBtn.getAttribute('aria-expanded') !== 'true';
+        if (open) {
+          menu.hidden = false;
+          requestAnimationFrame(() => menu.classList.add('is-open'));
+          chevBtn.setAttribute('aria-expanded', 'true');
+          document.addEventListener('mousedown', outside, true);
+          const first = menu.querySelector('.menu__item');
+          first && first.focus();
+        } else closeMenu();
+      });
+      menu.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          closeMenu();
+          chevBtn.focus();
+          return;
+        }
+        const items = Array.from(menu.querySelectorAll('.menu__item'));
+        const i = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          items[(i + 1) % items.length].focus();
+        }
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          items[(i - 1 + items.length) % items.length].focus();
+        }
+      });
+      menu.querySelectorAll('.menu__item').forEach(item => {
+        item.addEventListener('click', () => {
+          const p = presetList[parseInt(item.dataset.preset, 10)];
+          closeMenu();
+          onApplyPreset && onApplyPreset(p);
+        });
       });
     }
     window.dsIcons && window.dsIcons.apply(bar);
     return bar;
   }
 
-  /* ---------- когда сняли последний параметр — вернуть одиночную кнопку ---------- */
-  function collapseToEmpty(bar) {
-    bar.querySelectorAll('.tfilter__chips, .tfilter__tail').forEach(n => n.remove());
-    const trig = bar.querySelector('.tfilter__trigger');
-    if (trig) {
-      trig.replaceWith(makeTrigger(false));
-      window.dsIcons && window.dsIcons.apply(bar);
-    }
-  }
-
-  /* ---------- измерение переполнения ---------- */
-  function updateBar(bar) {
-    const chipsEl = bar.querySelector('.tfilter__chips');
-    const tail = bar.querySelector('.tfilter__tail');
-    if (!chipsEl || !tail) return;
-    const chips = Array.from(chipsEl.querySelectorAll('.chip'));
-    const more = tail.querySelector('.tfilter__more');
-    const toggle = tail.querySelector('.tfilter__toggle');
-    const chev = tail.querySelector('.tfilter__chev i');
-    const expanded = bar.dataset.expanded === 'true';
-    /* сброс перед замером: все видимы, шринк запрещён — меряем НАТУРАЛЬНЫЕ ширины */
-    chips.forEach(c => {
-      c.style.display = '';
-      c.style.flex = '';
-      c.style.minWidth = '';
-    });
-
-    /* доступную ширину под чипы считаем от всего бара; .tfilter__trigger теперь
-       display:contents (сам без бокса) — ширину триггера меряем по его кнопкам */
-    const GAP = 4,
-      RESERVE = 60;
-    const trigger = bar.querySelector('.tfilter__trigger');
-    const triggerBtns = trigger ? Array.from(trigger.querySelectorAll('.btn')) : [];
-    const triggerW = triggerBtns.reduce((sum, b, i) => sum + b.offsetWidth + (i > 0 ? GAP : 0), 0);
-    const avail = bar.clientWidth - triggerW - (triggerBtns.length ? GAP : 0);
-    const widths = chips.map(c => c.offsetWidth); /* меряем, пока все видимы */
-
-    function fits(reserve) {
-      let used = 0,
-        n = 0;
-      for (let i = 0; i < widths.length; i++) {
-        const next = n === 0 ? widths[i] : used + GAP + widths[i];
-        if (next + (reserve ? GAP + RESERVE : 0) <= avail) {
-          used = next;
-          n++;
-        } else break;
-      }
-      return n;
-    }
-    const overflow = fits(false) < chips.length;
-    if (expanded) {
-      tail.classList.remove('is-off');
-      more.style.display = 'none';
-      toggle.style.display = '';
-      if (chev) {
-        chev.setAttribute('data-icon', 'chevron-up');
-      }
-      toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', 'Свернуть фильтр');
-    } else if (overflow) {
-      const vis = Math.max(fits(true), 1);
-      const hidden = chips.length - vis;
-      chips.forEach((c, i) => {
-        c.style.display = i < vis ? '' : 'none';
-      });
-      /* последнему видимому чипу разрешаем ужаться (многоточие в chip__label),
-         чтобы хвост «+N» + шеврон всегда оставался в баре даже в узком контейнере */
-      const lastVis = chips[vis - 1];
-      lastVis.style.flex = '0 1 auto';
-      lastVis.style.minWidth = '0';
-      tail.classList.remove('is-off');
-      more.style.display = hidden > 0 ? '' : 'none';
-      more.textContent = '+' + hidden;
-      more.setAttribute('aria-label', 'ещё ' + hidden + ' параметров');
-      toggle.style.display = '';
-      if (chev) {
-        chev.setAttribute('data-icon', 'chevron-down');
-      }
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Развернуть фильтр');
-    } else {
-      tail.classList.add('is-off');
-    }
-    window.dsIcons && window.dsIcons.apply(tail);
-  }
-
-  /* переизмерять бар при изменении ширины сцены */
-  function observeBar(bar, host) {
-    updateBar(bar);
-    const ro = new ResizeObserver(() => updateBar(bar));
-    ro.observe(host);
-    requestAnimationFrame(() => updateBar(bar));
-    setTimeout(() => updateBar(bar), 60);
-  }
-
   /* ========================================================================= */
   document.addEventListener('DOMContentLoaded', () => {
+    /* сохранённые пресеты — общие для бара и модалки */
+    const presets = [{
+      name: 'Мои сделки ЦА',
+      params: [['ТБ', 'ЦА'], ['Дески', 'RE, TMT'], ['Стадия', 'Согласование']]
+    }, {
+      name: 'Крупные кредиты RUB',
+      params: [['Группа продуктов', 'Кредиты'], ['Валюта', 'RUB'], ['Сумма', 'от 100 млн ₽'], ['Стадия', 'Подписание']]
+    }];
+
     /* ---------------- КОНСТРУКТОР ---------------- */
     (function () {
       const controls = document.getElementById('pg-controls');
@@ -19934,9 +20632,9 @@ try { (() => {
       if (!controls || !stage) return;
       const state = {
         applied: 'yes',
-        count: '5',
-        expand: 'collapsed',
-        mode: 'default'
+        count: '3',
+        mode: 'default',
+        presets: 'no'
       };
       function ctl(labelText, options, get, set, keepSelect) {
         const wrap = document.createElement('div');
@@ -19966,33 +20664,42 @@ try { (() => {
         return wrap;
       }
       const cApplied = ctl('Фильтр применён', [['no', 'Нет'], ['yes', 'Да']], () => state.applied, v => state.applied = v);
-      const cCount = ctl('Параметров выбрано', [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['6', '6'], ['7', '7'], ['8', '8']], () => state.count, v => state.count = v, true);
-      const cExpand = ctl('Раскрытие', [['collapsed', 'Свёрнут'], ['expanded', 'Развёрнут']], () => state.expand, v => state.expand = v);
+      const cCount = ctl('Параметров применено', [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['8', '8'], ['12', '12']], () => state.count, v => state.count = v, true);
       const cMode = ctl('Состояние', [['default', 'Обычный'], ['disabled', 'Заблокирован']], () => state.mode, v => state.mode = v);
-      controls.append(cApplied, cCount, cExpand, cMode);
+      const cPresets = ctl('Сохранённые пресеты', [['no', 'Нет'], ['yes', 'Есть — Split Button']], () => state.presets, v => state.presets = v);
+      controls.append(cApplied, cCount, cPresets, cMode);
       function render() {
         const applied = state.applied === 'yes';
         cCount.classList.toggle('is-off', !applied);
-        cExpand.classList.toggle('is-off', !applied);
         stage.innerHTML = '';
         const bar = buildBar({
           applied,
-          params: applied ? paramsFor(parseInt(state.count, 10)) : [],
-          expanded: state.expand === 'expanded',
-          disabled: state.mode === 'disabled'
+          count: parseInt(state.count, 10),
+          disabled: state.mode === 'disabled',
+          presetList: state.presets === 'yes' ? presets : null,
+          onApplyPreset: p => {
+            state.applied = 'yes';
+            state.count = String(p.params.length);
+            cApplied.querySelector('select').value = 'yes';
+            const cs = cCount.querySelector('select');
+            if (!Array.from(cs.options).some(o => o.value === state.count)) {
+              const o = document.createElement('option');
+              o.value = state.count;
+              o.textContent = state.count;
+              cs.appendChild(o);
+            }
+            cs.value = state.count;
+            render();
+          },
+          onReset: () => {
+            state.applied = 'no';
+            cApplied.querySelector('select').value = 'no';
+            render();
+          }
         });
-        bar.style.width = '100%';
         stage.appendChild(bar);
-        observeBar(bar, stage);
-        // открытие модалки из конструктора
         const open = bar.querySelector('.tfilter__open');
         open && open.addEventListener('click', () => openFilterModal(open));
-        const reset = bar.querySelector('.tfilter__reset');
-        reset && reset.addEventListener('click', () => {
-          state.applied = 'no';
-          cApplied.querySelector('select').value = 'no';
-          render();
-        });
       }
       render();
     })();
@@ -20001,46 +20708,10 @@ try { (() => {
     (function () {
       const host = document.getElementById('anat-stage');
       if (!host) return;
-      const bar = buildBar({
+      host.appendChild(buildBar({
         applied: true,
-        params: paramsFor(4),
-        expanded: false
-      });
-      bar.style.width = '100%';
-      host.appendChild(bar);
-      observeBar(bar, host);
-    })();
-
-    /* ---------------- ВАРИАНТЫ · КНОПКА ---------------- */
-    (function () {
-      const host = document.getElementById('variants-btn');
-      if (!host) return;
-      const rows = [{
-        k: 'Обычная',
-        d: 'Фильтр не применён — одиночная кнопка Outline S',
-        bar: {
-          applied: false
-        }
-      }, {
-        k: 'Сплит со сбросом',
-        d: 'Применён ≥1 параметр — кнопка + сброс всех',
-        bar: {
-          applied: true,
-          params: paramsFor(2)
-        }
-      }];
-      rows.forEach(r => {
-        const row = document.createElement('div');
-        row.className = 'vrow';
-        row.innerHTML = '<div class="vrow__cap"><span class="k">' + r.k + '</span><span class="d">' + r.d + '</span></div>';
-        const demo = document.createElement('div');
-        demo.className = 'vrow__demo';
-        // показать только триггер (без чиплиста) в первой строке-варианте
-        demo.appendChild(makeTrigger(r.bar.applied));
-        window.dsIcons && window.dsIcons.apply(demo);
-        row.appendChild(demo);
-        host.appendChild(row);
-      });
+        count: 3
+      }));
     })();
 
     /* ---------------- ВАРИАНТЫ · СОСТОЯНИЕ БАРА ---------------- */
@@ -20049,25 +20720,16 @@ try { (() => {
       if (!host) return;
       const rows = [{
         k: 'Filtered = No',
-        d: 'Фильтр не применён',
+        d: 'Фильтр не применён — только кнопка «Фильтр»',
         bar: {
           applied: false
         }
       }, {
-        k: 'Filtered = Yes · 1 ряд',
-        d: 'Свёрнут, лишнее в «+N»',
+        k: 'Filtered = Yes',
+        d: 'Применён ≥1 параметр — рядом чип «Применено: N»',
         bar: {
           applied: true,
-          params: paramsFor(6),
-          expanded: false
-        }
-      }, {
-        k: 'Filtered = Yes · N рядов',
-        d: 'Развёрнут на несколько рядов',
-        bar: {
-          applied: true,
-          params: paramsFor(6),
-          expanded: true
+          count: 3
         }
       }];
       rows.forEach(r => {
@@ -20076,12 +20738,61 @@ try { (() => {
         row.innerHTML = '<div class="vrow__cap"><span class="k">' + r.k + '</span><span class="d">' + r.d + '</span></div>';
         const demo = document.createElement('div');
         demo.className = 'vrow__demo';
-        const bar = buildBar(r.bar);
-        bar.style.width = '100%';
-        demo.appendChild(bar);
+        demo.appendChild(buildBar(r.bar));
         row.appendChild(demo);
         host.appendChild(row);
-        observeBar(bar, demo);
+      });
+    })();
+
+    /* ---------------- ВАРИАНТЫ · ЧИП «ПРИМЕНЕНО» ---------------- */
+    (function () {
+      const host = document.getElementById('variants-chip');
+      if (!host) return;
+      [1, 3, 12].forEach(n => {
+        const row = document.createElement('div');
+        row.className = 'vrow';
+        row.innerHTML = '<div class="vrow__cap"><span class="k">N = ' + n + '</span><span class="d">Chip · Edit · M, крестик сбрасывает все параметры</span></div>';
+        const demo = document.createElement('div');
+        demo.className = 'vrow__demo';
+        demo.appendChild(makeAppliedChip(n));
+        window.dsIcons && window.dsIcons.apply(demo);
+        row.appendChild(demo);
+        host.appendChild(row);
+      });
+    })();
+
+    /* ---------------- ВАРИАНТЫ · С ПРЕСЕТАМИ (Split Button) ---------------- */
+    (function () {
+      const host = document.getElementById('variants-presets');
+      if (!host) return;
+      const rows = [{
+        k: 'Пресетов нет',
+        d: 'Одиночная кнопка «Фильтр»',
+        bar: {}
+      }, {
+        k: 'Есть пресеты',
+        d: 'ButtonGroup Split: «Фильтр» + шеврон со списком пресетов',
+        bar: {
+          presetList: presets
+        }
+      }, {
+        k: 'Пресет применён',
+        d: 'Справа от группы — чип «Применено: N» по числу параметров пресета',
+        bar: {
+          presetList: presets,
+          applied: true,
+          count: 3
+        }
+      }];
+      rows.forEach(r => {
+        const row = document.createElement('div');
+        row.className = 'vrow';
+        row.innerHTML = '<div class="vrow__cap"><span class="k">' + r.k + '</span><span class="d">' + r.d + '</span></div>';
+        const demo = document.createElement('div');
+        demo.className = 'vrow__demo';
+        demo.appendChild(buildBar(r.bar));
+        row.appendChild(demo);
+        host.appendChild(row);
       });
     })();
 
@@ -20091,22 +20802,22 @@ try { (() => {
       if (!host) return;
       const items = [{
         cap: 'По умолчанию',
-        desc: 'Применён фильтр, бар свёрнут в один ряд',
+        desc: 'Применён фильтр — кнопка и чип-счётчик',
         bar: {
           applied: true,
-          params: paramsFor(4)
+          count: 3
         }
       }, {
         cap: 'Заблокирован',
         desc: 'Бар недоступен целиком — pointer-events: none, opacity',
         bar: {
           applied: true,
-          params: paramsFor(4),
+          count: 3,
           disabled: true
         }
       }, {
         cap: 'Без фильтра',
-        desc: 'Нет применённых параметров — одиночная кнопка',
+        desc: 'Нет применённых параметров — только кнопка «Фильтр»',
         bar: {
           applied: false
         }
@@ -20117,13 +20828,10 @@ try { (() => {
         cell.innerHTML = '<span class="state-cap">' + it.cap + '</span>';
         const box = document.createElement('div');
         box.style.cssText = 'width:100%;';
-        const bar = buildBar(it.bar);
-        bar.style.width = '100%';
-        box.appendChild(bar);
+        box.appendChild(buildBar(it.bar));
         cell.appendChild(box);
         cell.insertAdjacentHTML('beforeend', '<span class="state-desc">' + it.desc + '</span>');
         host.appendChild(cell);
-        observeBar(bar, box);
       });
     })();
 
@@ -20135,11 +20843,8 @@ try { (() => {
         name: 'Кнопка «Фильтр» (Outline)',
         rows: [['Ведущая воронка', '--primary'], ['Обводка', '--border-primary'], ['Текст', '--text-primary'], ['Фон', '--bg-tile']]
       }, {
-        name: 'Чип-параметр (Edit · Fill)',
+        name: 'Чип «Применено: N» (Edit · Fill)',
         rows: [['Фон', '--st-system-light'], ['Обводка', '--st-system-midlight'], ['Текст', '--text-primary'], ['Крестик', '--text-secondary']]
-      }, {
-        name: 'Хвост',
-        rows: [['Счётчик «+N»', '--text-inactive'], ['Шеврон', '--text-secondary']]
       }, {
         name: 'Заблокированный бар',
         rows: [['Прозрачность', '--st-disabled-mid']]
@@ -20157,77 +20862,60 @@ try { (() => {
         </section>`).join('');
     })();
 
-    /* ---------------- РАЗМЕРЫ (измерено) ---------------- */
+    /* ---------------- РАЗМЕРЫ + REDLINE (измерено на живом экземпляре) ---------------- */
     (function () {
-      const tbody = document.querySelector('#size-table tbody');
-      if (!tbody) return;
+      const sizeBody = document.querySelector('#size-table tbody');
+      const devBody = document.querySelector('#dev-spec-table tbody');
+      if (!sizeBody && !devBody) return;
       const host = document.createElement('div');
       host.style.cssText = 'position:absolute; left:-9999px; top:0; width:900px;';
       document.body.appendChild(host);
       const bar = buildBar({
         applied: true,
-        params: paramsFor(3)
+        count: 3
       });
-      bar.style.width = '100%';
-      host.appendChild(bar);
-      const r = n => Math.round(parseFloat(n));
-      const btn = bar.querySelector('.tfilter__open');
-      const reset = bar.querySelector('.tfilter__reset');
-      const chip = bar.querySelector('.chip');
-      const toggle = bar.querySelector('.tfilter__toggle');
-      const rows = [['Кнопка «Фильтр»', 'Button · Outline S', r(getComputedStyle(btn).height) + ' px', 'Ведущая воронка 16px, тонирована в --primary'], ['Сброс', 'Button · Outline S · icon-only', r(getComputedStyle(reset).height) + ' px', 'Иконка filter-reset 16px'], ['Чип-параметр', 'Chip · Edit S', r(getComputedStyle(chip).height) + ' px', 'Макс. ширина 320px, дальше многоточие'], ['Шеврон-аккордеон', 'IconButton · Neutral S', r(getComputedStyle(toggle).height) + ' px', 'chevron-down / chevron-up'], ['Зазор в баре', '—', r(getComputedStyle(bar).gap) + ' px', 'Между всеми элементами и между чипами']];
-      host.remove();
-      tbody.innerHTML = rows.map(([a, b, c, d]) => `<tr><td>${a}</td><td class="dsc">${b}</td><td class="num">${c}</td><td class="rec">${d}</td></tr>`).join('');
-    })();
-
-    /* ---------------- REDLINE (измерено на живом экземпляре) ---------------- */
-    (function () {
-      const tbody = document.querySelector('#dev-spec-table tbody');
-      if (!tbody) return;
-      const host = document.createElement('div');
-      host.style.cssText = 'position:absolute; left:-9999px; top:0; width:900px;';
-      document.body.appendChild(host);
-      const bar = buildBar({
-        applied: true,
-        params: paramsFor(3)
-      });
-      bar.style.width = '100%';
       host.appendChild(bar);
       const r = n => Math.round(parseFloat(n) * 10) / 10;
-      const csBar = getComputedStyle(bar);
       const btn = bar.querySelector('.tfilter__open');
       const chip = bar.querySelector('.chip');
+      const csBar = getComputedStyle(bar);
+      const csBtn = getComputedStyle(btn);
       const csChip = getComputedStyle(chip);
       const lbl = getComputedStyle(chip.querySelector('.chip__label'));
-      const more = getComputedStyle(bar.querySelector('.tfilter__more'));
-      const rows = [['Зазор бара (row / column)', r(csBar.rowGap) + ' / ' + r(csBar.columnGap) + ' px'], ['Высота кнопки «Фильтр»', r(getComputedStyle(btn).height) + ' px'], ['Высота чипа-параметра', r(csChip.height) + ' px'], ['Паддинг чипа (Y / X)', r(csChip.paddingTop) + ' / ' + r(csChip.paddingLeft) + ' px'], ['Радиус чипа', r(csChip.borderTopLeftRadius) + ' px'], ['Макс. ширина чипа', csChip.maxWidth], ['Типографика чипа (кегль / интерлиньяж)', r(lbl.fontSize) + ' / ' + r(lbl.lineHeight) + ' px'], ['Типографика «+N» (кегль)', r(more.fontSize) + ' px']];
+      if (sizeBody) {
+        const rows = [['Кнопка «Фильтр»', 'Button · Outline S', Math.round(parseFloat(csBtn.height)) + ' px', 'Ведущая воронка 16px, тонирована в --primary'], ['Чип «Применено: N»', 'Chip · Edit M', Math.round(parseFloat(csChip.height)) + ' px', 'Крестик сбрасывает все параметры'], ['Зазор между кнопкой и чипом', '—', Math.round(parseFloat(csBar.columnGap)) + ' px', 'Единственный отступ внутри бара']];
+        sizeBody.innerHTML = rows.map(([a, b, c, d]) => `<tr><td>${a}</td><td class="dsc">${b}</td><td class="num">${c}</td><td class="rec">${d}</td></tr>`).join('');
+      }
+      if (devBody) {
+        const rows = [['Зазор бара (row / column)', r(csBar.rowGap) + ' / ' + r(csBar.columnGap) + ' px'], ['Высота кнопки «Фильтр»', r(csBtn.height) + ' px'], ['Паддинг кнопки (X)', r(csBtn.paddingLeft) + ' / ' + r(csBtn.paddingRight) + ' px'], ['Радиус кнопки', r(csBtn.borderTopLeftRadius) + ' px'], ['Высота чипа «Применено: N»', r(csChip.height) + ' px'], ['Паддинг чипа (Y / X)', r(csChip.paddingTop) + ' / ' + r(csChip.paddingLeft) + ' … ' + r(csChip.paddingRight) + ' px'], ['Радиус чипа', r(csChip.borderTopLeftRadius) + ' px'], ['Типографика чипа (кегль / интерлиньяж)', r(lbl.fontSize) + ' / ' + r(lbl.lineHeight) + ' px']];
+        devBody.innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
+      }
       host.remove();
-      tbody.innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
     })();
 
     /* ---------------- МОДАЛКА ФИЛЬТРА ---------------- */
     let openerEl = null;
-    let presets = [{
-      name: 'Мои сделки ЦА',
-      count: 3
-    }, {
-      name: 'Крупные кредиты RUB',
-      count: 4
-    }];
     function nested(parentScrim, opts) {
       const {
         title,
         body,
         danger,
         confirmLabel,
-        onConfirm
+        onConfirm,
+        width
       } = opts;
       const scrim = document.createElement('div');
       scrim.className = 'modal-scrim modal-scrim--nested';
-      const w = danger ? 3 : 4;
-      scrim.innerHTML = '<div class="modal modal--w' + w + '" role="alertdialog" aria-modal="true">' + '<div class="modal__head"><h2 class="modal__title">' + title + '</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' + '<div class="modal__body">' + body + '</div>' + '<div class="modal__foot"><div class="modal__foot-left"></div><div class="modal__foot-right">' + '<button type="button" class="btn btn--outline btn--m nested-cancel"><span class="btn__label">Отмена</span></button>' + '<button type="button" class="btn btn--accent btn--m' + (danger ? ' btn--danger' : '') + ' nested-ok"><span class="btn__label">' + confirmLabel + '</span></button>' + '</div></div>' + '</div>';
+      const w = width || (danger ? 3 : 4);
+      scrim.innerHTML = '<div class="modal modal--w' + w + '" role="alertdialog" aria-modal="true">' + '<header class="modal__head"><h2 class="modal__title">' + title + '</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></header>' + '<div class="modal__body">' + body + '</div>' + '<footer class="modal__foot"><div class="modal__foot-left"></div><div class="modal__foot-right">' + '<button type="button" class="btn btn--outline btn--m nested-cancel"><span class="btn__label">Отмена</span></button>' + '<button type="button" class="btn btn--accent btn--m' + (danger ? ' btn--danger' : '') + ' nested-ok"><span class="btn__label">' + confirmLabel + '</span></button>' + '</div></footer>' + '</div>';
       parentScrim.appendChild(scrim);
-      const close = () => scrim.remove();
+      lockScroll();
+      const close = () => {
+        scrim.remove();
+        unlockScroll();
+        const back = parentScrim.querySelector('.tfm-save, .modal__close button');
+        back && back.focus();
+      };
       scrim.querySelector('.modal__close button').addEventListener('click', close);
       scrim.querySelector('.nested-cancel').addEventListener('click', close);
       scrim.querySelector('.nested-ok').addEventListener('click', () => {
@@ -20238,26 +20926,54 @@ try { (() => {
         if (e.target === scrim) close();
       });
       window.dsIcons && window.dsIcons.apply(scrim);
+      const first = scrim.querySelector('.modal__body input, .modal__body button');
+      first && first.focus();
       return scrim;
     }
-    function fieldsPanel() {
-      return '<p class="tfm__panel-title">Общая информация</p>' + '<div class="inp inp--m"><label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>' + '<div class="inp__field"><input class="inp__control" placeholder="Например, 1-Кредит-199"></div></div>' + '<div class="inp inp--m"><label class="ds-label ds-label--left"><span class="ds-label__text">Территориальный банк</span></label>' + '<div class="inp__field"><span class="inp__chips">' + '<span class="chip chip--edit chip--s"><span class="chip__label">ЦА</span><span class="chip__remove" role="button" aria-label="Убрать ЦА">' + glyph('close') + '</span></span>' + '<span class="chip chip--edit chip--s"><span class="chip__label">МБ</span><span class="chip__remove" role="button" aria-label="Убрать МБ">' + glyph('close') + '</span></span>' + '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<label class="cb cb--selected" style="align-items:flex-start;"><input type="checkbox" class="cb__input" checked>' + '<span class="cb__box"><span class="cb__mark">' + glyph('check') + '</span></span>' + '<span class="cb__content"><span class="cb__label">Скрыть сделки ЦЭ</span></span></label>';
+
+    /* ---------- секция «Общая информация» ---------- */
+    function generalSection() {
+      return '<section class="tfm__sec" id="tfm-sec-general" aria-labelledby="tfm-sec-general-t">' + '<p class="tfm__sec-title" id="tfm-sec-general-t">Общая информация</p>' + '<div class="tfm__grid">' + '<div class="inp inp--m"><label class="ds-label" for="tfm-name"><span class="ds-label__text">Название сделки</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-name" placeholder="Например, 1-Кредит-199"></div></div>' + '<div class="inp inp--m"><label class="ds-label" for="tfm-client"><span class="ds-label__text">Клиент</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-client" placeholder="Наименование или ИНН"></div></div>' + '<div class="inp inp--m tfm__span-2"><label class="ds-label"><span class="ds-label__text">Территориальный банк</span></label>' + '<div class="inp__field"><span class="inp__chips">' + '<span class="chip chip--edit chip--s"><span class="chip__label">ЦА</span><span class="chip__remove" role="button" aria-label="Убрать ЦА">' + glyph('close') + '</span></span>' + '<span class="chip chip--edit chip--s"><span class="chip__label">МБ</span><span class="chip__remove" role="button" aria-label="Убрать МБ">' + glyph('close') + '</span></span>' + '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<div class="inp inp--m"><label class="ds-label"><span class="ds-label__text">Группа продуктов</span></label>' + '<div class="inp__field"><span class="inp__chips">' + '<span class="chip chip--edit chip--s"><span class="chip__label">Кредиты</span><span class="chip__remove" role="button" aria-label="Убрать Кредиты">' + glyph('close') + '</span></span>' + '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<div class="inp inp--m"><label class="ds-label" for="tfm-cur"><span class="ds-label__text">Валюта</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-cur" placeholder="Все валюты"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<label class="cb cb--selected tfm__span-2"><input type="checkbox" class="cb__input" checked>' + '<span class="cb__box"><span class="cb__mark">' + glyph('check') + '</span></span>' + '<span class="cb__content"><span class="cb__label">Скрыть сделки ЦЭ</span></span></label>' + '</div>' + '</section>';
     }
-    function presetsPanel(scrim) {
-      const wrap = document.createElement('div');
-      wrap.innerHTML = '<p class="tfm__panel-title">Сохранённые фильтры</p>';
+
+    /* ---------- секция «Даты» ---------- */
+    function datesSection() {
+      const dateRange = label => '<div class="inp-range inp-range--m inp-range--date tfm__span-2">' + '<label class="ds-label"><span class="ds-label__text">' + label + '</span></label>' + '<div class="inp-range__row">' + '<div class="inp inp--m inp-range__field"><div class="inp__field">' + '<span class="inp__prefix">От</span>' + '<input class="inp__control" inputmode="numeric" placeholder="ДД.ММ.ГГГГ">' + '<span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">' + glyph('calendar') + '</button></span>' + '</div></div>' + '<span class="inp-range__line" aria-hidden="true"></span>' + '<div class="inp inp--m inp-range__field"><div class="inp__field">' + '<span class="inp__prefix">До</span>' + '<input class="inp__control" inputmode="numeric" placeholder="ДД.ММ.ГГГГ">' + '<span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">' + glyph('calendar') + '</button></span>' + '</div></div>' + '</div>' + '</div>';
+      return '<section class="tfm__sec" id="tfm-sec-dates" aria-labelledby="tfm-sec-dates-t">' + '<p class="tfm__sec-title" id="tfm-sec-dates-t">Даты</p>' + '<div class="tfm__grid">' + dateRange('Дата сделки') + dateRange('Дата изменения') + '</div>' + '</section>';
+    }
+
+    /* ---------- секция «Сохранённые пресеты» ---------- */
+    function presetsSection(scrim) {
+      const sec = document.createElement('section');
+      sec.className = 'tfm__sec';
+      sec.id = 'tfm-sec-presets';
+      sec.setAttribute('aria-labelledby', 'tfm-sec-presets-t');
+      sec.innerHTML = '<p class="tfm__sec-title" id="tfm-sec-presets-t">Сохранённые пресеты</p>';
       const list = document.createElement('div');
       list.className = 'preset-list';
       function draw() {
         list.innerHTML = '';
         if (!presets.length) {
-          list.innerHTML = '<div class="preset-empty">Пока нет сохранённых фильтров.<br>Настройте параметры и сохраните набор.</div>';
+          list.innerHTML = '<div class="preset-empty">Пока нет сохранённых пресетов.<br>Настройте параметры и сохраните набор.</div>';
         } else {
           presets.forEach((p, i) => {
-            const row = document.createElement('div');
-            row.className = 'preset-row';
-            row.innerHTML = '<span class="preset-row__name">' + p.name + '</span>' + '<span class="preset-row__count">' + p.count + ' парам.</span>' + '<button type="button" class="btn btn--outline btn--xs pr-apply"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-del" aria-label="Удалить пресет"><i data-icon="trash"></i></button>';
-            row.querySelector('.pr-del').addEventListener('click', () => {
+            const item = document.createElement('div');
+            item.className = 'preset-item';
+            const bodyId = 'preset-body-' + i;
+            item.innerHTML = '<div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-toggle" aria-expanded="false" aria-controls="' + bodyId + '" aria-label="Показать параметры пресета"><span class="pr-chev"><i data-icon="chevron-down"></i></span></button>' + '<span class="preset-row__name">' + p.name + '</span>' + '<span class="preset-row__count">' + p.params.length + ' парам.</span>' + '<button type="button" class="btn btn--outline btn--xs pr-apply"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-del" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div>' + '<div class="preset-item__body" id="' + bodyId + '" hidden>' + '<table class="preset-params"><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>' + p.params.map(([k, v]) => '<tr><td>' + k + '</td><td>' + v + '</td></tr>').join('') + '</tbody></table>' + '</div>';
+            const toggle = item.querySelector('.pr-toggle');
+            const body = item.querySelector('.preset-item__body');
+            toggle.addEventListener('click', () => {
+              const open = toggle.getAttribute('aria-expanded') !== 'true';
+              toggle.setAttribute('aria-expanded', String(open));
+              toggle.setAttribute('aria-label', open ? 'Скрыть параметры пресета' : 'Показать параметры пресета');
+              body.hidden = !open;
+              item.classList.toggle('is-open', open);
+              const chev = toggle.querySelector('.pr-chev i');
+              chev && chev.setAttribute('data-icon', open ? 'chevron-up' : 'chevron-down');
+              window.dsIcons && window.dsIcons.apply(toggle);
+            });
+            item.querySelector('.pr-del').addEventListener('click', () => {
               nested(scrim, {
                 title: 'Удалить пресет?',
                 danger: true,
@@ -20269,16 +20985,16 @@ try { (() => {
                 }
               });
             });
-            row.querySelector('.pr-apply').addEventListener('click', () => closeFilterModal(true));
-            list.appendChild(row);
+            item.querySelector('.pr-apply').addEventListener('click', () => closeFilterModal(true));
+            list.appendChild(item);
           });
         }
         window.dsIcons && window.dsIcons.apply(list);
       }
       draw();
-      wrap.appendChild(list);
-      wrap._draw = draw;
-      return wrap;
+      sec.appendChild(list);
+      sec._draw = draw;
+      return sec;
     }
     let activeScrim = null;
     function openFilterModal(opener) {
@@ -20287,68 +21003,105 @@ try { (() => {
       const scrim = document.createElement('div');
       scrim.className = 'modal-scrim';
       const modal = document.createElement('div');
-      modal.className = 'modal modal--w6';
+      modal.className = 'modal modal--w6 tfm';
       modal.setAttribute('role', 'dialog');
       modal.setAttribute('aria-modal', 'true');
-      modal.setAttribute('aria-label', 'Фильтр таблицы');
-      const tabs = [{
-        id: 'general',
-        label: 'Общие'
+      modal.setAttribute('aria-labelledby', 'tfm-title');
+
+      /* вертикальные табы работают как якорные ссылки по контентной области */
+      const sections = [{
+        id: 'tfm-sec-general',
+        label: 'Общая информация',
+        count: 3
       }, {
-        id: 'dates',
-        label: 'Даты'
+        id: 'tfm-sec-dates',
+        label: 'Даты',
+        count: 1
       }, {
-        id: 'presets',
-        label: 'Сохранённые фильтры'
+        id: 'tfm-sec-presets',
+        label: 'Сохранённые пресеты',
+        count: 0
       }];
-      const nav = '<div class="tabs tabs--vert tfm__nav" role="tablist" aria-label="Разделы фильтра">' + tabs.map((t, i) => '<button type="button" class="tab tab--m tab--vert' + (i === 0 ? ' tab--selected' : '') + '" role="tab" aria-selected="' + (i === 0) + '" tabindex="' + (i === 0 ? 0 : -1) + '" data-tab="' + t.id + '"><span class="tab__label">' + t.label + '</span></button>').join('') + '</div>';
-      modal.innerHTML = '<div class="modal__head"><h2 class="modal__title">Фильтр</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></div>' + '<div class="modal__body modal__body--flush"><div class="tfm__body">' + nav + '<div class="tfm__panel" id="tfm-panel"></div></div></div>' + '<div class="modal__foot"><div class="modal__foot-left">' + '<button type="button" class="btn btn--transparent btn--m tfm-save"><i data-icon="bookmark-add"></i><span class="btn__label">Сохранить фильтр</span></button>' + '</div><div class="modal__foot-right">' + '<button type="button" class="btn btn--transparent btn--m tfm-clear"><span class="btn__label">Очистить</span></button>' + '<button type="button" class="btn btn--accent btn--m tfm-apply"><span class="btn__label">Применить</span></button>' + '</div></div>';
+      const nav = '<nav class="tabs tabs--vert tfm__nav" aria-label="Разделы фильтра">' + sections.map((s, i) => '<button type="button" class="tab tab--m tab--vert' + (i === 0 ? ' tab--selected' : '') + '"' + (i === 0 ? ' aria-current="true"' : '') + ' data-target="' + s.id + '">' + '<span class="tab__label">' + s.label + '</span>' + (s.count ? '<span class="tab__badge">' + s.count + '</span>' : '') + '</button>').join('') + '</nav>';
+      modal.innerHTML = '<header class="modal__head"><h2 class="modal__title" id="tfm-title">Фильтр</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></header>' + '<div class="modal__body modal__body--flush"><div class="tfm__body">' + nav + '<div class="tfm__panel" id="tfm-panel"></div></div></div>' + '<footer class="modal__foot"><div class="modal__foot-left">' + '<button type="button" class="btn btn--transparent btn--m tfm-save"><i data-icon="bookmark-add"></i><span class="btn__label">Сохранить пресет</span></button>' + '</div><div class="modal__foot-right">' + '<button type="button" class="btn btn--transparent btn--m tfm-clear"><span class="btn__label">Очистить</span></button>' + '<button type="button" class="btn btn--accent btn--m tfm-apply"><span class="btn__label">Применить</span></button>' + '</div></footer>';
       scrim.appendChild(modal);
       document.body.appendChild(scrim);
+      lockScroll();
+      trapFocus(scrim);
       activeScrim = scrim;
       if (opener) opener.setAttribute('aria-expanded', 'true');
       const panel = modal.querySelector('#tfm-panel');
-      const presetsWrap = presetsPanel(scrim);
-      function showTab(id) {
-        if (id === 'presets') {
-          panel.innerHTML = '';
-          panel.appendChild(presetsWrap);
-        } else if (id === 'dates') {
-          panel.innerHTML = '<p class="tfm__panel-title">Даты</p><div class="inp inp--m"><label class="ds-label ds-label--left"><span class="ds-label__text">Период сделки</span></label><div class="inp__field"><input class="inp__control" placeholder="ММ.ДД.ГГГГ"><span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь">' + glyph('calendar') + '</button></span></div></div>';
-        } else {
-          panel.innerHTML = fieldsPanel();
-        }
-        window.dsIcons && window.dsIcons.apply(panel);
+      const scroller = modal.querySelector('.modal__body');
+      const head = modal.querySelector('.modal__head');
+      const foot = modal.querySelector('.modal__foot');
+      panel.insertAdjacentHTML('beforeend', generalSection() + datesSection());
+      const presetsWrap = presetsSection(scrim);
+      panel.appendChild(presetsWrap);
+      window.dsIcons && window.dsIcons.apply(panel);
+
+      /* --- табы-якоря: клик скроллит Modal_Body к секции --- */
+      const tabs = Array.from(modal.querySelectorAll('.tfm__nav .tab'));
+      function setActive(id) {
+        tabs.forEach(t => {
+          const on = t.dataset.target === id;
+          t.classList.toggle('tab--selected', on);
+          if (on) t.setAttribute('aria-current', 'true');else t.removeAttribute('aria-current');
+        });
       }
-      showTab('general');
-      modal.querySelectorAll('[role="tab"]').forEach(tb => {
-        tb.addEventListener('click', () => {
-          modal.querySelectorAll('[role="tab"]').forEach(x => {
-            x.classList.remove('tab--selected');
-            x.setAttribute('aria-selected', 'false');
-            x.tabIndex = -1;
+      const offsetIn = el => scroller.scrollTop + (el.getBoundingClientRect().top - scroller.getBoundingClientRect().top);
+      let spyLock = 0;
+      tabs.forEach(t => {
+        t.addEventListener('click', () => {
+          const sec = panel.querySelector('#' + t.dataset.target);
+          if (!sec) return;
+          setActive(t.dataset.target);
+          spyLock = Date.now() + 900;
+          scroller.scrollTo({
+            top: Math.max(0, offsetIn(sec) - 16),
+            behavior: 'smooth'
           });
-          tb.classList.add('tab--selected');
-          tb.setAttribute('aria-selected', 'true');
-          tb.tabIndex = 0;
-          showTab(tb.dataset.tab);
         });
       });
-      modal.querySelector('.tfm-save').addEventListener('click', () => {
+
+      /* --- тени шапки/подвала + scroll spy на прокрутке Modal_Body (правило Modal) --- */
+      function onScroll() {
+        head.classList.toggle('is-scrolled', scroller.scrollTop > 0);
+        foot.classList.toggle('is-scrolled', scroller.scrollTop + scroller.clientHeight < scroller.scrollHeight - 1);
+        if (Date.now() < spyLock) return;
+        const secs = Array.from(panel.querySelectorAll('.tfm__sec'));
+        if (!secs.length) return;
+        if (scroller.scrollTop >= scroller.scrollHeight - scroller.clientHeight - 2) {
+          setActive(secs[secs.length - 1].id);
+          return;
+        }
+        let current = secs[0];
+        secs.forEach(s => {
+          if (offsetIn(s) - scroller.scrollTop <= 48) current = s;
+        });
+        current && setActive(current.id);
+      }
+      scroller.addEventListener('scroll', onScroll);
+      onScroll();
+      modal.addEventListener('click', e => {
+        const save = e.target.closest && e.target.closest('.tfm-save');
+        if (!save) return;
         nested(scrim, {
-          title: 'Сохранить фильтр',
+          title: 'Сохранить пресет',
           confirmLabel: 'Сохранить',
+          width: 3,
           body: '<div class="inp inp--m"><label class="ds-label ds-label--left"><span class="ds-label__text">Название пресета</span></label><div class="inp__field"><input class="inp__control nested-name" placeholder="Например, Мои сделки"></div></div>',
           onConfirm: s => {
-            const name = (s.querySelector('.nested-name').value || '').trim() || 'Новый фильтр';
+            const name = (s.querySelector('.nested-name').value || '').trim() || 'Новый пресет';
             const exists = presets.find(p => p.name === name);
+            const current = paramsFor(4);
             if (exists) {
               nested(scrim, {
                 title: 'Заменить пресет?',
                 confirmLabel: 'Заменить',
+                width: 3,
                 body: '<p style="margin:0;">Пресет с именем «' + name + '» уже существует. Заменить его текущими параметрами?</p>',
                 onConfirm: () => {
-                  exists.count = 4;
+                  exists.params = current;
                   presetsWrap._draw && presetsWrap._draw();
                 }
               });
@@ -20356,12 +21109,13 @@ try { (() => {
               nested(scrim, {
                 title: 'Достигнут лимит',
                 confirmLabel: 'Понятно',
-                body: '<p style="margin:0;">Сохранено максимум 5 фильтров. Удалите один, чтобы добавить новый.</p>'
+                width: 3,
+                body: '<p style="margin:0;">Сохранено максимум 5 пресетов. Удалите один, чтобы добавить новый.</p>'
               });
             } else {
               presets.push({
                 name,
-                count: 4
+                params: current
               });
               presetsWrap._draw && presetsWrap._draw();
             }
@@ -20369,11 +21123,11 @@ try { (() => {
         });
       });
       modal.querySelector('.tfm-clear').addEventListener('click', () => {
-        modal.querySelectorAll('.tfm__panel .chip').forEach(c => c.remove());
-        modal.querySelectorAll('.tfm__panel .inp__control').forEach(i => {
+        modal.querySelectorAll('.tfm__sec .chip').forEach(c => c.remove());
+        modal.querySelectorAll('.tfm__sec .inp__control').forEach(i => {
           i.value = '';
         });
-        modal.querySelectorAll('.tfm__panel .cb__input').forEach(i => {
+        modal.querySelectorAll('.tfm__sec .cb__input').forEach(i => {
           i.checked = false;
         });
       });
@@ -20383,20 +21137,31 @@ try { (() => {
         if (e.target === scrim) closeFilterModal(false);
       });
       window.dsIcons && window.dsIcons.apply(scrim);
+      /* фокус — на первый интерактивный элемент тела (иначе крестик) */
+      const firstIn = modal.querySelector(FOCUSABLE.split(',').map(s => '.modal__body ' + s.trim()).join(',')) || modal.querySelector('.modal__close button');
+      firstIn && firstIn.focus();
     }
     function closeFilterModal() {
       if (!activeScrim) return;
+      /* вложенные диалоги тоже держат замок — снять столько же раз */
+      activeScrim.querySelectorAll('.modal-scrim--nested').forEach(() => unlockScroll());
       activeScrim.remove();
       activeScrim = null;
+      unlockScroll();
+      /* вернуть фокус на элемент-инициатор */
       if (openerEl) {
         openerEl.setAttribute('aria-expanded', 'false');
+        openerEl.focus();
         openerEl = null;
       }
     }
     document.addEventListener('keydown', e => {
       if (e.key !== 'Escape' || !activeScrim) return;
       const nestedScrim = activeScrim.querySelector('.modal-scrim--nested');
-      if (nestedScrim) nestedScrim.remove();else closeFilterModal(false);
+      if (nestedScrim) {
+        nestedScrim.remove();
+        unlockScroll();
+      } else closeFilterModal(false);
     });
     const openBtn = document.getElementById('open-modal');
     openBtn && openBtn.addEventListener('click', () => openFilterModal(openBtn));

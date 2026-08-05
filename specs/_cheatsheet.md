@@ -266,13 +266,13 @@ css: `styles/icon-button.css` · deps: [badge]
 Безрамочная кнопка с одной иконкой и круглым стейт-слоем (риплом).
 
 ```html
-<button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать">
+<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать">
   <svg aria-hidden="true">…</svg>          <!-- 24/20/16 px по размеру кнопки -->
 </button>
 <button type="button" class="ibtn ibtn--primary ibtn--l ibtn--selected" aria-pressed="true" aria-label="В избранном">
   <svg aria-hidden="true">…</svg>
 </button>
-<button type="button" class="ibtn ibtn--neutral ibtn--m ibtn--loading" aria-busy="true" aria-label="Ещё">
+<button type="button" class="ibtn ibtn--neutral ibtn--s ibtn--loading" aria-busy="true" aria-label="Ещё">
   <span class="ibtn__spinner"></span>
 </button>
 <button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Сделки">
@@ -496,8 +496,8 @@ css: `styles/nav-panel.css` · deps: [icon-button, badge, avatar]
 ```html
 <nav class="nav nav--drawer" aria-label="Главное меню">
   <div class="nav__top">
-    <button class="ibtn ibtn--neutral ibtn--m nav__burger" aria-label="Свернуть меню"><i data-icon="left-menu"></i></button>
-    <button class="ibtn ibtn--neutral ibtn--m nav__pin" aria-pressed="false" aria-label="Закрепить панель"><i data-icon="pin-menu"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--s nav__burger" aria-label="Свернуть меню"><i data-icon="left-menu"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--s nav__pin" aria-pressed="false" aria-label="Закрепить панель"><i data-icon="pin-menu"></i></button>
   </div>
   <div class="nav__list">
     <a class="nav__item nav__item--selected" href="#" aria-current="page"><span class="nav__ico"><i data-icon="main-page"></i></span><span class="nav__label">Главная</span></a>
@@ -512,7 +512,7 @@ css: `styles/nav-panel.css` · deps: [icon-button, badge, avatar]
       <span class="av av--circular av--m"><span class="av__text">АП</span></span>
       <span class="nav__user-text"><span class="nav__user-name">Александров Петр</span><span class="nav__user-role">Аналитик ДИД</span><span class="nav__user-org">SMB Недвижимость +2</span></span>
     </div>
-    <button class="ibtn ibtn--neutral ibtn--m nav__logout" aria-label="Выйти"><i data-icon="logout"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--s nav__logout" aria-label="Выйти"><i data-icon="logout"></i></button>
   </div>
 </nav>
 <!-- Rail: nav--rail (подписи → тултип, бейдж на угол иконки, футер = только аватар). Fixed: nav--fixed (шов справа, без тени). -->
@@ -692,31 +692,31 @@ css: `styles/entity.css` · deps: [avatar, chip, icon-button, button, badge]
 Ведущий: `.entity__icon` (тон `--accent`/`--neutral`) или `.av` из ДС. Состояния: `--interactive` (hover-тайл) · `--selected` (--primary-bg) · `--skeleton` (загрузка + шиммер, aria-busy) · `--empty` (Label «—») · `--error` (объект удалён, зачёркнут). Label усекается (`--truncate`) + Tooltip. Действий max 2 → иначе кебаб. Полная анатомия: specs/Entity.md.
 
 ## TableCell
-css: `styles/table-cell.css` · deps: [checkbox, chip, icon-button, button, tooltip]
+css: `styles/table-cell.css` · deps: [checkbox, chip, icon-button, button, input, dropdown-list, tooltip]
 
-Ячейка таблицы (`.tc`) и ячейка шапки (`.th`, TableHeader). Универсальный контейнер контента строки: текст, дерево, чипы, контролы, редактируемые поля. Фона нет — наследует фон строки; скругления даёт контейнер таблицы. Нет плотностей — высота строки фикс. **48px**, растёт только у `.tc--wrap` (перенос текста вместо усечения). Каждая строка начинается/заканчивается структурной ячейкой-разделителем `.tc--separator`/`.th--separator` (8px, всегда, не выбирается как тип контента).
+Ячейка таблицы (`.tc`) и ячейка шапки (`.th`, TableHeader). Универсальный контейнер контента строки: текст, дерево, чипы, контролы, редактируемые поля. Фона нет — наследует фон строки; скругления даёт контейнер таблицы. Нет плотностей — высота строки фикс. **48px**, растёт только у `.tc--wrap`. Каждая строка начинается/заканчивается структурной ячейкой-разделителем `.tc--separator`/`.th--separator` (8px, не выбирается как тип контента). Внутрь ставятся компоненты ДС (Checkbox, Chip, IconButton, Input S) — своих аналогов ячейка не рисует.
 
 ```html
-<!-- в проде — нативные table/th/td; .tc/.th — оформление -->
+<!-- в проде — нативные table/th/td; .tc/.th — оформление. Состояние — на СТРОКЕ -->
 <div class="tbl">
   <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 96px 8px;">
-    <div class="th--separator"></div>
-    <div class="th"><span class="th__label">Контрагент</span><button class="th__sort" aria-label="Сортировать"><i data-icon="sort"></i></button></div>
-    <div class="th th--right th--sorted"><span class="th__label">Сумма, ₽</span><button class="th__sort"><i data-icon="sort-down"></i></button></div>
+    <div class="th th--separator"></div>
+    <div class="th" aria-sort="none"><span class="th__label">Контрагент</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-pressed="false" aria-label="Закрепить колонку"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
+    <div class="th th--right th--sorted" aria-sort="descending"><span class="th__label">Сумма, ₽</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort"><i data-icon="arrow-narrow-down"></i></button></span></div>
     <div class="th th--center"><span class="th__label">Действия</span></div>
-    <div class="th--separator"></div>
+    <div class="th th--separator"></div>
   </div>
-  <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 96px 8px;">
-    <div class="tc--separator"></div>
+  <div class="tbl__row tbl__row--selected" style="grid-template-columns:8px 2fr 1fr 96px 8px;">
+    <div class="tc tc--separator"></div>
     <div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">ООО ЮгСтрой</span><span class="tc__icon tc__icon--warning"><i data-icon="alert-triangle"></i></span></span></div>
-    <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">1 240 500</span></span></div>
+    <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">1 240 500,00</span></span></div>
     <div class="tc"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить"><i data-icon="edit"></i></button></div></div>
-    <div class="tc--separator"></div>
+    <div class="tc tc--separator"></div>
   </div>
 </div>
 ```
 
-Значение всегда обёрнуто в `.tc__row` (prefix · text · postfix · icon — каждый независимая опция). Выравнивание: слева (по умолч.) / справа (без «по центру» — не поддерживается для текста). Числа: toggle "numeric" → `.tc--numbers` (справа, tabular-nums). Вторая строка — опция для ЛЮБОГО типа: `.tc__body` > `.tc__row` + `.tc__subtext` (Body XS), работает и при выравнивании справа. Дерево: `--tree` (`.tc__twisty` + `--tc-level`, лист `.tc__twisty--leaf`). Чипы/кнопки в `.tc__controls` (чипы — тон `chip--success/warning/error/info` + `chip--rounded`, кол-во произвольное). Input: `--input` (`.tc__field` + `.tc__field-input/-icon/-clear`). `.tc__hidden` — действия по hover, сочетаются с truncate+tooltip. Усечение по умолчанию вкл. (`.tc__text--truncate` + Tooltip floating `tip--multiline` по scrollWidth>clientWidth, показывает полный текст без обрезки); выкл. → `.tc--wrap` (перенос, растёт высота). Фон колонки: `--accent`/`--pinned`. Состояния: `--hover`/`--focus`/`--selected`/`--disabled`/`--error`(+`--error-bg`)/`--skeleton`. EditMark — `--edited`, угловой маркер **в правом верхнем углу**. Separator (`.tc.tc--separator`/`.th.th--separator`) — ОБЯЗАТЕЛЬНО с базовым классом `.tc`/`.th`: это обычная ячейка (фон/бордер/состояния как у всех), просто без контента и шириной 8px, всегда первая/последняя в строке. Шапка — Body S (не strong): `.th__label` · `.th__sort` (sort/sort-up/sort-down, активн. `--sorted`) · `.th__action` (кебаб по hover), `aria-sort`. Полная анатомия: specs/TableCell.md.
+Значение всегда в `.tc__row` (иконка слева · prefix · text · postfix · иконка справа — каждый независимая опция; иконки 16px стоят вплотную к тексту, не у границы). Выравнивание: слева / справа (по центру — только служебное для контролов). Числа: `.tc--numbers` — один класс даёт и правое выравнивание, и tabular-nums; разряды через Intl.NumberFormat('ru-RU'). Вторая строка — опция любого типа: `.tc__body` > `.tc__row` + `.tc__subtext`. Дерево: `--tree` (`.tc__twisty` + `--tc-level`, лист `.tc__twisty--leaf`), раскрывает дочерние строки. Чекбокс — компонент Checkbox `.cb--no-content` (галочка/минус — инлайн-глиф, не иконка 24px); в колонке выбора чекбокс шапки центрирован по колонке над чекбоксами строк, инструменты шапки прижаты к правому краю абсолютом, колонке ставится порог ширины классом `.th--select`/`.tc--select` (124px) на всех её ячейках. Чипы/кнопки в `.tc__controls`. Редактируемая ячейка: `.tc--input` + `.inp.inp--s` (Input «Table Edit»); в покое поле без рамки, иконки действий (очистка/календарь/шеврон, 16px, тон `--secondary`) видны только в фокусе строки. `.tc__hidden` — скрытые действия: настройка поверх ячейки, появляются по hover/focus строки. Усечение по умолчанию вкл. (`.tc__text--truncate` + floating Tooltip по scrollWidth>clientWidth); выкл. → `.tc--wrap`. Фон колонки: `--accent` / `--pinned` (+ `.tbl--scroll` = sticky-колонка). Состояния Hover/Focus/Selected — на строке (`.tbl__row--hover/--focus/--selected`), красят ВСЕ ячейки строки включая разделители; служебные Error(+`--error-bg`)/Empty/Skeleton/EditMark(`--edited`, правый верхний угол) — на ячейке. **Disabled у таблицы нет.** Шапка — Body S: `.th__label` · `.th__tools` (`.th__pin` pin→pin-filled, `.th__sort` arrow-up-down→arrow-narrow-up/down; обе IconButton neutral S, активные `--secondary-dark`) · `.th__action` (кебаб по hover), `aria-sort`/`aria-pressed`. Настройка колонок: ширина — ручка `.th__resize` на правой границе шапки (9px, минимум 96px, клавиши ← → шагом 16px); порядок — ТОЛЬКО перетаскивание за `.th__label` у `.th--movable` (порог 4px, `.th--dragging`/`.tc--dragging` + линия `.tbl__guide`); кнопок/меню, дублирующих перенос, у колонки нет. Полная анатомия: specs/TableCell.md.
 
 ## RiskMetric
 css: — (композиция) · deps: [chip, popover, icon-button, divider]
@@ -782,12 +782,12 @@ css: `styles/radio.css` · deps: [label-helper]
   <div class="rb-group__items">
     <label class="rb rb--selected">
       <input type="radio" class="rb__input" name="refresh" checked>
-      <span class="rb__box"><span class="rb__mark"></span></span>
+      <span class="rb__box"><i class="rb__mark" data-icon="radio-button-checked"></i></span>
       <span class="rb__content"><span class="rb__label">Ежеминутно</span></span>
     </label>
     <label class="rb rb--unselected">
       <input type="radio" class="rb__input" name="refresh">
-      <span class="rb__box"><span class="rb__mark"></span></span>
+      <span class="rb__box"><i class="rb__mark" data-icon="radio-button-unchecked"></i></span>
       <span class="rb__content"><span class="rb__label">Ежечасно</span></span>
     </label>
   </div>
@@ -992,31 +992,37 @@ css: `styles/tooltip.css` · deps: [button]
 ```
 
 ## TableFilter
-css: `styles/table-filter.css` · deps: [button, icon-button, chip, badge, modal, tab, input, checkbox]
+css: `styles/table-filter.css` · deps: [button, button-group, context-menu, chip, modal, tab, input, input-date-range, checkbox, icon-button]
 
-Панель фильтра над таблицей. Слева кнопка «Фильтр» (Outline XS, ведущая воронка тонирована в `--primary`) — открывает модалку; при активном фильтре рядом появляется вторая, самостоятельная кнопка сброса (Outline XS icon-only, `filter-reset`) — кнопки НЕ сращены в группу, у каждой полное скругление, обе высотой 24px как чипы. Справа чиплист применённых параметров (Chip Edit S, «Категория: значения»); переполнение свёрнуто в «+N» + шеврон-аккордеон. Собственный CSS — только раскладка бара; статичный мокап рисуется нужным состоянием (свёрнут/развёрнут) без JS.
+Панель фильтра над таблицей. Кнопка «Фильтр» (Button Outline S, ведущая воронка тонирована в `--primary`) открывает модалку; применённый фильтр возвращается в бар ОДНИМ чипом-счётчиком «Применено: N» (Chip Edit M) — крестик чипа сбрасывает фильтр целиком. Отдельной кнопки сброса нет, чиплиста отдельных параметров и «+N» с аккордеоном больше нет (legacy-правила в CSS оставлены только для старых экранов-мокапов). Зазор в баре — 4px.
 
 ```html
-<!-- применён, свёрнут -->
-<div class="tfilter tfilter--collapsed" role="group" aria-label="Фильтр таблицы" data-expanded="false">
-  <div class="tfilter__trigger" role="group" aria-label="Фильтр таблицы">
-    <button class="btn btn--outline btn--xs" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>
-    <button class="btn btn--outline btn--xs btn--icon-only" aria-label="Сбросить фильтры"><i data-icon="filter-reset"></i></button>
-  </div>
-  <div class="tfilter__chips" role="group" aria-label="Применённые параметры">
-    <span class="chip chip--edit chip--s" tabindex="0"><span class="chip__label">ТБ: ЦА, МБ, СРБ, СЗБ</span><span class="chip__remove" role="button" aria-label="Убрать ТБ"><i data-icon="close"></i></span></span>
-    <span class="chip chip--edit chip--s" tabindex="0"><span class="chip__label">Дески: RE, TMT, CND</span><span class="chip__remove" role="button" aria-label="Убрать Дески"><i data-icon="close"></i></span></span>
-  </div>
-  <div class="tfilter__tail">
-    <span class="badge badge--xs badge--neutral badge--text tfilter__more" aria-label="ещё 3 параметров">+3</span>
-    <button class="ibtn ibtn--neutral ibtn--s tfilter__toggle" aria-label="Развернуть фильтр" aria-expanded="false"><span class="tfilter__chev"><i data-icon="chevron-down"></i></span></button>
-  </div>
+<!-- применён: кнопка + один чип-счётчик -->
+<div class="tfilter" role="group" aria-label="Фильтр таблицы">
+  <button class="btn btn--outline btn--s tfilter__open" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>
+  <span class="chip chip--edit chip--m tfilter__applied" tabindex="0"><span class="chip__label">Применено: 3</span><span class="chip__remove" role="button" aria-label="Сбросить все фильтры"><i data-icon="close"></i></span></span>
 </div>
-<!-- не применён: только <div class="tfilter__trigger"><button class="btn btn--outline btn--xs">…Фильтр…</button></div> -->
+<!-- не применён: только кнопка .tfilter__open внутри .tfilter -->
+
+<!-- есть сохранённые пресеты → ButtonGroup Split вместо одиночной кнопки -->
+<div class="tfilter" role="group" aria-label="Фильтр таблицы">
+  <span class="menu-anchor tfilter__split">
+    <span class="btn-group btn-group--outline btn-group--split" role="group" aria-label="Фильтр">
+      <button class="btn btn--outline btn--s tfilter__open" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>
+      <button class="btn btn--outline btn--s btn--icon-only tfilter__presets" aria-haspopup="menu" aria-expanded="false" aria-label="Сохранённые пресеты"><span class="btn__chevron"><i data-icon="chevron-down"></i></span></button>
+    </span>
+    <div class="menu menu--floating tfilter__menu" role="menu" hidden>
+      <div class="menu__label">Сохранённые пресеты</div>
+      <button class="menu__item" role="menuitem"><span class="menu__item-label">Мои сделки ЦА</span><span class="menu__item-hint">3</span></button>
+    </div>
+  </span>
+</div>
 ```
 
+Модалка фильтра (Modal w6): Modal_Top «Фильтр» + крестик; Modal_Body `--flush` = сетка [nav 232px | контентная область]; Modal_Bottom — слева «Сохранить пресет», справа «Очистить» + «Применить». Высота модалки не задаётся: контент до 80vh, прокручивается сам `.modal__body`, `.tfm__nav` — sticky, head/foot получают `.is-scrolled`. Вертикальные табы (`.tabs--vert`, Tab M vertical) прижаты вплотную к левой границе модалки (padding: 16px 0) и работают как ЯКОРНЫЕ ССЫЛКИ: контентная область содержит все разделы подряд и прокручивается, клик доводит до раздела, scroll spy ставит `aria-current="true"`; бейдж таба = число заполненных параметров раздела. Форма внутри разделов — двухколоночная сетка `.tfm__grid` (grid 2×minmax(0,1fr), gap 16px), широкое поле — `.tfm__span-2`. Раздел «Даты» — два InputDateRange («Дата сделки», «Дата изменения») на всю ширину. Разделы: «Общая информация», «Даты», «Сохранённые пресеты». Пока модалка открыта, скролл страницы под скримом заблокирован (body overflow:hidden + компенсация ширины скроллбара, счётчик замков для вложенных диалогов). Карточка пресета — шеврон-аккордеон (IconButton Neutral S, `aria-expanded`/`aria-controls`) раскрывает таблицу «Параметр — значение», рядом «Применить» (Button Outline XS) и корзина (IconButton Neutral S). Сохранение пресета — кнопка «Сохранить пресет» в подвале → вложенный диалог w3 с одним полем. Открытие модалки: скролл body заблокирован, фон inert/aria-hidden, focus trap, возврат фокуса на инициатор.
+
 ## Tile
-css: `styles/tile.css` · deps: [icon-button, button, link, chip, badge, alert, divider]
+css: `styles/tile.css` · deps: [icon-button, button, link, chip, badge, alert, divider, read-only-field]
 
 Основная плашка рабочей области: TileHeader (M) + опц. Alert + контентная область (наполнение индивидуально). Ширина 3–12 колонок, отступы контента 10/20/24/20. Собственных состояний нет. Варианты: `--headless` (без хэдера, отступы 24/24/32/24), `--accordion` (+ `--collapsed`).
 
@@ -1030,15 +1036,15 @@ css: `styles/tile.css` · deps: [icon-button, button, link, chip, badge, alert, 
         <span class="tile__title-add tile__title-add--icon" aria-hidden="true"><i data-icon="alert-triangle-filled"></i></span>
       </div>
       <p class="tile__subtitle"><span class="tile__subtitle-icon"><i data-icon="check-circle-filled"></i></span>Нерезидент</p>
-      <div class="tile__chiplist"><span class="chip chip--readonly chip--s"><span class="chip__label">Погашен</span></span></div>
+      <div class="tile__chiplist"><span class="chip chip--readonly chip--xs"><span class="chip__label">Погашен</span></span></div>
     </div>
-    <div class="tile__actions">
-      <button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button>
+    <div class="tile__actions"><!-- 1..3 действия: IconButton M (20×20) и/или Button, зазор 8 -->
+      <button class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button>
     </div>
   </header>
   <!-- опц. полноширинный Alert между хэдером и контентом (в Card не бывает) -->
-  <div class="tile__alert"><div class="alert alert--warning alert--s" role="status">…</div></div>
-  <div class="tile__body"><div class="tile__grid" style="grid-template-columns:1fr 1fr;">…</div></div>
+  <div class="tile__alert"><div class="alert alert--warning alert--s" role="status">…</div></div>  <!-- warning | info | error -->
+  <div class="tile__body"><div class="tile__grid" style="grid-template-columns:1fr 1fr;">…поля ReadOnlyField (.rof)…</div></div>
 </section>
 
 <!-- headless -->
@@ -1046,10 +1052,10 @@ css: `styles/tile.css` · deps: [icon-button, button, link, chip, badge, alert, 
 
 <!-- accordion: toggle .tile__toggle (aria-expanded) над .tile__collapsible; свёрнуто — .tile--collapsed -->
 <section class="tile tile--accordion">
-  <header class="tile__header">… <button class="ibtn ibtn--neutral ibtn--s tile__toggle" aria-expanded="true" aria-controls="acc-1"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button></header>
+  <header class="tile__header">… <button class="ibtn ibtn--neutral ibtn--m tile__toggle" aria-expanded="true" aria-controls="acc-1"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button></header>
   <div class="tile__collapsible" id="acc-1"><div class="tile__body">…</div></div>
 </section>
 ```
 
-Отступы контента 10/20/24/20 (headless 24/24/32/24) · строки 16/24 · колонки 16. Title `--type-h5-strong`, Subtitle Body XS. Полная анатомия: specs/Tile.md.
+Паддинги хэдера 20/20/10/20 · отступы контента 0/20/24/20 — визуально 10/20/24/20 (headless 20/20/32/20) · строки 16/24 · колонки 16 · зазор в header-main 8, в actions 8, в chiplist 4. Title `--type-h5-strong`, Subtitle Body XS. Полная анатомия: specs/Tile.md.
 

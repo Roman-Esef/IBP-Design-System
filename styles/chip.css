@@ -144,12 +144,6 @@
    text (left) keeps a fuller 8px, icon (right) reads correctly at a tighter 4px.
    Scoped to chips with .chip__info (RiskMetric) — doesn't touch other Chip usages. */
 .chip:has(.chip__info) { padding-left: 8px; padding-right: 4px; }
-/* .chip__info hosts its glyph as <i data-icon="…"> (ds-icons.js) rather than inline <svg> —
-   ds-icons.js's own [data-icon]{width:24px;height:24px} rule has equal specificity and loads
-   after chip.css, so it wins the cascade and forces the icon to 24px regardless of --chip-icon.
-   Pin it back to the chip's icon slot size (16px on chip--s) with higher specificity. */
-.chip__info [data-icon] { width: 100%; height: 100%; }
-.chip__info [data-icon] svg { width: 100%; height: 100%; }
 
 /* ---------- sizes --------------------------------------------------------- *
    NB: size/tone/state values live directly on properties (not via local --*

@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/shadow.css">
 <link rel="stylesheet" href="../../styles/button.css">
+<link rel="stylesheet" href="../../styles/button-group.css">
+<link rel="stylesheet" href="../../styles/context-menu.css">
 <link rel="stylesheet" href="../../styles/icon-button.css">
 <link rel="stylesheet" href="../../styles/checkbox.css">
 <link rel="stylesheet" href="../../styles/chip.css">
@@ -114,16 +116,35 @@
   /* ---------- filter modal demo (композиция на Modal + Tab + Input) ---------- */
   .demo-launch { display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding:26px; border:1px solid var(--border-light); border-radius:14px; background: var(--tertiary-light); }
   .demo-launch .cap { font: var(--type-body-s); color: var(--text-secondary); }
-  .tfm__body { display:grid; grid-template-columns: 232px minmax(0,1fr); gap:0; padding:0; align-items:stretch; min-height:360px; width:100%; }
-  @media (max-width:640px){ .tfm__body { grid-template-columns:1fr; } }
-  .tfm__nav { border-right:1px solid var(--border-light); padding:20px 16px; min-width:0; }
-  @media (max-width:640px){ .tfm__nav { border-right:none; border-bottom:1px solid var(--border-light); } }
-  .tfm__panel { padding:24px 26px; display:flex; flex-direction:column; gap:20px; min-width:0; }
-  .tfm__panel-title { font: var(--type-body-m-strong); color: var(--text-primary); margin:0; }
+  /* модалка фильтра: высота НЕ фиксируется — растёт по контенту до 80vh,
+     прокручивается только Modal_Body (правило Modal) */
+  .tfm__body { display:grid; grid-template-columns: 232px minmax(0,1fr); gap:0; padding:0; align-items:start; width:100%;
+    background-image:linear-gradient(var(--border-light),var(--border-light)); background-size:1px 100%; background-position:232px 0; background-repeat:no-repeat; }
+  @media (max-width:640px){ .tfm__body { grid-template-columns:1fr; background-image:none; } }
+  /* вертикальные табы вплотную к левой границе модалки; при прокрутке тела остаются видны */
+  .tfm__nav { padding:16px 0; min-width:0; position:sticky; top:0; }
+  @media (max-width:640px){ .tfm__nav { position:static; border-bottom:1px solid var(--border-light); } }
+  .tfm__panel { padding:24px 26px 24px; display:flex; flex-direction:column; gap:28px; min-width:0; }
+  .tfm__sec { display:flex; flex-direction:column; gap:16px; }
+  .tfm__sec-title, .tfm__panel-title { font: var(--type-body-m-strong); color: var(--text-primary); margin:0; }
+  /* двухколоночная форма: поле = одна клетка, широкое поле — .tfm__span-2 */
+  .tfm__grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:start; }
+  /* .inp \u043f\u043e \u0434\u0435\u0444\u043e\u043b\u0442\u0443 280px \u2014 \u0432 \u0441\u0435\u0442\u043a\u0435 \u043f\u043e\u043b\u0435 \u0442\u044f\u043d\u0435\u0442\u0441\u044f \u043d\u0430 \u0432\u0441\u044e \u043a\u043b\u0435\u0442\u043a\u0443, \u0438\u043d\u0430\u0447\u0435 \u043c\u0435\u0436\u0434\u0443 \u043f\u043e\u043b\u044f\u043c\u0438 \u0432\u0438\u0434\u0435\u043d \u043b\u043e\u0436\u043d\u044b\u0439 \u0437\u0430\u0437\u043e\u0440 */
+  .tfm__grid > .inp { width:100%; }
+  .tfm__grid > .tfm__span-2 { grid-column:1 / -1; }
+  @media (max-width:640px){ .tfm__grid { grid-template-columns:1fr; } }
+  /* выпадающий список пресетов в баре (Split Button) */
+  .tfilter__split .tfilter__menu { top:calc(100% + 6px); left:0; min-width:248px; }
   /* presets */
   .preset-list { display:flex; flex-direction:column; gap:8px; }
-  .preset-row { display:flex; align-items:center; gap:12px; padding:10px 12px; border:1px solid var(--border-light); border-radius:10px; background: var(--bg-tile); }
+  .preset-item { border:1px solid var(--border-light); border-radius:10px; background: var(--bg-tile); overflow:hidden; }
+  .preset-row { display:flex; align-items:center; gap:12px; padding:10px 12px; }
   .preset-row:hover { background: var(--bgtable-row-hover); }
+  .preset-item__body { padding:4px 12px 12px 48px; border-top:1px solid var(--border-light); }
+  .preset-params { width:100%; border-collapse:collapse; }
+  .preset-params th { text-align:left; padding:8px 8px 6px 0; font: var(--type-body-xs); color: var(--text-inactive); font-weight:400; }
+  .preset-params td { padding:6px 8px 6px 0; font: var(--type-body-s); color: var(--text-primary); vertical-align:top; }
+  .preset-params tbody tr + tr td { border-top:1px solid var(--border-light); }
   .preset-row__name { flex:1 1 auto; min-width:0; font: var(--type-body-m); color: var(--text-primary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .preset-row__count { font: var(--type-body-s); color: var(--text-inactive); flex:none; }
   .preset-empty { padding:36px 20px; text-align:center; color: var(--text-inactive); font: var(--type-body-s); border:1px dashed var(--border-primary); border-radius:12px; }
@@ -146,16 +167,16 @@
 <main class="page" data-screen-label="TableFilter">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.2</b></span><span>Обновлено: <b>14.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>04.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>TableFilter</h1>
-    <p class="lead">TableFilter — панель фильтра над таблицей. Кнопка <b>«Фильтр»</b> открывает модалку с параметрами фильтрации; применённые параметры возвращаются в бар отдельными чипами с возможностью снять каждый по отдельности или сбросить все разом. Когда чипов больше, чем помещается в ряд, лишние сворачиваются в счётчик <b>«+N»</b>, а бар разворачивается в несколько рядов по шеврону.</p>
+    <p class="lead">TableFilter — панель фильтра над таблицей. Кнопка <b>«Фильтр»</b> (Button Outline S) открывает модалку с параметрами фильтрации; применённый фильтр возвращается в бар одним чипом-счётчиком <b>«Применено: N»</b> (Chip Edit M), где N — число применённых параметров. Крестик чипа сбрасывает фильтр целиком; отдельной кнопки сброса в баре нет.</p>
   </header>
 
   <!-- PLAYGROUND -->
   <section class="section" data-screen-label="Playground">
     <h2>Конструктор</h2>
-    <p class="desc">Соберите бар: применён фильтр или нет, сколько параметров выбрано, свёрнут бар в один ряд или развёрнут. Модалку фильтра с сохранёнными пресетами можно открыть в разделе «Поведение».</p>
+    <p class="desc">Соберите бар: применён фильтр или нет и сколько параметров применено. Модалку фильтра с сохранёнными пресетами можно открыть в разделе «Поведение».</p>
     <div class="panel pg">
       <div class="pg__controls" id="pg-controls"></div>
       <div class="pg__stage" id="pg-stage"></div>
@@ -192,26 +213,26 @@
       <div class="guide-card good">
         <div class="guide-card__bar"></div>
         <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
-        <div class="guide-card__body">Чип-параметр объединяет категорию и её значения: «ТБ: ЦА, МБ, СРБ». Один чип — один параметр модалки.</div>
-        <p class="guide-card__cap">Пользователь снимает целый параметр одним крестиком, а не по значению.</p>
+        <div class="guide-card__body">Применённый фильтр сворачивается в один чип-счётчик «Применено: 3» рядом с кнопкой.</div>
+        <p class="guide-card__cap">Бар занимает одну строку при любом числе параметров; состав фильтра смотрят в модалке.</p>
       </div>
       <div class="guide-card bad">
         <div class="guide-card__bar"></div>
         <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
-        <div class="guide-card__body">Каждое значение вынесено отдельным чипом («ЦА», «МБ», «СРБ», «СЗБ») — бар мгновенно переполняется и теряет структуру.</div>
-        <p class="guide-card__cap">Дробить параметр на значения-чипы стоит, только если модалка позволяет снимать значения по отдельности.</p>
+        <div class="guide-card__body">Каждый параметр вынесен отдельным чипом («ТБ: ЦА, МБ», «Дески: RE, TMT»…) — бар переполняется и требует «+N» с аккордеоном.</div>
+        <p class="guide-card__cap">Чиплист отдельных параметров — устаревшая модель бара, в новых экранах не используется.</p>
       </div>
       <div class="guide-card good">
         <div class="guide-card__bar"></div>
         <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Так</div>
-        <div class="guide-card__body">Кнопка сброса появляется только когда есть что сбрасывать — отдельной кнопкой рядом с «Фильтр».</div>
-        <p class="guide-card__cap">Нет применённых параметров — нет кнопки сброса и чипов, только одиночная кнопка «Фильтр».</p>
+        <div class="guide-card__body">Сброс живёт на крестике чипа: есть чип — есть сброс, нет фильтра — в баре только кнопка «Фильтр».</div>
+        <p class="guide-card__cap">Одно действие в одном месте, лишняя иконка-кнопка в баре не нужна.</p>
       </div>
       <div class="guide-card bad">
         <div class="guide-card__bar"></div>
         <div class="guide-card__tag"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Не так</div>
-        <div class="guide-card__body">Бар растянут на 4 ряда чипов по умолчанию и занимает половину экрана над таблицей.</div>
-        <p class="guide-card__cap">По умолчанию бар свёрнут в один ряд; развёрнутое состояние — по явному действию пользователя.</p>
+        <div class="guide-card__body">Рядом с кнопкой «Фильтр» стоит отдельная кнопка сброса, дублирующая крестик чипа.</div>
+        <p class="guide-card__cap">Два способа сбросить фильтр в двух сантиметрах друг от друга — шум, а не забота.</p>
       </div>
     </div>
   </div>
@@ -220,17 +241,15 @@
   <!-- ANATOMY -->
   <section class="section" data-screen-label="Anatomy">
     <h2>Анатомия</h2>
-    <p class="desc">Слева — кластер-триггер (кнопка «Фильтр» и, при активном фильтре, отдельная соседняя кнопка сброса). Справа — чиплист применённых параметров, а при переполнении — хвост со счётчиком «+N» и шевроном-аккордеоном.</p>
+    <p class="desc">Всего два элемента: кнопка «Фильтр» и, при активном фильтре, чип-счётчик «Применено: N» справа от неё. Зазор между ними — 4px.</p>
     <div class="panel">
       <div class="anat">
         <div class="anat__stage" id="anat-stage"></div>
         <ul class="anat__legend">
-          <li><span class="n"></span><span class="t"><span class="k">Кнопка «Фильтр»</span><span class="d"> — Button Outline XS с ведущей воронкой; открывает модалку</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Сброс фильтров</span><span class="d"> — отдельная кнопка рядом с «Фильтр», снимает все параметры</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Чиплист</span><span class="d"> — контейнер применённых параметров с авто-переносом</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Чип-параметр</span><span class="d"> — Chip Edit S «Категория: значения» с крестиком удаления</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Счётчик «+N»</span><span class="d"> — Badge Text XS, число скрытых при сворачивании чипов</span></span></li>
-          <li><span class="n"></span><span class="t"><span class="k">Шеврон-аккордеон</span><span class="d"> — IconButton Neutral S, разворачивает/сворачивает бар</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Кнопка «Фильтр»</span><span class="d"> — Button Outline S с ведущей воронкой; открывает модалку</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Чип «Применено: N»</span><span class="d"> — Chip Edit M, N = число применённых параметров</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Крестик чипа</span><span class="d"> — сбрасывает все параметры фильтра разом</span></span></li>
+          <li><span class="n"></span><span class="t"><span class="k">Шеврон пресетов</span><span class="d"> — только когда есть сохранённые пресеты: ButtonGroup Split со списком названий</span></span></li>
         </ul>
       </div>
     </div>
@@ -239,46 +258,53 @@
   <!-- VARIANTS -->
   <section class="section" data-screen-label="Variants">
     <h2>Варианты</h2>
-    <p class="desc">Две оси конфигурации: облик кнопки-триггера и состояние бара в целом.</p>
-
-    <div class="subsec" data-screen-label="TriggerVariants">
-      <h3>Кнопка фильтра</h3>
-      <p class="desc">Фильтр не применён — одиночная кнопка. Применён — рядом появляется вторая, самостоятельная кнопка сброса (Button Outline S icon-only), не сросшаяся с первой.</p>
-      <div class="vgrid" id="variants-btn"></div>
-      <p class="dev-note">Обе кнопки — обычный компонент Button (Outline XS), поставленные рядом с зазором 8px; углы каждой скруглены полностью, общего шва между ними нет.</p>
-    </div>
+    <p class="desc">Две оси конфигурации: состояние бара и значение счётчика в чипе.</p>
 
     <div class="subsec" data-screen-label="StateVariants">
       <h3>Состояние бара</h3>
-      <p class="desc">Три состояния из исходного компонента: без фильтра, с фильтром в один ряд (лишнее свёрнуто в «+N»), с фильтром в несколько рядов (развёрнуто).</p>
+      <p class="desc">Фильтр не применён — в баре только кнопка «Фильтр». Применён — справа от кнопки чип «Применено: N».</p>
       <div class="vgrid" id="variants-states"></div>
+    </div>
+
+    <div class="subsec" data-screen-label="PresetVariants">
+      <h3>С сохранёнными пресетами</h3>
+      <p class="desc">Если у пользователя есть сохранённые пресеты, одиночная кнопка заменяется на <a class="inl" href="../molecules/ButtonGroup.html">ButtonGroup</a> в варианте Split Button: слева «Фильтр» (открывает модалку), справа шеврон вниз — он открывает выпадающий список названий пресетов (<a class="inl" href="../molecules/ContextMenu.html">ContextMenu</a>). Выбор пункта применяет пресет сразу, минуя модалку. Нажмите на шеврон.</p>
+      <div class="vgrid" id="variants-presets"></div>
+      <p class="dev-note">Цифра справа в пункте списка — число параметров в пресете. Пресетов нет — шеврона нет, в баре одиночная кнопка (пустой выпадающий список не показываем).</p>
+    </div>
+
+    <div class="subsec" data-screen-label="ChipVariants">
+      <h3>Чип «Применено»</h3>
+      <p class="desc">Один чип на любое число параметров: меняется только N. Чип не переносится на второй ряд и не обрезается.</p>
+      <div class="vgrid" id="variants-chip"></div>
+      <p class="dev-note">Чип — обычный компонент Chip (Edit · Fill · M) с крестиком; счётчик набирается цифрами с tabular-nums, чтобы ширина не дёргалась при смене N.</p>
     </div>
   </section>
 
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
-    <p class="desc tight">Бар наследует размеры от вложенных компонентов. Базовая плотность — Button/IconButton S и Chip S; высота бара определяется высотой ряда чипов.</p>
+    <p class="desc tight">Бар наследует размеры от вложенных компонентов: кнопка — Button Outline S, чип — Chip Edit M. Оба высотой 32px, поэтому высота бара — 32px.</p>
     <div class="panel" style="padding:8px 10px;">
       <table class="size-table" id="size-table">
         <thead><tr><th>Элемент</th><th>Компонент · размер</th><th>Высота</th><th>Комментарий</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
-    <p class="dev-note">Значения высот измеряются на живом экземпляре (см. «Для разработчиков»). Зазор между чипами, а также между последним чипом и хвостом («+N» + шеврон) — 4px; кластер-триггер отделён от чиплиста дополнительным отступом 4px (итого 8px).</p>
+    <p class="dev-note">Значения высот измеряются на живом экземпляре (см. «Для разработчиков»). Зазор между кнопкой и чипом — 4px, единственный отступ внутри бара.</p>
   </section>
 
   <!-- CONTENT -->
   <section class="section" data-screen-label="Content">
     <h2>Контент</h2>
-    <p class="desc tight">Правила наполнения чипов и счётчика:</p>
+    <p class="desc tight">Правила наполнения бара:</p>
     <div class="panel">
       <ul class="rules">
-        <li><b>Формат чипа</b> — «Категория: значения через запятую» («Дески: RE, TMT, CND»). Категория совпадает с меткой поля в модалке.</li>
-        <li><b>Переполнение чипа</b> — длинный текст обрезается многоточием по максимальной ширине чипа (320px из Chip), полный текст показывается тултипом при наведении.</li>
-        <li><b>Один параметр — один чип.</b> Значения внутри параметра не выносятся в отдельные чипы, если модалка не позволяет снимать их по отдельности.</li>
-        <li><b>Счётчик «+N»</b> — целое число скрытых при сворачивании чипов, без пробелов и знаков («+99»). Появляется только в свёрнутом состоянии при переполнении ряда.</li>
-        <li><b>Кнопка «Фильтр»</b> — существительное без счётчика; количество активных параметров передают чипы, а не подпись кнопки.</li>
+        <li><b>Формат чипа</b> — «Применено: N», где N — число применённых параметров («Применено: 3»). Текст фиксирован, категории и значения в баре не перечисляются.</li>
+        <li><b>N считается по параметрам, не по значениям.</b> Поле «ТБ: ЦА, МБ, СРБ» — один параметр, а не три.</li>
+        <li><b>Чип появляется только при N ≥ 1.</b> Фильтр не применён — чипа нет, в баре одна кнопка.</li>
+        <li><b>Состав фильтра смотрят в модалке.</b> Бар отвечает за факт и объём фильтрации, разбор по параметрам — в разделах модалки.</li>
+        <li><b>Кнопка «Фильтр»</b> — существительное без счётчика; количество активных параметров передаёт чип, а не подпись кнопки.</li>
       </ul>
     </div>
   </section>
@@ -286,66 +312,76 @@
   <!-- BEHAVIOR -->
   <section class="section" data-screen-label="Behavior">
     <h2>Поведение</h2>
-    <p class="desc">Открытие модалки, переполнение чиплиста, сброс, сохранённые фильтры и кнопка сброса.</p>
+    <p class="desc">Открытие модалки, навигация по её разделам, счётчик применённых параметров, сброс и сохранённые пресеты.</p>
 
     <div class="subsec" data-screen-label="OpenModal">
       <h3>Открытие модалки фильтра</h3>
-      <p class="desc">Клик по «Фильтр» открывает модалку (<a class="inl" href="Modal.html">Modal</a>) с вертикальными табами-разделами слева и полями справа. Подвал: «Сохранить фильтр» слева, «Очистить» и «Применить» справа. «Применить» закрывает модалку и возвращает выбранные параметры в бар чипами.</p>
+      <p class="desc">Клик по «Фильтр» открывает модалку (<a class="inl" href="Modal.html">Modal</a>, ширина w6) с вертикальными табами-разделами слева и двухколоночной формой справа (одно поле — одна клетка, широкое поле занимает две; зазоры 16/20px). Обязательные части — Modal_Top (заголовок «Фильтр» + крестик) и Modal_Bottom: «Сохранить пресет» слева, «Очистить» и «Применить» справа. Высота модалки не фиксирована: растёт по контенту до 80vh, дальше прокручивается только Modal_Body, шапка и подвал закреплены и получают тень по <code class="tok">.is-scrolled</code>. «Применить» закрывает модалку и возвращает в бар чип «Применено: N».</p>
       <div class="demo-launch">
         <button type="button" class="btn btn--outline btn--m" id="open-modal"><i data-icon="filter"></i><span class="btn__label">Открыть фильтр</span></button>
         <span class="cap">Живой демо-мокап: вертикальные табы, поля, сохранённые пресеты и вложенные диалоги сохранения/удаления.</span>
       </div>
     </div>
 
-    <div class="subsec" data-screen-label="Overflow">
-      <h3>Переполнение чиплиста</h3>
-      <p class="desc">По умолчанию бар свёрнут в один ряд. Скрипт измеряет, сколько чипов помещается, и прячет лишние; наружу выносится счётчик «+N» и шеврон вниз. Клик по шеврону разворачивает бар — чипы переносятся на несколько рядов, шеврон меняется на «вверх». Повторный клик сворачивает обратно.</p>
+    <div class="subsec" data-screen-label="ModalNav">
+      <h3>Разделы модалки — якорные ссылки</h3>
+      <p class="desc">Вертикальные табы (<a class="inl" href="../molecules/Tab.html">Tab</a> M, vertical) размещены вплотную к левой границе модалки: бокового паддинга у навигации нет, левый рельс и индикатор активного раздела совпадают с краем Modal_Body. Табы работают не как переключатель вьюх, а как якорные ссылки: Modal_Body содержит все разделы подряд и прокручивается сам (собственного скроллера у контентной области нет), клик по табу доводит тело до нужного раздела, а при прокрутке активным становится верхний видимый раздел (<code class="tok">aria-current</code>). Навигация — <code class="tok">position: sticky</code>, поэтому остаётся видимой при прокрутке. Бейдж в табе — число заполненных параметров раздела.</p>
+    </div>
+
+    <div class="subsec" data-screen-label="PresetPick">
+      <h3>Выбор пресета из бара</h3>
+      <p class="desc">Когда есть сохранённые пресеты, шеврон ButtonGroup открывает список их названий под группой (зазор 6px, выравнивание по левому краю). Выбор пункта применяет пресет сразу — модалка не открывается, в бар приходит чип «Применено: N» по числу параметров пресета. Список закрывается кликом вне, Esc или выбором пункта; стрелки ↑/↓ водят по пунктам.</p>
+    </div>
+
+    <div class="subsec" data-screen-label="ScrollLock">
+      <h3>Скролл страницы под скримом</h3>
+      <p class="desc">Пока модалка открыта, страница за скримом не прокручивается (правило <a class="inl" href="Modal.html">Modal</a>): на <code class="tok">body</code> ставится <code class="tok">overflow: hidden</code>, а ширина исчезнувшего скроллбара компенсируется правым паддингом, чтобы контент не дёргался. Содержимое страницы за скримом получает <code class="tok">inert</code> и <code class="tok">aria-hidden</code>, фокус заперт внутри модалки (focus trap по Tab/Shift+Tab), при открытии уходит на первое поле тела, при закрытии возвращается на элемент-инициатор. Замки считаются: вложенный диалог берёт свой, и скролл возвращается только после закрытия последнего слоя.</p>
+    </div>
+
+    <div class="subsec" data-screen-label="Counter">
+      <h3>Счётчик применённых параметров</h3>
+      <p class="desc">После «Применить» бар получает один чип «Применено: N». N пересчитывается при каждом применении: параметр, у которого сняли все значения, из счёта уходит. N = 0 — чип не показывается.</p>
     </div>
 
     <div class="subsec" data-screen-label="Reset">
       <h3>Сброс фильтров</h3>
-      <p class="desc">Крестик на чипе снимает один параметр (и обновляет данные таблицы). Кнопка сброса (отдельная кнопка рядом с «Фильтр») снимает все параметры разом и убирает чиплист — бар возвращается к одиночной кнопке «Фильтр». Кнопка сброса появляется только при наличии хотя бы одного применённого параметра.</p>
+      <p class="desc">Крестик чипа сбрасывает фильтр целиком: параметры очищаются, таблица перезапрашивается, чип исчезает и в баре остаётся одна кнопка «Фильтр». Отдельной кнопки сброса рядом с «Фильтр» нет — сброс живёт только на крестике. Точечное снятие одного параметра делается в модалке.</p>
     </div>
 
     <div class="subsec" data-screen-label="Presets">
-      <h3>Сохранённые фильтры (пресеты)</h3>
-      <p class="desc">Текущий набор параметров сохраняется как именованный пресет (до 5 штук). Пресеты живут в отдельном табе модалки: применить, переименовать замену или удалить. Сохранение с занятым именем открывает вложенный диалог подтверждения замены; удаление — вложенный диалог подтверждения. Пустой список показывает плейсхолдер.</p>
-    </div>
-
-    <div class="subsec" data-screen-label="ResetButton">
-      <h3>Кнопка сброса после применения</h3>
-      <p class="desc">Как только применён хотя бы один параметр, рядом с «Фильтр» появляется вторая кнопка — самостоятельный <a class="inl" href="../atoms/Buttons.html">Button</a> Outline XS icon-only с иконкой <code class="tok">filter-reset</code>, сбрасывающий все параметры. Это не Split Button — кнопки не сращены, у каждой полное скругление и обычный зазор 8px.</p>
+      <h3>Сохранённые пресеты</h3>
+      <p class="desc">Текущий набор параметров сохраняется как именованный пресет (до 5 штук) кнопкой «Сохранить пресет» в подвале — она открывает вложенный диалог «Сохранить пресет» с одним полем (ширина w3, по объёму контента). Пресеты живут в разделе «Сохранённые пресеты»: применить, заменить (вложенный confirm при занятом имени) или удалить (вложенный confirm). Карточка пресета раскрывается шевроном-аккордеоном (IconButton Neutral S) и показывает таблицу «Параметр — значение» с составом набора. Пустой список показывает плейсхолдер.</p>
     </div>
   </section>
 
   <!-- STATES -->
   <section class="section" data-screen-label="States">
     <h2>Состояния</h2>
-    <p class="desc tight">Интерактивные элементы бара наследуют состояния от Button, IconButton и Chip; у самого бара есть отдельное состояние заблокированности.</p>
+    <p class="desc tight">Интерактивные элементы бара наследуют состояния от Button и Chip; у самого бара есть отдельное состояние заблокированности.</p>
     <div class="states" id="states-demo"></div>
   </section>
 
   <!-- ACCESSIBILITY -->
   <section class="section" data-screen-label="A11y">
     <h2>Доступность</h2>
-    <p class="desc">Бар — <code class="tok">role="group"</code> с <code class="tok">aria-label="Фильтр таблицы"</code>. Кнопка «Фильтр» — <code class="tok">aria-haspopup="dialog"</code> и <code class="tok">aria-expanded</code>, связана с модалкой. Шеврон-аккордеон — <code class="tok">aria-expanded</code> и <code class="tok">aria-controls</code> на чиплист. Каждый чип-параметр фокусируем, крестик удаления озвучивается как «Убрать {категория}» и доступен по <kbd>Backspace</kbd>/<kbd>Delete</kbd>.</p>
+    <p class="desc">Бар — <code class="tok">role="group"</code> с <code class="tok">aria-label="Фильтр таблицы"</code>. Кнопка «Фильтр» — <code class="tok">aria-haspopup="dialog"</code> и <code class="tok">aria-expanded</code>, связана с модалкой; шеврон пресетов — <code class="tok">aria-haspopup="menu"</code>, <code class="tok">aria-expanded</code> и <code class="tok">aria-label="Сохранённые пресеты"</code>, список — <code class="tok">role="menu"</code> с <code class="tok">role="menuitem"</code> на пунктах. Чип «Применено: N» фокусируем, его крестик озвучивается как «Сбросить все фильтры» и срабатывает по <kbd>Backspace</kbd>/<kbd>Delete</kbd>. Навигация модалки — <code class="tok">&lt;nav&gt;</code> с якорными ссылками и <code class="tok">aria-current="true"</code> на активном разделе (не <code class="tok">role="tablist"</code>: разделы не переключаются, а прокручиваются). Каждое поле формы имеет свою метку (<code class="tok">label[for]</code>), двухколоночная сетка не меняет порядок табуляции.</p></p>
     <div class="row">
       <div class="panel" style="flex:1; min-width:280px;">
         <p class="desc tight" style="margin-bottom:18px;">Клавиатура</p>
         <table class="ref-table"><tbody>
           <tr><td><kbd>Enter</kbd> на «Фильтр»</td><td class="dsc">Открывает модалку фильтра</td></tr>
           <tr><td><kbd>Tab</kbd></td><td class="dsc">Перемещение по чипам и кнопкам бара как по обычным фокусируемым элементам</td></tr>
-          <tr><td><kbd>Backspace</kbd> / <kbd>Delete</kbd></td><td class="dsc">Снимает сфокусированный чип-параметр, фокус переходит на соседний</td></tr>
-          <tr><td><kbd>Enter</kbd> на шевроне</td><td class="dsc">Разворачивает / сворачивает бар</td></tr>
+          <tr><td><kbd>Backspace</kbd> / <kbd>Delete</kbd></td><td class="dsc">Сбрасывает фильтр целиком со сфокусированного чипа «Применено: N»</td></tr>
+          <tr><td><kbd>Enter</kbd> на разделе модалки</td><td class="dsc">Доводит контентную область до раздела (якорная ссылка)</td></tr>
         </tbody></table>
       </div>
       <div class="panel" style="flex:1; min-width:260px;">
         <p class="desc tight" style="margin-bottom:18px;">Скрин-ридер</p>
         <ul class="bullets">
-          <li>счётчик «+N» дублируется доступным текстом «ещё N параметров»;</li>
-          <li>кнопка сброса имеет <code class="tok">aria-label="Сбросить фильтры"</code>;</li>
-          <li>шеврон-аккордеон объявляет состояние через <code class="tok">aria-expanded</code>;</li>
-          <li>снятие чипа объявляется, число оставшихся параметров пересчитывается.</li>
+          <li>чип читается целиком: «Применено: 3»;</li>
+          <li>крестик чипа имеет <code class="tok">aria-label="Сбросить все фильтры"</code>;</li>
+          <li>шеврон карточки пресета объявляет состояние через <code class="tok">aria-expanded</code> и связан с телом через <code class="tok">aria-controls</code>;</li>
+          <li>сброс фильтра объявляется, бар возвращается к одиночной кнопке «Фильтр».</li>
         </ul>
       </div>
     </div>
@@ -360,8 +396,7 @@
         <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
         <tbody>
           <tr><td>Подпись кнопки «Фильтр»</td><td>—</td><td>SB Sans Text — токены Button (S)</td><td>—</td><td>—</td><td>Образец</td></tr>
-          <tr><td>Текст чипа-параметра</td><td>—</td><td>SB Sans Text — Body S (Chip S), letter-spacing 0</td><td>—</td><td>—</td><td>Образец</td></tr>
-          <tr><td>Счётчик «+N»</td><td>—</td><td>SB Sans Text — Badge XS (12px), tabular-nums, цвет Text_Inactive</td><td>—</td><td>—</td><td>Образец</td></tr>
+          <tr><td>Текст чипа «Применено: N»</td><td>—</td><td>SB Sans Text — Body M (Chip M), tabular-nums для N</td><td>—</td><td>—</td><td>Образец</td></tr>
         </tbody>
       </table>
     </div>
@@ -380,12 +415,10 @@
           <tr><td>Кнопка «Фильтр» (Outline)</td><td>Обводка</td><td><code class="tok">--border-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-primary)"></span></td><td>#B8CCCC</td></tr>
           <tr><td>Кнопка «Фильтр» (Outline)</td><td>Текст</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
           <tr><td>Кнопка «Фильтр» (Outline)</td><td>Фон</td><td><code class="tok">--bg-tile</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bg-tile)"></span></td><td>#FFFFFF</td></tr>
-          <tr><td>Чип-параметр (Edit · Fill)</td><td>Фон</td><td><code class="tok">--st-system-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--st-system-light)"></span></td><td>16% #7A9994</td></tr>
-          <tr><td>Чип-параметр (Edit · Fill)</td><td>Обводка</td><td><code class="tok">--st-system-midlight</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--st-system-midlight)"></span></td><td>32% #7A9994</td></tr>
-          <tr><td>Чип-параметр (Edit · Fill)</td><td>Текст</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
-          <tr><td>Чип-параметр (Edit · Fill)</td><td>Крестик</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
-          <tr><td>Хвост</td><td>Счётчик «+N»</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
-          <tr><td>Хвост</td><td>Шеврон</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
+          <tr><td>Чип «Применено: N» (Edit · Fill)</td><td>Фон</td><td><code class="tok">--st-system-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--st-system-light)"></span></td><td>16% #7A9994</td></tr>
+          <tr><td>Чип «Применено: N» (Edit · Fill)</td><td>Обводка</td><td><code class="tok">--st-system-midlight</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--st-system-midlight)"></span></td><td>32% #7A9994</td></tr>
+          <tr><td>Чип «Применено: N» (Edit · Fill)</td><td>Текст</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
+          <tr><td>Чип «Применено: N» (Edit · Fill)</td><td>Крестик</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
           <tr><td>Заблокированный бар</td><td>Прозрачность</td><td><code class="tok">--st-disabled-mid</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--st-disabled-mid)"></span></td><td>16% #324844</td></tr>
         </tbody>
       </table>
@@ -396,7 +429,7 @@
   <!-- DEVELOPER HANDOFF -->
   <section class="section" data-screen-label="Dev">
     <h2>Для разработчиков</h2>
-    <p class="desc">Хендофф-пакет: точные размеры и поведение переполнения/сброса/пресетов. Не привязан к стеку — команда, собирающая компонент на React, берёт отсюда нужное для вёрстки.</p>
+    <p class="desc">Хендофф-пакет: точные размеры бара и поведение счётчика/сброса/модалки/пресетов. Не привязан к стеку — команда, собирающая компонент на React, берёт отсюда нужное для вёрстки.</p>
 
     <p class="subhead">Точные размеры (redline)</p>
     <p class="desc tight">Значения измерены на живом экземпляре бара (<code class="tok">getComputedStyle</code>); источник — токены в <code class="tok">styles/table-filter.css</code>, <code class="tok">styles/chip.css</code>, <code class="tok">styles/button.css</code>.</p>
@@ -412,7 +445,10 @@
       <code class="tok">styles/button.css</code>
       <code class="tok">styles/icon-button.css</code>
       <code class="tok">styles/chip.css</code>
-      <code class="tok">styles/badge.css</code>
+      <code class="tok">styles/button-group.css</code>
+      <code class="tok">styles/context-menu.css</code>
+      <code class="tok">styles/input-range.css</code>
+      <code class="tok">styles/tab.css</code>
       <code class="tok">styles/modal.css</code>
       <code class="tok">styles/table-filter.css</code>
     </div>
@@ -423,44 +459,55 @@
         <span class="code-panel__name">Поведение · псевдокод (framework-agnostic)</span>
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
       </div>
-      <pre><code id="code-js"><span class="tk-cm">// 1. Триггер: фильтр не применён → одиночная кнопка «Фильтр» (Outline XS).
-//    Применён ≥1 параметр → рядом отдельная кнопка сброса (Outline XS icon-only, filter-reset).
-//    Кнопки не сращены — каждая обычный Button с полным скруглением.</span>
+      <pre><code id="code-js"><span class="tk-cm">// 1. Бар: кнопка «Фильтр» (Button Outline S, ведущая иконка filter в --primary).
+//    params.length === 0 → в баре только кнопка.
+//    params.length ≥ 1  → рядом чип «Применено: {params.length}» (Chip Edit M), зазор 4px.
+//    Отдельной кнопки сброса в баре нет.
+//    savedPresets.length > 0 → вместо одиночной кнопки ButtonGroup Split:
+//    [«Фильтр» | шеврон вниз] — шеврон открывает меню названий пресетов.</span>
 
 <span class="tk-cm">// 2. Применение фильтра (Применить в модалке):
-//    params = [{ key, label, values[] }]
-//    для каждого param → чип «label: values.join(', ')» с крестиком.
-//    записать params в состояние таблицы, перезапросить данные, закрыть модалку.</span>
+//    params = [{ key, label, values[] }].filter(p => p.values.length > 0)
+//    записать params в состояние таблицы, перезапросить данные, закрыть модалку,
+//    отрисовать чип с N = params.length.</span>
 
-<span class="tk-cm">// 3. Переполнение чиплиста (свёрнутый бар — один ряд):
-measureOverflow():
-  показать все чипы, снять nowrap
-  rowTop = chips[0].offsetTop
-  hidden = чипы, у которых offsetTop > rowTop  // не поместились в первый ряд
-  если hidden.length > 0 и бар свёрнут:
-    скрыть hidden, показать хвост «+{hidden.length}» + шеврон вниз
-  иначе: скрыть хвост
-  пересчитывать в ResizeObserver контейнера</span>
+<span class="tk-cm">// 3. Сброс: крестик чипа ИЛИ Backspace/Delete на сфокусированном чипе →
+//    params = [], перезапросить данные, убрать чип, фокус на кнопку «Фильтр».</span>
 
-<span class="tk-cm">// 4. Аккордеон: клик по шеврону → toggle expanded.
-//    expanded=false → tfilter--collapsed (nowrap, overflow hidden), шеврон chevron-down
-//    expanded=true  → перенос на N рядов, шеврон chevron-up, aria-expanded=true</span>
+<span class="tk-cm">// 4. Модалка (Modal w6): Modal_Top «Фильтр» + крестик; Modal_Body — сетка
+//    [nav 232px | контентная область, nav — sticky]; форма внутри — grid 2 колонки
+//    (gap 16px), широкое поле = span 2; Modal_Bottom — слева «Сохранить пресет»,
+//    справа «Очистить» + «Применить».
+//    Высота модалки не задаётся: контент до 80vh, прокручивается Modal_Body;
+//    head/foot .is-scrolled по scrollTop тела.
+//    Открытие: lockScroll() — body overflow:hidden + компенсация ширины скроллбара
+//    правым паддингом, фон → inert/aria-hidden, focus trap, фокус на первое поле;
+//    закрытие: unlockScroll(), фокус назад на инициатор (счётчик замков —
+//    вложенные диалоги берут свой, скролл возвращается после закрытия последнего).</span>
 
-<span class="tk-cm">// 5. Снятие параметра:
-//    крестик чипа ИЛИ Backspace/Delete на сфокусированном чипе → убрать param,
-//    перенести фокус на соседний чип, пересчитать overflow. Список пуст → скрыть
-//    сброс и чиплист, вернуть одиночную кнопку «Фильтр».</span>
+<span class="tk-cm">// 5. Разделы = якорные ссылки (не табы-переключатели):
+onNavClick(section):
+  active = section.id                       // aria-current="true"
+  panel.scrollTo({ top: section.offsetTop - 16, behavior: 'smooth' })
+  подавить scroll-spy на время анимации (~900мс или до scrollend)
+onPanelScroll():                            // scroll spy
+  если scrollTop >= scrollHeight - clientHeight - 2 → active = ПОСЛЕДНЯЯ секция
+  иначе active = последняя секция, у которой offsetTop - panel.scrollTop <= 48
+бейдж таба = число заполненных параметров раздела (0 → бейджа нет)</span>
 
-<span class="tk-cm">// 6. Сброс всех: клик по сбросу → очистить params, свернуть бар,
-//    вернуть одиночную кнопку.</span>
-
-<span class="tk-cm">// 7. Пресеты (до 5):
-//    save(name): если name занято → nested confirm «Заменить пресет?»; иначе push.
+<span class="tk-cm">// 6. Пресеты (до 5):
+//    выбор из бара: клик по шеврону → aria-expanded=true + меню под группой (зазор 6px);
+//                    выбор пункта → apply(preset), модалка не открывается;
+//                    закрытие — клик вне, Esc, выбор пункта; ↑/↓ — по пунктам.
+//    save(name): вложенный диалог w3 с одним полем; имя занято → confirm «Заменить пресет?»;
+//                иначе push({ name, params }).
 //    apply(preset): params = preset.params → см. п.2.
 //    remove(preset): nested confirm «Удалить пресет?» → удалить из списка.
+//    карточка: шеврон-аккордеон (aria-expanded + aria-controls) раскрывает
+//              таблицу «Параметр — значение» по preset.params.
 //    список пуст → плейсхолдер.</span></code></pre>
     </div>
-    <p class="dev-note">Это алгоритм поверх вашего стека, не готовый сниппет. Рабочий референс на vanilla JS — функции <code class="tok">buildBar</code> и <code class="tok">measureOverflow</code> в <code class="tok">table-filter.page.js</code>.</p>
+    <p class="dev-note">Это алгоритм поверх вашего стека, не готовый сниппет. Рабочий референс на vanilla JS — функции <code class="tok">buildBar</code> и <code class="tok">openFilterModal</code> в <code class="tok">table-filter.page.js</code>.</p>
   </section>
 
   <!-- BACKLOG (вне контракта разделов) -->
@@ -472,14 +519,16 @@ measureOverflow():
         <li><b>Быстрые фильтры</b> — ряд чипов-тоглов (Chip selected) перед кнопкой «Фильтр» для 2–3 самых частых условий без открытия модалки.</li>
         <li><b>Пустой результат</b> — подсказка «Ничего не найдено» с ссылкой «Сбросить фильтры» под таблицей, когда условие ничего не вернуло.</li>
         <li><b>Счётчик результатов</b> — опциональная подпись «Найдено: N» справа от бара.</li>
-        <li><b>Индикатор пресета</b> — если применённые параметры совпадают с сохранённым пресетом, показывать его имя в кнопке «Фильтр».</li>
+        <li><b>Индикатор пресета</b> — если применённые параметры совпадают с сохранённым пресетом, показывать его имя в чипе вместо «Применено: N».</li>
+        <li><b>Ховер-подсказка на чипе</b> — тултип с перечнем применённых параметров, чтобы увидеть состав фильтра без открытия модалки.</li>
+        <li><b>Экраны-мокапы на старой модели</b> — в <code class="tok">pages/screens/04-Metrics.html</code> и <code class="tok">07-CashFlow.html</code> бар ещё собран чиплистом отдельных параметров с «+N»; перевести на чип «Применено: N» (legacy-правила в CSS помечены и оставлены только ради них).</li>
       </ul>
     </div>
   </section>
 
   <footer class="page-foot">
     <span>Дизайн-система · TableFilter</span>
-    <span>Кнопка «Фильтр» · чиплист параметров · «+N» · аккордеон · пресеты</span>
+    <span>Кнопка «Фильтр» · чип «Применено: N» · модалка с якорными разделами · пресеты</span>
   </footer>
 </main>
 

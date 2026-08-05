@@ -4,10 +4,20 @@
    ========================================================================= */
 
 /* ---------- Font faces ---------------------------------------------------- */
+/* Оптическая нормализация метрик заголовочного семейства (05.08.2026).
+   У SB Sans Display hhea/OS2-метрики несимметричны относительно визуального
+   блока (cap-height ↔ descender): при align-items:center заголовок вставал
+   на 4% em выше оптического центра строки. ascent-override/descent-override
+   совмещают центр content-area с серединой cap-height↔descender.
+   Сумма ascent+descent сохранена, поэтому line-height:normal и высоты строк
+   не меняются — двигается только положение глифов внутри строки.
+   SB Sans Text и SB Sans Screen оставлены с исходными метриками. */
 
 @font-face {
   font-family: "SB Sans Display";
   src: url("../fonts/SBSansDisplay-Light.otf") format("opentype");
+  ascent-override: 80%;
+  descent-override: 29%;
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -15,6 +25,8 @@
 @font-face {
   font-family: "SB Sans Display";
   src: url("../fonts/SBSansDisplay-Regular.otf") format("opentype");
+  ascent-override: 80%;
+  descent-override: 29%;
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -22,6 +34,8 @@
 @font-face {
   font-family: "SB Sans Display";
   src: url("../fonts/SBSansDisplay-SemiBold.otf") format("opentype");
+  ascent-override: 80%;
+  descent-override: 29%;
   font-weight: 600;
   font-style: normal;
   font-display: swap;

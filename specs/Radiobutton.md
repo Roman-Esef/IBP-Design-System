@@ -1,8 +1,8 @@
 ---
 component: Radiobutton
 title: "Radiobutton"
-version: "v2.4"
-updated: "22.07.2026"
+version: "v2.5"
+updated: "05.08.2026"
 page: pages/atoms/Radiobutton.html
 css: styles/radio.css
 deps: [label-helper]
@@ -44,12 +44,12 @@ status: auto
   <div class="rb-group__items">
     <label class="rb rb--selected">
       <input type="radio" class="rb__input" name="refresh" checked>
-      <span class="rb__box"><span class="rb__mark"></span></span>
+      <span class="rb__box"><i class="rb__mark" data-icon="radio-button-checked"></i></span>
       <span class="rb__content"><span class="rb__label">Ежеминутно</span></span>
     </label>
     <label class="rb rb--unselected">
       <input type="radio" class="rb__input" name="refresh">
-      <span class="rb__box"><span class="rb__mark"></span></span>
+      <span class="rb__box"><i class="rb__mark" data-icon="radio-button-unchecked"></i></span>
       <span class="rb__content"><span class="rb__label">Ежечасно</span></span>
     </label>
   </div>
@@ -127,7 +127,7 @@ interface RadioGroupProps {
 | .rb--no-content | label | Шейп без названия/хелпера (icon-only) |
 | .rb__input | input | Визуально скрытый нативный radio — общий name даёт взаимоисключающий выбор |
 | .rb__box | span | Охранное поле 20px, центрирует шейп |
-| .rb__mark | span | Видимый круг 16px: рамка, внутренняя точка (::after); все state-слои на нём |
+| .rb__mark | i[data-icon] | Видимый круг 16px: готовая SVG-иконка пака System (radio-button-unchecked/checked, ds-icons.js); currentColor несёт все state-цвета |
 | .rb__content | span | Колонка название + хелпер (зазор 2px) |
 | .rb__label | span | Название (Body M) |
 | .rb__req | span | Звёздочка обязательной группы (--error) |

@@ -1,7 +1,8 @@
 /* =========================================================================
    Design System — Radiobutton
-   Shape: 20px alignment area (matches Body M line-height) · круглый шейп 16px.
-          Selected — внутренняя точка (dot), появляется масштабированием.
+   Shape: 20px alignment area (matches Body M line-height) · круглый шейп 16px —
+          готовые SVG-иконки пака System (radio-button-unchecked/checked),
+          currentColor задаёт цвет всей формы.
    States: unselected · selected
            ×  default · hover · focus · pressed · disabled · error
    Label: Body M (SB Sans Text) · Helper: общий компонент подкачки (Body XS),
@@ -39,51 +40,32 @@
   justify-content: center;
 }
 
-/* 16px круглый шейп */
+/* 16px круглый шейп — готовая иконка пака System (radio-button-unchecked/checked),
+   currentColor управляет цветом всей формы (рамка + точка — единый SVG-путь) */
 .rb__mark {
   width: 16px;
   height: 16px;
   border-radius: var(--radius-circle);
   box-sizing: border-box;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--border-dark);
-  background: transparent;
-  transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  overflow: hidden;
+  color: var(--border-dark);
+  transition: color .15s ease, box-shadow .15s ease, outline-color .15s ease;
 }
+.rb__mark svg { width: 100%; height: 100%; display: block; transform: scale(1.2); }
 
-/* inner dot — scales in when selected */
-.rb__mark::after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: var(--radius-circle);
-  background: var(--primary);
-  transform: scale(0);
-  transition: transform .15s ease, background-color .15s ease;
-}
-
-/* ---------- selected (filled ring + dot) ---------------------------------- */
-.rb--selected .rb__mark {
-  border-color: var(--primary);
-}
-.rb--selected .rb__mark::after { transform: scale(1); }
+/* ---------- selected (иконка radio-button-checked: рамка + точка) --------- */
+.rb--selected .rb__mark { color: var(--primary); }
 
 /* ---------- hover --------------------------------------------------------- */
-/* empty ring → primary outline + faint state layer; filled → darker */
 .rb:hover .rb__mark,
 .rb--hover .rb__mark {
-  border-color: var(--primary);
+  color: var(--primary);
   box-shadow: 0 0 0 4px var(--primary-bg-light);
 }
 .rb:hover.rb--selected .rb__mark,
 .rb--hover.rb--selected .rb__mark {
-  border-color: var(--primary-dark);
-}
-.rb:hover.rb--selected .rb__mark::after,
-.rb--hover.rb--selected .rb__mark::after {
-  background: var(--primary-dark);
+  color: var(--primary-dark);
 }
 
 /* ---------- pressed ------------------------------------------------------- */
@@ -103,18 +85,14 @@
 /* ---------- error / invalid ----------------------------------------------- */
 /* a required group left unselected, or a group that failed validation */
 .rb--error .rb__mark {
-  border-color: var(--error);
+  color: var(--error);
   box-shadow: none;
 }
-.rb--error .rb__mark::after { background: var(--error); }
-.rb--error.rb--selected .rb__mark { border-color: var(--error); }
 .rb:hover.rb--error .rb__mark,
 .rb--hover.rb--error .rb__mark {
-  border-color: var(--error-dark);
+  color: var(--error-dark);
   box-shadow: 0 0 0 4px var(--error-bg);
 }
-.rb:hover.rb--error.rb--selected .rb__mark::after,
-.rb--hover.rb--error.rb--selected .rb__mark::after { background: var(--error-dark); }
 .rb--error .ds-helper { color: var(--error); }
 
 /* ---------- content (label + helper) -------------------------------------- */
@@ -127,9 +105,7 @@
 .rb__req { color: var(--error); margin-left: 2px; }
 
 /* ---------- disabled ------------------------------------------------------- */
-.rb--disabled .rb__mark { border-color: var(--disabled); box-shadow: none; }
-.rb--disabled .rb__mark::after { background: var(--disabled); }
-.rb--disabled.rb--selected .rb__mark { border-color: var(--disabled); }
+.rb--disabled .rb__mark { color: var(--disabled); box-shadow: none; }
 .rb--disabled .rb__label,
 .rb--disabled .ds-helper { color: var(--text-inactive); }
 

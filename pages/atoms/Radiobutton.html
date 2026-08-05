@@ -113,7 +113,7 @@
 <main class="page" data-screen-label="Radiobutton">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v2.4</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v2.5</b></span><span>Обновлено: <b>05.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Radiobutton</h1>
     <p class="lead">Радиокнопка позволяет выбрать всего один пункт из списка взаимоисключающих вариантов. Используется только в составе группы. Два состояния выбора — Unselected / Selected — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Error.</p>
@@ -194,7 +194,7 @@
         <div class="size-spec__stage" id="size-stage"></div>
         <ul class="bullets">
           <li>Охранное поле 20px совпадает с интерлиньяжем Body M — шейп ровно ложится на строку.</li>
-          <li>Видимый круг 16px с рамкой 2px; внутренняя точка (Selected) — 8px.</li>
+          <li>Видимый круг 16px — готовая SVG-иконка пака System (radio-button-unchecked/checked), без самодельной рамки/точки.</li>
           <li>Зазор шейп ↔ название — 8px; название ↔ хелпер — 2px.</li>
           <li>Горизонтальная группа: зазор между пунктами — 24px.</li>
         </ul>
@@ -481,6 +481,7 @@ function makeRb(o = {}) {
 
   const box = document.createElement('span'); box.className = 'rb__box';
   const mark = document.createElement('span'); mark.className = 'rb__mark';
+  mark.innerHTML = radioIconSvg(state);
   box.appendChild(mark);
 
   root.appendChild(input); root.appendChild(box);
@@ -502,11 +503,17 @@ function makeRb(o = {}) {
   if (frozen) root.addEventListener('click', e => e.preventDefault());
   return root;
 }
+function radioIconSvg(state){
+  const raw = (window.DS_ICONS||{})[state==='selected' ? 'radio-button-checked' : 'radio-button-unchecked'] || '';
+  return raw.replace(/fill="(?!none)[^"]*"/g, 'fill="currentColor"');
+}
 function setRbState(root, state){
   root.classList.remove('rb--unselected','rb--selected');
   root.classList.add('rb--' + state);
   const input = root.querySelector('.rb__input');
   input.checked = state==='selected';
+  const mark = root.querySelector('.rb__mark');
+  if (mark) mark.innerHTML = radioIconSvg(state);
 }
 /* exclusive selection within a list of rb elements */
 function wireGroup(items, onChange){
@@ -871,7 +878,6 @@ function wireGroup(items, onChange){
   const csBase = getComputedStyle(base);
   const csBox  = getComputedStyle(base.querySelector('.rb__box'));
   const csMark = getComputedStyle(base.querySelector('.rb__mark'));
-  const csDot  = getComputedStyle(base.querySelector('.rb__mark'), '::after');
   const csCont = getComputedStyle(base.querySelector('.rb__content'));
   const csFoc  = getComputedStyle(foc.querySelector('.rb__mark'));
   const csRow  = getComputedStyle(gr);
@@ -885,8 +891,6 @@ function wireGroup(items, onChange){
   const D = {
     zone:   px(csBox.width),
     mark:   px(csMark.width),
-    border: px(csMark.borderTopWidth),
-    dot:    px(csDot.width),
     gapBox: px(csBase.columnGap),
     gapCont:px(csCont.rowGap),
     rowPad: px(csRow.paddingTop),
@@ -902,9 +906,7 @@ function wireGroup(items, onChange){
 
   const sizeRows = [
     ['Охранное поле (шейп-обёртка)', D.zone, '<code>.rb__box</code> · line-height Body M'],
-    ['Видимый круг', D.mark, '<code>.rb__mark</code> width/height'],
-    ['Толщина рамки', D.border, '<code>.rb__mark</code> border'],
-    ['Внутренняя точка (Selected)', D.dot, '<code>.rb__mark::after</code>'],
+    ['Видимый круг (иконка пака System)', D.mark, '<code>.rb__mark</code> width/height'],
     ['Зазор шейп ↔ содержимое', D.gapBox, '<code>.rb</code> gap'],
     ['Зазор название ↔ хелпер', D.gapCont, '<code>.rb__content</code> gap'],
     ['Зазор в горизонтальной группе', D.hGap, '<code>.rb-group--horizontal .rb-group__items</code>'],
@@ -915,9 +917,7 @@ function wireGroup(items, onChange){
 
   const devRows = [
     ['Охранное поле', D.zone],
-    ['Видимый круг', D.mark],
-    ['Толщина рамки', D.border],
-    ['Внутренняя точка (Selected)', D.dot],
+    ['Видимый круг (иконка пака System)', D.mark],
     ['Зазор шейп ↔ содержимое', D.gapBox],
     ['Зазор название ↔ хелпер', D.gapCont],
     ['Отступ строки в группе (сверху/снизу)', D.rowPad],

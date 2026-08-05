@@ -203,6 +203,7 @@ textarea.inp__control { resize: none; line-height: 20px; }
   transition: color .15s ease;
 }
 .inp__act svg { width: 100%; height: 100%; }
+.inp__act [data-icon], .inp__lead [data-icon] { width: 100%; height: 100%; }
 .inp__act:hover { color: var(--secondary-dark); }
 .inp__act:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .inp__act--static { cursor: default; color: var(--secondary); }

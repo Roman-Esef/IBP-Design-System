@@ -16,6 +16,9 @@
 <link rel="stylesheet" href="../../styles/chip.css">
 <link rel="stylesheet" href="../../styles/badge.css">
 <link rel="stylesheet" href="../../styles/checkbox.css">
+<link rel="stylesheet" href="../../styles/label-helper.css">
+<link rel="stylesheet" href="../../styles/input.css">
+<link rel="stylesheet" href="../../styles/dropdown-list.css">
 <link rel="stylesheet" href="../../styles/tooltip.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
@@ -36,6 +39,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 .pg__stagebox{width:100%;display:flex;flex-direction:column;min-width:0;}
 .ctl{display:flex;flex-direction:column;gap:10px;}
 .ctl.is-off{display:none;}
+.pg__grouphead{grid-column:1 / -1;font:var(--type-body-s-strong);font-size:11px;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;padding-top:16px;margin-top:4px;border-top:1px solid var(--border-light);}
+.pg__grouphead:first-child{padding-top:0;margin-top:0;border-top:none;}
 .ctl>.lbl{font:600 11px/1 var(--font-text),sans-serif;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;}
 /* preview stage */
 .tc-stage{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:28px;min-height:240px;}
@@ -45,7 +50,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 .anat{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start;}
 @media(max-width:820px){.anat{grid-template-columns:1fr;}}
 .anat__stage{background:color-mix(in srgb,var(--primary) 5%,#fff);border:1px solid var(--border-light);border-radius:14px;padding:44px 40px;display:flex;justify-content:center;}
-.anat-dia{position:relative;display:inline-block;width:100%;max-width:440px;}
+.anat-dia{position:relative;display:inline-block;width:100%;max-width:440px;margin:26px 0 34px;}
 .mk{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--text-primary);color:#fff;font:700 12px/22px var(--font-text),sans-serif;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:5;pointer-events:none;}
 .anat__legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
 .anat__legend li{display:flex;gap:12px;align-items:flex-start;}
@@ -80,6 +85,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 .cref-group>h3{font:var(--type-body-m-strong);margin:0;padding:14px 18px;border-bottom:1px solid var(--border-light);color:var(--text-primary);}
 .cref-row{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--border-light);font:var(--type-body-s);color:var(--text-secondary);}
 .rl-sample{position:absolute;top:-9999px;left:0;width:420px;}
+/* демо закрепления колонки — узкий контейнер с горизонтальным скроллом */
+.pin-demo{max-width:520px;}
 
 .demo-tbl{max-width:640px;}
 </style>
@@ -93,10 +100,10 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.4</b></span>
-    <span>Обновлено <b>13.07.2026</b></span>
+    <span>Версия <b>v1.7</b></span>
+    <span>Обновлено <b>04.08.2026</b></span>
     <span>CSS <b>styles/table-cell.css</b></span>
-    <span>Зависимости <b>checkbox, chip, icon-button, button, tooltip</b></span>
+    <span>Зависимости <b>checkbox, chip, icon-button, button, input, dropdown-list, tooltip</b></span>
   </div>
   <div class="eyebrow">Дизайн-система · Организмы</div>
   <h1>TableCell</h1>
@@ -108,6 +115,29 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <h2>Конструктор</h2>
   <div class="panel pg">
     <div class="pg__controls">
+      <div class="pg__grouphead">Шапка колонки · TableHeader</div>
+      <div class="ctl">
+        <div class="lbl">Сортировка</div>
+        <label class="pg-toggle"><input id="ctl-sort-on" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Опция доступна</span></label>
+      </div>
+      <div class="ctl" id="ctl-sort-dir-wrap">
+        <div class="lbl">Состояние сортировки</div>
+        <div class="pg-select"><select id="ctl-sort-dir">
+          <option value="none" selected>Не выбрана</option>
+          <option value="asc">По возрастанию</option>
+          <option value="desc">По убыванию</option>
+        </select></div>
+      </div>
+      <div class="ctl">
+        <div class="lbl">Закрепление колонки</div>
+        <label class="pg-toggle"><input id="ctl-pin-on" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Опция доступна</span></label>
+      </div>
+      <div class="ctl" id="ctl-pinned-wrap">
+        <div class="lbl">Колонка закреплена</div>
+        <label class="pg-toggle"><input id="ctl-pinned" type="checkbox"><span class="pg-toggle__sw"></span><span>Фон Pinned у шапки и всей колонки</span></label>
+      </div>
+
+      <div class="pg__grouphead">Ячейка · TableCell</div>
       <div class="ctl">
         <div class="lbl">Тип контента</div>
         <div class="pg-select"><select id="ctl-type">
@@ -117,7 +147,6 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
           <option value="button">Кнопка</option>
           <option value="iconbuttons">IconButtons</option>
           <option value="checkbox">Checkbox</option>
-          <option value="hiddenactions">HiddenActions</option>
           <option value="input-text">Input · Text</option>
           <option value="input-date">Input · Date</option>
           <option value="input-autocomplete">Input · Autocomplete</option>
@@ -132,7 +161,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       </div>
       <div class="ctl" id="ctl-numeric-wrap">
         <div class="lbl">Числовое значение</div>
-        <label class="pg-toggle"><input id="ctl-numeric" type="checkbox"><span class="pg-toggle__sw"></span><span>Справа, табулярные цифры</span></label>
+        <label class="pg-toggle"><input id="ctl-numeric" type="checkbox"><span class="pg-toggle__sw"></span><span>Справа, табулярные цифры, разряды</span></label>
       </div>
       <div class="ctl" id="ctl-text-wrap">
         <div class="lbl">Текст ячейки</div>
@@ -141,9 +170,21 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="ctl" id="ctl-level-wrap">
         <div class="lbl">Уровень дерева</div>
         <div class="pg-select"><select id="ctl-level">
-          <option value="0">0 — корень</option>
-          <option value="1" selected>1</option>
+          <option value="0" selected>0 — корень</option>
+          <option value="1">1</option>
           <option value="2">2</option>
+        </select></div>
+      </div>
+      <div class="ctl" id="ctl-lead-wrap">
+        <div class="lbl">Иконка слева</div>
+        <label class="pg-toggle"><input id="ctl-lead-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
+        <div class="pg-select"><select id="ctl-lead-glyph">
+          <option value="check-circle" selected>check-circle</option>
+          <option value="bank">bank</option>
+          <option value="document-check">document-check</option>
+          <option value="star">star</option>
+          <option value="alert-triangle">alert-triangle</option>
+          <option value="clock-timer">clock-timer</option>
         </select></div>
       </div>
       <div class="ctl" id="ctl-prefix-wrap">
@@ -157,7 +198,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="pg-text"><input id="ctl-postfix-text" type="text" placeholder="₽" maxlength="16"></div>
       </div>
       <div class="ctl" id="ctl-icon-wrap">
-        <div class="lbl">Иконка после значения</div>
+        <div class="lbl">Иконка справа</div>
         <label class="pg-toggle"><input id="ctl-icon-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
         <div class="pg-select"><select id="ctl-icon-glyph">
           <option value="alert-triangle" selected>alert-triangle</option>
@@ -199,30 +240,34 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="lbl">Скругление</div>
         <label class="pg-toggle"><input id="ctl-chips-rounded" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Rounded (pill)</span></label>
       </div>
-      <div class="ctl">
-        <div class="lbl">Состояние</div>
-        <div class="pg-select"><select id="ctl-state">
-          <option value="default" selected>Обычное</option>
-          <option value="hover">Hover</option>
-          <option value="focus">Focus / выбор</option>
-          <option value="selected">Selected (строка)</option>
-          <option value="disabled">Disabled</option>
-          <option value="error">Error</option>
-          <option value="empty">Нет данных (—)</option>
-          <option value="skeleton">Skeleton / загрузка</option>
-        </select></div>
+      <div class="ctl" id="ctl-hidden-wrap">
+        <div class="lbl">Скрытые действия</div>
+        <label class="pg-toggle"><input id="ctl-hidden" type="checkbox"><span class="pg-toggle__sw"></span><span>Появляются по наведению на строку</span></label>
+      </div>
+      <div class="ctl" id="ctl-edited-wrap">
+        <div class="lbl">EditMark</div>
+        <label class="pg-toggle"><input id="ctl-edited" type="checkbox"><span class="pg-toggle__sw"></span><span>Признак правки (правый верхний угол)</span></label>
       </div>
       <div class="ctl">
         <div class="lbl">Фон ячейки (колонка)</div>
         <div class="pg-select"><select id="ctl-bg">
           <option value="none" selected>Обычный</option>
           <option value="accent">Accent</option>
-          <option value="pinned">Pinned</option>
         </select></div>
       </div>
+
+      <div class="pg__grouphead">Строка</div>
       <div class="ctl">
-        <div class="lbl">EditMark</div>
-        <label class="pg-toggle"><input id="ctl-edited" type="checkbox"><span class="pg-toggle__sw"></span><span>Признак правки (правый верхний угол)</span></label>
+        <div class="lbl">Состояние</div>
+        <div class="pg-select"><select id="ctl-state">
+          <option value="default" selected>Обычное</option>
+          <option value="hover">Hover</option>
+          <option value="focus">Focus / выбор</option>
+          <option value="selected">Selected</option>
+          <option value="error">Error</option>
+          <option value="empty">Нет данных (—)</option>
+          <option value="skeleton">Skeleton / загрузка</option>
+        </select></div>
       </div>
     </div>
     <div class="pg__stage">
@@ -230,7 +275,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="tc-stage">
           <div class="tbl" id="demo-tbl"></div>
         </div>
-        <p class="ws-cap">Каждая строка начинается и заканчивается ячейкой-разделителем 8px. Первая строка — TableHeader. Наведите курсор, чтобы увидеть hover, скрытые действия и Tooltip у усечённого текста.</p>
+        <p class="ws-cap">Каждая строка начинается и заканчивается ячейкой-разделителем 8px. Первая строка — TableHeader: наведите на неё курсор, чтобы увидеть иконку закрепления, кликните по стрелке — сортировка циклится «не выбрана → по возрастанию → по убыванию». Наведение и клик по строке подсвечивают всю строку целиком, включая разделители; в фокусе строки доступны редактируемые ячейки и скрытые действия.</p>
       </div>
     </div>
   </div>
@@ -246,34 +291,34 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <div class="tbl demo-tbl" style="grid-template-columns:none;">
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
         <div class="th th--separator"></div>
-        <div class="th th--center"><label class="cb" style="gap:0;"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
-        <div class="th"><span class="th__label">Контрагент</span><button class="th__sort" aria-label="Сортировать"><i data-icon="sort"></i></button></div>
+        <div class="th th--center"><label class="cb cb--no-content cb--indeterminate"><input type="checkbox" class="cb__input" aria-label="Выбрать все строки"><span class="cb__box"><span class="cb__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg></span></span></label></div>
+        <div class="th"><span class="th__label">Контрагент</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
         <div class="th"><span class="th__label">Статус</span></div>
-        <div class="th th--right th--sorted"><span class="th__label">Сумма, ₽</span><button class="th__sort" aria-label="Сортировать по убыванию"><i data-icon="sort-down"></i></button></div>
+        <div class="th th--right th--sorted" aria-sort="descending"><span class="th__label">Сумма, ₽</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировка от большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span></div>
         <div class="th th--center"><span class="th__label">Действия</span></div>
         <div class="th th--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc tc--center"><label class="cb" style="gap:0;"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
+        <div class="tc tc--center"><label class="cb cb--no-content cb--unselected"><input type="checkbox" class="cb__input" aria-label="Выбрать ООО ЮгСтройИнвестМонтаж"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
         <div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">ООО ЮгСтройИнвестМонтаж, комплексная поставка оборудования</span></span></div>
         <div class="tc"><span class="chip chip--readonly chip--s chip--rounded chip--success"><span class="chip__label">Активна</span></span></div>
         <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">1 240 500</span></span></div>
         <div class="tc"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Ещё"><i data-icon="more-dots"></i></button></div></div>
         <div class="tc tc--separator"></div>
       </div>
-      <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
-        <div class="tc tc--separator tc--selected"></div>
-        <div class="tc tc--center"><label class="cb cb--selected" style="gap:0;"><input type="checkbox" class="cb__input" checked><span class="cb__box"><span class="cb__mark"><i data-icon="check"></i></span></span></label></div>
-        <div class="tc tc--selected"><span class="tc__body"><span class="tc__row"><span class="tc__text">ПАО Ростелеком</span></span><span class="tc__subtext">ИНН 7707049388</span></span></div>
-        <div class="tc tc--selected"><span class="chip chip--readonly chip--s chip--rounded"><span class="chip__label">На проверке</span></span></div>
-        <div class="tc tc--selected tc--numbers"><span class="tc__row"><span class="tc__text">986 300</span></span></div>
-        <div class="tc tc--selected"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Ещё"><i data-icon="more-dots"></i></button></div></div>
-        <div class="tc tc--separator tc--selected"></div>
+      <div class="tbl__row tbl__row--selected" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--center"><label class="cb cb--no-content cb--selected"><input type="checkbox" class="cb__input" checked aria-label="Выбрать ПАО Ростелеком"><span class="cb__box"><span class="cb__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span></span></label></div>
+        <div class="tc"><span class="tc__body"><span class="tc__row"><span class="tc__text">ПАО Ростелеком</span></span><span class="tc__subtext">ИНН 7707049388</span></span></div>
+        <div class="tc"><span class="chip chip--readonly chip--s chip--rounded"><span class="chip__label">На проверке</span></span></div>
+        <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">986 300</span></span></div>
+        <div class="tc"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Ещё"><i data-icon="more-dots"></i></button></div></div>
+        <div class="tc tc--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc tc--center"><label class="cb" style="gap:0;"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
+        <div class="tc tc--center"><label class="cb cb--no-content cb--unselected"><input type="checkbox" class="cb__input" aria-label="Выбрать АО Тандер"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
         <div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">АО Тандер</span><span class="tc__icon tc__icon--warning"><i data-icon="alert-triangle"></i></span></span></div>
         <div class="tc"><span class="chip chip--readonly chip--s chip--rounded chip--error"><span class="chip__label">Просрочена</span></span></div>
         <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">432 100</span></span></div>
@@ -282,7 +327,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc tc--center"><label class="cb" style="gap:0;"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
+        <div class="tc tc--center"><label class="cb cb--no-content cb--unselected"><input type="checkbox" class="cb__input" aria-label="Выбрать ИП Смирнов А.В."><span class="cb__box"><span class="cb__mark"></span></span></label></div>
         <div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">ИП Смирнов А.В.</span></span></div>
         <div class="tc"><span class="tc__empty">—</span></div>
         <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">57 800</span></span></div>
@@ -290,7 +335,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="tc tc--separator"></div>
       </div>
     </div>
-    <p class="ex-cap">Чекбокс выбора, усечение с Tooltip по наведению, вторая строка (ИНН), чипы-статусы, табулярные суммы справа и действия по наведению.</p>
+    <p class="ex-cap">Выбранная строка целиком в тоне Selected — включая ячейки-разделители по краям. Чекбоксы — компонент Checkbox (bin без текстового слота), в шапке частичный выбор. Иконка предупреждения идёт сразу после текста, а не у правой границы. Сортировка и закрепление колонки — IconButton neutral S; иконка закрепления появляется по наведению на шапку.</p>
   </div>
 
   <div class="panel" style="margin-top:16px;">
@@ -298,7 +343,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <div class="tbl demo-tbl" style="grid-template-columns:none;max-width:460px;">
       <div class="tbl__row" style="grid-template-columns:8px 1fr 120px 8px;">
         <div class="th th--separator"></div>
-        <div class="th"><span class="th__label">Организация</span></div>
+        <div class="th"><span class="th__label">Организация</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
         <div class="th th--right"><span class="th__label">Доля, %</span></div>
         <div class="th th--separator"></div>
       </div>
@@ -342,20 +387,20 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 1.4fr 1fr 1fr 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc tc--input tc--edited"><div class="tc__field"><input class="tc__field-input" value="Договор поставки" aria-label="Наименование"></div></div>
-        <div class="tc tc--input"><div class="tc__field"><input class="tc__field-input" value="12.05.2026" aria-label="Дата"><span class="tc__field-icon"><i data-icon="calendar"></i></span></div></div>
-        <div class="tc tc--input tc--numbers"><div class="tc__field"><input class="tc__field-input" value="120" aria-label="Количество" style="text-align:right;"></div></div>
+        <div class="tc tc--input tc--edited"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" value="Договор поставки" aria-label="Наименование"><span class="inp__acts"><button class="inp__act" aria-label="Очистить поле" tabindex="-1"><i data-icon="close"></i></button></span></div></div></div>
+        <div class="tc tc--input"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" value="12.05.2026" inputmode="numeric" aria-label="Дата"><span class="inp__acts"><button class="inp__act" aria-label="Очистить поле" tabindex="-1"><i data-icon="close"></i></button><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog" tabindex="-1"><i data-icon="calendar"></i></button></span></div></div></div>
+        <div class="tc tc--input tc--numbers"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" value="120" aria-label="Количество" style="text-align:right;"></div></div></div>
         <div class="tc tc--separator"></div>
       </div>
-      <div class="tbl__row" style="grid-template-columns:8px 1.4fr 1fr 1fr 8px;">
+      <div class="tbl__row tbl__row--focus" style="grid-template-columns:8px 1.4fr 1fr 1fr 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc tc--input"><div class="tc__field" style="border-color:var(--primary);background:var(--bg-tile);box-shadow:0 0 0 2px var(--primary-bg);"><input class="tc__field-input" value="Услуги подряда" aria-label="Наименование"><button class="tc__field-clear" aria-label="Очистить"><i data-icon="close"></i></button></div></div>
-        <div class="tc tc--input"><div class="tc__field"><input class="tc__field-input" placeholder="дд.мм.гггг" aria-label="Дата"><span class="tc__field-icon"><i data-icon="calendar"></i></span></div></div>
-        <div class="tc tc--input tc--numbers tc--error"><div class="tc__field" style="border-color:var(--error);"><input class="tc__field-input" value="-5" aria-label="Количество" style="text-align:right;"></div></div>
+        <div class="tc tc--input"><div class="inp inp--s inp--fullwidth is-focus"><div class="inp__field"><input class="inp__control" value="Услуги подряда" aria-label="Наименование"><span class="inp__acts"><button class="inp__act" aria-label="Очистить поле" tabindex="-1"><i data-icon="close"></i></button></span></div></div></div>
+        <div class="tc tc--input"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" placeholder="ММ.ДД.ГГГГ" inputmode="numeric" aria-label="Дата"><span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog" tabindex="-1"><i data-icon="calendar"></i></button></span></div></div></div>
+        <div class="tc tc--input tc--numbers tc--error"><div class="inp inp--s inp--fullwidth inp--error"><div class="inp__field"><input class="inp__control" value="-5" aria-label="Количество" style="text-align:right;"></div></div></div>
         <div class="tc tc--separator"></div>
       </div>
     </div>
-    <p class="ex-cap">Input-ячейки: рамка проявляется в фокусе, кнопка очистки, EditMark у изменённой ячейки (правый верхний угол), состояние ошибки.</p>
+    <p class="ex-cap">Редактируемые ячейки — компонент Input размера S («Table Edit»): те же рамки, радиусы и состояния. В покое поле сливается со строкой, действия (очистка, календарь) скрыты; фокус строки открывает все её ячейки на редактирование и показывает иконки действий. EditMark — у изменённой ячейки, ошибка валидации — красная рамка поля.</p>
   </div>
 </section>
 
@@ -369,32 +414,32 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="tbl" style="max-width:440px;">
           <div class="tbl__row" style="grid-template-columns:8px 1fr 8px;">
             <div class="th th--separator"></div>
-            <div class="th"><span class="th__label">Header label</span><button class="th__sort" aria-label="Сортировать"><i data-icon="sort"></i></button><button class="th__action ibtn ibtn--neutral ibtn--s" aria-label="Меню" style="opacity:1;"><i data-icon="more-dots"></i></button></div>
+            <div class="th th--sorted" aria-sort="descending"><span class="th__label">Header label</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false" style="opacity:1;"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировка от большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span></div>
             <div class="th th--separator"></div>
           </div>
           <div class="tbl__row" style="grid-template-columns:8px 1fr 8px;">
             <div class="tc tc--separator"></div>
-            <div class="tc tc--edited"><span class="tc__row"><span class="tc__prefix">Pref</span><span class="tc__text">Text value</span><span class="tc__postfix">Postf</span><span class="tc__icon"><i data-icon="info-circle"></i></span></span></div>
+            <div class="tc tc--edited"><span class="tc__row"><span class="tc__icon tc__icon--lead tc__icon--success"><i data-icon="check-circle"></i></span><span class="tc__prefix">Pref</span><span class="tc__text">Text value</span><span class="tc__postfix">Postf</span><span class="tc__icon tc__icon--warning"><i data-icon="alert-triangle"></i></span></span></div>
             <div class="tc tc--separator"></div>
           </div>
         </div>
-        <span class="mk" style="left:20px;top:26px;">1</span>
-        <span class="mk" style="left:158px;top:26px;">2</span>
-        <span class="mk" style="right:36px;top:26px;left:auto;position:absolute;">3</span>
-        <span class="mk" style="right:12px;top:64px;left:auto;position:absolute;">4</span>
-        <span class="mk" style="left:46px;top:86px;">5</span>
-        <span class="mk" style="left:128px;top:86px;">6</span>
-        <span class="mk" style="right:60px;top:86px;left:auto;position:absolute;">7</span>
+        <span class="mk" style="left:12px;top:-14px;">1</span>
+        <span class="mk" style="left:68px;top:-14px;">2</span>
+        <span class="mk" style="left:322px;top:-14px;">3</span>
+        <span class="mk" style="left:auto;right:-16px;top:52px;position:absolute;">4</span>
+        <span class="mk" style="left:36px;top:112px;">5</span>
+        <span class="mk" style="left:120px;top:112px;">6</span>
+        <span class="mk" style="left:228px;top:112px;">7</span>
       </div>
     </div>
     <ul class="anat__legend">
       <li><span class="n">1</span><div><span class="k">Separator (начало строки)</span><span class="d">Пустая ячейка 8px — фиксированный боковой отступ строки. Ставится всегда первой.</span></div></li>
       <li><span class="n">2</span><div><span class="k">TableHeader · подпись</span><span class="d">Заголовок колонки (Body S, secondary), усекается. Выравнивание = выравниванию колонки.</span></div></li>
-      <li><span class="n">3</span><div><span class="k">Кнопка сортировки</span><span class="d"><b>sort</b> (неактивно) → <b>sort-up</b>/<b>sort-down</b> (активно, primary).</span></div></li>
+      <li><span class="n">3</span><div><span class="k">Инструменты шапки</span><span class="d">Закрепление колонки (<b>pin</b> → <b>pin-filled</b>) и сортировка (<b>arrow-up-down</b> → <b>arrow-narrow-up</b>/<b>arrow-narrow-down</b>). Обе — IconButton <em>neutral S</em>; активные — <code class="tok">--secondary-dark</code>.</span></div></li>
       <li><span class="n">4</span><div><span class="k">EditMark</span><span class="d">Угловой маркер правки — <b>правый верхний угол</b> ячейки, цвет <code class="tok">--chart-orange</code>.</span></div></li>
-      <li><span class="n">5</span><div><span class="k">Prefix</span><span class="d">Серый аффикс перед значением (inactive). Независимая настройка.</span></div></li>
-      <li><span class="n">6</span><div><span class="k">Значение + Postfix + иконка</span><span class="d">Основной контент (Body S), серый постфикс, опциональная иконка любого назначения после значения.</span></div></li>
-      <li><span class="n">7</span><div><span class="k">Separator (конец строки)</span><span class="d">Такая же пустая ячейка 8px в конце строки.</span></div></li>
+      <li><span class="n">5</span><div><span class="k">Иконка слева + Prefix</span><span class="d">Ведущая иконка 16px (тип/статус объекта) и серый аффикс перед значением. Независимые настройки.</span></div></li>
+      <li><span class="n">6</span><div><span class="k">Значение + Postfix</span><span class="d">Основной контент (Body S) и серый постфикс сразу за ним.</span></div></li>
+      <li><span class="n">7</span><div><span class="k">Иконка справа</span><span class="d">Признак значения (предупреждение, проверено) 16px — <b>сразу после текста</b>, не у правой границы. Строку закрывает такой же Separator 8px.</span></div></li>
     </ul>
   </div>
   <div class="panel" style="margin-top:20px;">
@@ -481,28 +526,31 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
           <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">1 240 500,00</span></span></div></div>
           <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">57 800,00</span></span></div></div>
           <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">986 300,00</span></span></div></div>
+          <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">432 100,00</span></span></div></div>
         </div>
       </div>
-      <p class="guide-card__cap">Числа — справа, табулярные (моноширинные) цифры: разряды выровнены по вертикали, легко сравнивать.</p>
+      <p class="guide-card__cap">Числа — справа, табулярные (моноширинные) цифры, разряды разбиты неразрывным пробелом: колонка читается по вертикали. Одного класса <code class="tok">.tc--numbers</code> достаточно — он и выравнивает, и включает tabular-nums.</p>
     </div>
     <div class="guide-card bad">
       <div class="guide-card__bar"></div>
       <div class="guide-card__tag">✗ Неправильно</div>
       <div class="guide-card__body">
         <div class="tbl" style="max-width:260px;">
-          <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc"><span class="tc__row"><span class="tc__text">1 240 500,00</span></span></div></div>
-          <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc"><span class="tc__row"><span class="tc__text">57 800,00</span></span></div></div>
-          <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc"><span class="tc__row"><span class="tc__text">986 300,00</span></span></div></div>
+          <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc"><span class="tc__row"><span class="tc__text">1240500</span></span></div></div>
+          <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc"><span class="tc__row"><span class="tc__text">57800</span></span></div></div>
+          <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc"><span class="tc__row"><span class="tc__text">986300</span></span></div></div>
+          <div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc"><span class="tc__row"><span class="tc__text">432100</span></span></div></div>
         </div>
       </div>
-      <p class="guide-card__cap">Числа слева — разряды «плавают», колонку тяжело читать.</p>
+      <p class="guide-card__cap">Числа слева и без разбивки разрядов — порядок величины на глаз не читается, колонки не сравнить.</p>
     </div>
   </div>
   <div class="panel" style="margin-top:20px;">
     <p class="subhead" style="margin-top:0;">Правила по типам</p>
     <ul class="bullets">
       <li><b>Текст</b> — по левому краю; по умолчанию усекается в одну строку (<code class="tok">.tc__text--truncate</code>) с Tooltip по наведению; если важно показать значение целиком — выключите усечение, ячейка перенесёт текст и вырастет по высоте.</li>
-      <li><b>Числа, суммы</b> — включите настройку «Числовое значение»: выравнивание справа + табулярные цифры (<code class="tok">.tc--numbers</code>).</li>
+      <li><b>Числа, суммы</b> — включите настройку «Числовое значение»: выравнивание справа, табулярные цифры и разбивка разрядов (<code class="tok">.tc--numbers</code>). Форматировать через <code class="tok">Intl.NumberFormat('ru-RU')</code>, не вручную.</li>
+      <li><b>Иконки слева и справа</b> — независимые опции. Левая (<code class="tok">.tc__icon--lead</code>) — тип или статус объекта, правая (<code class="tok">.tc__icon</code>) — признак значения (предупреждение, проверено). Обе 16px и идут <b>сразу за текстом</b>, а не у границы ячейки.</li>
       <li><b>Вторая строка</b> — опциональная мелкая строка под значением (<code class="tok">.tc__subtext</code>), доступна для любого типа ячейки с текстом: название + ИНН, сумма + валюта и т.п.</li>
       <li><b>Prefix / Postfix</b> — независимые настройки, включаются по отдельности в любом сочетании.</li>
       <li><b>Пустое значение</b> — прочерк «—» (<code class="tok">.tc__empty</code>, цвет inactive). Не оставляйте ячейку визуально пустой и не пишите «нет»/«null».</li>
@@ -514,7 +562,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <!-- BEHAVIOR -->
   <section class="section" data-screen-label="Behavior">
     <h2>Поведение</h2>
-    <p class="desc">Усечение текста, раскрытие дерева и навигация по сетке.</p>
+    <p class="desc">Усечение текста, раскрытие дерева, сортировка и закрепление колонки, изменение ширины и порядка колонок, выбор и фокус строки, скрытые действия, редактируемые ячейки, навигация по сетке.</p>
 
 <div class="subsec" data-screen-label="Truncate">
     <h3>Усечение текста</h3>
@@ -526,6 +574,86 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <p class="desc">Твисти (шеврон) переключает <code class="tok">aria-expanded</code> и разворачивает/сворачивает дочерние строки — с поворотом глифа на 90°. Отступ строки считается от уровня вложенности (<code class="tok">--tc-level</code> × 20px), у листьев (без потомков) твисти не рендерится — вместо него зарезервировано пустое место той же ширины, чтобы значение не съезжало по горизонтали.</p>
   </div>
 
+<div class="subsec" data-screen-label="Sort">
+    <h3>Сортировка колонки</h3>
+    <p class="desc">Опция включается для колонки в настройках шапки. Кнопка — IconButton <b>neutral S</b>; клик циклит состояние: не выбрана (<b>arrow-up-down</b>) → от меньшего к большему (<b>arrow-narrow-up</b>) → от большего к меньшему (<b>arrow-narrow-down</b>) → не выбрана. Неактивная стрелка — тон <code class="tok">--secondary</code>; по наведению на шапку и в выбранном состоянии — <code class="tok">--secondary-dark</code>. Одновременно активна максимум одна колонка таблицы; <code class="tok">aria-sort</code> синхронен иконке.</p>
+    <div class="panel" style="margin-top:14px;">
+      <div class="tbl" style="max-width:520px;">
+        <div class="tbl__row" style="grid-template-columns:8px 1fr 1fr 1fr 8px;">
+          <div class="th th--separator"></div>
+          <div class="th" aria-sort="none"><span class="th__label">Не выбрана</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
+          <div class="th th--sorted" aria-sort="ascending"><span class="th__label">По возрастанию</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="От меньшего к большему"><i data-icon="arrow-narrow-up"></i></button></span></div>
+          <div class="th th--sorted" aria-sort="descending"><span class="th__label">По убыванию</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="От большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span></div>
+          <div class="th th--separator"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="Pinned">
+    <h3>Закрепление колонки</h3>
+    <p class="desc">Закрепление — свойство <b>колонки</b>, а не отдельной ячейки: оно красит фоном Pinned и шапку, и все ячейки под ней, и оставляет колонку на месте при горизонтальном скролле таблицы (<code class="tok">position:sticky</code> в контейнере <code class="tok">.tbl--scroll</code>). Иконка <b>pin</b> появляется по наведению на шапку; закреплённая колонка показывает <b>pin-filled</b> в тоне <code class="tok">--secondary-dark</code> постоянно. Если у колонки нет сортировки, закрепление занимает её место.</p>
+    <div class="panel pin-demo" style="margin-top:14px;">
+      <div class="tbl tbl--scroll">
+        <div class="tbl__row" style="grid-template-columns:8px 200px 160px 160px 160px 8px;">
+          <div class="th th--separator"></div>
+          <div class="th th--pinned" aria-sort="none"><span class="th__label">Контрагент</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Открепить колонку" aria-pressed="true"><i data-icon="pin-filled"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
+          <div class="th th--right"><span class="th__label">Лимит, ₽</span></div>
+          <div class="th th--right"><span class="th__label">Задолженность</span></div>
+          <div class="th th--right"><span class="th__label">Просрочка</span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 200px 160px 160px 160px 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc tc--pinned"><span class="tc__row"><span class="tc__text tc__text--truncate">ПАО Ростелеком</span></span></div>
+          <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">1 240 500,00</span></span></div>
+          <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">986 300,00</span></span></div>
+          <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">0,00</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 200px 160px 160px 160px 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc tc--pinned"><span class="tc__row"><span class="tc__text tc__text--truncate">АО Тандер</span></span></div>
+          <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">432 100,00</span></span></div>
+          <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">57 800,00</span></span></div>
+          <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">12 400,00</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
+      <p class="ex-cap">Прокрутите таблицу по горизонтали — закреплённая колонка «Контрагент» остаётся на месте вместе со своей шапкой.</p>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="ColumnWidth">
+    <h3>Изменение ширины колонки</h3>
+    <p class="desc">Правая граница каждой ячейки шапки — ручка изменения ширины: зона захвата 9px без постоянной графики, по наведению проступает вертикальная линия. Во время перетаскивания через всю таблицу идёт линия-указатель в тоне <code class="tok">--primary</code>, а ширина колонки пересчитывается вживую. Ниже порога <b>96px</b> колонка не сжимается — иначе подпись шапки и инструменты перестают помещаться. Ручка доступна с клавиатуры: фокус на ней и <b>← →</b> меняют ширину шагом 16px. Свободное место справа забирает замыкающий разделитель, поэтому строка всегда занимает полную ширину таблицы.</p>
+    <div class="panel" style="margin-top:14px;">
+      <div class="tbl tbl--scroll" id="cols-demo"></div>
+      <p class="ex-cap">Живое демо: тяните правую границу шапки — меняется ширина; тяните подпись — меняется порядок колонок.</p>
+    </div>
+  </div>
+
+<div class="subsec" data-screen-label="ColumnOrder">
+    <h3>Порядок колонок</h3>
+    <p class="desc">Порядок меняется одним способом — перетаскиванием. Колонку берут за подпись шапки и переносят с зажатой кнопкой мыши: пока идёт перенос, вся колонка приглушается до 40%, а место вставки показывает вертикальная линия в тоне <code class="tok">--primary</code>. Перенос начинается после смещения на 4px, поэтому обычный клик по шапке остаётся кликом. Берут именно за подпись, а не за всю ячейку, — чтобы сортировка и закрепление оставались нажимаемыми. Закреплённые колонки из переноса исключаются.</p>
+    <p class="desc">Кнопок и пунктов меню, дублирующих перенос, у колонки нет: порядок — прямая манипуляция, дополнительный орган управления на него не заводим.</p>
+  </div>
+
+<div class="subsec" data-screen-label="RowSelect">
+    <h3>Выбор и фокус строки</h3>
+    <p class="desc">Интерактивное состояние живёт на строке: наведение, фокус и выбор красят все её ячейки, включая разделители по краям. Клик по любой ячейке переводит в фокус <b>всю строку</b> — её ячейки доступны для редактирования, показываются скрытые действия и иконки полей. Выбор чекбоксом даёт строке тон Selected; чекбокс в шапке — «выбрать все», при частичном выборе — промежуточное состояние (минус).</p>
+  </div>
+
+<div class="subsec" data-screen-label="HiddenActions">
+    <h3>Скрытые действия</h3>
+    <p class="desc">Скрытые действия — не тип контента, а настройка поверх любой ячейки (как EditMark). Кнопки появляются, когда курсор наводится на строку — в этот момент строка находится в состоянии Hover — либо когда строка в фокусе. На тач-устройствах показываются постоянно. Действий максимум 2–3, дальше — кебаб-меню.</p>
+  </div>
+
+<div class="subsec" data-screen-label="EditCells">
+    <h3>Редактируемые ячейки</h3>
+    <p class="desc">Ячейка не рисует собственное поле — внутрь ставится компонент <b>Input размера S</b> («Table Edit») со своими рамками, радиусами и состояниями. В покое поле сливается со строкой, по наведению проявляется рамка. Иконки действий (очистка, календарь, шеврон) показываются только когда строка или ячейка в фокусе — в покое ячейка показывает одно значение. Шеврон Autocomplete по клику раскрывает DropdownList; выбор опции подставляет значение.</p>
+  </div>
+
 <div class="subsec" data-screen-label="GridNav">
     <h3>Навигация по сетке</h3>
     <p class="desc">Внутри таблицы фокус перемещается между ячейками стрелками (grid-паттерн), а не табом по каждому интерактивному элементу — Tab уводит из таблицы целиком. Фокус-ячейка получает видимую обводку; если в ячейке несколько интерактивных элементов (например, кнопка + чип), первую активацию Enter/Space получает первый из них.</p>
@@ -535,7 +663,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <!-- 6. СОСТОЯНИЯ -->
 <section class="section" id="states" data-screen-label="Состояния">
   <h2>Состояния</h2>
-  <p class="desc">Помимо базового отображения ячейка и строка поддерживают интерактивные и служебные состояния — по образцу Material Data Table и лучших практик табличных компонентов.</p>
+  <p class="desc">Интерактивные состояния (Hover, Focus, Selected) — свойство <b>строки</b>: они красят все её ячейки сразу, включая разделители. Служебные (Error, Empty, Skeleton, EditMark, фон колонки) — свойство отдельной ячейки. Состояния Disabled у таблицы нет.</p>
   <div class="states-grid">
     <div class="st-card">
       <div class="st-card__label"><b>Default</b> · обычная ячейка</div>
@@ -543,19 +671,15 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Hover</b> · наведение на строку</div>
-      <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--hover"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div></div></div>
+      <div class="tbl"><div class="tbl__row tbl__row--hover" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div><div class="tc tc--separator"></div></div></div>
     </div>
     <div class="st-card">
-      <div class="st-card__label"><b>Focus</b> · навигация / выбор ячейки</div>
-      <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--focus"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div></div></div>
+      <div class="st-card__label"><b>Focus</b> · строка в фокусе, ячейки доступны</div>
+      <div class="tbl"><div class="tbl__row tbl__row--focus" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div><div class="tc tc--separator"></div></div></div>
     </div>
     <div class="st-card">
-      <div class="st-card__label"><b>Selected</b> · строка выбрана</div>
-      <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--selected"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div></div></div>
-    </div>
-    <div class="st-card">
-      <div class="st-card__label"><b>Disabled</b> · недоступно</div>
-      <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--disabled"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div></div></div>
+      <div class="st-card__label"><b>Selected</b> · строка выбрана чекбоксом</div>
+      <div class="tbl"><div class="tbl__row tbl__row--selected" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div><div class="tc tc--separator"></div></div></div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Error</b> · ошибка валидации</div>
@@ -574,7 +698,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--accent"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div></div></div>
     </div>
     <div class="st-card">
-      <div class="st-card__label"><b>Pinned</b> · закреплённая колонка</div>
+      <div class="st-card__label"><b>Pinned</b> · закреплённая колонка (фон + sticky)</div>
       <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--pinned"><span class="tc__row"><span class="tc__text">Значение ячейки</span></span></div></div></div>
     </div>
     <div class="st-card">
@@ -592,7 +716,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <li><b>Фон + состояние комбинируются</b>: hover/focus у accent- и pinned-колонок имеют собственные тона (<code class="tok">--bgtable-accent-hover</code>, <code class="tok">--bgtable-pinned-hover</code>).</li>
       <li><b>EditMark</b> — угловой маркер в правом верхнем углу ячейки, виден до сохранения/сброса правки.</li>
       <li><b>Скрытые действия</b> (<code class="tok">.tc__hidden</code>) появляются только по наведению/фокусу строки; сочетаются с усечённым текстом и Tooltip в той же ячейке.</li>
-      <li><b>Disabled-ячейка</b> не перехватывает клики (<code class="tok">pointer-events:none</code>), контент — цвет inactive.</li>
+      <li><b>Состояния Disabled у таблицы нет</b> — строка или ячейка не бывают недоступными; недоступность выражается отсутствием действия, а не серым текстом.</li>
+      <li><b>Состояние живёт на строке</b>, не на ячейке: hover / focus / selected красят все ячейки строки, включая разделители по краям. Ячейка-разделитель принимает только эти состояния — EditMark, Skeleton и Error-текста у неё не бывает.</li>
     </ul>
   </div>
 </section>
@@ -603,7 +728,9 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <div class="panel">
     <ul class="bullets">
       <li><b>Семантика таблицы</b> — использовать нативные <code class="tok">&lt;table&gt;/&lt;th&gt;/&lt;td&gt;</code> либо ARIA-роли <code class="tok">role="grid"/"columnheader"/"gridcell"</code>. Классы <code class="tok">.tc/.th</code> — только оформление.</li>
-      <li><b>Сортировка</b> — на ячейке шапки <code class="tok">aria-sort="ascending|descending|none"</code>; кнопка сортировки имеет <code class="tok">aria-label</code>.</li>
+      <li><b>Сортировка</b> — на ячейке шапки <code class="tok">aria-sort="ascending|descending|none"</code>; кнопка сортировки имеет <code class="tok">aria-label</code> с текущим направлением.</li>
+      <li><b>Ширина колонки</b> — ручка <code class="tok">role="separator"</code> + <code class="tok">aria-orientation="vertical"</code>, в фокусе управляется стрелками <b>← →</b>; перетаскивание мышью не должно быть единственным способом изменить ширину.</li>
+      <li><b>Закрепление колонки</b> — кнопка-переключатель: <code class="tok">aria-pressed</code> + <code class="tok">aria-label</code> («Закрепить / Открепить колонку»). Появление по hover не должно быть единственным способом добраться до неё — кнопка доступна с клавиатуры (<code class="tok">:focus-within</code> шапки).</li>
       <li><b>Выбор строки</b> — реальный чекбокс; состояние строки — <code class="tok">aria-selected</code>. Заголовочный чекбокс = «выбрать все».</li>
       <li><b>Клавиатура</b> — перемещение по ячейкам стрелками (grid pattern), фокус-ячейка получает видимую обводку (<code class="tok">:focus-visible</code>, inset 2px primary).</li>
       <li><b>Усечённый текст</b> — полное значение доступно через Tooltip (hover и focus) и <code class="tok">title</code>.</li>
@@ -642,7 +769,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <tbody>
           <tr><td>Текст</td><td>Значение, заголовок дерева</td><td><code class="tok">--text-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-primary)"></span></td><td>#324844</td></tr>
           <tr><td>Текст</td><td>Подпись шапки, subtext</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
-          <tr><td>Текст</td><td>Prefix/postfix, «—», disabled</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
+          <tr><td>Текст</td><td>Prefix/postfix, «—», плейсхолдер</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
           <tr><td>Текст</td><td>Текст ошибки</td><td><code class="tok">--error</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--error)"></span></td><td>#E5625C</td></tr>
           <tr><td>Фон строки</td><td>Обычный фон</td><td><code class="tok">--bgtable</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bgtable)"></span></td><td>#FFFFFF</td></tr>
           <tr><td>Фон строки</td><td>Hover</td><td><code class="tok">--bgtable-row-hover</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bgtable-row-hover)"></span></td><td>#F6FAFA</td></tr>
@@ -655,7 +782,9 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
           <tr><td>Фон колонки</td><td>Pinned · hover</td><td><code class="tok">--bgtable-pinned-hover</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--bgtable-pinned-hover)"></span></td><td>#EEF2F1</td></tr>
           <tr><td>Границы и акценты</td><td>Разделитель ячеек</td><td><code class="tok">--border-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-light)"></span></td><td>#E1EDE7</td></tr>
           <tr><td>Границы и акценты</td><td>Низ шапки</td><td><code class="tok">--border-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-primary)"></span></td><td>#B8CCCC</td></tr>
-          <tr><td>Границы и акценты</td><td>Фокус, активная сортировка, рамка input</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+          <tr><td>Границы и акценты</td><td>Фокус ячейки, рамка Input в фокусе</td><td><code class="tok">--primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--primary)"></span></td><td>#00AA9B</td></tr>
+          <tr><td>Иконки</td><td>Сортировка и закрепление в покое, действия поля</td><td><code class="tok">--secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--secondary)"></span></td><td>#B8D6D3</td></tr>
+          <tr><td>Иконки</td><td>Активная сортировка, закреплённая колонка, hover</td><td><code class="tok">--secondary-dark</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--secondary-dark)"></span></td><td>#639994</td></tr>
           <tr><td>Границы и акценты</td><td>Уголок EditMark</td><td><code class="tok">--chart-orange</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--chart-orange)"></span></td><td>#F9A580</td></tr>
         </tbody>
       </table>
@@ -680,59 +809,97 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <tr><td>Типографика значения</td><td id="rl-font">—</td><td><code class="tok">--type-body-s</code> · 14, вес 400</td></tr>
         <tr><td>Ширина Separator</td><td>8px</td><td><code class="tok">.tc--separator</code>, фикс.; фон/бордер/состояния — как у остальных ячеек</td></tr>
         <tr><td>Отступ уровня дерева</td><td>20px / уровень</td><td><code class="tok">--tc-level</code></td></tr>
+        <tr><td>Кнопки шапки (сортировка, закрепление)</td><td id="rl-sort">—</td><td>IconButton <b>neutral S</b>, глиф 16px; зазор между ними 4px</td></tr>
+        <tr><td>Поле редактируемой ячейки</td><td id="rl-field">—</td><td>Input размера S; паддинг ячейки 4px / 8px</td></tr>
+        <tr><td>Ручка изменения ширины</td><td>9px</td><td>зона захвата на правой границе шапки; линия 2×20px, шаг клавиатуры 16px</td></tr>
+        <tr><td>Минимальная ширина колонки</td><td>96px</td><td>колонка выбора с инструментами — 124px</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="rl-sample" aria-hidden="true">
-    <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc" id="rl-cell"><span class="tc__row"><span class="tc__text">Value</span></span></div></div></div>
+  <div class="rl-sample" id="rl-sample" aria-hidden="true">
+    <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="th"><span class="th__label">Header</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort"><i data-icon="arrow-up-down"></i></button></span></div></div><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc" id="rl-cell"><span class="tc__row"><span class="tc__text">Value</span></span></div></div><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--input"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" value="Value"></div></div></div></div></div>
   </div>
 
   <p class="subhead">Поведение (framework-agnostic)</p>
   <div class="code-wrap">
     <button class="copy-btn" data-copy="logic">Скопировать</button>
-    <code id="code-logic">// 1. Усечение + Tooltip (по умолчанию включено)
-//    Значение в одну строку (.tc__text--truncate). Если scrollWidth > clientWidth —
-//    показать floating Tooltip (см. компонент Tooltip) с полным текстом по hover/focus.
-//    Если усечение выключено дизайнером — текст переносится (white-space:normal),
-//    ячейка растёт по высоте (.tc--wrap), Tooltip не нужен.
-if (truncateEnabled) {
-  if (cellText.scrollWidth > cellText.clientWidth) attachTooltip(cellText, full)
-} else {
-  cellText.style.whiteSpace = 'normal'   // .tc--wrap
-}
+    <code id="code-logic">// 1. Состояние — свойство СТРОКИ, не ячейки
+//    hover / focus / selected ставятся на строку и красят все её ячейки,
+//    включая структурные разделители по краям. Состояния disabled нет.
+//    Клик по любой ячейке ⇢ фокус всей строки: её ячейки доступны для
+//    редактирования, показаны скрытые действия и иконки полей.
+row.classList.toggle('is-hover' /* .tbl__row--hover */, hovered)
 
-// 2. Числовые колонки
-//    Настройка «Числовое значение»: выравнивание справа + font-variant-numeric: tabular-nums.
-//    Форматировать разряды по локали (Intl.NumberFormat), не вручную.
+// 2. Усечение + Tooltip (по умолчанию включено)
+//    Значение в одну строку (.tc__text--truncate, flex: 0 1 auto — постфикс
+//    и иконка идут сразу за текстом). Если scrollWidth > clientWidth —
+//    показать Tooltip с полным текстом по hover/focus. Усечение выключено ⇢
+//    текст переносится (.tc--wrap), ячейка растёт, Tooltip не нужен.
+if (truncateEnabled &amp;&amp; cellText.scrollWidth &gt; cellText.clientWidth) attachTooltip(cellText, full)
 
-// 3. Сортировка (в шапке)
-//    Клик по подписи ⇢ цикл none → ascending → descending → none.
-//    aria-sort и иконка (sort → sort-up → sort-down) синхронны состоянию.
-//    В таблице активна сортировка максимум одной колонки.
+// 3. Числовые колонки
+//    .tc--numbers = выравнивание справа + tabular-nums; разряды форматировать
+//    через Intl.NumberFormat('ru-RU'), не вручную. Отдельный .tc--right не нужен.
 
-// 4. Выбор строк
-//    Заголовочный чекбокс = выбрать все / indeterminate, если выбрана часть.
-//    Клик по строке (вне интерактивных элементов) — toggle выбора.
+// 4. Сортировка (настройка колонки в шапке)
+//    Клик ⇢ цикл none → ascending → descending → none.
+//    Глифы: arrow-up-down → arrow-narrow-up → arrow-narrow-down.
+//    Кнопка = IconButton neutral S. Цвет: покой --secondary,
+//    hover шапки и активная сортировка --secondary-dark. aria-sort синхронен.
+//    Активна максимум одна колонка таблицы.
 
-// 5. Дерево (TreeNode)
-//    Отступ = --tc-level. Твисти toggle aria-expanded и раскрывает/сворачивает
-//    дочерние строки. Лист — .tc__twisty--leaf (место зарезервировано).
+// 5. Закрепление колонки (настройка колонки в шапке)
+//    Свойство КОЛОНКИ: фон Pinned у шапки и всех ячеек под ней + sticky при
+//    горизонтальном скролле. Глиф pin (по hover шапки) → pin-filled
+//    (закреплено, видна всегда, --secondary-dark), aria-pressed.
+//    Нет сортировки ⇢ закрепление занимает её место.
 
-// 6. Клавиатура (grid pattern)
+// 6. Выбор строк
+//    Чекбокс — компонент Checkbox без текстового слота (.cb--no-content).
+//    Заголовочный = выбрать все / промежуточное состояние при частичном выборе.
+//    Выбор строки ⇢ тон Selected на всей строке.
+
+// 7. Дерево (TreeNode)
+//    Отступ = --tc-level × 20px. Твисти toggle aria-expanded и раскрывает
+//    дочерние строки под собой. Лист — .tc__twisty--leaf (место зарезервировано).
+
+// 8. Клавиатура (grid pattern)
 //    Стрелки — перемещение фокуса по ячейкам; Enter/F2 — вход в редактирование
 //    input-ячейки; Esc — отмена. Фокус-ячейка: :focus-visible inset outline.
 
-// 7. Скрытые действия
-//    .tc__hidden видимы при :hover/:focus-within строки; сочетаются с усечённым
-//    текстом и Tooltip в той же ячейке. На тач-устройствах — показывать постоянно.
+// 9. Скрытые действия — настройка поверх ячейки (как EditMark)
+//    .tc__hidden видимы при hover/focus СТРОКИ; на тач-устройствах — всегда.
 
-// 8. Редактирование + EditMark
-//    После изменения значения помечать ячейку .tc--edited (угол — правый верхний)
-//    до сохранения/сброса. Ошибку валидации показывать .tc--error (+ tooltip с причиной).
+// 10. Редактируемые ячейки
+//    Внутрь ячейки ставится компонент Input размера S — своё поле ячейка не рисует.
+//    В покое поле без рамки и фона; hover строки проявляет рамку; фокус даёт
+//    рамку --primary 2px. Иконки действий (очистка, календарь, шеврон) видны
+//    только в фокусе строки/ячейки, размер 16px, тон --secondary.
+//    Autocomplete: шеврон открывает DropdownList, выбор подставляет значение.
 
-// 9. Separator
-//    Структурная пустая ячейка 8px; рендерится автоматически первой и последней
-//    в каждой строке — не выбирается пользователем как тип контента.</code>
+// 11. EditMark
+//    После изменения значения ставить .tc--edited (правый верхний угол) до
+//    сохранения/сброса. Ошибку валидации — .tc--error (+ tooltip с причиной).
+
+// 12. Ширина колонки
+//    Ручка = правая граница ячейки шапки: зона захвата 9px, графика только
+//    по hover/focus. Drag ⇢ width = max(96, стартовая + dx), пересчёт вживую,
+//    линия-указатель через всю таблицу. Клавиатура: focus + ← → шагом 16px.
+//    Свободное место справа забирает замыкающий разделитель
+//    (grid: 8px … minmax(8px, 1fr)), поэтому строка всегда во всю ширину.
+
+// 13. Порядок колонок — только перетаскивание
+//    Перенос за ПОДПИСЬ шапки (не за всю ячейку — сортировка и закрепление
+//    должны остаться кликабельными). Порог старта 4px, чтобы клик оставался
+//    кликом. Пока идёт перенос: колонка приглушена до 40%, место вставки —
+//    вертикальная линия на ближайшей границе (по центрам колонок).
+//    Закреплённые колонки из переноса исключаются. Кнопок и пунктов меню,
+//    дублирующих перенос, у колонки нет.
+
+// 14. Separator
+//    Структурная пустая ячейка 8px, первая и последняя в каждой строке.
+//    Принимает только состояния строки и фон колонки: EditMark, Skeleton и
+//    Error-текста у неё быть не может. Пользователем как тип не выбирается.</code>
   </div>
 
   </section>
@@ -751,7 +918,7 @@ if (truncateEnabled) {
 
 <footer class="page-foot">
   <span>Дизайн-система · TableCell</span>
-  <span>v1.3 · 08.07.2026</span>
+  <span>v1.7 · 04.08.2026</span>
 </footer>
 
 </main>
@@ -761,244 +928,6 @@ if (truncateEnabled) {
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
-<script>
-/* ---- icon helper ---- */
-function getIcon(name, size) {
-  size = size || 20;
-  if (!window.DS_ICONS) return '';
-  var raw = window.DS_ICONS[name] || ''; if (!raw) return '';
-  var d = document.createElement('div'); d.innerHTML = raw;
-  var s = d.firstElementChild; if (!s) return '';
-  s.setAttribute('width', size); s.setAttribute('height', size); s.setAttribute('aria-hidden', 'true');
-  return s.outerHTML;
-}
-function esc(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-/* ---- constructor ---- */
-var TEXT_DEFAULTS = {
-  'text': 'ООО ЮгСтройИнвестМонтаж',
-  'tree': 'Дочернее ООО «Восток»',
-  'hiddenactions': 'ООО ЮгСтройИнвестМонтаж',
-  'input-text': 'Договор поставки',
-  'input-date': '12.05.2026',
-  'input-autocomplete': 'Услуги подряда'
-};
-var HAS_VALUE_ROW = ['text','tree','hiddenactions'];
-
-function esc2(s){ return esc(s); }
-
-function buildValueRow(cfg){
-  var pre  = cfg.prefixOn  ? '<span class="tc__prefix">'  + esc(cfg.prefixText  || 'от') + '</span>' : '';
-  var post = cfg.postfixOn ? '<span class="tc__postfix">' + esc(cfg.postfixText || '₽')  + '</span>' : '';
-  var icon = cfg.iconOn ? '<span class="tc__icon">' + getIcon(cfg.iconGlyph, 16) + '</span>' : '';
-  var truncCls = cfg.truncate ? ' tc__text--truncate' : '';
-  var text = '<span class="tc__text' + truncCls + '">' + esc(cfg.text) + '</span>';
-  return '<span class="tc__row">' + pre + text + post + icon + '</span>';
-}
-
-function wrapSubtext(rowHtml, cfg){
-  if (!cfg.subtextOn) return rowHtml;
-  return '<span class="tc__body">' + rowHtml + '<span class="tc__subtext">' + esc(cfg.subtextText || 'Дополнительная строка') + '</span></span>';
-}
-
-function buildCellContent(type, cfg){
-  if (cfg.state === 'skeleton') return '<span class="tc__skeleton"></span>';
-  if (cfg.state === 'empty')    return '<span class="tc__empty">—</span>';
-
-  switch(type){
-    case 'text':
-      return wrapSubtext(buildValueRow(cfg), cfg);
-    case 'tree': {
-      var leaf = cfg.level >= 2;
-      var tw = leaf ? '<span class="tc__twisty tc__twisty--leaf"></span>'
-                    : '<button class="tc__twisty" aria-expanded="true" aria-label="Свернуть">' + getIcon('chevron-right',16) + '</button>';
-      return tw + wrapSubtext(buildValueRow(cfg), cfg);
-    }
-    case 'hiddenactions':
-      return wrapSubtext(buildValueRow(cfg), cfg) +
-        '<div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить">' + getIcon('edit',16) + '</button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Ещё">' + getIcon('more-dots',16) + '</button></div>';
-    case 'chips': {
-      var toneCls = cfg.chipsTone ? ' chip--' + cfg.chipsTone : '';
-      var roundCls = cfg.chipsRounded ? ' chip--rounded' : '';
-      var labels = ['Активна','VIP','Новый'];
-      var html = '<div class="tc__controls">';
-      for (var i=0;i<cfg.chipsCount;i++){
-        html += '<span class="chip chip--readonly chip--s' + roundCls + toneCls + '"><span class="chip__label">' + labels[i % labels.length] + '</span></span>';
-      }
-      return html + '</div>';
-    }
-    case 'button':
-      return '<div class="tc__controls"><button class="btn btn--outline btn--xs"><span class="btn__label">Открыть</span></button></div>';
-    case 'iconbuttons':
-      return '<div class="tc__controls"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить">' + getIcon('edit',16) + '</button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить">' + getIcon('trash',16) + '</button></div>';
-    case 'checkbox':
-      return '<label class="cb" style="gap:0;"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span></label>';
-    case 'input-text':
-      return '<div class="tc__field"><input class="tc__field-input" value="' + esc(cfg.text) + '" aria-label="Значение"></div>';
-    case 'input-date':
-      return '<div class="tc__field"><input class="tc__field-input" value="' + esc(cfg.text) + '" aria-label="Дата"><span class="tc__field-icon">' + getIcon('calendar',16) + '</span></div>';
-    case 'input-autocomplete':
-      return '<div class="tc__field"><span class="tc__field-icon">' + getIcon('search',16) + '</span><input class="tc__field-input" value="' + esc(cfg.text) + '" aria-label="Поиск"><button class="tc__field-clear" aria-label="Очистить">' + getIcon('close',14) + '</button></div>';
-  }
-  return '';
-}
-
-function cellTypeCls(type, cfg){
-  switch(type){
-    case 'text':
-    case 'hiddenactions':
-      if (cfg.numeric) return ' tc--numbers tc--right';
-      if (cfg.align === 'right')  return ' tc--right';
-      return '';
-    case 'tree': return ' tc--tree';
-    case 'checkbox': return ' tc--center';
-    case 'input-text': case 'input-date': case 'input-autocomplete': return ' tc--input';
-    default: return '';
-  }
-}
-
-function buildTable(){
-  var type    = document.getElementById('ctl-type').value;
-  var align   = document.getElementById('ctl-align').value;
-  var numeric = document.getElementById('ctl-numeric').checked;
-  var textIn  = document.getElementById('ctl-text').value.trim();
-  var level   = parseInt(document.getElementById('ctl-level').value, 10) || 0;
-  var prefixOn  = document.getElementById('ctl-prefix-on').checked;
-  var prefixText= document.getElementById('ctl-prefix-text').value.trim();
-  var postfixOn = document.getElementById('ctl-postfix-on').checked;
-  var postfixText=document.getElementById('ctl-postfix-text').value.trim();
-  var iconOn    = document.getElementById('ctl-icon-on').checked;
-  var iconGlyph = document.getElementById('ctl-icon-glyph').value;
-  var subtextOn = document.getElementById('ctl-subtext-on').checked;
-  var subtextText=document.getElementById('ctl-subtext-text').value.trim();
-  var truncate  = document.getElementById('ctl-truncate').checked;
-  var chipsCount = parseInt(document.getElementById('ctl-chips-count').value, 10) || 2;
-  var chipsTone  = document.getElementById('ctl-chips-tone').value;
-  var chipsRounded = document.getElementById('ctl-chips-rounded').checked;
-  var state   = document.getElementById('ctl-state').value;
-  var bg      = document.getElementById('ctl-bg').value;
-  var edited  = document.getElementById('ctl-edited').checked;
-
-  var hasValueRow = HAS_VALUE_ROW.indexOf(type) !== -1;
-  document.getElementById('ctl-align-wrap').classList.toggle('is-off', !hasValueRow || numeric);
-  document.getElementById('ctl-numeric-wrap').classList.toggle('is-off', type !== 'text');
-  document.getElementById('ctl-text-wrap').classList.toggle('is-off', !hasValueRow && type.indexOf('input')!==0);
-  document.getElementById('ctl-level-wrap').classList.toggle('is-off', type !== 'tree');
-  document.getElementById('ctl-prefix-wrap').classList.toggle('is-off', !hasValueRow);
-  document.getElementById('ctl-postfix-wrap').classList.toggle('is-off', !hasValueRow);
-  document.getElementById('ctl-icon-wrap').classList.toggle('is-off', !hasValueRow);
-  document.getElementById('ctl-subtext-wrap').classList.toggle('is-off', !hasValueRow);
-  document.getElementById('ctl-truncate-wrap').classList.toggle('is-off', !hasValueRow);
-  document.getElementById('ctl-chips-count-wrap').classList.toggle('is-off', type !== 'chips');
-  document.getElementById('ctl-chips-tone-wrap').classList.toggle('is-off', type !== 'chips');
-  document.getElementById('ctl-chips-rounded-wrap').classList.toggle('is-off', type !== 'chips');
-
-  var cfg = {
-    text: textIn || TEXT_DEFAULTS[type] || 'Значение ячейки',
-    align: align, numeric: numeric,
-    prefixOn: prefixOn, prefixText: prefixText,
-    postfixOn: postfixOn, postfixText: postfixText,
-    iconOn: iconOn, iconGlyph: iconGlyph,
-    subtextOn: subtextOn, subtextText: subtextText,
-    truncate: truncate, level: level,
-    chipsCount: chipsCount, chipsTone: chipsTone, chipsRounded: chipsRounded,
-    state: state
-  };
-
-  /* header alignment mirrors column */
-  var thAlign = numeric || align==='right' ? ' th--right' : (type==='checkbox' ? ' th--center' : '');
-  var thExtra = numeric ? ' th--sorted' : '';
-  var thSortIcon = thExtra ? 'sort-down' : 'sort';
-  var headSepCls = 'th th--separator' + (bg==='accent' ? ' tc--accent' : (bg==='pinned' ? ' tc--pinned' : ''));
-  var headCell = '<div class="' + headSepCls + '"></div><div class="th' + thAlign + thExtra + (bg==='accent' ? ' tc--accent' : (bg==='pinned' ? ' tc--pinned' : '')) + '">' +
-    (type==='checkbox'
-      ? '<label class="cb" style="gap:0;"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span></label>'
-      : '<span class="th__label">Заголовок</span><button class="th__sort" aria-label="Сортировать">' + getIcon(thSortIcon,16) + '</button>') +
-    '</div><div class="th th--separator"></div>';
-
-  var baseCls = 'tc' + cellTypeCls(type, cfg) + (bg==='accent' ? ' tc--accent' : (bg==='pinned' ? ' tc--pinned' : ''));
-  var stateCls = '';
-  if (state==='hover')    stateCls = ' tc--hover';
-  if (state==='focus')    stateCls = ' tc--focus';
-  if (state==='selected') stateCls = ' tc--selected';
-  if (state==='disabled') stateCls = ' tc--disabled';
-  if (state==='error')    stateCls = ' tc--error' + (type==='text'||type.indexOf('input')===0 ? ' tc--error-bg' : '');
-  if (state==='skeleton') stateCls = ' tc--skeleton';
-  if (edited)             stateCls += ' tc--edited';
-  if (hasValueRow && !truncate) stateCls += ' tc--wrap';
-
-  var levelStyle = (type==='tree') ? ' style="--tc-level:' + level + ';"' : '';
-  var sepCls = 'tc tc--separator' + (bg==='accent' ? ' tc--accent' : (bg==='pinned' ? ' tc--pinned' : '')) + stateCls;
-  var rows = '';
-  for (var i=0;i<3;i++){
-    rows += '<div class="tbl__row" style="grid-template-columns:8px 1fr 8px;"><div class="' + sepCls + '"></div><div class="' + baseCls + stateCls + '"' + levelStyle +
-            (state==='skeleton'?' aria-busy="true"':'') + '>' + buildCellContent(type, cfg) + '</div><div class="' + sepCls + '"></div></div>';
-  }
-
-  var tbl = document.getElementById('demo-tbl');
-  tbl.innerHTML = '<div class="tbl__row" style="grid-template-columns:8px 1fr 8px;">' + headCell + '</div>' + rows;
-}
-
-['ctl-type','ctl-align','ctl-numeric','ctl-text','ctl-level','ctl-prefix-on','ctl-prefix-text','ctl-postfix-on','ctl-postfix-text','ctl-icon-on','ctl-icon-glyph','ctl-subtext-on','ctl-subtext-text','ctl-truncate','ctl-chips-count','ctl-chips-tone','ctl-chips-rounded','ctl-state','ctl-bg','ctl-edited'].forEach(function(id){
-  var el = document.getElementById(id);
-  if (el){ el.addEventListener('change', buildTable); el.addEventListener('input', buildTable); }
-});
-buildTable();
-
-/* ---- redline ---- */
-function measureRedline(){
-  var c = document.getElementById('rl-cell'); if(!c) return;
-  var cs = getComputedStyle(c);
-  var t = c.querySelector('.tc__text');
-  function set(id,v){ var n=document.getElementById(id); if(n) n.textContent=v; }
-  set('rl-minh', cs.minHeight);
-  set('rl-px', cs.paddingLeft);
-  set('rl-gap', cs.columnGap || cs.gap);
-  set('rl-border', cs.borderBottomWidth + ' solid');
-  set('rl-font', t ? (getComputedStyle(t).fontWeight + ' · ' + getComputedStyle(t).fontSize + '/' + getComputedStyle(t).lineHeight) : '400 · 14px');
-}
-setTimeout(measureRedline, 300);
-
-/* ---- copy buttons ---- */
-document.querySelectorAll('.copy-btn').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    var el = document.getElementById('code-' + btn.getAttribute('data-copy')); if(!el) return;
-    navigator.clipboard.writeText(el.textContent).then(function(){
-      btn.textContent='Скопировано ✓'; btn.classList.add('is-copied');
-      setTimeout(function(){ btn.textContent='Скопировать'; btn.classList.remove('is-copied'); }, 2000);
-    });
-  });
-});
-
-/* ---- truncate + tooltip (real, working) ---- */
-var __tip = document.createElement('span');
-__tip.className = 'tip tip--main tip--top tip--center tip--floating tip--multiline';
-__tip.setAttribute('role','tooltip');
-__tip.innerHTML = '<span class="tip__content"></span><span class="tip__arrow"></span>';
-document.body.appendChild(__tip);
-
-function __showTip(target){
-  if (target.scrollWidth <= target.clientWidth + 1) return;
-  __tip.querySelector('.tip__content').textContent = target.textContent;
-  __tip.classList.add('is-visible');
-  var r = target.getBoundingClientRect();
-  var tr = __tip.getBoundingClientRect();
-  var top = r.top + window.scrollY - tr.height - 8;
-  var left = r.left + window.scrollX + (r.width/2) - (tr.width/2);
-  left = Math.max(8, Math.min(left, document.documentElement.clientWidth - tr.width - 8));
-  __tip.style.top = top + 'px';
-  __tip.style.left = left + 'px';
-}
-function __hideTip(){ __tip.classList.remove('is-visible'); }
-
-document.addEventListener('mouseover', function(e){
-  var t = e.target.closest && e.target.closest('.tc__text--truncate');
-  if (t) __showTip(t);
-});
-document.addEventListener('mouseout', function(e){
-  var t = e.target.closest && e.target.closest('.tc__text--truncate');
-  if (t) __hideTip();
-});
-</script>
+<script src="../../scripts/table-cell.page.js"></script>
 </body>
 </html>

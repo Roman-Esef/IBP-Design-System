@@ -274,7 +274,7 @@
   justify-content: center;
   color: var(--text-inactive);
 }
-.ddl__state-icon svg { width: 100%; height: 100%; display: block; }
+.ddl__state-icon svg, .ddl__state-icon i { width: 100%; height: 100%; display: block; }
 /* строка с пояснением (ошибка) — иконка выравнивается по первой строке текста */
 .ddl__state:has(.ddl__state-sub) { align-items: flex-start; }
 .ddl__state:has(.ddl__state-sub) .ddl__state-icon { margin-top: -2px; }

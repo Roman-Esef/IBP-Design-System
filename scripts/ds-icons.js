@@ -6,12 +6,14 @@
    Использование:
      <i data-icon="check"></i>
    Цвет — через color родителя (перекрашивается в currentColor),
-   размер — width/height элемента (по умолчанию 24px).
+   размер — width/height элемента (по умолчанию 24px через :where(),
+   поэтому любое компонентное правило — даже равной специфичности —
+   всегда переопределяет дефолт независимо от порядка загрузки скрипта).
    Имена глифов — specs/Icons.md. Динамика: window.dsIcons.apply(root).
    ============================================================ */
 (function () {
-  var css = '[data-icon]{display:inline-flex;width:24px;height:24px;flex:none;font-style:normal}' +
-            '[data-icon] svg{width:100%;height:100%;display:block}';
+  var css = ':where([data-icon]){display:inline-flex;width:24px;height:24px;flex:none;font-style:normal}' +
+            ':where([data-icon]) svg{width:100%;height:100%;display:block}';
   var tag = document.createElement('style');
   tag.textContent = css;
   document.head.appendChild(tag);

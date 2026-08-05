@@ -125,7 +125,7 @@
 <main class="page" data-screen-label="Typography">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>30.06.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>05.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Основы</p>
     <h1>Типографика</h1>
     <p>Три гарнитуры SB Sans формируют всю текстовую иерархию продукта. Display — для заголовков, Text — для контента, Screen — для элементов управления. Letter spacing везде равен 0.</p>
@@ -180,6 +180,24 @@
       <span class="fam">SB Sans Screen</span>
     </div>
     <div class="rows" id="buttons"></div>
+  </section>
+
+  <section class="section" data-screen-label="Metrics">
+    <div class="section-head">
+      <h2>Оптическая нормализация метрик Display</h2>
+      <span class="count">05.08.2026</span>
+      <span class="fam">@font-face</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;padding:20px 0;">
+      <p style="margin:0;max-width:70ch;font:var(--type-body-m);color:var(--text-secondary);text-wrap:pretty;">У SB Sans Display собственные метрики несимметричны относительно визуального блока (cap-height ↔ descender): заголовок вставал на 4% em выше оптического центра строки. В <code>@font-face</code> добавлены <code>ascent-override</code> и <code>descent-override</code>, совмещающие центр content-area с оптическим центром глифов. SB Sans Text и SB Sans Screen — с исходными метриками.</p>
+      <table style="border-collapse:collapse;font:var(--type-body-s);color:var(--text-primary);max-width:520px;">
+        <thead><tr><th style="text-align:left;padding:8px 16px 8px 0;border-bottom:1px solid var(--border-light);font:var(--type-body-s-strong);">Фейс</th><th style="text-align:left;padding:8px 16px 8px 0;border-bottom:1px solid var(--border-light);font:var(--type-body-s-strong);">ascent-override</th><th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--border-light);font:var(--type-body-s-strong);">descent-override</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:8px 16px 8px 0;">SB Sans Display 300 / 400 / 600</td><td style="padding:8px 16px 8px 0;">80%</td><td style="padding:8px 0;">29%</td></tr>
+        </tbody>
+      </table>
+      <p style="margin:0;max-width:70ch;font:var(--type-body-xs);color:var(--text-inactive);text-wrap:pretty;">Сумма ascent + descent сохранена, поэтому <code>line-height: normal</code> и высоты строк не изменились — двигается только положение глифов внутри строки.</p>
+    </div>
   </section>
 
   <footer class="page-foot">
