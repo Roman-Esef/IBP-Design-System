@@ -234,9 +234,6 @@
 .th--separator {
   padding: 0;
   gap: 0;
-  width: 8px;
-  min-width: 8px;
-  max-width: 8px;
 }
 /* разделителю доступны ТОЛЬКО состояния строки (hover/focus/selected/фон
    колонки) — контентных признаков у него быть не может */

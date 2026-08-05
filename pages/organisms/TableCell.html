@@ -100,8 +100,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.7</b></span>
-    <span>Обновлено <b>04.08.2026</b></span>
+    <span>Версия <b>v1.9</b></span>
+    <span>Обновлено <b>05.08.2026</b></span>
     <span>CSS <b>styles/table-cell.css</b></span>
     <span>Зависимости <b>checkbox, chip, icon-button, button, input, dropdown-list, tooltip</b></span>
   </div>
@@ -291,11 +291,11 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <div class="tbl demo-tbl" style="grid-template-columns:none;">
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
         <div class="th th--separator"></div>
-        <div class="th th--center"><label class="cb cb--no-content cb--indeterminate"><input type="checkbox" class="cb__input" aria-label="Выбрать все строки"><span class="cb__box"><span class="cb__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg></span></span></label></div>
-        <div class="th"><span class="th__label">Контрагент</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
-        <div class="th"><span class="th__label">Статус</span></div>
-        <div class="th th--right th--sorted" aria-sort="descending"><span class="th__label">Сумма, ₽</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировка от большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span></div>
-        <div class="th th--center"><span class="th__label">Действия</span></div>
+        <div class="th th--center"><label class="cb cb--no-content cb--indeterminate"><input type="checkbox" class="cb__input" aria-label="Выбрать все строки"><span class="cb__box"><span class="cb__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg></span></span></label><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+        <div class="th"><span class="th__label">Контрагент</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+        <div class="th"><span class="th__label">Статус</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+        <div class="th th--right th--sorted" aria-sort="descending"><span class="th__label">Сумма, ₽</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировка от большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+        <div class="th th--center"><span class="th__label">Действия</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
         <div class="th th--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
@@ -343,8 +343,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <div class="tbl demo-tbl" style="grid-template-columns:none;max-width:460px;">
       <div class="tbl__row" style="grid-template-columns:8px 1fr 120px 8px;">
         <div class="th th--separator"></div>
-        <div class="th"><span class="th__label">Организация</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
-        <div class="th th--right"><span class="th__label">Доля, %</span></div>
+        <div class="th"><span class="th__label">Организация</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+        <div class="th th--right"><span class="th__label">Доля, %</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
         <div class="th th--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 1fr 120px 8px;">
@@ -380,9 +380,9 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <div class="tbl demo-tbl" style="grid-template-columns:none;max-width:560px;">
       <div class="tbl__row" style="grid-template-columns:8px 1.4fr 1fr 1fr 8px;">
         <div class="th th--separator"></div>
-        <div class="th"><span class="th__label">Наименование</span></div>
-        <div class="th"><span class="th__label">Дата</span></div>
-        <div class="th th--right"><span class="th__label">Кол-во</span></div>
+        <div class="th"><span class="th__label">Наименование</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+        <div class="th"><span class="th__label">Дата</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+        <div class="th th--right"><span class="th__label">Кол-во</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
         <div class="th th--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 1.4fr 1fr 1fr 8px;">
@@ -414,7 +414,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="tbl" style="max-width:440px;">
           <div class="tbl__row" style="grid-template-columns:8px 1fr 8px;">
             <div class="th th--separator"></div>
-            <div class="th th--sorted" aria-sort="descending"><span class="th__label">Header label</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false" style="opacity:1;"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировка от большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span></div>
+            <div class="th th--sorted" aria-sort="descending"><span class="th__label">Header label</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Закрепить колонку" aria-pressed="false" style="opacity:1;"><i data-icon="pin"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировка от большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
             <div class="th th--separator"></div>
           </div>
           <div class="tbl__row" style="grid-template-columns:8px 1fr 8px;">
@@ -567,11 +567,22 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <div class="subsec" data-screen-label="Truncate">
     <h3>Усечение текста</h3>
     <p class="desc">Тултип с полным значением показывается только когда текст реально обрезан (<code class="tok">scrollWidth > clientWidth</code>), а не всегда у типа «Текст» — короткие значения тултип не получают. Проверка идёт и по <code class="tok">hover</code>, и по клавиатурному фокусу ячейки.</p>
+    <div class="panel" style="margin-top:14px;">
+      <div class="tbl" style="max-width:280px;">
+        <div class="tbl__row" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">Очень длинное наименование контрагента, не помещается в ячейку</span></span></div><div class="tc tc--separator"></div></div>
+        <div class="tbl__row" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">Короткое имя</span></span></div><div class="tc tc--separator"></div></div>
+      </div>
+      <p class="ex-cap">Наведите курсор на первую строку — тултип показывает полное значение; вторая короче ячейки и тултипа не получает.</p>
+    </div>
   </div>
 
 <div class="subsec" data-screen-label="Tree">
     <h3>Дерево (TreeNode)</h3>
     <p class="desc">Твисти (шеврон) переключает <code class="tok">aria-expanded</code> и разворачивает/сворачивает дочерние строки — с поворотом глифа на 90°. Отступ строки считается от уровня вложенности (<code class="tok">--tc-level</code> × 20px), у листьев (без потомков) твисти не рендерится — вместо него зарезервировано пустое место той же ширины, чтобы значение не съезжало по горизонтали.</p>
+    <div class="panel" style="margin-top:14px;">
+      <div class="tbl" id="tree-behavior-demo" style="max-width:360px;"></div>
+      <p class="ex-cap">Живое демо: кликните по твисти — дочерние строки разворачиваются/сворачиваются.</p>
+    </div>
   </div>
 
 <div class="subsec" data-screen-label="Sort">
@@ -581,9 +592,9 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="tbl" style="max-width:520px;">
         <div class="tbl__row" style="grid-template-columns:8px 1fr 1fr 1fr 8px;">
           <div class="th th--separator"></div>
-          <div class="th" aria-sort="none"><span class="th__label">Не выбрана</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
-          <div class="th th--sorted" aria-sort="ascending"><span class="th__label">По возрастанию</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="От меньшего к большему"><i data-icon="arrow-narrow-up"></i></button></span></div>
-          <div class="th th--sorted" aria-sort="descending"><span class="th__label">По убыванию</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="От большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span></div>
+          <div class="th" aria-sort="none"><span class="th__label">Не выбрана</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--sorted" aria-sort="ascending"><span class="th__label">По возрастанию</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="От меньшего к большему"><i data-icon="arrow-narrow-up"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--sorted" aria-sort="descending"><span class="th__label">По убыванию</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="От большего к меньшему"><i data-icon="arrow-narrow-down"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
           <div class="th th--separator"></div>
         </div>
       </div>
@@ -597,10 +608,10 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="tbl tbl--scroll">
         <div class="tbl__row" style="grid-template-columns:8px 200px 160px 160px 160px 8px;">
           <div class="th th--separator"></div>
-          <div class="th th--pinned" aria-sort="none"><span class="th__label">Контрагент</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Открепить колонку" aria-pressed="true"><i data-icon="pin-filled"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span></div>
-          <div class="th th--right"><span class="th__label">Лимит, ₽</span></div>
-          <div class="th th--right"><span class="th__label">Задолженность</span></div>
-          <div class="th th--right"><span class="th__label">Просрочка</span></div>
+          <div class="th th--pinned" aria-sort="none"><span class="th__label">Контрагент</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__pin" aria-label="Открепить колонку" aria-pressed="true"><i data-icon="pin-filled"></i></button><button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--right"><span class="th__label">Лимит, ₽</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--right"><span class="th__label">Задолженность</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--right"><span class="th__label">Просрочка</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
           <div class="th th--separator"></div>
         </div>
         <div class="tbl__row" style="grid-template-columns:8px 200px 160px 160px 160px 8px;">
@@ -642,21 +653,41 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <div class="subsec" data-screen-label="RowSelect">
     <h3>Выбор и фокус строки</h3>
     <p class="desc">Интерактивное состояние живёт на строке: наведение, фокус и выбор красят все её ячейки, включая разделители по краям. Клик по любой ячейке переводит в фокус <b>всю строку</b> — её ячейки доступны для редактирования, показываются скрытые действия и иконки полей. Выбор чекбоксом даёт строке тон Selected; чекбокс в шапке — «выбрать все», при частичном выборе — промежуточное состояние (минус).</p>
+    <div class="panel" style="margin-top:14px;">
+      <div class="tbl" id="rowselect-behavior-demo" style="max-width:420px;"></div>
+      <p class="ex-cap">Живое демо: кликните по строке — фокус; отметьте чекбокс — Selected.</p>
+    </div>
   </div>
 
 <div class="subsec" data-screen-label="HiddenActions">
     <h3>Скрытые действия</h3>
     <p class="desc">Скрытые действия — не тип контента, а настройка поверх любой ячейки (как EditMark). Кнопки появляются, когда курсор наводится на строку — в этот момент строка находится в состоянии Hover — либо когда строка в фокусе. На тач-устройствах показываются постоянно. Действий максимум 2–3, дальше — кебаб-меню.</p>
+    <div class="panel" style="margin-top:14px;">
+      <div class="tbl" style="max-width:360px;">
+        <div class="tbl__row" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Договор №4521</span></span><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить"><i data-icon="edit"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить"><i data-icon="trash"></i></button></div></div><div class="tc tc--separator"></div></div>
+      </div>
+      <p class="ex-cap">Наведите курсор на строку — появляются скрытые действия.</p>
+    </div>
   </div>
 
 <div class="subsec" data-screen-label="EditCells">
     <h3>Редактируемые ячейки</h3>
     <p class="desc">Ячейка не рисует собственное поле — внутрь ставится компонент <b>Input размера S</b> («Table Edit») со своими рамками, радиусами и состояниями. В покое поле сливается со строкой, по наведению проявляется рамка. Иконки действий (очистка, календарь, шеврон) показываются только когда строка или ячейка в фокусе — в покое ячейка показывает одно значение. Шеврон Autocomplete по клику раскрывает DropdownList; выбор опции подставляет значение.</p>
+    <div class="panel" style="margin-top:14px;">
+      <div class="tbl" style="max-width:320px;">
+        <div class="tbl__row" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div><div class="tc tc--input"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" value="12.05.2026" inputmode="numeric" aria-label="Дата"><span class="inp__acts"><button class="inp__act" aria-label="Очистить поле" tabindex="-1"><i data-icon="close"></i></button><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog" tabindex="-1"><i data-icon="calendar"></i></button></span></div></div></div><div class="tc tc--separator"></div></div>
+      </div>
+      <p class="ex-cap">Кликните в поле — иконки действий проявляются в фокусе.</p>
+    </div>
   </div>
 
 <div class="subsec" data-screen-label="GridNav">
     <h3>Навигация по сетке</h3>
     <p class="desc">Внутри таблицы фокус перемещается между ячейками стрелками (grid-паттерн), а не табом по каждому интерактивному элементу — Tab уводит из таблицы целиком. Фокус-ячейка получает видимую обводку; если в ячейке несколько интерактивных элементов (например, кнопка + чип), первую активацию Enter/Space получает первый из них.</p>
+    <div class="panel" style="margin-top:14px;">
+      <div class="tbl" id="gridnav-behavior-demo" style="max-width:420px;"></div>
+      <p class="ex-cap">Кликните по ячейке и используйте стрелки — фокус переходит между ячейками сетки; Tab уводит из таблицы.</p>
+    </div>
   </div>
   </section>
 
@@ -703,7 +734,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>EditMark</b> · признак правки</div>
-      <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--edited"><span class="tc__row"><span class="tc__text">Изменённое значение</span></span></div></div></div>
+      <div class="tbl"><div class="tbl__row" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div><div class="tc tc--edited"><span class="tc__row"><span class="tc__text">Изменённое значение</span></span></div><div class="tc tc--separator"></div></div></div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Truncate + Tooltip</b> · наведите курсор</div>
@@ -817,7 +848,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     </table>
   </div>
   <div class="rl-sample" id="rl-sample" aria-hidden="true">
-    <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="th"><span class="th__label">Header</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort"><i data-icon="arrow-up-down"></i></button></span></div></div><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc" id="rl-cell"><span class="tc__row"><span class="tc__text">Value</span></span></div></div><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--input"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" value="Value"></div></div></div></div></div>
+    <div class="tbl"><div class="tbl__row" style="grid-template-columns:1fr;"><div class="th"><span class="th__label">Header</span><span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort"><i data-icon="arrow-up-down"></i></button></span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div></div><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc" id="rl-cell"><span class="tc__row"><span class="tc__text">Value</span></span></div></div><div class="tbl__row" style="grid-template-columns:1fr;"><div class="tc tc--input"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" value="Value"></div></div></div></div></div>
   </div>
 
   <p class="subhead">Поведение (framework-agnostic)</p>
@@ -928,6 +959,7 @@ if (truncateEnabled &amp;&amp; cellText.scrollWidth &gt; cellText.clientWidth) a
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/tbl-resize.js"></script>
 <script src="../../scripts/table-cell.page.js"></script>
 </body>
 </html>

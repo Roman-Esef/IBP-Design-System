@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"5df6457afe08","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"238ac150f3d3","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"a986dffd28c8","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"03963b1c72ef","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"1fc49308cda2","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"005cc7ad432b","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-cell.page.js":"4b1f63d3ddfb","scripts/table-filter.page.js":"43967744b3d5","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"61ca79578cd1","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"238ac150f3d3","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"4d5ec320a797","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"03963b1c72ef","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"1fc49308cda2","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"005cc7ad432b","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-cell.page.js":"d63e0905181b","scripts/table-filter.page.js":"43967744b3d5","scripts/tbl-resize.js":"4598dd68c45f","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -49,7 +49,6 @@ try { (() => {
   function alertHTML(o) {
     o = o || {};
     var tone = o.tone || 'info';
-    var size = o.size || 'm';
     var icon = o.icon !== false;
     var title = o.title || '';
     var text = o.text || '';
@@ -83,7 +82,7 @@ try { (() => {
     if (actions === 'close' || actions === 'both') {
       acts += '<button type="button" class="ibtn ibtn--m ibtn--neutral alert__act alert__close" aria-label="Закрыть"><i data-icon="close"></i></button>';
     }
-    return '<div class="alert alert--' + tone + ' alert--' + size + layout + flush + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">' + (icon ? '<span class="alert__icon" aria-hidden="true"><i data-icon="' + TONE_ICON[tone] + '"></i></span>' : '') + '<div class="alert__body">' + body + '</div>' + (acts ? '<div class="alert__actions">' + acts + '</div>' : '') + '</div>';
+    return '<div class="alert alert--' + tone + ' alert--m' + layout + flush + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">' + (icon ? '<span class="alert__icon" aria-hidden="true"><i data-icon="' + TONE_ICON[tone] + '"></i></span>' : '') + '<div class="alert__body">' + body + '</div>' + (acts ? '<div class="alert__actions">' + acts + '</div>' : '') + '</div>';
   }
   function paintIcons(root) {
     if (window.dsIcons) window.dsIcons.apply(root || document);
@@ -100,7 +99,6 @@ try { (() => {
   /* ---------------- конструктор ---------------- */
   function initPlayground() {
     var tone = document.getElementById('c-tone');
-    var size = document.getElementById('c-size');
     var btns = document.getElementById('c-buttons');
     var acts = document.getElementById('c-actions');
     var title = document.getElementById('c-title');
@@ -123,7 +121,6 @@ try { (() => {
       if (actsCtl) actsCtl.classList.toggle('is-off', isRow);
       var o = {
         tone: tone.value,
-        size: size.value,
         buttons: btns.value,
         actions: isRow ? 'none' : acts.value,
         layout: layout ? layout.value : 'stack',
@@ -132,13 +129,13 @@ try { (() => {
         icon: iconT.getAttribute('aria-pressed') === 'true'
       };
       setHTML('pg-preview', alertHTML(o));
-      var cls = 'alert alert--' + o.tone + ' alert--' + o.size + (o.layout === 'row' ? ' alert--row' : '');
+      var cls = 'alert alert--' + o.tone + ' alert--m' + (o.layout === 'row' ? ' alert--row' : '');
       var code = document.getElementById('pg-code');
       if (code) {
         code.innerHTML = '<code>&lt;div class="' + cls + '" data-alert-tone="' + o.tone + '" role="' + (o.tone === 'error' || o.tone === 'warning' ? 'alert' : 'status') + '"&gt;…&lt;/div&gt;</code>';
       }
     }
-    [tone, size, btns, acts].concat(layout ? [layout] : []).forEach(function (s) {
+    [tone, btns, acts].concat(layout ? [layout] : []).forEach(function (s) {
       s.addEventListener('change', render);
     });
     [title, text].forEach(function (i) {
@@ -168,7 +165,6 @@ try { (() => {
     // Встроенный в плитку/модалку — flush + row (без кнопок действий)
     setHTML('embed-alert', alertHTML({
       tone: 'warning',
-      size: 's',
       layout: 'row',
       flush: true,
       text: 'Реквизиты изменились — проверьте перед отправкой.',
@@ -193,7 +189,6 @@ try { (() => {
     // Alert vs Toast vs SnackBar — витрина
     setHTML('diff-alert', alertHTML({
       tone: 'info',
-      size: 's',
       title: 'Инлайн-сообщение',
       text: 'Живёт в потоке блока.'
     }));
@@ -267,15 +262,6 @@ try { (() => {
     // Размеры
     setHTML('size-m', alertHTML({
       tone: 'info',
-      size: 'm',
-      title: DEMO_TITLE,
-      text: DEMO_TEXT,
-      buttons: 'one',
-      actions: 'both'
-    }));
-    setHTML('size-s', alertHTML({
-      tone: 'info',
-      size: 's',
       title: DEMO_TITLE,
       text: DEMO_TEXT,
       buttons: 'one',
@@ -452,8 +438,7 @@ try { (() => {
     var body = document.querySelector('#size-table tbody');
     if (!body) return;
     var m = document.querySelector('#size-m .alert');
-    var s = document.querySelector('#size-s .alert');
-    if (!m || !s) return;
+    if (!m) return;
     function pad(el) {
       var c = getComputedStyle(el);
       return px(c.paddingTop) + ' / ' + px(c.paddingLeft);
@@ -465,9 +450,9 @@ try { (() => {
     function gap(el) {
       return px(getComputedStyle(el).columnGap || getComputedStyle(el).gap);
     }
-    var rows = [['Паддинг (верт / гор)', pad(m), pad(s)], ['Зазор иконка↔тело', gap(m), gap(s)], ['Размер иконки', icon(m), icon(s)], ['Радиус', px(getComputedStyle(m).borderTopLeftRadius), px(getComputedStyle(s).borderTopLeftRadius)], ['Токен заголовка', 'Body M Strong', 'Body S Strong'], ['Токен текста', 'Body S', 'Body XS']];
+    var rows = [['Паддинг (верт / гор)', pad(m)], ['Зазор иконка↔тело', gap(m)], ['Размер иконки', icon(m)], ['Радиус', px(getComputedStyle(m).borderTopLeftRadius)], ['Токен заголовка', 'Body M Strong'], ['Токен текста', 'Body S']];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td><td class="rt-num">' + r[2] + '</td></tr>';
+      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td></tr>';
     }).join('');
   }
   function fillA11y() {
@@ -524,8 +509,7 @@ try { (() => {
     var body = document.querySelector('#dev-spec-table tbody');
     if (!body) return;
     var m = document.querySelector('#size-m .alert');
-    var s = document.querySelector('#size-s .alert');
-    if (!m || !s) return;
+    if (!m) return;
     function val(el, prop) {
       return px(getComputedStyle(el)[prop]);
     }
@@ -537,9 +521,9 @@ try { (() => {
       var a = el.querySelector('.alert__act');
       return a ? px(getComputedStyle(a).width) : '—';
     }
-    var rows = [['Паддинг верт.', val(m, 'paddingTop'), val(s, 'paddingTop'), '--alert-pad'], ['Паддинг гор.', val(m, 'paddingLeft'), val(s, 'paddingLeft'), '--alert-pad'], ['Зазор иконка↔тело', px(getComputedStyle(m).columnGap), px(getComputedStyle(s).columnGap), '--alert-gap'], ['Размер иконки', iconW(m), iconW(s), '--alert-icon'], ['Кнопка-действие', actW(m), actW(s), '.alert__act (24 / 22)'], ['Радиус', val(m, 'borderTopLeftRadius'), val(s, 'borderTopLeftRadius'), '--radius-m']];
+    var rows = [['Паддинг верт.', val(m, 'paddingTop'), '--alert-pad'], ['Паддинг гор.', val(m, 'paddingLeft'), '--alert-pad'], ['Зазор иконка↔тело', px(getComputedStyle(m).columnGap), '--alert-gap'], ['Размер иконки', iconW(m), '--alert-icon'], ['Кнопка-действие', actW(m), '.alert__act'], ['Радиус', val(m, 'borderTopLeftRadius'), '--radius-m']];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td><td class="rt-num">' + r[2] + '</td><td><code class="tok">' + r[3] + '</code></td></tr>';
+      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td><td><code class="tok">' + r[2] + '</code></td></tr>';
     }).join('');
   }
 
@@ -6264,6 +6248,9 @@ try { (() => {
     items: [{
       label: 'Аудит разделов',
       href: 'pages/patterns/SectionsAudit.html'
+    }, {
+      label: 'Общий бэклог',
+      href: 'pages/patterns/Backlog.html'
     }, {
       label: 'Редполитика',
       soon: true
@@ -19759,8 +19746,10 @@ try { (() => {
     sel: [false, false, false],
     treeOpen: true,
     focusRow: -1,
-    acOpen: -1
+    acOpen: -1,
+    colW: 300
   };
+  var RESIZE_MIN = 96;
   var TEXT_DEFAULTS = {
     text: 'ООО ЮгСтройИнвестМонтаж',
     tree: 'Дочернее ООО «Восток»',
@@ -19948,7 +19937,47 @@ try { (() => {
     if (S.focusRow === i) c += ' tbl__row--focus';
     return c;
   }
-  var GRID = 'grid-template-columns:8px 1fr 8px;';
+  function gridTpl() {
+    return 'grid-template-columns:8px ' + S.colW + 'px minmax(8px,1fr);';
+  }
+  function applyDemoWidths() {
+    var tbl = el('demo-tbl');
+    if (!tbl) return;
+    var t = gridTpl();
+    [].forEach.call(tbl.querySelectorAll('.tbl__row'), function (n) {
+      n.style.cssText = t;
+    });
+  }
+  function guideAt(clientX) {
+    var tbl = el('demo-tbl');
+    if (!tbl) return;
+    var g = tbl.querySelector('.tbl__guide');
+    if (g) g.style.left = clientX - tbl.getBoundingClientRect().left + tbl.scrollLeft + 'px';
+  }
+  function startResize(e) {
+    e.preventDefault();
+    var tbl = el('demo-tbl');
+    if (!tbl) return;
+    var x0 = e.clientX,
+      w0 = S.colW;
+    var th = e.target.closest('.th');
+    tbl.classList.add('tbl--resizing');
+    if (th) th.classList.add('th--resizing');
+    function move(ev) {
+      S.colW = Math.max(RESIZE_MIN, Math.round(w0 + (ev.clientX - x0)));
+      applyDemoWidths();
+      guideAt(ev.clientX);
+    }
+    function up() {
+      tbl.classList.remove('tbl--resizing');
+      if (th) th.classList.remove('th--resizing');
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+    }
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+    move(e);
+  }
   function headerRow(cfg) {
     var cls = 'th';
     if (cfg.numeric || cfg.align === 'right' && cfg.type === 'text') cls += ' th--right';else if (cfg.type === 'checkbox') cls += ' th--center' + (cfg.sortOn || cfg.pinOn ? ' th--select' : '');
@@ -19965,9 +19994,10 @@ try { (() => {
     }
     if (tools) tools = '<span class="th__tools">' + tools + '</span>';
     var label = cfg.type === 'checkbox' ? checkbox(allState(), 'data-all="1" aria-label="Выбрать все строки"') : '<span class="th__label">Заголовок</span>';
+    var resize = '<span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" data-resize="1" aria-label="Изменить ширину колонки"></span>';
     var aria = cfg.sortOn ? ' aria-sort="' + (S.sortDir === 'asc' ? 'ascending' : S.sortDir === 'desc' ? 'descending' : 'none') + '"' : '';
     var sep = 'th th--separator' + (cfg.pinOn && S.pinned ? ' th--pinned' : cfg.bg === 'accent' ? ' tc--accent' : '');
-    return '<div class="tbl__row" style="' + GRID + '"><div class="' + sep + '"></div>' + '<div class="' + cls + '"' + aria + '>' + label + tools + '</div>' + '<div class="' + sep + '"></div></div>';
+    return '<div class="tbl__row" style="' + gridTpl() + '"><div class="' + sep + '"></div>' + '<div class="' + cls + '"' + aria + '>' + label + tools + resize + '</div>' + '<div class="' + sep + '"></div></div>';
   }
   function allState() {
     var n = S.sel.filter(Boolean).length;
@@ -20008,7 +20038,7 @@ try { (() => {
         rcfg.rowLeaf = r.leaf;
       }
       var style = cfg.type === 'tree' ? ' style="--tc-level:' + r.level + ';"' : '';
-      return '<div class="' + rowCls(i, cfg) + '" style="' + GRID + '" data-row="' + i + '">' + '<div class="' + sepCls(cfg) + '"></div>' + '<div class="' + cellCls(rcfg) + '"' + style + (cfg.state === 'skeleton' ? ' aria-busy="true"' : '') + '>' + cellContent(rcfg, i) + '</div>' + '<div class="' + sepCls(cfg) + '"></div></div>';
+      return '<div class="' + rowCls(i, cfg) + '" style="' + gridTpl() + '" data-row="' + i + '">' + '<div class="' + sepCls(cfg) + '"></div>' + '<div class="' + cellCls(rcfg) + '"' + style + (cfg.state === 'skeleton' ? ' aria-busy="true"' : '') + '>' + cellContent(rcfg, i) + '</div>' + '<div class="' + sepCls(cfg) + '"></div></div>';
     }).join('');
   }
   function render(focusInput) {
@@ -20016,7 +20046,7 @@ try { (() => {
     syncControls(cfg);
     var tbl = el('demo-tbl');
     if (!tbl) return;
-    tbl.innerHTML = headerRow(cfg) + bodyRows(cfg);
+    tbl.innerHTML = headerRow(cfg) + bodyRows(cfg) + '<span class="tbl__guide"></span>';
     if (focusInput && S.focusRow >= 0) {
       var row = tbl.querySelector('.tbl__row[data-row="' + S.focusRow + '"] .inp__control');
       if (row) row.focus();
@@ -20043,6 +20073,17 @@ try { (() => {
     });
     var tbl = el('demo-tbl');
     if (!tbl) return;
+    tbl.addEventListener('pointerdown', function (e) {
+      var h = e.target.closest('[data-resize]');
+      if (h) startResize(e);
+    });
+    tbl.addEventListener('keydown', function (e) {
+      var h = e.target.closest('[data-resize]');
+      if (!h || e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      S.colW = Math.max(RESIZE_MIN, S.colW + (e.key === 'ArrowRight' ? 16 : -16));
+      applyDemoWidths();
+    });
     tbl.addEventListener('click', function (e) {
       var t = e.target;
       var sortBtn = t.closest('[data-sort]');
@@ -20206,6 +20247,163 @@ try { (() => {
     setTimeout(measureRedline, 300);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);else init();
+})();
+
+/* =========================================================================
+   Демо «Дерево» (раздел «Поведение»).
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var root = document.getElementById('tree-behavior-demo');
+  if (!root) return;
+  var icon = window.getIcon || function () {
+    return '';
+  };
+  var open = true;
+  function row(level, text, leaf) {
+    var tw = leaf ? '<span class="tc__twisty tc__twisty--leaf"></span>' : '<button class="tc__twisty" aria-expanded="' + open + '" aria-label="' + (open ? 'Свернуть' : 'Развернуть') + '" data-twisty="1">' + icon('chevron-right', 16) + '</button>';
+    return '<div class="tbl__row" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div>' + '<div class="tc tc--tree" style="--tc-level:' + level + ';">' + tw + '<span class="tc__row"><span class="tc__text">' + text + '</span></span></div>' + '<div class="tc tc--separator"></div></div>';
+  }
+  function render() {
+    var html = row(0, 'ООО «Восток»', false);
+    if (open) {
+      html += row(1, 'Филиал в Казани', true);
+      html += row(1, 'Филиал в Самаре', true);
+    }
+    html += row(0, 'ЗАО «Запад»', true);
+    root.innerHTML = html;
+  }
+  root.addEventListener('click', function (e) {
+    if (e.target.closest('[data-twisty]')) {
+      open = !open;
+      render();
+    }
+  });
+  render();
+})();
+
+/* =========================================================================
+   Демо «Выбор и фокус строки» (раздел «Поведение»).
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var root = document.getElementById('rowselect-behavior-demo');
+  if (!root) return;
+  var CB_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+  var CB_MINUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>';
+  var rows = [{
+    t: 'ООО ЮгСтрой',
+    sel: false
+  }, {
+    t: 'ПАО Ростелеком',
+    sel: false
+  }, {
+    t: 'АО Тандер',
+    sel: false
+  }];
+  var focus = -1;
+  function cb(state, extra) {
+    var mark = state === 'selected' ? CB_CHECK : state === 'indeterminate' ? CB_MINUS : '';
+    return '<label class="cb cb--no-content cb--' + state + '"><input type="checkbox" class="cb__input" ' + (state === 'selected' ? 'checked ' : '') + extra + '><span class="cb__box"><span class="cb__mark">' + mark + '</span></span></label>';
+  }
+  function allState() {
+    var n = rows.filter(function (r) {
+      return r.sel;
+    }).length;
+    return n === 0 ? 'unselected' : n === rows.length ? 'selected' : 'indeterminate';
+  }
+  function render() {
+    var html = '<div class="tbl__row" style="grid-template-columns:8px 48px 1fr 8px;"><div class="th th--separator"></div>' + '<div class="th th--center">' + cb(allState(), 'data-all="1" aria-label="Выбрать все строки"') + '</div>' + '<div class="th"><span class="th__label">Контрагент</span></div><div class="th th--separator"></div></div>';
+    rows.forEach(function (r, i) {
+      var cls = 'tbl__row' + (r.sel ? ' tbl__row--selected' : '') + (focus === i ? ' tbl__row--focus' : '');
+      html += '<div class="' + cls + '" style="grid-template-columns:8px 48px 1fr 8px;" data-row="' + i + '"><div class="tc tc--separator"></div>' + '<div class="tc tc--center">' + cb(r.sel ? 'selected' : 'unselected', 'data-row="' + i + '" aria-label="Выбрать ' + r.t + '"') + '</div>' + '<div class="tc"><span class="tc__row"><span class="tc__text">' + r.t + '</span></span></div>' + '<div class="tc tc--separator"></div></div>';
+    });
+    root.innerHTML = html;
+  }
+  root.addEventListener('change', function (e) {
+    var input = e.target.closest('.cb__input');
+    if (!input) return;
+    if (input.hasAttribute('data-all')) {
+      var next = allState() !== 'selected';
+      rows.forEach(function (r) {
+        r.sel = next;
+      });
+    } else {
+      var i = parseInt(input.getAttribute('data-row'), 10);
+      rows[i].sel = !rows[i].sel;
+    }
+    render();
+  });
+  root.addEventListener('click', function (e) {
+    var rowEl = e.target.closest('.tbl__row[data-row]');
+    if (rowEl && !e.target.closest('.cb')) {
+      focus = parseInt(rowEl.getAttribute('data-row'), 10);
+      render();
+    }
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || e.target.closest('#rowselect-behavior-demo') || focus === -1) return;
+    focus = -1;
+    render();
+  });
+  render();
+})();
+
+/* =========================================================================
+   Демо «Навигация по сетке» (раздел «Поведение»).
+   Роving tabindex: фокус стрелками, видимая обводка через .tc:focus-visible.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var root = document.getElementById('gridnav-behavior-demo');
+  if (!root) return;
+  var data = [['ООО «Восток»', '1 240 500,00', '12.05.2026'], ['ПАО Ростелеком', '986 300,00', '28.04.2026'], ['АО Тандер', '432 100,00', '05.03.2026']];
+  var COLS = 3,
+    ROWS = data.length;
+  function render() {
+    var html = '<div class="tbl__row" style="grid-template-columns:8px 1fr 1fr 1fr 8px;"><div class="th th--separator"></div>' + '<div class="th"><span class="th__label">Контрагент</span></div><div class="th th--right"><span class="th__label">Сумма, ₽</span></div>' + '<div class="th"><span class="th__label">Дата</span></div><div class="th th--separator"></div></div>';
+    data.forEach(function (r, ri) {
+      html += '<div class="tbl__row" style="grid-template-columns:8px 1fr 1fr 1fr 8px;"><div class="tc tc--separator"></div>';
+      r.forEach(function (v, ci) {
+        var tab = ri === 0 && ci === 0 ? '0' : '-1';
+        var num = ci === 1 ? ' tc--numbers' : '';
+        html += '<div class="tc' + num + '" tabindex="' + tab + '" data-r="' + ri + '" data-c="' + ci + '"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div>';
+      });
+      html += '<div class="tc tc--separator"></div></div>';
+    });
+    root.innerHTML = html;
+  }
+  function cellAt(r, c) {
+    return root.querySelector('.tc[data-r="' + r + '"][data-c="' + c + '"]');
+  }
+  root.addEventListener('focusin', function (e) {
+    var t = e.target.closest('.tc[data-r]');
+    if (!t) return;
+    [].forEach.call(root.querySelectorAll('.tc[data-r]'), function (n) {
+      n.tabIndex = -1;
+    });
+    t.tabIndex = 0;
+  });
+  root.addEventListener('keydown', function (e) {
+    var t = e.target.closest('.tc[data-r]');
+    if (!t) return;
+    var r = parseInt(t.getAttribute('data-r'), 10),
+      c = parseInt(t.getAttribute('data-c'), 10);
+    var nr = r,
+      nc = c;
+    if (e.key === 'ArrowRight') nc = Math.min(COLS - 1, c + 1);else if (e.key === 'ArrowLeft') nc = Math.max(0, c - 1);else if (e.key === 'ArrowDown') nr = Math.min(ROWS - 1, r + 1);else if (e.key === 'ArrowUp') nr = Math.max(0, r - 1);else return;
+    e.preventDefault();
+    var next = cellAt(nr, nc);
+    if (next) next.focus();
+  });
+  root.addEventListener('click', function (e) {
+    var t = e.target.closest('.tc[data-r]');
+    if (t) t.focus();
+  });
+  render();
 })();
 
 /* =========================================================================
@@ -21199,6 +21397,96 @@ try { (() => {
   });
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/table-filter.page.js", error: String((e && e.message) || e) }); }
+
+// scripts/tbl-resize.js
+try { (() => {
+/* ============================================================
+   tbl-resize.js — универсальное изменение ширины колонки для
+   любой статичной .tbl-таблицы документации (делегирование на
+   document, работает без инициализации на каждой странице).
+   Ручки с [data-resize] (Конструктор, демо «Ширина колонок»)
+   уже имеют свою логику — этот скрипт их не трогает.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var MIN = 96;
+  function ensureGuide(tbl) {
+    var g = tbl.querySelector(':scope > .tbl__guide');
+    if (!g) {
+      g = document.createElement('span');
+      g.className = 'tbl__guide';
+      tbl.appendChild(g);
+    }
+    return g;
+  }
+  function colIndex(row, th) {
+    return Array.prototype.indexOf.call(row.children, th);
+  }
+  function parseTracks(row) {
+    return row.style.gridTemplateColumns.trim().match(/[a-zA-Z-]*\([^)]*\)|\S+/g) || [];
+  }
+  function applyTracks(tbl, idx, px) {
+    var rows = tbl.querySelectorAll(':scope > .tbl__row');
+    rows.forEach(function (row) {
+      var tracks = parseTracks(row);
+      if (idx >= tracks.length) return;
+      tracks[idx] = px + 'px';
+      var last = tracks.length - 1;
+      if (last !== idx && !/^minmax\(/.test(tracks[last])) tracks[last] = 'minmax(8px,1fr)';
+      row.style.gridTemplateColumns = tracks.join(' ');
+    });
+  }
+  function guideAt(tbl, clientX) {
+    var g = ensureGuide(tbl);
+    g.style.left = clientX - tbl.getBoundingClientRect().left + tbl.scrollLeft + 'px';
+  }
+  function startResize(e, handle) {
+    var th = handle.closest('.th');
+    var row = handle.closest('.tbl__row');
+    var tbl = handle.closest('.tbl');
+    if (!th || !row || !tbl) return;
+    e.preventDefault();
+    var idx = colIndex(row, th);
+    var x0 = e.clientX,
+      w0 = th.getBoundingClientRect().width;
+    tbl.classList.add('tbl--resizing');
+    th.classList.add('th--resizing');
+    function move(ev) {
+      var w = Math.max(MIN, Math.round(w0 + (ev.clientX - x0)));
+      applyTracks(tbl, idx, w);
+      guideAt(tbl, ev.clientX);
+    }
+    function up() {
+      tbl.classList.remove('tbl--resizing');
+      th.classList.remove('th--resizing');
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+    }
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+    move(e);
+  }
+  document.addEventListener('pointerdown', function (e) {
+    var h = e.target.closest && e.target.closest('.th__resize');
+    if (!h || h.hasAttribute('data-resize')) return;
+    startResize(e, h);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    var h = document.activeElement;
+    if (!h || !h.classList || !h.classList.contains('th__resize') || h.hasAttribute('data-resize')) return;
+    var th = h.closest('.th'),
+      row = h.closest('.tbl__row'),
+      tbl = h.closest('.tbl');
+    if (!th || !row || !tbl) return;
+    e.preventDefault();
+    var idx = colIndex(row, th);
+    var w = Math.max(MIN, Math.round(th.getBoundingClientRect().width + (e.key === 'ArrowRight' ? 16 : -16)));
+    applyTracks(tbl, idx, w);
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/tbl-resize.js", error: String((e && e.message) || e) }); }
 
 // scripts/toast.page.js
 try { (() => {

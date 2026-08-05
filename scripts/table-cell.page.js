@@ -25,7 +25,8 @@
   }
 
   /* ---------------- состояние демо (то, что живёт по клику) ---------------- */
-  var S = { sortDir: 'none', pinned: false, sel: [false, false, false], treeOpen: true, focusRow: -1, acOpen: -1 };
+  var S = { sortDir: 'none', pinned: false, sel: [false, false, false], treeOpen: true, focusRow: -1, acOpen: -1, colW: 300 };
+  var RESIZE_MIN = 96;
 
   var TEXT_DEFAULTS = {
     text: 'ООО ЮгСтройИнвестМонтаж',
@@ -231,7 +232,42 @@
     return c;
   }
 
-  var GRID = 'grid-template-columns:8px 1fr 8px;';
+  function gridTpl() { return 'grid-template-columns:8px ' + S.colW + 'px minmax(8px,1fr);'; }
+
+  function applyDemoWidths() {
+    var tbl = el('demo-tbl'); if (!tbl) return;
+    var t = gridTpl();
+    [].forEach.call(tbl.querySelectorAll('.tbl__row'), function (n) { n.style.cssText = t; });
+  }
+
+  function guideAt(clientX) {
+    var tbl = el('demo-tbl'); if (!tbl) return;
+    var g = tbl.querySelector('.tbl__guide');
+    if (g) g.style.left = (clientX - tbl.getBoundingClientRect().left + tbl.scrollLeft) + 'px';
+  }
+
+  function startResize(e) {
+    e.preventDefault();
+    var tbl = el('demo-tbl'); if (!tbl) return;
+    var x0 = e.clientX, w0 = S.colW;
+    var th = e.target.closest('.th');
+    tbl.classList.add('tbl--resizing');
+    if (th) th.classList.add('th--resizing');
+    function move(ev) {
+      S.colW = Math.max(RESIZE_MIN, Math.round(w0 + (ev.clientX - x0)));
+      applyDemoWidths();
+      guideAt(ev.clientX);
+    }
+    function up() {
+      tbl.classList.remove('tbl--resizing');
+      if (th) th.classList.remove('th--resizing');
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+    }
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+    move(e);
+  }
 
   function headerRow(cfg) {
     var cls = 'th';
@@ -257,10 +293,11 @@
       ? checkbox(allState(), 'data-all="1" aria-label="Выбрать все строки"')
       : '<span class="th__label">Заголовок</span>';
 
+    var resize = '<span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" data-resize="1" aria-label="Изменить ширину колонки"></span>';
     var aria = cfg.sortOn ? ' aria-sort="' + (S.sortDir === 'asc' ? 'ascending' : S.sortDir === 'desc' ? 'descending' : 'none') + '"' : '';
     var sep = 'th th--separator' + (cfg.pinOn && S.pinned ? ' th--pinned' : cfg.bg === 'accent' ? ' tc--accent' : '');
-    return '<div class="tbl__row" style="' + GRID + '"><div class="' + sep + '"></div>' +
-      '<div class="' + cls + '"' + aria + '>' + label + tools + '</div>' +
+    return '<div class="tbl__row" style="' + gridTpl() + '"><div class="' + sep + '"></div>' +
+      '<div class="' + cls + '"' + aria + '>' + label + tools + resize + '</div>' +
       '<div class="' + sep + '"></div></div>';
   }
 
@@ -285,7 +322,7 @@
       var rcfg = Object.assign({}, cfg);
       if (cfg.type === 'tree') { rcfg.text = r.text; rcfg.rowLeaf = r.leaf; }
       var style = cfg.type === 'tree' ? ' style="--tc-level:' + r.level + ';"' : '';
-      return '<div class="' + rowCls(i, cfg) + '" style="' + GRID + '" data-row="' + i + '">' +
+      return '<div class="' + rowCls(i, cfg) + '" style="' + gridTpl() + '" data-row="' + i + '">' +
         '<div class="' + sepCls(cfg) + '"></div>' +
         '<div class="' + cellCls(rcfg) + '"' + style + (cfg.state === 'skeleton' ? ' aria-busy="true"' : '') + '>' +
         cellContent(rcfg, i) + '</div>' +
@@ -297,7 +334,7 @@
     var cfg = readCfg();
     syncControls(cfg);
     var tbl = el('demo-tbl'); if (!tbl) return;
-    tbl.innerHTML = headerRow(cfg) + bodyRows(cfg);
+    tbl.innerHTML = headerRow(cfg) + bodyRows(cfg) + '<span class="tbl__guide"></span>';
     if (focusInput && S.focusRow >= 0) {
       var row = tbl.querySelector('.tbl__row[data-row="' + S.focusRow + '"] .inp__control');
       if (row) row.focus();
@@ -322,6 +359,18 @@
     });
 
     var tbl = el('demo-tbl'); if (!tbl) return;
+
+    tbl.addEventListener('pointerdown', function (e) {
+      var h = e.target.closest('[data-resize]');
+      if (h) startResize(e);
+    });
+    tbl.addEventListener('keydown', function (e) {
+      var h = e.target.closest('[data-resize]');
+      if (!h || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
+      e.preventDefault();
+      S.colW = Math.max(RESIZE_MIN, S.colW + (e.key === 'ArrowRight' ? 16 : -16));
+      applyDemoWidths();
+    });
 
     tbl.addEventListener('click', function (e) {
       var t = e.target;
@@ -454,6 +503,144 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
+})();
+
+/* =========================================================================
+   Демо «Дерево» (раздел «Поведение»).
+   ========================================================================= */
+(function () {
+  'use strict';
+  var root = document.getElementById('tree-behavior-demo');
+  if (!root) return;
+  var icon = window.getIcon || function () { return ''; };
+  var open = true;
+
+  function row(level, text, leaf) {
+    var tw = leaf
+      ? '<span class="tc__twisty tc__twisty--leaf"></span>'
+      : '<button class="tc__twisty" aria-expanded="' + open + '" aria-label="' + (open ? 'Свернуть' : 'Развернуть') + '" data-twisty="1">' + icon('chevron-right', 16) + '</button>';
+    return '<div class="tbl__row" style="grid-template-columns:8px 1fr 8px;"><div class="tc tc--separator"></div>' +
+      '<div class="tc tc--tree" style="--tc-level:' + level + ';">' + tw + '<span class="tc__row"><span class="tc__text">' + text + '</span></span></div>' +
+      '<div class="tc tc--separator"></div></div>';
+  }
+  function render() {
+    var html = row(0, 'ООО «Восток»', false);
+    if (open) {
+      html += row(1, 'Филиал в Казани', true);
+      html += row(1, 'Филиал в Самаре', true);
+    }
+    html += row(0, 'ЗАО «Запад»', true);
+    root.innerHTML = html;
+  }
+  root.addEventListener('click', function (e) {
+    if (e.target.closest('[data-twisty]')) { open = !open; render(); }
+  });
+  render();
+})();
+
+/* =========================================================================
+   Демо «Выбор и фокус строки» (раздел «Поведение»).
+   ========================================================================= */
+(function () {
+  'use strict';
+  var root = document.getElementById('rowselect-behavior-demo');
+  if (!root) return;
+  var CB_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+  var CB_MINUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>';
+  var rows = [{ t: 'ООО ЮгСтрой', sel: false }, { t: 'ПАО Ростелеком', sel: false }, { t: 'АО Тандер', sel: false }];
+  var focus = -1;
+
+  function cb(state, extra) {
+    var mark = state === 'selected' ? CB_CHECK : state === 'indeterminate' ? CB_MINUS : '';
+    return '<label class="cb cb--no-content cb--' + state + '"><input type="checkbox" class="cb__input" ' +
+      (state === 'selected' ? 'checked ' : '') + extra + '><span class="cb__box"><span class="cb__mark">' + mark + '</span></span></label>';
+  }
+  function allState() {
+    var n = rows.filter(function (r) { return r.sel; }).length;
+    return n === 0 ? 'unselected' : n === rows.length ? 'selected' : 'indeterminate';
+  }
+  function render() {
+    var html = '<div class="tbl__row" style="grid-template-columns:8px 48px 1fr 8px;"><div class="th th--separator"></div>' +
+      '<div class="th th--center">' + cb(allState(), 'data-all="1" aria-label="Выбрать все строки"') + '</div>' +
+      '<div class="th"><span class="th__label">Контрагент</span></div><div class="th th--separator"></div></div>';
+    rows.forEach(function (r, i) {
+      var cls = 'tbl__row' + (r.sel ? ' tbl__row--selected' : '') + (focus === i ? ' tbl__row--focus' : '');
+      html += '<div class="' + cls + '" style="grid-template-columns:8px 48px 1fr 8px;" data-row="' + i + '"><div class="tc tc--separator"></div>' +
+        '<div class="tc tc--center">' + cb(r.sel ? 'selected' : 'unselected', 'data-row="' + i + '" aria-label="Выбрать ' + r.t + '"') + '</div>' +
+        '<div class="tc"><span class="tc__row"><span class="tc__text">' + r.t + '</span></span></div>' +
+        '<div class="tc tc--separator"></div></div>';
+    });
+    root.innerHTML = html;
+  }
+  root.addEventListener('change', function (e) {
+    var input = e.target.closest('.cb__input'); if (!input) return;
+    if (input.hasAttribute('data-all')) { var next = allState() !== 'selected'; rows.forEach(function (r) { r.sel = next; }); }
+    else { var i = parseInt(input.getAttribute('data-row'), 10); rows[i].sel = !rows[i].sel; }
+    render();
+  });
+  root.addEventListener('click', function (e) {
+    var rowEl = e.target.closest('.tbl__row[data-row]');
+    if (rowEl && !e.target.closest('.cb')) { focus = parseInt(rowEl.getAttribute('data-row'), 10); render(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || e.target.closest('#rowselect-behavior-demo') || focus === -1) return;
+    focus = -1; render();
+  });
+  render();
+})();
+
+/* =========================================================================
+   Демо «Навигация по сетке» (раздел «Поведение»).
+   Роving tabindex: фокус стрелками, видимая обводка через .tc:focus-visible.
+   ========================================================================= */
+(function () {
+  'use strict';
+  var root = document.getElementById('gridnav-behavior-demo');
+  if (!root) return;
+  var data = [
+    ['ООО «Восток»', '1 240 500,00', '12.05.2026'],
+    ['ПАО Ростелеком', '986 300,00', '28.04.2026'],
+    ['АО Тандер', '432 100,00', '05.03.2026']
+  ];
+  var COLS = 3, ROWS = data.length;
+
+  function render() {
+    var html = '<div class="tbl__row" style="grid-template-columns:8px 1fr 1fr 1fr 8px;"><div class="th th--separator"></div>' +
+      '<div class="th"><span class="th__label">Контрагент</span></div><div class="th th--right"><span class="th__label">Сумма, ₽</span></div>' +
+      '<div class="th"><span class="th__label">Дата</span></div><div class="th th--separator"></div></div>';
+    data.forEach(function (r, ri) {
+      html += '<div class="tbl__row" style="grid-template-columns:8px 1fr 1fr 1fr 8px;"><div class="tc tc--separator"></div>';
+      r.forEach(function (v, ci) {
+        var tab = (ri === 0 && ci === 0) ? '0' : '-1';
+        var num = ci === 1 ? ' tc--numbers' : '';
+        html += '<div class="tc' + num + '" tabindex="' + tab + '" data-r="' + ri + '" data-c="' + ci + '"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div>';
+      });
+      html += '<div class="tc tc--separator"></div></div>';
+    });
+    root.innerHTML = html;
+  }
+  function cellAt(r, c) { return root.querySelector('.tc[data-r="' + r + '"][data-c="' + c + '"]'); }
+  root.addEventListener('focusin', function (e) {
+    var t = e.target.closest('.tc[data-r]'); if (!t) return;
+    [].forEach.call(root.querySelectorAll('.tc[data-r]'), function (n) { n.tabIndex = -1; });
+    t.tabIndex = 0;
+  });
+  root.addEventListener('keydown', function (e) {
+    var t = e.target.closest('.tc[data-r]'); if (!t) return;
+    var r = parseInt(t.getAttribute('data-r'), 10), c = parseInt(t.getAttribute('data-c'), 10);
+    var nr = r, nc = c;
+    if (e.key === 'ArrowRight') nc = Math.min(COLS - 1, c + 1);
+    else if (e.key === 'ArrowLeft') nc = Math.max(0, c - 1);
+    else if (e.key === 'ArrowDown') nr = Math.min(ROWS - 1, r + 1);
+    else if (e.key === 'ArrowUp') nr = Math.max(0, r - 1);
+    else return;
+    e.preventDefault();
+    var next = cellAt(nr, nc); if (next) next.focus();
+  });
+  root.addEventListener('click', function (e) {
+    var t = e.target.closest('.tc[data-r]'); if (t) t.focus();
+  });
+  render();
 })();
 
 /* =========================================================================

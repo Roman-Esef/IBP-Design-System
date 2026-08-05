@@ -43,7 +43,7 @@ Tile — основная плашка рабочей области стран�
     </div>
     <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--m" aria-label="…">…</button></div>
   </header>
-  <div class="tile__alert"><div class="alert alert--warning alert--s" role="status">…</div></div>  <!-- warning | info | error -->
+  <div class="tile__alert"><div class="alert alert--warning alert--m" role="status">…</div></div>  <!-- warning | info | error -->
   <div class="tile__body">…контент индивидуальный; поля значений — ReadOnlyField (.rof)…</div>
 </section>
 <!-- headless: .tile.tile--headless > .tile__body (без хэдера) -->

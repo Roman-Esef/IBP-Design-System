@@ -2,8 +2,8 @@
    Alert — компонент подкачки: инлайновое (встроенное в контент) сообщение
    о состоянии. В отличие от Toast / SnackBar не всплывает, а занимает место
    в потоке страницы и остаётся, пока пользователь его не закроет или не
-   исчезнет причина. Четыре тона (Info · Warning · Error · Success), два
-   размера (M · S), опциональные части: иконка, заголовок, текст, кнопки,
+   исчезнет причина. Четыре тона (Info · Warning · Error · Success), один
+   размер (M), опциональные части: иконка, заголовок, текст, кнопки,
    действия (свернуть / закрыть).
 
    Только токены ДС. Кнопки и ссылки внутри Алерта красятся штатными
@@ -19,14 +19,15 @@
 
   /* размер по умолчанию — M */
   --alert-pad:      16px;
-  --alert-gap:      12px;
+  --alert-pad-x:    20px;
+  --alert-gap:      8px;
   --alert-icon:     20px;
-  --alert-body-gap: 4px;
+  --alert-body-gap: 2px;
 
   display: flex;
   align-items: flex-start;
   gap: var(--alert-gap);
-  padding: var(--alert-pad);
+  padding: var(--alert-pad) var(--alert-pad-x);
   border-radius: var(--radius-m);
   background: var(--alert-surface);
   color: var(--text-primary);
@@ -75,7 +76,7 @@
 .alert__text {
   font: var(--type-body-s);
   color: var(--text-secondary);
-  margin: 0;
+  margin: 4px 0 0;
   text-wrap: pretty;
 }
 /* зазор перед кнопками чуть больше, чем между заголовком и текстом */
@@ -134,16 +135,9 @@
    Контейнер гасит свой горизонтальный паддинг отрицательным margin. */
 .alert--flush { border-radius: 0; }
 
-/* ---------- размеры ---------- *
-   Размерные значения — прямыми свойствами (не через --* в модификаторе);
-   размер иконки — per-size descendant. */
-.alert--m { padding: 16px; gap: 12px; }
+/* ---------- размер (единственный — M) ---------- */
+.alert--m { padding: 16px 20px; gap: 8px; }
 .alert--m .alert__icon { width: 20px; height: 20px; }
-.alert--s { padding: 12px 14px; gap: 10px; }
-.alert--s .alert__icon { width: 18px; height: 18px; }
-.alert--s .alert__title { font: var(--type-body-s-strong); }
-.alert--s .alert__text  { font: var(--type-body-xs); }
-.alert--s .alert__buttons { margin-top: 4px; }
 
 /* ---------- кнопки/ссылки внутри Алерта — в тон ---------- */
 /* Штатные тоновые классы: .btn--<tone> на кнопках и .link--<tone> на ссылках

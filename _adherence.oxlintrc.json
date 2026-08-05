@@ -57,6 +57,7 @@
       "--alert-gap",
       "--alert-icon",
       "--alert-pad",
+      "--alert-pad-x",
       "--alert-surface",
       "--av-font",
       "--av-icon",
@@ -957,6 +958,7 @@
       "--alert-accent": "color",
       "--alert-surface": "color",
       "--alert-pad": "spacing",
+      "--alert-pad-x": "spacing",
       "--alert-gap": "spacing",
       "--alert-icon": "spacing",
       "--alert-body-gap": "spacing"

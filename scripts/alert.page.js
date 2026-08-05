@@ -29,7 +29,6 @@
   function alertHTML(o) {
     o = o || {};
     var tone = o.tone || 'info';
-    var size = o.size || 'm';
     var icon = o.icon !== false;
     var title = o.title || '';
     var text = o.text || '';
@@ -66,7 +65,7 @@
       acts += '<button type="button" class="ibtn ibtn--m ibtn--neutral alert__act alert__close" aria-label="Закрыть"><i data-icon="close"></i></button>';
     }
 
-    return '<div class="alert alert--' + tone + ' alert--' + size + layout + flush + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">'
+    return '<div class="alert alert--' + tone + ' alert--m' + layout + flush + collapsed + '" data-alert-tone="' + tone + '" role="' + role + '" aria-live="' + live + '">'
       + (icon ? '<span class="alert__icon" aria-hidden="true"><i data-icon="' + TONE_ICON[tone] + '"></i></span>' : '')
       + '<div class="alert__body">' + body + '</div>'
       + (acts ? '<div class="alert__actions">' + acts + '</div>' : '')
@@ -79,7 +78,6 @@
   /* ---------------- конструктор ---------------- */
   function initPlayground() {
     var tone = document.getElementById('c-tone');
-    var size = document.getElementById('c-size');
     var btns = document.getElementById('c-buttons');
     var acts = document.getElementById('c-actions');
     var title = document.getElementById('c-title');
@@ -103,7 +101,6 @@
       var actsCtl = acts.closest('.ctl'); if (actsCtl) actsCtl.classList.toggle('is-off', isRow);
       var o = {
         tone: tone.value,
-        size: size.value,
         buttons: btns.value,
         actions: isRow ? 'none' : acts.value,
         layout: layout ? layout.value : 'stack',
@@ -113,7 +110,7 @@
       };
       setHTML('pg-preview', alertHTML(o));
 
-      var cls = 'alert alert--' + o.tone + ' alert--' + o.size + (o.layout === 'row' ? ' alert--row' : '');
+      var cls = 'alert alert--' + o.tone + ' alert--m' + (o.layout === 'row' ? ' alert--row' : '');
       var code = document.getElementById('pg-code');
       if (code) {
         code.innerHTML = '<code>&lt;div class="' + cls + '" data-alert-tone="' + o.tone + '" role="'
@@ -121,7 +118,7 @@
       }
     }
 
-    [tone, size, btns, acts].concat(layout ? [layout] : []).forEach(function (s) { s.addEventListener('change', render); });
+    [tone, btns, acts].concat(layout ? [layout] : []).forEach(function (s) { s.addEventListener('change', render); });
     [title, text].forEach(function (i) { i.addEventListener('input', render); });
     render();
   }
@@ -133,7 +130,7 @@
     setHTML('use-action', alertHTML({ tone: 'warning', title: 'Требуется подтверждение', text: 'Реквизиты контрагента изменились. Проверьте их перед отправкой на согласование.', buttons: 'two', actions: 'close', btnLabel: 'Проверить', btn2Label: 'Позже' }));
 
     // Встроенный в плитку/модалку — flush + row (без кнопок действий)
-    setHTML('embed-alert', alertHTML({ tone: 'warning', size: 's', layout: 'row', flush: true, text: 'Реквизиты изменились — проверьте перед отправкой.', buttons: 'one', btnLabel: 'Проверить' }));
+    setHTML('embed-alert', alertHTML({ tone: 'warning', layout: 'row', flush: true, text: 'Реквизиты изменились — проверьте перед отправкой.', buttons: 'one', btnLabel: 'Проверить' }));
     // Раскладка «в строку» — на всю ширину, без кнопок действий
     setHTML('var-row', [
       alertHTML({ tone: 'info', layout: 'row', text: 'Черновик сохраняется автоматически каждые 30 секунд.' }),
@@ -141,7 +138,7 @@
     ].join(''));
 
     // Alert vs Toast vs SnackBar — витрина
-    setHTML('diff-alert', alertHTML({ tone: 'info', size: 's', title: 'Инлайн-сообщение', text: 'Живёт в потоке блока.' }));
+    setHTML('diff-alert', alertHTML({ tone: 'info', title: 'Инлайн-сообщение', text: 'Живёт в потоке блока.' }));
     var diffToast = document.getElementById('diff-toast');
     if (diffToast) diffToast.innerHTML = '<div style="display:inline-flex;align-items:center;gap:10px;background:var(--c-cgrey-700,#333F48);color:#fff;border-radius:8px;padding:10px 16px;font:var(--type-body-s)">Процесс запущен</div>';
     var diffSnack = document.getElementById('diff-snack');
@@ -176,8 +173,7 @@
     ].join(''));
 
     // Размеры
-    setHTML('size-m', alertHTML({ tone: 'info', size: 'm', title: DEMO_TITLE, text: DEMO_TEXT, buttons: 'one', actions: 'both' }));
-    setHTML('size-s', alertHTML({ tone: 'info', size: 's', title: DEMO_TITLE, text: DEMO_TEXT, buttons: 'one', actions: 'both' }));
+    setHTML('size-m', alertHTML({ tone: 'info', title: DEMO_TITLE, text: DEMO_TEXT, buttons: 'one', actions: 'both' }));
 
     // Контент — do/don't
     var badIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
@@ -302,21 +298,20 @@
     var body = document.querySelector('#size-table tbody');
     if (!body) return;
     var m = document.querySelector('#size-m .alert');
-    var s = document.querySelector('#size-s .alert');
-    if (!m || !s) return;
+    if (!m) return;
     function pad(el) { var c = getComputedStyle(el); return px(c.paddingTop) + ' / ' + px(c.paddingLeft); }
     function icon(el) { var i = el.querySelector('.alert__icon'); return i ? px(getComputedStyle(i).width) : '—'; }
     function gap(el) { return px(getComputedStyle(el).columnGap || getComputedStyle(el).gap); }
     var rows = [
-      ['Паддинг (верт / гор)', pad(m), pad(s)],
-      ['Зазор иконка↔тело', gap(m), gap(s)],
-      ['Размер иконки', icon(m), icon(s)],
-      ['Радиус', px(getComputedStyle(m).borderTopLeftRadius), px(getComputedStyle(s).borderTopLeftRadius)],
-      ['Токен заголовка', 'Body M Strong', 'Body S Strong'],
-      ['Токен текста', 'Body S', 'Body XS']
+      ['Паддинг (верт / гор)', pad(m)],
+      ['Зазор иконка↔тело', gap(m)],
+      ['Размер иконки', icon(m)],
+      ['Радиус', px(getComputedStyle(m).borderTopLeftRadius)],
+      ['Токен заголовка', 'Body M Strong'],
+      ['Токен текста', 'Body S']
     ];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td><td class="rt-num">' + r[2] + '</td></tr>';
+      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td></tr>';
     }).join('');
   }
 
@@ -391,21 +386,20 @@
     var body = document.querySelector('#dev-spec-table tbody');
     if (!body) return;
     var m = document.querySelector('#size-m .alert');
-    var s = document.querySelector('#size-s .alert');
-    if (!m || !s) return;
+    if (!m) return;
     function val(el, prop) { return px(getComputedStyle(el)[prop]); }
     function iconW(el) { var i = el.querySelector('.alert__icon'); return i ? px(getComputedStyle(i).width) : '—'; }
     function actW(el) { var a = el.querySelector('.alert__act'); return a ? px(getComputedStyle(a).width) : '—'; }
     var rows = [
-      ['Паддинг верт.', val(m, 'paddingTop'), val(s, 'paddingTop'), '--alert-pad'],
-      ['Паддинг гор.', val(m, 'paddingLeft'), val(s, 'paddingLeft'), '--alert-pad'],
-      ['Зазор иконка↔тело', px(getComputedStyle(m).columnGap), px(getComputedStyle(s).columnGap), '--alert-gap'],
-      ['Размер иконки', iconW(m), iconW(s), '--alert-icon'],
-      ['Кнопка-действие', actW(m), actW(s), '.alert__act (24 / 22)'],
-      ['Радиус', val(m, 'borderTopLeftRadius'), val(s, 'borderTopLeftRadius'), '--radius-m']
+      ['Паддинг верт.', val(m, 'paddingTop'), '--alert-pad'],
+      ['Паддинг гор.', val(m, 'paddingLeft'), '--alert-pad'],
+      ['Зазор иконка↔тело', px(getComputedStyle(m).columnGap), '--alert-gap'],
+      ['Размер иконки', iconW(m), '--alert-icon'],
+      ['Кнопка-действие', actW(m), '.alert__act'],
+      ['Радиус', val(m, 'borderTopLeftRadius'), '--radius-m']
     ];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td><td class="rt-num">' + r[2] + '</td><td><code class="tok">' + r[3] + '</code></td></tr>';
+      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td><td><code class="tok">' + r[2] + '</code></td></tr>';
     }).join('');
   }
 

@@ -82,6 +82,7 @@
       cat: 'Правила и паттерны',
       items: [
         { label: 'Аудит разделов',        href: 'pages/patterns/SectionsAudit.html' },
+        { label: 'Общий бэклог',          href: 'pages/patterns/Backlog.html' },
         { label: 'Редполитика',           soon: true },
         { label: 'Тон оф войс',           soon: true },
         { label: 'Паттерны интерфейса',   soon: true }
