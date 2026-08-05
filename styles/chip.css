@@ -87,8 +87,17 @@
 .chip__remove svg,
 .chip__dropdown svg,
 .chip__info svg { width: 100%; height: 100%; display: block; }
-.chip__dropdown svg { width: 80%; height: 80%; }
-.chip__info svg { width: 88%; height: 88%; }
+/* иконка может прийти через <i data-icon> (ds-icons.js, дефолт 24px) —
+   без явного размера она не сжимается до слота и вылезает за его рамку
+   (см. RiskMetric). Слот уже задаёт точный px-размер выше — просто
+   растягиваем обёртку под него, а не под дефолт ds-icons.js. */
+.chip__icon [data-icon],
+.chip__marker [data-icon],
+.chip__remove [data-icon],
+.chip__dropdown [data-icon],
+.chip__info [data-icon] { width: 100%; height: 100%; }
+.chip__dropdown svg, .chip__dropdown [data-icon] { width: 80%; height: 80%; }
+.chip__info svg, .chip__info [data-icon] { width: 100%; height: 100%; }
 
 /* leading marker (graph-node / status dot proxy) */
 .chip__marker { color: var(--chip-icon-color); }

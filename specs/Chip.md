@@ -1,8 +1,8 @@
 ---
 component: Chip
 title: "Chip"
-version: "v1.5"
-updated: "22.07.2026"
+version: "v1.6"
+updated: "05.08.2026"
 page: pages/atoms/Chip.html
 page_js: scripts/chip.page.js
 css: styles/chip.css
