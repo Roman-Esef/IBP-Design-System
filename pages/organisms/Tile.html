@@ -108,7 +108,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.2</b></span>
+    <span>Версия <b>v1.4</b></span>
     <span>Обновлено <b>05.08.2026</b></span>
     <span>CSS <b>styles/tile.css</b></span>
     <span>Зависимости <b>icon-button, button, link, chip, badge, alert, divider, read-only-field, table-cell</b></span>
@@ -464,7 +464,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
                 <button class="ibtn ibtn--neutral ibtn--m tile__toggle" aria-expanded="true" aria-controls="acc-part-body" aria-label="Свернуть"><span class="tile__chevron"><i data-icon="chevron-up"></i></span></button>
               </div>
             </div>
-            <div class="tile__body" style="padding-bottom:8px;">
+            <div class="tile__body">
               <div class="rof"><span class="ds-label"><span class="ds-label__text">1234-КД-1</span></span><div class="rof__row"><span class="rof__value">Корпоративный договор</span></div></div>
             </div>
             <div class="tile__collapsible" id="acc-part-body">
@@ -604,7 +604,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
   <div class="subsec">
     <h3>Адаптивность</h3>
-    <p class="desc tight">Ширина пересчитывается по сетке колонок контейнера. Длинный заголовок усекается в одну строку с многоточием; полное значение — по Tooltip.</p>
+    <p class="desc tight">Ширина пересчитывается по сетке колонок контейнера. Длинный заголовок переходит на вторую строку и только затем усекается многоточием (<code class="tok">-webkit-line-clamp: 2</code> на <code class="tok">.tile__title</code>, см. «Для разработчиков»).</p>
   </div>
 </section>
 
@@ -695,11 +695,11 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
           <div class="tc tc--separator"></div>
           <div class="tc"><span class="tc__row"><span class="tc__text">Значение поля</span></span></div>
-          <div class="tc"><code class="tok">--type-body-m-strong</code></div>
+          <div class="tc"><code class="tok">--type-body-m</code></div>
           <div class="tc"><span class="tc__row"><span class="tc__text">SB Sans Text</span></span></div>
-          <div class="tc"><span class="tc__row"><span class="tc__text">Bold</span></span></div>
-          <div class="tc"><span class="tc__row"><span class="tc__text">16 / 20, SemiBold</span></span></div>
-          <div class="tc"><span style="font:var(--type-body-m-strong)">Образец</span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Regular</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">16 / 20, Regular</span></span></div>
+          <div class="tc"><span style="font:var(--type-body-m)">Образец</span></div>
           <div class="tc tc--separator"></div>
         </div>
       </div>
@@ -854,9 +854,11 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc"><span class="tc__row"><span class="tc__text">Зазор Title ↔ Subtitle ↔ Chiplist</span></span></div>
-        <div class="tc"><span class="tc__row"><span class="tc__text" id="rl-headgap">—</span></span></div>
-        <div class="tc"><span class="tc__row"><span class="tc__text">8px</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">Заголовок — усечение</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">2 строки</span></span></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">на <code class="tok">.tile__title</code>: <code class="tok">display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden; text-overflow:ellipsis</code> (вместо однострочного <code class="tok">white-space:nowrap</code>); <code class="tok">.tile__title-row</code> — <code class="tok">align-items:flex-start</code>, чтобы Addition-слот вставал по верхней строке</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
         <div class="tc tc--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">

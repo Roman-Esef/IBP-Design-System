@@ -6,6 +6,7 @@ purpose: Манифест спек компонентов. Читай нужну
 
 | Компонент | Спека | CSS | Зависимости | Версия |
 |---|---|---|---|---|
+| AllocationBar | specs/AllocationBar.md | styles/allocation-bar.css | alert, button | v1.0 |
 | Alert | specs/Alert.md | styles/alert.css | button, link | v1.5 |
 | Avatar | specs/Avatar.md | styles/avatar.css | badge | v1.3 |
 | Badge | specs/Badge.md | styles/badge.css | — | v1.2 |

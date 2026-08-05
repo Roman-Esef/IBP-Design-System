@@ -1,7 +1,7 @@
 ---
 component: Tile
 title: "Tile"
-version: "v1.2"
+version: "v1.4"
 updated: "05.08.2026"
 page: pages/organisms/Tile.html
 css: styles/tile.css
@@ -23,7 +23,7 @@ Tile — основная плашка рабочей области стран�
 - **Поведение** — сворачивание аккордеона (шеврон, поворот 180°); выравнивание высоты в строке; усечение Title + Tooltip.
 - **Состояния** — Tile собственных состояний НЕ имеет. Интерактивны только вложенные IconButton (хэдер), Button/Link (контент, алерт). AccordionTile collapsed/expanded — конфигурация, не состояние.
 - **Доступность** — Title = семантический heading; иконка-предупреждение декоративна (aria-hidden); IconButton — aria-label; шеврон — aria-expanded + aria-controls; Alert — role по тону; reduced-motion отключает анимацию.
-- **Типографика** — Title Tile: `--type-h5-strong`; Title Card: `--type-h6-strong`; Subtitle и метка поля: `--type-body-xs`; значение поля: `--type-body-m-strong`.
+- **Типографика** — Title Tile: `--type-h5-strong`; Title Card: `--type-h6-strong`; Subtitle и метка поля: `--type-body-xs`; значение поля: `--type-body-m` (Strong — по месту, не дефолт).
 - **Цвета** — фон `--bg-tile`, бордер `--border-light`; текст `--text-primary`/`--text-secondary`/`--text-inactive`; Addition-иконка `--warning`, иконка сабтайтла `--success`, ссылка `--link`; Alert-слот `--warning-bg`/`--info-bg`.
 
 ## Для разработчиков (выжимка)

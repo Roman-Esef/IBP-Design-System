@@ -1,8 +1,8 @@
 ---
 component: TableFilter
 title: "TableFilter"
-version: "v1.4"
-updated: "04.08.2026"
+version: "v1.5"
+updated: "05.08.2026"
 page: pages/organisms/TableFilter.html
 page_js: scripts/table-filter.page.js
 css: styles/table-filter.css

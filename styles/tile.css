@@ -44,7 +44,7 @@
 }
 .tile__title-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   min-width: 0;
 }
@@ -55,7 +55,10 @@
   color: var(--text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 /* Addition к тайтлу: Link / Icon / Chip / Badge — все inline после тайтла */
 .tile__title-add {
@@ -126,7 +129,7 @@
    Отступы 10/20/24/20.
    ------------------------------------------------------------ */
 .tile__body {
-  padding: 0 var(--tile-pad-x) var(--tile-pad-bottom);
+  padding: 10px var(--tile-pad-x) var(--tile-pad-bottom);
 }
 
 /* сетки контента */
@@ -172,6 +175,25 @@
 }
 .tile--collapsed .tile__collapsible {
   display: none;
+}
+/* частичный коллапс: сводка (.tile__body прямым потомком .tile, до
+   .tile__collapsible) держит малый зазор перед скрываемым контентом;
+   свёрнутый — сама становится нижним краем тайла, паддинг контентный (20) */
+.tile--accordion > .tile__body {
+  padding-bottom: 8px;
+}
+.tile--accordion.tile--collapsed > .tile__body {
+  padding-bottom: 20px;
+}
+/* полный коллапс: контента после хэдера нет вовсе (весь тайл__body внутри
+   .tile__collapsible) — нижним краем становится хэдер, паддинг тот же (20) */
+.tile--accordion.tile--collapsed > .tile__header:has(+ .tile__collapsible) {
+  padding-bottom: 20px;
+}
+/* свёрнутый аккордеон (полный и частичный коллапс — то же .tile--collapsed)
+   не должен нести нижний паддинг под скрытый контент */
+.tile--accordion.tile--collapsed > .tile__body {
+  padding-bottom: 20px;
 }
 @media (prefers-reduced-motion: reduce) {
   .tile__chevron { transition: none; }

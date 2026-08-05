@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"61ca79578cd1","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"fbed896fb5ff","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"238ac150f3d3","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"4d5ec320a797","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"03963b1c72ef","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"1fc49308cda2","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"005cc7ad432b","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-cell.page.js":"d63e0905181b","scripts/table-filter.page.js":"43967744b3d5","scripts/tbl-resize.js":"4598dd68c45f","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"61ca79578cd1","scripts/allocation-bar.page.js":"e4417e82b0ed","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"d67e55256e52","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"238ac150f3d3","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"91e91797cfe8","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"03963b1c72ef","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"1fc49308cda2","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"005cc7ad432b","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-cell.page.js":"d63e0905181b","scripts/table-filter.page.js":"f4d070ca0c26","scripts/tbl-resize.js":"4598dd68c45f","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -599,6 +599,690 @@ try { (() => {
   });
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/alert.page.js", error: String((e && e.message) || e) }); }
+
+// scripts/allocation-bar.page.js
+try { (() => {
+/* =========================================================================
+   AllocationBar — рантайм-референс компонента + логика страницы документации.
+   Публичное API: window.AllocationBar
+     .make(cfg) → DOM-узел .albar-host
+     .palette   → 12 токенов --chart-* в порядке назначения
+     .fmtNumber / .fmtPercent / .fmtCompact — форматтеры ru-RU
+   ========================================================================= */
+(function (global) {
+  'use strict';
+
+  /* Палитра — порядок назначения совпадает с порядком в colors.css */
+  var PALETTE = ['--chart-red', '--chart-orange', '--chart-yellow', '--chart-shiny-green', '--chart-pastel-green', '--chart-turquoise', '--chart-light-blue', '--chart-blue', '--chart-indigo', '--chart-purple', '--chart-pale-purple', '--chart-pink-purple'];
+
+  /* ---------- форматирование чисел (ru-RU) ---------- */
+  function fmtNumber(n, min, max) {
+    return new Intl.NumberFormat('ru-RU', {
+      minimumFractionDigits: min == null ? 0 : min,
+      maximumFractionDigits: max == null ? 2 : max
+    }).format(n);
+  }
+  function fmtPercent(p) {
+    return fmtNumber(p, 2, 2) + '%';
+  }
+  function fmtCompact(n) {
+    var a = Math.abs(n);
+    if (a >= 1e9) return fmtNumber(n / 1e9, 0, 1) + ' млрд';
+    if (a >= 1e6) return fmtNumber(n / 1e6, 0, 1) + ' млн';
+    if (a >= 1e4) return fmtNumber(n / 1e3, 0, 1) + ' тыс.';
+    return fmtNumber(n);
+  }
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt != null) e.textContent = txt;
+    return e;
+  }
+  function icons(root) {
+    if (global.dsIcons) global.dsIcons.apply(root);
+  }
+
+  /* ---------- Alert ДС как подвал компонента ---------- */
+  var ALERT_GLYPH = {
+    info: 'Info-circle-filled',
+    warning: 'alert-triangle-filled',
+    error: 'alert-circle-filled',
+    success: 'check-circle-filled'
+  };
+  function makeAlert(tone, html, actionLabel) {
+    var a = el('div', 'alert alert--' + tone + ' alert--m');
+    a.dataset.alertTone = tone;
+    a.setAttribute('role', tone === 'error' || tone === 'warning' ? 'alert' : 'status');
+    a.setAttribute('aria-live', tone === 'error' || tone === 'warning' ? 'assertive' : 'polite');
+    var ico = el('span', 'alert__icon');
+    ico.setAttribute('aria-hidden', 'true');
+    ico.innerHTML = '<i data-icon="' + ALERT_GLYPH[tone] + '"></i>';
+    var body = el('div', 'alert__body');
+    var p = el('p', 'alert__text');
+    p.innerHTML = html;
+    body.appendChild(p);
+    if (actionLabel) {
+      var btns = el('div', 'alert__buttons');
+      var b = el('button', 'btn btn--outline btn--xs btn--' + tone);
+      b.type = 'button';
+      b.appendChild(el('span', 'btn__label', actionLabel));
+      btns.appendChild(b);
+      body.appendChild(btns);
+    }
+    a.appendChild(ico);
+    a.appendChild(body);
+    return a;
+  }
+
+  /* ---------- шапка ---------- */
+  function buildHead(cfg, totalNode) {
+    var head = el('div', 'albar__head');
+    var titles = el('div', 'albar__titles');
+    var lab = el('div', 'albar__label', cfg.label || '');
+    if (cfg.label) lab.title = cfg.label;
+    titles.appendChild(lab);
+    if (cfg.sublabel) titles.appendChild(el('div', 'albar__sublabel', cfg.sublabel));
+    head.appendChild(titles);
+    if (cfg.warning) {
+      var w = el('span', 'albar__warn');
+      w.setAttribute('aria-hidden', 'true');
+      w.title = cfg.warning;
+      w.innerHTML = '<i data-icon="alert-triangle-filled"></i>';
+      head.appendChild(w);
+    }
+    if (totalNode) head.appendChild(totalNode);
+    return head;
+  }
+  function buildTotal(cfg) {
+    var t = el('div', 'albar__total');
+    t.appendChild(el('span', null, cfg.format === 'compact' ? fmtCompact(cfg.total) : fmtNumber(cfg.total, 2, 2)));
+    if (cfg.unit) t.appendChild(el('span', 'albar__unit', cfg.unit));
+    return t;
+  }
+
+  /* ---------- основной рендер ---------- */
+  function make(cfg) {
+    cfg = cfg || {};
+    var host = el('div', 'albar-host');
+    var root = el('div', 'albar' + (cfg.stretch ? ' albar--stretch' : ''));
+    host.appendChild(root);
+    if (cfg.heightVariant) host.dataset.height = cfg.heightVariant;
+    if (cfg.maxWidth) root.style.setProperty('--albar-max-w', cfg.maxWidth);
+    var status = cfg.status || 'loaded';
+    var raw = cfg.items || [];
+    if (status === 'loading') {
+      renderLoading(root, cfg);
+      icons(root);
+      return host;
+    }
+    if (status === 'error') {
+      root.appendChild(buildHead(cfg, null));
+      var fe = el('div', 'albar__foot');
+      fe.appendChild(makeAlert('error', cfg.errorMessage || 'Не удалось загрузить данные', cfg.onRetryLabel || 'Повторить'));
+      root.appendChild(fe);
+      icons(root);
+      return host;
+    }
+    var allZero = raw.length > 0 && raw.every(function (i) {
+      return !i.value;
+    });
+    if (status === 'empty' || raw.length === 0 || allZero) {
+      var te = el('div', 'albar__total albar__total--empty', '—');
+      root.appendChild(buildHead(cfg, te));
+      root.appendChild(el('div', 'albar__empty', cfg.emptyMessage || 'Нет данных'));
+      icons(root);
+      return host;
+    }
+    root.appendChild(buildHead(cfg, buildTotal(cfg)));
+    var items = raw.map(function (it, i) {
+      return {
+        id: it.id || 'i' + i,
+        label: it.label,
+        value: it.value,
+        percent: it.percent != null ? it.percent : cfg.total > 0 ? it.value / cfg.total * 100 : 0,
+        color: it.color ? 'var(' + it.color + ')' : 'var(' + PALETTE[i % PALETTE.length] + ')'
+      };
+    });
+    var sum = items.reduce(function (a, b) {
+      return a + b.percent;
+    }, 0);
+    var partial = sum < 99.5,
+      overflow = sum > 100.5;
+    if (cfg.showProgressBar !== false && cfg.total > 0) {
+      var bar = el('div', 'albar__bar');
+      bar.setAttribute('role', 'img');
+      bar.setAttribute('aria-label', 'Распределение: ' + items.map(function (i) {
+        return i.label + ' ' + fmtPercent(i.percent);
+      }).join(', '));
+      items.forEach(function (it) {
+        var s = el('div', 'albar__seg');
+        s.style.background = it.color;
+        s.style.flexGrow = String(Math.max(it.percent, 0));
+        s.dataset.id = it.id;
+        s.title = it.label + ' · ' + fmtPercent(it.percent);
+        bar.appendChild(s);
+      });
+      if (partial) {
+        var rest = el('div', 'albar__seg albar__seg--rest');
+        rest.style.flexGrow = String(100 - sum);
+        bar.appendChild(rest);
+      }
+      root.appendChild(bar);
+    }
+    var list = el('div', 'albar__list');
+    var max = cfg.maxVisibleItems || 5;
+    var collapsed = items.length > max && !cfg.expanded;
+    (collapsed ? items.slice(0, max) : items).forEach(function (it) {
+      var row = el('div', 'albar__row');
+      row.dataset.id = it.id;
+      var dot = el('span', 'albar__dot');
+      dot.style.background = it.color;
+      row.appendChild(dot);
+      var nm = el('span', 'albar__name', it.label);
+      nm.title = it.label;
+      row.appendChild(nm);
+      if (cfg.showPercent !== false) row.appendChild(el('span', 'albar__pct', fmtPercent(it.percent)));
+      row.appendChild(el('span', 'albar__val', fmtNumber(it.value, 2, 2)));
+      list.appendChild(row);
+    });
+    root.appendChild(list);
+    if (collapsed) {
+      var more = el('button', 'btn btn--transparent btn--xs albar__more');
+      more.type = 'button';
+      more.appendChild(el('span', 'btn__label', 'Показать ещё ' + (items.length - max)));
+      more.addEventListener('click', function () {
+        var next = make(Object.assign({}, cfg, {
+          expanded: true
+        }));
+        host.replaceWith(next);
+      });
+      root.appendChild(more);
+    }
+    if (overflow || partial) {
+      var f = el('div', 'albar__foot');
+      f.appendChild(overflow ? makeAlert('error', 'Сумма позиций превышает итог на <b>' + fmtPercent(sum - 100) + '</b> — проверьте данные') : makeAlert('warning', 'Учтено <b>' + fmtPercent(sum) + '</b> от итога, остаток <b>' + fmtPercent(100 - sum) + '</b> не распределён'));
+      root.appendChild(f);
+    }
+    bindHover(root);
+    if ('ResizeObserver' in global) {
+      var ro = new ResizeObserver(function () {
+        enforceMinSegments(root);
+      });
+      ro.observe(root);
+      requestAnimationFrame(function () {
+        enforceMinSegments(root);
+      });
+    }
+    icons(root);
+    return host;
+  }
+  function renderLoading(root, cfg) {
+    var head = buildHead(cfg, null);
+    head.appendChild(el('div', 'albar__sk albar__sk--total'));
+    root.appendChild(head);
+    root.appendChild(el('div', 'albar__sk albar__sk--bar'));
+    if (cfg.loadingVariant === 'slow') {
+      var box = el('div', 'albar__calc');
+      box.appendChild(el('div', 'albar__calc-title', 'Данные рассчитываются'));
+      box.appendChild(el('div', 'albar__calc-sub', 'Это может занять несколько секунд'));
+      root.appendChild(box);
+    } else {
+      var list = el('div', 'albar__list');
+      for (var i = 0; i < 3; i++) {
+        var row = el('div', 'albar__row albar__row--sk');
+        row.appendChild(el('span', 'albar__dot albar__dot--sk'));
+        row.appendChild(el('span', 'albar__sk albar__sk--name'));
+        row.appendChild(el('span', 'albar__sk albar__sk--num'));
+        list.appendChild(row);
+      }
+      root.appendChild(list);
+    }
+  }
+  function bindHover(root) {
+    var bar = root.querySelector('.albar__bar');
+    if (!bar) return;
+    var rows = root.querySelectorAll('.albar__row');
+    var segs = bar.querySelectorAll('.albar__seg[data-id]');
+    function setActive(id) {
+      if (id) root.dataset.hover = id;else delete root.dataset.hover;
+      rows.forEach(function (r) {
+        r.classList.toggle('is-active', r.dataset.id === id);
+      });
+      segs.forEach(function (s) {
+        s.classList.toggle('is-active', s.dataset.id === id);
+      });
+    }
+    function bind(n) {
+      n.addEventListener('mouseenter', function () {
+        setActive(n.dataset.id);
+      });
+      n.addEventListener('mouseleave', function () {
+        setActive(null);
+      });
+    }
+    rows.forEach(bind);
+    segs.forEach(bind);
+  }
+
+  /* Сегмент тоньше 2px не читается: добиваем до 2px, остаток делим пропорционально */
+  function enforceMinSegments(root) {
+    var bar = root.querySelector('.albar__bar');
+    if (!bar) return;
+    var segs = Array.prototype.slice.call(bar.children);
+    var w = bar.clientWidth;
+    if (!w) return;
+    var MIN = 2;
+    var total = segs.reduce(function (a, s) {
+      return a + parseFloat(s.dataset.grow || s.style.flexGrow || '0');
+    }, 0);
+    if (!total) return;
+    var usedPx = 0,
+      usedShare = 0;
+    segs.forEach(function (s) {
+      if (!s.dataset.grow) s.dataset.grow = s.style.flexGrow || '0';
+      var share = parseFloat(s.dataset.grow) / total;
+      if (share * w < MIN) {
+        usedPx += MIN;
+        usedShare += share;
+      }
+    });
+    var remaining = Math.max(w - usedPx, 0),
+      remainingShare = 1 - usedShare;
+    segs.forEach(function (s) {
+      var share = parseFloat(s.dataset.grow) / total;
+      if (share * w < MIN) {
+        s.style.flexBasis = MIN + 'px';
+        s.style.flexGrow = '0';
+      } else {
+        s.style.flexBasis = '0';
+        s.style.flexGrow = String(share / (remainingShare || 1) * remaining);
+      }
+    });
+  }
+  global.AllocationBar = {
+    make: make,
+    palette: PALETTE,
+    fmtNumber: fmtNumber,
+    fmtPercent: fmtPercent,
+    fmtCompact: fmtCompact
+  };
+})(window);
+
+/* =========================================================================
+   Страница документации
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var AB = window.AllocationBar;
+  var LABEL = 'ВБС по сделке на 25.02.2026, руб.';
+
+  /* доменный маппинг из продукта: позиция → токен палитры */
+  var DOMAIN = {
+    'Кредит': '--chart-indigo',
+    'Фондирующий кредит': '--chart-pastel-green',
+    'Внутригрупповой кредит': '--chart-blue',
+    'РЕПО': '--chart-light-blue',
+    'Акции': '--chart-shiny-green',
+    'Облигации': '--chart-turquoise',
+    'Корп. контроль': '--chart-red',
+    'Доп. доходность': '--chart-orange',
+    'Комиссия': '--chart-yellow',
+    'Дебиторская задолженность': '--chart-purple'
+  };
+  function di(label, value, percent) {
+    return {
+      id: label,
+      label: label,
+      value: value,
+      percent: percent,
+      color: DOMAIN[label]
+    };
+  }
+  var TOTAL = 1000000000;
+  function base(n) {
+    var sets = [[di('Кредит', 1000000000, 100)], [di('Кредит', 600000000, 60), di('Акции', 400000000, 40)], [di('Кредит', 350000000, 35), di('Акции', 350000000, 35), di('РЕПО', 300000000, 30)], [di('Кредит', 350000000, 35), di('Акции', 350000000, 35), di('РЕПО', 150000000, 15), di('Корп. контроль', 150000000, 15)], [di('Кредит', 350000000, 35), di('Акции', 350000000, 35), di('РЕПО', 100000000, 10), di('Корп. контроль', 100000000, 10), di('Комиссия', 100000000, 10)], [di('Кредит', 250000000, 25), di('Акции', 200000000, 20), di('РЕПО', 150000000, 15), di('Корп. контроль', 120000000, 12), di('Комиссия', 100000000, 10), di('Облигации', 80000000, 8), di('Доп. доходность', 60000000, 6), di('Дебиторская задолженность', 40000000, 4)]];
+    return sets[n];
+  }
+  function cfg(over) {
+    return Object.assign({
+      label: LABEL,
+      total: TOTAL,
+      status: 'loaded',
+      items: base(2)
+    }, over || {});
+  }
+  function mount(id, c) {
+    var box = document.getElementById(id);
+    if (box) box.appendChild(AB.make(c));
+  }
+  function initExamples() {
+    /* Использование — компонент в плитке */
+    mount('use-tile', cfg());
+    mount('use-modal', cfg({
+      items: base(4)
+    }));
+
+    /* Анатомия */
+    mount('anat-stage', cfg({
+      items: base(3)
+    }));
+
+    /* Варианты — режимы */
+    mount('var-full', cfg());
+    mount('var-no-pct', cfg({
+      showPercent: false
+    }));
+    mount('var-no-bar', cfg({
+      showProgressBar: false
+    }));
+    mount('var-min', cfg({
+      showPercent: false,
+      showProgressBar: false
+    }));
+
+    /* Варианты — количество позиций */
+    mount('var-c1', cfg({
+      items: base(0)
+    }));
+    mount('var-c2', cfg({
+      items: base(1)
+    }));
+    mount('var-c3', cfg({
+      items: base(2)
+    }));
+    mount('var-c5', cfg({
+      items: base(4)
+    }));
+    mount('var-c8', cfg({
+      items: base(5)
+    }));
+
+    /* Размеры — контейнерные брейкпоинты */
+    mount('size-wide', cfg({
+      items: base(3)
+    }));
+    mount('size-mid', cfg({
+      items: base(3)
+    }));
+    mount('size-narrow', cfg({
+      items: base(3)
+    }));
+    mount('size-tiny', cfg({
+      items: base(3)
+    }));
+
+    /* Контент */
+    mount('cnt-long', cfg({
+      sublabel: 'Расчёт по методике 2024-Р с учётом обеспечения и переоценки портфеля',
+      items: base(2)
+    }));
+    mount('cnt-big', cfg({
+      total: 1500000000,
+      format: 'compact',
+      items: base(2)
+    }));
+    mount('cnt-mixed', cfg({
+      items: [di('Дебиторская задолженность', 350000000, 35), di('РЕПО', 350000000, 35), di('Внутригрупповой кредит', 300000000, 30)]
+    }));
+
+    /* Поведение */
+    mount('beh-hover', cfg({
+      items: base(2)
+    }));
+    mount('beh-tiny-seg', cfg({
+      items: [di('Кредит', 997000000, 99.7), di('Акции', 2000000, 0.2), di('Комиссия', 1000000, 0.1)]
+    }));
+    mount('beh-h-a', cfg({
+      items: base(5),
+      maxVisibleItems: 8,
+      heightVariant: 'A'
+    }));
+    mount('beh-h-b', cfg({
+      items: base(5),
+      heightVariant: 'B'
+    }));
+    mount('beh-h-c', cfg({
+      items: base(5),
+      heightVariant: 'C'
+    }));
+    mount('beh-stretch', cfg({
+      items: base(2),
+      stretch: true
+    }));
+
+    /* Состояния */
+    mount('st-loaded', cfg());
+    mount('st-loading', cfg({
+      status: 'loading'
+    }));
+    mount('st-loading-slow', cfg({
+      status: 'loading',
+      loadingVariant: 'slow'
+    }));
+    mount('st-error', cfg({
+      status: 'error'
+    }));
+    mount('st-empty', cfg({
+      status: 'empty',
+      items: []
+    }));
+    mount('st-partial', cfg({
+      items: [di('Кредит', 250000000, 25), di('Акции', 250000000, 25), di('РЕПО', 250000000, 25)]
+    }));
+    mount('st-overflow', cfg({
+      items: [di('Кредит', 500000000, 50), di('Акции', 400000000, 40), di('РЕПО', 250000000, 25)]
+    }));
+    mount('st-zero', cfg({
+      items: [di('Кредит', 700000000, 70), di('Акции', 300000000, 30), di('Комиссия', 0, 0)]
+    }));
+    mount('st-warn', cfg({
+      warning: 'Просроченная задолженность на сумму 123 млн. руб.',
+      items: base(2)
+    }));
+
+    /* Цвета — все 12 в одном баре */
+    var twelve = AB.palette.map(function (tok, i) {
+      return {
+        id: 't' + i,
+        label: tok.replace('--chart-', ''),
+        value: TOTAL / 12,
+        percent: 100 / 12,
+        color: tok
+      };
+    });
+    mount('col-all', cfg({
+      items: twelve,
+      maxVisibleItems: 12,
+      label: 'Все 12 токенов палитры'
+    }));
+  }
+
+  /* ---------------- КОНСТРУКТОР ---------------- */
+  function initPlayground() {
+    var controls = document.getElementById('pg-controls');
+    var stage = document.getElementById('pg-stage');
+    if (!controls || !stage) return;
+    var state = {
+      count: '3',
+      width: '480',
+      status: 'loaded',
+      pct: 'yes',
+      bar: 'yes',
+      sum: 'exact',
+      warn: 'no',
+      maxv: '5'
+    };
+    function ctl(labelText, options, get, set) {
+      var wrap = document.createElement('div');
+      wrap.className = 'ctl';
+      var l = document.createElement('div');
+      l.className = 'lbl';
+      l.textContent = labelText;
+      wrap.appendChild(l);
+      var box = document.createElement('div');
+      box.className = 'pg-select';
+      var sel = document.createElement('select');
+      options.forEach(function (o) {
+        var op = document.createElement('option');
+        op.value = o[0];
+        op.textContent = o[1];
+        if (o[0] === get()) op.selected = true;
+        sel.appendChild(op);
+      });
+      sel.addEventListener('change', function () {
+        set(sel.value);
+        render();
+      });
+      box.appendChild(sel);
+      wrap.appendChild(box);
+      return wrap;
+    }
+    controls.appendChild(ctl('Позиций', [['1', '1'], ['2', '2'], ['3', '3'], ['5', '5'], ['8', '8']], function () {
+      return state.count;
+    }, function (v) {
+      state.count = v;
+    }));
+    controls.appendChild(ctl('Ширина контейнера', [['640', '640px — широкий'], ['480', '480px — широкий'], ['400', '400px — средний'], ['280', '280px — узкий'], ['190', '190px — очень узкий']], function () {
+      return state.width;
+    }, function (v) {
+      state.width = v;
+    }));
+    controls.appendChild(ctl('Состояние', [['loaded', 'Загружено'], ['loading', 'Загрузка'], ['loading-slow', 'Долгий расчёт'], ['error', 'Ошибка'], ['empty', 'Нет данных']], function () {
+      return state.status;
+    }, function (v) {
+      state.status = v;
+    }));
+    controls.appendChild(ctl('Сумма позиций', [['exact', 'Равна итогу'], ['partial', 'Меньше итога'], ['overflow', 'Больше итога']], function () {
+      return state.sum;
+    }, function (v) {
+      state.sum = v;
+    }));
+    controls.appendChild(ctl('Проценты', [['yes', 'Показывать'], ['no', 'Скрыть']], function () {
+      return state.pct;
+    }, function (v) {
+      state.pct = v;
+    }));
+    controls.appendChild(ctl('Прогресс-бар', [['yes', 'Показывать'], ['no', 'Скрыть']], function () {
+      return state.bar;
+    }, function (v) {
+      state.bar = v;
+    }));
+    controls.appendChild(ctl('Иконка предупреждения', [['no', 'Нет'], ['yes', 'Есть']], function () {
+      return state.warn;
+    }, function (v) {
+      state.warn = v;
+    }));
+    controls.appendChild(ctl('maxVisibleItems', [['3', '3'], ['5', '5'], ['12', '12']], function () {
+      return state.maxv;
+    }, function (v) {
+      state.maxv = v;
+    }));
+    function items() {
+      var map = {
+        '1': 0,
+        '2': 1,
+        '3': 2,
+        '5': 4,
+        '8': 5
+      };
+      var arr = base(map[state.count]).map(function (i) {
+        return Object.assign({}, i);
+      });
+      if (state.sum === 'partial') arr.forEach(function (i) {
+        i.percent = i.percent * 0.75;
+        i.value = i.value * 0.75;
+      });
+      if (state.sum === 'overflow') arr.forEach(function (i) {
+        i.percent = i.percent * 1.15;
+        i.value = i.value * 1.15;
+      });
+      return arr;
+    }
+    function render() {
+      stage.innerHTML = '';
+      var frame = document.createElement('div');
+      frame.style.width = state.width + 'px';
+      frame.style.maxWidth = '100%';
+      frame.style.background = 'var(--bg-tile)';
+      frame.style.border = '1px solid var(--border-light)';
+      frame.style.borderRadius = 'var(--radius-control)';
+      frame.style.padding = '16px';
+      frame.appendChild(AB.make({
+        label: LABEL,
+        total: TOTAL,
+        status: state.status === 'loading-slow' ? 'loading' : state.status,
+        loadingVariant: state.status === 'loading-slow' ? 'slow' : null,
+        items: state.status === 'empty' ? [] : items(),
+        showPercent: state.pct === 'yes',
+        showProgressBar: state.bar === 'yes',
+        warning: state.warn === 'yes' ? 'Просроченная задолженность на сумму 123 млн. руб.' : null,
+        maxVisibleItems: parseInt(state.maxv, 10),
+        maxWidth: 'none'
+      }));
+      stage.appendChild(frame);
+    }
+    render();
+  }
+
+  /* ---------------- REDLINE ---------------- */
+  function initRedline() {
+    var tbody = document.querySelector('#dev-redline tbody');
+    if (!tbody) return;
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;left:-9999px;top:0;width:560px';
+    probe.appendChild(AB.make(cfg({
+      items: base(2),
+      unit: 'руб.'
+    })));
+    document.body.appendChild(probe);
+    try {
+      var root = probe.querySelector('.albar');
+      var cs = function (sel) {
+        var n = probe.querySelector(sel);
+        return n ? getComputedStyle(n) : {};
+      };
+      var rows = [['Зазор между блоками (.albar)', getComputedStyle(root).rowGap], ['Максимальная ширина', getComputedStyle(root).maxWidth], ['Шапка · зазор', cs('.albar__head').columnGap], ['Заголовок (.albar__label)', cs('.albar__label').font], ['Итог (.albar__total)', cs('.albar__total').font], ['Единица (.albar__unit)', cs('.albar__unit').font], ['Бар · высота', cs('.albar__bar').height], ['Бар · радиус', cs('.albar__bar').borderRadius], ['Бар · зазор сегментов', cs('.albar__bar').columnGap], ['Сегмент · минимальная ширина', cs('.albar__seg').minWidth], ['Строка · минимальная высота', cs('.albar__row').minHeight], ['Строка · паддинг', cs('.albar__row').padding], ['Строка · зазор колонок', cs('.albar__row').columnGap], ['Строка · шрифт', cs('.albar__name').font], ['Маркер (.albar__dot)', cs('.albar__dot').width + ' × ' + cs('.albar__dot').height], ['Колонка процентов · min-width', cs('.albar__pct').minWidth], ['Колонка значений · min-width', cs('.albar__val').minWidth]];
+      tbody.innerHTML = rows.filter(function (r) {
+        return r[1];
+      }).map(function (r) {
+        return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td></tr>';
+      }).join('');
+    } finally {
+      probe.remove();
+    }
+  }
+
+  /* ---------------- copy ---------------- */
+  function initCopy() {
+    document.querySelectorAll('.code-panel__copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var t = document.getElementById(btn.dataset.copyTarget);
+        if (!t) return;
+        navigator.clipboard.writeText(t.textContent).then(function () {
+          var lab = btn.querySelector('.copy-label');
+          if (!lab) return;
+          var old = lab.textContent;
+          lab.textContent = 'Скопировано';
+          setTimeout(function () {
+            lab.textContent = old;
+          }, 1400);
+        });
+      });
+    });
+  }
+  function boot() {
+    [initExamples, initPlayground, initRedline, initCopy].forEach(function (fn) {
+      try {
+        fn();
+      } catch (e) {
+        console.error('allocation-bar.page:', e);
+      }
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);else boot();
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/allocation-bar.page.js", error: String((e && e.message) || e) }); }
 
 // scripts/breadcrumbs.page.js
 try { (() => {
@@ -4412,12 +5096,22 @@ function textBlock(t, dim) {
     labelGap: px(getComputedStyle(withText).gap)
   };
   host.remove();
-  const sizeRows = [['Толщина линии (по умолчанию)', D.thickness, '<code>--dvd-thickness</code>'], ['Толщина контрастной линии', D.thicknessStrong, '<code>--dvd-thickness</code>'], ['Толщина блока-секции', D.section, '<code>--dvd-section</code>'], ['Отступ Inset / Middle', D.inset, '<code>--dvd-inset</code>'], ['Мин. длина вертикальной линии', D.vmin, '<code>--dvd-vmin</code>'], ['Зазор у подписи', D.labelGap, '<code>--dvd-label-gap</code>']];
-  const sizeTb = document.querySelector('#size-table tbody');
-  if (sizeTb) sizeTb.innerHTML = sizeRows.map(([p, v, tok]) => `<tr><td>${p}</td><td class="rt-num">${v}</td><td class="rt-tok">${tok}</td></tr>`).join('');
-  const devRows = [['Толщина линии', D.thickness], ['Толщина контрастной линии', D.thicknessStrong], ['Толщина блока-секции', D.section], ['Отступ Inset / Middle', D.inset], ['Мин. длина вертикальной линии', D.vmin], ['Зазор у подписи', D.labelGap]];
-  const devTb = document.querySelector('#dev-spec-table tbody');
-  if (devTb) devTb.innerHTML = devRows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${v}</td></tr>`).join('');
+  function set(id, v) {
+    const n = document.getElementById(id);
+    if (n) n.textContent = v;
+  }
+  set('sz-thickness', D.thickness);
+  set('sz-thickness-strong', D.thicknessStrong);
+  set('sz-section', D.section);
+  set('sz-inset', D.inset);
+  set('sz-vmin', D.vmin);
+  set('sz-label-gap', D.labelGap);
+  set('dv-thickness', D.thickness);
+  set('dv-thickness-strong', D.thicknessStrong);
+  set('dv-section', D.section);
+  set('dv-inset', D.inset);
+  set('dv-vmin', D.vmin);
+  set('dv-label-gap', D.labelGap);
 })();
 
 /* ===================================================================== *
@@ -6212,6 +6906,9 @@ try { (() => {
     }, {
       group: 'Организмы',
       items: [{
+        label: 'AllocationBar',
+        href: 'pages/organisms/AllocationBar.html'
+      }, {
         label: 'Entity',
         href: 'pages/organisms/Entity.html'
       }, {
@@ -20734,7 +21431,7 @@ try { (() => {
     const openBtn = '<button type="button" class="btn btn--outline btn--s tfilter__open" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>';
     if (presetList && presetList.length) {
       /* есть сохранённые пресеты → Split Button: «Фильтр» + шеврон со списком */
-      bar.innerHTML = '<span class="menu-anchor tfilter__split">' + '<span class="btn-group btn-group--outline btn-group--split" role="group" aria-label="Фильтр">' + openBtn + '<button type="button" class="btn btn--outline btn--s btn--icon-only tfilter__presets" aria-haspopup="menu" aria-expanded="false" aria-label="Сохранённые пресеты"><span class="btn__chevron tfilter__chev"><i data-icon="chevron-down"></i></span></button>' + '</span>' + '<div class="menu menu--floating tfilter__menu" role="menu" aria-label="Сохранённые пресеты" hidden>' + '<div class="menu__label">Сохранённые пресеты</div>' + presetList.map((p, i) => '<button type="button" class="menu__item" role="menuitem" data-preset="' + i + '">' + '<span class="menu__item-label">' + p.name + '</span>' + '<span class="menu__item-hint">' + p.params.length + '</span></button>').join('') + '</div>' + '</span>';
+      bar.innerHTML = '<span class="menu-anchor tfilter__split">' + '<span class="btn-group btn-group--outline btn-group--split" role="group" aria-label="Фильтр">' + openBtn + '<button type="button" class="btn btn--outline btn--s btn--icon-only tfilter__presets" aria-haspopup="menu" aria-expanded="false" aria-label="Сохранённые пресеты">' + glyph('chevron-down').replace('<svg', '<svg class="btn__chevron tfilter__chev"') + '</button>' + '</span>' + '<div class="menu menu--floating tfilter__menu" role="menu" aria-label="Сохранённые пресеты" hidden>' + '<div class="menu__label">Сохранённые пресеты</div>' + presetList.map((p, i) => '<button type="button" class="menu__item" role="menuitem" data-preset="' + i + '">' + '<span class="menu__item-label">' + p.name + '</span>' + '<span class="menu__item-hint">' + p.params.length + '</span></button>').join('') + '</div>' + '</span>';
     } else {
       bar.innerHTML = openBtn;
     }
@@ -21394,6 +22091,76 @@ try { (() => {
         }, 1600);
       });
     });
+
+    /* ---------- статичные/живые примеры к разделу «Поведение» ---------- */
+    (function () {
+      const modalNav = document.getElementById('demo-modalnav');
+      if (modalNav) {
+        const nav = document.createElement('nav');
+        nav.className = 'tabs tabs--vert';
+        nav.setAttribute('aria-label', 'Разделы фильтра (пример)');
+        nav.style.cssText = 'width:220px;background:var(--tertiary-light);border:1px solid var(--border-light);border-radius:10px;padding:8px;';
+        nav.innerHTML = [['Общая информация', 0, false], ['Даты', 2, true], ['Сохранённые пресеты', 0, false]].map(([label, count, sel]) => '<button type="button" class="tab tab--m tab--vert' + (sel ? ' tab--selected' : '') + '"' + (sel ? ' aria-current="true"' : '') + '><span class="tab__label">' + label + '</span>' + (count ? '<span class="tab__badge">' + count + '</span>' : '') + '</button>').join('');
+        modalNav.prepend(nav);
+      }
+      const presetPick = document.getElementById('demo-presetpick');
+      if (presetPick) {
+        const mount = () => {
+          presetPick.querySelector('.tfilter') && presetPick.querySelector('.tfilter').remove();
+          const bar = buildBar({
+            presetList: [{
+              name: 'Мои сделки ЦА',
+              params: paramsFor(3)
+            }, {
+              name: 'Просрочка МБ',
+              params: paramsFor(2)
+            }],
+            onApplyPreset: p => {
+              presetPick.querySelector('.tfilter').replaceWith(buildBar({
+                applied: true,
+                count: p.params.length
+              }));
+            }
+          });
+          presetPick.prepend(bar);
+        };
+        mount();
+      }
+      const scrollLock = document.getElementById('demo-scrolllock');
+      if (scrollLock) {
+        const frame = locked => '<div style="width:150px;height:104px;border:1px solid var(--border-light);border-radius:10px;background:var(--bg-tile);padding:10px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden;' + (locked ? 'opacity:.5;' : '') + '">' + '<div style="height:8px;width:60%;border-radius:4px;background:var(--border-primary);"></div>' + '<div style="height:8px;width:85%;border-radius:4px;background:var(--border-primary);"></div>' + '<div style="height:8px;width:70%;border-radius:4px;background:var(--border-primary);"></div>' + (locked ? '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb, var(--text-primary) 6%, transparent);"><div style="width:74px;height:44px;border-radius:8px;background:var(--bg-tile);border:1px solid var(--border-primary);box-shadow:0 4px 12px color-mix(in srgb, var(--text-primary) 16%, transparent);"></div></div>' : '') + '</div>';
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'display:flex;gap:20px;align-items:flex-start;';
+        wrap.innerHTML = '<div style="display:flex;flex-direction:column;gap:8px;align-items:center;"><span class="state-desc">Обычная страница</span>' + frame(false) + '</div>' + '<div style="display:flex;flex-direction:column;gap:8px;align-items:center;"><span class="state-desc">Модалка открыта</span>' + frame(true) + '</div>';
+        scrollLock.prepend(wrap);
+      }
+      const counter = document.getElementById('demo-counter');
+      if (counter) {
+        const col = (label, bar) => {
+          const c = document.createElement('div');
+          c.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
+          c.innerHTML = '<span class="state-desc">' + label + '</span>';
+          c.appendChild(bar);
+          return c;
+        };
+        counter.append(col('До применения', buildBar({
+          applied: false
+        })), col('После применения', buildBar({
+          applied: true,
+          count: 3
+        })));
+      }
+      const reset = document.getElementById('demo-reset');
+      if (reset) reset.prepend(buildBar({
+        applied: true,
+        count: 2
+      }));
+      const presets = document.getElementById('demo-presets');
+      if (presets) {
+        presets.innerHTML = '<div class="preset-list">' + '<div class="preset-item"><div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-chev" aria-expanded="false" aria-label="Показать параметры пресета"><i data-icon="chevron-down"></i></button>' + '<span class="preset-row__name">Мои сделки ЦА</span><span class="preset-row__count">3 парам.</span>' + '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div></div>' + '<div class="preset-item is-open"><div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-chev" aria-expanded="true" aria-label="Скрыть параметры пресета"><i data-icon="chevron-up"></i></button>' + '<span class="preset-row__name">Просрочка МБ</span><span class="preset-row__count">2 парам.</span>' + '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div>' + '<div class="preset-item__body">' + '<table class="preset-params"><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>' + paramsFor(2).map(([k, v]) => '<tr><td>' + k + '</td><td>' + v + '</td></tr>').join('') + '</tbody></table>' + '</div></div>' + '</div>';
+        window.dsIcons && window.dsIcons.apply(presets);
+      }
+    })();
   });
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/table-filter.page.js", error: String((e && e.message) || e) }); }

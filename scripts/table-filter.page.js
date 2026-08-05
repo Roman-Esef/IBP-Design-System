@@ -86,7 +86,7 @@
         '<span class="menu-anchor tfilter__split">' +
           '<span class="btn-group btn-group--outline btn-group--split" role="group" aria-label="Фильтр">' +
             openBtn +
-            '<button type="button" class="btn btn--outline btn--s btn--icon-only tfilter__presets" aria-haspopup="menu" aria-expanded="false" aria-label="Сохранённые пресеты"><span class="btn__chevron tfilter__chev"><i data-icon="chevron-down"></i></span></button>' +
+            '<button type="button" class="btn btn--outline btn--s btn--icon-only tfilter__presets" aria-haspopup="menu" aria-expanded="false" aria-label="Сохранённые пресеты">' + glyph('chevron-down').replace('<svg', '<svg class="btn__chevron tfilter__chev"') + '</button>' +
           '</span>' +
           '<div class="menu menu--floating tfilter__menu" role="menu" aria-label="Сохранённые пресеты" hidden>' +
             '<div class="menu__label">Сохранённые пресеты</div>' +
@@ -677,5 +677,91 @@
         setTimeout(() => { btn.classList.remove('is-copied'); label.textContent = prev; }, 1600);
       });
     });
+
+    /* ---------- статичные/живые примеры к разделу «Поведение» ---------- */
+    (function () {
+      const modalNav = document.getElementById('demo-modalnav');
+      if (modalNav) {
+        const nav = document.createElement('nav');
+        nav.className = 'tabs tabs--vert';
+        nav.setAttribute('aria-label', 'Разделы фильтра (пример)');
+        nav.style.cssText = 'width:220px;background:var(--tertiary-light);border:1px solid var(--border-light);border-radius:10px;padding:8px;';
+        nav.innerHTML = [
+          ['Общая информация', 0, false],
+          ['Даты', 2, true],
+          ['Сохранённые пресеты', 0, false],
+        ].map(([label, count, sel]) => '<button type="button" class="tab tab--m tab--vert' + (sel ? ' tab--selected' : '') + '"' + (sel ? ' aria-current="true"' : '') + '><span class="tab__label">' + label + '</span>' + (count ? '<span class="tab__badge">' + count + '</span>' : '') + '</button>').join('');
+        modalNav.prepend(nav);
+      }
+
+      const presetPick = document.getElementById('demo-presetpick');
+      if (presetPick) {
+        const mount = () => {
+          presetPick.querySelector('.tfilter') && presetPick.querySelector('.tfilter').remove();
+          const bar = buildBar({
+            presetList: [{ name: 'Мои сделки ЦА', params: paramsFor(3) }, { name: 'Просрочка МБ', params: paramsFor(2) }],
+            onApplyPreset: (p) => { presetPick.querySelector('.tfilter').replaceWith(buildBar({ applied: true, count: p.params.length })); },
+          });
+          presetPick.prepend(bar);
+        };
+        mount();
+      }
+
+      const scrollLock = document.getElementById('demo-scrolllock');
+      if (scrollLock) {
+        const frame = (locked) => '<div style="width:150px;height:104px;border:1px solid var(--border-light);border-radius:10px;background:var(--bg-tile);padding:10px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden;' + (locked ? 'opacity:.5;' : '') + '">' +
+          '<div style="height:8px;width:60%;border-radius:4px;background:var(--border-primary);"></div>' +
+          '<div style="height:8px;width:85%;border-radius:4px;background:var(--border-primary);"></div>' +
+          '<div style="height:8px;width:70%;border-radius:4px;background:var(--border-primary);"></div>' +
+          (locked ? '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb, var(--text-primary) 6%, transparent);"><div style="width:74px;height:44px;border-radius:8px;background:var(--bg-tile);border:1px solid var(--border-primary);box-shadow:0 4px 12px color-mix(in srgb, var(--text-primary) 16%, transparent);"></div></div>' : '') +
+          '</div>';
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'display:flex;gap:20px;align-items:flex-start;';
+        wrap.innerHTML =
+          '<div style="display:flex;flex-direction:column;gap:8px;align-items:center;"><span class="state-desc">Обычная страница</span>' + frame(false) + '</div>' +
+          '<div style="display:flex;flex-direction:column;gap:8px;align-items:center;"><span class="state-desc">Модалка открыта</span>' + frame(true) + '</div>';
+        scrollLock.prepend(wrap);
+      }
+
+      const counter = document.getElementById('demo-counter');
+      if (counter) {
+        const col = (label, bar) => {
+          const c = document.createElement('div');
+          c.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
+          c.innerHTML = '<span class="state-desc">' + label + '</span>';
+          c.appendChild(bar);
+          return c;
+        };
+        counter.append(col('До применения', buildBar({ applied: false })), col('После применения', buildBar({ applied: true, count: 3 })));
+      }
+
+      const reset = document.getElementById('demo-reset');
+      if (reset) reset.prepend(buildBar({ applied: true, count: 2 }));
+
+      const presets = document.getElementById('demo-presets');
+      if (presets) {
+        presets.innerHTML =
+          '<div class="preset-list">' +
+            '<div class="preset-item"><div class="preset-row">' +
+              '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-chev" aria-expanded="false" aria-label="Показать параметры пресета"><i data-icon="chevron-down"></i></button>' +
+              '<span class="preset-row__name">Мои сделки ЦА</span><span class="preset-row__count">3 парам.</span>' +
+              '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button>' +
+              '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' +
+            '</div></div>' +
+            '<div class="preset-item is-open"><div class="preset-row">' +
+              '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-chev" aria-expanded="true" aria-label="Скрыть параметры пресета"><i data-icon="chevron-up"></i></button>' +
+              '<span class="preset-row__name">Просрочка МБ</span><span class="preset-row__count">2 парам.</span>' +
+              '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button>' +
+              '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' +
+            '</div>' +
+            '<div class="preset-item__body">' +
+              '<table class="preset-params"><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>' +
+              paramsFor(2).map(([k, v]) => '<tr><td>' + k + '</td><td>' + v + '</td></tr>').join('') +
+              '</tbody></table>' +
+            '</div></div>' +
+          '</div>';
+        window.dsIcons && window.dsIcons.apply(presets);
+      }
+    })();
   });
 })();

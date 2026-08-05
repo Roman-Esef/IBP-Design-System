@@ -64,6 +64,7 @@
         {
           group: 'Организмы',
           items: [
+            { label: 'AllocationBar', href: 'pages/organisms/AllocationBar.html' },
             { label: 'Entity',     href: 'pages/organisms/Entity.html' },
             { label: 'Modal',    href: 'pages/organisms/Modal.html' },
             { label: 'NavPanel', href: 'pages/organisms/NavPanel.html' },

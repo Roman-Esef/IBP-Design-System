@@ -52,6 +52,7 @@
 @import url("styles/entity.css");
 @import url("styles/table-cell.css");
 @import url("styles/table-filter.css");
+@import url("styles/allocation-bar.css");
 @import url("styles/tile.css");
 
 /* Компоненты подкачки */

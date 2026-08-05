@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="../../styles/button.css">
 <link rel="stylesheet" href="../../styles/divider.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
+<link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
 
   /* masthead */
@@ -293,11 +294,58 @@
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
     <p class="desc">Геометрия разделителя задаётся толщиной линии и отступами; собственных размеров у компонента нет. Значения измерены на живом экземпляре.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table" id="size-table">
-        <thead><tr><th>Параметр</th><th>Значение</th><th>Токен</th></tr></thead>
-        <tbody></tbody>
-      </table>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">
+        <div class="tbl__row" style="grid-template-columns:8px 1.7fr .6fr 1.1fr 8px;">
+          <div class="th th--separator"></div>
+          <div class="th"><span class="th__label">Параметр</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Значение</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.7fr .6fr 1.1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Толщина линии (по умолчанию)</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="sz-thickness">—</span></span></div>
+          <div class="tc"><code class="tok">--dvd-thickness</code></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.7fr .6fr 1.1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Толщина контрастной линии</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="sz-thickness-strong">—</span></span></div>
+          <div class="tc"><code class="tok">--dvd-thickness</code></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.7fr .6fr 1.1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Толщина блока-секции</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="sz-section">—</span></span></div>
+          <div class="tc"><code class="tok">--dvd-section</code></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.7fr .6fr 1.1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Отступ Inset / Middle</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="sz-inset">—</span></span></div>
+          <div class="tc"><code class="tok">--dvd-inset</code></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.7fr .6fr 1.1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Мин. длина вертикальной линии</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="sz-vmin">—</span></span></div>
+          <div class="tc"><code class="tok">--dvd-vmin</code></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.7fr .6fr 1.1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Зазор у подписи</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="sz-label-gap">—</span></span></div>
+          <div class="tc"><code class="tok">--dvd-label-gap</code></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
     </div>
   
 <div class="subsec" data-screen-label="Spacing">
@@ -355,12 +403,28 @@
     <h2>Типографика</h2>
     <p class="desc">Подпись разделителя набирается гарнитурой <b>SB Sans Text</b> токеном <code class="tok">--type-body-s</code>.</p>
     <div class="panel" style="padding:0;overflow:hidden;">
-      <table class="ref-table ref-table--cols">
-        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
-        <tbody>
-          <tr><td>Не применимо — компонент не содержит собственного текста</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">
+        <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
+          <div class="th th--separator"></div>
+          <div class="th"><span class="th__label">Часть</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Гарнитура</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Начертание</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Размер / интерлиньяж</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Образец</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.3fr 1.2fr 1.1fr .9fr 1fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Не применимо — компонент не содержит собственного текста</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">—</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">—</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">—</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">—</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">—</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
     </div>
     <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
@@ -370,15 +434,53 @@
     <h2>Цвета</h2>
     <p class="desc">Компонент использует только семантические токены границ и текста. Никаких собственных цветов.</p>
     <div class="panel" style="padding:0;overflow:hidden;">
-      <table class="ref-table ref-table--cols">
-        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
-        <tbody>
-          <tr><td>Линия</td><td>Линия по умолчанию</td><td><code class="tok">--border-light</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-light)"></span></td><td>#E1EDE7</td></tr>
-          <tr><td>Линия</td><td>Контрастная линия</td><td><code class="tok">--border-primary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-primary)"></span></td><td>#B8CCCC</td></tr>
-          <tr><td>Линия</td><td>Блок-секция</td><td><code class="tok">--tertiary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--tertiary)"></span></td><td>#E5ECEB</td></tr>
-          <tr><td>Текст</td><td>Подпись разделителя</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
-        </tbody>
-      </table>
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="th th--separator"></div>
+          <div class="th"><span class="th__label">Раздел</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Роль</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Образец</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Hex</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Линия</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Линия по умолчанию</span></span></div>
+          <div class="tc"><code class="tok">--border-light</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-light)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#E1EDE7</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Линия</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Контрастная линия</span></span></div>
+          <div class="tc"><code class="tok">--border-primary</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--border-primary)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#B8CCCC</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Линия</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Блок-секция</span></span></div>
+          <div class="tc"><code class="tok">--tertiary</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--tertiary)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#E5ECEB</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.2fr 1.4fr 1.1fr .7fr .8fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Текст</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Подпись разделителя</span></span></div>
+          <div class="tc"><code class="tok">--text-secondary</code></div>
+          <div class="tc"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">#6C8080</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
     </div>
     <div id="color-ref" style="display:none"></div>
   </section>
@@ -390,11 +492,51 @@
 
     <p class="subhead" style="font: var(--type-body-m-strong); color: var(--text-primary); margin:0 0 16px;">Точные размеры (redline)</p>
     <p class="desc tight">Значения измерены на живом экземпляре компонента (<code class="tok">getComputedStyle</code>), источник — токены в <code class="tok">styles/divider.css</code>.</p>
-    <div class="panel" style="padding:8px 10px; margin-bottom:34px;">
-      <table class="dev-table" id="dev-spec-table">
-        <thead><tr><th>Параметр</th><th>Значение</th></tr></thead>
-        <tbody></tbody>
-      </table>
+    <div class="panel" style="padding:0;overflow:hidden; margin-bottom:34px;">
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">
+        <div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;">
+          <div class="th th--separator"></div>
+          <div class="th"><span class="th__label">Параметр</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th"><span class="th__label">Значение</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Толщина линии</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="dv-thickness">—</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Толщина контрастной линии</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="dv-thickness-strong">—</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Толщина блока-секции</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="dv-section">—</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Отступ Inset / Middle</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="dv-inset">—</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Мин. длина вертикальной линии</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="dv-vmin">—</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text">Зазор у подписи</span></span></div>
+          <div class="tc"><span class="tc__row"><span class="tc__text" id="dv-label-gap">—</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
     </div>
 
     <div class="dev-intro">
@@ -452,5 +594,6 @@
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/tbl-resize.js"></script>
 </body>
 </html>

@@ -6,6 +6,35 @@ purpose: Чит-шит по всем компонентам для сборки 
 
 Подключение на экране: один `<link rel="stylesheet" href="ds.css">` (всё включено). Иконки: `<i data-icon="имя"></i>` + `icons-data.js` + `ds-icons.js` в конце body (имена — specs/Icons.md). Токены: цвета — specs/Colors.md, типографика — specs/Typography.md, радиусы — specs/Radius.md, тени — specs/Elevation.md. Начинай экран с копии `_template/Screen.html`.
 
+## AllocationBar
+css: `styles/allocation-bar.css` · deps: [alert, button]
+
+Итог + стек-бар распределения + список позиций с долями. Read-only, предметной области не знает. Хост обязан иметь `container-type: inline-size` — весь адаптив на контейнерных запросах (480 / 320 / 200px). Цвета сегментов — только токены `--chart-*` по индексу, без цикла (13-я и далее → «Прочее»). Свыше `maxVisibleItems` (5) — «Показать ещё N», внутреннего скролла нет. Высота бара всегда 8px, зазор сегментов 2px, минимальный сегмент 2px.
+
+```html
+<div class="albar-host">
+  <div class="albar">
+    <div class="albar__head">
+      <div class="albar__titles"><div class="albar__label">ВБС по сделке на 25.02.2026, руб.</div></div>
+      <div class="albar__total"><span>1 000 000 000,00</span><span class="albar__unit">руб.</span></div>
+    </div>
+    <div class="albar__bar" role="img" aria-label="Распределение: Кредит 35,00%, Акции 35,00%, РЕПО 30,00%">
+      <div class="albar__seg" data-id="kr" style="background:var(--chart-indigo);flex-grow:35"></div>
+      <div class="albar__seg" data-id="ak" style="background:var(--chart-shiny-green);flex-grow:35"></div>
+      <div class="albar__seg" data-id="rp" style="background:var(--chart-light-blue);flex-grow:30"></div>
+    </div>
+    <div class="albar__list">
+      <div class="albar__row" data-id="kr">
+        <span class="albar__dot" style="background:var(--chart-indigo)"></span>
+        <span class="albar__name">Кредит</span><span class="albar__pct">35,00%</span><span class="albar__val">350 000 000,00</span>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+Состояния: loading — `.albar__sk` (шиммер) на итоге/баре/строках, долгий расчёт — плашка `.albar__calc`; error — Alert error + Button Outline XS «Повторить»; empty — итог «—» + `.albar__empty` «Нет данных»; partial/overflow — Alert warning/error в `.albar__foot` (+ серый `.albar__seg--rest`). Ограничение высоты — `data-height="A|B|C"` на хосте. Растяжение — `.albar--stretch`. Рантайм-референс: `window.AllocationBar.make(cfg)`. Полная спека: specs/AllocationBar.md.
+
 ## Alert
 css: `styles/alert.css` · deps: [button, link]
 
@@ -1009,7 +1038,7 @@ css: `styles/table-filter.css` · deps: [button, button-group, context-menu, chi
   <span class="menu-anchor tfilter__split">
     <span class="btn-group btn-group--outline btn-group--split" role="group" aria-label="Фильтр">
       <button class="btn btn--outline btn--s tfilter__open" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>
-      <button class="btn btn--outline btn--s btn--icon-only tfilter__presets" aria-haspopup="menu" aria-expanded="false" aria-label="Сохранённые пресеты"><span class="btn__chevron"><i data-icon="chevron-down"></i></span></button>
+      <button class="btn btn--outline btn--s btn--icon-only tfilter__presets" aria-haspopup="menu" aria-expanded="false" aria-label="Сохранённые пресеты"><svg class="btn__chevron">…</svg></button>
     </span>
     <div class="menu menu--floating tfilter__menu" role="menu" hidden>
       <div class="menu__label">Сохранённые пресеты</div>

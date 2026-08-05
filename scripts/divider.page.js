@@ -499,29 +499,19 @@ function textBlock(t, dim){
   };
   host.remove();
 
-  const sizeRows = [
-    ['Толщина линии (по умолчанию)', D.thickness, '<code>--dvd-thickness</code>'],
-    ['Толщина контрастной линии', D.thicknessStrong, '<code>--dvd-thickness</code>'],
-    ['Толщина блока-секции', D.section, '<code>--dvd-section</code>'],
-    ['Отступ Inset / Middle', D.inset, '<code>--dvd-inset</code>'],
-    ['Мин. длина вертикальной линии', D.vmin, '<code>--dvd-vmin</code>'],
-    ['Зазор у подписи', D.labelGap, '<code>--dvd-label-gap</code>'],
-  ];
-  const sizeTb = document.querySelector('#size-table tbody');
-  if (sizeTb) sizeTb.innerHTML = sizeRows.map(([p,v,tok]) =>
-    `<tr><td>${p}</td><td class="rt-num">${v}</td><td class="rt-tok">${tok}</td></tr>`).join('');
-
-  const devRows = [
-    ['Толщина линии', D.thickness],
-    ['Толщина контрастной линии', D.thicknessStrong],
-    ['Толщина блока-секции', D.section],
-    ['Отступ Inset / Middle', D.inset],
-    ['Мин. длина вертикальной линии', D.vmin],
-    ['Зазор у подписи', D.labelGap],
-  ];
-  const devTb = document.querySelector('#dev-spec-table tbody');
-  if (devTb) devTb.innerHTML = devRows.map(([p,v]) =>
-    `<tr><td>${p}</td><td class="rt-num">${v}</td></tr>`).join('');
+  function set(id,v){ const n=document.getElementById(id); if(n) n.textContent=v; }
+  set('sz-thickness', D.thickness);
+  set('sz-thickness-strong', D.thicknessStrong);
+  set('sz-section', D.section);
+  set('sz-inset', D.inset);
+  set('sz-vmin', D.vmin);
+  set('sz-label-gap', D.labelGap);
+  set('dv-thickness', D.thickness);
+  set('dv-thickness-strong', D.thicknessStrong);
+  set('dv-section', D.section);
+  set('dv-inset', D.inset);
+  set('dv-vmin', D.vmin);
+  set('dv-label-gap', D.labelGap);
 })();
 
 /* ===================================================================== *
