@@ -387,8 +387,8 @@ function placeTip(stage, tip, target, placement, align, gap) {
     ['Скрытие', 'мгновенно'],
     ['Анимация', '140 мс · ease'],
   ];
-  document.querySelector('#timing-table tbody').innerHTML = rows.map(([k,v]) =>
-    `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
+  document.querySelector('#timing-table').innerHTML = rows.map(([k,v]) =>
+    `<div class="tbl__row" style="grid-template-columns:8px 1.3fr 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${k}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================
@@ -572,8 +572,8 @@ function placeTip(stage, tip, target, placement, align, gap) {
     ['Задержка появления (hover)', '≈ 400 мс'],
     ['Анимация появления', '140 мс · ease'],
   ];
-  const tb = document.querySelector('#dev-spec-table tbody');
-  if (tb) tb.innerHTML = rows.map(([p,v]) => `<tr><td>${p}</td><td class="rt-num">${v}</td></tr>`).join('');
+  const tb = document.querySelector('#dev-spec-table');
+  if (tb) tb.innerHTML = rows.map(([p,v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================

@@ -295,7 +295,7 @@
   function px(v) { return Math.round(parseFloat(v)) + 'px'; }
 
   function fillSizeTable() {
-    var body = document.querySelector('#size-table tbody');
+    var body = document.querySelector('#size-table');
     if (!body) return;
     var m = document.querySelector('#size-m .alert');
     if (!m) return;
@@ -311,12 +311,12 @@
       ['Токен текста', 'Body S']
     ];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.55fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
 
   function fillA11y() {
-    var body = document.querySelector('#a11y-table tbody');
+    var body = document.querySelector('#a11y-table');
     if (!body) return;
     var rows = [
       ['Info', 'status', 'polite', 'Информирование — не прерывает, озвучивается по завершении фразы'],
@@ -325,7 +325,7 @@
       ['Error', 'alert', 'assertive', 'Ошибка — объявляется немедленно, прерывает чтение']
     ];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td><td><code class="tok">' + r[2] + '</code></td><td style="color:var(--text-secondary)">' + r[3] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.63fr 0.86fr 0.72fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc"><code class="tok">' + r[1] + '</code></div><div class="tc"><code class="tok">' + r[2] + '</code></div><div class="tc"><span class="tc__row"><span class="tc__text" style="color:var(--text-secondary)">' + r[3] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
 
@@ -339,7 +339,7 @@
       ['Ссылка', '--type-body-s', '--type-body-s', 'тон (акцент)']
     ];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td><td><code class="tok">' + r[2] + '</code></td><td style="color:var(--text-secondary)">' + r[3] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.63fr 0.86fr 0.72fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc"><code class="tok">' + r[1] + '</code></div><div class="tc"><code class="tok">' + r[2] + '</code></div><div class="tc"><span class="tc__row"><span class="tc__text" style="color:var(--text-secondary)">' + r[3] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
 
@@ -383,7 +383,7 @@
   }
 
   function fillDevSpec() {
-    var body = document.querySelector('#dev-spec-table tbody');
+    var body = document.querySelector('#dev-spec-table');
     if (!body) return;
     var m = document.querySelector('#size-m .alert');
     if (!m) return;
@@ -399,7 +399,7 @@
       ['Радиус', val(m, 'borderTopLeftRadius'), '--radius-m']
     ];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td><td><code class="tok">' + r[2] + '</code></td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.55fr 1.17fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc"><code class="tok">' + r[2] + '</code></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
 

@@ -328,9 +328,9 @@
       ['Высота шапки (Burger)', 'nav__top', d.topH + ' px', 'Ряд бургера и пина'],
       ['Бейдж', 'badge--xs', '20 px', 'Компонент Badge, тон accent']
     ];
-    var st = document.querySelector('#size-table tbody');
+    var st = document.querySelector('#size-table');
     if (st) st.innerHTML = sizeRows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td><td class="num">' + r[2] + '</td><td class="rec">' + r[3] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.68fr 0.81fr 0.95fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc"><code class="tok">' + r[1] + '</code></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[2] + '</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[3] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
 
     var devRows = [
@@ -350,9 +350,9 @@
       ['Тень Drawer', 'Shadow4.0_modalform'],
       ['Шов Fixed', '1px --border-light справа']
     ];
-    var dt = document.querySelector('#dev-spec-table tbody');
+    var dt = document.querySelector('#dev-spec-table');
     if (dt) dt.innerHTML = devRows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
 

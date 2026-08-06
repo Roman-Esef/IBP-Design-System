@@ -424,12 +424,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     host.remove();
     const r = v => { const n = parseFloat(v); return isNaN(n) ? v : (Math.round(n * 10) / 10) + ' px'; };
-    const rowsHtml = rows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${r(v)}</td></tr>`).join('');
-    ['#dev-chip-table tbody', '#dev-chip-table-dup tbody'].forEach(sel => {
+    const rowsHtml = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
+    ['#dev-chip-table', '#dev-chip-table-dup'].forEach(sel => {
       const tb = document.querySelector(sel);
       if (tb) tb.innerHTML = rowsHtml;
     });
-    const tbody2 = document.querySelector('#dev-pop-table tbody');
+    const tbody2 = document.querySelector('#dev-pop-table');
     if (tbody2) {
       const host = document.createElement('div'); host.style.cssText = 'position:absolute;left:-9999px;top:0;'; document.body.appendChild(host);
       const { pop } = buildRiskPopover({ rating: 26, zone: 'red' });
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
       host.remove();
       const r = v => { const n = parseFloat(v); return isNaN(n) ? v : (Math.round(n * 10) / 10) + ' px'; };
-      tbody2.innerHTML = rows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${typeof v === 'string' && v.indexOf('/') > -1 ? v.split(' / ').map(r).join(' / ') : r(v)}</td></tr>`).join('');
+      tbody2.innerHTML = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${typeof v === 'string' && v.indexOf('/') > -1 ? v.split(' / ').map(r).join(' / ') : r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     }
   })();
 

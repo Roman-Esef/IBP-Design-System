@@ -374,9 +374,9 @@ whenReady(function () {
    TYPOGRAPHY
    ========================================================================= */
 (function () {
-  const tb = document.querySelector('#typo-table tbody');
+  const tb = document.querySelector('#typo-table');
   if (!tb) return;
-  tb.innerHTML = '<tr><td>S (единственный размер)</td><td class="rt-tok"><code>--type-body-s</code></td><td class="num">14 / 16</td><td id="typo-sample-s"></td></tr>';
+  tb.innerHTML = '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.68fr 1.35fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">S (единственный размер)</span></span></div><div class="tc"><code>--type-body-s</code></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">14 / 16</span></span></div><div class="tc" id="typo-sample-s"></div><div class="tc tc--separator"></div></div>';
   const cell = document.getElementById('typo-sample-s');
   if (cell) {
     cell.style.maxWidth = '260px';
@@ -436,7 +436,7 @@ whenReady(function () {
    DEV — redline measured from live component
    ========================================================================= */
 (function () {
-  const tb = document.querySelector('#dev-spec-table tbody');
+  const tb = document.querySelector('#dev-spec-table');
   if (!tb) return;
   const host = document.createElement('div');
   host.style.cssText = 'position:absolute; left:-9999px; top:0; width:900px;';
@@ -465,7 +465,7 @@ whenReady(function () {
     ['Отступ перед разделителем «/»', px(d.sepGap)],
     ['Начертание текущей крошки', d.curWeight],
   ];
-  tb.innerHTML = rows.map(([label, val]) => `<tr><td>${label}</td><td class="rt-num">${val}</td></tr>`).join('');
+  tb.innerHTML = rows.map(([label, val]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${val}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================

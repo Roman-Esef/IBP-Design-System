@@ -836,7 +836,7 @@
 
   /* ============================ DEV SPEC TABLE (measured) ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -879,7 +879,7 @@
       ['Высота триггера pagesize', () => data.sizeH + ' px'],
       ['Типографика pagesize (кегль)', () => data.sizeFont + ' px'],
     ];
-    tbody.innerHTML = rows.map(([label, fn]) => `<tr><td>${label}</td><td class="rt-num">${fn()}</td></tr>`).join('');
+    tbody.innerHTML = rows.map(([label, fn]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn()}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ DEV CODE PANELS — copy buttons ============================ */

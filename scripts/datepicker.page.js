@@ -192,7 +192,7 @@
 
   /* =========================== REDLINE =========================== */
   (function () {
-    var tb = document.querySelector('#dev-spec-table tbody');
+    var tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     var holder = document.createElement('div');
     holder.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -214,9 +214,9 @@
       ['Высота дней недели', wd.height],
       ['Шрифт числа', num.fontSize + ' / ' + num.lineHeight]
     ].forEach(function (r) {
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td>';
-      tb.appendChild(tr);
+      var row = document.createElement('div'); row.className = 'tbl__row'; row.style.gridTemplateColumns = '8px 1.84fr 0.81fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();

@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="../../styles/icon-button.css">
 <link rel="stylesheet" href="../../styles/label-helper.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
+<link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
 
   /* masthead */
@@ -191,11 +192,8 @@
 <div class="subsec" data-screen-label="UsageMap">
     <h3>Используется в компонентах</h3>
     <p class="desc">Каждый слот переиспользуется независимо — компонент может задействовать только Helper, только Label, или ни одного из них.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table" id="usage-table">
-        <thead><tr><th>Компонент</th><th>Label</th><th>Helper</th></tr></thead>
-        <tbody></tbody>
-      </table>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.2fr 0.9fr 0.9fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Компонент</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Label</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Helper</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div id="usage-table"></div></div>
     </div>
   </div>
 
@@ -241,11 +239,8 @@
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
     <p class="desc">У Label и Helper нет собственной шкалы размеров — оба слота всегда набираются одним и тем же токеном <code class="tok">Body XS</code>, независимо от размера родительского компонента. Значения ниже измерены на живом экземпляре.</p>
-    <div class="panel" style="padding:8px 10px;">
-      <table class="ref-table" id="size-table">
-        <thead><tr><th>Слот</th><th>Токен</th><th>Кегль / строка</th><th>Иконка</th></tr></thead>
-        <tbody></tbody>
-      </table>
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 0.7fr 1fr 1.1fr 0.9fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Слот</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--right"><span class="th__label">Кегль / строка</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--right"><span class="th__label">Иконка</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div id="size-table"></div></div>
     </div>
   </section>
 
@@ -345,13 +340,7 @@
     <h2>Типографика</h2>
     <p class="desc">Label и Helper набираются одним токеном <code class="tok">--type-body-xs</code> — различие только в цвете.</p>
     <div class="panel" style="padding:0;overflow:hidden;">
-      <table class="ref-table ref-table--cols">
-        <thead><tr><th>Часть</th><th>Токен</th><th>Гарнитура</th><th>Начертание</th><th>Размер / интерлиньяж</th><th>Образец</th></tr></thead>
-        <tbody>
-          <tr><td>Label</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
-          <tr><td>Helper</td><td><code class="tok">--type-body-xs</code></td><td>SB Sans Text</td><td>Regular</td><td>12 / 16</td><td><span style="font:var(--type-body-xs)">Образец</span></td></tr>
-        </tbody>
-      </table>
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.08fr 0.99fr 0.9fr 1.35fr 0.77fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Часть</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Гарнитура</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Начертание</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Размер / интерлиньяж</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Образец</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.08fr 0.99fr 0.9fr 1.35fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Label</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--type-body-xs</code></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">SB Sans Text</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">Regular</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">12 / 16</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><span style="font:var(--type-body-xs)">Образец</span></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.08fr 0.99fr 0.9fr 1.35fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Helper</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--type-body-xs</code></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">SB Sans Text</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">Regular</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">12 / 16</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><span style="font:var(--type-body-xs)">Образец</span></span></span></div><div class="tc tc--separator"></div></div></div>
     </div>
     <table id="typo-table" style="display:none"><tbody></tbody></table>
   </section>
@@ -361,17 +350,7 @@
     <h2>Цвета</h2>
     <p class="desc">Компонент использует только семантические токены текста и ситуативные токены ошибки.</p>
     <div class="panel" style="padding:0;overflow:hidden;">
-      <table class="ref-table ref-table--cols">
-        <thead><tr><th>Раздел</th><th>Роль</th><th>Токен</th><th>Образец</th><th>Hex</th></tr></thead>
-        <tbody>
-          <tr><td>Label</td><td>Текст</td><td><code class="tok">--text-secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></td><td>#6C8080</td></tr>
-          <tr><td>Label</td><td>Иконки — IconButton S neutral</td><td><code class="tok">--secondary</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--secondary)"></span></td><td>#B8D6D3</td></tr>
-          <tr><td>Label</td><td>Disabled</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
-          <tr><td>Helper</td><td>Текст</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
-          <tr><td>Helper</td><td>Error</td><td><code class="tok">--error</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--error)"></span></td><td>#E5625C</td></tr>
-          <tr><td>Helper</td><td>Disabled</td><td><code class="tok">--text-inactive</code></td><td><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></td><td>#AAB2B1</td></tr>
-        </tbody>
-      </table>
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.76fr 1.17fr 0.77fr 0.77fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Раздел</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Роль</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Образец</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Hex</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.76fr 1.17fr 0.77fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Label</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">Текст</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--text-secondary</code></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-secondary)"></span></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">#6C8080</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.76fr 1.17fr 0.77fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Label</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">Иконки — IconButton S neutral</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--secondary</code></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--secondary)"></span></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">#B8D6D3</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.76fr 1.17fr 0.77fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Label</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">Disabled</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--text-inactive</code></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">#AAB2B1</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.76fr 1.17fr 0.77fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Helper</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">Текст</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--text-inactive</code></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">#AAB2B1</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.76fr 1.17fr 0.77fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Helper</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">Error</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--error</code></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--error)"></span></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">#E5625C</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 0.72fr 1.76fr 1.17fr 0.77fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Helper</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">Disabled</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--text-inactive</code></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(--text-inactive)"></span></span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">#AAB2B1</span></span></div><div class="tc tc--separator"></div></div></div>
     </div>
     <div id="color-ref" style="display:none"></div>
   </section>
@@ -383,11 +362,8 @@
 
     <p class="subhead2">Точные размеры (redline)</p>
     <p class="desc tight">Значения измерены на живом экземпляре (<code class="tok">getComputedStyle</code>), источник — <code class="tok">styles/label-helper.css</code>.</p>
-    <div class="panel" style="padding:8px 10px; margin-bottom:34px;">
-      <table class="dev-table" id="dev-spec-table">
-        <thead><tr><th>Параметр</th><th>Значение</th></tr></thead>
-        <tbody></tbody>
-      </table>
+    <div class="panel" style="padding:0;overflow:hidden; margin-bottom:34px;">
+      <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Параметр</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--right"><span class="th__label">Значение</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div id="dev-spec-table"></div></div>
     </div>
 
     <div class="dev-intro">
@@ -468,5 +444,6 @@
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/tbl-resize.js"></script>
 </body>
 </html>

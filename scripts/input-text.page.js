@@ -336,7 +336,7 @@
 
   /* =========================== REDLINE =========================== */
   (function () {
-    const tb = document.querySelector('#dev-spec-table tbody');
+    const tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     /* живые экземпляры для измерения */
     const holder = document.createElement('div');
@@ -359,9 +359,9 @@
       ['Отступ поле → хелпер', '4px', '—'],
     ];
     rows.forEach(([p, vm, vs]) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';
-      tb.appendChild(tr);
+      const row = document.createElement('div'); row.className = 'tbl__row'; row.style.gridTemplateColumns = '8px 1.84fr 0.55fr 1.08fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + p + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + vm + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + vs + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();

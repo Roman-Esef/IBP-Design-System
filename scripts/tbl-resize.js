@@ -15,19 +15,16 @@
     return g;
   }
   function colIndex(row, th) { return Array.prototype.indexOf.call(row.children, th); }
-  function parseTracks(row) {
-    return row.style.gridTemplateColumns.trim().match(/[a-zA-Z-]*\([^)]*\)|\S+/g) || [];
-  }
-  function applyTracks(tbl, idx, px) {
-    var rows = tbl.querySelectorAll(':scope > .tbl__row');
-    rows.forEach(function (row) {
-      var tracks = parseTracks(row);
-      if (idx >= tracks.length) return;
-      tracks[idx] = px + 'px';
-      var last = tracks.length - 1;
-      if (last !== idx && !/^minmax\(/.test(tracks[last])) tracks[last] = 'minmax(8px,1fr)';
-      row.style.gridTemplateColumns = tracks.join(' ');
+  /* фиксирует текущую отрендеренную ширину каждой колонки строки в px —
+     остальные колонки при резайзе не пересчитываются, только сдвигаются */
+  function freezeTracks(row) {
+    return Array.prototype.map.call(row.children, function (cell) {
+      return Math.round(cell.getBoundingClientRect().width) + 'px';
     });
+  }
+  function applyTracksAll(tbl, tracks) {
+    var str = tracks.join(' ');
+    tbl.querySelectorAll('.tbl__row').forEach(function (row) { row.style.gridTemplateColumns = str; });
   }
   function guideAt(tbl, clientX) {
     var g = ensureGuide(tbl);
@@ -39,13 +36,17 @@
     var tbl = handle.closest('.tbl');
     if (!th || !row || !tbl) return;
     e.preventDefault();
+    tbl.classList.add('tbl--scroll');
     var idx = colIndex(row, th);
-    var x0 = e.clientX, w0 = th.getBoundingClientRect().width;
+    var tracks = freezeTracks(row);
+    applyTracksAll(tbl, tracks);
+    var x0 = e.clientX, w0 = parseFloat(tracks[idx]);
     tbl.classList.add('tbl--resizing');
     th.classList.add('th--resizing');
     function move(ev) {
       var w = Math.max(MIN, Math.round(w0 + (ev.clientX - x0)));
-      applyTracks(tbl, idx, w);
+      var next = tracks.slice(); next[idx] = w + 'px';
+      applyTracksAll(tbl, next);
       guideAt(tbl, ev.clientX);
     }
     function up() {
@@ -71,8 +72,11 @@
     var th = h.closest('.th'), row = h.closest('.tbl__row'), tbl = h.closest('.tbl');
     if (!th || !row || !tbl) return;
     e.preventDefault();
+    tbl.classList.add('tbl--scroll');
     var idx = colIndex(row, th);
-    var w = Math.max(MIN, Math.round(th.getBoundingClientRect().width + (e.key === 'ArrowRight' ? 16 : -16)));
-    applyTracks(tbl, idx, w);
+    var tracks = freezeTracks(row);
+    var w = Math.max(MIN, Math.round(parseFloat(tracks[idx]) + (e.key === 'ArrowRight' ? 16 : -16)));
+    tracks[idx] = w + 'px';
+    applyTracksAll(tbl, tracks);
   });
 })();

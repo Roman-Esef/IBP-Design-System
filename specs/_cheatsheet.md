@@ -720,6 +720,33 @@ css: `styles/entity.css` · deps: [avatar, chip, icon-button, button, badge]
 
 Ведущий: `.entity__icon` (тон `--accent`/`--neutral`) или `.av` из ДС. Состояния: `--interactive` (hover-тайл) · `--selected` (--primary-bg) · `--skeleton` (загрузка + шиммер, aria-busy) · `--empty` (Label «—») · `--error` (объект удалён, зачёркнут). Label усекается (`--truncate`) + Tooltip. Действий max 2 → иначе кебаб. Полная анатомия: specs/Entity.md.
 
+## Table
+css: `styles/table.css` · deps: [table-cell, pagination, table-filter, button, icon-button, chip, checkbox, illustration]
+
+Контейнер-организм: Toolbar (заголовок+счётчик слева, TableFilter+действия справа, опц.) → прокручиваемое тело (липкая шапка + строки TableCell) → Footer (Pagination, опц.). Своего оформления строк/ячеек не рисует. Массовые действия — существующий `.pgn-bulk` из `pagination.css` (ряд над `.pgn-row`, показывается при выборе строк).
+
+```html
+<div class="dtable">
+  <div class="dtable__toolbar">
+    <div class="dtable__toolbar-left"><h3 class="dtable__title">Заявки</h3><span class="dtable__count">128</span></div>
+    <div class="dtable__toolbar-right"><div class="tfilter">…</div><button class="btn btn--accent btn--s">Добавить</button></div>
+  </div>
+  <div class="dtable__body">
+    <div class="tbl"><!-- .tbl__row/.th/.tc — TableCell --></div>
+    <div class="dtable__edge dtable__edge--l" aria-hidden="true"></div>
+    <div class="dtable__edge dtable__edge--r" aria-hidden="true"></div>
+  </div>
+  <div class="dtable__footer">
+    <div class="pgn-row pgn-row--bulk"><div class="pgn-bulk"><span class="pgn-bulk__count" aria-live="polite">Выбрано: <b>6</b></span><span class="pgn-bulk__actions">…</span></div></div>
+    <div class="pgn-row"><!-- Pagination --></div>
+  </div>
+</div>
+<!-- Empty: .dtable__body → только .dtable__empty (illu empty-folder + текст + действие) -->
+<!-- Loading: .dtable__body → .tbl с N строками .tc--skeleton -->
+```
+
+Липкая шапка не отключаема (пока есть вертикальный скролл тела); тени по краям — сигнал скрытого контента при горизонтальном скролле. Toolbar/Footer не скрываются в Loading/Empty — подменяется только тело.
+
 ## TableCell
 css: `styles/table-cell.css` · deps: [checkbox, chip, icon-button, button, input, dropdown-list, tooltip]
 

@@ -614,8 +614,8 @@ function openable(anchor, field, list, prefer) {
     ['A–Я', 'Быстрый переход по первой букве (typeahead)'],
     ['Esc', 'Закрыть список, вернуть фокус в поле'],
   ];
-  const tb = document.querySelector('#kbd-table tbody');
-  if (tb) tb.innerHTML = rows.map(([k, v]) => `<tr><td><kbd>${k}</kbd></td><td class="dsc">${v}</td></tr>`).join('');
+  const tb = document.querySelector('#kbd-table');
+  if (tb) tb.innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 0.6fr 2.2fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><kbd>${k}</kbd></span></span></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================
@@ -701,7 +701,7 @@ function openable(anchor, field, list, prefer) {
    DEV: redline measured from live component
    ========================================================================= */
 (function () {
-  const tb = document.querySelector('#dev-spec-table tbody');
+  const tb = document.querySelector('#dev-spec-table');
   if (!tb) return;
   const host = document.createElement('div');
   host.style.cssText = 'position:absolute;left:-9999px;top:0;';
@@ -738,7 +738,7 @@ function openable(anchor, field, list, prefer) {
     ['Тень', csL.boxShadow],
   ];
   host.remove();
-  tb.innerHTML = rows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${v}</td></tr>`).join('');
+  tb.innerHTML = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================

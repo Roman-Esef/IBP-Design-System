@@ -390,7 +390,7 @@ function createSplitPane(o = {}) {
 
   const m = measure();
 
-  const sizeTbody = document.querySelector('#size-table tbody');
+  const sizeTbody = document.querySelector('#size-table');
   if (sizeTbody) {
     const rows = [
       ['Ширина зоны захвата', m.captureW + ' px', '--spl-size'],
@@ -399,10 +399,10 @@ function createSplitPane(o = {}) {
       ['Диаметр точки грипа', m.dotSize + ' px', '(spl__grip i)'],
       ['Зазор между точками грипа', m.gripGap + ' px', '(spl__grip gap)'],
     ];
-    sizeTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td><td><code>${r[2]}</code></td></tr>`).join('');
+    sizeTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 0.68fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><code>${r[2]}</code></div><div class="tc tc--separator"></div></div>`).join('');
   }
 
-  const devTbody = document.querySelector('#dev-spec-table tbody');
+  const devTbody = document.querySelector('#dev-spec-table');
   if (devTbody) {
     const rows = [
       ['Ширина зоны захвата (vert) / высота (horiz)', m.captureW + ' px'],
@@ -412,6 +412,6 @@ function createSplitPane(o = {}) {
       ['Зазор между точками грипа', m.gripGap + ' px'],
       ['Радиус точки грипа', m.dotRadius],
     ];
-    devTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td></tr>`).join('');
+    devTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   }
 })();

@@ -271,8 +271,8 @@
       ['S', '24 px', 'Body S · 14/16', '16 px', '6 px', 'Компактные фильтры, InputAutocomplete'],
       ['XS', '20 px', 'Body XS · 12/16', '16 px', '6 px', 'Плотные таблицы, ReadOnlyField (значения-чипы)'],
     ];
-    document.querySelector('#sizes-table tbody').innerHTML = tbl.map(r =>
-      `<tr><td><b>${r[0]}</b></td><td class="rt-num">${r[1]}</td><td>${r[2]}</td><td class="rt-num">${r[3]}</td><td class="rt-num">${r[4]}</td><td>${r[5]}</td></tr>`).join('');
+    document.querySelector('#sizes-table').innerHTML = tbl.map(r =>
+      `<div class="tbl__row" style="grid-template-columns:8px 0.45fr 0.6fr 1fr 0.6fr 0.7fr 1.6fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><b>${r[0]}</b></span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[4]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[5]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ STATES (spec tables) ============================ */
@@ -588,7 +588,7 @@
 
   /* ============================ DEV: redline measured from live component ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute;left:-9999px;top:0;';
@@ -620,7 +620,7 @@
       ['Кегль текста', z => px(d[z].font)],
     ];
     tbody.innerHTML = rows.map(([label, fn]) =>
-      `<tr><td>${label}</td><td class="rt-num">${fn('l')}</td><td class="rt-num">${fn('m')}</td><td class="rt-num">${fn('s')}</td><td class="rt-num">${fn('xs')}</td></tr>`
+      `<div class="tbl__row" style="grid-template-columns:8px 1.4fr 0.55fr 0.55fr 0.55fr 0.55fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('l')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('m')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('s')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('xs')}</span></span></div><div class="tc tc--separator"></div></div>`
     ).join('');
   })();
 

@@ -267,7 +267,7 @@ pre.code .c{color:var(--text-inactive);}
       <div class="wave__row">
         <span class="wave__badge"><span class="prio prio-P1">P1</span></span>
         <div class="wave__body"><b>Фундамент.</b> Разблокирует зависимые компоненты и чаще всего встречается на экранах.
-          <div class="comps">Popover · Tooltip · NavPanel · RiskMetric (композиция-CSS + поведение = Popover)</div></div>
+          <div class="comps">Popover · Tooltip · NavPanel · RiskMetric (композиция-CSS + поведение = Popover) · Table (липкая шапка/тени скролла/bulk-режим)</div></div>
       </div>
       <div class="wave__row">
         <span class="wave__badge"><span class="prio prio-P2">P2</span></span>
@@ -337,6 +337,7 @@ const ROWS = [
  /* ===== ORGANISMS ===== */
  {cat:'organisms', name:'Popover', page:'organisms/Popover', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P1', todo:'<code class="tok">placePop()</code> (12 позиций), авто-flip, single-open, Esc, клик-вне, scroll-тени — в popover.page.js. <b>Вынести:</b> ds-popover.js (авто <code class="tok">[data-popover]</code>/<code class="tok">aria-controls</code> + API). <b>Фундамент</b> RiskMetric / Chip info / Breadcrumbs.'},
  {cat:'organisms', name:'RiskMetric', page:'organisms/RiskMetric', rt:'yes', lives:'inline', css:'inline', oob:'no', prio:'P1', todo:'Композиция <code class="tok">.rm-block/.rm-field</code> — <b>только inline на странице и скопирована в экран 02</b>. <b>Вынести:</b> styles/riskmetric.css (+ @import). Поведение = ds-popover.js.'},
+ {cat:'organisms', name:'Table', page:'organisms/Table', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P1', todo:'<b>Создан (Фаза 2).</b> Контейнер: Toolbar + тело с липкой шапкой/тенями скролла + Footer (Pagination bulk). Липкая шапка, тени скролла, переключение bulk-режима — в table.page.js. <b>Вынести:</b> ds-table.js (авто по <code class="tok">.dtable__body</code> scroll/resize). Строки/ячейки — TableCell (уже из коробки как компонент верстки).'},
  {cat:'organisms', name:'NavPanel', page:'organisms/NavPanel', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P1', todo:'<code class="tok">buildNav()</code>, <code class="tok">bindRailTooltips()</code> (rail-тултип position:fixed), burger/pin-переключение режима — в nav-panel.page.js. <b>Вынести:</b> ds-nav-panel.js.'},
  {cat:'organisms', name:'Modal', page:'organisms/Modal', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P2', todo:'Open/close, Esc, скрим-клик, focus-trap, вложенный, guarded — в modal.page.js. <b>Вынести:</b> ds-modal.js (<code class="tok">DSModal.open()</code>, <code class="tok">inert</code> фона, nested, guard несохранённого).'},
  {cat:'organisms', name:'TableFilter', page:'organisms/TableFilter', rt:'yes', lives:'page', css:'global', oob:'no', prio:'P2', todo:'Открытие модалки, overflow-чипов «+N» аккордеон, сброс — в table-filter.page.js. <b>Вынести:</b> ds-table-filter.js (аккордеон чипов; модалка — ds-modal).'},
@@ -446,7 +447,6 @@ const PARITY = [
 
 /* ---- ФАЗА 2: недостающие компоненты ---- */
 const MISSING = [
- {name:'Table / DataGrid (контейнер)', area:'Данные', prio:'P2', why:'Есть TableCell / TableHeader, Pagination, TableFilter — но нет организма-таблицы: sticky-заголовок, сортировка и выбор строк на уровне таблицы, закреплённые колонки, ресайз, пустое/загрузка. Сейчас собирается вручную из ячеек.'},
  {name:'Spinner (круговой)', area:'Состояния', prio:'P2', why:'ProgressBar только линейный. Нужен круговой индикатор загрузки области/страницы (у Button/IconButton спиннер локальный).'},
  {name:'Skeleton', area:'Состояния', prio:'P2', why:'Скелетон-состояния разбросаны как модификаторы Entity/TableCell. Нужен переиспользуемый примитив (строки/блоки + шиммер) для любых загрузок.'},
  {name:'EmptyState', area:'Состояния', prio:'P2', why:'Иллюстрация + заголовок + текст + действие. Собирается руками на каждом экране; есть иллюстрации (empty-search), но нет компонента-обёртки.'},

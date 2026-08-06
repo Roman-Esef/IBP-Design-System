@@ -323,8 +323,8 @@
 
     /* ---------------- РАЗМЕРЫ + REDLINE (измерено на живом экземпляре) ---------------- */
     (function () {
-      const sizeBody = document.querySelector('#size-table tbody');
-      const devBody = document.querySelector('#dev-spec-table tbody');
+      const sizeBody = document.querySelector('#size-table');
+      const devBody = document.querySelector('#dev-spec-table');
       if (!sizeBody && !devBody) return;
       const host = document.createElement('div');
       host.style.cssText = 'position:absolute; left:-9999px; top:0; width:900px;';
@@ -345,7 +345,7 @@
           ['Чип «Применено: N»', 'Chip · Edit M', Math.round(parseFloat(csChip.height)) + ' px', 'Крестик сбрасывает все параметры'],
           ['Зазор между кнопкой и чипом', '—', Math.round(parseFloat(csBar.columnGap)) + ' px', 'Единственный отступ внутри бара'],
         ];
-        sizeBody.innerHTML = rows.map(([a, b, c, d]) => `<tr><td>${a}</td><td class="dsc">${b}</td><td class="num">${c}</td><td class="rec">${d}</td></tr>`).join('');
+        sizeBody.innerHTML = rows.map(([a, b, c, d]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 1.26fr 0.72fr 0.95fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${a}</span></span></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">${b}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${c}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${d}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
       }
       if (devBody) {
         const rows = [
@@ -358,7 +358,7 @@
           ['Радиус чипа', r(csChip.borderTopLeftRadius) + ' px'],
           ['Типографика чипа (кегль / интерлиньяж)', r(lbl.fontSize) + ' / ' + r(lbl.lineHeight) + ' px'],
         ];
-        devBody.innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
+        devBody.innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${k}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
       }
       host.remove();
     })();
@@ -473,9 +473,9 @@
                 '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-del" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' +
               '</div>' +
               '<div class="preset-item__body" id="' + bodyId + '" hidden>' +
-                '<table class="preset-params"><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>' +
-                p.params.map(([k, v]) => '<tr><td>' + k + '</td><td>' + v + '</td></tr>').join('') +
-                '</tbody></table>' +
+                '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Параметр</span></div><div class="th"><span class="th__label">Значение</span></div><div class="th th--separator"></div></div>' +
+                p.params.map(([k, v]) => '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + k + '</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div><div class="tc tc--separator"></div></div>').join('') +
+                '</div>' +
               '</div>';
 
             const toggle = item.querySelector('.pr-toggle');
@@ -755,9 +755,9 @@
               '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' +
             '</div>' +
             '<div class="preset-item__body">' +
-              '<table class="preset-params"><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>' +
-              paramsFor(2).map(([k, v]) => '<tr><td>' + k + '</td><td>' + v + '</td></tr>').join('') +
-              '</tbody></table>' +
+              '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Параметр</span></div><div class="th"><span class="th__label">Значение</span></div><div class="th th--separator"></div></div>' +
+              paramsFor(2).map(([k, v]) => '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + k + '</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div><div class="tc tc--separator"></div></div>').join('') +
+              '</div>' +
             '</div></div>' +
           '</div>';
         window.dsIcons && window.dsIcons.apply(presets);

@@ -737,8 +737,8 @@
 
   /* ============================ SIZES + DEV SPEC — measured (getComputedStyle), not hardcoded ============================ */
   (function () {
-    const sizeTbody = document.querySelector('#size-table tbody');
-    const devTbody = document.querySelector('#dev-spec-table tbody');
+    const sizeTbody = document.querySelector('#size-table');
+    const devTbody = document.querySelector('#dev-spec-table');
     if (!sizeTbody && !devTbody) return;
 
     const host = document.createElement('div');
@@ -783,7 +783,7 @@
         ['Helper', '--type-body-xs', data.helperSize + ' / ' + data.helperLh + ' px'],
         ['Значение-чип (Chip XS)', 'chip--xs', data.chipH + ' px — высота'],
       ];
-      sizeTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td><code>${r[1]}</code></td><td class="rt-num">${r[2]}</td></tr>`).join('');
+      sizeTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.68fr 1.08fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc"><code>${r[1]}</code></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     }
     if (devTbody) {
       const rows = [
@@ -795,7 +795,7 @@
         ['Высота значения-чипа (Chip XS)', data.chipH + ' px'],
         ['Макс. длина префикса/постфикса', '12 ch'],
       ];
-      devTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td></tr>`).join('');
+      devTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     }
   })();
 

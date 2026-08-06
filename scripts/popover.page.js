@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- DEV: redline измерено на живом экземпляре ---------------- */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute; left:-9999px; top:0;';
@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const csTitle = getComputedStyle(pop.querySelector('.pop__title'));
     rows.push(['Типографика заголовка (кегль / интерлиньяж)', r(csTitle.fontSize) + ' / ' + r(csTitle.lineHeight) + ' px']);
     host.remove();
-    tbody.innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
+    tbody.innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${k}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ---------------- DEV: copy-to-clipboard ---------------- */

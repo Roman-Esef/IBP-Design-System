@@ -200,9 +200,9 @@
       ['Описание', getComputedStyle(desc).fontSize + '/' + getComputedStyle(desc).lineHeight + ' (--type-body-s)']
     ];
     document.body.removeChild(host);
-    var tb = document.querySelector('#dev-spec-table tbody');
+    var tb = document.querySelector('#dev-spec-table');
     if (tb) tb.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="dsc">' + r[1] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   })();
 

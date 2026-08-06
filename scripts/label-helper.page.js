@@ -232,7 +232,7 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
    USAGE MAP
  * ===================================================================== */
 (function(){
-  const tb = document.querySelector('#usage-table tbody');
+  const tb = document.querySelector('#usage-table');
   if (!tb) return;
   const rows = [
     ['InputText',          null, true,  true],
@@ -246,11 +246,13 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
   ];
   function cell(v){ return v ? '<span class="yes">'+LH_ICONS.check+'</span>' : '<span class="no">'+LH_ICONS.dash+'</span>'; }
   tb.innerHTML = rows.map(([name, href, hasLabel, hasHelper])=>`
-    <tr>
-      <td>${href ? '<a class="inl" href="'+href+'">'+name+'</a>' : name}</td>
-      <td>${cell(hasLabel)}</td>
-      <td>${cell(hasHelper)}</td>
-    </tr>`).join('');
+    <div class="tbl__row" style="grid-template-columns:8px 1.2fr 0.9fr 0.9fr 8px;">
+      <div class="tc tc--separator"></div>
+      <div class="tc"><span class="tc__row"><span class="tc__text">${href ? '<a class="inl" href="'+href+'">'+name+'</a>' : name}</span></span></div>
+      <div class="tc"><span class="tc__row"><span class="tc__text">${cell(hasLabel)}</span></span></div>
+      <div class="tc"><span class="tc__row"><span class="tc__text">${cell(hasHelper)}</span></span></div>
+      <div class="tc tc--separator"></div>
+    </div>`).join('');
 })();
 
 /* ===================================================================== *
@@ -481,16 +483,16 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
   };
   host.remove();
 
-  const sizeTbody = document.querySelector('#size-table tbody');
+  const sizeTbody = document.querySelector('#size-table');
   if (sizeTbody) {
     const rows = [
       ['Label', '--type-body-xs', data.labelSize + ' / ' + data.labelLh + ' px', data.labelIconSize + ' px'],
       ['Helper', '--type-body-xs', data.helperSize + ' / ' + data.helperLh + ' px', data.helperIconSize + ' px (только Error)'],
     ];
-    sizeTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td><code>${r[1]}</code></td><td class="rt-num">${r[2]}</td><td class="rt-num">${r[3]}</td></tr>`).join('');
+    sizeTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 0.7fr 1fr 1.1fr 0.9fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc"><code>${r[1]}</code></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   }
 
-  const devTbody = document.querySelector('#dev-spec-table tbody');
+  const devTbody = document.querySelector('#dev-spec-table');
   if (devTbody) {
     const rows = [
       ['Кегль / строка — Label и Helper', data.labelSize + ' / ' + data.labelLh + ' px'],
@@ -499,7 +501,7 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
       ['Иконка в Helper (Error)', data.helperIconSize + ' px'],
       ['Зазор иконка ↔ текст (Helper Error)', data.helperIconGap + ' px'],
     ];
-    devTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td></tr>`).join('');
+    devTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   }
 
   const specHost = document.getElementById('state-specs');

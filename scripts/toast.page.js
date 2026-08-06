@@ -493,7 +493,7 @@
 
   /* ============================ TIMING TABLE ============================ */
   (function () {
-    const tb = document.querySelector('#timing-table tbody');
+    const tb = document.querySelector('#timing-table');
     if (!tb) return;
     const rows = [
       ['Появление тоста', '180 мс', 'linear', 'Сдвиг сверху −16px + opacity 0→1'],
@@ -504,7 +504,7 @@
       ['Зазор в стеке', '8 px', '—', '--toast-stack-gap'],
     ];
     tb.innerHTML = rows.map(r =>
-      `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('');
+      `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.99fr 0.72fr 0.9fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ TEXTOVKA GUIDELINES ============================ */
@@ -522,7 +522,7 @@
 
   /* ============================ A11Y TABLE ============================ */
   (function () {
-    const tb = document.querySelector('#a11y-table tbody');
+    const tb = document.querySelector('#a11y-table');
     if (!tb) return;
     const rows = [
       ['ToastBar · Neutral / Info', 'status', 'polite', 'Не прерывает чтение — сообщение озвучится в паузе'],
@@ -531,7 +531,7 @@
       ['ToastLoader (блокирующий)', 'alert', 'assertive', 'Блокирует работу — объявляем немедленно'],
     ];
     tb.innerHTML = rows.map(r =>
-      `<tr><td>${r[0]}</td><td><code class="tok">${r[1]}</code></td><td><code class="tok">${r[2]}</code></td><td class="dsc">${r[3]}</td></tr>`).join('');
+      `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.63fr 0.86fr 0.72fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc"><code class="tok">${r[1]}</code></div><div class="tc"><code class="tok">${r[2]}</code></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ COLOR REFERENCE ============================ */
@@ -590,7 +590,7 @@
 
   /* ============================ DEV SPEC TABLE (measured, not hardcoded) ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
 
     const host = document.createElement('div');
@@ -630,7 +630,7 @@
       ['Макс. ширина (стек)', stackMaxW, '--toast-maxw'],
     ];
     tbody.innerHTML = rows.map(r =>
-      `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td><td><code class="tok">${r[2]}</code></td></tr>`).join('');
+      `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 1.17fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><code class="tok">${r[2]}</code></div><div class="tc tc--separator"></div></div>`).join('');
     host.remove();
   })();
 

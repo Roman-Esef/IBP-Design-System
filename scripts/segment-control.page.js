@@ -272,8 +272,8 @@
       ['S', '32 px', 'Button S · 14/20', '18 px', 'Плотные тулбары, карточки виджетов'],
       ['XS', '24 px', 'Button XS · 12/16', '16 px', 'Компактные строки, инлайн рядом с текстом'],
     ];
-    document.querySelector('#sizes-table tbody').innerHTML = tbl.map(r =>
-      `<tr><td><b>${r[0]}</b></td><td class="rt-num">${r[1]}</td><td>${r[2]}</td><td class="rt-num">${r[3]}</td><td>${r[4]}</td></tr>`).join('');
+    document.querySelector('#sizes-table').innerHTML = tbl.map(r =>
+      `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.72fr 0.95fr 0.72fr 0.9fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><b>${r[0]}</b></span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[4]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ CONTENT ============================ */
@@ -469,7 +469,7 @@
 
   /* ============================ DEV SPEC TABLE (measured, not hardcoded) ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
 
     function measure(size) {
@@ -522,7 +522,7 @@
       ['Счётчик (Badge, кегль)', sz => d[sz].badgeFont + ' px'],
     ];
     tbody.innerHTML = rows.map(([label, fn]) =>
-      `<tr><td>${label}</td><td class="rt-num">${fn('m')}</td><td class="rt-num">${fn('s')}</td><td class="rt-num">${fn('xs')}</td></tr>`
+      `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.55fr 0.55fr 0.55fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('m')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('s')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('xs')}</span></span></div><div class="tc tc--separator"></div></div>`
     ).join('');
   })();
 

@@ -255,7 +255,7 @@
 
   /* =========================== REDLINE =========================== */
   (function () {
-    const tb = document.querySelector('#dev-spec-table tbody');
+    const tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     const holder = document.createElement('div');
     holder.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -277,9 +277,9 @@
       ['Мин. ширина поля', getComputedStyle(r._from).minWidth + ' (186px)'],
       ['Отступ метки → поля / поля → хелпер', '4px'],
     ].forEach(([p, v]) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + v + '</td>';
-      tb.appendChild(tr);
+      const row = document.createElement('div'); row.className = 'tbl__row'; row.style.gridTemplateColumns = '8px 1.84fr 0.55fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + p + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();

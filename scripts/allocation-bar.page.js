@@ -464,7 +464,7 @@ function initPlayground() {
 
 /* ---------------- REDLINE ---------------- */
 function initRedline() {
-  var tbody = document.querySelector('#dev-redline tbody');
+  var tbody = document.querySelector('#dev-redline');
   if (!tbody) return;
   var probe = document.createElement('div');
   probe.style.cssText = 'position:absolute;left:-9999px;top:0;width:560px';
@@ -497,7 +497,7 @@ function initRedline() {
     ['Колонка значений · min-width', cs('.albar__val').minWidth]
   ];
   tbody.innerHTML = rows.filter(function (r) { return r[1]; }).map(function (r) {
-    return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td></tr>';
+    return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc"><code class="tok">' + r[1] + '</code></div><div class="tc tc--separator"></div></div>';
   }).join('');
   } finally { probe.remove(); }
 }

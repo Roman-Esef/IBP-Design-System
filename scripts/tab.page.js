@@ -354,8 +354,8 @@
       ['M', '40 px', 'Body M · 16/20', '20 px', '20 px', 'Базовый: страницы, модалки'],
       ['S', '32 px', 'Body S · 14/16', '18 px', '16 px', 'Плотные места, узкие модалки'],
     ];
-    document.querySelector('#sizes-table tbody').innerHTML = tbl.map(r =>
-      `<tr><td><b>${r[0]}</b></td><td class="rt-num">${r[1]}</td><td>${r[2]}</td><td class="rt-num">${r[3]}</td><td class="rt-num">${r[4]}</td><td>${r[5]}</td></tr>`).join('');
+    document.querySelector('#sizes-table').innerHTML = tbl.map(r =>
+      `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.72fr 0.99fr 0.72fr 0.95fr 0.9fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><b>${r[0]}</b></span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[4]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[5]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ STATES (spec tables) ============================ */
@@ -631,7 +631,7 @@
 
   /* ============================ DEV SPEC TABLE (measured, not hardcoded) ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
 
     function measure(size) {
@@ -674,7 +674,7 @@
       ['Типографика (кегль / строка)', sz => d[sz].fontSize + ' / ' + d[sz].lineHeight + ' px'],
     ];
     tbody.innerHTML = rows.map(([label, fn]) =>
-      `<tr><td>${label}</td><td class="rt-num">${fn('m')}</td><td class="rt-num">${fn('s')}</td></tr>`
+      `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.55fr 0.55fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('m')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('s')}</span></span></div><div class="tc tc--separator"></div></div>`
     ).join('');
   })();
 

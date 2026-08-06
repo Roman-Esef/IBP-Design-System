@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"61ca79578cd1","scripts/allocation-bar.page.js":"e4417e82b0ed","scripts/breadcrumbs.page.js":"a3d6c2984778","scripts/chip.page.js":"f4b590dc0e62","scripts/context-menu.page.js":"7382c94a8379","scripts/datepicker.page.js":"96f1991ec4b4","scripts/divider.page.js":"d67e55256e52","scripts/dropdown-list.page.js":"353d4989b7d5","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"238ac150f3d3","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"91e91797cfe8","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"159ffee99ce6","scripts/input-autocomplete.page.js":"f75d753e870b","scripts/input-date-range.page.js":"08bc119859bc","scripts/input-date.page.js":"b0a643abd8c2","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"cba0ff9c3a5b","scripts/label-helper.page.js":"03963b1c72ef","scripts/modal.page.js":"ec0e54c5e300","scripts/nav-panel.page.js":"41d789325f06","scripts/nav-tile.page.js":"c5315008d9d4","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"46b96fb97b0d","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"1fc49308cda2","scripts/read-only-field.page.js":"66681c0cfbc0","scripts/riskmetric.page.js":"005cc7ad432b","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"7624219c375d","scripts/splitter.page.js":"e8399c9234e6","scripts/tab.page.js":"85a570f4d479","scripts/table-cell.page.js":"d63e0905181b","scripts/table-filter.page.js":"f4d070ca0c26","scripts/tbl-resize.js":"4598dd68c45f","scripts/toast.page.js":"be2f21fad43c","scripts/tooltip.page.js":"72dcdd1af351"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"f3f298e7d0b5","scripts/allocation-bar.page.js":"4c8850cf93c3","scripts/breadcrumbs.page.js":"6a283a619adc","scripts/chip.page.js":"92b96d822c7e","scripts/context-menu.page.js":"6329ba3c7744","scripts/datepicker.page.js":"c718cb830853","scripts/divider.page.js":"d67e55256e52","scripts/dropdown-list.page.js":"6c2b92a954cc","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"238ac150f3d3","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"489fda72609b","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"7363c1784d19","scripts/input-autocomplete.page.js":"bf30a097d463","scripts/input-date-range.page.js":"f3f0b77dc453","scripts/input-date.page.js":"ee6029575037","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"8e9ebfe72660","scripts/label-helper.page.js":"059abc60fd84","scripts/modal.page.js":"66405112e3cf","scripts/nav-panel.page.js":"95d999cfa8a2","scripts/nav-tile.page.js":"1998b2eac844","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"03a4bbd7eb90","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"3f8f006190ad","scripts/read-only-field.page.js":"3bb05f495ef5","scripts/riskmetric.page.js":"bee054f69be3","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"817470a492d3","scripts/splitter.page.js":"354b7a37865c","scripts/tab.page.js":"7e5521f6b805","scripts/table-cell.page.js":"d63e0905181b","scripts/table-filter.page.js":"7d3bd5293954","scripts/table.page.js":"ede79aaec752","scripts/tbl-resize.js":"cb6aa4b8d1c5","scripts/toast.page.js":"0656b5240f64","scripts/tooltip.page.js":"b2784423e8b5"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -435,7 +435,7 @@ try { (() => {
     return Math.round(parseFloat(v)) + 'px';
   }
   function fillSizeTable() {
-    var body = document.querySelector('#size-table tbody');
+    var body = document.querySelector('#size-table');
     if (!body) return;
     var m = document.querySelector('#size-m .alert');
     if (!m) return;
@@ -452,15 +452,15 @@ try { (() => {
     }
     var rows = [['Паддинг (верт / гор)', pad(m)], ['Зазор иконка↔тело', gap(m)], ['Размер иконки', icon(m)], ['Радиус', px(getComputedStyle(m).borderTopLeftRadius)], ['Токен заголовка', 'Body M Strong'], ['Токен текста', 'Body S']];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.55fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
   function fillA11y() {
-    var body = document.querySelector('#a11y-table tbody');
+    var body = document.querySelector('#a11y-table');
     if (!body) return;
     var rows = [['Info', 'status', 'polite', 'Информирование — не прерывает, озвучивается по завершении фразы'], ['Success', 'status', 'polite', 'Подтверждение результата — не требует немедленной реакции'], ['Warning', 'alert', 'assertive', 'Предупреждение — важно узнать сразу'], ['Error', 'alert', 'assertive', 'Ошибка — объявляется немедленно, прерывает чтение']];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td><td><code class="tok">' + r[2] + '</code></td><td style="color:var(--text-secondary)">' + r[3] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.63fr 0.86fr 0.72fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc"><code class="tok">' + r[1] + '</code></div><div class="tc"><code class="tok">' + r[2] + '</code></div><div class="tc"><span class="tc__row"><span class="tc__text" style="color:var(--text-secondary)">' + r[3] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
   function fillTypeTable() {
@@ -468,7 +468,7 @@ try { (() => {
     if (!body) return;
     var rows = [['Заголовок', '--type-body-m-strong', '--type-body-s-strong', 'Text_Primary'], ['Текст', '--type-body-s', '--type-body-xs', 'Text_Secondary'], ['Кнопка', '--type-button-xs', '--type-button-xs', 'тон (акцент)'], ['Ссылка', '--type-body-s', '--type-body-s', 'тон (акцент)']];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td><td><code class="tok">' + r[2] + '</code></td><td style="color:var(--text-secondary)">' + r[3] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.63fr 0.86fr 0.72fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc"><code class="tok">' + r[1] + '</code></div><div class="tc"><code class="tok">' + r[2] + '</code></div><div class="tc"><span class="tc__row"><span class="tc__text" style="color:var(--text-secondary)">' + r[3] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
   function resolveColor(expr) {
@@ -506,7 +506,7 @@ try { (() => {
     return '<div class="cref-row">' + '<span class="cref-sw"><span class="cf" style="background:var(' + token + ')"></span></span>' + '<span class="cref-meta"><p class="role">' + role + '</p><p class="tname">' + token + '</p></span>' + '<span class="cref-hex">' + hex + '</span>' + '</div>';
   }
   function fillDevSpec() {
-    var body = document.querySelector('#dev-spec-table tbody');
+    var body = document.querySelector('#dev-spec-table');
     if (!body) return;
     var m = document.querySelector('#size-m .alert');
     if (!m) return;
@@ -523,7 +523,7 @@ try { (() => {
     }
     var rows = [['Паддинг верт.', val(m, 'paddingTop'), '--alert-pad'], ['Паддинг гор.', val(m, 'paddingLeft'), '--alert-pad'], ['Зазор иконка↔тело', px(getComputedStyle(m).columnGap), '--alert-gap'], ['Размер иконки', iconW(m), '--alert-icon'], ['Кнопка-действие', actW(m), '.alert__act'], ['Радиус', val(m, 'borderTopLeftRadius'), '--radius-m']];
     body.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td><td><code class="tok">' + r[2] + '</code></td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.55fr 1.17fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc"><code class="tok">' + r[2] + '</code></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
 
@@ -1227,7 +1227,7 @@ try { (() => {
 
   /* ---------------- REDLINE ---------------- */
   function initRedline() {
-    var tbody = document.querySelector('#dev-redline tbody');
+    var tbody = document.querySelector('#dev-redline');
     if (!tbody) return;
     var probe = document.createElement('div');
     probe.style.cssText = 'position:absolute;left:-9999px;top:0;width:560px';
@@ -1246,7 +1246,7 @@ try { (() => {
       tbody.innerHTML = rows.filter(function (r) {
         return r[1];
       }).map(function (r) {
-        return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td></tr>';
+        return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc"><code class="tok">' + r[1] + '</code></div><div class="tc tc--separator"></div></div>';
       }).join('');
     } finally {
       probe.remove();
@@ -1754,9 +1754,9 @@ whenReady(function () {
      TYPOGRAPHY
      ========================================================================= */
   (function () {
-    const tb = document.querySelector('#typo-table tbody');
+    const tb = document.querySelector('#typo-table');
     if (!tb) return;
-    tb.innerHTML = '<tr><td>S (единственный размер)</td><td class="rt-tok"><code>--type-body-s</code></td><td class="num">14 / 16</td><td id="typo-sample-s"></td></tr>';
+    tb.innerHTML = '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.68fr 1.35fr 0.77fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">S (единственный размер)</span></span></div><div class="tc"><code>--type-body-s</code></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">14 / 16</span></span></div><div class="tc" id="typo-sample-s"></div><div class="tc tc--separator"></div></div>';
     const cell = document.getElementById('typo-sample-s');
     if (cell) {
       cell.style.maxWidth = '260px';
@@ -1827,7 +1827,7 @@ whenReady(function () {
      DEV — redline measured from live component
      ========================================================================= */
   (function () {
-    const tb = document.querySelector('#dev-spec-table tbody');
+    const tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute; left:-9999px; top:0; width:900px;';
@@ -1854,7 +1854,7 @@ whenReady(function () {
       return isNaN(n) ? v : Math.round(n * 10) / 10 + ' px';
     };
     const rows = [['Размер / интерлиньяж', Math.round(d.fz * 10) / 10 + ' / ' + Math.round(d.lh * 10) / 10 + ' px'], ['Зазор между звеньями (ol gap)', px(d.gap)], ['Отступ перед разделителем «/»', px(d.sepGap)], ['Начертание текущей крошки', d.curWeight]];
-    tb.innerHTML = rows.map(([label, val]) => `<tr><td>${label}</td><td class="rt-num">${val}</td></tr>`).join('');
+    tb.innerHTML = rows.map(([label, val]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${val}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* =========================================================================
@@ -2367,7 +2367,7 @@ try { (() => {
       });
     });
     const tbl = [['L', '40 px', 'Body M · 16/20', '20 px', '8 px', 'Крупный ReadOnly-показ (зарезервирован)'], ['M', '32 px', 'Body M · 16/20', '20 px', '8 px', 'Базовый: чиплисты, фильтры'], ['S', '24 px', 'Body S · 14/16', '16 px', '6 px', 'Компактные фильтры, InputAutocomplete'], ['XS', '20 px', 'Body XS · 12/16', '16 px', '6 px', 'Плотные таблицы, ReadOnlyField (значения-чипы)']];
-    document.querySelector('#sizes-table tbody').innerHTML = tbl.map(r => `<tr><td><b>${r[0]}</b></td><td class="rt-num">${r[1]}</td><td>${r[2]}</td><td class="rt-num">${r[3]}</td><td class="rt-num">${r[4]}</td><td>${r[5]}</td></tr>`).join('');
+    document.querySelector('#sizes-table').innerHTML = tbl.map(r => `<div class="tbl__row" style="grid-template-columns:8px 0.45fr 0.6fr 1fr 0.6fr 0.7fr 1.6fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><b>${r[0]}</b></span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[4]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[5]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ STATES (spec tables) ============================ */
@@ -2913,7 +2913,7 @@ try { (() => {
 
   /* ============================ DEV: redline measured from live component ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute;left:-9999px;top:0;';
@@ -2957,7 +2957,7 @@ try { (() => {
       return isNaN(n) ? v : r(n) + ' px';
     };
     const rows = [['Высота', z => px(d[z].h)], ['Паддинг X', z => px(d[z].padX)], ['Зазор между слотами', z => px(d[z].gap)], ['Радиус (Default)', z => px(d[z].radius)], ['Иконка/маркер', z => d[z].icon ? px(d[z].icon) : '—'], ['Кегль текста', z => px(d[z].font)]];
-    tbody.innerHTML = rows.map(([label, fn]) => `<tr><td>${label}</td><td class="rt-num">${fn('l')}</td><td class="rt-num">${fn('m')}</td><td class="rt-num">${fn('s')}</td><td class="rt-num">${fn('xs')}</td></tr>`).join('');
+    tbody.innerHTML = rows.map(([label, fn]) => `<div class="tbl__row" style="grid-template-columns:8px 1.4fr 0.55fr 0.55fr 0.55fr 0.55fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('l')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('m')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('s')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('xs')}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/chip.page.js", error: String((e && e.message) || e) }); }
@@ -3803,8 +3803,8 @@ function openable(anchor, trigger, menu, placement, align) {
 
   // keyboard table
   const rows = [['↑ / ↓', 'Переход между пунктами'], ['Enter / Space', 'Выполнить действие пункта'], ['→', 'Открыть подменю'], ['← / Esc', 'Закрыть меню / подменю'], ['Home / End', 'Первый / последний пункт'], ['A–Я', 'Быстрый переход по первой букве (typeahead)']];
-  const tb = document.querySelector('#kbd-table tbody');
-  if (tb) tb.innerHTML = rows.map(([k, v]) => `<tr><td><kbd>${k}</kbd></td><td class="dsc">${v}</td></tr>`).join('');
+  const tb = document.querySelector('#kbd-table');
+  if (tb) tb.innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 0.6fr 2.2fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><kbd>${k}</kbd></span></span></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================
@@ -3930,7 +3930,7 @@ function openable(anchor, trigger, menu, placement, align) {
    DEV: redline measured from live component
    ========================================================================= */
 (function () {
-  const tb = document.querySelector('#dev-spec-table tbody');
+  const tb = document.querySelector('#dev-spec-table');
   if (!tb) return;
   const host = document.createElement('div');
   host.style.cssText = 'position:absolute;left:-9999px;top:0;';
@@ -3966,7 +3966,7 @@ function openable(anchor, trigger, menu, placement, align) {
   host.remove();
   const px = v => typeof v === 'number' ? v + ' px' : v;
   const rows = [['Высота пункта', px(g.itemH)], ['Гориз. паддинг пункта', px(g.itemPx)], ['Зазор иконка↔текст', px(g.gap)], ['Размер иконки', px(g.icon)], ['Размер шрифта пункта', g.font], ['Верт. паддинг контейнера', px(g.padY)], ['Радиус контейнера', px(g.radius)], ['Мин. ширина', px(g.minW)], ['Макс. ширина', px(g.maxW)], ['Тень', g.shadow]];
-  tb.innerHTML = rows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${v}</td></tr>`).join('');
+  tb.innerHTML = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================
@@ -4311,7 +4311,7 @@ try { (() => {
 
   /* =========================== REDLINE =========================== */
   (function () {
-    var tb = document.querySelector('#dev-spec-table tbody');
+    var tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     var holder = document.createElement('div');
     holder.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -4328,9 +4328,11 @@ try { (() => {
     var num = getComputedStyle(cal.querySelector('.dpk__daynum'));
     var wd = getComputedStyle(cal.querySelector('.dpk__weekday'));
     [['Ширина контейнера', cal.getBoundingClientRect().width.toFixed(0) + 'px'], ['Паддинг контейнера', cs.padding], ['Радиус контейнера', cs.borderRadius], ['Высота шапки', head.height], ['Ячейка дня', day.width + ' × ' + day.height], ['Кружок числа', num.width + ' × ' + num.height], ['Высота дней недели', wd.height], ['Шрифт числа', num.fontSize + ' / ' + num.lineHeight]].forEach(function (r) {
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td>';
-      tb.appendChild(tr);
+      var row = document.createElement('div');
+      row.className = 'tbl__row';
+      row.style.gridTemplateColumns = '8px 1.84fr 0.81fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();
@@ -6137,8 +6139,8 @@ function openable(anchor, field, list, prefer) {
     good.appendChild(list);
   }
   const rows = [['↓ / ↑', 'Перейти к следующей / предыдущей опции (активная — aria-activedescendant)'], ['Enter', 'Выбрать активную опцию (в multiselect — переключить)'], ['Space', 'Переключить чекбокс (в multiselect)'], ['Home / End', 'Первая / последняя опция'], ['A–Я', 'Быстрый переход по первой букве (typeahead)'], ['Esc', 'Закрыть список, вернуть фокус в поле']];
-  const tb = document.querySelector('#kbd-table tbody');
-  if (tb) tb.innerHTML = rows.map(([k, v]) => `<tr><td><kbd>${k}</kbd></td><td class="dsc">${v}</td></tr>`).join('');
+  const tb = document.querySelector('#kbd-table');
+  if (tb) tb.innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 0.6fr 2.2fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><kbd>${k}</kbd></span></span></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================
@@ -6225,7 +6227,7 @@ function openable(anchor, field, list, prefer) {
    DEV: redline measured from live component
    ========================================================================= */
 (function () {
-  const tb = document.querySelector('#dev-spec-table tbody');
+  const tb = document.querySelector('#dev-spec-table');
   if (!tb) return;
   const host = document.createElement('div');
   host.style.cssText = 'position:absolute;left:-9999px;top:0;';
@@ -6254,7 +6256,7 @@ function openable(anchor, field, list, prefer) {
   const csBox = box ? getComputedStyle(box) : null;
   const rows = [['Высота опции · 1 строка', r(it.offsetHeight) + ' px'], ['Высота опции · с Helper', r(withHelper.querySelector('.ddl__item').offsetHeight) + ' px'], ['Гориз. паддинг опции', r(csI.paddingLeft) + ' px'], ['Зазор слот↔текст', r(csI.columnGap || csI.gap) + ' px'], ['Размер ведущей иконки', r(csL.getPropertyValue('--ddl-icon') || 20) + ' px'], ['Чекбокс · область', csBox ? r(csBox.width) + ' px' : '20 px'], ['Чекбокс · метка', csMark ? r(csMark.width) + ' px' : '16 px'], ['Размер шрифта подписи', csI.fontSize], ['Верт. паддинг контейнера', r(csL.paddingTop) + ' px'], ['Радиус контейнера', r(csL.borderTopLeftRadius) + ' px'], ['Мин. ширина', r(csL.minWidth) + ' px'], ['Макс. высота (скролл)', '296 px (≈7 опций)'], ['Тень', csL.boxShadow]];
   host.remove();
-  tb.innerHTML = rows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${v}</td></tr>`).join('');
+  tb.innerHTML = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================
@@ -6929,6 +6931,9 @@ try { (() => {
       }, {
         label: 'SnackBar',
         href: 'pages/organisms/SnackBar.html'
+      }, {
+        label: 'Table',
+        href: 'pages/organisms/Table.html'
       }, {
         label: 'TableCell',
         href: 'pages/organisms/TableCell.html'
@@ -8334,7 +8339,7 @@ try { (() => {
 
   /* =========================== REDLINE =========================== */
   (function () {
-    const tb = document.querySelector('#dev-spec-table tbody');
+    const tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     const holder = document.createElement('div');
     holder.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -8354,9 +8359,11 @@ try { (() => {
     const line = getComputedStyle(r._row.querySelector('.inp-range__line'));
     const bar = getComputedStyle(r._row.querySelector('.inp-range__line'), '::before');
     [['Высота поля', ff.height], ['Паддинг поля горизонтальный', ff.paddingLeft], ['Зазор между элементами поля', ff.columnGap], ['Радиус поля', ff.borderRadius], ['Рамка поля', ff.borderTopWidth + ' solid'], ['Range_Line — ширина зоны', line.width], ['Range_Line — толщина линии', bar.height || '1px'], ['Иконки действий', '20px'], ['Мин. ширина поля', 'от контента (' + ff.minWidth + ')'], ['Отступ метки → поля / поля → хелпер', '4px']].forEach(([p, v]) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + v + '</td>';
-      tb.appendChild(tr);
+      const row = document.createElement('div');
+      row.className = 'tbl__row';
+      row.style.gridTemplateColumns = '8px 1.84fr 0.55fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + p + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();
@@ -8980,7 +8987,7 @@ try { (() => {
 
   /* =========================== REDLINE =========================== */
   (function () {
-    const tb = document.querySelector('#dev-spec-table tbody');
+    const tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     const holder = document.createElement('div');
     holder.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -9007,9 +9014,11 @@ try { (() => {
     const fi = item ? getComputedStyle(item) : null;
     const ddl = getComputedStyle(list);
     [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор элементов', fm.columnGap, fs.columnGap], ['Радиус поля', fm.borderRadius, fs.borderRadius], ['Размер чипа', 'S · 24px', 'XS · 20px'], ['Шеврон', '20px', '18px'], ['Высота опции списка', fi ? fi.minHeight : '40px', fi ? fi.minHeight : '40px'], ['Радиус списка', ddl.borderRadius, ddl.borderRadius], ['Отступ поле → список', '0px', '0px']].forEach(([p, vm, vs]) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';
-      tb.appendChild(tr);
+      const row = document.createElement('div');
+      row.className = 'tbl__row';
+      row.style.gridTemplateColumns = '8px 1.84fr 0.55fr 1.08fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + p + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + vm + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + vs + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();
@@ -9468,7 +9477,7 @@ try { (() => {
 
   /* =========================== REDLINE =========================== */
   (function () {
-    const tb = document.querySelector('#dev-spec-table tbody');
+    const tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     const holder = document.createElement('div');
     holder.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -9488,9 +9497,11 @@ try { (() => {
     const line = getComputedStyle(r._row.querySelector('.inp-range__line'));
     const bar = getComputedStyle(r._row.querySelector('.inp-range__line'), '::before');
     [['Высота поля', ff.height], ['Паддинг поля горизонтальный', ff.paddingLeft], ['Зазор между элементами поля', ff.columnGap], ['Радиус поля', ff.borderRadius], ['Рамка поля', ff.borderTopWidth + ' solid'], ['Range_Line — ширина зоны', line.width], ['Range_Line — толщина линии', bar.height || '1px'], ['Иконки действий', '20px'], ['Мин. ширина поля', getComputedStyle(r._from).minWidth + ' (186px)'], ['Отступ метки → поля / поля → хелпер', '4px']].forEach(([p, v]) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + v + '</td>';
-      tb.appendChild(tr);
+      const row = document.createElement('div');
+      row.className = 'tbl__row';
+      row.style.gridTemplateColumns = '8px 1.84fr 0.55fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + p + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();
@@ -9908,7 +9919,7 @@ try { (() => {
 
   /* =========================== REDLINE =========================== */
   (function () {
-    const tb = document.querySelector('#dev-spec-table tbody');
+    const tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     const holder = document.createElement('div');
     holder.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -9928,9 +9939,11 @@ try { (() => {
     const fm = getComputedStyle(m._field),
       fs = getComputedStyle(s._field);
     [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор между элементами', fm.columnGap, fs.columnGap], ['Радиус', fm.borderRadius, fs.borderRadius], ['Рамка', fm.borderTopWidth + ' solid', fs.borderTopWidth + ' solid'], ['Шрифт значения', fm.fontSize + ' / ' + fm.lineHeight, fs.fontSize + ' / ' + fs.lineHeight], ['Иконки действий', '20px', '18px'], ['Отступ метки → поле / поле → хелпер', '4px', '—']].forEach(([p, vm, vs]) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';
-      tb.appendChild(tr);
+      const row = document.createElement('div');
+      row.className = 'tbl__row';
+      row.style.gridTemplateColumns = '8px 1.84fr 0.55fr 1.08fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + p + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + vm + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + vs + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();
@@ -10792,7 +10805,7 @@ try { (() => {
 
   /* =========================== REDLINE =========================== */
   (function () {
-    const tb = document.querySelector('#dev-spec-table tbody');
+    const tb = document.querySelector('#dev-spec-table');
     if (!tb) return;
     /* живые экземпляры для измерения */
     const holder = document.createElement('div');
@@ -10815,9 +10828,11 @@ try { (() => {
     const lead = m.querySelector('.inp__lead');
     const rows = [['Высота поля', fm.height, fs.height], ['Паддинг горизонтальный', fm.paddingLeft, fs.paddingLeft], ['Зазор между элементами', fm.columnGap, fs.columnGap], ['Радиус', fm.borderRadius, fs.borderRadius], ['Рамка', fm.borderTopWidth + ' solid', fs.borderTopWidth + ' solid'], ['Шрифт значения', fm.fontSize + ' / ' + fm.lineHeight, fs.fontSize + ' / ' + fs.lineHeight], ['Иконки и действия', lead ? getComputedStyle(lead).width : '20px', '18px'], ['Отступ метки → поле', '4px', '—'], ['Отступ поле → хелпер', '4px', '—']];
     rows.forEach(([p, vm, vs]) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + p + '</td><td class="rt-num">' + vm + '</td><td class="rt-num">' + vs + '</td>';
-      tb.appendChild(tr);
+      const row = document.createElement('div');
+      row.className = 'tbl__row';
+      row.style.gridTemplateColumns = '8px 1.84fr 0.55fr 1.08fr 8px';
+      row.innerHTML = '<div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + p + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + vm + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + vs + '</span></span></div><div class="tc tc--separator"></div>';
+      tb.appendChild(row);
     });
     holder.remove();
   })();
@@ -11182,18 +11197,20 @@ function classListHelper(o) {
    USAGE MAP
  * ===================================================================== */
 (function () {
-  const tb = document.querySelector('#usage-table tbody');
+  const tb = document.querySelector('#usage-table');
   if (!tb) return;
   const rows = [['InputText', null, true, true], ['InputAutocomplete', '../molecules/InputAutocomplete.html', true, true], ['InputDate', null, true, true], ['ReadOnlyField', '../molecules/ReadOnlyField.html', true, true], ['Checkbox', 'Checkbox.html', false, true], ['Radiobutton', 'Radiobutton.html', false, true], ['Switch', 'Switch.html', false, true], ['DropdownList', '../molecules/DropdownList.html', false, true]];
   function cell(v) {
     return v ? '<span class="yes">' + LH_ICONS.check + '</span>' : '<span class="no">' + LH_ICONS.dash + '</span>';
   }
   tb.innerHTML = rows.map(([name, href, hasLabel, hasHelper]) => `
-    <tr>
-      <td>${href ? '<a class="inl" href="' + href + '">' + name + '</a>' : name}</td>
-      <td>${cell(hasLabel)}</td>
-      <td>${cell(hasHelper)}</td>
-    </tr>`).join('');
+    <div class="tbl__row" style="grid-template-columns:8px 1.2fr 0.9fr 0.9fr 8px;">
+      <div class="tc tc--separator"></div>
+      <div class="tc"><span class="tc__row"><span class="tc__text">${href ? '<a class="inl" href="' + href + '">' + name + '</a>' : name}</span></span></div>
+      <div class="tc"><span class="tc__row"><span class="tc__text">${cell(hasLabel)}</span></span></div>
+      <div class="tc"><span class="tc__row"><span class="tc__text">${cell(hasHelper)}</span></span></div>
+      <div class="tc tc--separator"></div>
+    </div>`).join('');
 })();
 
 /* ===================================================================== *
@@ -11551,15 +11568,15 @@ function classListHelper(o) {
     helperIconGap: Math.round(parseFloat(csHelperIconGap.columnGap || csHelperIconGap.gap))
   };
   host.remove();
-  const sizeTbody = document.querySelector('#size-table tbody');
+  const sizeTbody = document.querySelector('#size-table');
   if (sizeTbody) {
     const rows = [['Label', '--type-body-xs', data.labelSize + ' / ' + data.labelLh + ' px', data.labelIconSize + ' px'], ['Helper', '--type-body-xs', data.helperSize + ' / ' + data.helperLh + ' px', data.helperIconSize + ' px (только Error)']];
-    sizeTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td><code>${r[1]}</code></td><td class="rt-num">${r[2]}</td><td class="rt-num">${r[3]}</td></tr>`).join('');
+    sizeTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 0.7fr 1fr 1.1fr 0.9fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc"><code>${r[1]}</code></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   }
-  const devTbody = document.querySelector('#dev-spec-table tbody');
+  const devTbody = document.querySelector('#dev-spec-table');
   if (devTbody) {
     const rows = [['Кегль / строка — Label и Helper', data.labelSize + ' / ' + data.labelLh + ' px'], ['Зазор Label ↔ иконка', data.labelGap + ' px'], ['Иконка в Label', data.labelIconSize + ' px'], ['Иконка в Helper (Error)', data.helperIconSize + ' px'], ['Зазор иконка ↔ текст (Helper Error)', data.helperIconGap + ' px']];
-    devTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td></tr>`).join('');
+    devTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.8fr 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   }
   const specHost = document.getElementById('state-specs');
   if (specHost) {
@@ -12134,7 +12151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- DEV: redline измерено на живом экземпляре ---------------- */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute; left:-9999px; top:0;';
@@ -12164,7 +12181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const csTitle = getComputedStyle(head.querySelector('.modal__title'));
     rows.push(['Типографика заголовка (кегль / интерлиньяж)', r(csTitle.fontSize) + ' / ' + r(csTitle.lineHeight) + ' px']);
     host.remove();
-    tbody.innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
+    tbody.innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${k}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ---------------- DEV: copy-to-clipboard ---------------- */
@@ -12569,14 +12586,14 @@ try { (() => {
   }
   function fillTables(d) {
     var sizeRows = [['Ширина — Rail', 'nav--rail', d.railW + ' px', 'Свёрнутый режим, только иконки'], ['Ширина — Drawer / Fixed', 'nav--drawer / nav--fixed', d.drawerW + ' px', 'Развёрнутый режим с подписями'], ['Высота пункта', 'nav__item', d.itemH + ' px', 'Фиксированная, одинаковая во всех режимах'], ['Иконка пункта', 'nav__ico', d.icoSize + '×' + d.icoSize + ' px', 'Глиф из раздела Menu'], ['Высота шапки (Burger)', 'nav__top', d.topH + ' px', 'Ряд бургера и пина'], ['Бейдж', 'badge--xs', '20 px', 'Компонент Badge, тон accent']];
-    var st = document.querySelector('#size-table tbody');
+    var st = document.querySelector('#size-table');
     if (st) st.innerHTML = sizeRows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td><code class="tok">' + r[1] + '</code></td><td class="num">' + r[2] + '</td><td class="rec">' + r[3] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.68fr 0.81fr 0.95fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc"><code class="tok">' + r[1] + '</code></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[2] + '</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[3] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
     var devRows = [['Ширина Rail', d.railW + ' px'], ['Ширина Drawer / Fixed', d.drawerW + ' px'], ['Высота пункта (item)', d.itemH + ' px'], ['Гор. паддинг пункта', d.itemPadX + ' px'], ['Зазор иконка → подпись', d.itemGap + ' px'], ['Радиус пункта', d.itemRadius + ' px'], ['Кегль подписи', d.itemFont + ' px'], ['Размер иконки', d.icoSize + '×' + d.icoSize + ' px'], ['Высота шапки (Burger)', d.topH + ' px'], ['Кегль заголовка блока', d.lblFont + ' px'], ['Высота заголовка блока', d.lblH + ' px (одинакова в Rail/Drawer)'], ['Высота футера', d.footH + ' px (одинакова в Rail/Drawer)'], ['Паддинг футера', d.footPad + ' px'], ['Тень Drawer', 'Shadow4.0_modalform'], ['Шов Fixed', '1px --border-light справа']];
-    var dt = document.querySelector('#dev-spec-table tbody');
+    var dt = document.querySelector('#dev-spec-table');
     if (dt) dt.innerHTML = devRows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="rt-num">' + r[1] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   }
 
@@ -12862,9 +12879,9 @@ try { (() => {
     var cs = getComputedStyle(t);
     var rows = [['Ширина × высота по умолчанию', cs.width + ' × ' + cs.minHeight], ['Паддинг контейнера', cs.paddingTop], ['Радиус скругления', cs.borderRadius + ' (--radius-control)'], ['Рамка', cs.borderTopWidth + ' solid (--border-light)'], ['Мин. высота', cs.minHeight], ['Зазор между частями', cs.rowGap], ['Иллюстрация', getComputedStyle(illu).width + ' × ' + getComputedStyle(illu).height], ['Название', getComputedStyle(title).fontSize + '/' + getComputedStyle(title).lineHeight + ' ' + getComputedStyle(title).fontWeight + ' (--type-h5-strong)'], ['Описание', getComputedStyle(desc).fontSize + '/' + getComputedStyle(desc).lineHeight + ' (--type-body-s)']];
     document.body.removeChild(host);
-    var tb = document.querySelector('#dev-spec-table tbody');
+    var tb = document.querySelector('#dev-spec-table');
     if (tb) tb.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td class="dsc">' + r[1] + '</td></tr>';
+      return '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div><div class="tc tc--separator"></div></div>';
     }).join('');
   })();
 
@@ -14582,7 +14599,7 @@ try { (() => {
 
   /* ============================ DEV SPEC TABLE (measured) ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -14619,7 +14636,7 @@ try { (() => {
     };
     host.remove();
     const rows = [['Высота строки колонтитула', () => data.rowH + ' px'], ['Паддинг строки по X', () => data.rowPadX + ' px'], ['Сторона кнопки номера / стрелки', () => data.numSize + ' px'], ['Радиус кнопки номера', () => data.numRadius + ' px'], ['Типографика номера (кегль)', () => data.numFont + ' px'], ['Зазор между кнопками nav', () => data.navGap + ' px'], ['Высота триггера pagesize', () => data.sizeH + ' px'], ['Типографика pagesize (кегль)', () => data.sizeFont + ' px']];
-    tbody.innerHTML = rows.map(([label, fn]) => `<tr><td>${label}</td><td class="rt-num">${fn()}</td></tr>`).join('');
+    tbody.innerHTML = rows.map(([label, fn]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn()}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ DEV CODE PANELS — copy buttons ============================ */
@@ -15671,7 +15688,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- DEV: redline измерено на живом экземпляре ---------------- */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute; left:-9999px; top:0;';
@@ -15697,7 +15714,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const csTitle = getComputedStyle(pop.querySelector('.pop__title'));
     rows.push(['Типографика заголовка (кегль / интерлиньяж)', r(csTitle.fontSize) + ' / ' + r(csTitle.lineHeight) + ' px']);
     host.remove();
-    tbody.innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
+    tbody.innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${k}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ---------------- DEV: copy-to-clipboard ---------------- */
@@ -16897,8 +16914,8 @@ try { (() => {
 
   /* ============================ SIZES + DEV SPEC — measured (getComputedStyle), not hardcoded ============================ */
   (function () {
-    const sizeTbody = document.querySelector('#size-table tbody');
-    const devTbody = document.querySelector('#dev-spec-table tbody');
+    const sizeTbody = document.querySelector('#size-table');
+    const devTbody = document.querySelector('#dev-spec-table');
     if (!sizeTbody && !devTbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute; left:-9999px; top:0; width:280px; visibility:hidden;';
@@ -16939,11 +16956,11 @@ try { (() => {
     host.remove();
     if (sizeTbody) {
       const rows = [['Label', '--type-body-xs', data.labelSize + ' / ' + data.labelLh + ' px'], ['Значение (текст)', '--type-body-m', data.valueSize + ' / ' + data.valueLh + ' px'], ['Helper', '--type-body-xs', data.helperSize + ' / ' + data.helperLh + ' px'], ['Значение-чип (Chip XS)', 'chip--xs', data.chipH + ' px — высота']];
-      sizeTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td><code>${r[1]}</code></td><td class="rt-num">${r[2]}</td></tr>`).join('');
+      sizeTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.68fr 1.08fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc"><code>${r[1]}</code></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     }
     if (devTbody) {
       const rows = [['Зазор label → row → helper', data.stackGap + ' px'], ['Зазор внутри строки значения (слоты)', data.rowGap + ' px'], ['Кегль / строка — Label', data.labelSize + ' / ' + data.labelLh + ' px'], ['Кегль / строка — Значение', data.valueSize + ' / ' + data.valueLh + ' px'], ['Кегль / строка — Helper', data.helperSize + ' / ' + data.helperLh + ' px'], ['Высота значения-чипа (Chip XS)', data.chipH + ' px'], ['Макс. длина префикса/постфикса', '12 ch']];
-      devTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td></tr>`).join('');
+      devTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     }
   })();
 })();
@@ -17580,12 +17597,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const n = parseFloat(v);
       return isNaN(n) ? v : Math.round(n * 10) / 10 + ' px';
     };
-    const rowsHtml = rows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${r(v)}</td></tr>`).join('');
-    ['#dev-chip-table tbody', '#dev-chip-table-dup tbody'].forEach(sel => {
+    const rowsHtml = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
+    ['#dev-chip-table', '#dev-chip-table-dup'].forEach(sel => {
       const tb = document.querySelector(sel);
       if (tb) tb.innerHTML = rowsHtml;
     });
-    const tbody2 = document.querySelector('#dev-pop-table tbody');
+    const tbody2 = document.querySelector('#dev-pop-table');
     if (tbody2) {
       const host = document.createElement('div');
       host.style.cssText = 'position:absolute;left:-9999px;top:0;';
@@ -17608,7 +17625,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const n = parseFloat(v);
         return isNaN(n) ? v : Math.round(n * 10) / 10 + ' px';
       };
-      tbody2.innerHTML = rows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${typeof v === 'string' && v.indexOf('/') > -1 ? v.split(' / ').map(r).join(' / ') : r(v)}</td></tr>`).join('');
+      tbody2.innerHTML = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${typeof v === 'string' && v.indexOf('/') > -1 ? v.split(' / ').map(r).join(' / ') : r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     }
   })();
 
@@ -18330,7 +18347,7 @@ try { (() => {
       });
     });
     const tbl = [['M', '40 px', 'Button M · 16/24', '20 px', 'Базовый: фильтры и панели над таблицами/графиками'], ['S', '32 px', 'Button S · 14/20', '18 px', 'Плотные тулбары, карточки виджетов'], ['XS', '24 px', 'Button XS · 12/16', '16 px', 'Компактные строки, инлайн рядом с текстом']];
-    document.querySelector('#sizes-table tbody').innerHTML = tbl.map(r => `<tr><td><b>${r[0]}</b></td><td class="rt-num">${r[1]}</td><td>${r[2]}</td><td class="rt-num">${r[3]}</td><td>${r[4]}</td></tr>`).join('');
+    document.querySelector('#sizes-table').innerHTML = tbl.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.72fr 0.95fr 0.72fr 0.9fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><b>${r[0]}</b></span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[4]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ CONTENT ============================ */
@@ -18711,7 +18728,7 @@ try { (() => {
 
   /* ============================ DEV SPEC TABLE (measured, not hardcoded) ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     function measure(size) {
       const host = document.createElement('div');
@@ -18759,7 +18776,7 @@ try { (() => {
       xs: measure('xs')
     };
     const rows = [['Высота сегмента', sz => d[sz].itemH + ' px'], ['Паддинг трека (top/bottom/left)', sz => d[sz].trackPad + ' px'], ['Высота трека (расчётная)', sz => d[sz].trackH + ' px'], ['Радиус трека', sz => d[sz].trackRadius + ' px'], ['Радиус сегмента / индикатора', sz => d[sz].itemRadius + ' px'], ['Паддинг сегмента по X', sz => d[sz].itemPadX + ' px'], ['Зазор между сегментами', sz => d[sz].gap + ' px'], ['Иконка', sz => d[sz].icon + ' px'], ['Типографика (размер / высота строки)', sz => d[sz].fontSize + ' / ' + d[sz].lineHeight + ' px'], ['Счётчик (Badge, кегль)', sz => d[sz].badgeFont + ' px']];
-    tbody.innerHTML = rows.map(([label, fn]) => `<tr><td>${label}</td><td class="rt-num">${fn('m')}</td><td class="rt-num">${fn('s')}</td><td class="rt-num">${fn('xs')}</td></tr>`).join('');
+    tbody.innerHTML = rows.map(([label, fn]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.55fr 0.55fr 0.55fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('m')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('s')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('xs')}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ DEV CODE PANELS — copy buttons ============================ */
@@ -19349,15 +19366,15 @@ function createSplitPane(o = {}) {
     return data;
   }
   const m = measure();
-  const sizeTbody = document.querySelector('#size-table tbody');
+  const sizeTbody = document.querySelector('#size-table');
   if (sizeTbody) {
     const rows = [['Ширина зоны захвата', m.captureW + ' px', '--spl-size'], ['Толщина линии', m.lineW + ' px', '--spl-line'], ['Минимальная длина', m.minH + ' px', '(min-height)'], ['Диаметр точки грипа', m.dotSize + ' px', '(spl__grip i)'], ['Зазор между точками грипа', m.gripGap + ' px', '(spl__grip gap)']];
-    sizeTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td><td><code>${r[2]}</code></td></tr>`).join('');
+    sizeTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 0.68fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><code>${r[2]}</code></div><div class="tc tc--separator"></div></div>`).join('');
   }
-  const devTbody = document.querySelector('#dev-spec-table tbody');
+  const devTbody = document.querySelector('#dev-spec-table');
   if (devTbody) {
     const rows = [['Ширина зоны захвата (vert) / высота (horiz)', m.captureW + ' px'], ['Толщина линии', m.lineW + ' px'], ['Минимальная длина', m.minH + ' px'], ['Диаметр точки грипа', m.dotSize + ' px'], ['Зазор между точками грипа', m.gripGap + ' px'], ['Радиус точки грипа', m.dotRadius]];
-    devTbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td></tr>`).join('');
+    devTbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   }
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/splitter.page.js", error: String((e && e.message) || e) }); }
@@ -19916,7 +19933,7 @@ try { (() => {
       });
     });
     const tbl = [['M', '40 px', 'Body M · 16/20', '20 px', '20 px', 'Базовый: страницы, модалки'], ['S', '32 px', 'Body S · 14/16', '18 px', '16 px', 'Плотные места, узкие модалки']];
-    document.querySelector('#sizes-table tbody').innerHTML = tbl.map(r => `<tr><td><b>${r[0]}</b></td><td class="rt-num">${r[1]}</td><td>${r[2]}</td><td class="rt-num">${r[3]}</td><td class="rt-num">${r[4]}</td><td>${r[5]}</td></tr>`).join('');
+    document.querySelector('#sizes-table').innerHTML = tbl.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.72fr 0.99fr 0.72fr 0.95fr 0.9fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text"><b>${r[0]}</b></span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[4]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[5]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ STATES (spec tables) ============================ */
@@ -20358,7 +20375,7 @@ try { (() => {
 
   /* ============================ DEV SPEC TABLE (measured, not hardcoded) ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     function measure(size) {
       const host = document.createElement('div');
@@ -20400,7 +20417,7 @@ try { (() => {
       s: measure('s')
     };
     const rows = [['Высота таба', sz => d[sz].height + ' px'], ['Паддинг по X', sz => d[sz].padX + ' px'], ['Зазор (иконка / текст / бейдж)', sz => d[sz].gap + ' px'], ['Иконка', sz => d[sz].icon + ' px'], ['Толщина индикатора', sz => d[sz].indicator + ' px'], ['Бейдж — min-width', sz => d[sz].badgeMin + ' px'], ['Типографика (кегль / строка)', sz => d[sz].fontSize + ' / ' + d[sz].lineHeight + ' px']];
-    tbody.innerHTML = rows.map(([label, fn]) => `<tr><td>${label}</td><td class="rt-num">${fn('m')}</td><td class="rt-num">${fn('s')}</td></tr>`).join('');
+    tbody.innerHTML = rows.map(([label, fn]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.55fr 0.55fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${label}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('m')}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${fn('s')}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/tab.page.js", error: String((e && e.message) || e) }); }
@@ -21759,8 +21776,8 @@ try { (() => {
 
     /* ---------------- РАЗМЕРЫ + REDLINE (измерено на живом экземпляре) ---------------- */
     (function () {
-      const sizeBody = document.querySelector('#size-table tbody');
-      const devBody = document.querySelector('#dev-spec-table tbody');
+      const sizeBody = document.querySelector('#size-table');
+      const devBody = document.querySelector('#dev-spec-table');
       if (!sizeBody && !devBody) return;
       const host = document.createElement('div');
       host.style.cssText = 'position:absolute; left:-9999px; top:0; width:900px;';
@@ -21779,11 +21796,11 @@ try { (() => {
       const lbl = getComputedStyle(chip.querySelector('.chip__label'));
       if (sizeBody) {
         const rows = [['Кнопка «Фильтр»', 'Button · Outline S', Math.round(parseFloat(csBtn.height)) + ' px', 'Ведущая воронка 16px, тонирована в --primary'], ['Чип «Применено: N»', 'Chip · Edit M', Math.round(parseFloat(csChip.height)) + ' px', 'Крестик сбрасывает все параметры'], ['Зазор между кнопкой и чипом', '—', Math.round(parseFloat(csBar.columnGap)) + ' px', 'Единственный отступ внутри бара']];
-        sizeBody.innerHTML = rows.map(([a, b, c, d]) => `<tr><td>${a}</td><td class="dsc">${b}</td><td class="num">${c}</td><td class="rec">${d}</td></tr>`).join('');
+        sizeBody.innerHTML = rows.map(([a, b, c, d]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 1.26fr 0.72fr 0.95fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${a}</span></span></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">${b}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${c}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${d}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
       }
       if (devBody) {
         const rows = [['Зазор бара (row / column)', r(csBar.rowGap) + ' / ' + r(csBar.columnGap) + ' px'], ['Высота кнопки «Фильтр»', r(csBtn.height) + ' px'], ['Паддинг кнопки (X)', r(csBtn.paddingLeft) + ' / ' + r(csBtn.paddingRight) + ' px'], ['Радиус кнопки', r(csBtn.borderTopLeftRadius) + ' px'], ['Высота чипа «Применено: N»', r(csChip.height) + ' px'], ['Паддинг чипа (Y / X)', r(csChip.paddingTop) + ' / ' + r(csChip.paddingLeft) + ' … ' + r(csChip.paddingRight) + ' px'], ['Радиус чипа', r(csChip.borderTopLeftRadius) + ' px'], ['Типографика чипа (кегль / интерлиньяж)', r(lbl.fontSize) + ' / ' + r(lbl.lineHeight) + ' px']];
-        devBody.innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
+        devBody.innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${k}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
       }
       host.remove();
     })();
@@ -21855,7 +21872,7 @@ try { (() => {
             const item = document.createElement('div');
             item.className = 'preset-item';
             const bodyId = 'preset-body-' + i;
-            item.innerHTML = '<div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-toggle" aria-expanded="false" aria-controls="' + bodyId + '" aria-label="Показать параметры пресета"><span class="pr-chev"><i data-icon="chevron-down"></i></span></button>' + '<span class="preset-row__name">' + p.name + '</span>' + '<span class="preset-row__count">' + p.params.length + ' парам.</span>' + '<button type="button" class="btn btn--outline btn--xs pr-apply"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-del" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div>' + '<div class="preset-item__body" id="' + bodyId + '" hidden>' + '<table class="preset-params"><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>' + p.params.map(([k, v]) => '<tr><td>' + k + '</td><td>' + v + '</td></tr>').join('') + '</tbody></table>' + '</div>';
+            item.innerHTML = '<div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-toggle" aria-expanded="false" aria-controls="' + bodyId + '" aria-label="Показать параметры пресета"><span class="pr-chev"><i data-icon="chevron-down"></i></span></button>' + '<span class="preset-row__name">' + p.name + '</span>' + '<span class="preset-row__count">' + p.params.length + ' парам.</span>' + '<button type="button" class="btn btn--outline btn--xs pr-apply"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-del" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div>' + '<div class="preset-item__body" id="' + bodyId + '" hidden>' + '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Параметр</span></div><div class="th"><span class="th__label">Значение</span></div><div class="th th--separator"></div></div>' + p.params.map(([k, v]) => '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + k + '</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div><div class="tc tc--separator"></div></div>').join('') + '</div>' + '</div>';
             const toggle = item.querySelector('.pr-toggle');
             const body = item.querySelector('.preset-item__body');
             toggle.addEventListener('click', () => {
@@ -22157,13 +22174,256 @@ try { (() => {
       }));
       const presets = document.getElementById('demo-presets');
       if (presets) {
-        presets.innerHTML = '<div class="preset-list">' + '<div class="preset-item"><div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-chev" aria-expanded="false" aria-label="Показать параметры пресета"><i data-icon="chevron-down"></i></button>' + '<span class="preset-row__name">Мои сделки ЦА</span><span class="preset-row__count">3 парам.</span>' + '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div></div>' + '<div class="preset-item is-open"><div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-chev" aria-expanded="true" aria-label="Скрыть параметры пресета"><i data-icon="chevron-up"></i></button>' + '<span class="preset-row__name">Просрочка МБ</span><span class="preset-row__count">2 парам.</span>' + '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div>' + '<div class="preset-item__body">' + '<table class="preset-params"><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody>' + paramsFor(2).map(([k, v]) => '<tr><td>' + k + '</td><td>' + v + '</td></tr>').join('') + '</tbody></table>' + '</div></div>' + '</div>';
+        presets.innerHTML = '<div class="preset-list">' + '<div class="preset-item"><div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-chev" aria-expanded="false" aria-label="Показать параметры пресета"><i data-icon="chevron-down"></i></button>' + '<span class="preset-row__name">Мои сделки ЦА</span><span class="preset-row__count">3 парам.</span>' + '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div></div>' + '<div class="preset-item is-open"><div class="preset-row">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s pr-chev" aria-expanded="true" aria-label="Скрыть параметры пресета"><i data-icon="chevron-up"></i></button>' + '<span class="preset-row__name">Просрочка МБ</span><span class="preset-row__count">2 парам.</span>' + '<button type="button" class="btn btn--outline btn--xs"><span class="btn__label">Применить</span></button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Удалить пресет"><i data-icon="trash"></i></button>' + '</div>' + '<div class="preset-item__body">' + '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Параметр</span></div><div class="th"><span class="th__label">Значение</span></div><div class="th th--separator"></div></div>' + paramsFor(2).map(([k, v]) => '<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">' + k + '</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">' + v + '</span></span></div><div class="tc tc--separator"></div></div>').join('') + '</div>' + '</div></div>' + '</div>';
         window.dsIcons && window.dsIcons.apply(presets);
       }
     })();
   });
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/table-filter.page.js", error: String((e && e.message) || e) }); }
+
+// scripts/table.page.js
+try { (() => {
+(function () {
+  'use strict';
+
+  var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+  var COLS = '8px 44px minmax(200px,2.2fr) minmax(130px,1.3fr) minmax(110px,1fr) minmax(160px,1.6fr) 64px minmax(8px,1fr)';
+  var ROWS = [{
+    name: 'ООО «ЮгСтрой»',
+    amount: '1 240 500,00',
+    status: ['success', 'Активна'],
+    owner: 'Иванова А.'
+  }, {
+    name: 'АО «Ресурс-Инвест»',
+    amount: '860 000,00',
+    status: ['warning', 'На проверке'],
+    owner: 'Петров С.'
+  }, {
+    name: 'ИП Смирнов Д. В.',
+    amount: '312 750,00',
+    status: ['error', 'Просрочена'],
+    owner: 'Иванова А.'
+  }, {
+    name: 'ООО «Восток Трейд»',
+    amount: '2 005 000,00',
+    status: ['success', 'Активна'],
+    owner: 'Кузьмин П.'
+  }, {
+    name: 'ООО «Балт Логистик»',
+    amount: '95 400,00',
+    status: ['info', 'Новая'],
+    owner: 'Петров С.'
+  }];
+  function headerRow(withCb) {
+    return '<div class="tbl__row" style="grid-template-columns:' + COLS + ';">' + '<div class="th th--separator"></div>' + '<div class="th th--center">' + (withCb ? '<label class="cb cb--no-content"><input type="checkbox" class="cb__input"><span class="cb__box"><span class="cb__mark"></span></span></label>' : '') + '</div>' + '<div class="th"><span class="th__label">Контрагент</span></div>' + '<div class="th th--right"><span class="th__label">Сумма, ₽</span></div>' + '<div class="th"><span class="th__label">Статус</span></div>' + '<div class="th"><span class="th__label">Ответственный</span></div>' + '<div class="th th--center"><span class="th__label">Действие</span></div>' + '<div class="th th--separator"></div>' + '</div>';
+  }
+  function dataRow(r, selected) {
+    var mark = selected ? '<span class="cb__mark">' + CHECK + '</span>' : '<span class="cb__mark"></span>';
+    var cbCls = 'cb cb--no-content' + (selected ? ' cb--selected' : '');
+    return '<div class="tbl__row' + (selected ? ' tbl__row--selected' : '') + '" style="grid-template-columns:' + COLS + ';">' + '<div class="tc tc--separator"></div>' + '<div class="tc tc--center"><label class="' + cbCls + '"><input type="checkbox" class="cb__input"' + (selected ? ' checked' : '') + '>' + '<span class="cb__box">' + mark + '</span></label></div>' + '<div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">' + r.name + '</span></span></div>' + '<div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r.amount + '</span></span></div>' + '<div class="tc"><span class="chip chip--s chip--' + r.status[0] + '"><span class="chip__label">' + r.status[1] + '</span></span></div>' + '<div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">' + r.owner + '</span></span></div>' + '<div class="tc tc--center"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить"><i data-icon="edit"></i></button></div></div>' + '<div class="tc tc--separator"></div>' + '</div>';
+  }
+  function skeletonRow() {
+    return '<div class="tbl__row" style="grid-template-columns:' + COLS + ';">' + '<div class="tc tc--separator"></div>' + '<div class="tc tc--center"></div>' + '<div class="tc tc--skeleton" aria-busy="true"><span class="tc__skeleton"></span></div>' + '<div class="tc tc--skeleton" aria-busy="true"><span class="tc__skeleton" style="width:70%"></span></div>' + '<div class="tc tc--skeleton" aria-busy="true"><span class="tc__skeleton" style="width:50%"></span></div>' + '<div class="tc tc--skeleton" aria-busy="true"><span class="tc__skeleton" style="width:60%"></span></div>' + '<div class="tc"></div>' + '<div class="tc tc--separator"></div>' + '</div>';
+  }
+  function paginationRow(bulkCount, total) {
+    var out = '';
+    if (bulkCount > 0) {
+      out += '<div class="pgn-row pgn-row--bulk"><div class="pgn-bulk">' + '<span class="pgn-bulk__count" aria-live="polite">Выбрано: <b>' + bulkCount + '</b> из ' + total + '</span>' + '<span class="pgn-bulk__actions">' + '<button class="btn btn--outline btn--s"><i data-icon="download"></i><span class="btn__label">Экспорт</span></button>' + '<button class="btn btn--outline btn--error btn--s"><i data-icon="trash"></i><span class="btn__label">Удалить</span></button>' + '</span></div></div>';
+    }
+    out += '<div class="pgn-row">' + '<div class="pgn-row__left"><div class="pgn-info">' + total + ' записей</div></div>' + '<div class="pgn-row__right"><div class="pgn">' + '<span class="pgn__range">1 из ' + Math.max(1, Math.ceil(total / 10)) + '</span>' + '<nav class="pgn__nav" aria-label="Страницы">' + '<button class="pgn__arrow" aria-label="Предыдущая страница" disabled>‹</button>' + '<button class="pgn__num" aria-current="page">1</button>' + '<button class="pgn__num">' + Math.max(2, Math.ceil(total / 10)) + '</button>' + '<button class="pgn__arrow" aria-label="Следующая страница">›</button>' + '</nav>' + '</div></div>' + '</div>';
+    return out;
+  }
+  function emptyBody() {
+    return '<div class="dtable__empty">' + '<span class="illu" data-illu="empty-folder" aria-hidden="true"></span>' + '<p class="dtable__empty-title">Ничего не найдено</p>' + '<p class="dtable__empty-text">Попробуйте изменить параметры фильтра или очистить его.</p>' + '<button class="btn btn--outline btn--s"><span class="btn__label">Очистить фильтр</span></button>' + '</div>';
+  }
+  function toolbar(opts) {
+    var left = '<div class="dtable__title-row"><h3 class="dtable__title">' + (opts.title || 'Таблица') + '</h3><span class="dtable__count">' + ROWS.length + '</span></div>';
+    if (opts.filter) {
+      left += '<div class="tfilter" role="group" aria-label="Фильтр таблицы">' + '<button class="btn btn--outline btn--s tfilter__open" aria-haspopup="dialog" aria-expanded="false"><i data-icon="filter"></i><span class="btn__label">Фильтр</span></button>' + '<span class="chip chip--edit chip--m tfilter__applied" tabindex="0"><span class="chip__label">Применено: 2</span><span class="chip__remove" role="button" aria-label="Сбросить все фильтры"><i data-icon="close"></i></span></span>' + '</div>';
+    }
+    var right = '<button class="btn btn--accent btn--s"><i data-icon="add"></i><span class="btn__label">Добавить</span></button>';
+    return '<div class="dtable__toolbar">' + '<div class="dtable__toolbar-left">' + left + '</div>' + '<div class="dtable__toolbar-right">' + right + '</div>' + '</div>';
+  }
+  function build(opts) {
+    var html = '<div class="dtable" ' + (opts.state === 'loading' ? 'aria-busy="true"' : '') + '>';
+    if (opts.toolbar) html += toolbar(opts);
+    html += '<div class="dtable__body">';
+    if (opts.state === 'empty') {
+      html += emptyBody();
+    } else if (opts.state === 'loading') {
+      html += '<div class="tbl">' + headerRow(true) + skeletonRow() + skeletonRow() + skeletonRow() + skeletonRow() + '</div>';
+    } else {
+      var rows = '';
+      for (var i = 0; i < ROWS.length; i++) rows += dataRow(ROWS[i], i < opts.selected);
+      html += '<div class="tbl">' + headerRow(true) + rows + '</div>';
+    }
+    html += '<div class="dtable__edge dtable__edge--l" aria-hidden="true"></div><div class="dtable__edge dtable__edge--r" aria-hidden="true"></div>';
+    html += '</div>';
+    if (opts.footer) html += '<div class="dtable__footer">' + paginationRow(opts.selected, ROWS.length) + '</div>';
+    html += '</div>';
+    return html;
+  }
+  function bindScrollFx(root) {
+    var body = root.querySelector('.dtable__body');
+    var dtable = root;
+    if (!body || !dtable) return;
+    function sync() {
+      dtable.classList.toggle('dtable--scrolled', body.scrollTop > 0);
+      dtable.classList.toggle('dtable--edge-l', body.scrollLeft > 0);
+      dtable.classList.toggle('dtable--edge-r', body.scrollWidth - body.scrollLeft - body.clientWidth > 1);
+    }
+    body.addEventListener('scroll', sync);
+    sync();
+  }
+  function readOpts() {
+    return {
+      toolbar: document.getElementById('ctl-toolbar').checked,
+      title: document.getElementById('ctl-title').value || 'Таблица',
+      filter: document.getElementById('ctl-filter').checked,
+      state: document.getElementById('ctl-state').value,
+      selected: parseInt(document.getElementById('ctl-selected').value, 10) > 0 ? document.getElementById('ctl-selected').value === '24' ? ROWS.length : 2 : 0,
+      footer: document.getElementById('ctl-footer').checked
+    };
+  }
+  function render() {
+    var opts = readOpts();
+    var host = document.getElementById('demo-dtable');
+    if (!host) return;
+    host.outerHTML = build(opts).replace('class="dtable"', 'class="dtable" id="demo-dtable"');
+    var root = document.getElementById('demo-dtable');
+    if (window.dsIcons) window.dsIcons.apply(root);
+    if (window.dsIllustrations) window.dsIllustrations.apply(root);
+    bindScrollFx(root);
+    toggle('ctl-title-wrap', opts.toolbar);
+    toggle('ctl-filter-wrap', opts.toolbar);
+    toggle('ctl-selected-wrap', opts.state === 'default' && opts.footer);
+  }
+  function toggle(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.classList.toggle('is-off', !on);
+  }
+  function buildAnatomy() {
+    var host = document.getElementById('anat-dia');
+    if (!host) return;
+    var opts = {
+      toolbar: true,
+      title: 'Заявки',
+      filter: true,
+      state: 'default',
+      selected: 0,
+      footer: true
+    };
+    host.innerHTML = build(opts);
+    if (window.dsIcons) window.dsIcons.apply(host);
+    var hostRect = host.getBoundingClientRect();
+    function markAt(el, n) {
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      var span = document.createElement('span');
+      span.className = 'mk';
+      span.style.top = r.top - hostRect.top + r.height / 2 + 'px';
+      span.style.left = '-11px';
+      span.textContent = n;
+      host.appendChild(span);
+    }
+    host.style.paddingLeft = '14px';
+    markAt(host.querySelector('.dtable__toolbar'), 1);
+    markAt(host.querySelector('.th'), 2);
+    markAt(host.querySelector('.tbl__row:not(:first-child)'), 3);
+    markAt(host.querySelector('.pgn-row'), 4);
+  }
+  function buildStates() {
+    var host = document.getElementById('states-grid');
+    if (!host) return;
+    var defs = [{
+      label: 'Default',
+      opts: {
+        toolbar: true,
+        title: 'Заявки',
+        filter: false,
+        state: 'default',
+        selected: 0,
+        footer: true
+      }
+    }, {
+      label: 'Loading',
+      opts: {
+        toolbar: true,
+        title: 'Заявки',
+        filter: false,
+        state: 'loading',
+        selected: 0,
+        footer: false
+      }
+    }, {
+      label: 'Empty',
+      opts: {
+        toolbar: true,
+        title: 'Заявки',
+        filter: false,
+        state: 'empty',
+        selected: 0,
+        footer: false
+      }
+    }];
+    var html = '';
+    defs.forEach(function (d) {
+      html += '<div class="st-card"><span class="st-card__label">' + d.label + '</span>' + build(d.opts) + '</div>';
+    });
+    host.innerHTML = html;
+    if (window.dsIcons) window.dsIcons.apply(host);
+    if (window.dsIllustrations) window.dsIllustrations.apply(host);
+  }
+  function redline() {
+    var probe = document.querySelector('#demo-dtable');
+    if (!probe) return;
+    var dtableCs = getComputedStyle(probe);
+    var set = function (id, v) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = v;
+    };
+    set('rl-radius', dtableCs.borderRadius);
+    var tb = probe.querySelector('.dtable__toolbar');
+    if (tb) {
+      var tbCs = getComputedStyle(tb);
+      set('rl-toolbar-pad', tbCs.paddingTop + ' / ' + tbCs.paddingLeft);
+      set('rl-toolbar-h', Math.round(tb.getBoundingClientRect().height) + 'px');
+      set('rl-toolbar-gap', tbCs.gap || tbCs.columnGap);
+    }
+    var th = probe.querySelector('.th');
+    if (th) set('rl-th-z', getComputedStyle(th).zIndex);
+    var edge = probe.querySelector('.dtable__edge');
+    if (edge) set('rl-edge-w', getComputedStyle(edge).width);
+  }
+  function copyButtons() {
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var node = document.getElementById('code-' + btn.getAttribute('data-copy'));
+        if (!node) return;
+        navigator.clipboard.writeText(node.textContent).then(function () {
+          var old = btn.textContent;
+          btn.textContent = 'Скопировано';
+          setTimeout(function () {
+            btn.textContent = old;
+          }, 1200);
+        });
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    ['ctl-toolbar', 'ctl-title', 'ctl-filter', 'ctl-state', 'ctl-selected', 'ctl-footer'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('input', render);
+    });
+    render();
+    buildAnatomy();
+    buildStates();
+    copyButtons();
+    setTimeout(redline, 60);
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/table.page.js", error: String((e && e.message) || e) }); }
 
 // scripts/tbl-resize.js
 try { (() => {
@@ -22190,18 +22450,17 @@ try { (() => {
   function colIndex(row, th) {
     return Array.prototype.indexOf.call(row.children, th);
   }
-  function parseTracks(row) {
-    return row.style.gridTemplateColumns.trim().match(/[a-zA-Z-]*\([^)]*\)|\S+/g) || [];
+  /* фиксирует текущую отрендеренную ширину каждой колонки строки в px —
+     остальные колонки при резайзе не пересчитываются, только сдвигаются */
+  function freezeTracks(row) {
+    return Array.prototype.map.call(row.children, function (cell) {
+      return Math.round(cell.getBoundingClientRect().width) + 'px';
+    });
   }
-  function applyTracks(tbl, idx, px) {
-    var rows = tbl.querySelectorAll(':scope > .tbl__row');
-    rows.forEach(function (row) {
-      var tracks = parseTracks(row);
-      if (idx >= tracks.length) return;
-      tracks[idx] = px + 'px';
-      var last = tracks.length - 1;
-      if (last !== idx && !/^minmax\(/.test(tracks[last])) tracks[last] = 'minmax(8px,1fr)';
-      row.style.gridTemplateColumns = tracks.join(' ');
+  function applyTracksAll(tbl, tracks) {
+    var str = tracks.join(' ');
+    tbl.querySelectorAll('.tbl__row').forEach(function (row) {
+      row.style.gridTemplateColumns = str;
     });
   }
   function guideAt(tbl, clientX) {
@@ -22214,14 +22473,19 @@ try { (() => {
     var tbl = handle.closest('.tbl');
     if (!th || !row || !tbl) return;
     e.preventDefault();
+    tbl.classList.add('tbl--scroll');
     var idx = colIndex(row, th);
+    var tracks = freezeTracks(row);
+    applyTracksAll(tbl, tracks);
     var x0 = e.clientX,
-      w0 = th.getBoundingClientRect().width;
+      w0 = parseFloat(tracks[idx]);
     tbl.classList.add('tbl--resizing');
     th.classList.add('th--resizing');
     function move(ev) {
       var w = Math.max(MIN, Math.round(w0 + (ev.clientX - x0)));
-      applyTracks(tbl, idx, w);
+      var next = tracks.slice();
+      next[idx] = w + 'px';
+      applyTracksAll(tbl, next);
       guideAt(tbl, ev.clientX);
     }
     function up() {
@@ -22248,9 +22512,12 @@ try { (() => {
       tbl = h.closest('.tbl');
     if (!th || !row || !tbl) return;
     e.preventDefault();
+    tbl.classList.add('tbl--scroll');
     var idx = colIndex(row, th);
-    var w = Math.max(MIN, Math.round(th.getBoundingClientRect().width + (e.key === 'ArrowRight' ? 16 : -16)));
-    applyTracks(tbl, idx, w);
+    var tracks = freezeTracks(row);
+    var w = Math.max(MIN, Math.round(parseFloat(tracks[idx]) + (e.key === 'ArrowRight' ? 16 : -16)));
+    tracks[idx] = w + 'px';
+    applyTracksAll(tbl, tracks);
   });
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/tbl-resize.js", error: String((e && e.message) || e) }); }
@@ -23013,10 +23280,10 @@ try { (() => {
 
   /* ============================ TIMING TABLE ============================ */
   (function () {
-    const tb = document.querySelector('#timing-table tbody');
+    const tb = document.querySelector('#timing-table');
     if (!tb) return;
     const rows = [['Появление тоста', '180 мс', 'linear', 'Сдвиг сверху −16px + opacity 0→1'], ['Скрытие тоста', '200 мс', 'ease-in', 'Сдвиг вниз +12px + opacity 1→0'], ['Авто-скрытие (ToastBar без лоадера)', '3000 мс', '—', 'Отсчёт от момента показа'], ['Задержка перед скрытием после Success', '1000 мс', '—', 'Чтобы успеть считать результат'], ['Вращение спиннера', '700 мс', 'linear · infinite', 'При reduced-motion — 1600 мс'], ['Зазор в стеке', '8 px', '—', '--toast-stack-gap']];
-    tb.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('');
+    tb.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.99fr 0.72fr 0.9fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[2]}</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ TEXTOVKA GUIDELINES ============================ */
@@ -23059,10 +23326,10 @@ try { (() => {
 
   /* ============================ A11Y TABLE ============================ */
   (function () {
-    const tb = document.querySelector('#a11y-table tbody');
+    const tb = document.querySelector('#a11y-table');
     if (!tb) return;
     const rows = [['ToastBar · Neutral / Info', 'status', 'polite', 'Не прерывает чтение — сообщение озвучится в паузе'], ['ToastBar · Success', 'status', 'polite', 'Результат некритичен, объявляется вежливо'], ['ToastBar · Error', 'alert', 'assertive', 'Ошибку важно услышать сразу'], ['ToastLoader (блокирующий)', 'alert', 'assertive', 'Блокирует работу — объявляем немедленно']];
-    tb.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td><code class="tok">${r[1]}</code></td><td><code class="tok">${r[2]}</code></td><td class="dsc">${r[3]}</td></tr>`).join('');
+    tb.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.63fr 0.86fr 0.72fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc"><code class="tok">${r[1]}</code></div><div class="tc"><code class="tok">${r[2]}</code></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">${r[3]}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
   })();
 
   /* ============================ COLOR REFERENCE ============================ */
@@ -23138,7 +23405,7 @@ try { (() => {
 
   /* ============================ DEV SPEC TABLE (measured, not hardcoded) ============================ */
   (function () {
-    const tbody = document.querySelector('#dev-spec-table tbody');
+    const tbody = document.querySelector('#dev-spec-table');
     if (!tbody) return;
     const host = document.createElement('div');
     host.style.cssText = 'position:absolute; left:-9999px; top:0; visibility:hidden;';
@@ -23174,7 +23441,7 @@ try { (() => {
     const stackMaxW = getComputedStyle(stackProbe).maxWidth;
     stackProbe.remove();
     const rows = [['Паддинг по вертикали', px(cs.paddingTop), '--toast-pad-y'], ['Паддинг по горизонтали', px(cs.paddingLeft), '--toast-pad-x'], ['Радиус пилюли', px(cs.borderTopLeftRadius), '--toast-radius → --radius-control'], ['Зазор слот ↔ текст', px(cs.columnGap || cs.gap), '--toast-gap'], ['Размер спиннера', csSp ? px(csSp.width) : '—', '--toast-icon'], ['Толщина обводки спиннера', csSp ? px(csSp.borderTopWidth) : '—', 'border 2px'], ['Размер статус-иконки', csIc ? px(csIc.width) : '—', '--toast-icon'], ['Типографика текста (кегль / интерлиньяж)', Math.round(parseFloat(csMsg.fontSize)) + ' / ' + Math.round(parseFloat(csMsg.lineHeight)) + ' px', '--type-body-s'], ['Макс. ширина (стек)', stackMaxW, '--toast-maxw']];
-    tbody.innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td class="rt-num">${r[1]}</td><td><code class="tok">${r[2]}</code></td></tr>`).join('');
+    tbody.innerHTML = rows.map(r => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 1.17fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${r[0]}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r[1]}</span></span></div><div class="tc"><code class="tok">${r[2]}</code></div><div class="tc tc--separator"></div></div>`).join('');
     host.remove();
   })();
 
@@ -23744,7 +24011,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
 
   // timing table
   const rows = [['Появление (hover)', '≈ 400 мс'], ['Появление (focus)', 'мгновенно'], ['Скрытие', 'мгновенно'], ['Анимация', '140 мс · ease']];
-  document.querySelector('#timing-table tbody').innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="rt-num">${v}</td></tr>`).join('');
+  document.querySelector('#timing-table').innerHTML = rows.map(([k, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.3fr 1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${k}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================
@@ -24001,8 +24268,8 @@ function placeTip(stage, tip, target, placement, align, gap) {
   const shadow = cs.boxShadow;
   host.remove();
   const rows = [['Паддинг (верт. / гориз.)', padding], ['Радиус контейнера', radius], ['Максимальная ширина (--tip-max)', maxWidth], ['Высота стрелки (вынос за край)', arrowH], ['Тень', shadow], ['Задержка появления (hover)', '≈ 400 мс'], ['Анимация появления', '140 мс · ease']];
-  const tb = document.querySelector('#dev-spec-table tbody');
-  if (tb) tb.innerHTML = rows.map(([p, v]) => `<tr><td>${p}</td><td class="rt-num">${v}</td></tr>`).join('');
+  const tb = document.querySelector('#dev-spec-table');
+  if (tb) tb.innerHTML = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${v}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
 })();
 
 /* =========================================================================
