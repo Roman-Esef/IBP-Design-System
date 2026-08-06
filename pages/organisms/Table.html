@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/shadow.css">
 <link rel="stylesheet" href="../../styles/button.css">
+<link rel="stylesheet" href="../../styles/button-group.css">
 <link rel="stylesheet" href="../../styles/icon-button.css">
 <link rel="stylesheet" href="../../styles/checkbox.css">
 <link rel="stylesheet" href="../../styles/chip.css">
@@ -18,6 +19,8 @@
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/table-filter.css">
 <link rel="stylesheet" href="../../styles/pagination.css">
+<link rel="stylesheet" href="../../styles/modal.css">
+<link rel="stylesheet" href="../../styles/context-menu.css">
 <link rel="stylesheet" href="../../styles/table.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
@@ -42,6 +45,15 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 .dt-stage .dtable{width:100%;}
 .dt-stage .dtable__body{max-height:260px;}
 .ws-cap{font:var(--type-body-xs);color:var(--text-inactive);margin:12px 0 0;text-wrap:pretty;}
+/* columns modal (demo-only chrome, not part of the shipped component) */
+.col-actions{display:flex;gap:8px;margin-bottom:12px;}
+.col-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;}
+.col-item{display:flex;align-items:center;gap:10px;padding:8px 6px;border-radius:var(--radius-control-s);}
+.col-item.is-dragging{opacity:.4;}
+.col-item__drag{color:var(--text-inactive);cursor:grab;display:flex;}
+.col-item .cb{flex:1;min-width:0;}
+.col-item__pin{flex:none;}
+.col-item__pin[aria-pressed="true"]{color:var(--secondary-dark);}
 /* anatomy */
 .anat{display:flex;flex-direction:column;gap:28px;}
 .anat__stage{background:color-mix(in srgb,var(--primary) 5%,#fff);border:1px solid var(--border-light);border-radius:14px;padding:44px 40px;display:flex;justify-content:center;overflow-x:auto;}
@@ -77,10 +89,10 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.0</b></span>
+    <span>Версия <b>v1.2</b></span>
     <span>Обновлено <b>06.08.2026</b></span>
     <span>CSS <b>styles/table.css</b></span>
-    <span>Зависимости <b>table-cell, pagination, table-filter, button, icon-button, chip, checkbox, illustration</b></span>
+    <span>Зависимости <b>table-cell, pagination, table-filter, button, button-group, icon-button, chip, checkbox, illustration, modal, context-menu</b></span>
   </div>
   <div class="eyebrow">Дизайн-система · Организмы</div>
   <h1>Table</h1>
@@ -96,7 +108,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="dt-stage">
           <div class="dtable" id="demo-dtable"></div>
         </div>
-        <p class="ws-cap">Тело таблицы прокручивается по вертикали и горизонтали — шапка остаётся на месте, по краям при скролле появляются тени.</p>
+        <p class="ws-cap">Таблица интерактивна: тяните правую границу колонки, чтобы изменить ширину, перетаскивайте подпись колонки, чтобы поменять порядок, отмечайте чекбоксы строк — тело прокручивается по вертикали и горизонтали, шапка остаётся на месте.</p>
       </div>
     </div>
     <div class="pg__controls">
@@ -113,6 +125,10 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="lbl">Фильтр в тулбаре</div>
         <label class="pg-toggle"><input id="ctl-filter" type="checkbox" checked><span class="pg-toggle__sw"></span><span>TableFilter, применён</span></label>
       </div>
+      <div class="ctl" id="ctl-presets-wrap">
+        <div class="lbl">Сохранённые пресеты</div>
+        <label class="pg-toggle"><input id="ctl-presets" type="checkbox"><span class="pg-toggle__sw"></span><span>Split Button + меню</span></label>
+      </div>
 
       <div class="pg__grouphead">Тело</div>
       <div class="ctl">
@@ -121,14 +137,6 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
           <option value="default" selected>Обычное</option>
           <option value="loading">Загрузка</option>
           <option value="empty">Пусто</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="ctl-selected-wrap">
-        <div class="lbl">Выбрано строк</div>
-        <div class="pg-select"><select id="ctl-selected">
-          <option value="0" selected>Нет</option>
-          <option value="3">3 из 24</option>
-          <option value="24">Все 24</option>
         </select></div>
       </div>
 
@@ -187,6 +195,14 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <h2>Варианты</h2>
   <p class="desc">Table — не набор визуальных тем, а набор независимо включаемых частей контейнера.</p>
 
+  <div class="subsec" data-screen-label="ColumnsSettings">
+    <h3>Настройка колонок</h3>
+    <p class="desc">Кнопка-шестерёнка (<code class="tok">settings</code>) в тулбаре открывает Modal <code class="tok">--w4</code> со списком колонок: чекбокс видимости, перетаскивание за иконку слева меняет порядок в таблице, IconButton закрепления справа — то же закрепление, что и у колонки (фон Pinned + sticky). «Выбрать все»/«Сбросить все» — массово переключают видимость. Select/Действие в списке не участвуют — служебные, не скрываются и не переставляются.</p>
+  </div>
+  <div class="subsec" data-screen-label="SavedFilters">
+    <h3>Сохранённые фильтры</h3>
+    <p class="desc">Если у таблицы есть сохранённые пресеты фильтра, кнопка «Фильтр» становится Split Button (см. TableFilter): основная часть открывает модалку фильтра, шеврон — меню сохранённых пресетов с числом параметров у каждого. Без пресетов — обычная одиночная кнопка.</p>
+  </div>
   <div class="subsec" data-screen-label="Toolbar">
     <h3>Тулбар</h3>
     <p class="desc">Опционален: таблица без заголовка (например, вложенная в Tile с собственным TileHeader) убирает <code class="tok">.dtable__toolbar</code> целиком — тело начинается сразу липкой шапкой.</p>
@@ -255,6 +271,10 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <div class="subsec" data-screen-label="EmptyLoading">
     <h3>Пустое состояние и загрузка</h3>
     <p class="desc">Loading и Empty подменяют содержимое тела целиком (шапка и строки не рендерятся вместо них); Toolbar и Footer при этом остаются на своих местах — заголовок, счётчик и фильтр видны и во время загрузки, и когда результат пуст.</p>
+  </div>
+  <div class="subsec" data-screen-label="ActionsColumn">
+    <h3>Колонка действий</h3>
+    <p class="desc">Если у таблицы есть отдельная колонка «Действие» — её кнопки (IconButton neutral S) показываются всегда, а не по hover строки: это её единственное содержимое, прятать нечего, в отличие от <code class="tok">.tc__hidden</code> у TableCell, где действия — надстройка над обычным контентом ячейки. Если массовое удаление доступно в панели <code class="tok">.pgn-bulk</code>, то же действие удаления обязательно есть и на уровне отдельной строки в колонке действий — массовое действие не может быть единственным способом что-то удалить.</p>
   </div>
   <div class="subsec" data-screen-label="Responsive">
     <h3>Адаптивность</h3>
@@ -365,8 +385,6 @@ onSelectionChange(count): bulkRow.hidden = (count === 0)
   <p class="desc">Кейсы, которых недостаёт документации, — на существующих токенах и компонентах.</p>
   <div class="panel">
     <ul class="rules">
-      <li><b>Меню настройки колонок</b> — показать/скрыть колонку, сохранить порядок — логичное место в Toolbar справа, компонента-меню для этого пока нет отдельной документации в Table.</li>
-      <li><b>Сохранённые виды таблицы</b> (набор фильтров+колонок+сортировки с именем) — упоминалось для TableFilter (пресеты), для Table как целого — не описано.</li>
       <li><b>Виртуализация строк</b> — при тысячах записей рендер всех строк не годится; нужен паттерн windowing, вне зоны CSS-компонента.</li>
     </ul>
   </div>
@@ -376,7 +394,7 @@ onSelectionChange(count): bulkRow.hidden = (count === 0)
 
 <footer class="page-foot">
   <span>Дизайн-система · Table</span>
-  <span>v1.0 · 06.08.2026</span>
+  <span>v1.2 · 06.08.2026</span>
 </footer>
 
 <script src="../../scripts/icons-data.js"></script>

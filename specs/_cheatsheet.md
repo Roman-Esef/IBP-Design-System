@@ -721,7 +721,7 @@ css: `styles/entity.css` · deps: [avatar, chip, icon-button, button, badge]
 Ведущий: `.entity__icon` (тон `--accent`/`--neutral`) или `.av` из ДС. Состояния: `--interactive` (hover-тайл) · `--selected` (--primary-bg) · `--skeleton` (загрузка + шиммер, aria-busy) · `--empty` (Label «—») · `--error` (объект удалён, зачёркнут). Label усекается (`--truncate`) + Tooltip. Действий max 2 → иначе кебаб. Полная анатомия: specs/Entity.md.
 
 ## Table
-css: `styles/table.css` · deps: [table-cell, pagination, table-filter, button, icon-button, chip, checkbox, illustration]
+css: `styles/table.css` · deps: [table-cell, pagination, table-filter, button, button-group, icon-button, chip, checkbox, illustration, modal, context-menu]
 
 Контейнер-организм: Toolbar (заголовок+счётчик слева, TableFilter+действия справа, опц.) → прокручиваемое тело (липкая шапка + строки TableCell) → Footer (Pagination, опц.). Своего оформления строк/ячеек не рисует. Массовые действия — существующий `.pgn-bulk` из `pagination.css` (ряд над `.pgn-row`, показывается при выборе строк).
 
@@ -745,7 +745,7 @@ css: `styles/table.css` · deps: [table-cell, pagination, table-filter, button, 
 <!-- Loading: .dtable__body → .tbl с N строками .tc--skeleton -->
 ```
 
-Липкая шапка не отключаема (пока есть вертикальный скролл тела); тени по краям — сигнал скрытого контента при горизонтальном скролле. Toolbar/Footer не скрываются в Loading/Empty — подменяется только тело.
+Липкая шапка не отключаема (пока есть вертикальный скролл тела); тени по краям — сигнал скрытого контента при горизонтальном скролле. Toolbar/Footer не скрываются в Loading/Empty — подменяется только тело. Отдельная колонка «Действие» — кнопки видны всегда (не по hover, в отличие от `.tc__hidden`); действие массового удаления в `.pgn-bulk` обязательно дублируется на уровне строки в этой колонке.
 
 ## TableCell
 css: `styles/table-cell.css` · deps: [checkbox, chip, icon-button, button, input, dropdown-list, tooltip]
