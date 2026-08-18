@@ -1,10 +1,11 @@
 ---
 component: SegmentControl
 title: "SegmentControl"
-version: "v1.2"
-updated: "27.07.2026"
+version: "v1.4"
+updated: "12.08.2026"
 page: pages/molecules/SegmentControl.html
 page_js: scripts/segment-control.page.js
+runtime: scripts/ds-tabs.js
 css: styles/segment-control.css
 deps: [tab, button, button-group, badge]
 status: auto
@@ -14,6 +15,16 @@ status: auto
 
 ## Назначение
 Компактный контрол для переключения одного значения параметра — периода, единиц, режима отображения — из 2–6 взаимоисключающих опций. Сегменты лежат в общем треке (rail); выбранный сегмент отмечен плавающим индикатором (thumb), который анимированно переезжает при переключении. Размеры M, S, XS, опциональная ведущая иконка и вариант «только иконки».
+
+## Инварианты
+- Track — единый фон с одним плавающим индикатором (`.segctrl__thumb`), в отличие от Tab/ButtonGroup, где у каждого элемента своя граница.
+- Семантика `role="radiogroup"`/`role="radio"` — переключение значения параметра, не навигация по вьюхам страницы (это роль Tab).
+- Disabled применяется на весь контрол целиком; точечное отключение одного сегмента — редкий edge case, не общее правило.
+- Индикатор — первый ребёнок в DOM, поэтому первый видимый сегмент технически второй child — таргетить `:first-of-type`, не `:first-child`.
+
+## Диагностика
+- «Разделитель между сегментами виден рядом с выбранным» → должен гаснуть у выбранного сегмента и его соседей (правило `::before`)
+- «CSS для первого сегмента не применяется» → искать через `:first-of-type`, не `:first-child` (thumb — реальный первый child)
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — SegmentControl переключает значение одного параметра в пределах текущего контекста — период графика, единицы измерения, режим отображения списка. В отличие от навигационных сущностей он не меняет набор разделов страницы и не открывает новый раздел контента — он выбирает, как показать один и тот же контент.
@@ -40,7 +51,7 @@ status: auto
 
 ```
 <!-- thumb идёт первым ребёнком — сегменты .segctrl__item начинаются со второго -->
-<div class="segctrl segctrl--m" role="radiogroup" aria-label="Период">
+<div class="segctrl" role="radiogroup" aria-label="Период">
   <div class="segctrl__thumb"></div>
 
   <button type="button" class="segctrl__item" role="radio" aria-checked="false" tabindex="-1">
@@ -58,6 +69,31 @@ status: auto
   </button>
 </div>
 ```
+
+### Рантайм ДС — `scripts/ds-tabs.js`
+
+Общий рантайм Tab и SegmentControl: roving tabindex, навигация стрелками
+(← → и ↑ ↓), Home / End, активация выбора на месте, пропуск отключённых
+элементов. У сегмент-контрола он же измеряет и двигает индикатор, у табов —
+подскролливает выбранный таб в зону видимости внутри ленты.
+
+Подключение — opt-in атрибутом на контейнере (чтобы рантайм не «оживлял»
+статичные примеры состояний в витрине):
+
+```
+<div class="tabs tabs--horiz" role="tablist" data-tabs>…</div>
+<div class="segctrl" role="radiogroup" aria-label="Период" data-segctrl>…</div>
+```
+
+API: `DSTabs.tabs(el, opts)`, `DSTabs.segment(el, opts)`,
+`DSTabs.positionThumb(el)`, `DSTabs.wireAll(root)`.
+Возвращает `{ el, items(), select(elОrIndex), value(), refresh() }`;
+`opts.onChange(index, el)` — коллбэк смены выбора,
+`opts.scrollIntoView: false` — отключить подскролл выбранного таба.
+
+Индикатор сегмент-контрола пересчитывается на resize, load, `document.fonts.ready`
+и через ResizeObserver: метрики шрифта меняют ширину сегмента уже после первого
+рендера, поэтому позицию нужно измерять, а не считать по индексу.
 
 ### Поведение · псевдокод (framework-agnostic)
 
@@ -124,7 +160,7 @@ interface SegmentControlProps {
 | Класс / атрибут | На чём | Назначение |
 |---|---|---|
 | .segctrl | контейнер | Трек — role="radiogroup", обязателен aria-label |
-| .segctrl--m / --s / --xs | контейнер | Размер: высота, паддинги, типографика, иконка |
+| .segctrl--s / --xs | контейнер | Размер: высота, паддинги, типографика, иконка. M — дефолт: `.segctrl` без модификатора |
 | .segctrl--fullwidth | контейнер | Сегменты растягиваются на равную ширину на 100% контейнера |
 | .segctrl--disabled / [aria-disabled="true"] | контейнер | Отключает весь контрол целиком |
 | .segctrl__thumb | div, первый ребёнок | Плавающий индикатор; ширина/позиция задаются JS (positionThumb) |

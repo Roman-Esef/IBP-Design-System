@@ -32,7 +32,7 @@ function makeItem(spec) {
   if (spec.sub)      it.classList.add('menu__item--sub');
   it.setAttribute('role', spec.selectable ? 'menuitemradio' : 'menuitem');
   if (spec.selectable) it.setAttribute('aria-checked', String(!!spec.selected));
-  if (spec.disabled) it.setAttribute('aria-disabled', 'true');
+  if (spec.disabled) { it.setAttribute('aria-disabled', 'true'); it.tabIndex = -1; }   /* вне табуляции */
   if (spec.state)    it.classList.add('is-' + spec.state);
 
   if (spec.icon) {
@@ -63,62 +63,14 @@ function makeMenu(items, o = {}) {
   return el;
 }
 
-/* ---------- позиционирование floating-меню относительно триггера ---------- */
-function placeMenu(stage, menu, target, placement, align, gap) {
-  gap = gap == null ? 6 : gap;
-  const sr = stage.getBoundingClientRect();
-  const tr = target.getBoundingClientRect();
-  const mw = menu.offsetWidth, mh = menu.offsetHeight;
-  const tl = tr.left - sr.left, tt = tr.top - sr.top;
-  let x = 0, y = 0;
-
-  if (placement === 'bottom')      y = tt + tr.height + gap;
-  else if (placement === 'top')    y = tt - gap - mh;
-  else if (placement === 'right')  x = tl + tr.width + gap;
-  else if (placement === 'left')   x = tl - gap - mw;
-
-  if (placement === 'bottom' || placement === 'top') {
-    if (align === 'start')    x = tl;
-    else if (align === 'end') x = tl + tr.width - mw;
-    else                      x = tl + tr.width / 2 - mw / 2;
-    menu.style.setProperty('--menu-origin', (placement === 'top' ? 'bottom' : 'top') + ' ' + (align === 'end' ? 'right' : align === 'start' ? 'left' : 'center'));
-  } else {
-    if (align === 'start')    y = tt;
-    else if (align === 'end') y = tt + tr.height - mh;
-    else                      y = tt + tr.height / 2 - mh / 2;
-  }
-  menu.style.left = Math.round(x) + 'px';
-  menu.style.top  = Math.round(y) + 'px';
-}
-
-/* ---------- авто-размещение: разворот по вертикали и флип выравнивания
-   при упоре в границы вьюпорта, затем финальный зажим по горизонтали ---------- */
-function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
-  prefer = prefer || 'bottom'; align = align || 'start'; gap = gap == null ? 6 : gap;
-  const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
-  const tr = trigger.getBoundingClientRect();
-  const mw = menu.offsetWidth, mh = menu.offsetHeight, m = 8;
-
-  // вертикаль: разворот вверх, если снизу не хватает места
-  const below = vh - tr.bottom, above = tr.top;
-  let placement = prefer;
-  if (prefer === 'bottom' && below < mh + gap + m && above > below) placement = 'top';
-  else if (prefer === 'top' && above < mh + gap + m && below > above) placement = 'bottom';
-
-  // горизонталь: флип стороны выравнивания, если меню вылезает за экран
-  let al = align;
-  if (al === 'start' && tr.left + mw > vw - m && tr.right - mw >= m) al = 'end';
-  else if (al === 'end' && tr.right - mw < m && tr.left + mw <= vw - m) al = 'start';
-
-  placeMenu(stage, menu, trigger, placement, al, gap);
-
-  // финальный зажим по горизонтали в пределах вьюпорта (left задан относительно anchor)
-  const sr = stage.getBoundingClientRect();
-  const leftVp = sr.left + parseFloat(menu.style.left);
-  if (leftVp < m) menu.style.left = (parseFloat(menu.style.left) + (m - leftVp)) + 'px';
-  else if (leftVp + mw > vw - m) menu.style.left = (parseFloat(menu.style.left) - (leftVp + mw - (vw - m))) + 'px';
-
-  return { placement, align: al };
+/* ---------- позиционирование: рантайм ДС (scripts/ds-menu.js) ----------
+   Страница ничего не считает сама — DSMenu.place() делает разворот вверх,
+   флип выравнивания и зажим в границах. boundary=null → вьюпорт. */
+function autoPlaceMenu(stage, menu, trigger, prefer, align, gap, boundary) {
+  return window.DSMenu.place(menu, trigger, {
+    placement: prefer || 'bottom', align: align || 'start',
+    gap: gap == null ? 6 : gap, boundary: boundary || null, offsetParent: stage,
+  });
 }
 
 /* =========================================================================
@@ -129,7 +81,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
   const controls = document.getElementById('pg-controls');
   const stage    = document.getElementById('pg-stage');
   const codeEl   = document.getElementById('pg-code');
-  let anchor, trigger, menu, open = true;
+  let anchor, trigger, menu, api, open = true;
 
   function ctlSelect(label, options, key) {
     const wrap = document.createElement('div'); wrap.className = 'ctl';
@@ -193,7 +145,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
     if (menu) menu.remove();
     if (anchor) anchor.remove();
     anchor = document.createElement('span'); anchor.className = 'menu-anchor';
-    trigger = document.createElement('button'); trigger.type = 'button'; trigger.className = 'kebab'; trigger.innerHTML = KEBAB;
+    trigger = document.createElement('button'); trigger.type = 'button'; trigger.className = 'ibtn ibtn--neutral ibtn--l'; trigger.innerHTML = KEBAB;
     trigger.setAttribute('aria-label', 'Действия'); trigger.setAttribute('aria-haspopup', 'menu');
     anchor.appendChild(trigger);
     stage.appendChild(anchor);
@@ -201,43 +153,30 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
     menu = makeMenu(buildSpecs(), { floating: true });
     anchor.appendChild(menu);
     wireSubmenu(menu);
-    place();
-    if (open) { menu.classList.add('is-open'); trigger.setAttribute('aria-expanded', 'true'); }
-
-    trigger.addEventListener('click', () => { open = !open; menu.classList.toggle('is-open', open); trigger.setAttribute('aria-expanded', String(open)); if (open) place(); });
+    /* меню в конструкторе показано открытым: рантайм ведёт открытие/закрытие,
+       клавиатуру и позиционирование, страница лишь просит открыть по умолчанию */
+    api = window.DSMenu.bind(trigger, { menu, placement: 'bottom', align: 'start', gap: 6, autoFocus: false, keepOpen: true, dismiss: false });
+    if (open) api.open();
 
     // code
     codeEl.innerHTML = '<code>&lt;div class="menu" role="menu"&gt;…&lt;/div&gt;</code>';
   }
-  function place() { autoPlaceMenu(anchor, menu, trigger, 'bottom', 'start', 6); }
+  function place() { if (api) api.place(); }
   render();
   window.addEventListener('resize', () => { if (menu) place(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (menu) place(); });
 })();
 
-/* ---------- подменю: раскрытие по наведению + клавиатуре (→ / ←), любое меню ---------- */
+/* ---------- подменю: разметка пунктов + поведение из рантайма DSMenu ---------- */
 function wireSubmenu(menu, opts) {
   const items = opts && opts.items || [{ label: 'PDF' }, { label: 'Excel (XLSX)' }, { label: 'CSV' }];
   menu.querySelectorAll('.menu__item--sub').forEach(subHost => {
-    if (subHost.__wired) return;
-    subHost.__wired = true;
+    if (subHost.querySelector('.menu__sub')) return;
     const sub = makeMenu(items, { floating: true });
     sub.classList.add('menu__sub');
     subHost.appendChild(sub);
-    let t;
-    const openSub  = () => { clearTimeout(t); sub.classList.add('is-open'); subHost.setAttribute('aria-expanded', 'true'); };
-    const closeSub = () => { t = setTimeout(() => { sub.classList.remove('is-open'); subHost.setAttribute('aria-expanded', 'false'); }, 160); };
-    subHost.setAttribute('aria-haspopup', 'menu');
-    subHost.setAttribute('aria-expanded', 'false');
-    subHost.addEventListener('mouseenter', openSub);
-    subHost.addEventListener('mouseleave', closeSub);
-    subHost.addEventListener('focus', openSub);
-    subHost.addEventListener('blur', closeSub);
-    subHost.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') { openSub(); const f = sub.querySelector('.menu__item'); if (f) f.focus(); }
-      if (e.key === 'ArrowLeft' || e.key === 'Escape') { closeSub(); subHost.focus(); }
-    });
   });
+  window.DSMenu.wireSubs(menu);
 }
 
 /* =========================================================================
@@ -341,21 +280,10 @@ function wireSubmenu(menu, opts) {
 /* =========================================================================
    USAGE — table header · table row · card
    ========================================================================= */
+/* открытие/закрытие, клавиатура и позиционирование — рантайм DSMenu */
 function openable(anchor, trigger, menu, placement, align) {
-  let open = false;
-  function place() { autoPlaceMenu(anchor, menu, trigger, placement, align, 6); }
-  function set(v) {
-    open = v; menu.classList.toggle('is-open', open);
-    trigger.setAttribute('aria-expanded', String(open));
-    if (open) { place(); document.addEventListener('pointerdown', outside, true); document.addEventListener('keydown', esc); }
-    else { document.removeEventListener('pointerdown', outside, true); document.removeEventListener('keydown', esc); }
-  }
-  function outside(e) { if (!anchor.contains(e.target)) set(false); }
-  function esc(e) { if (e.key === 'Escape') { set(false); trigger.focus(); } }
-  trigger.addEventListener('click', () => set(!open));
-  menu.addEventListener('click', e => { if (e.target.closest('.menu__item') && !e.target.closest('.menu__item--sub')) set(false); });
-  window.addEventListener('resize', () => { if (open) place(); });
-  return { place, set };
+  const api = window.DSMenu.bind(trigger, { menu, placement, align, gap: 6 });
+  return { place: () => api.place(), set: v => v ? api.open() : api.close() };
 }
 
 (function () {
@@ -363,7 +291,7 @@ function openable(anchor, trigger, menu, placement, align) {
   const th = document.getElementById('use-th');
   if (th) {
     const anchor = document.createElement('span'); anchor.className = 'menu-anchor';
-    const trg = document.createElement('button'); trg.type = 'button'; trg.className = 'kebab'; trg.innerHTML = KEBAB; trg.setAttribute('aria-label', 'Ещё'); trg.setAttribute('aria-haspopup', 'menu');
+    const trg = document.createElement('button'); trg.type = 'button'; trg.className = 'ibtn ibtn--neutral ibtn--l'; trg.innerHTML = KEBAB; trg.setAttribute('aria-label', 'Ещё'); trg.setAttribute('aria-haspopup', 'menu');
     anchor.appendChild(trg);
     const m = makeMenu([{ label: 'Правила начисления процентов' }], { floating: true });
     m.style.minWidth = '240px';
@@ -376,7 +304,7 @@ function openable(anchor, trigger, menu, placement, align) {
   const tr = document.getElementById('use-tr');
   if (tr) {
     const anchor = document.createElement('span'); anchor.className = 'menu-anchor';
-    const trg = document.createElement('button'); trg.type = 'button'; trg.className = 'kebab kebab--s'; trg.innerHTML = KEBAB; trg.setAttribute('aria-label', 'Действия'); trg.setAttribute('aria-haspopup', 'menu');
+    const trg = document.createElement('button'); trg.type = 'button'; trg.className = 'ibtn ibtn--neutral ibtn--m'; trg.innerHTML = KEBAB; trg.setAttribute('aria-label', 'Действия'); trg.setAttribute('aria-haspopup', 'menu');
     anchor.appendChild(trg);
     const m = makeMenu([{ label: 'Разделить', icon: 'swap-currency' }], { floating: true });
     anchor.appendChild(m);
@@ -388,7 +316,7 @@ function openable(anchor, trigger, menu, placement, align) {
   const cd = document.getElementById('use-card');
   if (cd) {
     const anchor = document.createElement('span'); anchor.className = 'menu-anchor';
-    const trg = document.createElement('button'); trg.type = 'button'; trg.className = 'kebab kebab--s'; trg.innerHTML = KEBAB; trg.setAttribute('aria-label', 'Действия'); trg.setAttribute('aria-haspopup', 'menu');
+    const trg = document.createElement('button'); trg.type = 'button'; trg.className = 'ibtn ibtn--neutral ibtn--m'; trg.innerHTML = KEBAB; trg.setAttribute('aria-label', 'Действия'); trg.setAttribute('aria-haspopup', 'menu');
     anchor.appendChild(trg);
     const m = makeMenu([
       { label: 'Изменить', icon: 'edit' },
@@ -419,26 +347,11 @@ function openable(anchor, trigger, menu, placement, align) {
   vp.appendChild(menu);
 
   function update() {
-    const prefer = preferSel.value;
-    const br = vp.getBoundingClientRect();
-    const tr = trg.getBoundingClientRect();
-    const mw = menu.offsetWidth, mh = menu.offsetHeight, gap = 6, m = 6;
-    const sTop = tr.top - br.top, sBottom = br.bottom - tr.bottom;
-    const order = { bottom: ['bottom', 'top'], top: ['top', 'bottom'] }[prefer] || ['bottom', 'top'];
-    const fits = { top: sTop >= mh + gap, bottom: sBottom >= mh + gap };
-    const placement = order.find(p => fits[p]) || prefer;
-
-    // выравнивание: start (рост вправо); если не помещается — end (рост влево)
-    let align = 'start';
-    if ((br.right - tr.left) < mw + m) align = 'end';
-    placeMenu(vp, menu, trg, placement, align, gap);
-
-    // зажим по обеим осям в границах области
-    let x = parseFloat(menu.style.left), y = parseFloat(menu.style.top);
-    x = Math.max(m, Math.min(br.width - mw - m, x));
-    y = Math.max(m, Math.min(br.height - mh - m, y));
-    menu.style.left = x + 'px';
-    menu.style.top = y + 'px';
+    /* границей служит сама демо-область: рантайм сам развернёт меню вверх
+       и зажмёт его внутри рамки */
+    window.DSMenu.place(menu, trg, {
+      placement: preferSel.value, align: 'start', gap: 6, boundary: vp, offsetParent: vp,
+    });
   }
 
   let dragging = false, ox = 0, oy = 0;
@@ -472,17 +385,7 @@ function openable(anchor, trigger, menu, placement, align) {
     { label: 'Удалить', icon: 'trash', danger: true },
   ]);
   menu.style.minWidth = '220px';
-  const subHost = menu.querySelector('.menu__item--sub');
-  const sub = makeMenu([
-    { label: 'PDF' },
-    { label: 'Excel (XLSX)' },
-    { label: 'CSV' },
-  ], { floating: true });
-  sub.classList.add('menu__sub');
-  subHost.appendChild(sub);
-  let t;
-  subHost.addEventListener('mouseenter', () => { clearTimeout(t); sub.classList.add('is-open'); });
-  subHost.addEventListener('mouseleave', () => { t = setTimeout(() => sub.classList.remove('is-open'), 160); });
+  wireSubmenu(menu);
   host.appendChild(menu);
 })();
 

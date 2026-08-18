@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="../../styles/dropdown-list.css">
 <link rel="stylesheet" href="../../styles/tooltip.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
+<link rel="stylesheet" href="../../styles/chart.css">
+<link rel="stylesheet" href="../../styles/skeleton.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -100,10 +102,10 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.9</b></span>
-    <span>Обновлено <b>05.08.2026</b></span>
+    <span>Версия <b>v2.4</b></span>
+    <span>Обновлено <b>18.08.2026</b></span>
     <span>CSS <b>styles/table-cell.css</b></span>
-    <span>Зависимости <b>checkbox, chip, icon-button, button, input, dropdown-list, tooltip</b></span>
+    <span>Зависимости <b>checkbox, chip, icon-button, button, input, dropdown-list, tooltip, chart</b></span>
   </div>
   <div class="eyebrow">Дизайн-система · Организмы</div>
   <h1>TableCell</h1>
@@ -300,9 +302,9 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc tc--center"><label class="cb cb--no-content cb--unselected"><input type="checkbox" class="cb__input" aria-label="Выбрать ООО ЮгСтройИнвестМонтаж"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
+        <div class="tc tc--center"><label class="cb cb--no-content"><input type="checkbox" class="cb__input" aria-label="Выбрать ООО ЮгСтройИнвестМонтаж"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
         <div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">ООО ЮгСтройИнвестМонтаж, комплексная поставка оборудования</span></span></div>
-        <div class="tc"><span class="chip chip--readonly chip--s chip--rounded chip--success"><span class="chip__label">Активна</span></span></div>
+        <div class="tc"><span class="chip chip--s chip--rounded chip--success"><span class="chip__label">Активна</span></span></div>
         <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">1 240 500</span></span></div>
         <div class="tc"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Ещё"><i data-icon="more-dots"></i></button></div></div>
         <div class="tc tc--separator"></div>
@@ -311,23 +313,23 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="tc tc--separator"></div>
         <div class="tc tc--center"><label class="cb cb--no-content cb--selected"><input type="checkbox" class="cb__input" checked aria-label="Выбрать ПАО Ростелеком"><span class="cb__box"><span class="cb__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span></span></label></div>
         <div class="tc"><span class="tc__body"><span class="tc__row"><span class="tc__text">ПАО Ростелеком</span></span><span class="tc__subtext">ИНН 7707049388</span></span></div>
-        <div class="tc"><span class="chip chip--readonly chip--s chip--rounded"><span class="chip__label">На проверке</span></span></div>
+        <div class="tc"><span class="chip chip--s chip--rounded"><span class="chip__label">На проверке</span></span></div>
         <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">986 300</span></span></div>
         <div class="tc"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Ещё"><i data-icon="more-dots"></i></button></div></div>
         <div class="tc tc--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc tc--center"><label class="cb cb--no-content cb--unselected"><input type="checkbox" class="cb__input" aria-label="Выбрать АО Тандер"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
+        <div class="tc tc--center"><label class="cb cb--no-content"><input type="checkbox" class="cb__input" aria-label="Выбрать АО Тандер"><span class="cb__box"><span class="cb__mark"></span></span></label></div>
         <div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">АО Тандер</span><span class="tc__icon tc__icon--warning"><i data-icon="alert-triangle"></i></span></span></div>
-        <div class="tc"><span class="chip chip--readonly chip--s chip--rounded chip--error"><span class="chip__label">Просрочена</span></span></div>
+        <div class="tc"><span class="chip chip--s chip--rounded chip--error"><span class="chip__label">Просрочена</span></span></div>
         <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">432 100</span></span></div>
         <div class="tc"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Редактировать"><i data-icon="edit"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Ещё"><i data-icon="more-dots"></i></button></div></div>
         <div class="tc tc--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 40px 2fr 1.4fr 1fr 96px 8px;">
         <div class="tc tc--separator"></div>
-        <div class="tc tc--center"><label class="cb cb--no-content cb--unselected"><input type="checkbox" class="cb__input" aria-label="Выбрать ИП Смирнов А.В."><span class="cb__box"><span class="cb__mark"></span></span></label></div>
+        <div class="tc tc--center"><label class="cb cb--no-content"><input type="checkbox" class="cb__input" aria-label="Выбрать ИП Смирнов А.В."><span class="cb__box"><span class="cb__mark"></span></span></label></div>
         <div class="tc"><span class="tc__row"><span class="tc__text tc__text--truncate">ИП Смирнов А.В.</span></span></div>
         <div class="tc"><span class="tc__empty">—</span></div>
         <div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">57 800</span></span></div>
@@ -454,7 +456,12 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <!-- VARIANTS (STUB) -->
   <section class="section" data-screen-label="Variants">
     <h2>Варианты</h2>
-    <p class="desc">Не применимо: компонент существует в единственной конфигурации, отдельных вариантов нет.</p>
+    <p class="desc">Тип контента — настройка ячейки, а не отдельный вариант компонента (см. «Контент»). Собственный вариант у ячейки один — «Динамика».</p>
+
+    <h3>Динамика (спарклайн)</h3>
+    <p class="desc">Колонка тренда: форма изменения показателя за период в слоте <code class="tok">.tc__spark</code> (72×24px, ширина — через <code class="tok">--tc-spark-w</code>). Рисует его компонент <a class="inl" href="Chart.html">Chart</a> с <code class="tok">type: 'spark'</code> — без осей, легенды и тултипа: в строке таблицы читается только форма, точное значение стоит рядом отдельной колонкой. Тон <code class="tok">auto</code> красит линию по знаку изменения от первой точки к последней (<code class="tok">--success</code> / <code class="tok">--error</code>), заданный цвет серии — когда сравнивать надо не «лучше-хуже», а показатели между собой.</p>
+    <div class="panel" style="padding:0;overflow:hidden;margin-top:14px;" id="tc-spark-demo"></div>
+    <p class="desc" style="margin-top:14px;">Полноразмерный график (с осями, легендой и тултипом) в ячейку не ставится: он ломает высоту строки 48px и требует наведения, которое конфликтует с тултипом усечения.</p>
   </section>
 
   <!-- 4. РАЗМЕРЫ -->
@@ -896,6 +903,9 @@ if (truncateEnabled &amp;&amp; cellText.scrollWidth &gt; cellText.clientWidth) a
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/ds-tooltip.js"></script>
+<script src="../../scripts/ds-table.js"></script>
+<script src="../../scripts/ds-chart.js"></script>
 <script src="../../scripts/table-cell.page.js"></script>
 </body>
 </html>

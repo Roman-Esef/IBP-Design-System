@@ -2,7 +2,7 @@
 component: Icons
 title: "Иконки"
 version: "v1.0"
-updated: "02.07.2026"
+updated: "07.08.2026"
 page: pages/foundations/Icons.html
 css: —
 status: curated

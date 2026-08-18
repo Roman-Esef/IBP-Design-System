@@ -10,105 +10,11 @@ const SPL_UI = {
 (function(){ const L=window.DS_ICONS||{}; const m={bad:'close',good:'check'};
   for(const k in m){ if(L[m[k]]) SPL_UI[k]=L[m[k]]; } })();
 
-/* ---------- splitter element factory ----------
-   o: { orientation:'v'|'h', state:'default'|'hover'|'move'|'disabled', dots } */
-function makeSplitter(o = {}) {
-  const { orientation='v', state='default' } = o;
-  const el = document.createElement('div');
-  el.className = 'spl' + (orientation==='h' ? ' spl--h' : '');
-  if (state==='hover') el.classList.add('spl--hover');
-  if (state==='move')  el.classList.add('spl--move');
-  if (state==='disabled') el.classList.add('spl--disabled');
-  el.setAttribute('role','separator');
-  el.setAttribute('aria-orientation', orientation==='h' ? 'horizontal' : 'vertical');
-  if (state!=='disabled') el.tabIndex = 0;
-  const grip = document.createElement('span'); grip.className='spl__grip';
-  for (let i=0;i<6;i++) grip.appendChild(document.createElement('i'));
-  el.appendChild(grip);
-  return el;
-}
-
-/* ---------- working split-pane factory ----------
-   o: { orientation, left, right, min, max, initial, height } */
-function createSplitPane(o = {}) {
-  const { orientation='v', min=20, max=80, initial=50, height=220,
-          leftLabel='Левая панель', rightLabel='Правая панель',
-          buildLeft, buildRight, onChange } = o;
-  const horiz = orientation==='h';
-
-  const wrap = document.createElement('div');
-  wrap.className = 'splitpane' + (horiz?' splitpane--h':'');
-  wrap.style.height = height + 'px';
-
-  const a = document.createElement('div'); a.className='splitpane__panel splitpane__a';
-  const b = document.createElement('div'); b.className='splitpane__panel splitpane__b';
-  if (buildLeft) buildLeft(a); else a.innerHTML = '<span class="splitpane__ph">'+leftLabel+'</span>';
-  if (buildRight) buildRight(b); else b.innerHTML = '<span class="splitpane__ph">'+rightLabel+'</span>';
-
-  const spl = makeSplitter({ orientation });
-
-  // initial sizing via flex-basis percentage on panel A
-  let pct = initial;
-  function apply(){
-    a.style.flex = '0 0 ' + pct + '%';
-    b.style.flex = '1 1 auto';
-    spl.setAttribute('aria-valuemin', String(min));
-    spl.setAttribute('aria-valuemax', String(max));
-    spl.setAttribute('aria-valuenow', String(Math.round(pct)));
-    if (onChange) onChange(Math.round(pct));
-  }
-  wrap.appendChild(a); wrap.appendChild(spl); wrap.appendChild(b);
-
-  // drag
-  let dragging=false;
-  function pointerPct(clientPos){
-    const r = wrap.getBoundingClientRect();
-    const total = horiz ? r.height : r.width;
-    const offset = horiz ? (clientPos - r.top) : (clientPos - r.left);
-    return Math.max(min, Math.min(max, offset / total * 100));
-  }
-  spl.addEventListener('pointerdown', e=>{
-    if (spl.classList.contains('spl--disabled')) return;
-    dragging=true; spl.classList.add('spl--move');
-    document.body.classList.add(horiz?'spl-dragging-h':'spl-dragging');
-    spl.setPointerCapture(e.pointerId);
-    e.preventDefault();
-  });
-  spl.addEventListener('pointermove', e=>{
-    if(!dragging) return;
-    pct = pointerPct(horiz ? e.clientY : e.clientX);
-    apply();
-  });
-  function endDrag(e){
-    if(!dragging) return;
-    dragging=false; spl.classList.remove('spl--move');
-    document.body.classList.remove('spl-dragging','spl-dragging-h');
-    try{ spl.releasePointerCapture(e.pointerId); }catch(_){}
-  }
-  spl.addEventListener('pointerup', endDrag);
-  spl.addEventListener('pointercancel', endDrag);
-
-  // keyboard
-  spl.addEventListener('keydown', e=>{
-    const step = e.shiftKey ? 10 : 2;
-    let used=true;
-    if (horiz){
-      if (e.key==='ArrowUp')   pct=Math.max(min,pct-step);
-      else if (e.key==='ArrowDown') pct=Math.min(max,pct+step);
-      else used=false;
-    } else {
-      if (e.key==='ArrowLeft')  pct=Math.max(min,pct-step);
-      else if (e.key==='ArrowRight') pct=Math.min(max,pct+step);
-      else used=false;
-    }
-    if (e.key==='Home'){ pct=min; used=true; }
-    if (e.key==='End'){ pct=max; used=true; }
-    if (used){ e.preventDefault(); apply(); }
-  });
-
-  apply();
-  return { wrap, setPct(v){ pct=Math.max(min,Math.min(max,v)); apply(); } };
-}
+/* Поведение сплиттера вынесено в рантайм ДС — scripts/ds-splitter.js
+   (перетаскивание с pointer capture, min/max, клавиатура, aria-value*).
+   Страница-витрина пользуется тем же публичным API. */
+const makeSplitter = (o) => window.DSSplitter.make(o);
+const createSplitPane = (o) => window.DSSplitter.pane(o);
 
 /* ===================================================================== *
    PLAYGROUND

@@ -1,8 +1,8 @@
 ---
 component: InputDate
 title: "InputDate"
-version: "v1.8"
-updated: "29.07.2026"
+version: "v1.9"
+updated: "12.08.2026"
 page: pages/molecules/InputDate.html
 page_js: scripts/input-date.page.js
 css: styles/input.css
@@ -14,6 +14,16 @@ status: curated
 
 ## Назначение
 Поле ввода даты: маска ММ.ДД.ГГГГ (в placeholder) + кнопка-календарь, поднимающая DatePicker (рантайм `scripts/ds-datepicker.js`, модуль `openPicker`, автоподключение по кнопке-календарю). База `.inp` общая с InputText — состояния и размеры общие.
+
+## Инварианты
+- База `.inp` общая с InputText — токены и состояния наследуются целиком, отдельного визуального языка у поля даты нет.
+- Календарь самоподключается по `.inp__act[aria-label="Открыть календарь"]` через рантайм `ds-datepicker.js` — кнопке не нужен отдельный обработчик в разметке экрана.
+- Маска-плейсхолдер (ММ.ДД.ГГГГ) — только placeholder, не значение; цвет `--text-inactive`, пока поле пустое.
+- Разворот шеврона/действий поля реагирует на `aria-expanded`/`.is-open` на `.inp`, не на отдельный класс на кнопке.
+
+## Диагностика
+- «Календарь не открывается по клику на кнопку» → кнопка должна иметь `aria-label="Открыть календарь"` — по нему рантайм биндит `ds-datepicker.js`
+- «Маска выглядит как введённое значение» → это должен быть `placeholder`, не `value`
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — ввод конкретной даты (подписание, транш, план); редактирование даты в ячейке — размер S. Диапазон — два InputDate «От»/«До». Текст → InputText; справочник → InputAutocomplete.
@@ -35,8 +45,8 @@ status: curated
 ### Разметка · HTML (эталонная реализация ДС)
 
 ```
-<div class="inp inp--m">
-  <label class="ds-label ds-label--left" for="d1"><span class="ds-label__text">Дата подписания</span></label>
+<div class="inp">
+  <label class="ds-label" for="d1"><span class="ds-label__text">Дата подписания</span></label>
   <div class="inp__field">
     <input class="inp__control" id="d1" placeholder="ММ.ДД.ГГГГ" inputmode="numeric">
     <span class="inp__acts">

@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="../../styles/segment-control.css">
 <link rel="stylesheet" href="../../styles/splitter.css">
 <link rel="stylesheet" href="../../styles/read-only-field.css">
+<link rel="stylesheet" href="../../styles/skeleton.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -162,7 +163,7 @@
 <main class="page" data-screen-label="ReadOnlyField">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>05.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>13.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ReadOnlyField</h1>
     <p class="lead">Поле для отображения данных без возможности редактирования. Показывает значение — <b>текст</b>, <b>чипы</b> или <b>ссылку</b> — с опциональными лейблом и хэлпером (см. <code class="tok">Label / Helper</code>), иконками слева/справа и префиксом/постфиксом. Не имеет собственного контейнера: без рамки и фона, это пара «подпись → значение» для карточек сущностей и детальных панелей.</p>
@@ -487,6 +488,7 @@
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-copy.js"></script>
 <script src="../../scripts/read-only-field.page.js"></script>
 <script>
   document.getElementById('uc-a-action').innerHTML = (window.DS_ICONS && window.DS_ICONS['edit']) || '';

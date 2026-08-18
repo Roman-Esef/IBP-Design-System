@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="../../styles/chip.css">
 <link rel="stylesheet" href="../../styles/label-helper.css">
 <link rel="stylesheet" href="../../styles/popover.css">
+<link rel="stylesheet" href="../../styles/skeleton.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -134,7 +135,7 @@
 <main class="page" data-screen-label="Popover">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>29.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>11.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Popover</h1>
     <p class="lead">Popover — нон-модальный всплывающий контейнер, привязанный к триггеру. Показывает расширенный контекстный контент (текст с форматированием, интерактивные элементы, формы, легенды, списки). В отличие от <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> — требует клика для открытия и не закрывается при уходе курсора; в отличие от <b>Modal</b> — не блокирует страницу, не имеет скрима и закрывается кликом вне себя.</p>
@@ -369,6 +370,12 @@
       <code class="tok">styles/popover.css</code>
     </div>
 
+    <div class="dev-intro">
+      <span class="req">Рантайм из коробки — поведение ниже уже реализовано:</span>
+      <code class="tok">scripts/ds-popover.js</code>
+    </div>
+    <p class="dev-note" style="margin:-6px 0 20px;">Подключённый <code class="tok">ds-popover.js</code> сам навешивает поведение на любой триггер с <code class="tok">data-popover="&lt;id поповера&gt;"</code>: 12 позиций, авто-flip стороны и выравнивания, стрелка по центру триггера, один открытый поповер, 5 способов закрытия, тени шапки/подвала при прокрутке. Настройки — атрибутами триггера (<code class="tok">data-popover-placement</code>, <code class="tok">data-popover-align</code>, <code class="tok">data-popover-gap</code>, <code class="tok">data-popover-flip="no"</code>, <code class="tok">data-popover-boundary</code>), императивно — <code class="tok">DSPopover.bind / place / closeAll</code>.</p>
+
     <p class="subhead2">Поведение · псевдокод (framework-agnostic)</p>
 <div class="code-panel">
       <div class="code-panel__head">
@@ -417,7 +424,7 @@ onBodyScroll():
 <span class="tk-cm">// 6. prefers-reduced-motion: анимация появления/исчезновения отключается —
 //    поповер появляется/скрывается мгновенно (см. styles/popover.css)</span></code></pre>
     </div>
-    <p class="dev-note">Это не готовый сниппет для вставки — алгоритм поверх вашего стека. Рабочий референс на vanilla JS — функции <code class="tok">buildPopover</code> и <code class="tok">placePop</code> в <code class="tok">popover.page.js</code>.</p>
+    <p class="dev-note">Это не готовый сниппет для вставки — алгоритм поверх вашего стека. Рабочая реализация алгоритма на vanilla JS — <code class="tok">scripts/ds-popover.js</code> (функции <code class="tok">place</code> и <code class="tok">bind</code>); сборка разметки для демо витрины — <code class="tok">buildPopover</code> в <code class="tok">popover.page.js</code>.</p>
 
     </section>
 
@@ -441,6 +448,7 @@ onBodyScroll():
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/ds-popover.js"></script>
 <script src="../../scripts/popover.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>

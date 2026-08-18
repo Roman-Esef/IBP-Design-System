@@ -18,9 +18,46 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  align-self: stretch;              /* высота = высоте ряда grid/flex-контейнера (RulesAudit W2) */
   background: var(--bg-tile);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-m);   /* 8 */
+}
+
+/* ------------------------------------------------------------
+   Раскладка нескольких тайлов — общие утилиты, чтобы экрану не
+   изобретать свою сетку заново (RulesAudit W2).
+
+   .tile-row — ряд: CSS Grid растягивает элементы ряда по высоте
+   САМ (align-items:stretch — поведение Grid по умолчанию, ничего
+   специально включать не нужно); align-self:stretch у .tile выше
+   даёт то же самое, даже если контейнер экрана переопределил
+   align-items:start — так поймали дефект на 02-Deal-v3 (высоты
+   214/186/242 в одном ряду). Колонки — свои под контент экрана:
+   ширина каждого тайла — style="grid-column:span N" (3–12 из 12).
+   Тайл один на весь ряд (span 12) высоту берёт по контенту —
+   это не особый случай, а естественное поведение Grid (тайл —
+   единственный элемент своего ряда, "тянуться к самому высокому
+   в ряду" равно "остаться собой").
+
+   .tile-stack — колонка/стопка тайлов (канбан: несколько .tile-stack
+   рядом, каждый — набор тайлов разной суммарной высоты). Сама
+   стопка — обычный grid-item (span N, align-self:stretch тянет её
+   по высоте ряда), но ВНУТРИ — flex-column: у flex-column ось
+   растяжения (align-self:stretch) — это ширина, не высота, поэтому
+   тайлы внутри стопки остаются каждый со своей высотой по контенту,
+   а не делят высоту стопки поровну. */
+.tile-row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+.tile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  align-self: stretch;
 }
 
 /* ------------------------------------------------------------
@@ -71,7 +108,7 @@
   height: 20px;
   color: var(--warning);
 }
-.tile__title-add--icon > i, .tile__title-add--icon > svg { width: 100%; height: 100%; display: block; }
+.tile__title-add--icon > :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 .tile__title-link {
   flex: none;
 }
@@ -167,12 +204,14 @@
   display: inline-flex;
   transition: transform .18s ease;
 }
-.tile--collapsed .tile__chevron {
+.tile--collapsed .tile__chevron,
+.tile__toggle[aria-expanded="false"] .tile__chevron {
   transform: rotate(-180deg);
 }
-.tile__collapsible {
-  overflow: hidden;
-}
+/* .tile__collapsible — сворачивание чисто через display:none (см. .tile--collapsed
+   ниже), без анимации высоты (ds-tile.js её не делает) — поэтому здесь НЕТ
+   overflow:hidden: он не нужен для коллапса и лишь обрезал бы floating-контент
+   (Popover/RiskMetric) любого компонента, вложенного в аккордеон-тайл. */
 .tile--collapsed .tile__collapsible {
   display: none;
 }

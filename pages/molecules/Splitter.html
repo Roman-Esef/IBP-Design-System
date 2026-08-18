@@ -49,17 +49,6 @@
 
   /* select control */
 
-  /* ---------- working split-pane ---------- */
-  .splitpane { display:flex; align-items:stretch; width:100%;
-    background: var(--bg-tile); border:1px solid var(--border-light); border-radius:14px; overflow:hidden; }
-  .splitpane--h { flex-direction:column; }
-  .splitpane__panel { overflow:hidden; min-width:0; min-height:0; display:flex; }
-  .splitpane__ph { margin:auto; font: var(--type-body-m); color: var(--text-inactive); padding:16px; }
-  .splitpane__a { background: var(--tertiary-light); }
-  .splitpane__b { background: var(--bg-tile); }
-  .splitpane--app { border-color: var(--border-primary); box-shadow: 0 10px 30px rgba(40,50,55,.08); }
-  .splitpane--app .splitpane__a, .splitpane--app .splitpane__b { background: var(--bg-tile); display:block; overflow:auto; }
-
   /* ---------- static state frame ---------- */
   .spl-static { display:flex; align-items:stretch; width:200px; height:150px;
     border:1px solid var(--border-light); border-radius:12px; overflow:hidden; }
@@ -141,7 +130,7 @@
 <main class="page" data-screen-label="Splitter">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>08.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>12.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Splitter</h1>
     <p class="lead">Функциональный разделитель контейнера: пользователь тащит сплиттер и регулирует размеры соседних панелей. При наведении курсор меняется на <code class="tok">col-resize</code> / <code class="tok">ew-resize</code>, а сам сплиттер переходит в состояние Hover. Перемещается по одной оси; в момент перетаскивания вид и курсор сохраняются.</p>
@@ -371,6 +360,7 @@ pct = clamp( (позиция_курсора - начало_контейнера)
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
 <script src="../../scripts/splitter.page.js"></script>
 <script>
 /* ---------- DEV: copy-to-clipboard on code panels ---------- */

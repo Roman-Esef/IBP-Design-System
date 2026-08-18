@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../styles/typography.css">
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
+<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <style>
 
@@ -29,6 +30,7 @@
     border:1px solid var(--border-light); border-radius:16px;
   }
   .search { position:relative; flex:1 1 280px; min-width:220px; }
+  .search i, .clear i { display:contents; }
   .search svg { position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; color: var(--text-inactive); pointer-events:none; }
   .search input {
     width:100%; height:44px; padding:0 40px 0 42px;
@@ -116,7 +118,7 @@
 <main class="page" data-screen-label="Icons">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>02.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>07.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Основы</p>
     <h1>Icons</h1>
     <p class="lead">Набор иконок для компонентов и интерфейсов. По умолчанию используем <b>Outline</b> стиль; в исключительных случаях для отображения состояния можно использовать <b>Filled</b>. Иконки рисуются в сетке 24×24. Клик по иконке копирует её имя.</p>
@@ -125,10 +127,10 @@
   <!-- TOOLBAR (interactive — first) -->
   <div class="toolbar" data-screen-label="Toolbar">
     <label class="search" id="search-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <i data-icon="search"></i>
       <input id="search" type="text" placeholder="Поиск по имени иконки…" autocomplete="off" spellcheck="false">
       <button class="clear" id="clear" aria-label="Очистить">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        <i data-icon="close"></i>
       </button>
     </label>
     <div class="seg" id="size-seg" role="tablist" aria-label="Размер иконок">
@@ -154,6 +156,7 @@
 </div>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
 <script>
 const I = window.DS_ICONS || {};
 
@@ -292,5 +295,6 @@ document.getElementById('cats').addEventListener('click', e => {
 });
 </script>
 <script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-toc.js"></script>
 </body>
 </html>

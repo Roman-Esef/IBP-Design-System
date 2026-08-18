@@ -15,6 +15,15 @@ status: curated
 ## Назначение
 Поле ввода числового диапазона: два InputAmount с префиксами «От» / «До», размещённых горизонтально и соединённых линией Range_Line, с общей меткой сверху и общим хелпером снизу. Каждое поле — самостоятельный экземпляр `.inp` со своими состояниями.
 
+## Инварианты
+- Только размер M (40px) — размера S нет.
+- Поля независимы — hover/focus/error одного не влияют на другое; оба могут быть в ошибке одновременно.
+- Range_Line — декоративная линия между полями (`::before`), не интерактивна, не участвует в фокусе/табе.
+- В Disabled линия светлеет вместе с бордерами полей — единое визуальное состояние диапазона.
+
+## Диагностика
+- «Фокус одного поля окрашивает оба» → состояния должны быть заданы на каждом `.inp` отдельно, не на общем `.inp-range`
+
 ## Ключевые правила (из разделов страницы)
 - **Использование** — числовой диапазон «от … до …» в фильтрах/формах (сумма, лимит, объём); одно поле может быть пустым (открытая граница). Одиночное число → InputAmount; диапазон дат → InputDateRange; выбор из списка → InputAutocomplete.
 - **Анатомия** — Label (общая) · два InputAmount с префиксом «От»/«До» · Range_Line между ними · Helper (опц.). В полях всегда есть префикс. Толщина/цвет Range_Line = бордер инпута (1px, `--border-primary`).
@@ -35,10 +44,10 @@ status: curated
 ### Разметка · HTML (эталонная реализация ДС)
 
 ```
-<div class="inp-range inp-range--m">
-  <label class="ds-label ds-label--left"><span class="ds-label__text">Сумма, ₽</span></label>
+<div class="inp-range">
+  <label class="ds-label"><span class="ds-label__text">Сумма, ₽</span></label>
   <div class="inp-range__row">
-    <div class="inp inp--m inp-range__field">
+    <div class="inp inp-range__field">
       <div class="inp__field">
         <span class="inp__prefix">От</span>
         <input class="inp__control" inputmode="decimal">
@@ -46,7 +55,7 @@ status: curated
       </div>
     </div>
     <span class="inp-range__line" aria-hidden="true"></span>
-    <div class="inp inp--m inp-range__field">…префикс «До»…</div>
+    <div class="inp inp-range__field">…префикс «До»…</div>
   </div>
   <span class="ds-helper ds-helper--left">Helper</span>
 </div>

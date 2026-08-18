@@ -18,7 +18,8 @@
   -webkit-tap-highlight-color: transparent;
   position: relative;
 }
-.cb--disabled { cursor: default; pointer-events: none; }
+.cb--disabled,
+.cb:has(.cb__input:disabled) { cursor: default; pointer-events: none; }
 
 /* visually-hidden native input (keeps it accessible / focusable) */
 .cb__input {
@@ -52,16 +53,20 @@
   background: transparent;
   transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
 }
-.cb__mark svg {
+.cb__mark :is(svg,[data-icon]){
   width: 14px;
   height: 14px;
   display: block;
   color: var(--text-on-dark);   /* white glyph */
 }
 
-/* ---------- selected & indeterminate (filled) ----------------------------- */
+/* ---------- selected & indeterminate (filled) -----------------------------
+   Класс покрывает форс-состояния витрины; нативный ввод (checked/indeterminate
+   на .cb__input) даёт тот же вид без класса — см. RulesAudit W1. */
 .cb--selected .cb__mark,
-.cb--indeterminate .cb__mark {
+.cb--indeterminate .cb__mark,
+.cb__input:checked ~ .cb__box .cb__mark,
+.cb__input:indeterminate ~ .cb__box .cb__mark {
   background: var(--primary);
   border-color: var(--primary);
 }
@@ -76,7 +81,9 @@
 .cb:hover.cb--selected .cb__mark,
 .cb:hover.cb--indeterminate .cb__mark,
 .cb--hover.cb--selected .cb__mark,
-.cb--hover.cb--indeterminate .cb__mark {
+.cb--hover.cb--indeterminate .cb__mark,
+.cb:hover:has(.cb__input:checked) .cb__mark,
+.cb:hover:has(.cb__input:indeterminate) .cb__mark {
   background: var(--primary-dark);
   border-color: var(--primary-dark);
 }
@@ -102,7 +109,9 @@
   box-shadow: none;
 }
 .cb--error.cb--selected .cb__mark,
-.cb--error.cb--indeterminate .cb__mark {
+.cb--error.cb--indeterminate .cb__mark,
+.cb--error:has(.cb__input:checked) .cb__mark,
+.cb--error:has(.cb__input:indeterminate) .cb__mark {
   background: var(--error);
   border-color: var(--error);
 }
@@ -112,7 +121,8 @@
   box-shadow: 0 0 0 4px var(--error-bg);
 }
 .cb:hover.cb--error.cb--selected .cb__mark,
-.cb--hover.cb--error.cb--selected .cb__mark {
+.cb--hover.cb--error.cb--selected .cb__mark,
+.cb:hover.cb--error:has(.cb__input:checked) .cb__mark {
   background: var(--error-dark);
   border-color: var(--error-dark);
 }
@@ -128,14 +138,19 @@
 .cb__req { color: var(--error); margin-left: 2px; }
 
 /* ---------- disabled ------------------------------------------------------- */
-.cb--disabled .cb__mark { border-color: var(--disabled); box-shadow: none; }
+.cb--disabled .cb__mark,
+.cb__input:disabled ~ .cb__box .cb__mark { border-color: var(--disabled); box-shadow: none; }
 .cb--disabled.cb--selected .cb__mark,
-.cb--disabled.cb--indeterminate .cb__mark {
+.cb--disabled.cb--indeterminate .cb__mark,
+.cb__input:disabled:checked ~ .cb__box .cb__mark,
+.cb__input:disabled:indeterminate ~ .cb__box .cb__mark {
   background: var(--disabled);
   border-color: var(--disabled);
 }
 .cb--disabled .cb__label,
-.cb--disabled .ds-helper { color: var(--text-inactive); }
+.cb--disabled .ds-helper,
+.cb__input:disabled ~ .cb__content .cb__label,
+.cb__input:disabled ~ .cb__content .ds-helper { color: var(--text-inactive); }
 
 /* ---------- group ---------------------------------------------------------
    Checkboxes can be grouped. Inside a group the active (clickable) area
@@ -162,4 +177,4 @@
   align-items: center;
   gap: 6px;
 }
-.cb-group__error svg { width: 14px; height: 14px; flex: none; }
+.cb-group__error :is(svg,[data-icon]){ width: 14px; height: 14px; flex: none; }

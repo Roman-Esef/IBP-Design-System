@@ -17,15 +17,26 @@
 
   function headingText(h) {
     var clone = h.cloneNode(true);
-    var junk = clone.querySelectorAll('.badge-new, .addon, .req, sup');
+    var junk = clone.querySelectorAll('.badge-new, .badge-proposal, .addon, .req, sup');
     for (var i = 0; i < junk.length; i++) junk[i].parentNode.removeChild(junk[i]);
     return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+
+  // самодостаточность: подтягиваем свой стиль, если страница его не подключила
+  function ensureCss() {
+    if (document.querySelector('link[rel="stylesheet"][href$="ds-toc.css"]')) return;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = (window.__DS_ROOT || '') + 'styles/ds-toc.css';
+    document.head.appendChild(l);
   }
 
   function init() {
     // no-op guard: только на страницах-хостах (<main class="page">); на карточках @dsCard,
     // тянущих ds-toc.js через _ds_bundle.js, контейнера нет — молча выходим.
     if (!document.querySelector('main.page')) return;
+    ensureCss();
     var sections = document.querySelectorAll('main section.section');
     if (!sections.length) sections = document.querySelectorAll('main section');
     if (sections.length < 2) return;

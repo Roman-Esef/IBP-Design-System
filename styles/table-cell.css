@@ -36,7 +36,8 @@
 /* --- интерактивные состояния — свойство СТРОКИ, не ячейки ---------------- */
 /* Hover/focus/selected красят ВСЕ ячейки строки, включая ячейки-разделители:
    состояние живёт на строке (.tbl__row / <tr>), ячейка его лишь наследует.
-   Классы .tc--hover/--focus/--selected сохранены для одиночных примеров. */
+   Классы .tc--hover/--focus/--selected сохранены для одиночных примеров;
+   реальная строка несёт aria-selected="true" (RulesAudit W1). */
 .tbl__row:hover > .tc,
 .tbl__row--hover > .tc,
 .tc--hover                    { background: var(--bgtable-row-hover); }
@@ -65,11 +66,13 @@
 }
 
 .tbl__row--selected > .tc,
+.tbl__row[aria-selected="true"] > .tc,
 .tc--selected                 { background: var(--primary-bg); }
 /* форс-состояние строки сильнее наведения: строка в фокусе остаётся в фокусе */
 .tbl__row--focus:hover > .tc  { background: var(--bgtable-row-focus); }
 .tbl__row--selected:hover > .tc,
 .tbl__row--selected.tbl__row--hover > .tc,
+.tbl__row[aria-selected="true"]:hover > .tc,
 .tc--selected.tc--hover       { background: color-mix(in srgb, var(--c-emerald-500) 10%, transparent); }
 
 /* --- error --- */
@@ -159,9 +162,7 @@
   display: inline-flex;
   color: var(--text-secondary);
 }
-.tc__icon svg { display: block; width: 16px; height: 16px; }
-.tc__icon [data-icon] { width: 16px; height: 16px; }
-.tc__icon--lead { order: -1; }
+.tc__icon :is(svg,[data-icon]){ display: block; width: 16px; height: 16px; }.tc__icon--lead { order: -1; }
 .tc__icon--warning { color: var(--warning); }
 .tc__icon--error   { color: var(--error); }
 .tc__icon--success { color: var(--success); }
@@ -188,9 +189,7 @@
 }
 .tc__twisty:hover { background: var(--c-swamp-100); color: var(--text-primary); }
 .tc__twisty:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
-.tc__twisty svg { display: block; width: 16px; height: 16px; }
-.tc__twisty [data-icon] { width: 16px; height: 16px; }
-.tc__twisty[aria-expanded="true"] { transform: rotate(90deg); }
+.tc__twisty :is(svg,[data-icon]){ display: block; width: 16px; height: 16px; }.tc__twisty[aria-expanded="true"] { transform: rotate(90deg); }
 /* лист дерева без раскрытия — резервируем место под твисти */
 .tc__twisty--leaf { visibility: hidden; }
 
@@ -298,21 +297,8 @@
 .tc--skeleton .tc__text,
 .tc--skeleton .tc__prefix,
 .tc--skeleton .tc__postfix { visibility: hidden; }
-.tc__skeleton {
-  height: 12px;
-  border-radius: var(--radius-xs);
-  background: var(--c-swamp-100);
-  width: 60%;
-}
-.tc--numbers .tc__skeleton { margin-left: auto; }
-@media (prefers-reduced-motion: no-preference) {
-  .tc__skeleton {
-    background: linear-gradient(90deg, var(--c-swamp-100) 25%, var(--c-swamp-50) 37%, var(--c-swamp-100) 63%);
-    background-size: 400% 100%;
-    animation: tc-shimmer 1.4s ease infinite;
-  }
-}
-@keyframes tc-shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+/* плейсхолдер — общий компонент Skeleton, .sk-line--caption (styles/skeleton.css) */
+.tc--numbers .sk-line { margin-left: auto; }
 
 /* ================================================================== */
 /*  ШАПКА  .th                                                         */
@@ -335,9 +321,7 @@
   white-space: nowrap;
 }
 .th__icon { flex: none; display: inline-flex; color: var(--text-secondary); }
-.th__icon svg { display: block; width: 18px; height: 18px; }
-.th__icon [data-icon] { width: 18px; height: 18px; }
-
+.th__icon :is(svg,[data-icon]){ display: block; width: 18px; height: 18px; }
 /* --- инструменты шапки: сортировка и закрепление колонки ---------------- */
 /* Обе кнопки — IconButton ДС, тон neutral, размер S (.ibtn.ibtn--neutral.ibtn--s).
    Глифы сортировки: arrow-up-down (не выбрана) · arrow-narrow-down (от большего
@@ -456,3 +440,15 @@
   z-index: 2;
   box-shadow: 1px 0 0 var(--border-light);
 }
+
+/* ================================================================== */
+/* динамика: спарклайн в ячейке — компонент Chart (type:'spark'),      */
+/* геометрию слота задаёт таблица, а не график                        */
+/* ================================================================== */
+.tc__spark {
+  display: block;
+  flex: none;
+  width: var(--tc-spark-w, 72px);
+  height: 24px;
+}
+.tc--numbers .tc__spark { margin-left: auto; }

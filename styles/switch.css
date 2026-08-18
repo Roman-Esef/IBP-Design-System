@@ -20,7 +20,8 @@
   -webkit-tap-highlight-color: transparent;
   position: relative;
 }
-.sw--disabled { cursor: default; pointer-events: none; }
+.sw--disabled,
+.sw:has(.sw__input:disabled) { cursor: default; pointer-events: none; }
 
 /* visually-hidden native input (keeps it accessible / focusable) */
 .sw__input {
@@ -60,9 +61,13 @@
               background-color .15s ease, width .15s ease;
 }
 
-/* ---------- on ------------------------------------------------------------ */
-.sw--on .sw__control { background: var(--secondary-light); }
-.sw--on .sw__thumb {
+/* ---------- on ------------------------------------------------------------
+   Класс — форс-состояние витрины; нативный .sw__input:checked даёт тот же
+   вид без класса — см. RulesAudit W1. */
+.sw--on .sw__control,
+.sw__input:checked ~ .sw__control { background: var(--secondary-light); }
+.sw--on .sw__thumb,
+.sw__input:checked ~ .sw__control .sw__thumb {
   background: var(--primary);
   transform: translateX(16px);
   box-shadow: 0 1px 2px rgba(0, 99, 90, .35);
@@ -77,9 +82,11 @@
 .sw:hover .sw__control,
 .sw--hover .sw__control { background: var(--c-cgrey-200); }
 .sw:hover.sw--on .sw__control,
-.sw--hover.sw--on .sw__control { background: var(--secondary); }
+.sw--hover.sw--on .sw__control,
+.sw:hover:has(.sw__input:checked) .sw__control { background: var(--secondary); }
 .sw:hover.sw--on .sw__thumb,
-.sw--hover.sw--on .sw__thumb {
+.sw--hover.sw--on .sw__thumb,
+.sw:hover:has(.sw__input:checked) .sw__thumb {
   background: var(--primary-dark);
   box-shadow: 0 1px 2px rgba(0, 99, 90, .4), 0 0 0 5px var(--primary-bg-light);
 }
@@ -92,7 +99,8 @@
   box-shadow: 0 1px 2px rgba(40, 50, 55, .28), 0 0 0 7px var(--primary-bg);
 }
 .sw:active.sw--on .sw__thumb,
-.sw--pressed.sw--on .sw__thumb {
+.sw--pressed.sw--on .sw__thumb,
+.sw:active:has(.sw__input:checked) .sw__thumb {
   transform: translateX(13px);
   box-shadow: 0 1px 2px rgba(0, 99, 90, .4), 0 0 0 7px var(--primary-bg);
 }
@@ -109,34 +117,37 @@
    but keeps its current colour so the pending state is still readable. */
 .sw--loading { cursor: progress; pointer-events: none; }
 .sw--loading .sw__thumb { box-shadow: 0 1px 2px rgba(40, 50, 55, .28); }
-.sw__spinner {
+/* Индикатор — общий Spinner: <span class="spin"> внутри .sw__thumb, цвет свой (не currentColor). */
+.sw__thumb .spin {
   width: 11px;
   height: 11px;
-  border-radius: var(--radius-circle);
   border: 2px solid color-mix(in srgb, var(--text-secondary) 30%, transparent);
   border-top-color: var(--text-secondary);
-  animation: sw-spin .7s linear infinite;
 }
-.sw--on .sw__spinner {
+.sw--on .sw__thumb .spin {
   border-color: color-mix(in srgb, #fff 45%, transparent);
   border-top-color: #fff;
 }
-@keyframes sw-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
-  .sw__spinner { animation-duration: 1.6s; }
   .sw__thumb { transition: none; }
 }
 
 /* ---------- disabled ------------------------------------------------------ */
-.sw--disabled .sw__control { background: var(--disabled-bg); box-shadow: none; }
-.sw--disabled .sw__thumb {
+.sw--disabled .sw__control,
+.sw__input:disabled ~ .sw__control { background: var(--disabled-bg); box-shadow: none; }
+.sw--disabled .sw__thumb,
+.sw__input:disabled ~ .sw__control .sw__thumb {
   background: var(--c-mgrey-50);
   box-shadow: 0 1px 1px rgba(40, 50, 55, .12);
 }
-.sw--disabled.sw--on .sw__control { background: color-mix(in srgb, var(--secondary-light) 60%, var(--disabled-bg)); }
-.sw--disabled.sw--on .sw__thumb { background: var(--disabled); box-shadow: none; }
+.sw--disabled.sw--on .sw__control,
+.sw__input:disabled:checked ~ .sw__control { background: color-mix(in srgb, var(--secondary-light) 60%, var(--disabled-bg)); }
+.sw--disabled.sw--on .sw__thumb,
+.sw__input:disabled:checked ~ .sw__control .sw__thumb { background: var(--disabled); box-shadow: none; }
 .sw--disabled .sw__label,
-.sw--disabled .ds-helper { color: var(--text-inactive); }
+.sw--disabled .ds-helper,
+.sw__input:disabled ~ .sw__content .sw__label,
+.sw__input:disabled ~ .sw__content .ds-helper { color: var(--text-inactive); }
 
 /* ---------- content (label + helper) -------------------------------------- */
 .sw__content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }

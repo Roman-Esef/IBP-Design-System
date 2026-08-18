@@ -39,7 +39,7 @@ function makeItem(spec) {
     const row = document.createElement('div');
     row.className = 'ddl__state ddl__state--' + spec.system;
     const ic = document.createElement('span'); ic.className = 'ddl__state-icon';
-    if (spec.system === 'loading') ic.innerHTML = '<span class="ddl__spinner"></span>';
+    if (spec.system === 'loading') ic.innerHTML = '<span class="spin"></span>';
     else if (spec.system === 'error') ic.innerHTML = icon('alert-circle-filled');
     else ic.innerHTML = icon('close-circle');
     const tx = document.createElement('span'); tx.className = 'ddl__state-text';
@@ -107,32 +107,6 @@ function makeList(items, o = {}) {
   return el;
 }
 
-/* ---------- множественный выбор и строка «Выбрать всё» ----------
-   Состояние строки «Выбрать всё»: все опции → true, часть → mixed, ничего → false. */
-function setChecked(it, v) {
-  it.setAttribute('aria-checked', v === 'mixed' ? 'mixed' : String(!!v));
-  const mark = it.querySelector('.cb__mark');
-  if (mark) mark.innerHTML = (v === 'mixed' ? DASH : CHECK);
-}
-function wireMulti(list, onChange) {
-  const allRow = list.querySelector('.ddl__item--all');
-  const rows = Array.from(list.querySelectorAll('.ddl__item--checkbox:not(.ddl__item--all)'))
-    .filter(r => r.getAttribute('aria-disabled') !== 'true');
-  function refresh() {
-    const on = rows.filter(r => r.getAttribute('aria-checked') === 'true').length;
-    if (allRow) setChecked(allRow, on === rows.length ? true : (on ? 'mixed' : false));
-    if (onChange) onChange(on, rows.length);
-  }
-  rows.forEach(r => r.addEventListener('click', () => { setChecked(r, r.getAttribute('aria-checked') !== 'true'); refresh(); }));
-  if (allRow) allRow.addEventListener('click', () => {
-    const turnOn = allRow.getAttribute('aria-checked') !== 'true';
-    rows.forEach(r => setChecked(r, turnOn));
-    refresh();
-  });
-  refresh();
-  return { refresh };
-}
-
 /* ---------- поле-триггер (Select / Autocomplete) ---------- */
 function makeField(o = {}) {
   const f = document.createElement('div');
@@ -154,17 +128,7 @@ function setSummary(field, n) {
   field.querySelector('.fld__value').textContent = n ? String(n) : 'Не выбрано';
 }
 
-/* ---------- позиционирование floating-списка под полем ---------- */
-function placeList(anchor, list, field, placement, gap) {
-  gap = gap == null ? 6 : gap;
-  const ar = anchor.getBoundingClientRect();
-  const fr = field.getBoundingClientRect();
-  const lh = list.offsetHeight;
-  const y = placement === 'top' ? (fr.top - ar.top) - gap - lh : (fr.bottom - ar.top) + gap;
-  list.style.left = Math.round(fr.left - ar.left) + 'px';
-  list.style.top = Math.round(y) + 'px';
-  list.style.setProperty('--ddl-origin', (placement === 'top' ? 'bottom' : 'top') + ' left');
-}
+/* позиционирование и открытие/закрытие/клавиатура/три-стейт — рантайм scripts/ds-dropdownlist.js */
 
 /* =========================================================================
    PLAYGROUND
@@ -276,14 +240,14 @@ function placeList(anchor, list, field, placement, gap) {
     anchor.appendChild(list);
     stage.appendChild(anchor);
     if (state.variant === 'checkbox' && !sys) {
-      wireMulti(list, n => setSummary(field, n));
+      window.DSDropdownList.wireMulti(list, n => setSummary(field, n));
     }
     place();
 
     const tag = state.variant === 'checkbox' ? 'aria-multiselectable="true"' : '';
     codeEl.innerHTML = '<code>&lt;div class="ddl" role="listbox" ' + tag + '&gt;…&lt;/div&gt;</code>';
   }
-  function place() { placeList(anchor, list, field, 'bottom', 6); }
+  function place() { window.DSDropdownList.place(list, field, { gap: 6 }); }
   render();
   window.addEventListener('resize', () => { if (list) place(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (list) place(); });
@@ -474,13 +438,9 @@ function placeList(anchor, list, field, placement, gap) {
   vp.appendChild(list);
 
   function update() {
-    list.style.width = field.offsetWidth + 'px';   // ширина списка = ширине поля
     const br = vp.getBoundingClientRect();
-    const fr = field.getBoundingClientRect();
-    const lh = list.offsetHeight, gap = 6, m = 6;
-    const below = br.bottom - fr.bottom, above = fr.top - br.top;
-    const placement = (below < lh + gap && above > below) ? 'top' : 'bottom';
-    placeList(vp, list, field, placement, gap);
+    window.DSDropdownList.place(list, field, { boundary: vp, offsetParent: vp, gap: 6 });
+    const m = 6;
     let x = parseFloat(list.style.left), y = parseFloat(list.style.top);
     x = Math.max(m, Math.min(br.width - list.offsetWidth - m, x));
     list.style.left = x + 'px';
@@ -508,31 +468,8 @@ function placeList(anchor, list, field, placement, gap) {
 
 /* =========================================================================
    USAGE — Select (single) · Multiselect · Autocomplete
+   Открытие/позиционирование/клавиатура/три-стейт — window.DSDropdownList.bind, без своего кода
    ========================================================================= */
-function openable(anchor, field, list, prefer) {
-  let open = false;
-  function place() {
-    list.style.width = field.offsetWidth + 'px';
-    const ar = anchor.getBoundingClientRect();
-    const vh = document.documentElement.clientHeight;
-    const fr = field.getBoundingClientRect();
-    const lh = list.offsetHeight, gap = 6;
-    let placement = prefer || 'bottom';
-    if (placement === 'bottom' && (vh - fr.bottom) < lh + gap && fr.top > lh) placement = 'top';
-    placeList(anchor, list, field, placement, gap);
-  }
-  function set(v) {
-    open = v; list.classList.toggle('is-open', open); field.classList.toggle('is-open', open);
-    if (open) { place(); document.addEventListener('pointerdown', outside, true); document.addEventListener('keydown', esc); }
-    else { document.removeEventListener('pointerdown', outside, true); document.removeEventListener('keydown', esc); }
-  }
-  function outside(e) { if (!anchor.contains(e.target)) set(false); }
-  function esc(e) { if (e.key === 'Escape') set(false); }
-  field.addEventListener('click', () => set(!open));
-  window.addEventListener('resize', () => { if (open) place(); });
-  return { set, place };
-}
-
 (function () {
   // --- single select ---
   const s1 = document.getElementById('use-select');
@@ -547,13 +484,7 @@ function openable(anchor, field, list, prefer) {
       { label: 'Фунт стерлингов', helper: 'GBP · 826' },
     ], { floating: true });
     anchor.appendChild(list); s1.appendChild(anchor);
-    const api = openable(anchor, field, list, 'bottom');
-    list.querySelectorAll('.ddl__item').forEach(it => it.addEventListener('click', () => {
-      list.querySelectorAll('.ddl__item').forEach(x => x.setAttribute('aria-selected', 'false'));
-      it.setAttribute('aria-selected', 'true');
-      field.querySelector('.fld__value').textContent = it.querySelector('.ddl__item-label').textContent;
-      api.set(false);
-    }));
+    window.DSDropdownList.bind(field, { list, onSelect: it => { field.querySelector('.fld__value').textContent = it.querySelector('.ddl__item-label').textContent; } });
   }
 
   // --- multiselect ---
@@ -566,9 +497,7 @@ function openable(anchor, field, list, prefer) {
     const list = makeList([{ checkbox: true, all: true, label: 'Выбрать всё' }, { divider: true }]
       .concat(opts.map((l, i) => ({ checkbox: true, checked: i === 1 || i === 2, label: l }))), { floating: true });
     anchor.appendChild(list); s2.appendChild(anchor);
-    openable(anchor, field, list, 'bottom');
-    wireMulti(list, n => setSummary(field, n));
-    // не закрывать по клику — оставляем открытым при мультивыборе (закрытие вне/Esc)
+    window.DSDropdownList.bind(field, { list, multiple: true, onToggle: () => setSummary(field, list.querySelectorAll('.ddl__item--checkbox:not(.ddl__item--all)[aria-checked="true"]').length) });
   }
 
   // --- autocomplete ---
@@ -584,11 +513,7 @@ function openable(anchor, field, list, prefer) {
       { label: 'Сингапурский доллар', helper: 'SGD · 702', match: 'дол' },
     ], { floating: true });
     anchor.appendChild(list); s3.appendChild(anchor);
-    const api = openable(anchor, field, list, 'bottom');
-    list.querySelectorAll('.ddl__item').forEach(it => it.addEventListener('click', () => {
-      field.querySelector('.fld__value').textContent = it.querySelector('.ddl__item-label').textContent;
-      api.set(false);
-    }));
+    window.DSDropdownList.bind(field, { list, onSelect: it => { field.querySelector('.fld__value').textContent = it.querySelector('.ddl__item-label').textContent; } });
   }
 })();
 

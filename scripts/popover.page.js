@@ -2,8 +2,8 @@
    Popover — страница ДС: конструктор, редлайн, вспомогательные демо.
    ========================================================================= */
 
-const POP_ARROW_INSET_H = 18; /* совпадает с --pop CSS: отступ стрелки от края при top/bottom */
-const POP_ARROW_INSET_V = 14; /* совпадает с --pop CSS: отступ стрелки от края при left/right */
+/* Геометрия, авто-flip, открытие/закрытие и тени прокрутки живут в рантайме
+   scripts/ds-popover.js (out-of-box) — страница только собирает демо. */
 
 /* ---------- содержимое тела: варианты для конструктора и демо ---------- */
 const POP_CONTENT = {
@@ -31,11 +31,11 @@ const POP_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:14px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:6px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Название тега</span></label>
+        <label class="ds-label"><span class="ds-label__text">Название тега</span></label>
         <div class="mock-input">Проблемный актив</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:6px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Срок пересмотра</span></label>
+        <label class="ds-label"><span class="ds-label__text">Срок пересмотра</span></label>
         <div class="mock-input">15.08.2026</div>
       </div>`;
     return wrap;
@@ -46,7 +46,7 @@ const POP_CONTENT = {
     wrap.innerHTML = `
       <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
         <span style="font:var(--type-body-m-strong); color:var(--text-primary);">ДК-2025-4471</span>
-        <span class="chip chip--readonly chip--s"><span class="chip__label">В работе</span></span>
+        <span class="chip chip--s"><span class="chip__label">В работе</span></span>
       </div>
       <div style="display:flex; flex-direction:column; gap:4px;">
         <span style="font:var(--type-body-s); color:var(--text-inactive);">Сумма</span>
@@ -73,10 +73,10 @@ const POP_CONTENT = {
   },
   skeleton() {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:12px;';
-    wrap.innerHTML = `<span class="pop__skeleton pop__skeleton--title" style="--sk-w:45%;"></span>
-      <span class="pop__skeleton" style="--sk-w:100%;"></span>
-      <span class="pop__skeleton" style="--sk-w:80%;"></span>`;
+    wrap.className = 'sk-group';
+    wrap.innerHTML = `<span class="sk-line sk-line--title" style="--sk-w:45%;"></span>
+      <span class="sk-line" style="--sk-w:100%;"></span>
+      <span class="sk-line" style="--sk-w:80%;"></span>`;
     return wrap;
   },
   error() {
@@ -126,7 +126,7 @@ function buildPopover(o = {}) {
     main.className = 'pop__head-main';
     main.innerHTML = `<h3 class="pop__title" id="${titleId}">${title}</h3>`;
     if (headerAccessory === 'chip') {
-      main.innerHTML += `<span class="chip chip--readonly chip--s"><span class="chip__label">Черновик</span></span>`;
+      main.innerHTML += `<span class="chip chip--s"><span class="chip__label">Черновик</span></span>`;
     }
     head.appendChild(main);
     if (headerAccessory === 'link') {
@@ -165,14 +165,7 @@ function buildPopover(o = {}) {
   const arrowEl = document.createElement('span'); arrowEl.className = 'pop__arrow';
   pop.appendChild(arrowEl);
 
-  function syncScrollShadow() {
-    const head = pop.querySelector('.pop__head');
-    const foot = pop.querySelector('.pop__foot');
-    if (head) head.classList.toggle('is-scrolled', body.scrollTop > 1);
-    if (foot) foot.classList.toggle('is-scrolled', body.scrollTop + body.clientHeight < body.scrollHeight - 1);
-  }
-  body.addEventListener('scroll', syncScrollShadow);
-  requestAnimationFrame(syncScrollShadow);
+  const syncScrollShadow = window.DSPopover.watchScroll(pop);
 
   window.dsIcons && window.dsIcons.apply(pop);
   return { pop, body, syncScrollShadow };
@@ -188,60 +181,19 @@ function makeTrigger(type, expanded) {
     return `<button type="button" class="pop-trigger-link" aria-haspopup="dialog" aria-expanded="${exp}"><span class="link link--accent">ДК-2025-4471</span><i data-icon="chevron-down"></i></button>`;
   }
   if (type === 'chip') {
-    return `<span class="chip chip--readonly chip--m" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="${exp}"><span class="chip__label">Проблемный актив</span></span>`;
+    return `<span class="chip chip--m" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="${exp}"><span class="chip__label">Проблемный актив</span></span>`;
   }
   return `<button type="button" class="btn btn--outline btn--m" aria-haspopup="dialog" aria-expanded="${exp}"><span class="btn__label">Фильтр</span><svg class="btn__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg></button>`;
 }
 
-/* ---------- позиционирование floating-поповера относительно триггера ---------- */
+/* ---------- позиционирование: тонкая обёртка над рантаймом ----------
+   Витрина фиксирует позицию (flip выключен), контейнер-стенд служит и
+   позиционирующим предком, и границей. */
 function placePop(stage, pop, target, placement, align, gap) {
-  gap = gap == null ? 8 : gap;
-  const sr = stage.getBoundingClientRect();
-  const tr = target.getBoundingClientRect();
-  const pw = pop.offsetWidth, ph = pop.offsetHeight;
-  const tl = tr.left - sr.left, tt = tr.top - sr.top;
-  const cx = tl + tr.width / 2, cy = tt + tr.height / 2;
-  let x = 0, y = 0;
-
-  if (placement === 'top') y = tt - gap - ph;
-  else if (placement === 'bottom') y = tt + tr.height + gap;
-  else if (placement === 'left') x = tl - gap - pw;
-  else if (placement === 'right') x = tl + tr.width + gap;
-
-  if (placement === 'top' || placement === 'bottom') {
-    if (align === 'center') x = cx - pw / 2;
-    else if (align === 'start') x = cx - POP_ARROW_INSET_H;
-    else x = cx - (pw - POP_ARROW_INSET_H);
-  } else {
-    if (align === 'center') y = cy - ph / 2;
-    else if (align === 'start') y = cy - POP_ARROW_INSET_V;
-    else y = cy - (ph - POP_ARROW_INSET_V);
-  }
-  /* не выпускаем поповер за границы контейнера-стенда */
-  const guard = 8;
-  const maxX = Math.max(guard, stage.clientWidth - pw - guard);
-  const maxY = Math.max(guard, stage.clientHeight - ph - guard);
-  if (placement === 'top' || placement === 'bottom') x = Math.min(Math.max(guard, x), maxX);
-  else y = Math.min(Math.max(guard, y), maxY);
-
-  pop.style.left = x + 'px';
-  pop.style.top = y + 'px';
-
-  /* стрелка всегда смотрит в центр триггера — даже после clamp и flip */
-  const arrow = pop.querySelector('.pop__arrow');
-  if (arrow && pop.classList.contains('pop--arrow')) {
-    if (placement === 'top' || placement === 'bottom') {
-      const off = Math.min(Math.max(12, cx - x), pw - 12);
-      arrow.style.left = off + 'px';
-      arrow.style.right = 'auto';
-      arrow.style.transform = 'translateX(-50%)';
-    } else {
-      const off = Math.min(Math.max(12, cy - y), ph - 12);
-      arrow.style.top = off + 'px';
-      arrow.style.bottom = 'auto';
-      arrow.style.transform = 'translateY(-50%)';
-    }
-  }
+  return window.DSPopover.place(pop, target, {
+    placement, align, gap: gap == null ? 8 : gap,
+    offsetParent: stage, boundary: stage, flip: false,
+  });
 }
 
 /* ========================================================================= */
@@ -423,21 +375,12 @@ document.addEventListener('DOMContentLoaded', () => {
     vp.appendChild(pop);
 
     const stateOut = document.getElementById('flip-state');
+    /* авто-flip считает рантайм: предпочтение bottom/start, границы — стенд */
     function reposition() {
-      const br = vp.getBoundingClientRect();
-      const tr = target.getBoundingClientRect();
-      const pw = pop.offsetWidth, ph = pop.offsetHeight;
-      /* сторона: снизу не хватает места — переворачиваем наверх */
-      const below = br.bottom - tr.bottom, above = tr.top - br.top;
-      let placement = 'bottom';
-      if (below < ph + 8 && above > below) placement = 'top';
-      /* выравнивание: справа не хватает места — прижимаем к правому краю */
-      const spaceRight = br.right - tr.right, spaceLeft = tr.left - br.left;
-      let align = 'start';
-      if (spaceRight < pw - POP_ARROW_INSET_H && spaceLeft > spaceRight) align = 'end';
-      pop.className = 'pop pop--w-m pop--' + placement + ' pop--' + align + ' pop--arrow pop--floating pop--pinned';
-      placePop(vp, pop, target, placement, align, 8);
-      if (stateOut) stateOut.textContent = 'placement: ' + placement + ' · align: ' + align;
+      const r = window.DSPopover.place(pop, target, {
+        placement: 'bottom', align: 'start', gap: 8, flip: true, boundary: vp, offsetParent: vp,
+      });
+      if (stateOut) stateOut.textContent = 'placement: ' + r.placement + ' · align: ' + r.align;
     }
     function applyPreset(posVal) {
       target.style.left = posVal === 'left' ? '12px' : posVal === 'right' ? 'calc(100% - 44px)' : 'calc(50% - 16px)';
@@ -478,28 +421,18 @@ document.addEventListener('DOMContentLoaded', () => {
       { icon: 'filter', label: 'Фильтр', title: 'Фильтр по статусу', content: 'legend' },
       { icon: 'download', label: 'Скачать', title: 'Экспорт', content: 'text' },
     ];
-    let openPop = null, openBtn = null;
     defs.forEach(d => {
       const anchor = document.createElement('span'); anchor.className = 'pop-anchor';
       const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'ibtn ibtn--neutral ibtn--m';
       btn.setAttribute('aria-label', d.label); btn.setAttribute('aria-haspopup', 'dialog'); btn.setAttribute('aria-expanded', 'false');
       btn.innerHTML = `<i data-icon="${d.icon}"></i>`;
       const { pop } = buildPopover({ width: 's', header: true, title: d.title, footLeft: 'none', footRight: 'none', content: d.content, arrow: true, floating: true, placement: 'bottom', align: 'start' });
+      pop.id = 'pop-single-' + d.icon;
       anchor.appendChild(btn); anchor.appendChild(pop);
       host.appendChild(anchor);
-
-      function close() { pop.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); if (openPop === pop) { openPop = null; openBtn = null; } }
-      function open() {
-        if (openPop && openPop !== pop) { openPop.classList.remove('is-open'); openBtn.setAttribute('aria-expanded', 'false'); }
-        placePop(anchor, pop, btn, 'bottom', 'start', 8);
-        pop.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
-        openPop = pop; openBtn = btn;
-      }
-      btn.addEventListener('click', () => { pop.classList.contains('is-open') ? close() : open(); });
-      pop.querySelector('.ibtn--neutral.ibtn--s') && pop.querySelector('.ibtn--neutral.ibtn--s').addEventListener('click', close);
+      /* всё поведение — рантайм: single-open, клик вне, Esc, Tab-out, ✕, позиционирование */
+      window.DSPopover.bind(btn, { pop, placement: 'bottom', align: 'start' });
     });
-    document.addEventListener('click', (e) => { if (openPop && !host.contains(e.target)) { openPop.classList.remove('is-open'); openBtn.setAttribute('aria-expanded', 'false'); openPop = null; openBtn = null; } });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && openPop) { const b = openBtn; openPop.classList.remove('is-open'); openBtn.setAttribute('aria-expanded', 'false'); openPop = null; openBtn = null; b.focus(); } });
     window.dsIcons && window.dsIcons.apply(host);
   })();
 

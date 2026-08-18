@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/button.css">
-<link rel="stylesheet" href="../../styles/context-menu.css">
+<link rel="stylesheet" href="../../styles/icon-button.css">
+  <link rel="stylesheet" href="../../styles/context-menu.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -32,14 +33,7 @@
 
   
 
-  /* trigger — kebab / dropdown */
-  .kebab { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; border:1px solid transparent; background:transparent; color: var(--text-secondary); cursor:pointer; transition:.12s; }
-  .kebab svg { width:22px; height:22px; }
-  .kebab:hover { background: var(--tertiary-light); color: var(--text-primary); }
-  .kebab[aria-expanded="true"] { background: var(--tertiary); color: var(--text-primary); }
-  .kebab:focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
-  .kebab--s { width:32px; height:32px; border-radius:6px; }
-  .kebab--s svg { width:20px; height:20px; }
+  /* триггер меню — компонент IconButton (.ibtn--l / --m), локальных правил нет */
 
   /* ---------- playground ---------- */
   .panel.pg { padding:0; overflow:hidden; display:grid; }
@@ -111,7 +105,7 @@
   .vp { position:relative; height:340px; border:1px dashed var(--border-primary); border-radius:14px; overflow:hidden;
     background:
       linear-gradient(var(--tertiary-light),var(--tertiary-light)) padding-box,
-      repeating-conic-gradient(#eef3f2 0% 25%, #f7faf9 0% 50%) 0 / 20px 20px; }
+      repeating-conic-gradient(var(--c-cgrey-50) 0% 25%, var(--bg-tile) 0% 50%) 0 / 20px 20px; }
   .vp .tgt { position:absolute; display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; cursor:grab; touch-action:none; background: var(--primary); border:1px solid var(--primary-dark); color:#fff; }
   .vp .tgt:active { cursor:grabbing; }
   .vp .tgt svg { width:22px; height:22px; }
@@ -148,7 +142,7 @@
 <main class="page" data-screen-label="ContextMenu">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>04.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.7</b></span><span>Обновлено: <b>12.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Context Menu</h1>
     <p class="lead">Контекстное меню — всплывающий список действий над объектом. Возникает по нажатию на кнопку действий (kebab «три точки» или дропдаун) в заголовке таблицы, строке таблицы или карточке. Ширина зависит от контента, набор пунктов — от объекта.</p>
@@ -442,7 +436,7 @@
 <span class="tk-cm">// 6. Подменю: раскрывать по наведению (с задержкой закрытия ~160мс) и по стрелке →;</span>
 <span class="tk-cm">//    при нехватке места справа — раскрывать влево</span></code></pre>
     </div>
-    <p class="dev-note">Это не готовый сниппет для вставки — алгоритм поверх вашего стека. Рабочий референс на vanilla JS — функции <code class="tok">makeMenu</code> / <code class="tok">placeMenu</code> в <code class="tok">context-menu.page.js</code>.</p>
+    <p class="dev-note">Это не готовый сниппет для вставки — алгоритм поверх вашего стека. Рабочая реализация всего перечисленного есть в ДС — рантайм <code class="tok">scripts/ds-menu.js</code>: подключите скрипт, оберните триггер и меню в <code class="tok">.menu-anchor</code> и поставьте на триггер <code class="tok">data-menu="&lt;id меню&gt;"</code> — открытие, позиционирование с разворотом, клавиатура и подменю работают без кода на экране. Настройки — атрибуты <code class="tok">data-menu-placement</code>, <code class="tok">data-menu-align</code>, <code class="tok">data-menu-gap</code>, <code class="tok">data-menu-flip="no"</code>, <code class="tok">data-menu-boundary</code>, <code class="tok">data-menu-keep-open</code>.</p>
 
     </section>
 
@@ -465,6 +459,7 @@
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-menu.js"></script>
 <script src="../../scripts/context-menu.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>

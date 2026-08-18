@@ -1,10 +1,11 @@
 ---
 component: Tooltip
 title: "Tooltip"
-version: "v2.2"
-updated: "27.07.2026"
+version: "v2.4"
+updated: "13.08.2026"
 page: pages/molecules/Tooltip.html
 page_js: scripts/tooltip.page.js
+runtime: scripts/ds-tooltip.js
 css: styles/tooltip.css
 deps: [button]
 status: auto
@@ -14,6 +15,28 @@ status: auto
 
 ## Назначение
 Всплывающая подсказка при наведении или фокусе на объект — иконку, IconButton, обрезанный текст или поле с ошибкой. Контент — строка, тултип не может быть пустым. Хинт может быть со стрелкой или без неё, в любом из 12 краевых положений.
+
+## Из коробки
+Рантайм `scripts/ds-tooltip.js` (`window.DSTooltip`) — поведение доступно потребителю без кода на экране.
+
+| Что | Как |
+|---|---|
+| Автоподключение | `<button data-tooltip="Удалить">` — рантайм оборачивает цель в `.tip-anchor` и строит `.tip`; либо своя разметка: цель с `aria-describedby` на `.tip` внутри `.tip-anchor` |
+| Настройки на цели | `data-tooltip-placement` (top\|bottom\|left\|right, деф. top) · `data-tooltip-align` (start\|center\|end, center) · `data-tooltip-type` (main\|error) · `data-tooltip-gap` (8) · `data-tooltip-delay` (400) · `data-tooltip-flip="no"` · `data-tooltip-boundary="<селектор>"` · `data-tooltip-truncated="only"` |
+| API | `bind(target, opts)` · `bindAll(root)` · `make(text, opts)` · `place(tip, target, opts)` · `hideAll()` · `current()` |
+| Что даёт | 12 позиций, авто-flip стороны и выравнивания, clamp по границе, стрелка доводится до центра цели, 400 мс по hover / мгновенно по focus, мгновенное скрытие, Esc, один показанный тултип одновременно, rich остаётся открытым под курсором (300 мс), детект усечения по `scrollWidth > clientWidth` |
+
+`tooltip.page.js` после экстракции только собирает демо-разметку и вызывает этот рантайм.
+
+## Инварианты
+- По умолчанию одна строка с эллипсисом; перенос — только через явный `.tip--multiline`, иначе длинный текст обрезается тихо.
+- `.tip--rich` — единственный интерактивный тултип (курсор может зайти внутрь); обычный тултип неинтерактивен и закрывается при уходе курсора.
+- Тип (main/error) красит тултип и его стрелку одновременно — не два независимых цвета.
+- Стрелка показана по умолчанию (в отличие от Menu/DropdownList/Popover, где она выключена) — отключается явно `.tip--no-arrow`.
+
+## Диагностика
+- «Длинный текст в тултипе обрезается многоточием» → добавить `.tip--multiline`, иначе текст ограничен одной строкой по спеке
+- «Тултип закрывается при наведении на его содержимое» → ожидаемо для обычного тултипа; для интерактивного контента использовать `.tip--rich`
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Три типичных сценария — пояснение иконки, полное значение обрезанного текста, сообщение об ошибке рядом с полем. Наведите курсор на каждый пример.
@@ -31,6 +54,7 @@ status: auto
 - **Типографика** — Текст тултипа набирается гарнитурой SB Sans Text токеном --type-body-s.
 - **Цвета** — Компонент использует только семантические токены. Стрелка наследует фон контейнера через переменную --tip-bg.
 
+
 ## Для разработчиков (выжимка)
 
 ### Точные размеры (redline)
@@ -41,7 +65,7 @@ status: auto
 
 ```
 <!-- триггер ссылается на тултип через aria-describedby -->
-<button type="button" class="iconbtn" aria-label="Удалить" aria-describedby="tip-1">…</button>
+<button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Удалить" aria-describedby="tip-1">…</button>
 
 <!-- сам тултип: позиционируется JS относительно триггера, скрыт до показа -->
 <span class="tip tip--main tip--top tip--center tip--floating" role="tooltip" id="tip-1">

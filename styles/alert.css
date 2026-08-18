@@ -36,11 +36,16 @@
 /* ---------- тоны ---------- *
    Тон задаёт акцент (иконка, кнопки действий) и фон плашки. Кнопки и ссылки
    внутри — штатными классами .btn--<tone>/.link--<tone>, не через ре-скоуп.
-   Скоуп --* живёт на [data-alert-tone] (разрешённый data-скоуп компилятора);
-   маркап несёт атрибут рядом с классом .alert--<tone>. */
+   Скоуп --* живёт и на классе .alert--<тон>, и на [data-alert-tone] — два равноправных
+   источника: класс работает сам по себе, атрибут оставлен для совместимости
+   (и как разрешённый data-скоуп компилятора). */
+.alert--info,
 [data-alert-tone="info"]    { --alert-accent: var(--info);    --alert-surface: var(--info-bg); }
+.alert--warning,
 [data-alert-tone="warning"] { --alert-accent: var(--warning); --alert-surface: var(--warning-bg); }
+.alert--error,
 [data-alert-tone="error"]   { --alert-accent: var(--error);   --alert-surface: var(--error-bg-light); }
+.alert--success,
 [data-alert-tone="success"] { --alert-accent: var(--success); --alert-surface: var(--success-bg); }
 
 /* ---------- иконка (Alert_Icon) ---------- */
@@ -53,8 +58,7 @@
   align-items: center;
   justify-content: center;
 }
-.alert__icon > i,
-.alert__icon > svg { width: 100%; height: 100%; display: block; }
+.alert__icon > :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 
 /* ---------- тело ---------- */
 .alert__body {
@@ -98,11 +102,14 @@
   gap: 8px;
 }
 
-/* поворот шеврона у свёрнутого Алерта */
+/* поворот шеврона у свёрнутого Алерта — форс-класс для витрины; на реальной
+   кнопке рантайм пишет aria-expanded, читаем его напрямую (RulesAudit W1). */
 .alert__collapse > i,
 .alert__collapse > svg { transition: transform .15s ease; }
 .alert--collapsed .alert__collapse > i,
-.alert--collapsed .alert__collapse > svg { transform: rotate(180deg); }
+.alert--collapsed .alert__collapse > svg,
+.alert__collapse[aria-expanded="false"] > i,
+.alert__collapse[aria-expanded="false"] > svg { transform: rotate(180deg); }
 .alert--collapsed .alert__text,
 .alert--collapsed .alert__buttons { display: none; }
 

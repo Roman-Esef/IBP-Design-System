@@ -36,7 +36,7 @@
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--text-inactive);
 }
-.phead__title-ico svg{width:24px;height:24px;}
+.phead__title-ico :is(svg,[data-icon]){width:24px;height:24px;}
 /* IconLeft + Title + Edit — неразрывная группа: не переносятся отдельно от заголовка */
 .phead__title-group{
   display:flex;
@@ -88,7 +88,7 @@
   display:inline-flex;align-items:center;justify-content:center;
   color:var(--success);
 }
-.phead__subtitle-ico svg{width:16px;height:16px;}
+.phead__subtitle-ico :is(svg,[data-icon]){width:16px;height:16px;}
 
 /* мета-элементы кастомного сабтайтла */
 .phead__meta{
@@ -99,7 +99,7 @@
   color:var(--text-inactive);
   white-space:nowrap;
 }
-.phead__meta svg{width:16px;height:16px;}
+.phead__meta :is(svg,[data-icon]){width:16px;height:16px;}
 .phead__meta-ico{flex:none;display:inline-flex;color:var(--text-inactive);}
 .phead__meta-ico--ok{color:var(--success);}
 

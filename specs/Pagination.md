@@ -1,10 +1,11 @@
 ---
 component: Pagination
 title: "Pagination"
-version: "v1.6"
-updated: "27.07.2026"
+version: "v1.8"
+updated: "12.08.2026"
 page: pages/molecules/Pagination.html
 page_js: scripts/pagination.page.js
+runtime: scripts/ds-pagination.js
 css: styles/pagination.css
 deps: [dropdown-list, checkbox, label-helper, button, splitter]
 status: auto
@@ -14,6 +15,16 @@ status: auto
 
 ## Назначение
 Нижняя строка многостраничной таблицы: переключение страниц, выбор количества строк на странице и счётчик диапазона. Та же строка может нести панель массового действия над выбранными строками (Action panel) или информационную сводку (Pagi counters) — но сам пагинатор всегда справа. Один фиксированный размер, совпадающий с высотой строки таблицы.
+
+## Инварианты
+- Инфо-сводка (`.pgn-row__left`) не обрезается никогда — при недостатке места сокращается сам пагинатор (`data-tier`), а не сводка.
+- Bulk-панель (`.pgn-bulk`) и обычная строка пагинации не взаимоисключающие — bulk появляется НАД пагинатором, который остаётся видимым.
+- Уровень `data-tier` считается по фактически доступному месту (`ds-pagination.js`), не по порогам вьюпорта.
+- Строка целиком не участвует в горизонтальном скролле таблицы.
+
+## Диагностика
+- «Номера страниц то есть, то нет на одном экране» → тир считается по реальной ширине контейнера таблицы, не вьюпорта
+- «Инфо-сводка обрезана» → нарушение инварианта — сокращать пагинатор (tier), не сводку
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Пагинатор встраивается в нижнюю строку таблицы и занимает её целиком. Ячейка с пагинатором не имеет отдельного состояния Selected/Focus — она не является строкой данных. Появляется, когда общее число строк превышает размер одной страницы; при единственной странице показывается статичный счётчик без интерактива (см. «Контент»).
@@ -75,6 +86,36 @@ status: auto
 </div>
 ```
 
+### Рантайм ДС — `scripts/ds-pagination.js`
+
+Весь движок пагинатора — в рантайме: окно номеров со свёрткой в «…», дропдаун
+размера страницы, `aria-current` / `aria-disabled`, адаптивный подбор уровня
+навигации измерением (ResizeObserver + гистерезис 24px), Action panel и
+Pagi counters. Страница-витрина пользуется тем же публичным API.
+
+Автоподключение — атрибут на пустом контейнере, дальше рантайм сам рисует и
+перерисовывает колонтитул:
+
+```
+<div data-pagination data-total="800" data-page="3" data-page-size="50"></div>
+```
+
+События на контейнере: `pagechange` (`detail.page`), `pagesizechange`
+(`detail.pageSize`) — всплывают.
+
+| Метод | Возвращает |
+|---|---|
+| `DSPagination.pager(opts)` | сам пагинатор: pagesize + range + nav |
+| `DSPagination.row(opts)` | строку колонтитула: левый слот + пагинатор |
+| `DSPagination.footer(opts)` | колонтитул целиком: Action panel (опц.) + строка |
+| `DSPagination.bulk(opts)` · `info(opts)` | Action panel и Pagi counters по отдельности |
+| `DSPagination.pageWindow(cur, total, sibling, boundary)` | массив номеров и `'...'` |
+| `DSPagination.totalPages(total, pageSize)` · `sizeLabel(v)` · `SIZES` | вспомогательные |
+
+Опции: `total`, `page`, `pageSize`, `pageSizeOptions`, `showPageSize`,
+`compact`, `onChange(page)`, `onPageSizeChange(size)`; у `row`/`footer`
+дополнительно `left` (`'none'` | `'info'` | узел), `selectionCount`, `actions`.
+
 ### Поведение · псевдокод (framework-agnostic)
 
 ```
@@ -93,7 +134,7 @@ function pageWindow(current, total, siblingCount = 1, boundaryCount = 1) {
   showLeftEllipsis  = leftSibling  > boundaryCount + 2
   showRightEllipsis = rightSibling < total - boundaryCount - 1
   // комбинируем: [края] + [«…» либо доп. номера] + [соседи текущей] + [«…» либо доп. номера] + [края]
-  // полную сборку веток см. pagination.page.js → pageWindow()
+  // полную сборку веток см. ds-pagination.js → pageWindow()
 }
 
 // 3. Пересчитывать pageWindow при смене page / totalRows / pageSize.

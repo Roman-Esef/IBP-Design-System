@@ -52,7 +52,7 @@
     const s = spec;
     const root = document.createElement('div');
     const size = s.size || 'm';
-    root.className = 'inp inp--' + size;
+    root.className = 'inp' + (size === 'm' ? '' : ' inp--' + size); // M — база, класса inp--m в CSS нет
     if (s.table) root.classList.add('inp--table');
     if (s.multiline) root.classList.add('inp--multiline');
     if (s.multiline && s.resizable) root.classList.add('inp--resizable');
@@ -71,7 +71,7 @@
     /* label */
     if (s.label && !s.table) {
       const lb = document.createElement('label');
-      lb.className = 'ds-label ds-label--left' + (disabled ? ' ds-label--disabled' : '');
+      lb.className = 'ds-label' + (disabled ? ' ds-label--disabled' : '');
       if (s.id) lb.htmlFor = s.id;
       lb.innerHTML = '<span class="ds-label__text">' + esc(s.label) + '</span>';
       root.appendChild(lb);
@@ -142,7 +142,7 @@
     if (s.tip && st.endsWith('-focus')) {
       const t = document.createElement('span');
       const kind = st.startsWith('error') ? 'error' : 'warning';
-      t.className = 'tip tip--bottom tip--start tip--multiline inp__tip' + (kind === 'error' ? ' tip--error' : '');
+      t.className = 'tip tip--bottom tip--start tip--multiline' + (kind === 'error' ? ' tip--error' : '');
       if (kind === 'warning') t.style.setProperty('--tip-bg', 'var(--warning)');
       t.setAttribute('role', 'alert');
       t.innerHTML = esc(s.tip) + '<span class="tip__arrow"></span>';
@@ -212,7 +212,7 @@
     const size = spec.size || 'm';
     const kind = spec.kind === 'date' ? 'date' : 'amount';
     const root = document.createElement('div');
-    root.className = 'inp-range inp-range--' + size + ' inp-range--' + kind;
+    root.className = 'inp-range' + (size === 'm' ? '' : ' inp-range--' + size) + ' inp-range--' + kind; // M — база
     if (spec.disabled) root.classList.add('inp-range--disabled');
     if (spec.width === 'auto') root.style.width = 'auto';
     else if (typeof spec.width === 'number') root.style.width = spec.width + 'px';
@@ -221,7 +221,7 @@
     /* общая метка */
     if (spec.label) {
       const lb = document.createElement('label');
-      lb.className = 'ds-label ds-label--left' + (spec.disabled ? ' ds-label--disabled' : '');
+      lb.className = 'ds-label' + (spec.disabled ? ' ds-label--disabled' : '');
       lb.innerHTML = '<span class="ds-label__text">' + esc(spec.label) + '</span>';
       root.appendChild(lb);
     }

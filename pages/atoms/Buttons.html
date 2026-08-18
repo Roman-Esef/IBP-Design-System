@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/button.css">
+<link rel="stylesheet" href="../../styles/spinner.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -158,7 +159,7 @@
 <main class="page" data-screen-label="Button">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.7</b></span><span>Обновлено: <b>25.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.11</b></span><span>Обновлено <b>13.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Button</h1>
     <p class="lead">Кнопка инициирует действие. Три типа, три размера, состояния Default / Hover / Active / Disabled, лоадер и режим Fullwidth. Модификатор Тон (<code class="tok">--error</code> / <code class="tok">--warning</code> / <code class="tok">--success</code> / <code class="tok">--info</code>) комбинируется с любым типом — Error для деструктивных действий (диалог подтверждения удаления), остальные тоны переиспользуются в Alert и SnackBar. Текст кнопок набран токенами Button&nbsp;M&nbsp;/&nbsp;S&nbsp;/&nbsp;XS (SB Sans Screen).</p>
@@ -331,7 +332,7 @@
         <button type="button" class="code-panel__copy" data-copy-target="code-js"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="copy-label">Копировать</span></button>
       </div>
       <pre><code id="code-js"><span class="tk-cm">// 1. Loader — спиннер занимает место ЛЕВОЙ иконки:</span>
-<span class="tk-cm">//    есть левая иконка → заменить её на .btn__spinner (правая иконка/шеврон остаются)</span>
+<span class="tk-cm">//    есть левая иконка → заменить её на .spin (правая иконка/шеврон остаются)</span>
 <span class="tk-cm">//    нет левой иконки → вставить спиннер перед .btn__label (ширина кнопки растёт)</span>
 <span class="tk-cm">//    icon-only → заменить иконку на спиннер</span>
 <span class="tk-cm">// На время загрузки: .btn--loading + disabled + aria-busy="true";</span>
@@ -557,7 +558,7 @@ function attachLoader(btn){
     if (btn.classList.contains('btn--loading')) return;
     btn.classList.add('btn--loading');
     const spinner = document.createElement('span');
-    spinner.className = 'btn__spinner';
+    spinner.className = 'spin spin--current';
 
     if (btn.classList.contains('btn--icon-only')) {
       btn.innerHTML = '';
@@ -669,7 +670,7 @@ function attachLoader(btn){
   function applyLoader(btn){
     if(!state.loader) return;
     btn.classList.add('btn--loading');
-    const spinner=document.createElement('span'); spinner.className='btn__spinner';
+    const spinner=document.createElement('span'); spinner.className='spin spin--current';
     if (btn.classList.contains('btn--icon-only')){ btn.innerHTML=''; btn.appendChild(spinner); return; }
     const label=btn.querySelector('.btn__label');
     const firstSvg=btn.querySelector('svg');

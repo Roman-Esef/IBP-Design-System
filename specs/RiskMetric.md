@@ -1,11 +1,12 @@
 ---
 component: RiskMetric
 title: "Риск-метрика"
-version: "v1.1"
-updated: "29.07.2026"
+version: "v1.6"
+updated: "14.08.2026"
 page: pages/organisms/RiskMetric.html
 page_js: scripts/riskmetric.page.js
-css: — (композиция, стили в chip.css/popover.css)
+runtime: scripts/ds-riskmetric.js
+css: styles/riskmetric.css
 deps: [chip, popover, icon-button, divider]
 status: curated
 ---
@@ -15,8 +16,16 @@ status: curated
 ## Назначение
 Компактный индикатор надёжности контрагента в таблицах/списках: рейтинг (число) + зона проблемности (цвет). Композиция — не отдельный CSS-компонент: Chip (ReadOnly, S, pill) + Popover, без собственных стилей. **Popover_RiskMetric — неотъемлемая часть компонента**, а не опциональная зависимость.
 
-## Ключевые правила
-- **Использование** — колонка в таблице контрагентов; клик по информеру раскрывает даты расчёта и риск-сегмент/профиль без ухода со страницы. Один открытый Popover одновременно (как у базового Popover).
+## Инварианты
+- Композиция, не самостоятельный компонент — Chip (readonly, S, pill) + `.chip__info` (кнопка) + Popover; собственных стилей поверхности нет, кроме `.rm-*` для внутренних блоков Popover.
+- `.chip__info` — настоящая кнопка, фокусируется отдельно от чипа даже в readonly.
+- Цвет чипа — только Local-токены (StGreen/StOrange/StRed/StGrey) по зоне проблемности, не произвольный.
+
+## Диагностика
+- «Клик по информеру не открывает Popover» → проверить, что `.chip__info` — настоящий `<button>`, привязанный к Popover через `ds-popover.js`
+- «Цвет чипа не совпадает с зоной риска» → сверить с таблицей алиасов Local-токенов, не задавать цвет напрямую
+
+## Ключевые правила; клик по информеру раскрывает даты расчёта и риск-сегмент/профиль без ухода со страницы. Один открытый Popover одновременно (как у базового Popover).
 - **Анатомия** — Chip (ReadOnly, S, pill) → label (число/«—») + `.chip__info` (button, открывает Popover) → Popover_RiskMetric: Header (заголовок + ✕) + Body `.pop__body.rm-body` (gap 16px): `.rm-blocks` (зазор 8px) с 2× `.rm-block` + 2× `.rm-field`. **Footer отсутствует.** Маржинов у блоков и полей нет — раскладка только на gap.
 - **Размеры** — фиксированный: только Chip S (24px). Ширина растёт по контенту. Popover фиксирован на `pop--w-m` (320px).
 - **Контент** — рейтинг: целое 1–26 или «—». Зона: green/watchlist/red/black или нет данных. Риск-сегмент/профиль — свободный текст без лимита; при отсутствии — прочерк, поле не скрывается.
@@ -33,14 +42,14 @@ status: curated
 ### Разметка · HTML (эталонная реализация ДС)
 ```html
 <span class="pop-anchor">
-  <span class="chip chip--readonly chip--s chip--error" aria-label="Риск-метрика. Рейтинг 26, зона проблемности — красная.">
+  <span class="chip chip--s chip--error" aria-label="Риск-метрика. Рейтинг 26, зона проблемности — красная.">
     <span class="chip__label">26</span>
     <button type="button" class="chip__info" aria-haspopup="dialog" aria-expanded="false" aria-controls="rm-pop-1" aria-label="Показать детали риск-метрики"><i data-icon="info-circle"></i></button>
   </span>
   <div id="rm-pop-1" class="pop pop--w-m pop--bottom pop--start pop--floating" role="dialog" aria-modal="false" aria-labelledby="rm-pop-1-title">
     <div class="pop__head">
       <h3 class="pop__title" id="rm-pop-1-title">Рейтинг и зона проблемности</h3>
-      <button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button>
+      <span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span>
     </div>
     <div class="pop__body">
       <div class="rm-block"><div class="rm-block__row"><span class="rm-block__label">Зона проблемности</span><span class="rm-block__value rm-block__value--strong" style="color:var(--st-red-dark)">Красная</span></div><div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">24.10.2025</span></div></div>
@@ -53,6 +62,7 @@ status: curated
 ```
 
 ### Поведение · псевдокод (framework-agnostic)
+Сборка и поведение — рантайм `scripts/ds-riskmetric.js` (Chip+Popover из `data-riskmetric`/`data-risk`/`data-zone`/…) поверх `scripts/ds-popover.js` (позиционирование/open-close/single-open/Esc/клик-вне — общие для всех Popover, не переизобретаются).
 ```
 function resolveChip(rating, zone):
   hasZone = zone != null
@@ -63,9 +73,8 @@ function resolveChip(rating, zone):
   // hasInfo = hasZone || rating != null || riskSegment != null || riskProfile != null
   // ничего из этого нет — информера нет, поповер не открывается
 
-// Открытие/позиционирование идентично Popover (gap 8px, align 'start'),
-// координаты — от .pop-anchor. Один открытый поповер на странице.
-// Закрытие: ✕ / клик вне / Esc (фокус → назад на информер).
+// Открытие/позиционирование/single-open/закрытие (✕, клик вне, Esc, Tab-out) —
+// делегированы базовому Popover: bind(infoButton, { pop, placement:'bottom', align:'start' }).
 // Body: loading (aria-busy + skeleton) | error (role="alert") | default (rm-block×2 + rm-field×2, без Divider).
 ```
 
@@ -87,7 +96,7 @@ interface RiskMetricProps {
 ### Справочник классов и атрибутов
 | Класс/атрибут | Назначение |
 |---|---|
-| `.chip.chip--readonly.chip--rounded.chip--s` | Корень метрики (pill) |
+| `.chip.chip--rounded.chip--s` | Корень метрики (pill) |
 | `.chip--success / --warning` | Светлая заливка: зелёная / watchlist |
 | `.chip--error-solid / --dark-solid` | Solid-заливка + белый текст: красная / чёрная зона |
 | `.chip--outline` | Нет данных о зоне |

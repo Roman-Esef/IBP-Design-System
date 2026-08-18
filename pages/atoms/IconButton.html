@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/icon-button.css">
+<link rel="stylesheet" href="../../styles/spinner.css">
 <link rel="stylesheet" href="../../styles/badge.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
@@ -128,7 +129,7 @@
 <main class="page" data-screen-label="IconButton">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>04.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.10</b></span><span>Обновлено <b>13.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>IconButton</h1>
     <p class="lead">Безрамочная кнопка с одной иконкой и круглым стейт-слоем (риплом). Цвет рипла соответствует цвету иконки. Тоны Neutral / Primary / Danger / Contrast, размеры L / M / S, состояния Default / Hover / Pressed / Focus / Disabled / Loading, режим-переключатель и встроенный вариант для полей ввода.</p>
@@ -363,7 +364,7 @@
 <span class="tk-cm">// React: состав рендерится декларативно:</span>
 glyph = selected ? iconSelected : icon
 
-<span class="tk-cm">// 3. Loading: иконка заменяется на .ibtn__spinner (размер = размеру иконки);</span>
+<span class="tk-cm">// 3. Loading: иконка заменяется на .spin (размер = размеру иконки);</span>
 <span class="tk-cm">//    .ibtn--loading даёт pointer-events: none; добавить aria-busy="true"</span>
 
 <span class="tk-cm">// 4. Embedded (поля ввода): стейт-слоя нет, hover меняет цвет иконки</span>
@@ -429,7 +430,7 @@ function makeIB(o = {}) {
   b.setAttribute('aria-label', label);
   if (selected) b.setAttribute('aria-pressed', 'true');
 
-  if (loading) b.innerHTML = '<span class="ibtn__spinner"></span>';
+  if (loading) b.innerHTML = '<span class="spin spin--current"></span>';
   else b.innerHTML = ic(icon);
 
   if (badge) {
@@ -776,7 +777,7 @@ document.getElementById('ic-good').innerHTML = UI.good;
     host.appendChild(b); host.appendChild(sq); host.appendChild(ld);
     const cs = getComputedStyle(b);
     const ics = getComputedStyle(b.querySelector('svg'));
-    const sps = getComputedStyle(ld.querySelector('.ibtn__spinner'));
+    const sps = getComputedStyle(ld.querySelector('.spin'));
     return {
       w:    parseFloat(cs.width),
       h:    parseFloat(cs.height),

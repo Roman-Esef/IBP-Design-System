@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/button.css">
 <link rel="stylesheet" href="../../styles/button-group.css">
+<link rel="stylesheet" href="../../styles/context-menu.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -69,24 +70,6 @@
   .guide .g .demo { display:flex; align-items:center; gap:16px; flex-wrap:wrap; min-height:52px; padding-bottom:18px; border-bottom:1px solid var(--border-light); margin-bottom:18px; }
   .guide .g p { font: var(--type-body-s); color: var(--text-secondary); margin:0; text-wrap:pretty; }
 
-  /* dropdown menu (split button) */
-  .dropdown { position:relative; display:inline-flex; }
-  .dropdown__menu {
-    position:absolute; top:calc(100% + 6px); left:0; z-index:30;
-    min-width:180px; padding:6px;
-    background: var(--bg-popup); border:1px solid var(--border-light); border-radius:11px;
-    box-shadow:0 10px 30px rgba(40,50,55,.16);
-  }
-  .dropdown__menu[hidden] { display:none; }
-  .dropdown--right .dropdown__menu { left:auto; right:0; }
-  .dropdown__item {
-    display:flex; align-items:center; gap:10px; width:100%;
-    padding:9px 12px; border:none; background:transparent; border-radius:7px;
-    font: var(--type-body-m); color: var(--text-primary); cursor:pointer; text-align:left;
-  }
-  .dropdown__item svg { width:18px; height:18px; color: var(--text-secondary); flex:none; }
-  .dropdown__item:hover { background: var(--bgtable-row-hover); }
-
   /* ---------- playground ---------- */
   .panel.pg { padding:0; overflow:hidden; display:grid; }
   
@@ -129,7 +112,7 @@
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>22.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>13.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ButtonGroup</h1>
     <p class="lead">Объединяет связанные кнопки в единый визуальный блок с общим фоном или обводкой. Поддерживает 2–5 кнопок, типы Accent / Outline, все три размера, вариант Split&nbsp;Button и сегментированный выбор. Собирается из компонентов <b>Button</b> — кнопки наследуют свои свойства.</p>
@@ -383,6 +366,8 @@
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-menu.js"></script>
+<script src="../../scripts/ds-buttongroup.js"></script>
 <script>
 /* ---------- icons ---------- */
 const ICONS = {
@@ -428,7 +413,7 @@ function makeBtn(o = {}) {
 /* ---------- group factory ---------- */
 function makeGroup(o = {}) {
   const { type='accent', size='m', items=[], vertical=false, fullwidth=false,
-          disabled=false, toggle=false, split=false, label=null } = o;
+          disabled=false, toggle=false, split=false, label=null, single=false } = o;
   const g = document.createElement('div');
   g.className = 'btn-group btn-group--' + type;
   if (vertical)   g.classList.add('btn-group--vertical');
@@ -436,14 +421,14 @@ function makeGroup(o = {}) {
   if (disabled)   g.classList.add('btn-group--disabled');
   if (toggle)     g.classList.add('btn-group--toggle');
   if (split)      g.classList.add('btn-group--split');
-  g.setAttribute('role', 'group');
+  g.setAttribute('role', (toggle && single) ? 'radiogroup' : 'group');
   if (label) g.setAttribute('aria-label', label);
   if (disabled) g.setAttribute('aria-disabled', 'true');
   items.forEach(it => g.appendChild(makeBtn({ type, size, ...it })));
   return g;
 }
 
-/* ---------- dropdown for split button ---------- */
+/* ---------- dropdown for split button: реальный ContextMenu + DSMenu.bind ---------- */
 const SPLIT_MENU = [
   { label:'Сохранить как…', icon:'download' },
   { label:'Создать копию',  icon:'plus' },
@@ -452,29 +437,25 @@ const SPLIT_MENU = [
 function makeSplit(o = {}) {
   const { type='accent', size='m', lead=null, right=false, disabled=false, text='Button' } = o;
   const wrap = document.createElement('div');
-  wrap.className = 'btn-group btn-group--' + type + ' btn-group--split dropdown' + (right ? ' dropdown--right' : '');
+  wrap.className = 'btn-group btn-group--' + type + ' btn-group--split menu-anchor';
   wrap.setAttribute('role', 'group');
   if (disabled) wrap.classList.add('btn-group--disabled');
+  if (disabled) wrap.setAttribute('aria-disabled', 'true');
 
   const main = makeBtn({ type, size, text, lead });
   const chev = makeBtn({ type, size, iconOnly:'chevron' });
-  chev.setAttribute('aria-haspopup', 'menu');
-  chev.setAttribute('aria-expanded', 'false');
 
   const menu = document.createElement('div');
-  menu.className = 'dropdown__menu'; menu.hidden = true; menu.setAttribute('role','menu');
+  menu.className = 'menu menu--floating'; menu.setAttribute('role','menu');
   SPLIT_MENU.forEach(it => {
-    const mi = document.createElement('button'); mi.type='button'; mi.className='dropdown__item';
-    mi.innerHTML = ICONS[it.icon] + '<span>' + it.label + '</span>';
-    mi.addEventListener('click', e => { e.stopPropagation(); close(); });
+    const mi = document.createElement('button'); mi.type='button'; mi.className='menu__item'; mi.setAttribute('role','menuitem');
+    mi.innerHTML = '<span class="menu__item-icon">' + ICONS[it.icon] + '</span><span class="menu__item-label">' + it.label + '</span>';
     menu.appendChild(mi);
   });
-  function onDoc(e){ if(!wrap.contains(e.target)) close(); }
-  function open(){ menu.hidden=false; wrap.classList.add('is-open'); chev.setAttribute('aria-expanded','true'); document.addEventListener('click', onDoc); }
-  function close(){ menu.hidden=true; wrap.classList.remove('is-open'); chev.setAttribute('aria-expanded','false'); document.removeEventListener('click', onDoc); }
-  chev.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); if(disabled) return; menu.hidden ? open() : close(); });
 
   wrap.append(main, chev, menu);
+  if (disabled) chev.disabled = true;
+  window.DSMenu.bind(chev, { menu, placement:'bottom', align: right ? 'end' : 'start' });
   return wrap;
 }
 
@@ -530,20 +511,13 @@ mountAll('orient-row', [
 /* ---------- TOGGLE ---------- */
 (function(){
   // single select (radio-like): exactly one pressed
-  const single = makeGroup({ type:'outline', toggle:true, label:'Режим отображения',
+  const single = makeGroup({ type:'outline', toggle:true, single:true, label:'Режим отображения',
     items:[{iconOnly:'list',pressed:true},{iconOnly:'grid',pressed:false}] });
-  single.querySelectorAll('.btn').forEach(b => b.addEventListener('click', () => {
-    single.querySelectorAll('.btn').forEach(x => x.setAttribute('aria-pressed','false'));
-    b.setAttribute('aria-pressed','true');
-  }));
   mount('toggle-single', single);
 
   // multi select (checkbox-like)
   const multi = makeGroup({ type:'outline', toggle:true, label:'Форматирование',
     items:[{iconOnly:'bold',pressed:true},{iconOnly:'italic',pressed:false},{iconOnly:'underline',pressed:false}] });
-  multi.querySelectorAll('.btn').forEach(b => b.addEventListener('click', () => {
-    b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true' ? 'false' : 'true');
-  }));
   mount('toggle-multi', multi);
 })();
 
@@ -784,12 +758,8 @@ mount('do-demo', makeGroup({ type:'outline', items:[{text:'День'},{text:'Н�
       if (state.fullwidth) node.classList.add('btn-group--fullwidth');
       codeClasses = 'btn-group btn-group--'+state.type+' btn-group--split'+(state.fullwidth?' btn-group--fullwidth':'')+(disabled?' btn-group--disabled':'');
     } else if (state.variant==='toggle'){
-      node = makeGroup({ type:'outline', size:state.size, toggle:true, vertical, disabled,
+      node = makeGroup({ type:'outline', size:state.size, toggle:true, single:true, vertical, disabled,
         items: buildItems().map((it,i)=>({ ...it, pressed: i===0 })) });
-      node.querySelectorAll('.btn').forEach(b => b.addEventListener('click', ()=>{
-        node.querySelectorAll('.btn').forEach(x=>x.setAttribute('aria-pressed','false'));
-        b.setAttribute('aria-pressed','true');
-      }));
       codeClasses = 'btn-group btn-group--outline btn-group--toggle'+(vertical?' btn-group--vertical':'')+(disabled?' btn-group--disabled':'');
     } else {
       node = makeGroup({ type:state.type, size:state.size, vertical, fullwidth:state.fullwidth, disabled, items:buildItems() });

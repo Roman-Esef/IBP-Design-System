@@ -1,9 +1,10 @@
 ---
 component: AllocationBar
 title: "AllocationBar"
-version: "v1.0"
-updated: "05.08.2026"
+version: "v1.1"
+updated: "12.08.2026"
 page: pages/organisms/AllocationBar.html
+runtime: scripts/ds-allocationbar.js
 css: styles/allocation-bar.css
 deps: [alert, button]
 status: curated
@@ -13,6 +14,17 @@ status: curated
 Итоговое число и его разбивка по составляющим: шапка (заголовок + итог), стек-бар распределения, список позиций с долей и абсолютным значением. Предметной области не знает — названия позиций и значения приходят данными. Read-only: без сортировки, фильтрации, drill-down и редактирования.
 
 Не путать с ProgressBar: тот показывает одну величину относительно максимума, AllocationBar — состав целого (сегменты делят 100%).
+
+## Инварианты
+- Хост обязан иметь `container-type: inline-size` (`.albar-host`) — без него контейнерные брейкпоинты не работают.
+- Цвета сегментов — только токены `--chart-*` по индексу позиции, без произвольного цвета; 13-я позиция и далее сворачиваются в «Прочее».
+- Свыше `maxVisibleItems` (5) — «Показать ещё N», внутреннего скролла у списка нет.
+- Высота бара фиксирована 8px на любом брейкпоинте; зазор между сегментами 2px, минимальный сегмент 2px.
+- При ограничении высоты (`data-height`) список пропадает первым, затем бар — итог не обрезается никогда.
+
+## Диагностика
+- «Компонент не подстраивается под сужение контейнера» → на хосте не выставлен `container-type: inline-size`
+- «Цвет сегмента не совпадает со строкой списка» → сверить индекс позиции с палитрой `--chart-*`, не задавать цвет напрямую
 
 ## Правила
 | Тема | Правило |
@@ -90,4 +102,4 @@ status: curated
 Кредит → indigo · Фондирующий кредит → pastel-green · Внутригрупповой кредит → blue · РЕПО → light-blue · Акции → shiny-green · Облигации → turquoise · Корп. контроль → red · Доп. доходность → orange · Комиссия → yellow · Дебиторская задолженность → purple. Прикладное соглашение, не правило ДС.
 
 ## Рантайм
-`scripts/allocation-bar.page.js` → `window.AllocationBar.make(cfg)`, `.palette`, `.fmtNumber`, `.fmtPercent`, `.fmtCompact`. Для статичных экранов достаточно разметки выше.
+`scripts/allocation-bar.page.js` → `window.AllocationBar.make(cfg)`, `.palette`, `.fmtNumber`, `.fmtPercent`, `.fmtCompact`. `scripts/ds-allocationbar.js` — связь бара со строкой по hover (`root[data-hover]`/`.is-active`), подключается через единую точку входа `ds.js`. Для статичных экранов достаточно разметки выше.

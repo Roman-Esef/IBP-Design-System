@@ -9,11 +9,11 @@ const MODAL_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>
+        <label class="ds-label"><span class="ds-label__text">Название сделки</span></label>
         <div class="mock-input">1-Кредит-199</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Сумма, RUB</span></label>
+        <label class="ds-label"><span class="ds-label__text">Сумма, RUB</span></label>
         <div class="mock-input">2 500 000 000,00</div>
         <span class="ds-helper ds-helper--left">Указывается с учётом НДС</span>
       </div>
@@ -29,11 +29,11 @@ const MODAL_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>
+        <label class="ds-label"><span class="ds-label__text">Название сделки</span></label>
         <div class="mock-input">1-Кредит-199</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">ИНН контрагента</span></label>
+        <label class="ds-label"><span class="ds-label__text">ИНН контрагента</span></label>
         <div class="mock-input mock-input--error" aria-invalid="true">77012345</div>
         <span class="ds-helper ds-helper--left ds-helper--error ds-helper--with-icon" role="alert">
           <span class="ds-helper__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></span>
@@ -81,8 +81,8 @@ const MODAL_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     for (let i = 0; i < 3; i++) {
       const row = document.createElement('div');
-      row.style.cssText = 'display:flex; flex-direction:column; gap:8px;';
-      row.innerHTML = `<span class="modal__skeleton modal__skeleton--title" style="--sk-w:30%;"></span><span class="modal__skeleton" style="--sk-w:100%;"></span>`;
+      row.className = 'sk-group';
+      row.innerHTML = `<span class="sk-line sk-line--title" style="--sk-w:30%;"></span><span class="sk-line" style="--sk-w:100%;"></span>`;
       wrap.appendChild(row);
     }
     return wrap;
@@ -127,7 +127,7 @@ function buildModal(o = {}) {
   const right = document.createElement('div'); right.className = 'modal__foot-right';
   if (footRight === 'both') right.innerHTML += `<button type="button" class="btn btn--transparent btn--m"><span class="btn__label">Очистить фильтр</span></button>`;
   right.innerHTML += saving
-    ? `<button type="button" class="btn btn--accent btn--m btn--loading" disabled aria-busy="true"><span class="btn__spinner"></span><span class="btn__label">Сохранить</span></button>`
+    ? `<button type="button" class="btn btn--accent btn--m btn--loading" disabled aria-busy="true"><span class="spin spin--current"></span><span class="btn__label">Сохранить</span></button>`
     : `<button type="button" class="btn btn--accent btn--m"><span class="btn__label">Сохранить</span></button>`;
   foot.appendChild(left); foot.appendChild(right);
 
@@ -137,16 +137,11 @@ function buildModal(o = {}) {
   modal.appendChild(foot);
   scrim.appendChild(modal);
 
-  /* тень у шапки/подвала при прокрутке тела */
-  function syncScrollShadow() {
-    head.classList.toggle('is-scrolled', body.scrollTop > 1);
-    foot.classList.toggle('is-scrolled', body.scrollTop + body.clientHeight < body.scrollHeight - 1);
-  }
-  body.addEventListener('scroll', syncScrollShadow);
-  requestAnimationFrame(syncScrollShadow);
+  /* тени шапки и подвала при прокрутке тела — рантайм ДС (scripts/ds-modal.js) */
+  window.DSModal && DSModal.wireScroll(modal);
 
   window.dsIcons && window.dsIcons.apply(scrim);
-  return { scrim, modal, head, body, foot, syncScrollShadow };
+  return { scrim, modal, head, body, foot, syncScrollShadow: modal.__dsModalSyncShadow || function () {} };
 }
 
 /* ---------- Alert между шапкой и телом (ошибка отправки / предупреждение) ---------- */

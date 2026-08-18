@@ -1,8 +1,8 @@
 ---
 component: Entity
 title: "Entity"
-version: "v1.1"
-updated: "13.07.2026"
+version: "v1.6"
+updated: "14.08.2026"
 page: pages/organisms/Entity.html
 css: styles/entity.css
 deps: [avatar, chip, icon-button, button, badge]
@@ -13,6 +13,21 @@ status: manual
 
 ## Назначение
 Универсальное представление объекта: ведущий элемент (иконка / аватар / чекбокс / грип) + текстовый блок (Header · строка Label · Subheaders) + опциональные Chips, группа IconButton и блок действий. Тянется на всю ширину контейнера, выравнивается по левому краю, наследует фон.
+
+## Инварианты
+- Ведущий и контент выравниваются по центру по вертикали; блок действий — по верху (`align-self: flex-start`).
+- Собственного фона нет — наследует контейнер.
+- Label — только одна строка (усечение + Tooltip); не переносить в 3+ строки.
+- Действия (EntityActions) — максимум 2; больше → кебаб-меню, не третья кнопка в ряд.
+- Вложенный интерактив (кнопка действия, чекбокс выбора) не всплывает до обработчика строки (`stopPropagation`) — иначе клик по вложенной кнопке одновременно выберет/откроет строку.
+- EntityTextMaster/EntitySubtitleGroup/EntityIconButtonGroup/EntityActions — внутренние узлы DS-разметки, отдельно не публикуются.
+
+## Диагностика
+- «Заголовок вылезает/переносится на 3+ строки» → `.entity__label--truncate`
+- «Больше двух кнопок в блоке действий теснятся» → кебаб `[data-menu]` + `scripts/ds-menu.js`, не свой список
+- «Subheaders занимают лишние строки» → клэмп `.entity__subs` (2 строки) + счётчик `.entity__subs-more`
+- «Аватар/иконка пуста в скелетоне» → `.entity--skeleton` (`.sk-surface` на иконке, сохраняет размер/радиус)
+- «Клик по вложенной кнопке выбирает/открывает строку» → проверить stopPropagation — элемент должен быть настоящей кнопкой, не div
 
 ## Размеры
 Три размера по величине ведущего элемента; типографика и зазоры масштабируются вместе.
@@ -40,9 +55,9 @@ status: manual
 
 ## Состояния
 - `.entity--interactive` — кликабельный тайл: hover-фон `--bgtable-row-hover`, фокус-обводка.
-- `.entity--selected` — выбран, фон `--primary-bg`.
+- `.entity--selected` — выбран, фон `--primary-bg`; CSS реагирует и на `[aria-selected="true"]` напрямую — класс нужен только для форс-состояния витрины (RulesAudit W1, 12.08.2026).
 - `.entity--selectable` — реальный чекбокс в `.entity__lead` (множественный выбор).
-- `.entity--skeleton` — загрузка: плейсхолдеры `.sk-line` + шиммер, `aria-busy`; шиммер выключается при reduced-motion.
+- `.entity--skeleton` — загрузка: ведущая иконка получает `.sk-surface` (сохраняет размер/радиус), строки — `.sk-line`; общий компонент Skeleton (styles/skeleton.css), `aria-busy`; шиммер замедляется при reduced-motion.
 - `.entity--empty` — нет данных: Label = «—», цвет inactive.
 - `.entity--error` — объект удалён: иконка в тоне error, Label зачёркнут, Header в тоне error.
 - Drag-handle — `.entity__drag` (drag-dots) в начале строки.
@@ -61,7 +76,7 @@ status: manual
 
 ### Анатомия DOM
 ```html
-<div class="entity entity--m">
+<div class="entity">
   <div class="entity__lead"><span class="entity__icon" aria-hidden="true"><svg…></svg></span></div>
   <div class="entity__main">
     <div class="entity__titles">
@@ -106,6 +121,18 @@ interface EntityProps {
 }
 ```
 
+### Рантайм ДС
+
+Своего рантайма у Entity нет — вёрстка статична, а два динамических кейса
+закрывают общие рантаймы ДС:
+
+- **усечение заголовка → тултип**: `data-tooltip="<полный текст>"` +
+  `data-tooltip-truncated="only"` на усекаемом узле, `scripts/ds-tooltip.js`
+  сам покажет подсказку только когда текст не помещается;
+- **кебаб при более чем двух действиях**: триггер `[data-menu]` и список
+  `.menu`, `scripts/ds-menu.js` даёт открытие, позиционирование с
+  разворотом, клавиатуру и закрытие.
+
 ### Справочник классов
 | Класс / атрибут | На чём | Назначение |
 |---|---|---|
@@ -131,6 +158,6 @@ interface EntityProps {
 | .entity__drag | button | Грип переупорядочивания |
 | .entity--interactive | .entity | Кликабельный тайл |
 | .entity--selected | .entity | Выбран, фон --primary-bg |
-| .entity--skeleton | .entity | Загрузка + шиммер, aria-busy |
+| .entity--skeleton | .entity | Загрузка: .sk-surface на иконке + .sk-line в строках, aria-busy |
 | .entity--empty | .entity | Нет данных, Label «—» |
 | .entity--error | .entity | Объект удалён, Label зачёркнут |

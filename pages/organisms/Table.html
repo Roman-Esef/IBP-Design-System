@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="../../styles/modal.css">
 <link rel="stylesheet" href="../../styles/context-menu.css">
 <link rel="stylesheet" href="../../styles/table.css">
+<link rel="stylesheet" href="../../styles/skeleton.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -89,8 +90,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.2</b></span>
-    <span>Обновлено <b>06.08.2026</b></span>
+    <span>Версия <b>v1.4</b></span>
+    <span>Обновлено <b>11.08.2026</b></span>
     <span>CSS <b>styles/table.css</b></span>
     <span>Зависимости <b>table-cell, pagination, table-filter, button, button-group, icon-button, chip, checkbox, illustration, modal, context-menu</b></span>
   </div>
@@ -313,16 +314,58 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <!-- 11. ЦВЕТА -->
 <section class="section" id="colors" data-screen-label="Цвета">
   <h2>Цвета</h2>
-  <div class="panel">
-    <ul class="bullets">
-      <li>Фон контейнера и тела — <code class="tok">--bg-tile</code>; рамка — <code class="tok">--border-light</code>; радиус — <code class="tok">--radius-xl</code>.</li>
-      <li>Разделители Toolbar/Footer — <code class="tok">--border-light</code>; тень под липкой шапкой — <code class="tok">--border-primary</code>.</li>
-      <li>Тени горизонтального скролла — производные от <code class="tok">--text-primary</code> (<code class="tok">color-mix</code>, не литерал).</li>
-      <li>Фон и текст строк/шапки — токены TableCell (<code class="tok">--bgtable*</code>, <code class="tok">--text-*</code>); фон ряда массового действия — токены Pagination.</li>
-      <li>Заголовок и счётчик пустого состояния — <code class="tok">--text-primary</code>/<code class="tok">--text-secondary</code>.</li>
-    </ul>
+  <p class="desc">Строки и ячейки — токены <a class="inl" href="../organisms/TableCell.html">TableCell</a> (<code class="tok">--bgtable*</code>, <code class="tok">--text-*</code>); фон ряда массового действия — токены Pagination. Ниже — токены, которые задаёт сам контейнер Table.</p>
+  <div class="panel" style="padding:0;overflow:hidden;">
+    <div class="tbl" id="color-table" style="grid-template-columns:none;border:none;border-radius:0;"></div>
   </div>
 </section>
+<script>
+(function () {
+  var probe = document.createElement('span');
+  probe.style.cssText = 'position:absolute;left:-9999px;width:0;height:0;';
+  document.body.appendChild(probe);
+  function resolveHex(cssValue) {
+    probe.style.backgroundColor = 'transparent';
+    probe.style.backgroundColor = cssValue;
+    var v = getComputedStyle(probe).backgroundColor;
+    var r, g, b, a = 1, m = v.match(/color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\)/i);
+    if (m) { r = +m[1]*255; g = +m[2]*255; b = +m[3]*255; if (m[4] !== undefined) a = +m[4]; }
+    else { var n = v.match(/[\d.]+/g); if (!n) return cssValue; r = +n[0]; g = +n[1]; b = +n[2]; if (n[3] !== undefined) a = +n[3]; }
+    function hx(x) { return Math.round(x).toString(16).padStart(2, '0').toUpperCase(); }
+    var s = '#' + hx(r) + hx(g) + hx(b); if (a < 1) s += ' · ' + Math.round(a * 100) + '%'; return s;
+  }
+  var rows = [
+    ['Контейнер', 'Фон', '--bg-tile'],
+    ['Контейнер', 'Рамка', '--border-light'],
+    ['Toolbar / Footer', 'Разделитель', '--border-light'],
+    ['Липкая шапка', 'Тень-граница при скролле', '--border-primary'],
+    ['Тени горизонтального скролла', 'Базовый цвет (color-mix, не литерал)', '--text-primary'],
+    ['Пустое состояние', 'Заголовок', '--text-primary'],
+    ['Пустое состояние', 'Счётчик/текст', '--text-secondary'],
+  ];
+  function dsTbl(headers, dataRows, widths) {
+    var grid = ['8px'].concat(widths, ['8px']).join(' ');
+    var thCells = headers.map(function (h) { return '<div class="th"><span class="th__label">' + h + '</span></div>'; }).join('');
+    var head = '<div class="tbl__row" style="grid-template-columns:' + grid + ';"><div class="th th--separator"></div>' + thCells + '<div class="th th--separator"></div></div>';
+    var body = dataRows.map(function (r) {
+      var cells = r.map(function (c) { return '<div class="tc"><span class="tc__row"><span class="tc__text">' + c + '</span></span></div>'; }).join('');
+      return '<div class="tbl__row" style="grid-template-columns:' + grid + ';"><div class="tc tc--separator"></div>' + cells + '<div class="tc tc--separator"></div></div>';
+    }).join('');
+    return head + body;
+  }
+  document.getElementById('color-table').innerHTML = dsTbl(
+    ['Раздел', 'Роль', 'Токен', 'Образец', 'Hex'],
+    rows.map(function (row) {
+      var section = row[0], role = row[1], tok = row[2];
+      return [section, role,
+        '<code class="tok">' + tok + '</code>',
+        '<span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle;background:var(' + tok + ')"></span>',
+        resolveHex('var(' + tok + ')')];
+    }),
+    ['1.2fr', '1.6fr', '1.2fr', '0.7fr', '0.9fr']);
+  probe.remove();
+})();
+</script>
 
 <!-- 12. ДЛЯ РАЗРАБОТЧИКОВ -->
 <section class="section" id="dev" data-screen-label="Для разработчиков">
@@ -403,6 +446,7 @@ onSelectionChange(count): bulkRow.hidden = (count === 0)
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-table.js"></script>
 <script src="../../scripts/table.page.js"></script>
 </body>
 </html>

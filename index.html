@@ -33,6 +33,8 @@
 <link rel="stylesheet" href="styles/input.css">
 <link rel="stylesheet" href="styles/input-range.css">
 <link rel="stylesheet" href="styles/alert.css">
+<link rel="stylesheet" href="styles/spinner.css">
+<link rel="stylesheet" href="styles/skeleton.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
@@ -126,7 +128,11 @@
     font: var(--type-body-s); color: var(--text-inactive); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
 </style>
   <link rel="stylesheet" href="styles/illustration.css">
-<link rel="stylesheet" href="styles/nav-tile.css">
+<link rel="stylesheet" href="styles/datepicker.css">
+  <link rel="stylesheet" href="styles/empty-state.css">
+  <link rel="stylesheet" href="styles/snackbar.css">
+  <link rel="stylesheet" href="styles/progress-bar.css">
+  <link rel="stylesheet" href="styles/nav-tile.css">
 <link rel="stylesheet" href="styles/ds-nav.css">
 </head>
 <body>
@@ -146,7 +152,7 @@
 
   <!-- FOUNDATIONS -->
   <section class="sec" data-screen-label="Foundations">
-    <div class="sec-head"><h2>Основы</h2><span class="n">6 разделов</span></div>
+    <div class="sec-head"><h2>Основы</h2><span class="n">7 разделов</span></div>
     <div class="grid">
       <a class="card" href="pages/foundations/Icons.html">
         <div class="card__preview">
@@ -171,6 +177,24 @@
           <h3 class="card__title">Иллюстрации</h3>
           <p class="card__desc">Библиотека продуктовых иллюстраций: 32 тайловых, 4 состояния ошибок и фоновая — для NavTile, пустых состояний и онбординга.</p>
           <div class="card__meta"><span class="tag">Foundations</span><span class="tag file">Illustrations.html</span></div>
+          <span class="card__go">Открыть раздел <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="pages/foundations/Spacing.html">
+        <div class="card__preview">
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:6px;width:100%;max-width:280px;">
+            <span style="grid-column:span 8;height:44px;border-radius:6px;background:color-mix(in srgb,var(--primary) 16%,transparent)"></span>
+            <span style="grid-column:span 4;height:44px;border-radius:6px;background:color-mix(in srgb,var(--primary) 8%,transparent)"></span>
+            <span style="grid-column:span 4;height:28px;border-radius:6px;background:color-mix(in srgb,var(--primary) 8%,transparent)"></span>
+            <span style="grid-column:span 4;height:28px;border-radius:6px;background:color-mix(in srgb,var(--primary) 8%,transparent)"></span>
+            <span style="grid-column:span 4;height:28px;border-radius:6px;background:color-mix(in srgb,var(--primary) 8%,transparent)"></span>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Сетка и отступы</h3>
+          <p class="card__desc">Модуль 4 px, шкала отступов <code>--space-*</code> и колоночная сетка: 12 резиновых колонок с зазором 16 px. Конструктор сетки внутри.</p>
+          <div class="card__meta"><span class="tag">Foundations</span><span class="tag file">Spacing.html</span></div>
           <span class="card__go">Открыть раздел <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
@@ -239,7 +263,7 @@
 
   <!-- ATOMS -->
   <section class="sec" data-screen-label="Atoms">
-    <div class="sec-head"><h2>Атомы</h2><span class="n">12 компонентов</span></div>
+    <div class="sec-head"><h2>Атомы</h2><span class="n">14 компонентов</span></div>
     <div class="grid">
       <a class="card" href="pages/atoms/Avatar.html">
         <div class="card__preview">
@@ -377,6 +401,30 @@
         </div>
       </a>
 
+      <a class="card" href="pages/atoms/Skeleton.html">
+        <div class="card__preview">
+          <div id="pvSkel" style="display:flex; align-items:center; gap:14px; width:100%; max-width:260px;"></div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Skeleton</h3>
+          <p class="card__desc">Переиспользуемый плейсхолдер загрузки: строка текста и форма с общим шиммером. Группы строк и строка с аватаром готовы из коробки.</p>
+          <div class="card__meta"><span class="tag">Атомы</span><span class="tag file">Skeleton.html</span></div>
+          <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="pages/atoms/Spinner.html">
+        <div class="card__preview">
+          <div id="pvSpin" style="display:flex; align-items:center; gap:28px;"></div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Spinner</h3>
+          <p class="card__desc">Круговой индикатор загрузки неопределённой длительности: семь тонов, четыре размера, подпись и блокирующий оверлей поверх области.</p>
+          <div class="card__meta"><span class="tag">Атомы</span><span class="tag file">Spinner.html</span></div>
+          <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
       <a class="card" href="pages/atoms/Switch.html">
         <div class="card__preview">
           <div class="pv-cb" id="pvSw"></div>
@@ -394,7 +442,7 @@
 
   <!-- MOLECULES -->
   <section class="sec" data-screen-label="Molecules">
-    <div class="sec-head"><h2>Молекулы</h2><span class="n">19 компонентов</span></div>
+    <div class="sec-head"><h2>Молекулы</h2><span class="n">20 компонентов</span></div>
     <div class="grid">
       <a class="card" href="pages/molecules/Alert.html">
         <div class="card__preview">
@@ -510,11 +558,29 @@
         </div>
       </a>
 
+      <a class="card" href="pages/molecules/EmptyState.html">
+        <div class="card__preview">
+          <div class="es es--m" style="padding:0; gap:12px; max-width:230px;">
+            <span class="illu es__illu" data-illu="empty-folder" style="width:64px; height:64px;"></span>
+            <div class="es__body" style="gap:4px; max-width:210px;">
+              <p class="es__title" style="font:var(--type-body-m-strong);">Нет сделок</p>
+              <p class="es__text" style="font:var(--type-body-s);">Попробуйте изменить условия поиска.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">EmptyState</h3>
+          <p class="card__desc">Иллюстрация, заголовок, текст и опциональные действия — пустой список/таблица, нет результатов поиска, полноэкранная ошибка. Размер M/L, поверхность обычная/карточка.</p>
+          <div class="card__meta"><span class="tag">Молекулы</span><span class="tag file">EmptyState.html</span></div>
+          <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
       <a class="card" href="pages/molecules/InputAmountRange.html">
         <div class="card__preview">
           <div style="width:100%; max-width:280px;">
             <span class="ds-label ds-label--left" style="margin-bottom:6px;"><span class="ds-label__text">Сумма, ₽</span></span>
-            <div class="inp-range inp-range--m" style="width:100%;">
+            <div class="inp-range" style="width:100%;">
               <div class="inp-range__row">
                 <div class="inp inp--m inp-range__field"><div class="inp__field"><span class="inp__prefix">От</span><span class="inp__control" style="color:var(--text-primary);">100 000</span></div></div>
                 <span class="inp-range__line" aria-hidden="true"></span>
@@ -571,7 +637,7 @@
         <div class="card__preview">
           <div style="width:100%; max-width:280px;">
             <span class="ds-label ds-label--left" style="margin-bottom:6px;"><span class="ds-label__text">Период сделки</span></span>
-            <div class="inp-range inp-range--m inp-range--date" style="width:100%;">
+            <div class="inp-range inp-range--date" style="width:100%;">
               <div class="inp-range__row">
                 <div class="inp inp--m inp-range__field"><div class="inp__field"><span class="inp__prefix">От</span><span class="inp__control" style="color:var(--text-primary);">01.01.2021</span></div></div>
                 <span class="inp-range__line" aria-hidden="true"></span>
@@ -714,7 +780,7 @@
 
   <!-- ORGANISMS -->
   <section class="sec" data-screen-label="Organisms">
-    <div class="sec-head"><h2>Организмы</h2><span class="n">12 компонентов</span></div>
+    <div class="sec-head"><h2>Организмы</h2><span class="n">13 компонентов</span></div>
     <div class="grid">
       <a class="card" href="pages/organisms/AllocationBar.html">
         <div class="card__preview">
@@ -739,6 +805,32 @@
           <h3 class="card__title">AllocationBar</h3>
           <p class="card__desc">Итог и его разбивка по составляющим: стек-бар распределения и список позиций с долями. Палитра из 12 токенов графиков, адаптив по ширине контейнера, состояния загрузки, ошибки и расхождения суммы с итогом.</p>
           <div class="card__meta"><span class="tag">Организмы</span><span class="tag file">AllocationBar.html</span></div>
+          <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="pages/organisms/Chart.html">
+        <div class="card__preview">
+          <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:260px;">
+            <div style="display:flex; align-items:flex-end; gap:6px; height:74px;">
+              <span style="flex:1; height:42%; border-radius:2px; background:var(--chart-blue,#5B8DEF);"></span>
+              <span style="flex:1; height:64%; border-radius:2px; background:var(--chart-blue,#5B8DEF);"></span>
+              <span style="flex:1; height:52%; border-radius:2px; background:var(--chart-blue,#5B8DEF);"></span>
+              <span style="flex:1; height:80%; border-radius:2px; background:var(--chart-blue,#5B8DEF);"></span>
+              <span style="flex:1; height:70%; border-radius:2px; background:var(--chart-turquoise,#3FBFB0);"></span>
+              <span style="flex:1; height:96%; border-radius:2px; background:var(--chart-turquoise,#3FBFB0);"></span>
+              <span style="flex:1; height:86%; border-radius:2px; background:var(--chart-turquoise,#3FBFB0);"></span>
+            </div>
+            <div style="display:flex; gap:14px; font:400 12px/1.3 var(--font-text,sans-serif); color:var(--text-secondary,#617C7C);">
+              <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:2px; background:var(--chart-blue,#5B8DEF);"></span>Поступления</span>
+              <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:2px; background:var(--chart-turquoise,#3FBFB0);"></span>Прогноз</span>
+            </div>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Chart</h3>
+          <p class="card__desc">Графики данных: столбчатые, линейные, области, круговые, точечные, водопад и спарклайн. Одна анатомия — легенда, оси, тултип, кросс-хэйр, опорная линия и выделение диапазона; размеры S / M / L для тайла и страницы.</p>
+          <div class="card__meta"><span class="tag">Организмы</span><span class="tag file">Chart.html</span></div>
           <span class="card__go">Открыть компонент <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
@@ -939,25 +1031,26 @@
     </div>
   </section>
 
-  <!-- PATTERNS -->
-  <section class="sec" data-screen-label="Patterns">
-    <div class="sec-head"><h2>Правила и паттерны</h2><span class="n">2 раздела</span></div>
+  <!-- RND -->
+  <section class="sec" data-screen-label="RND">
+    <div class="sec-head"><h2>RND</h2><span class="n">3 раздела</span></div>
+    <p style="font:var(--type-body-m);color:var(--text-secondary);margin:-12px 0 24px;max-width:760px">Исследования и рабочая память дизайн-системы: аудиты, инициативы, задачи на потом. Не часть поставляемой ДС — материал для решений по ней.</p>
     <div class="grid">
-      <a class="card" href="pages/patterns/Backlog.html">
+      <a class="card" href="pages/rnd/RulesAudit.html">
         <div class="card__preview">
           <div style="display:flex; align-items:center; gap:12px; width:100%; max-width:260px;">
-            <span style="flex:none; width:40px; height:40px; border-radius:12px; background:var(--c-swamp-100,#E1EDE7); color:var(--text-primary,#6E8A82); display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 12h6M9 16h6"/></svg></span>
-            <span style="min-width:0;"><span style="display:block; font:400 11px/1.3 var(--font-text,sans-serif); color:var(--text-inactive,#9DB2AC);">Рабочая память</span><span style="display:block; font:600 15px/1.3 var(--font-text,sans-serif); color:var(--text-primary,#1F2D2A);">Задачи</span></span>
+            <span style="flex:none; width:40px; height:40px; border-radius:12px; background:var(--c-swamp-100,#E1EDE7); color:var(--text-primary,#6E8A82); display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+            <span style="min-width:0;"><span style="display:block; font:400 11px/1.3 var(--font-text,sans-serif); color:var(--text-inactive,#9DB2AC);">Инициатива · RFC</span><span style="display:block; font:600 15px/1.3 var(--font-text,sans-serif); color:var(--text-primary,#1F2D2A);">3 фазы</span></span>
           </div>
         </div>
         <div class="card__body">
-          <h3 class="card__title">Общий бэклог</h3>
-          <p class="card__desc">Задачи на потом для всей дизайн-системы — то, что не относится к одному компоненту и не делается прямо сейчас.</p>
-          <div class="card__meta"><span class="tag">Паттерны</span><span class="tag file">Backlog.html</span></div>
+          <h3 class="card__title">Аудит правил</h3>
+          <p class="card__desc">Полнота компонентов: работает ли состояние из разметки, масштабируется ли глиф в слоте, решается ли переполнение само, собирается ли композиция целиком. Матрица по 46 компонентам и план доработок волнами.</p>
+          <div class="card__meta"><span class="tag">RND</span><span class="tag file">RulesAudit.html</span></div>
           <span class="card__go">Открыть страницу <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
-      <a class="card" href="pages/patterns/SectionsAudit.html">
+      <a class="card" href="pages/rnd/SectionsAudit.html">
         <div class="card__preview">
           <div style="display:flex; align-items:center; gap:12px; width:100%; max-width:260px;">
             <span style="flex:none; width:40px; height:40px; border-radius:12px; background:var(--c-swamp-100,#E1EDE7); color:var(--text-primary,#6E8A82); display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
@@ -967,7 +1060,21 @@
         <div class="card__body">
           <h3 class="card__title">Аудит разделов</h3>
           <p class="card__desc">Рабочая память инициативы «ДС из коробки»: план переноса переиспользуемого поведения и композиционных стилей с витрины в глобальный рантайм.</p>
-          <div class="card__meta"><span class="tag">Паттерны</span><span class="tag file">SectionsAudit.html</span></div>
+          <div class="card__meta"><span class="tag">RND</span><span class="tag file">SectionsAudit.html</span></div>
+          <span class="card__go">Открыть страницу <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="card" href="pages/rnd/Backlog.html">
+        <div class="card__preview">
+          <div style="display:flex; align-items:center; gap:12px; width:100%; max-width:260px;">
+            <span style="flex:none; width:40px; height:40px; border-radius:12px; background:var(--c-swamp-100,#E1EDE7); color:var(--text-primary,#6E8A82); display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 12h6M9 16h6"/></svg></span>
+            <span style="min-width:0;"><span style="display:block; font:400 11px/1.3 var(--font-text,sans-serif); color:var(--text-inactive,#9DB2AC);">Рабочая память</span><span style="display:block; font:600 15px/1.3 var(--font-text,sans-serif); color:var(--text-primary,#1F2D2A);">Задачи</span></span>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Общий бэклог</h3>
+          <p class="card__desc">Задачи на потом для всей дизайн-системы — то, что не относится к одному компоненту и не делается прямо сейчас.</p>
+          <div class="card__meta"><span class="tag">RND</span><span class="tag file">Backlog.html</span></div>
           <span class="card__go">Открыть страницу <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
@@ -976,9 +1083,24 @@
 
   <!-- SCREENS -->
   <section class="sec" data-screen-label="Screens">
-    <div class="sec-head"><h2>Примеры экранов</h2><span class="n">10 экранов</span></div>
-    <p style="font:var(--type-body-m);color:var(--text-secondary);margin:-12px 0 24px;max-width:760px">Реальные экраны продукта, собранные из компонентов и токенов ДС — как эталон применения. Не живой интерфейс: часть данных условна, а отсутствующие пока компоненты (график CashFlow, allocation-бар, AI-панель) показаны заглушками-плейсхолдерами.</p>
-    <div class="grid" id="screensGrid"></div>
+    <div class="sec-head"><h2>Примеры экранов</h2><span class="n">1 экран</span></div>
+    <p style="font:var(--type-body-m);color:var(--text-secondary);margin:-12px 0 24px;max-width:760px">Тест сборки целого экрана из компонентов и токенов ДС — проверка того, что компонент отдаёт наружу, а не образец продуктового паттерна.</p>
+    <div class="grid">
+      <a class="card" href="pages/screens/DealCard.html">
+        <div class="card__preview">
+          <div style="display:flex; align-items:center; gap:12px; width:100%; max-width:260px;">
+            <span style="flex:none; width:40px; height:40px; border-radius:12px; background:var(--c-swamp-100,#E1EDE7); color:var(--text-primary,#6E8A82); display:flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="16" rx="1"/><rect x="3" y="14" width="7" height="6" rx="1"/></svg></span>
+            <span style="min-width:0;"><span style="display:block; font:400 11px/1.3 var(--font-text,sans-serif); color:var(--text-inactive,#9DB2AC);">Экран · Сделка</span><span style="display:block; font:600 15px/1.3 var(--font-text,sans-serif); color:var(--text-primary,#1F2D2A);">Карточка сделки</span></span>
+          </div>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Карточка сделки</h3>
+          <p class="card__desc">Общая информация, продукты ДИД, финансовые инструменты и метрики сделки — собрано из Tile, ReadOnlyField, Chip, AllocationBar, NavPanel и других компонентов ДС.</p>
+          <div class="card__meta"><span class="tag">Экраны</span><span class="tag file">DealCard.html</span></div>
+          <span class="card__go">Открыть экран <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
   </section>
 
   <footer class="foot">
@@ -1040,7 +1162,7 @@
     const ic = n => L[n] || '';
     host.innerHTML =
       '<a class="link link--accent link--m" href="#" tabindex="-1">Перейти к документу</a>' +
-      '<a class="link link--accent link--m link--with-icon" href="#" tabindex="-1"><span class="link__text">Открыть в реестре</span><span class="link__icon">'+ic('link-external')+'</span></a>' +
+      '<a class="link link--accent link--m link--with-icon" href="#" tabindex="-1"><span >Открыть в реестре</span><span class="link__icon">'+ic('link-external')+'</span></a>' +
       '<span style="font:var(--type-body-s); color:var(--text-inactive); display:flex; align-items:center; gap:6px;"><a class="link link--muted link--m" href="#" tabindex="-1">Сделки</a><span style="color:var(--text-inactive)">›</span><span style="color:var(--text-primary); font-weight:600;">Договор</span></span>';
     host.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
   })();
@@ -1110,7 +1232,7 @@
     '<span style="font:var(--type-body-m); color:var(--text-primary);">Раздел A</span>' +
     '<div style="height:14px;"></div>' +
     '<hr class="dvd dvd--h">' +
-    '<div class="dvd-text dvd-text--center" style="margin:14px 0;"><span class="dvd-text__label">или</span></div>' +
+    '<div class="dvd-text" style="margin:14px 0;"><span class="dvd-text__label">или</span></div>' +
     '<hr class="dvd dvd--h dvd--strong">' +
     '<div style="height:14px;"></div>' +
     '<span style="font:var(--type-body-m); color:var(--text-primary);">Раздел B</span>';
@@ -1144,7 +1266,7 @@
   // segment control preview
   (function(){
     const host=document.getElementById('pvSeg'); if(!host) return;
-    const g=document.createElement('div'); g.className='segctrl segctrl--m';
+    const g=document.createElement('div'); g.className='segctrl';
     const thumb=document.createElement('div'); thumb.className='segctrl__thumb'; g.appendChild(thumb);
     const items=[['Неделя',false],['Месяц',true],['Год',false]];
     items.forEach(([txt,sel])=>{
@@ -1167,7 +1289,7 @@
     host.innerHTML =
       '<div class="alert alert--info alert--m">'+dot('--info')+'<div class="alert__body"><p class="alert__title">Заголовок компонента</p></div></div>' +
       '<div class="alert alert--error alert--m">'+dot('--error')+'<div class="alert__body"><p class="alert__title">Заголовок компонента</p></div></div>' +
-      '<div class="alert alert--muccess alert--m">'+dot('--success')+'<div class="alert__body"><p class="alert__title">Заголовок компонента</p></div></div>';
+      '<div class="alert alert--success alert--m">'+dot('--success')+'<div class="alert__body"><p class="alert__title">Заголовок компонента</p></div></div>';
   })();
 
   // label/helper preview
@@ -1185,7 +1307,7 @@
     const host=document.getElementById('pvToast'); if(!host) return;
     const L=window.DS_ICONS||{};
     const t1=document.createElement('div'); t1.className='toast'; t1.style.boxShadow='none';
-    t1.innerHTML='<span class="toast__lead"><span class="toast__spinner" aria-hidden="true"></span></span><span class="toast__msg">Выполняется маршрутизация</span>';
+    t1.innerHTML='<span class="toast__lead"><span class="spin spin--current" aria-hidden="true"></span></span><span class="toast__msg">Выполняется маршрутизация</span>';
     const t2=document.createElement('div'); t2.className='toast toast--success'; t2.style.boxShadow='none';
     t2.innerHTML='<span class="toast__lead"><span class="toast__icon" aria-hidden="true">'+(L['check-circle']||'')+'</span></span><span class="toast__msg">Процесс запущен</span>';
     host.appendChild(t1); host.appendChild(t2);
@@ -1274,59 +1396,26 @@
   (function(){
     const host=document.getElementById('pvPbar'); if(!host) return;
     function bar(tone,val){
-      return '<div class="pbar pbar--m pbar--'+tone+'" style="pointer-events:none;">' +
+      return '<div class="pbar pbar--'+tone+'" style="pointer-events:none;">' +
         '<div class="pbar__track"><div class="pbar__fill" style="width:'+val+'%;"></div></div></div>';
     }
     host.innerHTML = bar('accent',65) + bar('success',90) + bar('warning',45) + bar('error',20);
   })();
 
-  // screens grid
+  // skeleton preview
   (function(){
-    const host = document.getElementById('screensGrid'); if(!host) return;
-    const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-    const S = [
-      ['01','01-Portfolio.html','Текущий портфель ДИД','Реестр сделок: широкая таблица со статусами всех служб, закреплённые колонки и пагинация.','table'],
-      ['02','02-Deal.html','Карточка сделки (v1)','Детальная страница сделки: КНР, сроки, команда, финансовые метрики, дерево продуктов и финансовые инструменты.','deal'],
-      ['02v2','02-Deal-v2.html','Карточка сделки (v2)','Пересборка по новому процессу: компоненты ДС (Tile, ReadOnlyField, RiskMetric), плотность с макета, сверка на 1920.','deal'],
-      ['03','03-DealFixModal.html','Фиксация ЭПС/ВБС','Та же карточка сделки с открытой модальной формой фиксации ЭПС/ВБС по финансовому инструменту.','modal'],
-      ['04','04-Metrics.html','Финансовые метрики','Матрица метрик по инструментам: закреплённая колонка, группировка строк, даты-колонки с прокруткой.','matrix'],
-      ['05','05-Instrument.html','ФИ: Доп. доходность','Карточка финансового инструмента: данные ФИ, инструменты с тултипом, ID и счета 1С.','deal'],
-      ['06','06-RateSchemes.html','Процентные схемы','Список схем по периодам: цветные боксы ставок, тултип Floor/Cap, контекст-меню и стек тостов.','cards'],
-      ['07','07-CashFlow.html','Прогноз CashFlow','Прогноз денежного потока: график-заглушка с подсказкой, сводные карточки и правый агрегатор.','chart'],
-      ['08','08-Payments.html','Плановые платежи','Таблица платежей с чекбоксами строк, статусами, действием в строке и панелью групповых операций.','table'],
-      ['09','09-CorpRequest.html','Корпоративный запрос','Карточка корпзапроса с блоками общей информации и закреплённой правой AI-панелью.','ai']
-    ];
-    function thumb(kind){
-      const b='background:var(--border-light);border-radius:3px', a='background:var(--secondary);border-radius:3px', g='background:var(--bgtable-pinned);border-radius:4px';
-      const rail='<span style="width:18px;'+b+';align-self:stretch"></span>';
-      let body='';
-      if(kind==='table'||kind==='matrix'){
-        body='<span style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="height:12px;width:45%;'+a+'"></span>'+Array(5).fill('<span style="height:9px;'+b+'"></span>').join('')+'</span>';
-      } else if(kind==='chart'){
-        body='<span style="flex:1;display:flex;gap:6px"><span style="flex:1;'+g+';display:flex;align-items:flex-end;gap:3px;padding:8px">'+[30,55,40,70,50,65].map(h=>'<span style="flex:1;height:'+h+'%;'+a+'"></span>').join('')+'</span><span style="width:34px;display:flex;flex-direction:column;gap:4px">'+Array(6).fill('<span style="height:8px;'+b+'"></span>').join('')+'</span></span>';
-      } else if(kind==='ai'){
-        body='<span style="flex:1;display:flex;gap:6px"><span style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="height:11px;width:50%;'+a+'"></span><span style="flex:1;'+g+'"></span></span><span style="width:40px;'+g+';border:1px solid var(--st-dpurple);border-radius:4px"></span></span>';
-      } else if(kind==='modal'){
-        body='<span style="flex:1;position:relative;'+g+'"><span style="position:absolute;inset:14px 10px;background:var(--bg-tile);border:1px solid var(--border-primary);border-radius:5px;box-shadow:0 6px 16px rgba(40,50,55,.14)"></span></span>';
-      } else if(kind==='cards'){
-        body='<span style="flex:1;display:flex;flex-direction:column;gap:6px">'+Array(3).fill('<span style="height:20px;'+g+'"></span>').join('')+'</span>';
-      } else {
-        body='<span style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">'+Array(6).fill('<span style="'+g+'"></span>').join('')+'</span>';
-      }
-      return '<div style="width:100%;max-width:280px;height:124px;display:flex;gap:8px;padding:12px;background:var(--bg-tile);border:1px solid var(--border-light);border-radius:8px">'+rail+body+'</div>';
-    }
-    host.innerHTML = S.map(s=>
-      '<a class="card" href="pages/screens/'+s[1]+'">'+
-        '<div class="card__preview">'+thumb(s[4])+'</div>'+
-        '<div class="card__body">'+
-          '<h3 class="card__title"><span class="tag" style="background:var(--secondary);color:#fff">'+s[0]+'</span>'+s[2]+'</h3>'+
-          '<p class="card__desc">'+s[3]+'</p>'+
-          '<div class="card__meta"><span class="tag">Экраны</span><span class="tag file">'+s[1]+'</span></div>'+
-          '<span class="card__go">Открыть экран '+arrow+'</span>'+
-        '</div>'+
-      '</a>'
-    ).join('');
+    const host=document.getElementById('pvSkel'); if(!host) return;
+    host.innerHTML = '<span class="sk-block sk-block--circle" style="--sk-w:40px;--sk-h:40px"></span>' +
+      '<div class="sk-group" style="flex:1"><span class="sk-line sk-line--title" style="--sk-w:60%"></span><span class="sk-line" style="--sk-w:85%"></span></div>';
   })();
+
+  // spinner preview
+  (function(){
+    const host=document.getElementById('pvSpin'); if(!host) return;
+    function ring(tone,size){ return '<span class="spin spin--'+size+' spin--'+tone+'" style="pointer-events:none;"></span>'; }
+    host.innerHTML = ring('accent','l') + ring('success','m') + ring('warning','m') + ring('error','s');
+  })();
+
 </script>
 </body>
 </html>

@@ -23,6 +23,7 @@ body.ds-has-nav { padding-left: var(--ds-nav-w); }
 
 .ds-nav__brand {
   display: flex; align-items: center; gap: 12px;
+  color: var(--text-primary);   /* иначе ссылка-бренд браузерно-синяя (E3) */
   padding: 22px 24px 18px;
   border-bottom: 1px solid var(--border-light);
   flex: none;

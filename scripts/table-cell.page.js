@@ -161,7 +161,7 @@
   }
 
   function cellContent(cfg, i) {
-    if (cfg.state === 'skeleton') return '<span class="tc__skeleton"></span>';
+    if (cfg.state === 'skeleton') return '<span class="sk-line sk-line--caption" style="--sk-w:60%"></span>';
     if (cfg.state === 'empty') return '<span class="tc__empty">—</span>';
     var extra = cfg.hiddenOn && !has(INPUT_TYPES, cfg.type) && cfg.type !== 'checkbox' ? hiddenActions() : '';
 
@@ -181,7 +181,7 @@
         var labels = ['Активна', 'VIP', 'Новый'];
         var html = '<div class="tc__controls">';
         for (var k = 0; k < cfg.chipsCount; k++) {
-          html += '<span class="chip chip--readonly chip--s' + roundCls + toneCls + '"><span class="chip__label">' + labels[k % labels.length] + '</span></span>';
+          html += '<span class="chip chip--s' + roundCls + toneCls + '"><span class="chip__label">' + labels[k % labels.length] + '</span></span>';
         }
         return html + '</div>' + extra;
       }
@@ -689,7 +689,7 @@
     var cls = 'tc' + (c.num ? ' tc--numbers' : '') + (dragKey === c.k ? ' tc--dragging' : '');
     if (c.k === 'status') {
       var tone = r.status[0] ? ' chip--' + r.status[0] : '';
-      return '<div class="' + cls + '"><span class="chip chip--readonly chip--s chip--rounded' + tone + '"><span class="chip__label">' + r.status[1] + '</span></span></div>';
+      return '<div class="' + cls + '"><span class="chip chip--s chip--rounded' + tone + '"><span class="chip__label">' + r.status[1] + '</span></span></div>';
     }
     return '<div class="' + cls + '"><span class="tc__row"><span class="tc__text tc__text--truncate">' + esc(r[c.k]) + '</span></span></div>';
   }
@@ -813,4 +813,47 @@
   });
 
   render();
+})();
+
+
+/* ------------------------------------------------------------------ */
+/* Вариант «Динамика»: спарклайн в ячейке — компонент Chart (spark)     */
+/* ------------------------------------------------------------------ */
+(function () {
+  function build() {
+    var host = document.getElementById('tc-spark-demo');
+    if (!host || !window.DSChart) return;
+    var rows = [
+      ['Показатель A', '810 000 000,00', [120, 160, 150, 190, 210, 240, 260, 300], 'auto'],
+      ['Показатель B', '530 000 000,00', [300, 280, 260, 250, 230, 210, 190, 160], 'auto'],
+      ['Показатель C', '420 000 000,00', [200, 210, 190, 220, 205, 215, 210, 225], 'series']
+    ];
+    var tpl = 'grid-template-columns:8px 1.6fr 1fr 0.7fr 8px;';
+    var html = '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">';
+    html += '<div class="tbl__row" style="' + tpl + '"><div class="th th--separator"></div>' +
+      '<div class="th"><span class="th__label">Показатель</span></div>' +
+      '<div class="th th--right"><span class="th__label">Значение</span></div>' +
+      '<div class="th"><span class="th__label">Динамика</span></div>' +
+      '<div class="th th--separator"></div></div>';
+    rows.forEach(function (r, i) {
+      html += '<div class="tbl__row" style="' + tpl + '"><div class="tc tc--separator"></div>' +
+        '<div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div>' +
+        '<div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div>' +
+        '<div class="tc"><span class="tc__row"><span class="tc__spark" id="tc-spk-' + i + '"></span></span></div>' +
+        '<div class="tc tc--separator"></div></div>';
+    });
+    host.innerHTML = html + '</div>';
+    rows.forEach(function (r, i) {
+      var slot = document.getElementById('tc-spk-' + i);
+      if (!slot) return;
+      slot.appendChild(window.DSChart.make({
+        type: 'spark', spark: 'line',
+        tone: r[3] === 'auto' ? 'auto' : null,
+        series: [{ id: 'k', data: r[2], color: '--chart-blue' }],
+        ariaLabel: 'Динамика: ' + r[0]
+      }));
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
 })();

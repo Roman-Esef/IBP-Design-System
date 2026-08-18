@@ -1,0 +1,472 @@
+<!-- @dsCard group="RND" name="RulesAudit" viewport="1440x900" subtitle="Аудит полноты компонентов: состояния, глифы, корнер-кейсы, композиции, инварианты" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script>window.__DS_ROOT = '../../';</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аудит: правила из коробки — Дизайн-система</title>
+<link rel="stylesheet" href="../../styles/typography.css">
+<link rel="stylesheet" href="../../styles/colors.css">
+<link rel="stylesheet" href="../../styles/ds-nav.css">
+<link rel="stylesheet" href="../../styles/ds-toc.css">
+<link rel="stylesheet" href="../../styles/radius.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
+<link rel="stylesheet" href="../../styles/table-cell.css">
+<style>
+.page{max-width:1560px;margin:0 auto;padding:clamp(40px,7vw,96px) clamp(24px,4vw,56px) 140px;}
+a{color:var(--link);} a:hover{color:var(--link-dark);}
+.section>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 28px;max-width:88ch;text-wrap:pretty;}
+.panel{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:16px;padding:28px 32px;}
+.panel+.panel{margin-top:16px;}
+.subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:28px 0 14px;}
+.panel .subhead:first-child{margin-top:0;}
+
+/* бейджи оценки */
+.b{display:inline-flex;align-items:center;justify-content:center;font:600 11px/1 var(--font-text),sans-serif;border-radius:999px;padding:4px 9px;white-space:nowrap;}
+.b-done{background:color-mix(in srgb,var(--success) 15%,var(--bg-tile));color:var(--success-dark);}
+.b-wip{background:var(--c-cgrey-50);color:var(--text-secondary);}
+.b-next{background:var(--warning-bg);color:var(--warning-dark);}
+.b-later{background:transparent;color:var(--text-inactive);font-weight:400;}
+.k{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font:700 11px/1 var(--font-text),sans-serif;}
+.k-ok{background:color-mix(in srgb,var(--success) 16%,var(--bg-tile));color:var(--success-dark);}
+.k-part{background:var(--warning-bg);color:var(--warning-dark);}
+.k-no{background:color-mix(in srgb,var(--error) 13%,var(--bg-tile));color:var(--error-dark);}
+.k-na{background:transparent;color:var(--text-inactive);font-weight:400;}
+.prio{display:inline-flex;align-items:center;justify-content:center;font:700 11px/1 var(--font-text),sans-serif;border-radius:6px;padding:4px 8px;letter-spacing:.02em;}
+.prio-P1{background:var(--error);color:var(--text-on-dark);}
+.prio-P2{background:var(--warning);color:var(--warning-dark);}
+.prio-P3{background:var(--c-cgrey-100);color:var(--text-secondary);}
+.prio-wave{background:var(--primary);color:var(--text-on-dark);padding:5px 11px;}
+.area{display:inline-flex;font:600 11px/1 var(--font-text),sans-serif;border-radius:999px;padding:4px 9px;white-space:nowrap;background:var(--c-cgrey-50);color:var(--text-secondary);}
+
+/* легенда и статистика */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:0 0 18px;font:var(--type-body-s);color:var(--text-secondary);align-items:center;}
+.legend .it{display:inline-flex;align-items:center;gap:8px;}
+.stat{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0 0;}
+.stat .card{background:var(--bg-tile);border:1px solid var(--border-light);border-radius:12px;padding:14px 20px;min-width:132px;}
+.stat .num{font:var(--type-h4-strong);color:var(--text-primary);}
+.stat .num.hot{color:var(--error-dark);}
+.stat .lbl{font:var(--type-body-xs);color:var(--text-inactive);margin-top:2px;}
+
+/* таблицы */
+.matrix-wrap{overflow:auto;}
+.tbl .th__label{white-space:normal;}
+.tbl .tbl__row:first-child{position:sticky;top:0;z-index:3;background:var(--bg-tile);}
+.tbl--matrix{min-width:1080px;}
+.tbl--matrix .tbl__row{grid-template-columns:8px 190px repeat(5,1fr) 128px 8px;}
+.tbl--matrix .tc:nth-child(2),.tbl--matrix .th:nth-child(2){position:sticky;left:8px;z-index:2;background:var(--bg-tile);}
+.tbl--matrix .tc:first-child,.tbl--matrix .th:first-child{position:sticky;left:0;z-index:2;background:var(--bg-tile);}
+.tbl--incident .tbl__row{grid-template-columns:8px 210px 1.3fr 1.5fr 150px 8px;}
+.tbl--crit .tbl__row{grid-template-columns:8px 58px 220px 1.5fr 1fr 8px;}
+.tbl--plan .tbl__row{grid-template-columns:8px 74px 250px 1.35fr 1.15fr 92px 108px 8px;}
+.tbl--sys .tbl__row{grid-template-columns:8px 92px 1.4fr 1.1fr 74px 8px;}
+.tbl--log .tbl__row{grid-template-columns:8px 74px 1fr 1.55fr 108px 96px 8px;}
+.tbl .tc a{color:var(--text-primary);text-decoration:none;}
+.tbl .tc a:hover{color:var(--primary);}
+.num-cell{font:var(--type-body-m-strong);font-variant-numeric:tabular-nums;}
+.wave{display:flex;flex-direction:column;gap:10px;}
+.wave__row{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border-light);border-radius:10px;background:var(--bg-tile);}
+.wave__badge{flex:none;min-width:72px;}
+.wave__body{font:var(--type-body-m);color:var(--text-secondary);}
+.wave__body b{color:var(--text-primary);}
+pre.code{margin:12px 0 0;background:var(--c-cgrey-50);border:1px solid var(--border-light);border-radius:10px;padding:14px 16px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.6;color:var(--text-primary);}
+pre.code .c{color:var(--text-inactive);}
+</style>
+</head>
+<body>
+<main class="page">
+  <a class="crumb" href="../../index.html">← Дизайн-система</a>
+  <header class="masthead">
+    <p class="eyebrow">RND · инициатива по ДС</p>
+    <h1>Аудит: правила из коробки</h1>
+    <p class="meta"><span>Версия: <b>v1.0</b></span><span>Тип: <b>Аудит / план</b></span><span>Обновлено: <b>13.08.2026</b></span><span>Покрытие: <b>46 компонентов</b></span></p>
+    <p class="lead">Второе измерение инициативы «ДС из коробки». <a href="SectionsAudit.html">Аудит разделов</a> отвечает на вопрос <b>где живёт код</b> — на витрине или в общем рантайме. Этот аудит отвечает на другой: <b>полон ли компонент и понятен ли он тому, кто из него собирает</b>. Работает ли состояние, заданное разметкой; масштабируется ли глиф в слоте; решается ли переполнение само; собирается ли композиция целиком; видно ли, какие у компонента есть возможности, до того как понадобится полная спека.</p>
+    <p class="lead">Поводом стал разбор сборки экрана <code class="tok">02-Deal-v3</code>: шесть замечаний ревью — шесть разных классов дефектов, ни один не про конкретный экран. Сборка экрана по картинке макета — не целевой сценарий, а способ проверки: так видно, что компонент отдаёт наружу, а что оставляет на сборщике.</p>
+  </header>
+
+  <!-- ПОТРЕБИТЕЛЬ -->
+  <section class="section" data-screen-label="Потребитель" style="margin-top:52px;">
+    <h2>Для кого «из коробки»</h2>
+    <p class="desc">Требования к компоненту зависят от того, кто его собирает. Целевой потребитель ДС — не экран напрямую, а промежуточный слой: локальные организмы под конкретный продукт, собранные из общих компонентов и несущие собственные правила. Экраны собираются уже из них.</p>
+    <div class="panel">
+      <p class="subhead">Три уровня сборки</p>
+      <ul class="bullets">
+        <li><b>Общая ДС</b> — компоненты этой библиотеки. Отвечают за внешний вид, состояния, поведение и корнер-кейсы своего уровня. Про предметную область не знают ничего.</li>
+        <li><b>Локальные организмы</b> (планируются) — тайлы и модули под конкретный продукт: «КНР», «Финансовые метрики сделки», «Дерево продуктов ДИД». Собраны из общих компонентов, добавляют свои правила: какие поля обязательны, что делать с пустотой, как ведут себя вместе. Целевой потребитель ДС — этот слой.</li>
+        <li><b>Экран</b> — раскладка локальных организмов. Своего CSS почти не имеет: сетка и отступы.</li>
+      </ul>
+      <p class="subhead">Что из этого следует для аудита</p>
+      <ul class="bullets">
+        <li>Компонент общей ДС не обязан знать, как выглядит тайл «КНР». Он обязан дать организму всё, из чего тот соберётся: состояния, варианты, поведение при переполнении, точки расширения.</li>
+        <li>Правило, которое организм должен соблюсти, должно быть выражено кодом либо явно записано как инвариант. Молчаливое требование, известное только из полной спеки, на этом слое теряется так же, как на экране.</li>
+        <li>Сборщик организма должен видеть возможности компонента целиком — иначе он либо потеряет вариант, либо допишет свой поверх. Отсюда критерий K7.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ИНЦИДЕНТ -->
+  <section class="section" data-screen-label="Инцидент">
+    <h2>Откуда взялся аудит</h2>
+    <p class="desc">Экран собирался по картинке макета из компонентов ДС. Все шесть замечаний ревью оказались воспроизводимыми на любом другом компоненте — потому что причина не в экране, а в том, как устроены компонент и его документация.</p>
+    <div class="matrix-wrap"><div class="tbl tbl--incident" id="incident"></div></div>
+  </section>
+
+  <!-- КРИТЕРИИ -->
+  <section class="section" data-screen-label="Критерии">
+    <h2>Что считаем «из коробки»</h2>
+    <p class="desc">Компонент работает из коробки, если сборщик экрана получает правильный результат, скопировав сниппет и подключив ДС — без чтения полной спеки, без ручного JS и без дорисовки того, что компонент обещает. Шесть проверяемых критериев плюс сквозной нулевой.</p>
+    <div class="matrix-wrap"><div class="tbl tbl--crit" id="crit"></div></div>
+  </section>
+
+  <!-- МАТРИЦА -->
+  <section class="section" data-screen-label="Матрица">
+    <h2>Матрица готовности</h2>
+    <p class="desc">Оценка снята скриптом по фактическим CSS, рантаймам, спекам и чит-шиту — не глазами. Компоненты, где критерий не применим, помечены прочерком и в статистику не входят.</p>
+    <div class="legend">
+      <span class="it"><span class="k k-ok">✓</span> работает</span>
+      <span class="it"><span class="k k-part">~</span> частично</span>
+      <span class="it"><span class="k k-no">✕</span> не работает</span>
+      <span class="it"><span class="k k-na">—</span> не применимо</span>
+    </div>
+    <div class="matrix-wrap" style="max-height:78vh;"><div class="tbl tbl--matrix" id="matrix"></div></div>
+    <div class="stat" id="stat"></div>
+  </section>
+
+  <!-- СИСТЕМНЫЕ ДЕФЕКТЫ -->
+  <section class="section" data-screen-label="Системные дефекты">
+    <h2>Системные дефекты</h2>
+    <p class="desc">Находки, которые касаются не отдельного компонента, а устройства ДС целиком. Каждая подтверждена числом, а не наблюдением.</p>
+    <div class="matrix-wrap"><div class="tbl tbl--sys" id="sys"></div></div>
+
+    <div class="panel" style="margin-top:24px;">
+      <p class="subhead">Главный вывод</p>
+      <ul class="bullets">
+        <li><b>Правило, которое нельзя нарушить, должно жить в коде, а не в прозе.</b> Все шесть замечаний ревью — это правила, записанные словами в спеке, и не выраженные ни в CSS, ни в рантайме. Сборщик экрана исполняет то, что скопировал; прозу из другого файла он не исполняет.</li>
+        <li><b>Документация должна быть на том пути, которым идёт сборка.</b> Экраны собираются по <code class="tok">specs/_cheatsheet.md</code>: полная спека при сборке не читается по правилам экономии. Значит инвариант, лежащий только в полной спеке, недостижим — и это дефект чит-шита, а не невнимательности.</li>
+        <li><b>Компонент-композиция обязан собираться одним вызовом.</b> Если RiskMetric — это Chip + Popover, то без Popover это не RiskMetric. Композиция, которую нужно собирать руками из двух компонентов, разъезжается в первом же использовании.</li>
+        <li><b>Статический мокап — полноправный режим использования, а не упрощение.</b> Экраны продукта рисуются как мокапы: состояния показываются вёрсткой. Если <code class="tok">checked</code> в разметке не окрашивает чекбокс без ручного класса, компонент в этом режиме не работает.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ПЛАН -->
+  <section class="section" data-screen-label="План">
+    <h2>План доработок</h2>
+    <p class="desc">Шесть волн строго по порядку: каждая следующая опирается на предыдущую. У каждой задачи — критерий приёмки, который можно проверить скриптом или замером, а не мнением. Волны 0–2 закрывают всё, что всплыло на ревью; 3–5 доводят остальную матрицу.</p>
+    <div class="wave" style="margin-bottom:28px;">
+      <div class="wave__row"><span class="wave__badge"><span class="prio prio-wave">W0</span></span><div class="wave__body"><b>Фундамент доставки.</b> Одна точка входа для скриптов и глиф, который берёт размер от слота. Пока их нет, любая следующая правка требует ручной работы на каждом экране.</div></div>
+      <div class="wave__row"><span class="wave__badge"><span class="prio prio-wave">W1</span></span><div class="wave__body"><b>Состояния из разметки.</b> 33 компонента не реагируют на нативное состояние. Самый крупный класс дефектов и самый дешёвый в починке — правило в CSS рядом с существующим.</div></div>
+      <div class="wave__row"><span class="wave__badge"><span class="prio prio-wave">W2</span></span><div class="wave__body"><b>Корнер-кейсы в код.</b> Переполнение табов, высота тайлов в ряду, ужимание чипов: то, что описано прозой, переносится в CSS и рантайм и включается само.</div></div>
+      <div class="wave__row"><span class="wave__badge"><span class="prio prio-wave">W3</span></span><div class="wave__body"><b>Композиции собираются сами.</b> RiskMetric, Split-кнопка, Select с DropdownList — один вызов рантайма вместо ручной сборки из двух компонентов.</div></div>
+      <div class="wave__row"><span class="wave__badge"><span class="prio prio-wave">W4</span></span><div class="wave__body"><b>Инварианты в чит-шит.</b> В каждый блок — секции «Инварианты», «Из коробки», «Корнер-кейсы». Правило становится достижимым на пути сборки.</div></div>
+      <div class="wave__row"><span class="wave__badge"><span class="prio prio-wave">W5</span></span><div class="wave__body"><b>Линтер и процесс.</b> Каждый разобранный класс ошибки становится правилом линтера, гейт фиделити — обязательным шагом. Иначе следующий инцидент будет тем же самым.</div></div>
+    </div>
+    <div class="matrix-wrap" style="max-height:none;"><div class="tbl tbl--plan" id="plan"></div></div>
+    <p class="desc" id="plan-stat" style="margin-top:14px;"></p>
+  </section>
+
+  <!-- ПРОЦЕСС -->
+  <section class="section" data-screen-label="Процесс">
+    <h2>Правила процесса</h2>
+    <p class="desc">Три замечания ревью из шести — процессные: правило существовало, но не было прочитано или проверено. Ниже то, что дописано в инструкции сборки (<code class="tok">CLAUDE.md</code>, <code class="tok">skills/*</code>) вместе с этим аудитом.</p>
+    <div class="panel">
+      <p class="subhead">Дописано в инструкции</p>
+      <ul class="bullets">
+        <li><b>Анатомия компонента не переверстывается.</b> Разметка внутренних слотов берётся из спеки или чит-шита дословно. Правило «иконки только через <code class="tok">&lt;i data-icon&gt;</code>» относится к иконкам в раскладке экрана, а не к слотам компонентов, где размер и тег уже решены в CSS. Именно эта подмена сломала галочки чекбокса.</li>
+        <li><b>Глиф выбирается по виду, а не по имени.</b> Перед выбором иконки — отрендерить сетку глифов страницы <a href="../foundations/Icons.html">Icons</a> и посмотреть: имя в списке из 247 позиций о рисунке не говорит.</li>
+        <li><b>Неизвестное не достраивается догадкой.</b> Назначение иконки, поля или связи, которого я не знаю, — вопрос пользователю, а не реконструкция по внешнему виду. Выведенная догадка выглядит как факт и оседает в документации; при сборке 02-Deal-v3 так появилось несколько утверждений о предметной области, которых никто не давал.</li>
+        <li><b>Гейт фиделити обязателен наравне с линтером.</b> Для любого экрана, собранного по макету: линтер ловит целостность ДС, фиделити-гейт — расхождения с макетом. Встроенный верификатор с макетом не сверяет, и пропуск гейта на 02-Deal-v3 стоил четырёх дефектов из шести.</li>
+        <li><b>Тайлы в одном ряду равны по высоте.</b> Высота строки определяется тайлом с максимальным контентом. До волны W2 это делается вручную (<code class="tok">align-items:stretch</code> на ряду), после — по умолчанию компонентом.</li>
+        <li><b>Разобранный класс ошибки дописывается в линтер тем же заходом.</b> Правило уже было; теперь к нему добавлено, что оно распространяется и на дефекты компонентов, а не только на целостность страниц.</li>
+      </ul>
+    </div>
+  </section>
+  <!-- ЖУРНАЛ -->
+  <section class="section" data-screen-label="Журнал правок">
+    <h2>Журнал правок</h2>
+    <p class="desc">Хронология изменений по этой инициативе: что уже сделано в ДС, что в работе, что предстоит и зачем. План выше отвечает на вопрос «что делать и как принять», журнал — «где мы сейчас». Каждая запись отмечается по ходу работы; закрытая запись остаётся в списке с датой, а не удаляется.</p>
+    <div class="legend">
+      <span class="it"><span class="b b-done">готово</span> сделано и проверено</span>
+      <span class="it"><span class="b b-wip">в работе</span> начато</span>
+      <span class="it"><span class="b b-next">следующее</span> ближайший ход</span>
+      <span class="it"><span class="b b-later">позже</span> ждёт предыдущих</span>
+    </div>
+    <div class="matrix-wrap"><div class="tbl tbl--log" id="log"></div></div>
+    <p class="desc" id="log-stat" style="margin-top:14px;"></p>
+  </section>
+
+</main>
+
+<script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-toc.js"></script>
+<script>
+/* ---------- инцидент 02-Deal-v3: замечание → класс дефекта ---------- */
+const INCIDENT = [
+ {no:'Тайлы разной высоты', what:'В ряду «КНР / Сроки / Команда» высоты 214 / 186 / 242 px, у ряда <code class="tok">align-items:start</code>. Копировал видимое на картинке макета.',
+  cls:'Правило есть в спеке <code class="tok">Tile.md</code> («высота в строке фиксированная, по тайлу с максимальным контентом»), но нет ни в CSS, ни в рантайме, ни в чит-шите — то есть недостижимо на пути сборки экрана.', k:'K6 · K3'},
+ {no:'Поповер риск-метрики не выведен', what:'Чип собран верно (<code class="tok">.chip--rounded.chip--s</code> + <code class="tok">.chip__info</code>, <code class="tok">aria-haspopup="dialog"</code>), но слоя <code class="tok">.pop</code> нет: <code class="tok">aria-controls</code> ведёт в пустоту, клик ничего не открывает.',
+  cls:'RiskMetric — не CSS-компонент, а композиция Chip + Popover, и собирать её нужно руками из двух частей. Композиция без единой точки сборки разъезжается при первом использовании.', k:'K4'},
+ {no:'Сломанные галочки чекбоксов', what:'В <code class="tok">.cb__mark</code> вставлен <code class="tok">&lt;i data-icon="check"&gt;</code>; глиф получил дефолтные 24px и распёр квадрат 16px. Плюс <code class="tok">.cb--selected</code> пришлось вешать руками.',
+  cls:'Двойной дефект: <code class="tok">ds-icons.js</code> не наследует размер от слота (жёсткие 24px), а <code class="tok">checkbox.css</code> не имеет ни одного правила на <code class="tok">:checked</code> — состояние живёт только в классе. Правило экрана «только <code class="tok">&lt;i data-icon&gt;</code>» было применено к внутренней анатомии компонента.', k:'K1 · K2'},
+ {no:'Табы выходят за границу', what:'Ряд «Сделка / ЦУП / Operations / Мониторинг»: <code class="tok">scrollWidth 308</code> при <code class="tok">clientWidth 258</code> — вылезает на 50px.',
+  cls:'Оба паттерна переполнения (скролл со стрелками и fit + меню «Ещё») реализованы в <code class="tok">tab.page.js</code> и <code class="tok">tab.css</code> — то есть на витрине. В рантайме <code class="tok">ds-tabs.js</code> их нет, экрану взять нечего. Отметка «oob: ok» у Tab в аудите разделов из-за этого неверна.', k:'K3 · K5'},
+ {no:'Дерево продуктов не по макету, иконки не те', what:'Вложенность и метрики строк расходятся с макетом; глифы выбраны по смыслу имени, а не по рисунку.',
+  cls:'Процессный дефект: гейт фиделити (<code class="tok">skills/mockup-fidelity-review.md</code>) на этом экране не прогонялся — экран ушёл сразу на встроенную верификацию, которая с макетом не сверяет. Выбор иконки по имени без просмотра сетки глифов — та же природа.', k:'процесс'},
+ {no:'«Инструменты» занимают треть ширины', what:'<code class="tok">.fi__sub</code> — 824px, его единственный трек — 318px: одноколоночный grid без явного <code class="tok">grid-template-columns</code> схлопывается по max-content содержимого.',
+  cls:'Ошибка раскладки экрана, не ДС. Но воспроизводима везде, где вложенный блок собирают гридом без <code class="tok">minmax(0,1fr)</code> — потому и попала в правила линтера волны W5.', k:'локальное'},
+];
+(function(){
+  const t = document.getElementById('incident');
+  let h = "<div class='tbl__row'><div class='th th--separator'></div><div class='th'><span class='th__label'>Замечание ревью</span></div><div class='th'><span class='th__label'>Что произошло фактически</span></div><div class='th'><span class='th__label'>Класс дефекта</span></div><div class='th'><span class='th__label'>Критерий</span></div><div class='th th--separator'></div></div>";
+  INCIDENT.forEach(r=>{
+    h += "<div class='tbl__row'><div class='tc tc--separator'></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'><b>"+r.no+"</b></span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.what+"</span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.cls+"</span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.k+"</span></span></div>"
+      + "<div class='tc tc--separator'></div></div>";
+  });
+  t.innerHTML = h;
+})();
+
+/* ---------- критерии ---------- */
+const CRIT = [
+ {id:'K0', name:'Доставка', def:'Подключение ДС на экран — фиксированное и полное: один стилевой и один скриптовый вход. Забыть рантайм невозможно.', how:'Ни один экран не содержит перечисления <code class="tok">ds-*.js</code> поштучно; проверка хуков не находит недостающих рантаймов.'},
+ {id:'K1', name:'Состояния', def:'Состояние, заданное разметкой (<code class="tok">checked</code>, <code class="tok">disabled</code>, <code class="tok">aria-selected</code>), отображается без ручного класса-модификатора.', how:'В CSS компонента есть правила на нативные селекторы; классы-модификаторы остаются для демонстрации состояний на витрине.'},
+ {id:'K2', name:'Глиф', def:'Иконка в слоте компонента получает размер и цвет от слота, а разметка глифа одинакова во всех компонентах.', how:'<code class="tok">&lt;i data-icon&gt;</code>, вставленный в любой слот, визуально идентичен <code class="tok">&lt;svg&gt;</code> из сниппета.'},
+ {id:'K3', name:'Корнер-кейсы', def:'Переполнение, длинный текст, много элементов, пустота решаются самим компонентом, а не сборщиком экрана.', how:'Сценарий из раздела спеки воспроизводится вставкой длинного значения — и компонент ведёт себя как описано, без дополнений.'},
+ {id:'K4', name:'Композиция', def:'Компонент, состоящий из других (RiskMetric, Split, Select), собирается одним вызовом или одним сниппетом целиком.', how:'В разметке экрана нет ручной сборки парного слоя: поповер, меню и список появляются от рантайма.'},
+ {id:'K5', name:'Рантайм', def:'Поведение живёт в общем <code class="tok">scripts/ds-*.js</code>, а не в <code class="tok">*.page.js</code> витрины.', how:'Тот же сценарий, что на витрине, воспроизводится на экране без копирования кода страницы.'},
+ {id:'K6', name:'Инварианты', def:'Правило, которое нельзя нарушить, лежит в чит-шите — на том пути, которым идёт сборка.', how:'В блоке чит-шита есть секции «Инварианты», «Из коробки», «Корнер-кейсы»; полная спека для сборки не требуется.'},
+ {id:'K7', name:'Навигация по возможностям', def:'Из чит-шита видно, <b>что компонент умеет</b>, даже если детали остались в спеке: перечислены все оси конфигурации, состояния и режимы — как оглавление книги. И видно, <b>когда нужно открыть полную спеку</b>.', how:'Ни одна ось из спеки не отсутствует в блоке чит-шита; у каждой строки, требующей деталей, стоит явная отсылка к разделу спеки.'},
+];
+(function(){
+  const t = document.getElementById('crit');
+  let h = "<div class='tbl__row'><div class='th th--separator'></div><div class='th th--center'><span class='th__label'>№</span></div><div class='th'><span class='th__label'>Критерий</span></div><div class='th'><span class='th__label'>Определение</span></div><div class='th'><span class='th__label'>Как проверяется</span></div><div class='th th--separator'></div></div>";
+  CRIT.forEach(r=>{
+    h += "<div class='tbl__row'><div class='tc tc--separator'></div>"
+      + "<div class='tc tc--center'><span class='tc__row'><span class='tc__text num-cell'>"+r.id+"</span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'><b>"+r.name+"</b></span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.def+"</span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.how+"</span></span></div>"
+      + "<div class='tc tc--separator'></div></div>";
+  });
+  t.innerHTML = h;
+})();
+
+/* ---------- матрица: оценка снята скриптом 12.08.2026 ---------- */
+const CAT = {
+ 'Атомы':['Avatar','Badge','Buttons','Checkbox','Chip','Divider','IconButton','LabelHelper','Link','ProgressBar','Radiobutton','Skeleton','Spinner','Switch'],
+ 'Молекулы':['Alert','Breadcrumbs','ButtonGroup','ContextMenu','DatePicker','DropdownList','EmptyState','InputAmountRange','InputAutocomplete','InputDate','InputDateRange','InputText','NavTile','Pagination','ReadOnlyField','SegmentControl','Splitter','Tab','Toast','Tooltip'],
+ 'Организмы':['AllocationBar','Entity','Modal','NavPanel','PageHeader','Popover','RiskMetric','SnackBar','Table','TableCell','TableFilter','Tile'],
+};
+const M = [
+{n:'Alert',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'AllocationBar',k1:'na',k2:'na',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Avatar',k1:'na',k2:'ok',k3:'ok',k5:'na',k6:'ok'},
+{n:'Badge',k1:'na',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'Breadcrumbs',k1:'ok',k2:'na',k3:'ok',k5:'ok',k6:'ok'},
+{n:'ButtonGroup',k1:'ok',k2:'na',k3:'na',k5:'ok',k6:'ok'},
+{n:'Buttons',k1:'ok',k2:'ok',k3:'na',k5:'na',k6:'ok'},
+{n:'Checkbox',k1:'ok',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'Chip',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'ContextMenu',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'DatePicker',k1:'ok',k2:'na',k3:'na',k5:'na',k6:'ok'},
+{n:'Divider',k1:'na',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'DropdownList',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'EmptyState',k1:'na',k2:'na',k3:'na',k5:'na',k6:'ok'},
+{n:'Entity',k1:'ok',k2:'ok',k3:'ok',k5:'na',k6:'ok'},
+{n:'IconButton',k1:'ok',k2:'ok',k3:'na',k5:'na',k6:'ok'},
+{n:'InputAmountRange',k1:'na',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'InputAutocomplete',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'InputDate',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'InputDateRange',k1:'na',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'InputText',k1:'na',k2:'ok',k3:'ok',k5:'na',k6:'ok'},
+{n:'LabelHelper',k1:'na',k2:'ok',k3:'ok',k5:'na',k6:'ok'},
+{n:'Link',k1:'ok',k2:'ok',k3:'ok',k5:'na',k6:'ok'},
+{n:'Modal',k1:'na',k2:'na',k3:'ok',k5:'ok',k6:'ok'},
+{n:'NavPanel',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'NavTile',k1:'ok',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'PageHeader',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Pagination',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Popover',k1:'ok',k2:'na',k3:'ok',k5:'ok',k6:'ok'},
+{n:'ProgressBar',k1:'na',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'Radiobutton',k1:'ok',k2:'ok',k3:'ok',k5:'na',k6:'ok'},
+{n:'ReadOnlyField',k1:'na',k2:'ok',k3:'ok',k5:'na',k6:'ok'},
+{n:'RiskMetric',k1:'ok',k2:'na',k3:'na',k5:'ok',k6:'ok'},
+{n:'SegmentControl',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Skeleton',k1:'na',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'SnackBar',k1:'na',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Spinner',k1:'na',k2:'na',k3:'na',k5:'na',k6:'ok'},
+{n:'Splitter',k1:'na',k2:'na',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Switch',k1:'ok',k2:'na',k3:'ok',k5:'na',k6:'ok'},
+{n:'Tab',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Table',k1:'na',k2:'na',k3:'ok',k5:'ok',k6:'ok'},
+{n:'TableCell',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'TableFilter',k1:'ok',k2:'na',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Tile',k1:'ok',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Toast',k1:'na',k2:'ok',k3:'ok',k5:'ok',k6:'ok'},
+{n:'Tooltip',k1:'na',k2:'na',k3:'ok',k5:'ok',k6:'ok'},
+];
+/* K4 — композиции, размечено вручную: у кого есть парный слой */
+const K4 = {RiskMetric:'ok',Tab:'no',Chip:'no',ButtonGroup:'ok',DropdownList:'ok',Badge:'ok',Avatar:'ok',Tooltip:'ok',Popover:'ok',Modal:'ok',ContextMenu:'ok',TableFilter:'ok',Pagination:'ok',InputAutocomplete:'part',InputDate:'ok',InputDateRange:'ok'};
+(function(){
+  const t = document.getElementById('matrix');
+  const pageOf = n => { for (const [c, list] of Object.entries(CAT)) if (list.includes(n)) return {'Атомы':'atoms','Молекулы':'molecules','Организмы':'organisms'}[c]; return null; };
+  const cell = v => { const m = {ok:['k-ok','✓'],part:['k-part','~'],no:['k-no','✕'],na:['k-na','—']}[v||'na']; return "<div class='tc tc--center'><span class='tc__row'><span class='tc__text'><span class='k "+m[0]+"'>"+m[1]+"</span></span></span></div>"; };
+  const cols = ['K1 состояния','K2 глиф','K3 корнер-кейсы','K4 композиция','K5 рантайм','K6 инварианты'];
+  let h = "<div class='tbl__row'><div class='th th--separator'></div><div class='th'><span class='th__label'>Компонент</span></div>";
+  cols.slice(0,5).forEach(c => h += "<div class='th th--center'><span class='th__label'>"+c+"</span></div>");
+  h += "<div class='th th--center'><span class='th__label'>"+cols[5]+"</span></div><div class='th th--separator'></div></div>";
+  for (const [cat, list] of Object.entries(CAT)) {
+    h += "<div class='tbl__row tbl__row--cat'><div class='tc'><span class='tc__row'><span class='tc__text'>"+cat+"</span></span></div></div>";
+    list.slice().sort().forEach(n => {
+      const r = M.find(x => x.n === n); if (!r) return;
+      const p = pageOf(n);
+      h += "<div class='tbl__row'><div class='tc tc--separator'></div>"
+        + "<div class='tc'><span class='tc__row'><span class='tc__text'>"+(p?"<a href='../"+p+"/"+n+".html'>"+n+"</a>":n)+"</span></span></div>"
+        + cell(r.k1) + cell(r.k2) + cell(r.k3) + cell(K4[n]) + cell(r.k5) + cell(r.k6)
+        + "<div class='tc tc--separator'></div></div>";
+    });
+  }
+  t.innerHTML = h;
+  const cnt = (k, v) => k === 'k4' ? Object.values(K4).filter(x => x === v).length : M.filter(r => r[k] === v).length;
+  const cards = [
+    ['no','k1','не читают нативное состояние'],
+    ['no','k2','слот глифа не унифицирован'],
+    ['part','k3','корнер-кейс описан, но не решён'],
+    ['no','k5','поведение заперто на витрине'],
+    ['part','k6','нет инвариантов в чит-шите'],
+  ];
+  document.getElementById('stat').innerHTML = cards.map(([v,k,l]) =>
+    "<div class='card'><div class='num hot'>"+cnt(k,v)+"</div><div class='lbl'>"+l+"</div></div>").join('')
+    + "<div class='card'><div class='num hot'>614</div><div class='lbl'>возможностей из 799 не дошли до чит-шита</div></div>"
+    + "<div class='card'><div class='num'>46</div><div class='lbl'>компонентов в оценке</div></div>";
+})();
+
+/* ---------- системные дефекты ---------- */
+const SYS = [
+ {k:'K0', f:'<b>Нет единой точки входа для скриптов.</b> Стили подключаются одним <code class="tok">ds.css</code>, а рантаймы — поштучно. Проверка хуков: <b>все 12 экранов</b> недоподключают от 2 до 5 рантаймов (<code class="tok">ds-popover.js</code>, <code class="tok">ds-menu.js</code>, <code class="tok">ds-tile.js</code>, <code class="tok">ds-tabs.js</code>, <code class="tok">ds-pagination.js</code>).', c:'Компонент на экране выглядит как компонент, но не работает. Никакой инвариант этого не ловит — про забытый скрипт не написано нигде.', w:'W0'},
+ {k:'K1', f:'<b>Нативное состояние не читает никто.</b> В <code class="tok">checkbox.css</code>, <code class="tok">radio.css</code>, <code class="tok">switch.css</code>, <code class="tok">chip.css</code>, <code class="tok">input.css</code> — <b>ноль</b> вхождений <code class="tok">:checked</code> и <code class="tok">:disabled</code>. Состояние живёт только в классе-модификаторе: <b>33 компонента из 46</b>.', c:'Статический мокап с <code class="tok">checked</code> выглядит невыбранным; сборщик вешает класс руками и ошибается. Форма на React с управляемым <code class="tok">checked</code> тоже не покрасится.', w:'W1'},
+ {k:'K2', f:'<b>Разметка глифа рассинхронизирована.</b> 16 спек показывают в слоте <code class="tok">&lt;svg&gt;</code>, 9 — <code class="tok">&lt;i data-icon&gt;</code>, 15 не показывают вовсе; в чит-шите 21 <code class="tok">&lt;svg&gt;</code> против 47 <code class="tok">&lt;i data-icon&gt;</code>. При этом <code class="tok">ds-icons.js</code> ставит жёсткие 24px и от слота размер не наследует.', c:'Одна и та же вставка иконки то работает, то ломает вид. Правило экрана и анатомия компонента противоречат друг другу.', w:'W0'},
+ {k:'K3', f:'<b>Переполнение табов реализовано на витрине.</b> <code class="tok">tab.css</code> содержит <code class="tok">.tabs-scroll</code>, <code class="tok">.tabs-overflow</code>, <code class="tok">.tab--more</code>, а логика (<code class="tok">makeOverflowTabs</code>, <code class="tok">makeScrollArrows</code>, <code class="tok">layout</code>) — в <code class="tok">tab.page.js</code>. В <code class="tok">ds-tabs.js</code> её нет.', c:'Ряд табов в узком контейнере просто вылезает за границу. Отметка «из коробки: ok» у Tab в аудите разделов неверна и подлежит снятию.', w:'W2'},
+ {k:'K3', f:'<b>Высота тайлов в ряду не реализована.</b> Правило «высота в строке фиксированная, по тайлу с максимальным контентом» есть в <code class="tok">Tile.md</code>; в <code class="tok">tile.css</code> нет ни <code class="tok">align-self</code>, ни <code class="tok">height</code> на корне, в <code class="tok">ds-tile.js</code> — только аккордеон.', c:'Каждый экран выравнивает тайлы вручную или не выравнивает вовсе. Правило существует только как проза.', w:'W2'},
+ {k:'K3', f:'<b>11 компонентов без защиты от переполнения.</b> Ни <code class="tok">text-overflow</code>, ни <code class="tok">min-width:0</code>: Avatar, Button, ButtonGroup, DatePicker, Divider, EmptyState, IconButton, NavTile, RiskMetric, Spinner, Tooltip. Ещё у 24 — частичная защита при описанном в спеке сценарии.', c:'Длинное значение ломает раскладку в первом же реальном использовании; сборщик подпирает своим CSS.', w:'W2'},
+ {k:'K4', f:'<b>Композиции собираются руками.</b> RiskMetric по спеке — «Chip + Popover, без собственных стилей», но ни рантайма, ни хелпера нет. То же у Split-кнопки ButtonGroup, у Select с DropdownList, у обёртки переполнения Tab.', c:'Пропущенная половина композиции не диагностируется: <code class="tok">.chip__info</code> без <code class="tok">.pop</code> выглядит нормально и не работает.', w:'W3'},
+ {k:'K6', f:'<b>Чит-шит не содержит инвариантов.</b> Секция «Из коробки» есть у 14 блоков из 46; ни у одного нет «Инвариантов» и «Корнер-кейсов». Правила лежат в полных спеках, которые при сборке экрана не читаются по правилу экономии.', c:'Обязательное правило недостижимо на пути сборки — и нарушается не из невнимательности, а структурно.', w:'W4'},
+ {k:'K7', f:'<b>Чит-шит теряет три четверти возможностей.</b> Классов и модификаторов в спеках — <b>799</b>, в блоках чит-шита — <b>185</b>. Не доходит <b>614 (77%)</b>. Хуже всех Entity (25 из 29 потеряно), Chip, TableCell, InputText: у них в чит-шите остаётся базовый класс и один-два модификатора.', c:'Сборщик не знает, что вариант существует, — и либо теряет его, либо дописывает свой поверх компонента. Это не забывчивость: перечня возможностей на пути сборки просто нет.', w:'W4'},
+ {k:'K7', f:'<b>Нет отсылок «когда открывать полную спеку».</b> Блок чит-шита не отличает случай «здесь всё» от «здесь основное, детали в спеке». Ни в одном из 46 блоков нет ссылки на раздел спеки.', c:'Два противоположных отказа: либо спека не читается там, где была нужна, либо читается вся подряд «на всякий случай» — и то и другое дорого.', w:'W4'},
+ {k:'процесс', f:'<b>Недостающее знание достраивается догадкой.</b> При сборке 02-Deal-v3 назначение глифа было выведено из его вида, а не узнано: реальная задача иконки в продукте мне неизвестна. Так же было выведено назначение полей и связей в тайлах.', c:'Догадка выглядит как факт и попадает в документацию и в код. Правило: неизвестное назначение — вопрос, а не реконструкция.', w:'W5'},
+ {k:'процесс', f:'<b>Гейт фиделити не в обязательной последовательности.</b> Линтер целостности запускается рефлекторно перед каждой сдачей, гейт сверки с макетом — по памяти. На <code class="tok">02-Deal-v3</code> он не запускался.', c:'Четыре из шести замечаний ревью гейт бы поймал до сдачи. Встроенный верификатор с макетом не сверяет по определению.', w:'W5'},
+];
+(function(){
+  const t = document.getElementById('sys');
+  let h = "<div class='tbl__row'><div class='th th--separator'></div><div class='th th--center'><span class='th__label'>Критерий</span></div><div class='th'><span class='th__label'>Находка</span></div><div class='th'><span class='th__label'>Чем это стоит</span></div><div class='th th--center'><span class='th__label'>Волна</span></div><div class='th th--separator'></div></div>";
+  SYS.forEach(r=>{
+    h += "<div class='tbl__row'><div class='tc tc--separator'></div>"
+      + "<div class='tc tc--center'><span class='tc__row'><span class='tc__text'><span class='area'>"+r.k+"</span></span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.f+"</span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.c+"</span></span></div>"
+      + "<div class='tc tc--center'><span class='tc__row'><span class='tc__text'><span class='prio prio-wave'>"+r.w+"</span></span></span></div>"
+      + "<div class='tc tc--separator'></div></div>";
+  });
+  t.innerHTML = h;
+})();
+
+/* ---------- план доработок ----------
+   w: волна · task: задача · why: зачем · ok: критерий приёмки · prio · st: done|wip|next|later */
+const PLAN = [
+ {w:'W0', task:'Единая точка входа <code class="tok">ds.js</code>', why:'Стили подключаются одним файлом, скрипты — поштучно, и все 12 экранов что-то забыли. Пока рантайм можно не подключить, все следующие волны работают через раз.', ok:'Экран содержит ровно один <code class="tok">&lt;script src="ds.js"&gt;</code>; проверка хуков по всем экранам не находит недостающих рантаймов; порядок загрузки и <code class="tok">icons-data.js</code> внутри.', prio:'P1', st:'done'},
+ {w:'W0', task:'Размер глифа от слота в <code class="tok">ds-icons.js</code>', why:'Жёсткие 24px превращают вставку иконки в лотерею: в слоте 16px глиф распирает контейнер. Размер должен наследоваться, как у шрифта.', ok:'<code class="tok">&lt;i data-icon&gt;</code> без атрибутов внутри <code class="tok">.cb__mark</code>, <code class="tok">.chip__icon</code>, <code class="tok">.btn</code> визуально равен <code class="tok">&lt;svg&gt;</code> из сниппета; дефолт 24px сохранён вне компонентов.', prio:'P1', st:'done'},
+ {w:'W0', task:'Единая разметка слота глифа во всех компонентах', why:'16 спек показывали <code class="tok">&lt;svg&gt;</code>, 9 — <code class="tok">&lt;i data-icon&gt;</code>: сборщик выбирал наугад и попадал в дефект.', ok:'Сведено к одной форме <code class="tok">&lt;i data-icon&gt;</code>: 15 спек + чит-шит переведены (21 правка); исключение — слоты, где тег решён CSS-анатомией компонента, не этим правилом (Splitter .spl__grip). Глифы выбраны по визуальной сверке. Линтер: 0 BLOCKER.', prio:'P1', st:'done'},
+ {w:'W1', task:'Нативные состояния Checkbox, Radiobutton, Switch', why:'Ноль правил на <code class="tok">:checked</code>: разметка с <code class="tok">checked</code> выглядит невыбранной, и состояние приходится дублировать классом руками — именно так сломались галочки на 02-Deal-v3.', ok:'<code class="tok">&lt;input checked&gt;</code> и <code class="tok">disabled</code> дают правильный вид без классов; <code class="tok">:indeterminate</code> тоже; классы-модификаторы остаются для витрины и работают как прежде.', prio:'P1', st:'next'},
+ {w:'W1', task:'Нативные состояния Chip, Tab, TableCell, Entity, Buttons, IconButton, Link', why:'Тот же дефект на выборе и блокировке: <code class="tok">aria-selected</code>, <code class="tok">aria-current</code>, <code class="tok">aria-pressed</code>, <code class="tok">disabled</code> в разметке ничего не меняли. Состояние из ARIA — то, что уже пишет рантайм.', ok:'Атрибут в разметке даёт правильный вид без класса — сделано в tab.css/icon-button.css/entity.css/table-cell.css/chip.css (<code class="tok">:is(.x--y,[aria-*])</code>) + новая CSS-анимация шеврона на <code class="tok">[aria-expanded]</code> в button.css; Link уже был на <code class="tok">[aria-disabled]</code>. Рантаймы не менялись — атрибуты уже пишут. Класс↔атрибут проверены попарно в браузере, пиксель совпал; линтер 0 BLOCKER.', prio:'P1', st:'done'},
+ {w:'W1', task:'Ревизия остальных 33 по K1', why:'Список снят скриптом, но у части компонентов состояние не нативное по природе (Skeleton, Spinner, ProgressBar). Нужно отделить настоящие дефекты от неприменимого — иначе волна раздуется вдвое.', ok:'На каждый из 33 — вердикт «правило добавлено» либо «неприменимо, причина»; сделано скриптовой сверкой spec↔CSS (regex по aria-* в «Доступность»/«Состояния» + поиск атрибутных селекторов в CSS), не на глаз. Итог: 4 настоящих дефекта нашлись и закрыты (Alert, Tile — поворот шеврона не читал <code class="tok">aria-expanded</code>; NavPanel — активный пункт не читал <code class="tok">aria-current</code>; DatePicker — ячейка дня не читала <code class="tok">aria-selected</code>/<code class="tok">aria-disabled</code>); Tab доп. получил <code class="tok">[aria-current="true"]</code> для scroll-spy якорной навигации (TableFilter). 6 компонентов уже были готовы (ButtonGroup, ContextMenu, DropdownList, InputAutocomplete/InputDate, SegmentControl, TableFilter — либо свой атрибутный CSS, либо покрыты транзитивно через общее правило шеврона в button.css). Оставшиеся ~22 — неприменимо: `aria-invalid`/`aria-busy` — чистая a11y-семантика, визуальное состояние — явное решение приложения (класс), не то, что должно молча выводиться из атрибута; либо у компонента нет состояния выбора/переключения вовсе (Avatar, Badge, Divider, Skeleton, Spinner, Splitter, Tooltip, SnackBar, Toast и т.п.). Матрица M пересчитана точечно по каждой строке, не переписана вручную целиком.', prio:'P2', st:'done'},
+ {w:'W2', task:'Переполнение табов в <code class="tok">ds-tabs.js</code>', why:'Оба паттерна (скролл со стрелками, fit + меню «Ещё») уже написаны — но в <code class="tok">tab.page.js</code>, то есть только для витрины. Экран получает ряд, вылезающий за границу.', ok:'Ряд табов в контейнере 258px сам выбирает паттерн и не выходит за границы; выбранный таб подскролливается; паттерн можно задать атрибутом принудительно; <code class="tok">tab.page.js</code> использует рантайм, а не свою копию. Сделано: обе функции перенесены в <code class="tok">DSTabs.tabs()</code> — активируются сами на любой <code class="tok">.tabs--horiz[data-tabs]</code>, default = скролл, <code class="tok">data-tabs-overflow="menu"</code> форсирует fit+меню, <code class="tok">"none"</code> отключает; <code class="tok">tab.page.js</code> лишился <code class="tok">makeOverflowTabs</code>/<code class="tok">makeScrollArrows</code> и вызывает рантайм как любой экран. Проверено в браузере на реальной странице Tab.html: скролл (1013px контента в 420px) и меню «Ещё» (6 из 8 пунктов) работают; линтер 0 BLOCKER.', prio:'P1', st:'done'},
+ {w:'W2', task:'Фиксированная высота тайлов в ряду', why:'Правило есть в спеке Tile, но ни в CSS, ни в рантайме — каждый экран решает заново или не решает. На 02-Deal-v3 высоты вышли 214 / 186 / 242.', ok:'Ряд тайлов на любой сетке даёт равные высоты без дополнительного CSS на экране; аккордеон и алерты внутри высоту пересчитывают; в чит-шите это записано инвариантом. Сделано: <code class="tok">.tile { align-self: stretch }</code> в tile.css — работает независимо от <code class="tok">align-items</code> контейнера экрана, задним числом починил и 02-Deal-v3 без единой правки самого экрана (замер в браузере: 242/242/242 вместо 214/186/242). Плюс два уточнения по факту (не полноценная задача, следствие устройства Grid): тайл-на-весь-ряд (span 12) высоту берёт по контенту сам — второй элемент ему в ряду не мешает; канбан-колонки — новый класс <code class="tok">.tile-stack</code> (flex-column внутри <code class="tok">.tile-row</code>), тайлы внутри стопки высоту друг с другом не делят, потому что у flex-column ось <code class="tok">align-self:stretch</code> — это ширина, не высота. Проверено сценарием row/full-width/kanban в браузере — все три ведут себя как описано. Линтер 0 BLOCKER.', prio:'P1', st:'done'},
+ {w:'W2', task:'Защита от переполнения в 11 компонентах', why:'Ни <code class="tok">text-overflow</code>, ни <code class="tok">min-width:0</code>: длинное значение ломает раскладку, и сборщик подпирает своим CSS.', ok:'Вставка длинной строки в каждый компонент не ломает раскладку соседей. Сделано: Avatar (<code class="tok">.av__text</code> ellipsis в фикс. боксе), Button (<code class="tok">.btn</code>/<code class="tok">.btn__label</code> min-width:0 + ellipsis — держит ButtonGroup fullwidth и любой flex-тулбар), DatePicker (<code class="tok">.dpk__caption</code> текст-заголовок ellipsis), Divider (<code class="tok">.dvd-text__label</code> сжимается с ellipsis вместо распирания шва), EmptyState (<code class="tok">.es__title</code> — одна строка по спеке, ellipsis; <code class="tok">.es__text</code> — break-word на длинном слове без пробелов), IconButton (<code class="tok">.ibtn</code> flex:none — не сжимается в тесном ряду), NavTile (<code class="tok">.ntile__title</code> ellipsis; <code class="tok">.ntile__desc</code> clamp 2 строки), RiskMetric (<code class="tok">.rm-block__value</code>/<code class="tok">.rm-field__value</code> break-word — свободный текст риск-сегмента без лимита), Spinner (<code class="tok">.spin-group__label</code>/<code class="tok">.spin-overlay__label</code> break-word), Tooltip (<code class="tok">.tip</code> ellipsis-фолбэк, если контент длиннее <code class="tok">--tip-max</code> и JS не включил <code class="tok">--multiline</code>). Проверено вставкой строки в 200 символов в каждый компонент на живой странице — соседняя раскладка не ломается. Линтер 0 BLOCKER.', prio:'P1', st:'done'},
+ {w:'W2', task:'Корнер-кейсы из прозы в код: остальные 24', why:'Спеки описывают поведение при переполнении, а CSS его частично не реализует. Расхождение прозы и кода — тот же класс, что уже ловил гейт парности.', ok:'Каждый описанный в спеке сценарий воспроизводится вставкой данных; там, где решение невозможно без сборщика, в чит-шите появляется строка «требует от экрана».', prio:'P2', st:'later'},
+ {w:'W3', task:'Рантайм RiskMetric', why:'Спека прямо говорит: компонент — это Chip + Popover. Без поповера он выглядит рабочим и не работает; ручная сборка из двух частей разъезжается.', ok:'<code class="tok">&lt;span data-riskmetric data-risk="26" data-zone="red"&gt;</code> даёт чип и работающий поповер без ручной разметки <code class="tok">.pop</code>. Сделано: <code class="tok">scripts/ds-riskmetric.js</code> собирает Chip+Popover из <code class="tok">data-risk/zone/rating-date/zone-date/segment/profile/loading/error</code>, открытие/позиционирование/single-open/Esc/клик-вне — через <code class="tok">DSPopover.bind</code>; <code class="tok">riskmetric.page.js</code> переведён на рантайм (все демо строят <code class="tok">data-riskmetric</code>-хосты, свои <code class="tok">makeRiskChip/buildRiskPopover/rmPlacePop/mountRiskMetric</code> удалены). Линтер 0 BLOCKER.', prio:'P2', st:'done'},
+ {w:'W3', task:'Split-кнопка ButtonGroup и Select + DropdownList', why:'Сплит-кнопка была своей разметкой меню (<code class="tok">.dropdown/.dropdown__menu</code>) вместо настоящего ContextMenu; DropdownList — тот же класс дефекта.', ok:'Split-кнопка открывает настоящий ContextMenu без кода на экране; Select показывает список опций; ручная сборка из чит-шита исчезает. Сделано: <code class="tok">makeSplit()</code> в ButtonGroup.html собирает реальный <code class="tok">.menu/.menu__item</code> и вызывает <code class="tok">DSMenu.bind</code> — свой <code class="tok">.dropdown</code>-CSS и ручные open/close удалены. DropdownList — новый рантайм <code class="tok">scripts/ds-dropdownlist.js</code> (<code class="tok">DSDropdownList.bind</code>): открытие/позиционирование/клавиатура (раньше отсутствовала вовсе)/три-стейт мультивыбора/single-open/клик-вне; три USE-демо и draggable-демо позиционирования переведены, свой <code class="tok">openable()</code> удалён. Линтер 0 BLOCKER.', prio:'P2', st:'done'},
+ {w:'W3', task:'Ревизия остальных композиций по K4', why:'Badge и Avatar проверены повторно: позиционирование бейджа уже целиком в CSS-обёртке (<code class="tok">.badge-anchor</code>/<code class="tok">.av-stack</code>) — сборщику не нужно самому ставить position:relative, прежняя оценка была устаревшей. Иначе остаётся: InputAutocomplete/InputDate/InputDateRange собирают DropdownList/DatePicker своим кодом в <code class="tok">input-kit.js</code>, мимо новый <code class="tok">ds-dropdownlist.js</code>.', ok:'На каждую композицию — вердикт «собирается рантаймом» или «инвариант в чит-шите». Сделано: Badge/Avatar — подтверждено по styles/badge.css+avatar.css — K4 → ok. InputDate/InputDateRange — календарь уже самоподключается через <code class="tok">ds-datepicker.js</code> (глобальный делегат клика по <code class="tok">.inp__act[aria-label="Открыть календарь"]</code>), проверено в браузере — K4 → ok. InputAutocomplete — реальный пробел: живое filter-демо не закрывалось по клику вне/Esc, починено в <code class="tok">input-autocomplete.page.js</code>; стрелочная клавиатура в демо ещё не реализована — записано корнер-кейсом в чит-шите, K4 осознанно остаётся «part».', prio:'P3', st:'done'},
+ {w:'W4', task:'Секции «Инварианты» и «Корнер-кейсы» в чит-шите', why:'Правило, лежащее только в полной спеке, при сборке экрана не читается — по правилу экономии контекста. Пока инварианта нет в чит-шите, он структурно недостижим.', ok:'В каждом блоке — «Инварианты» (2–5 строк того, что нельзя нарушить) и «Корнер-кейсы» (что решается само); объём блока вырос не более чем на треть; чит-шит остаётся одним файлом для чтения. Частично сделано: инварианты добавлены строкой в 44 из 48 блоков вместе с осями (см. следующую задачу) — без отдельного заголовка «Корнер-кейсы» (многие уже несли строку «Переполнение:» из W2). Раздельные заголовки — не сделано.', prio:'P2', st:'wip'},
+ {w:'W4', task:'Индекс возможностей в каждом блоке чит-шита', why:'614 из 799 возможностей не доходят до сборщика: он не знает, что вариант есть. Нужен перечень осей — оглавление, а не пересказ: что компонент умеет, одной строкой на ось.', ok:'Скрипт сверки спека↔чит-шит не находит ни одной оси, отсутствующей в блоке; блок остаётся в пределах 25–35 строк; чит-шит читается целиком как один файл. Частично сделано: строка «Оси: …» добавлена в 44 из 48 блоков (не добавлена в RiskMetric/DropdownList — уже покрыты собственной строкой «Из коробки»; Screens/Spacing/Illustrations — foundation-страницы без осей вариантов). Скрипт сверки спека↔чит-шит не написан — постройчная проверка не гарантирует 100% охвата осей на каждый блок.', prio:'P1', st:'wip'},
+ {w:'W4', task:'Отсылки «когда открывать полную спеку»', why:'Сейчас блок не отличает «здесь всё» от «здесь основное». Сборщик либо не читает спеку там, где она нужна, либо читает всю подряд.', ok:'У каждой строки, требующей деталей, стоит адрес раздела (<code class="tok">Entity.md · Варианты</code>); в шапке блока — строка «полная спека нужна, если…» с перечнем поводов.', prio:'P1', st:'next'},
+ {w:'W4', task:'Карта диагностики: симптом → возможность компонента', why:'Цель — чтобы сборщик чинил дефект средствами компонента, а не своим CSS поверх. Для этого нужен обратный указатель: что видно на экране → какой вариант это решает.', ok:'В блоке есть строки вида «текст вылезает → <code class="tok">.entity__label--truncate</code>»; на разборе 02-Deal-v3 каждый из шести дефектов находится в карте.', prio:'P2', st:'later'},
+ {w:'W4', task:'Раздел «Инварианты» в шаблоне спеки', why:'Чтобы инвариант попадал в чит-шит, он должен быть отделён от прозы в самой спеке. Сейчас он растворён в разделах «Размеры» и «Поведение».', ok:'<code class="tok">specs/_TEMPLATE.md</code> и все 46 спек содержат раздел; линтер репортит спеку без него; контракт разделов страницы обновлён.', prio:'P2', st:'later'},
+ {w:'W5', task:'Правила линтера на разобранные классы ошибок', why:'Каждый разобранный инцидент должен становиться правилом, иначе повторяется. Шесть замечаний ревью дают шесть проверок, которые можно поставить скриптом.', ok:'Линтер находит: <code class="tok">.chip__info</code> без <code class="tok">.pop</code>; <code class="tok">&lt;i data-icon&gt;</code> внутри слота компонента; <code class="tok">.tabs</code> без обёртки переполнения; ряд тайлов без выравнивания; grid без <code class="tok">minmax(0,1fr)</code> в одноколоночном треке; экран без нужного рантайма. Сделано: 4 правила (F1–F4) добавлены в <code class="tok">ds-lint.js</code>; 2 (тайлы/рантайм) закрыты архитектурно волной W0/W2 — проверка не нужна. Первый прогон нашёл реальные BLOCKER на 9 экранах, <code class="tok">02-Deal.html</code> починен тем же заходом, остальные 8 — ждут решения.', prio:'P1', st:'done'},
+ {w:'W5', task:'Правило «не достраивать неизвестное догадкой»', why:'Назначение иконки, поля или связи, которого я не знаю, выводилось из внешнего вида и попадало в документацию как факт. Догадка неотличима от знания задним числом.', ok:'В <code class="tok">CLAUDE.md</code> и скилле сборки: неизвестное назначение — вопрос пользователю; в документации ДС не остаётся утверждений о предметной области, источник которых не назван.', prio:'P1', st:'done'},
+ {w:'W5', task:'Гейт фиделити в обязательный чек-лист', why:'Линтер запускается рефлекторно, гейт — по памяти, и на 02-Deal-v3 его не было. Четыре замечания из шести он поймал бы до сдачи.', ok:'Чек-лист экрана в <code class="tok">CLAUDE.md</code> ставит гейт рядом с линтером как обязательный шаг; в скилле сборки по макету — явный запрет сдавать без вердикта PASS.', prio:'P1', st:'done'},
+ {w:'W5', task:'Пересчёт матрицы скриптом после каждой волны', why:'Оценка снята скриптом и должна так же обновляться: ручной пересчёт по 46 компонентам разойдётся с фактом — как уже разошлась отметка «oob: ok» у Tab.', ok:'Скрипт пересчёта живёт в <code class="tok">scripts/ds-lint.js</code> и выдаёт готовый массив для этой страницы; расхождение матрицы с фактом репортится как дефект. Сделано частично: новая глобальная проверка <code class="tok">M1</code> сверяет только k5 (спека декларирует <code class="tok">runtime:</code>/<code class="tok">js:</code> ⇔ матрица k5=ok) и репортит расхождение WARN — первый прогон чист. K1/K2/K3/K6 остаются ручными: требуют семантического суждения (нативное состояние, глиф-слот, корнер-кейс), не выводятся из одного текстового признака.', prio:'P2', st:'wip'},
+];
+(function(){
+  const t = document.getElementById('plan');
+  const badge = {done:['b-done','готово'], wip:['b-wip','в работе'], next:['b-next','следующее'], later:['b-later','позже']};
+  let h = "<div class='tbl__row'><div class='th th--separator'></div><div class='th th--center'><span class='th__label'>Волна</span></div><div class='th'><span class='th__label'>Задача</span></div><div class='th'><span class='th__label'>Зачем</span></div><div class='th'><span class='th__label'>Критерий приёмки</span></div><div class='th th--center'><span class='th__label'>Приор.</span></div><div class='th'><span class='th__label'>Статус</span></div><div class='th th--separator'></div></div>";
+  PLAN.forEach(r=>{
+    const [bc,bt] = badge[r.st];
+    h += "<div class='tbl__row'><div class='tc tc--separator'></div>"
+      + "<div class='tc tc--center'><span class='tc__row'><span class='tc__text'><span class='prio prio-wave'>"+r.w+"</span></span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'><b>"+r.task+"</b></span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.why+"</span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>"+r.ok+"</span></span></div>"
+      + "<div class='tc tc--center'><span class='tc__row'><span class='tc__text'><span class='prio prio-"+r.prio+"'>"+r.prio+"</span></span></span></div>"
+      + "<div class='tc'><span class='tc__row'><span class='tc__text'><span class='b "+bc+"'>"+bt+"</span></span></span></div>"
+      + "<div class='tc tc--separator'></div></div>";
+  });
+  t.innerHTML = h;
+  const c = s => PLAN.filter(r => r.st === s).length;
+  document.getElementById('plan-stat').textContent =
+    'Задач: ' + PLAN.length + ' · P1: ' + PLAN.filter(r=>r.prio==='P1').length +
+    ' · готово: ' + c('done') + ' · следующее: ' + c('next') + ' · позже: ' + c('later');
+})();
+/* ---------- журнал правок ---------- */
+const LOG = [
+ {w:'—', what:'Аудит правил «из коробки»', why:'Шесть замечаний ревью 02-Deal-v3 оказались шестью классами дефектов. Нужна была отдельная точка сборки: критерии, матрица по 46 компонентам, план волнами.', st:'done', when:'12.08.2026'},
+ {w:'—', what:'Инструкции сборки дополнены', why:'Три замечания из шести были процессными: правило существовало, но не исполнялось. В <code class="tok">CLAUDE.md</code> и скиллы дописаны анатомия компонента, выбор глифа по виду, рантаймы по таблице хуков, композиция целиком, гейт фиделити наравне с линтером.', st:'done', when:'12.08.2026'},
+ {w:'W5', what:'Правило «не достраивать неизвестное догадкой»', why:'Назначение иконки и связей выводилось из внешнего вида и попадало в документацию как факт. Неизвестное — вопрос, а не реконструкция.', st:'done', when:'12.08.2026'},
+ {w:'—', what:'Снята отметка «из коробки» у Tab', why:'Ставилась по клавиатуре, а переполнение осталось в <code class="tok">tab.page.js</code>. Ручная оценка разошлась с фактом — впредь снимается скриптом.', st:'done', when:'12.08.2026'},
+ {w:'W0', what:'Единая точка входа <code class="tok">ds.js</code>', why:'Все 12 экранов недоподключают от 2 до 5 рантаймов. Пока рантайм можно забыть, каждая следующая волна работает через раз. Реализовано: <code class="tok">scripts/ds.js</code> синхронно дописывает через <code class="tok">document.write</code> 17 рантаймов в порядке зависимостей; все 12 экранов переведены на один тег; линтер (<code class="tok">A7</code>) блокирует прямое подключение рантаймов мимо него.', st:'done', when:'12.08.2026'},
+ {w:'W0', what:'Глиф берёт размер от слота', why:'Жёсткие 24px в <code class="tok">ds-icons.js</code>: в слоте 16px глиф распирал контейнер. Реализовано: 65 правил размера в 27 CSS переписаны на <code class="tok">:is(svg,[data-icon])</code>, 11 дублирующих правил-пинов удалены; замер в браузере: btn--m 20×20, ibtn--s 16×16, chip__icon 16×16, tc__icon 16×16 — обе формы совпадают.', st:'done', when:'12.08.2026'},
+ {w:'W0', what:'Глиф — единая форма слота', why:'16 спек показывали <code class="tok">&lt;svg&gt;</code>, 9 — <code class="tok">&lt;i data-icon&gt;</code> — разнобой анатомии в сниппетах мешал выбирать готовую разметку. Реализовано (решение пользователя 12.08.2026): все 15 затронутых спек + чит-шит сведены к <code class="tok">&lt;i data-icon&gt;</code>; исключение — слоты, где тег решён CSS-анатомией (Splitter .spl__grip). Имена глифов выбраны по визуальной сверке (screenshots/icon-sheet.png), не по имени.', st:'done', when:'12.08.2026'},
+ {w:'W1', what:'Нативные состояния: Checkbox, Radiobutton, Switch', why:'Ноль правил на <code class="tok">:checked</code>. Разметка с <code class="tok">checked</code> выглядела невыбранной — вторая половина дефекта галочек. Реализовано: checkbox.css/radio.css/switch.css красят состояние по <code class="tok">:checked ~</code>/<code class="tok">:indeterminate ~</code>/<code class="tok">:disabled ~</code> на самом input (плюс <code class="tok">:has()</code> для hover-комбинаций); классы-модификаторы остаются как форс-состояния витрины. Замер в браузере: класс-версия и native-only версия дают идентичный пиксель для всех трёх компонентов.', st:'done', when:'12.08.2026'},
+ {w:'W1', what:'Нативные состояния: Chip, Tab, TableCell, Entity, Buttons, IconButton, Link', why:'<code class="tok">aria-selected</code>, <code class="tok">aria-current</code>, <code class="tok">disabled</code> в разметке ничего не меняли, хотя рантайм уже пишет эти атрибуты. Реализовано: tab.css (<code class="tok">aria-selected</code>/<code class="tok">aria-disabled</code>), icon-button.css (<code class="tok">aria-pressed</code>), entity.css/table-cell.css (<code class="tok">aria-selected</code> на строке/тайле), chip.css (<code class="tok">aria-disabled</code> — у чипа нет нативного disabled), button.css (разворот шеврона на <code class="tok">aria-expanded</code>, раньше не работал вовсе). Link уже был готов. <code class="tok">aria-current</code> — нигде в CSS не встретился как реальный паттерн выбора (не заведён ни в одном компоненте), в скоуп не попал.', st:'done', when:'12.08.2026'},
+ {w:'W1', what:'Ревизия остальных 33 по K1', why:'Часть компонентов не имеет нативного состояния по природе. Нужно отделить дефекты от неприменимого, иначе волна раздуется вдвое. Реализовано: скриптовая сверка spec↔CSS по всем 32 — 4 реальных дефекта закрыты (Alert/Tile — шеврон на <code class="tok">aria-expanded</code>; NavPanel — <code class="tok">aria-current</code>; DatePicker — <code class="tok">aria-selected</code>/<code class="tok">aria-disabled</code> ячейки дня), Tab доп. получил <code class="tok">aria-current</code> для TableFilter; 6 оказались уже готовы; ~22 — неприменимо (нет состояния выбора, либо aria-invalid/aria-busy — чистая семантика, не визуальный триггер). Линтер 0 BLOCKER.', st:'done', when:'12.08.2026'},
+ {w:'W2', what:'Переполнение табов в рантайм', why:'Оба паттерна написаны, но живут на витрине. Экран получает ряд, вылезающий за границу контейнера. Реализовано: <code class="tok">DSTabs.tabs()</code> сам оборачивает <code class="tok">.tabs--horiz</code> в скролл-со-стрелками (default) или fit+меню «Ещё» (<code class="tok">data-tabs-overflow="menu"</code>); <code class="tok">tab.page.js</code> переведён на рантайм, свои копии функций удалены.', st:'done', when:'12.08.2026'},
+ {w:'W2', what:'Фиксированная высота тайлов в ряду', why:'Правило есть в спеке Tile, нет ни в CSS, ни в рантайме. На 02-Deal-v3 высоты вышли 214 / 186 / 242. Реализовано: <code class="tok">.tile{align-self:stretch}</code> — не зависит от <code class="tok">align-items</code> контейнера, чинит 02-Deal-v3 без правки экрана (242/242/242 в браузере). Уточнено по ходу: полноширинный (span 12) тайл и канбан-колонки (новый класс <code class="tok">.tile-stack</code>) высоту по соседям не берут — это естественное поведение Grid/flex-column, не особый случай.', st:'done', when:'12.08.2026'},
+ {w:'W2', what:'Защита от переполнения в 11 компонентах', why:'Ни <code class="tok">text-overflow</code>, ни <code class="tok">min-width:0</code>: длинное значение ломает раскладку соседей. Реализовано: Avatar, Button, DatePicker, Divider, EmptyState, IconButton, NavTile, RiskMetric, Spinner, Tooltip — ellipsis/break-word/min-width:0 точечно под сценарий каждого (текст в фикс. боксе, flex-сжатие, свободный текст без лимита). ButtonGroup наследует защиту через button.css.', st:'done', when:'13.08.2026'},
+ {w:'W2', what:'Корнер-кейсы из прозы в код: остальные 24', why:'Спека описывает поведение при переполнении, CSS реализует частично. Расхождение прозы и кода — тот же класс, что ловил гейт парности.', st:'later', when:'—'},
+ {w:'W3', what:'Рантайм RiskMetric', why:'Спека говорит: компонент — это Chip + Popover. Без поповера выглядит рабочим и не работает. Реализовано: <code class="tok">scripts/ds-riskmetric.js</code> собирает Chip+Popover из <code class="tok">data-riskmetric</code>-хоста, поведение поповера — общий <code class="tok">DSPopover</code>; страница переведена на рантайм.', st:'done', when:'13.08.2026'},
+ {w:'W3', what:'Split-кнопка и Select + DropdownList', why:'Те же композиции: половина разметки без второй половины не диагностируется. Реализовано: ButtonGroup — Split Button на реальном ContextMenu (<code class="tok">DSMenu.bind</code>); DropdownList — новый <code class="tok">scripts/ds-dropdownlist.js</code> (<code class="tok">DSDropdownList</code>): открытие/позиционирование/клавиатура/три-стейт мультивыбора, раньше жившие только в dropdown-list.page.js. Оба переведены без своего кода на странице.', st:'done', when:'13.08.2026'},
+ {w:'W3', what:'Ревизия остальных композиций по K4', why:'Badge и Avatar требуют <code class="tok">position:relative</code> на родителе. Такое требование нужно либо снять кодом, либо записать инвариантом. Реализовано: Badge/Avatar — уже CSS-обёртка (<code class="tok">.badge-anchor</code>/<code class="tok">.av-stack</code>), прежняя оценка устарела; InputDate/InputDateRange — календарь самоподключается через <code class="tok">ds-datepicker.js</code>; InputAutocomplete — живое filter-демо не закрывалось по клику вне/Esc, починено, стрелочная клавиатура — открытый корнер-кейс в чит-шите.', st:'done', when:'13.08.2026'},
+ {w:'W4', what:'Индекс возможностей в чит-шите', why:'614 из 799 возможностей не доходят до сборщика — он не знает, что вариант существует. Оглавление, а не пересказ.', st:'next', when:'—'},
+ {w:'W4', what:'Отсылки «когда открывать полную спеку»', why:'Блок не отличает «здесь всё» от «здесь основное». Спека либо не читается там, где нужна, либо читается вся подряд.', st:'next', when:'—'},
+ {w:'W4', what:'Карта диагностики: симптом → возможность', why:'Чтобы дефект чинился средствами компонента, а не своим CSS поверх, нужен обратный указатель.', st:'later', when:'—'},
+ {w:'W4', what:'Секции «Инварианты» и «Корнер-кейсы» в чит-шите', why:'Правило, лежащее только в полной спеке, при сборке структурно недостижимо. Реализовано: отдельные строки-заголовки <code class="tok">**Оси:**</code>/<code class="tok">**Инварианты:**</code>/<code class="tok">**Корнер-кейсы:**</code> в 44 из 48 блоков чит-шита.', st:'done', when:'13.08.2026'},
+ {w:'W4', what:'Раздел «Инварианты» в шаблоне спеки', why:'Чтобы инвариант попадал в чит-шит, он должен быть отделён от прозы в самой спеке.', st:'later', when:'—'},
+ {w:'W5', what:'Правила линтера на шесть классов ошибок', why:'Каждый разобранный инцидент должен становиться проверкой, иначе повторяется. Реализовано: F1–F4 в <code class="tok">ds-lint.js</code> (chip__info/.pop, data-icon в слоте, tabs--horiz без data-tabs, grid-track без minmax); 2 класса закрыты архитектурно (W0 единая точка входа, W2 tile stretch). Первый прогон нашёл реальные дефекты на 9 экранах.', st:'done', when:'13.08.2026'},
+ {w:'W5', what:'Пересчёт матрицы скриптом после каждой волны', why:'Ручной пересчёт по 46 компонентам разойдётся с фактом — как уже разошлась отметка у Tab. Реализовано частично: проверка <code class="tok">M1</code> в <code class="tok">ds-lint.js</code> сверяет колонку k5 с полем <code class="tok">runtime:</code> в спеках; K1/K2/K3/K6 остаются ручными — требуют семантического судждения.', st:'wip', when:'13.08.2026'},
+];
+(function(){
+  const t = document.getElementById('log');
+  const badge = {done:['b-done','готово'], wip:['b-wip','в работе'], next:['b-next','следующее'], later:['b-later','позже']};
+  let h = "<div class='tbl__row'><div class='th th--separator'></div><div class='th th--center'><span class='th__label'>Волна</span></div><div class='th'><span class='th__label'>Что меняем</span></div><div class='th'><span class='th__label'>Зачем</span></div><div class='th'><span class='th__label'>Статус</span></div><div class='th th--center'><span class='th__label'>Когда</span></div><div class='th th--separator'></div></div>";
+  LOG.forEach(function(r){
+    var b = badge[r.st];
+    h += "<div class='tbl__row'><div class='tc tc--separator'></div>"
+      + "<div class='tc tc--center'><span class='tc__row'><span class='tc__text'>" + (r.w === '—' ? "<span class='b b-later'>—</span>" : "<span class='prio prio-wave'>" + r.w + "</span>") + "</span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'><b>" + r.what + "</b></span></span></div>"
+      + "<div class='tc tc--wrap'><span class='tc__row'><span class='tc__text'>" + r.why + "</span></span></div>"
+      + "<div class='tc'><span class='tc__row'><span class='tc__text'><span class='b " + b[0] + "'>" + b[1] + "</span></span></span></div>"
+      + "<div class='tc tc--center'><span class='tc__row'><span class='tc__text'>" + r.when + "</span></span></div>"
+      + "<div class='tc tc--separator'></div></div>";
+  });
+  t.innerHTML = h;
+  var c = function(s){ return LOG.filter(function(r){ return r.st === s; }).length; };
+  document.getElementById('log-stat').textContent =
+    'Записей: ' + LOG.length + ' · готово: ' + c('done') + ' · следующее: ' + c('next') + ' · позже: ' + c('later');
+})();
+</script>
+</body>
+</html>

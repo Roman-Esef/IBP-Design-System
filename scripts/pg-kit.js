@@ -167,7 +167,18 @@
     }).observe(controls);
   }
 
+
+  // самодостаточность: подтягиваем свой стиль, если страница его не подключила
+  function ensureCss() {
+    if (document.querySelector('link[rel="stylesheet"][href$="pg-kit.css"]')) return;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = (window.__DS_ROOT || '') + 'styles/pg-kit.css';
+    document.head.appendChild(l);
+  }
+
   ready(() => {
+    if (document.querySelector('.panel.pg')) ensureCss();
     document.querySelectorAll('.panel.pg').forEach(panel => {
       const controls = panel.querySelector(':scope > .pg__controls');
       const stage = panel.querySelector(':scope > .pg__stage');

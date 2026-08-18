@@ -75,7 +75,7 @@
 
 /* ----------------------------------------------------------------------- *
    Divider with label / content
-   <div class="dvd-text dvd-text--center"><span class="dvd-text__label">…</span></div>
+   <div class="dvd-text"><span class="dvd-text__label">…</span></div>
  * ----------------------------------------------------------------------- */
 .dvd-text {
   display: flex;
@@ -96,10 +96,13 @@
 .dvd-text--dashed::after { border-top-style: dashed; }
 
 .dvd-text__label {
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
   font: var(--type-body-s);
   color: var(--text-secondary);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* alignment — короткий сегмент с прижатой стороны */

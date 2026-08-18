@@ -1,8 +1,8 @@
 ---
 component: Link
 title: "Link"
-version: "v1.6"
-updated: "17.07.2026"
+version: "v1.7"
+updated: "12.08.2026"
 page: pages/atoms/Link.html
 css: styles/link.css
 deps: [breadcrumbs]
@@ -13,6 +13,16 @@ status: auto
 
 ## Назначение
 Текстовая ссылка для навигации внутри лайаута и модальных окон, а также в Хлебных крошках. Тоны Accent / Muted / Neutral / Info / Warning / Error / Success, размеры M / S (S также используется в таблицах, где весь текстовый контент набирается размером S), состояния Default и Hover = Focus (подчёркивание) — кроме тона Neutral (Breadcrumbs_2): у него только состояние Default, ссылка не кликабельна. Цветовое решение едино для всех видов и размеров.
+
+## Инварианты
+- Тон Neutral (Breadcrumbs_2) не кликабелен — только Default, hover/focus/pressed не отличаются визуально.
+- `.link--inline` всегда подчёркнута, даже в default — единственный вариант, различимый без цвета.
+- Hover и focus дают одинаковое оформление (подчёркивание+цвет) — отдельной обводки фокуса нет.
+- Семантические тоны (info/warning/error/success) — только внутри Alert/SnackBar, совпадая с тоном плашки, не как самостоятельный выбор цвета ссылки.
+
+## Диагностика
+- «Ссылка визуально неактивна при hover» → проверить тон — Neutral специально без hover
+- «На клавиатурном фокусе рамка вместо подчёркивания» → должно быть подчёркивание, как на hover, без отдельного outline
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Используйте ссылку, когда нужно:
@@ -46,15 +56,15 @@ status: auto
 
 <!-- иконка слева (скачивание) -->
 <a class="link link--accent link--m link--with-icon" href="/report.pdf">
-  <span class="link__icon"><svg aria-hidden="true">…</svg></span>
-  <span class="link__text">Скачать PDF</span>
+  <span class="link__icon"><i data-icon="download"></i></span>
+  Скачать PDF
 </a>
 
 <!-- внешняя ссылка: новая вкладка + иконка-стрелка справа -->
 <a class="link link--accent link--m link--with-icon" href="https://…"
    target="_blank" rel="noopener" aria-label="Открыть в реестре (открывается в новой вкладке)">
-  <span class="link__text">Открыть в реестре</span>
-  <span class="link__icon"><svg aria-hidden="true">…</svg></span>
+  Открыть в реестре
+  <span class="link__icon"><i data-icon="link-external"></i></span>
 </a>
 
 <!-- хлебные крошки: родители — ссылки Muted, текущая — не ссылка; полная анатомия — см. Breadcrumbs.html -->
@@ -127,11 +137,11 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 | .link--accent / --muted / --neutral | a | Тон: Accent (лайаут/модалки) и Muted (Breadcrumbs_1) — задают цвет и оттенки hover/pressed; Neutral (Breadcrumbs_2) — только цвет Default, без hover/pressed, pointer-events: none (не кликабельна) |
 | .link--m / --s | a | Размер standalone: 16/20 · 14/16. При inline не используется |
 | .link--inline | a | В потоке текста: font: inherit + постоянное подчёркивание |
-| .link--with-icon | a | inline-flex + зазор для иконки; парой идут .link__icon / .link__text |
+| .link--with-icon | a | inline-flex + зазор для иконки; слот иконки — .link__icon, текст — прямо в <a> |
 | .link--truncate | a | Обрезка многоточием (inline-block + ellipsis); полное значение — в title |
 | .link--disabled / aria-disabled="true" | a | Отключено: цвет --text-inactive, pointer-events: none, без подчёркивания |
 | .is-hover / .is-pressed / .is-focus | a | Форс-состояния — только для спецификаций в документации, не для продакшена |
-| .link__icon / .link__text | span | Слоты иконки (1em) и текста внутри ссылки с иконкой |
+| .link__icon | span | Слот иконки (1em) внутри ссылки с иконкой; текст — текстовым узлом в <a>, отдельного класса нет |
 | target="_blank" · rel="noopener" | a | Обязательны на внешних ссылках; aria-label дополняется пометкой о новой вкладке |
 | .crumbs | nav > ol | Контейнер хлебных крошек — единственный размер S, crumbs--m не существует; полная спецификация — страница Breadcrumbs |
 | разделитель «/» | li::after | CSS-псевдоэлемент между звеньями, цвет как у Breadcrumbs_1; не часть DOM — не читается скринридером |

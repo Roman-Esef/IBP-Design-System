@@ -1,147 +1,43 @@
 /* =========================================================================
    RiskMetric — страница ДС: конструктор, редлайн, демо.
-   Композиция: Chip (readonly, S) + кнопка-информер (.chip__info) + Popover.
+   Композиция строится рантаймом scripts/ds-riskmetric.js (Chip + Popover,
+   позиционирование/открытие/single-open/Esc/клик-вне — из DSPopover).
+   Эта страница только расставляет data-riskmetric-хосты и читает их обратно.
    ========================================================================= */
 
-const RM_ZONES = {
-  none:      { label: '—',         name: 'нет данных',    code: '—',           tone: null },
-  green:     { label: 'Зеленая',   name: 'зеленая',       code: 'Green Zone',  tone: 'success' },
-  watchlist: { label: 'Watchlist', name: 'watchlist',     code: 'Watchlist',   tone: 'warning' },
-  red:       { label: 'Красная',   name: 'красная',       code: 'Red Zone',    tone: 'error-solid' },
-  black:     { label: 'Черная',    name: 'черная',        code: 'Black Zone',  tone: 'dark-solid' },
-};
+const RM_ZONE_LABEL = { green: 'Зеленая', watchlist: 'Watchlist', red: 'Красная', black: 'Черная' };
 const RM_ZONE_TOKEN = { green: '--st-green', watchlist: '--st-orange', red: '--st-red', black: '--st-grey' };
+const RM_ERROR_TEXT = 'Не удалось загрузить риск-метрику. Проверьте соединение и попробуйте ещё раз.';
 
-let rmSeq = 0;
-
-function rmAriaLabel(rating, zoneKey) {
-  const ratingTxt = rating != null ? ('рейтинг ' + rating) : 'рейтинг не определён';
-  const zoneTxt = zoneKey === 'none' ? 'зона проблемности не определена' : ('зона проблемности — ' + RM_ZONES[zoneKey].name);
-  return 'Риск-метрика. ' + ratingTxt + ', ' + zoneTxt + '.';
+/* ---------- создаёт data-riskmetric хост и собирает его рантаймом ---------- */
+function rmMount(container, o = {}) {
+  const host = document.createElement('span');
+  host.setAttribute('data-riskmetric', '');
+  if (o.rating != null) host.setAttribute('data-risk', o.rating);
+  if (o.zone) host.setAttribute('data-zone', o.zone);
+  if (o.ratingDate) host.setAttribute('data-rating-date', o.ratingDate);
+  if (o.zoneDate) host.setAttribute('data-zone-date', o.zoneDate);
+  if (o.segment) host.setAttribute('data-segment', o.segment);
+  if (o.profile) host.setAttribute('data-profile', o.profile);
+  if (o.loading) host.setAttribute('data-loading', '');
+  if (o.error) host.setAttribute('data-error', o.error);
+  container.appendChild(host);
+  window.DSRiskMetric.build(host);
+  window.dsIcons && window.dsIcons.apply(host);
+  return host;
+}
+function rmPopoverApi(host) {
+  const btn = host.querySelector('.chip__info');
+  return btn ? btn.__dsPopover : null;
 }
 
-/* ---------- фабрика чипа: label (рейтинг/тире) + кнопка-информер ---------- */
-function makeRiskChip(o = {}) {
-  const { rating = null, zone = 'none', size = 's', details = false } = o;
-  const z = RM_ZONES[zone] || RM_ZONES.none;
-  const hasZone = zone !== 'none';
-  /* информер есть, если раскрывать есть что: зона, рейтинг ИЛИ риск-сегмент/профиль */
-  const hasInfo = hasZone || rating != null || details;
-
-  const el = document.createElement('span');
-  el.className = 'chip chip--readonly chip--rounded chip--' + size + (hasZone ? ' chip--' + z.tone : ' chip--outline');
-  el.setAttribute('aria-label', rmAriaLabel(rating, zone));
-
-  const lb = document.createElement('span');
-  lb.className = 'chip__label';
-  lb.textContent = rating != null ? String(rating) : '—';
-  el.appendChild(lb);
-
-  let btn = null;
-  if (hasInfo) {
-    btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'chip__info';
-    btn.setAttribute('aria-haspopup', 'dialog');
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-label', 'Показать детали риск-метрики');
-    btn.innerHTML = '<i data-icon="info-circle"></i>';
-    el.appendChild(btn);
-  }
-  return { el, btn };
-}
-
-/* ---------- Popover_RiskMetric: Header (заголовок+✕) + Body, без Footer ---------- */
-function buildRiskPopover(o = {}) {
-  const {
-    rating = 26, zone = 'red', ratingDate = '24.10.2025', zoneDate = '24.10.2025',
-    segment = 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%',
-    profile = 'Непроектный', state = 'default', width = 'm',
-  } = o;
-  const dash = '—';
-  const titleId = 'rm-pop-title-' + (++rmSeq);
-  const pop = document.createElement('div');
-  pop.className = 'pop pop--w-' + width + ' pop--bottom pop--start pop--floating';
-  pop.setAttribute('role', 'dialog');
-  pop.setAttribute('aria-modal', 'false');
-  pop.setAttribute('aria-labelledby', titleId);
-
-  const head = document.createElement('div');
-  head.className = 'pop__head';
-  head.innerHTML = '<h3 class="pop__title" id="' + titleId + '">Рейтинг и зона проблемности</h3>' +
-    '<span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span>';
-  pop.appendChild(head);
-
-  const body = document.createElement('div');
-  body.className = 'pop__body rm-body';
-
-  if (state === 'loading') {
-    body.setAttribute('aria-busy', 'true');
-    body.innerHTML = '<span class="pop__skeleton pop__skeleton--title" style="--sk-w:55%;"></span>' +
-      '<span class="pop__skeleton" style="--sk-w:100%;"></span>' +
-      '<span class="pop__skeleton pop__skeleton--title" style="--sk-w:45%;"></span>' +
-      '<span class="pop__skeleton" style="--sk-w:80%;"></span>';
-  } else if (state === 'error') {
-    body.setAttribute('role', 'alert');
-    body.innerHTML = '<div style="display:flex; gap:10px; align-items:flex-start;">' +
-      '<span style="flex:none; width:20px; height:20px; color:var(--error);"><i data-icon="alert-circle"></i></span>' +
-      '<p style="margin:0; font:var(--type-body-s); color:var(--text-primary);">Не удалось загрузить риск-метрику. Проверьте соединение и попробуйте ещё раз.</p></div>';
-  } else {
-    body.innerHTML =
-      '<div class="rm-blocks">' + rmZoneBlockHTML(zone, zoneDate) + rmRateBlockHTML(rating, ratingDate) + '</div>' +
-      '<div class="rm-field"><p class="rm-field__label">Риск-сегмент</p><p class="rm-field__value">' + (segment || dash) + '</p></div>' +
-      '<div class="rm-field"><p class="rm-field__label">Риск-профиль</p><p class="rm-field__value">' + (profile || dash) + '</p></div>';
-  }
-  pop.appendChild(body);
-  const arrowEl = document.createElement('span'); arrowEl.className = 'pop__arrow'; pop.appendChild(arrowEl);
-  return { pop, body };
-}
-
-/* ---------- позиционирование (см. Popover — placePop). Стейдж = сам .pop-anchor,
-   он тесно облегает кнопку-триггер, поэтому координаты считаются от неё же. ---------- */
-function rmPlacePop(anchor, pop, target, placement, align, gap) {
-  gap = gap == null ? 8 : gap;
-  const sr = anchor.getBoundingClientRect();
-  const tr = target.getBoundingClientRect();
-  const pw = pop.offsetWidth, ph = pop.offsetHeight;
-  const tl = tr.left - sr.left, tt = tr.top - sr.top;
-  const cx = tl + tr.width / 2, cy = tt + tr.height / 2;
-  let x = 0, y = 0;
-  if (placement === 'top') y = tt - gap - ph;
-  else if (placement === 'bottom') y = tt + tr.height + gap;
-  if (align === 'center') x = cx - pw / 2;
-  else if (align === 'start') x = cx - 18;
-  else x = cx - (pw - 18);
-  /* охрана от правого края viewport — используется в широких demo-таблицах */
-  const viewportRight = window.innerWidth - 16;
-  const absLeft = sr.left + x;
-  if (absLeft + pw > viewportRight) x -= (absLeft + pw - viewportRight);
-  pop.style.left = x + 'px';
-  pop.style.top = y + 'px';
-}
-
-/* ---------- единый реестр: одновременно открыт только один поповер ---------- */
-let rmOpen = null; /* { pop, btn } */
-function rmClose() {
-  if (!rmOpen) return;
-  rmOpen.pop.classList.remove('is-open');
-  rmOpen.btn.setAttribute('aria-expanded', 'false');
-  rmOpen = null;
-}
-document.addEventListener('click', (e) => {
-  if (rmOpen && !rmOpen.pop.contains(e.target) && e.target !== rmOpen.btn && !rmOpen.btn.contains(e.target)) rmClose();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && rmOpen) { const b = rmOpen.btn; rmClose(); b.focus(); }
-});
-
-/* ---------- строительные блоки Body (переиспользуются поповером и демо) ---------- */
+/* ---------- строительные блоки Body (только для демо «компоненты подкачки») ---------- */
 function rmZoneBlockHTML(zone, zoneDate) {
   const color = RM_ZONE_TOKEN[zone] ? ' style="color:var(' + RM_ZONE_TOKEN[zone] + ')"' : '';
-  const val = zone === 'none' ? '—' : RM_ZONES[zone].label;
+  const val = zone ? RM_ZONE_LABEL[zone] : '—';
   return '<div class="rm-block">' +
     '<div class="rm-block__row"><span class="rm-block__label">Зона проблемности</span><span class="rm-block__value rm-block__value--strong"' + color + '>' + val + '</span></div>' +
-    '<div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">' + (zone === 'none' ? '—' : zoneDate) + '</span></div>' +
+    '<div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">' + (zone ? zoneDate : '—') + '</span></div>' +
   '</div>';
 }
 function rmRateBlockHTML(rating, ratingDate) {
@@ -149,40 +45,6 @@ function rmRateBlockHTML(rating, ratingDate) {
     '<div class="rm-block__row"><span class="rm-block__label">Рейтинг контрагента</span><span class="rm-block__value rm-block__value--strong">' + (rating != null ? rating : '—') + '</span></div>' +
     '<div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">' + (rating != null ? ratingDate : '—') + '</span></div>' +
   '</div>';
-}
-
-/* ---------- монтирует живой инстанс: анкор + чип + (опц.) поповер ---------- */
-function mountRiskMetric(container, o = {}) {
-  const anchor = document.createElement('span');
-  anchor.className = 'pop-anchor';
-  const pv = o.popover || {};
-  const hasDetails = !!(pv.segment || pv.profile);
-  const { el, btn } = makeRiskChip(Object.assign({}, o, { details: hasDetails }));
-  anchor.appendChild(el);
-  container.appendChild(anchor);
-  if (!btn) { window.dsIcons && window.dsIcons.apply(anchor); return { anchor, btn: null, pop: null }; }
-
-  const { pop } = buildRiskPopover(Object.assign({ rating: o.rating, zone: o.zone }, pv));
-  anchor.appendChild(pop);
-  pop.id = 'rm-pop-' + (++rmSeq);
-  btn.setAttribute('aria-controls', pop.id);
-
-  function open() {
-    if (rmOpen && rmOpen.pop !== pop) rmClose();
-    rmPlacePop(anchor, pop, btn, 'bottom', 'start', 8);
-    pop.classList.add('is-open');
-    btn.setAttribute('aria-expanded', 'true');
-    rmOpen = { pop, btn };
-  }
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    pop.classList.contains('is-open') ? rmClose() : open();
-  });
-  const closeBtn = pop.querySelector('.pop__close .ibtn');
-  if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); rmClose(); btn.focus(); });
-
-  window.dsIcons && window.dsIcons.apply(anchor);
-  return { anchor, btn, pop, open };
 }
 
 /* ========================================================================= */
@@ -195,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!controls || !stage) return;
 
     const state = { zone: 'red', rating: '26', details: 'yes', popState: 'default' };
-    let inst = null;
 
     function ctl(labelText, options, get, set) {
       const wrap = document.createElement('div'); wrap.className = 'ctl';
@@ -230,16 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function render() {
       stage.innerHTML = '';
-      const box = document.createElement('div'); box.style.cssText = 'padding-top:60px;';
+      const box = document.createElement('div'); box.style.cssText = 'padding-top:60px; position:relative;';
       const rating = state.rating === 'none' ? null : Number(state.rating);
       const withDetails = state.details === 'yes';
-      inst = mountRiskMetric(box, {
-        rating, zone: state.zone,
-        popover: {
-          rating, zone: state.zone, state: state.popState,
-          segment: withDetails ? 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%' : null,
-          profile: withDetails ? 'Непроектный' : null,
-        },
+      rmMount(box, {
+        rating, zone: state.zone === 'none' ? null : state.zone,
+        ratingDate: '24.10.2025', zoneDate: '24.10.2025',
+        segment: withDetails ? 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%' : null,
+        profile: withDetails ? 'Непроектный' : null,
+        loading: state.popState === 'loading',
+        error: state.popState === 'error' ? RM_ERROR_TEXT : null,
       });
       stage.appendChild(box);
     }
@@ -255,13 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
       ['АО «Балтийский лизинг»', 12, 'watchlist'],
       ['ПАО «Речной торговый банк»', 4, 'green'],
       ['Фонд «Прибрежные инвестиции»', null, 'black'],
-      ['ИП Смирнов А. К.', null, 'none'],
+      ['ИП Смирнов А. К.', null, null],
     ];
     rows.forEach(([name, rating, zone]) => {
       const row = document.createElement('div'); row.className = 'rm-usage-row';
       const nm = document.createElement('span'); nm.className = 'rm-usage-row__name'; nm.textContent = name; row.appendChild(nm);
       const cellWrap = document.createElement('span'); cellWrap.className = 'rm-usage-row__metric'; row.appendChild(cellWrap);
-      mountRiskMetric(cellWrap, { rating, zone });
+      rmMount(cellWrap, { rating, zone, ratingDate: '24.10.2025', zoneDate: '24.10.2025' });
       host.appendChild(row);
     });
   })();
@@ -270,17 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
   (function () {
     const host = document.getElementById('anat-stage');
     if (!host) return;
-    const box = document.createElement('div'); box.style.cssText = 'padding-top:60px;';
-    const inst = mountRiskMetric(box, { rating: 26, zone: 'red', popover: { rating: 26, zone: 'red' } });
+    const box = document.createElement('div'); box.style.cssText = 'padding-top:60px; position:relative;';
+    const rm = rmMount(box, { rating: 26, zone: 'red', ratingDate: '24.10.2025', zoneDate: '24.10.2025' });
     host.appendChild(box);
-    requestAnimationFrame(() => { inst.open(); });
+    requestAnimationFrame(() => { const api = rmPopoverApi(rm); if (api) api.open(); });
   })();
 
   /* ---------------- РАЗМЕРЫ: redline Chip S ---------------- */
   (function () {
     const host = document.getElementById('sizes-demo');
     if (!host) return;
-    mountRiskMetric(host, { rating: 26, zone: 'red', popover: { rating: 26, zone: 'red' } });
+    rmMount(host, { rating: 26, zone: 'red', ratingDate: '24.10.2025', zoneDate: '24.10.2025' });
   })();
 
   /* ---------------- СОСТОЯНИЯ: матрица 4×4 (комбинация × зона) ---------------- */
@@ -289,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!grid) return;
     const cols = ['green', 'watchlist', 'red', 'black'];
     grid.appendChild(document.createElement('div'));
-    cols.forEach(c => { const h = document.createElement('div'); h.className = 'rm-matrix__colhead'; h.textContent = RM_ZONES[c].label; grid.appendChild(h); });
+    cols.forEach(c => { const h = document.createElement('div'); h.className = 'rm-matrix__colhead'; h.textContent = RM_ZONE_LABEL[c]; grid.appendChild(h); });
 
     const rowDefs = [
       ['Rate + Zone', (c) => ({ rating: 26, zone: c })],
@@ -297,23 +158,23 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     rowDefs.forEach(([label, mk]) => {
       const rh = document.createElement('div'); rh.className = 'rm-matrix__rowhead'; rh.textContent = label; grid.appendChild(rh);
-      cols.forEach(c => { const cell = document.createElement('div'); cell.className = 'rm-matrix__cell'; grid.appendChild(cell); mountRiskMetric(cell, mk(c)); });
+      cols.forEach(c => { const cell = document.createElement('div'); cell.className = 'rm-matrix__cell'; grid.appendChild(cell); rmMount(cell, Object.assign({ ratingDate: '24.10.2025', zoneDate: '24.10.2025' }, mk(c))); });
     });
 
     /* Rate и None не зависят от зоны — одна ячейка на всю ширину */
     const rateRowLabel = document.createElement('div'); rateRowLabel.className = 'rm-matrix__rowhead'; rateRowLabel.textContent = 'Rate'; grid.appendChild(rateRowLabel);
     const rateCell = document.createElement('div'); rateCell.className = 'rm-matrix__cell rm-matrix__cell--span'; grid.appendChild(rateCell);
-    mountRiskMetric(rateCell, { rating: 26, zone: 'none', popover: { rating: 26, zone: 'none' } });
+    rmMount(rateCell, { rating: 26, zone: null, ratingDate: '24.10.2025' });
     const rateNote = document.createElement('span'); rateNote.className = 'rm-matrix__note'; rateNote.textContent = 'не зависит от зоны — всегда outline, дефолтный бордер'; rateCell.appendChild(rateNote);
 
     const noneRowLabel = document.createElement('div'); noneRowLabel.className = 'rm-matrix__rowhead'; noneRowLabel.textContent = 'Details'; grid.appendChild(noneRowLabel);
     const noneCell = document.createElement('div'); noneCell.className = 'rm-matrix__cell rm-matrix__cell--span'; grid.appendChild(noneCell);
-    mountRiskMetric(noneCell, { rating: null, zone: 'none', popover: { rating: null, zone: 'none', segment: 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%', profile: 'Непроектный' } });
+    rmMount(noneCell, { rating: null, zone: null, segment: 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%', profile: 'Непроектный' });
     const noneNote = document.createElement('span'); noneNote.className = 'rm-matrix__note'; noneNote.textContent = 'нет ни рейтинга, ни зоны, но есть риск-сегмент и риск-профиль — информер остаётся, в поповере зона и рейтинг показаны прочерками'; noneCell.appendChild(noneNote);
 
     const emptyRowLabel = document.createElement('div'); emptyRowLabel.className = 'rm-matrix__rowhead'; emptyRowLabel.textContent = 'None'; grid.appendChild(emptyRowLabel);
     const emptyCell = document.createElement('div'); emptyCell.className = 'rm-matrix__cell rm-matrix__cell--span'; grid.appendChild(emptyCell);
-    mountRiskMetric(emptyCell, { rating: null, zone: 'none' });
+    rmMount(emptyCell, { rating: null, zone: null });
     const emptyNote = document.createElement('span'); emptyNote.className = 'rm-matrix__note'; emptyNote.textContent = 'данных нет вообще — ни зоны, ни рейтинга, ни риск-сегмента с профилем: иконка-информер отсутствует, поповер не открывается'; emptyCell.appendChild(emptyNote);
   })();
 
@@ -330,22 +191,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const row = document.createElement('div'); row.className = 'rm-usage-row';
       const nm = document.createElement('span'); nm.className = 'rm-usage-row__name'; nm.textContent = d.name; row.appendChild(nm);
       const cell = document.createElement('span'); cell.className = 'rm-usage-row__metric'; row.appendChild(cell);
-      mountRiskMetric(cell, { rating: d.rating, zone: d.zone });
+      rmMount(cell, { rating: d.rating, zone: d.zone, ratingDate: '24.10.2025', zoneDate: '24.10.2025' });
       host.appendChild(row);
     });
+    /* single-open, клик вне, Esc, ✕, позиционирование — всё в DSPopover, здесь нет ни строчки */
   })();
 
   /* ---------------- Загрузка и ошибка ---------------- */
   (function () {
     const host = document.getElementById('states-load-error');
     if (!host) return;
-    [['Загрузка', 'loading'], ['Ошибка', 'error']].forEach(([label, st]) => {
+    [['Загрузка', { loading: true }], ['Ошибка', { error: RM_ERROR_TEXT }]].forEach(([label, extra]) => {
       const cell = document.createElement('div'); cell.className = 'state-cell';
       const cap = document.createElement('div'); cap.className = 'state-cap'; cap.textContent = label; cell.appendChild(cap);
-      const box = document.createElement('div'); box.style.cssText = 'padding-top:60px;'; cell.appendChild(box);
-      const inst = mountRiskMetric(box, { rating: 26, zone: 'red', popover: { rating: 26, zone: 'red', state: st } });
+      const box = document.createElement('div'); box.style.cssText = 'padding-top:60px; position:relative;'; cell.appendChild(box);
+      const rm = rmMount(box, Object.assign({ rating: 26, zone: 'red' }, extra));
       host.appendChild(cell);
-      requestAnimationFrame(() => inst.open());
+      requestAnimationFrame(() => { const api = rmPopoverApi(rm); if (api) api.open(); });
     });
   })();
 
@@ -353,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (function () {
     const zoneHost = document.getElementById('feeder-zone');
     if (zoneHost) {
-      ['green', 'watchlist', 'red', 'black', 'none'].forEach(z => {
+      ['green', 'watchlist', 'red', 'black', null].forEach(z => {
         const w = document.createElement('div'); w.innerHTML = rmZoneBlockHTML(z, '24.10.2025'); zoneHost.appendChild(w.firstChild);
       });
     }
@@ -409,11 +271,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- DEV: redline измерено на живом экземпляре ---------------- */
   (function () {
-    const host = document.createElement('div'); host.style.cssText = 'position:absolute;left:-9999px;top:0;'; document.body.appendChild(host);
-    const { el } = makeRiskChip({ rating: 26, zone: 'red' });
-    host.appendChild(el);
-    const cs = getComputedStyle(el);
-    const info = el.querySelector('.chip__info');
+    const off = document.createElement('div'); off.style.cssText = 'position:absolute;left:-9999px;top:0;'; document.body.appendChild(off);
+    const rm = rmMount(off, { rating: 26, zone: 'red', ratingDate: '24.10.2025', zoneDate: '24.10.2025' });
+    const chipEl = rm.querySelector('.chip');
+    const cs = getComputedStyle(chipEl);
+    const info = chipEl.querySelector('.chip__info');
     const rows = [
       ['Высота', cs.height],
       ['Паддинг X', cs.paddingLeft],
@@ -422,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Кегль текста', cs.fontSize],
       ['Иконка-информер', info ? getComputedStyle(info).width : '—'],
     ];
-    host.remove();
+    const popEl = rm.querySelector('.pop');
     const r = v => { const n = parseFloat(v); return isNaN(n) ? v : (Math.round(n * 10) / 10) + ' px'; };
     const rowsHtml = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     ['#dev-chip-table', '#dev-chip-table-dup'].forEach(sel => {
@@ -430,24 +292,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tb) tb.innerHTML = rowsHtml;
     });
     const tbody2 = document.querySelector('#dev-pop-table');
-    if (tbody2) {
-      const host = document.createElement('div'); host.style.cssText = 'position:absolute;left:-9999px;top:0;'; document.body.appendChild(host);
-      const { pop } = buildRiskPopover({ rating: 26, zone: 'red' });
-      pop.classList.remove('pop--floating'); pop.style.position = 'static';
-      host.appendChild(pop);
-      const cs = getComputedStyle(pop);
-      const head = pop.querySelector('.pop__head'), body = pop.querySelector('.pop__body');
-      const rows = [
-        ['Ширина (w-m)', cs.width],
-        ['Радиус', cs.borderRadius],
+    if (tbody2 && popEl) {
+      popEl.classList.remove('pop--floating'); popEl.style.position = 'static';
+      const csp = getComputedStyle(popEl);
+      const head = popEl.querySelector('.pop__head'), body = popEl.querySelector('.pop__body');
+      const rowsp = [
+        ['Ширина (w-m)', csp.width],
+        ['Радиус', csp.borderRadius],
         ['Паддинг Header (Y/X)', getComputedStyle(head).paddingTop + ' / ' + getComputedStyle(head).paddingLeft],
         ['Паддинг Body (Y/X)', getComputedStyle(body).paddingTop + ' / ' + getComputedStyle(body).paddingLeft],
         ['Зазор от триггера', '8 px'],
       ];
-      host.remove();
-      const r = v => { const n = parseFloat(v); return isNaN(n) ? v : (Math.round(n * 10) / 10) + ' px'; };
-      tbody2.innerHTML = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${typeof v === 'string' && v.indexOf('/') > -1 ? v.split(' / ').map(r).join(' / ') : r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
+      tbody2.innerHTML = rowsp.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${typeof v === 'string' && v.indexOf('/') > -1 ? v.split(' / ').map(r).join(' / ') : r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     }
+    off.remove();
   })();
 
   /* ---------------- CONTENT: примеры зон в таблице ---------------- */
@@ -456,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.keys(map).forEach(zone => {
       const cell = document.getElementById(map[zone]);
       if (!cell) return;
-      mountRiskMetric(cell, zone === 'none' ? { rating: null, zone: 'none' } : { rating: 26, zone, popover: { rating: 26, zone } });
+      rmMount(cell, zone === 'none' ? { rating: null, zone: null } : { rating: 26, zone, ratingDate: '24.10.2025', zoneDate: '24.10.2025' });
     });
   })();
 

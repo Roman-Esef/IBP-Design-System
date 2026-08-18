@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="../../styles/shadow.css">
 <link rel="stylesheet" href="../../styles/button.css">
 <link rel="stylesheet" href="../../styles/toast.css">
+<link rel="stylesheet" href="../../styles/spinner.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -69,6 +70,7 @@
   .replay { display:inline-flex; align-items:center; gap:7px; border:1px solid var(--border-primary); background:var(--bg-tile); color:var(--text-primary); font:var(--type-button-s); border-radius:8px; padding:7px 13px; cursor:pointer; transition:.12s; }
   .replay:hover { border-color: var(--primary); color: var(--primary); }
   .replay svg { width:15px; height:15px; }
+  .replay i { display:contents; }
 
   /* two-column comparison */
   .cols2 { display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:20px; }
@@ -137,7 +139,7 @@
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.3</b></span><span>Обновлено: <b>29.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>12.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Toast</h1>
     <p class="lead">Тёмная пилюля-уведомление, всплывающая у верхней границы рабочей области по центру, — индикатор запуска <b>фонового</b> или <b>блокирующего</b> процесса. Два режима: <b>ToastBar</b> (фоновый, авто-скрытие, стек до трёх) и <b>ToastLoader</b> (блокирующий, со спиннером и затемнением). Ведущий слот — спиннер или статус-иконка (взаимоисключающие); тоны Neutral · Success · Error · Info.</p>
@@ -313,8 +315,8 @@
       <p class="desc tight">Когда в стеке уже три тоста, а приходит четвёртый — он добавляется <b>сверху</b>, а самый ранний (<b>нижний</b>) уходит фейдом вниз (принцип FIFO, «окно» из трёх). Тосты с лоадером не вытесняются по таймауту — они ждут события с сервера, поэтому в очередь на вытеснение попадают только тосты без лоадера.</p>
       <div class="worksurface worksurface--tall" id="stack-overflow"></div>
       <div class="row" style="margin-top:16px; gap:12px;">
-        <button class="replay" type="button" id="overflow-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Добавить тост</button>
-        <button class="replay" type="button" id="overflow-reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Сбросить</button>
+        <button class="replay" type="button" id="overflow-add"><i data-icon="add"></i>Добавить тост</button>
+        <button class="replay" type="button" id="overflow-reset"><i data-icon="refresh"></i>Сбросить</button>
       </div>
     </div>
   </div>
@@ -344,7 +346,7 @@
     <div class="panel">
       <div class="row" style="gap:16px;">
         <div id="anim-demo" style="min-width:230px; min-height:44px; display:flex; align-items:center;"></div>
-        <button class="replay" type="button" id="anim-replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Проиграть заново</button>
+        <button class="replay" type="button" id="anim-replay"><i data-icon="refresh"></i>Проиграть заново</button>
       </div>
     </div>
   </div>
@@ -369,7 +371,7 @@
     <div class="panel">
       <div class="row" style="gap:16px;">
         <div id="transition-demo"></div>
-        <button class="replay" type="button" id="transition-replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Проиграть переход</button>
+        <button class="replay" type="button" id="transition-replay"><i data-icon="refresh"></i>Проиграть переход</button>
       </div>
     </div>
   </section>
@@ -489,6 +491,8 @@ MAX = 3
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/ds-notify.js"></script>
 <script src="../../scripts/toast.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>

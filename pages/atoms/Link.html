@@ -119,7 +119,7 @@
 <main class="page" data-screen-label="Link">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>17.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.7</b></span><span>Обновлено: <b>12.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Link</h1>
     <p class="lead">Текстовая ссылка для навигации внутри лайаута и модальных окон, а также в Хлебных крошках. Тоны Accent / Muted / Neutral, размеры M / S, состояния Default и Hover = Focus (подчёркивание) — кроме тона Neutral (Breadcrumbs_2): у него только состояние Default, ссылка не кликабельна. Цветовое решение едино для всех видов и размеров.</p>
@@ -428,7 +428,7 @@ function makeLink(o = {}) {
 
   let inner = '';
   if (icon) inner += '<span class="link__icon">' + ic(icon) + '</span>';
-  inner += '<span class="link__text">' + text + '</span>';
+  inner += '<span >' + text + '</span>';
   if (external) {
     inner += '<span class="link__icon">' + ic('link-external') + '</span>';
     a.target = '_blank'; a.rel = 'noopener';

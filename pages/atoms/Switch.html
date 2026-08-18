@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/switch.css">
+<link rel="stylesheet" href="../../styles/spinner.css">
 <link rel="stylesheet" href="../../styles/label-helper.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
@@ -120,7 +121,7 @@
 <main class="page" data-screen-label="Switch">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>25.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.7</b></span><span>Обновлено: <b>12.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Switch</h1>
     <p class="lead">Свитч мгновенно переключает состояние — например, включает или отключает определённую опцию. Действие применяется сразу, без подтверждения. Два состояния — Off / On — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Loading.</p>
@@ -448,7 +449,7 @@ function makeSw(o = {}) {
 
   const control = document.createElement('span'); control.className = 'sw__control';
   const thumb = document.createElement('span'); thumb.className = 'sw__thumb';
-  if (loading) { const sp = document.createElement('span'); sp.className = 'sw__spinner'; thumb.appendChild(sp); }
+  if (loading) { const sp = document.createElement('span'); sp.className = 'spin'; thumb.appendChild(sp); }
   control.appendChild(thumb);
 
   root.appendChild(input); root.appendChild(control);
@@ -674,11 +675,11 @@ function wireToggle(root, onChange){
     sw.classList.add('sw--loading');
     // show spinner in thumb
     const thumb = sw.querySelector('.sw__thumb');
-    if (!thumb.querySelector('.sw__spinner')) { const sp=document.createElement('span'); sp.className='sw__spinner'; thumb.appendChild(sp); }
+    if (!thumb.querySelector('.spin')) { const sp=document.createElement('span'); sp.className='spin'; thumb.appendChild(sp); }
     helper.textContent = 'Применяем…';
     setTimeout(()=>{
       sw.classList.remove('sw--loading');
-      const sp = thumb.querySelector('.sw__spinner'); if (sp) sp.remove();
+      const sp = thumb.querySelector('.spin'); if (sp) sp.remove();
       setSwState(sw, turningOn ? 'on' : 'off');
       helper.textContent = turningOn ? 'Включена' : 'Нажмите, чтобы включить';
     }, 1200);

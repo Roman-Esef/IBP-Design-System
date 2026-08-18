@@ -1,10 +1,11 @@
 ---
 component: Modal
 title: "Modal"
-version: "v1.2"
-updated: "29.07.2026"
+version: "v1.4"
+updated: "11.08.2026"
 page: pages/organisms/Modal.html
 page_js: scripts/modal.page.js
+runtime: scripts/ds-modal.js
 css: styles/modal.css
 deps: [button, icon-button, label-helper, checkbox, alert]
 status: curated
@@ -14,6 +15,17 @@ status: curated
 
 ## Назначение
 Modal — не компонент в привычном смысле, а свод правил построения модальных форм. Обязательны две части с фиксированной анатомией: шапка Modal_Top (заголовок + крестик) и подвал Modal_Bottom (опциональные кнопки слева, кнопки действий справа). Между ними — Modal_Body: единственная гибкая и прокручиваемая зона, которая может содержать что угодно (форму, таблицу, пустое состояние) и не диктует свою разметку.
+
+## Инварианты
+- Варианта в одну колонку нет и не может быть — минимальный шаг ширины 2 (289px).
+- Левые (Изменить/Удалить) и правые (Secondary+Primary) кнопки подвала одновременно не смешиваются на Bottom_Left — принадлежат разным режимам формы.
+- Подвал — всегда один ряд; если кнопки не влезают, модалку делают шире, а не переносят кнопки на второй ряд.
+- Высота ограничена 80vh — дальше прокручивается только тело, шапка и подвал не сжимаются.
+- Во время сохранения (`.modal--saving`) тело гасится и блокируется визуально — поля дополнительно оборачиваются в `<fieldset disabled>`, класс не делает это программно.
+
+## Диагностика
+- «Модалка выше экрана» → тело должно скроллиться (`.modal__body{overflow-y:auto}`), шапка/подвал не сжимаются (`flex:none`)
+- «Кнопки подвала не влезают в ряд» → увеличить ширину модалки (`--modal-w-*`), не переносить кнопки на вторую строку
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Модалка прерывает сценарий для решения/ввода данных, не уводя со страницы. Подвал справа: Primary (Accent) отображается всегда — глагол действия, либо «Закрыть» для форм на просмотр; Secondary (Transparent) опционален — альтернативное действие. Подвал слева опционален: «Изменить» — форма в режиме просмотра; «Удалить» — форма в режиме редактирования существующей сущности. Все левые+правые кнопки одновременно не используются — Изменить/Удалить принадлежат разным режимам одной формы.
@@ -41,14 +53,14 @@ Modal — не компонент в привычном смысле, а сво�
   <div class="modal modal--w6" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <header class="modal__head">
       <h2 class="modal__title" id="modal-title">Новая сделка</h2>
-      <button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><svg…></svg></button>
+      <button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button>
     </header>
     <!-- опционально: ошибка/предупреждение уровня всей модалки -->
     <div class="modal__alert"><div class="alert alert--error alert--m alert--flush" data-alert-tone="error" role="alert">…</div></div>
     <div class="modal__body">…любой контент…</div>
     <footer class="modal__foot">
       <div class="modal__foot-left">
-        <button class="btn btn--transparent btn--s"><svg…></svg>Изменить</button>
+        <button class="btn btn--transparent btn--s"><i data-icon="edit"></i>Изменить</button>
       </div>
       <div class="modal__foot-right">
         <button class="btn btn--transparent btn--m">Очистить фильтр</button>
@@ -65,6 +77,32 @@ Modal — не компонент в привычном смысле, а сво�
   </div>
 </div>
 ```
+
+### Рантайм ДС — `scripts/ds-modal.js`
+
+Поведение модалки вынесено из страниц в рантайм: подключите скрипт, и слой работает
+без кода на экране — портал в `body`, блокировка прокрутки страницы, `inert` фона,
+focus trap, закрытие крестиком / Esc / кликом по скриму, тени шапки и подвала при
+прокрутке тела, возврат фокуса на инициатора, стек вложенных диалогов.
+
+Разметка: триггер с `data-modal="<id скрима>"`, сам `.modal-scrim` с этим id и
+атрибутом `hidden` (после закрытия рантайм возвращает `hidden`, состояние формы
+сохраняется). Кнопки закрытия — `.modal__close button` или любой `[data-modal-close]`.
+
+| Атрибут | По умолчанию | Значение |
+|---|---|---|
+| `data-modal` | — | id скрима, который открывает триггер |
+| `data-modal-guarded` | не задан | форма с несохранённым вводом: клик по скриму не закрывает, только крестик и Esc |
+| `data-modal-nested` | не задан | открыть поверх текущего слоя, не закрывая его |
+| `data-modal-close` | — | на любой кнопке внутри слоя — закрыть слой |
+
+API: `DSModal.open(scrim, opts) → api` (`close(ok)` · `isOpen`), `bind(trigger, opts)`,
+`bindAll(root)`, `wireScroll(modal)` (только тени — для статичных превью витрины),
+`closeTop()`, `closeAll()`, `current()`, `stack()`. Опции `open`: `guarded`,
+`nested`, `keep` (прятать, а не удалять), `returnFocus`, `onOpen`, `onClose(ok)`.
+
+Прокрутка страницы блокируется один раз — на первом слое: закрытие вложенного
+диалога не разблокирует фон под родительской модалкой.
 
 ### Поведение · псевдокод (framework-agnostic)
 
@@ -134,7 +172,7 @@ interface ModalProps {
 | `.modal__body` | Единственная гибкая/прокручиваемая зона |
 | `.modal__body--flush` | Без внутреннего паддинга — контент сам управляет отступами |
 | `.modal__body--roomy` | Нижний паддинг тела 32px вместо 24px |
-| `.modal__skeleton` | Loading-плейсхолдер (шиммер, приём как у ReadOnlyField) |
+| `.sk-line` / `.sk-group` | Loading-плейсхолдер (общий компонент Skeleton, styles/skeleton.css) |
 | `.modal__foot-left` / `-right` | Опциональные (Изменить/Удалить) / обязательные (Secondary/Primary) действия |
 | `.btn--danger` | Модификатор Button (не только Modal) — Primary в диалоге подтверждения удаления |
 | `role="dialog"` / `alertdialog` | Обычная модалка / диалог подтверждения |

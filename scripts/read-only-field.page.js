@@ -92,7 +92,7 @@
     return el;
   }
   function chipReadonly(text) {
-    const el = document.createElement('span'); el.className = 'chip chip--readonly chip--xs';
+    const el = document.createElement('span'); el.className = 'chip chip--xs';
     const lb = document.createElement('span'); lb.className = 'chip__label'; lb.textContent = text;
     el.appendChild(lb); return el;
   }
@@ -130,7 +130,7 @@
     let visibleCount = chips.filter((c) => c.offsetTop <= limitTop + 2).length;
 
     const more = document.createElement('span');
-    more.className = 'chip chip--readonly chip--xs chip--outline';
+    more.className = 'chip chip--xs chip--outline';
     more.tabIndex = 0;
     const lb = document.createElement('span'); lb.className = 'chip__label';
     more.appendChild(lb);
@@ -187,8 +187,8 @@
     root.className = 'rof' + (align === 'right' ? ' rof--align-right' : '') + (tone === 'empty' ? ' rof--empty' : '');
 
     if (state === 'loading') {
-      if (showLabel) { const s = document.createElement('span'); s.className = 'rof__skeleton rof__skeleton--label'; s.style.setProperty('--rof-skel-w', '64px'); root.appendChild(s); }
-      const s2 = document.createElement('span'); s2.className = 'rof__skeleton'; s2.style.setProperty('--rof-skel-w', (140 + Math.random() * 80 | 0) + 'px'); root.appendChild(s2);
+      if (showLabel) { const s = document.createElement('span'); s.className = 'sk-line sk-line--caption'; s.style.setProperty('--sk-w', '64px'); root.appendChild(s); }
+      const s2 = document.createElement('span'); s2.className = 'sk-line'; s2.style.setProperty('--sk-w', (140 + Math.random() * 80 | 0) + 'px'); root.appendChild(s2);
       return root;
     }
 
@@ -239,10 +239,10 @@
         ic.setAttribute('role', 'button'); ic.tabIndex = 0;
         ic.setAttribute('aria-label', 'Скопировать значение');
         ic.addEventListener('click', () => {
-          try { navigator.clipboard && navigator.clipboard.writeText(fullText || value); } catch (e) { /* no-op in sandbox */ }
+          if (window.DSCopy) window.DSCopy.write(fullText || value); else try { navigator.clipboard && navigator.clipboard.writeText(fullText || value); } catch (e) { /* no-op in sandbox */ }
           const original = ic.innerHTML;
           ic.innerHTML = icon('check'); ic.classList.add('is-done');
-          flashTip(row, ic, 'Скопировано');
+          if (window.DSCopy) window.DSCopy.flash(ic, 'Скопировано'); else flashTip(row, ic, 'Скопировано');
           setTimeout(() => { ic.innerHTML = original; ic.classList.remove('is-done'); }, 1300);
         });
       } else if (iconRightAction === 'tooltip') {
@@ -283,7 +283,7 @@
       type: 'text', label: true, helper: false, align: 'left',
       iconLeft: 'none', prefixText: '', postfixText: '',
       iconRight: 'none', iconRightAction: 'none', iconRightTone: 'neutral', iconRightTipText: 'Значение требует внимания',
-      tone: 'default', clamp: 'none', chipRows: 'none',
+      tone: 'default', clamp: 'none', chipRows: 'none', loadState: 'default',
     };
     const controls = document.getElementById('pg-controls');
     const preview = document.getElementById('pg-preview');
@@ -357,9 +357,15 @@
       return t;
     }
 
+    /* --- Состояние --- */
+    controls.appendChild(groupHead('Состояние'));
+    const loadCtl = seg('Состояние', [['default', 'Обычное'], ['loading', 'Загрузка']], () => state.loadState, v => state.loadState = v);
+    controls.appendChild(loadCtl);
+
     /* --- Значение --- */
     controls.appendChild(groupHead('Значение'));
-    controls.appendChild(seg('Тип значения', [['text', 'Текст'], ['chips', 'Чипы'], ['link', 'Ссылка']], () => state.type, v => state.type = v));
+    const typeCtl = seg('Тип значения', [['text', 'Текст'], ['chips', 'Чипы'], ['link', 'Ссылка']], () => state.type, v => state.type = v);
+    controls.appendChild(typeCtl);
     controls.appendChild(seg('Выравнивание', [['left', 'Слева'], ['right', 'Справа']], () => state.align, v => state.align = v));
     const toneCtl = seg('Цвет значения', [['default', 'Default'], ['positive', 'Positive'], ['negative', 'Negative'], ['empty', 'Empty']], () => state.tone, v => state.tone = v, true);
     controls.appendChild(toneCtl);
@@ -398,6 +404,7 @@
 
     function render() {
       preview.innerHTML = '';
+      const isLoading = state.loadState === 'loading';
       const isChips = state.type === 'chips';
       const isText = state.type === 'text';
       /* цвет значения — только у текста; аффиксы — не у чипов */
@@ -406,14 +413,15 @@
       const postfix = isChips ? null : (state.postfixText || null);
       const useClamp = !isChips ? state.clamp : 'none';
       const hasIconRight = state.iconRight !== 'none';
-      toneCtl.classList.toggle('is-off', !isText);
-      prefixCtl.classList.toggle('is-off', isChips);
-      postfixCtl.classList.toggle('is-off', isChips);
-      clampCtl.classList.toggle('is-off', isChips);
-      chipRowsCtl.classList.toggle('is-off', !isChips);
-      iconActionCtl.classList.toggle('is-off', !hasIconRight);
-      iconToneCtl.classList.toggle('is-off', !hasIconRight || state.iconRightAction !== 'tooltip');
-      iconTipCtl.classList.toggle('is-off', !hasIconRight || state.iconRightAction !== 'tooltip');
+      typeCtl.classList.toggle('is-off', isLoading);
+      toneCtl.classList.toggle('is-off', !isText || isLoading);
+      prefixCtl.classList.toggle('is-off', isChips || isLoading);
+      postfixCtl.classList.toggle('is-off', isChips || isLoading);
+      clampCtl.classList.toggle('is-off', isChips || isLoading);
+      chipRowsCtl.classList.toggle('is-off', !isChips || isLoading);
+      iconActionCtl.classList.toggle('is-off', !hasIconRight || isLoading);
+      iconToneCtl.classList.toggle('is-off', !hasIconRight || state.iconRightAction !== 'tooltip' || isLoading);
+      iconTipCtl.classList.toggle('is-off', !hasIconRight || state.iconRightAction !== 'tooltip' || isLoading);
       const o = {
         type: state.type,
         value: useClamp !== 'none' ? LONG_TEXT : (state.type === 'link' ? 'ссылка-на-документ.pdf' : 'Значение атрибута'),
@@ -427,7 +435,7 @@
         iconRightAction: state.iconRightAction,
         iconRightTone: state.iconRightTone,
         iconRightTip: state.iconRightTipText,
-        tone: tone, clampMode: useClamp, align: state.align,
+        tone: tone, clampMode: useClamp, align: state.align, state: isLoading ? 'loading' : 'default',
       };
       preview.appendChild(makeROF(o));
 

@@ -107,7 +107,7 @@
   function skeletonRow(cols) {
     var cells = cols.map(function (c, i) {
       if (c.key === 'select' || c.key === 'actions') return '<div class="tc" data-col-idx="' + i + '"></div>';
-      return '<div class="tc tc--skeleton" data-col-idx="' + i + '" aria-busy="true"><span class="tc__skeleton"></span></div>';
+      return '<div class="tc tc--skeleton" data-col-idx="' + i + '" aria-busy="true"><span class="sk-line sk-line--caption" style="--sk-w:60%"></span></div>';
     }).join('');
     return '<div class="tbl__row" style="grid-template-columns:' + gridTemplate(cols) + ';">' +
       '<div class="tc tc--separator"></div>' + cells + '<div class="tc tc--separator"></div>' +
@@ -209,16 +209,10 @@
     return html;
   }
 
+  /* липкая шапка/тени скролла — общий рантайм, scripts/ds-table.js */
   function bindScrollFx(root) {
     var body = root.querySelector('.dtable__body');
-    if (!body) return;
-    function sync() {
-      root.classList.toggle('dtable--scrolled', body.scrollTop > 0);
-      root.classList.toggle('dtable--edge-l', body.scrollLeft > 0);
-      root.classList.toggle('dtable--edge-r', body.scrollWidth - body.scrollLeft - body.clientWidth > 1);
-    }
-    body.addEventListener('scroll', sync);
-    sync();
+    if (body && window.DSTable) window.DSTable.bind(body);
   }
 
   /* ---------------- resize / reorder / select ---------------- */
@@ -527,7 +521,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     ['ctl-toolbar', 'ctl-title', 'ctl-filter', 'ctl-presets', 'ctl-state', 'ctl-footer'].forEach(function (id) {
       var el = document.getElementById(id);
-      if (el) el.addEventListener('input', render);
+      if (el) { el.addEventListener('input', render); el.addEventListener('change', render); }
     });
     render();
     buildAnatomy();

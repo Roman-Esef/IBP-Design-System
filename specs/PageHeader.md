@@ -1,9 +1,10 @@
 ---
 component: PageHeader
 title: "PageHeader"
-version: "v1.5"
-updated: "29.07.2026"
+version: "v1.8"
+updated: "13.08.2026"
 page: pages/organisms/PageHeader.html
+runtime: scripts/ds-menu.js, scripts/ds-actions-overflow.js
 css: styles/page-header.css
 deps: [button, icon-button, chip, badge, context-menu, tooltip, breadcrumbs]
 status: curated
@@ -14,8 +15,19 @@ status: curated
 ## Назначение
 PageHeader — заголовок страницы рабочей области: идентифицирует открытую сущность (сделка, инструмент, раздел) и несёт основные действия страницы. Состоит из независимых частей: неразрывная группа Title (+IconLeft, +Edit), Chips, кнопка возврата (Return), Subtitle, Actions (+MenuButton). Адаптируется вплоть до мобильной раскладки. Breadcrumbs — отдельный компонент, ставится строкой НАД PageHeader.
 
-## Ключевые правила
-- **Использование** — обязателен на каждой странице рабочей области (исключения описываются индивидуально), всегда сверху, под Breadcrumbs. Один на страницу. Title = семантический h1 страницы. Не путать с TileHeader (заголовок плашки) и Modal_Top (шапка модалки).
+## Инварианты
+- Заголовок многострочный, без усечения (`.phead__title{white-space:normal}`) — эллипсиса и тултипа по обрезке у него нет и не планируется.
+- Переполнение `.phead__actions` в меню «Ещё» — общий рантайм `scripts/ds-actions-overflow.js` (opt-in `data-actions-overflow`), тот же принцип, что у переполнения табов (`ds-tabs.js`).
+- IconLeft + Title + Edit — неразрывная группа (`.phead__title-group`), не переносится отдельно от заголовка при wrap.
+- Заголовок не усекается никогда — многострочный, полностью виден (`white-space:normal`, без ellipsis).
+- Return и Chips прижаты к заголовку в основной раскладке; на мобильной (`--stack`) переезжают в `.phead__extras` отдельной строкой.
+- `.phead--stack` растягивает action-кнопки на всю ширину, кроме icon-only — те сохраняют квадратные пропорции.
+
+## Диагностика
+- «Заголовок обрезается многоточием» → по спеке не должен — убрать ellipsis, дать переноситься
+- «Return в мобильной раскладке остаётся в строке заголовка» → переместить в `.phead__extras`
+
+## Ключевые правила (исключения описываются индивидуально), всегда сверху, под Breadcrumbs. Один на страницу. Title = семантический h1 страницы. Не путать с TileHeader (заголовок плашки) и Modal_Top (шапка модалки).
 - **Анатомия** — `.phead` = `.phead__main` (колонка: `.phead__title-row` → `.phead__subtitle`) + `.phead__actions`. В title-row: `.phead__title-group` (неразрывная группа: `.phead__title-ico` опц. · `.phead__title` · `.phead__edit` опц.) · `.phead__chips` (опц.) · `.phead__return` (опц.).
 - **Варианты** — все части независимо опциональны (16 комбинаций Subtitle×Chips×Return×Actions); Dashboard=Yes → `.phead--dashboard` (белая подложка `--bg-tile`, радиус 8, паддинг 12/16) — дашборды и кейсы с заголовком на отдельной белой панели.
 - **Title** — токен `--type-h3-strong` (28/32), многострочный: усечения нет, длинный заголовок переносится по словам на нужное число строк. Иконка слева 24px `--text-inactive` — информационная. Edit — IconButton neutral S 24×24 (глиф `edit`), открывает модальное окно переименования (инлайн-редактирования нет).
@@ -39,7 +51,7 @@ PageHeader — заголовок страницы рабочей области
         <h1 class="phead__title">D-007. ПАО «Газпром»</h1>
         <button class="ibtn ibtn--neutral ibtn--s phead__edit" aria-label="Переименовать"><i data-icon="edit"></i></button>  <!-- опц. -->
       </div>
-      <div class="phead__chips"><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">Черновик</span></span></div>  <!-- опц. -->
+      <div class="phead__chips"><span class="chip chip--rounded chip--s"><span class="chip__label">Черновик</span></span></div>  <!-- опц. -->
       <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">В сделку</span></button></span>  <!-- опц. -->
     </div>
     <div class="phead__subtitle">  <!-- опц.; стандартный ИЛИ кастомный -->

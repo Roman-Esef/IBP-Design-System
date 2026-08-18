@@ -60,10 +60,10 @@
 .av--rounded.av--s  { border-radius: var(--radius-m); }
 
 /* ---------- content ------------------------------------------------------- */
-.av__text { display: block; }
+.av__text { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .av__img  { width: 100%; height: 100%; object-fit: cover; display: block; }
 .av__icon { width: var(--av-icon); height: var(--av-icon); display: block; color: var(--text-primary); }
-.av__icon svg { width: 100%; height: 100%; display: block; }
+.av__icon :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 
 /* image-slot fills the whole avatar */
 .av image-slot { width: 100%; height: 100%; display: block; }

@@ -8,60 +8,10 @@
 
   const TONE_ICON = { success: 'check-circle', error: 'alert-circle', info: 'info-circle', neutral: null };
 
-  /* ---------- factory ----------
-     o: {
-       kind:'bar'|'loader',           // фоновый | блокирующий (влияет на дефолт lead)
-       tone:'neutral'|'success'|'error'|'info',
-       lead:'none'|'spinner'|'icon', // ведущий слот — спиннер ИЛИ иконка (не оба)
-       message:'…',
-       enter:false                    // добавить класс анимации появления
-     } */
-  function makeToast(o = {}) {
-    const {
-      kind = 'bar', tone = 'neutral',
-      lead = (kind === 'loader' ? 'spinner' : (TONE_ICON[tone] ? 'icon' : 'none')),
-      message = 'Процесс запущен', enter = false,
-    } = o;
-
-    const el = document.createElement('div');
-    el.className = 'toast';
-    if (tone !== 'neutral') el.classList.add('toast--' + tone);
-    if (enter) el.classList.add('toast--enter');
-
-    // ARIA live-region: error/loader важнее — assertive; остальное — polite
-    const assertive = tone === 'error' || (kind === 'loader' && tone === 'neutral');
-    el.setAttribute('role', assertive ? 'alert' : 'status');
-    el.setAttribute('aria-live', assertive ? 'assertive' : 'polite');
-
-    const hasSpinner = lead === 'spinner';
-    const hasIcon = lead === 'icon';
-
-    if (hasSpinner || hasIcon) {
-      const slot = document.createElement('span');
-      slot.className = 'toast__lead';
-      if (hasSpinner) {
-        const sp = document.createElement('span');
-        sp.className = 'toast__spinner';
-        sp.setAttribute('aria-hidden', 'true');
-        slot.appendChild(sp);
-      }
-      if (hasIcon) {
-        const ic = document.createElement('span');
-        ic.className = 'toast__icon';
-        ic.setAttribute('aria-hidden', 'true');
-        ic.innerHTML = icon(TONE_ICON[tone] || 'info-circle');
-        slot.appendChild(ic);
-      }
-      el.appendChild(slot);
-    }
-
-    const msg = document.createElement('span');
-    msg.className = 'toast__msg';
-    msg.textContent = message;
-    el.appendChild(msg);
-
-    return el;
-  }
+  /* Узел тоста и вся логика показа — рантайм ДС (scripts/ds-notify.js):
+     стек ≤3, авто-скрытие, loader со скримом, переход loading → success.
+     Витрине нужен только сам узел для статичных примеров. */
+  const makeToast = (o) => window.DSToast.make(o || {});
 
   function mount(id, node) { const el = document.getElementById(id); if (el) el.appendChild(node); }
 
@@ -419,7 +369,6 @@
     const resetBtn = document.getElementById('overflow-reset');
     if (!host) return;
 
-    const MAX = 3;
     const SEED = [
       { tone: 'neutral', lead: 'none', message: 'Процесс запущен' },
       { tone: 'info', lead: 'icon', message: 'Запущена маршрутизация' },
@@ -438,32 +387,16 @@
     host.replaceWith(ws); ws.id = 'stack-overflow'; ws.classList.add('worksurface', 'worksurface--tall');
     const stack = ws._stack;
 
+    /* вытеснение нижнего тоста при лимите — забота рантайма (DSToast) */
     function reset() {
+      window.DSToast.clear();
       stack.innerHTML = '';
-      // newest сверху, oldest снизу — добавляем так, чтобы SEED[0] оказался сверху
-      SEED.forEach(s => stack.appendChild(makeToast({ kind: 'bar', ...s })));
+      SEED.slice().reverse().forEach(spec => DSToast.show({ kind: 'bar', duration: null, ...spec, layer: ws }));
       qi = 0;
     }
     function add() {
       const spec = QUEUE[qi % QUEUE.length]; qi++;
-      const t = makeToast({ kind: 'bar', ...spec });
-      t.classList.add('toast--enter');
-      // новый тост появляется СВЕРХУ
-      stack.insertBefore(t, stack.firstElementChild);
-      // переполнение: самый ранний (НИЖНИЙ) уходит фейдом вниз
-      if (stack.children.length > MAX) {
-        dismissDown(stack.lastElementChild);
-      }
-    }
-    // скрытие фейдом вниз с гарантированным удалением (animationend + fallback)
-    function dismissDown(node) {
-      if (!node || node.dataset.leaving) return;
-      node.dataset.leaving = '1';
-      node.classList.add('toast--leave');
-      let done = false;
-      const finish = () => { if (done) return; done = true; node.remove(); };
-      node.addEventListener('animationend', finish, { once: true });
-      setTimeout(finish, 320);   // fallback, если animationend не придёт
+      DSToast.show({ kind: 'bar', duration: null, ...spec, layer: ws });
     }
     reset();
     if (addBtn) addBtn.addEventListener('click', add);
@@ -602,7 +535,7 @@
     document.body.appendChild(host);
 
     const cs = getComputedStyle(t);
-    const spinner = t.querySelector('.toast__spinner');
+    const spinner = t.querySelector('.spin');
     const iconEl = tIcon.querySelector('.toast__icon');
     const msg = t.querySelector('.toast__msg');
     const csSp = spinner ? getComputedStyle(spinner) : null;

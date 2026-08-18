@@ -28,6 +28,17 @@
 .nav--drawer { width: var(--nav-drawer-w); box-shadow: var(--shadow-modal-form); border-radius: 0 var(--radius-l) var(--radius-l) 0; }
 .nav--fixed  { width: var(--nav-drawer-w); border-right: 1px solid var(--border-light); }
 
+/* ---------- хост-интеграция: .nav-layout — обязательная обёртка на реальных экранах -----
+   Оборачивает .nav + контент страницы: <div class="nav-layout"><nav class="nav …">…</nav><main>…</main></div>
+   Из коробки, без CSS/JS на стороне экрана: .nav всегда position:fixed на весь vh (не
+   скроллится со страницей, не участвует в потоке); контент резервирует отступ только
+   под ширину Rail — и в Rail, и в Drawer (Drawer кладётся оверлеем поверх этого отступа,
+   не раздвигая), и увеличивает его до ширины Fixed только когда .nav в режиме nav--fixed. */
+.nav-layout { display: block; min-height: 100vh; }
+.nav-layout > .nav { position: fixed; top: 0; left: 0; height: 100vh; z-index: 1000; }
+.nav-layout > *:not(.nav) { margin-left: var(--nav-rail-w, 56px); transition: margin-left .15s ease; }
+.nav-layout:has(.nav--fixed) > *:not(.nav) { margin-left: var(--nav-drawer-w, 272px); }
+
 /* ========================================================================== *
    TOP — бургер (+ пин в развёрнутых режимах)
    ========================================================================== */
@@ -135,7 +146,7 @@
 .nav--rail .nav__item { width: 44px; padding: 0; justify-content: center; }
 
 .nav__ico { width: 24px; height: 24px; flex: none; display: flex; align-items: center; justify-content: center; color: var(--secondary); transition: color .12s ease; }
-.nav__ico [data-icon] { width: 24px; height: 24px; }
+.nav__ico :is(svg,[data-icon]){ width: 24px; height: 24px; }
 
 .nav__label {
   flex: 1 1 auto;
@@ -153,15 +164,25 @@
 .nav__item:focus-visible .nav__ico { color: var(--secondary-dark); }
 .nav__item:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
 
+/* Класс .nav__item--selected/--disabled — форс-состояние витрины; реальный
+   пункт несёт aria-current="page"/aria-disabled="true" (RulesAudit W1). */
 .nav__item--selected,
-.nav__item--selected:hover { background: var(--bgtable-row-focus); color: var(--text-primary); }
-.nav__item--selected .nav__label { font: var(--type-body-m-strong); }
-.nav__item--selected .nav__ico { color: var(--secondary-dark); }
+.nav__item--selected:hover,
+.nav__item[aria-current]:not([aria-current="false"]),
+.nav__item[aria-current]:not([aria-current="false"]):hover { background: var(--bgtable-row-focus); color: var(--text-primary); }
+.nav__item--selected .nav__label,
+.nav__item[aria-current]:not([aria-current="false"]) .nav__label { font: var(--type-body-m-strong); }
+.nav__item--selected .nav__ico,
+.nav__item[aria-current]:not([aria-current="false"]) .nav__ico { color: var(--secondary-dark); }
 
 .nav__item--disabled,
-.nav__item--disabled .nav__ico { color: var(--text-inactive); }
-.nav__item--disabled { pointer-events: none; cursor: default; }
-.nav__item--disabled .nav__badge .badge { background: var(--disabled-bg); color: var(--text-inactive); }
+.nav__item--disabled .nav__ico,
+.nav__item[aria-disabled="true"],
+.nav__item[aria-disabled="true"] .nav__ico { color: var(--text-inactive); }
+.nav__item--disabled,
+.nav__item[aria-disabled="true"] { pointer-events: none; cursor: default; }
+.nav__item--disabled .nav__badge .badge,
+.nav__item[aria-disabled="true"] .nav__badge .badge { background: var(--disabled-bg); color: var(--text-inactive); }
 
 /* ========================================================================== *
    RAIL — тултип по hover + бейдж-надстрочник

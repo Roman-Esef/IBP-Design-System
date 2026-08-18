@@ -1,10 +1,11 @@
 ---
 component: ContextMenu
 title: "Context Menu"
-version: "v1.4"
-updated: "04.08.2026"
+version: "v1.7"
+updated: "12.08.2026"
 page: pages/molecules/ContextMenu.html
 page_js: scripts/context-menu.page.js
+js: scripts/ds-menu.js
 css: styles/context-menu.css
 deps: [button]
 status: auto
@@ -14,6 +15,17 @@ status: auto
 
 ## Назначение
 Контекстное меню — всплывающий список действий над объектом. Возникает по нажатию на кнопку действий (kebab «три точки» или дропдаун) в заголовке таблицы, строке таблицы или карточке. Ширина зависит от контента, набор пунктов — от объекта.
+
+## Инварианты
+- Выбранный пункт помечается галочкой справа (trailing), не слева — подписи остаются выровнены независимо от ведущих иконок.
+- Danger-пункт (`.menu__item--danger`) — отдельная цветовая ветка на `--error`, не смешивается с обычным hover-цветом.
+- Подменю (`.menu__sub`) разворачивается влево (`--left`), когда справа не хватает места — считает рантайм, не фиксируется в разметке заранее.
+- До открытия (`.menu--floating` без `.is-open`) меню невидимо (`opacity:0`+`visibility:hidden`), `transform-origin` задаёт точку разворота.
+- `.menu--scroll` ограничивает высоту списка — переполнение уходит в скролл контейнера, не растягивает страницу.
+
+## Диагностика
+- «Меню открывается не из того угла» → `--menu-origin` не проставлен рантаймом относительно триггера
+- «Подменю уходит за край экрана» → должен появиться `.menu__sub--left`, разворот считает `ds-menu.js`
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Триггер — кнопка действий рядом с объектом. Три типичных места вызова: заголовок таблицы (действия над всей таблицей), строка таблицы (действия над строкой) и карточка (действия над сущностью). Нажмите на kebab в каждом примере.
@@ -40,7 +52,7 @@ status: auto
 
 ```
 <!-- триггер связан с меню через aria-haspopup / aria-expanded -->
-<button type="button" class="kebab" aria-label="Действия"
+<button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Действия"
         aria-haspopup="menu" aria-expanded="true">⋮</button>
 
 <!-- меню: позиционируется JS относительно триггера, скрыто до открытия -->
@@ -48,7 +60,7 @@ status: auto
   <div class="menu__label">Действия</div>
 
   <button type="button" class="menu__item" role="menuitem">
-    <span class="menu__item-icon"><svg…></svg></span>
+    <span class="menu__item-icon"><i data-icon="edit"></i></span>
     <span class="menu__item-label">Изменить</span>
     <span class="menu__item-hint">⌘C</span>
   </button>
@@ -63,6 +75,34 @@ status: auto
   <button class="menu__item" role="menuitem" aria-disabled="true">Архив</button>
 </div>
 ```
+
+### Рантайм ДС — `scripts/ds-menu.js`
+
+Поведение меню вынесено из страницы в рантайм: подключите скрипт, и меню работает
+без кода на экране. Разметка — `.menu-anchor` вокруг триггера и меню,
+`data-menu="<id>"` на триггере (пустое значение — ближайшее `.menu` внутри анкора).
+
+| Атрибут на триггере | По умолчанию | Значение |
+|---|---|---|
+| `data-menu` | — | id меню; пустое — ближайшее `.menu` в `.menu-anchor` |
+| `data-menu-placement` | `bottom` | предпочитаемая сторона: `bottom` / `top` |
+| `data-menu-align` | `start` | выравнивание по краю триггера: `start` / `end` |
+| `data-menu-gap` | `6` | зазор от триггера, px |
+| `data-menu-flip="no"` | flip включён | выключить авто-разворот и зажим |
+| `data-menu-boundary` | вьюпорт | CSS-селектор контейнера-границы |
+| `data-menu-keep-open` | закрывать | меню-выбор: клик по пункту не закрывает меню |
+
+API: `DSMenu.bind(trigger, opts) → api` (`open` · `close(returnFocus)` · `toggle` ·
+`place` · `isOpen`), `bindAll(root)`, `place(menu, trigger, opts)`,
+`wireKeys(menu, {onClose})`, `wireSubs(menu)`, `closeAll()`, `current()`.
+Опция `dismiss: false` — закреплённое меню витрины: не закрывается по клику вне
+и Esc и не занимает слот единственного открытого меню.
+
+Границы: если триггер вне границы (секция ещё за пределами вьюпорта), разворот и
+зажим не применяются — меню остаётся у своего триггера. Перепозиционирование по
+resize/scroll дросселируется одним кадром, стили пишутся только при изменении
+координат — иначе reflow провоцирует цикл scroll → repositioning.
+Подменю разворачивается влево классом `.menu__sub--left`, когда справа нет места.
 
 ### Поведение · псевдокод (framework-agnostic)
 

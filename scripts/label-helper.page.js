@@ -336,7 +336,7 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
 
   // Checkbox
   (function(){
-    const root = document.createElement('label'); root.className='cb cb--unselected'; root.style.pointerEvents='none';
+    const root = document.createElement('label'); root.className='cb'; root.style.pointerEvents='none';
     root.innerHTML = '<span class="cb__box"><span class="cb__mark"></span></span>';
     const content = document.createElement('span'); content.className='cb__content';
     const t=document.createElement('span'); t.style.cssText='font:var(--type-body-m); color:var(--text-primary);'; t.textContent='Показывать архив';

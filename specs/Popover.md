@@ -1,10 +1,11 @@
 ---
 component: Popover
 title: "Popover"
-version: "v1.3"
-updated: "29.07.2026"
+version: "v1.5"
+updated: "11.08.2026"
 page: pages/organisms/Popover.html
 page_js: scripts/popover.page.js
+runtime: scripts/ds-popover.js
 css: styles/popover.css
 deps: [button, icon-button, link, chip, label-helper]
 status: curated
@@ -14,6 +15,16 @@ status: curated
 
 ## Назначение
 Popover — нон-модальный всплывающий контейнер, привязанный к триггеру. Показывает расширенный контекстный контент (текст с форматированием, интерактив, формы, легенды, списки). В отличие от Tooltip — открывается по клику и не закрывается при уходе курсора; в отличие от Modal — не блокирует страницу, не имеет скрима, закрывается кликом вне себя.
+
+## Инварианты
+- Ровно одна прокручиваемая зона — Body; Header/Footer зафиксированы по высоте и не скроллятся.
+- Кнопки действий не кладутся в Header — только в Footer (foot-right); Header — заголовок + ✕.
+- Свыше `--pop-w-max` (560px) или когда контенту не хватает высоты со скроллом — сигнал переключиться на Modal, не растягивать Popover.
+- Стрелка (`.pop__arrow`) красится в цвет зоны, к которой примыкает (Header/Footer/Body) — не фиксированный цвет.
+
+## Диагностика
+- «В поповере не хватает места, скроллит вся страница» → сигнал заменить на Modal, не увеличивать `--pop-w-max`
+- «Стрелка не совпадает цветом с зоной» → проверить, к какой зоне она примыкает по стороне размещения
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Клик/Enter/Space открывает, контент — текст+интерактив/формы/медиа (не только строка, как у Tooltip), страницу не блокирует (в отличие от Modal). Правило переключения на Modal: ширина контенту нужна больше 560px, либо вертикальной прокрутки тела недостаточно.
@@ -25,6 +36,15 @@ Popover — нон-модальный всплывающий контейнер,
 - **Доступность** — Триггер: aria-haspopup="dialog", aria-expanded, aria-controls. Контейнер: role="dialog", aria-modal="false" (не блокирует), aria-labelledby на заголовок при наличии Header. Фокус переходит внутрь при открытии, но НЕ заперт (нет focus trap) — Tab с последнего элемента уводит из поповера и закрывает его. Esc закрывает и возвращает фокус на триггер. Контент страницы за поповером НЕ получает aria-hidden/inert (в отличие от Modal).
 - **Цвета** — Только семантические токены. Фон Body — --bg-popup; фон Header/Footer — --bgtable-pinned (Pinned Default, #F5F7F7); радиус --radius-m (8px); тень --elevation-5, внешнего бордера нет. Не собственный rgba().
 
+## Рантайм из коробки — `scripts/ds-popover.js`
+Поведение вынесено из витрины в общий рантайм (Фаза 3, 11.08.2026): экрану достаточно подключить скрипт и разметку.
+
+- **Авто-инициализация**: любой триггер с `data-popover="<id поповера>"` (пустое значение — ближайший `.pop` внутри `.pop-anchor`). Рантайм сам проставляет `aria-haspopup`/`aria-expanded`/`aria-controls`, `role="dialog"`, `aria-modal="false"` и класс `.pop--floating`.
+- **Настройки атрибутами триггера**: `data-popover-placement` (top|bottom|left|right, по умолчанию bottom), `data-popover-align` (start|center|end, start), `data-popover-gap` (8), `data-popover-flip="no"` (выключить авто-flip), `data-popover-boundary` (CSS-селектор контейнера-границы, по умолчанию вьюпорт).
+- **API**: `DSPopover.bind(trigger, opts) → {open, close, toggle, place, isOpen}` · `DSPopover.place(pop, trigger, {placement, align, gap, flip, boundary, offsetParent}) → {placement, align}` · `DSPopover.bindAll(root)` · `DSPopover.watchScroll(pop) → sync()` · `DSPopover.closeAll()` · `DSPopover.current()`.
+- **Реализовано**: 12 позиций, авто-flip стороны (противоположная → перпендикулярные) и выравнивания (start↔end), clamp 8px от границ, стрелка доводится до центра триггера (12px от углов), один открытый поповер одновременно, 5 способов закрытия (✕ / клик вне / Esc с возвратом фокуса / Tab за последний элемент / `[data-pop-close]`), тени `.is-scrolled` у шапки и подвала, репозиционирование по resize/scroll.
+- Страница компонента использует тот же рантайм: `popover.page.js` собирает только демо-разметку.
+
 ## Для разработчиков (выжимка)
 
 ### Точные размеры (redline)
@@ -34,7 +54,8 @@ Popover — нон-модальный всплывающий контейнер,
 
 ```
 <span class="pop-anchor">
-  <button type="button" aria-haspopup="dialog" aria-expanded="true" aria-controls="pop-1">…</button>
+  <button type="button" data-popover="pop-1">…</button>
+  <!-- aria-haspopup/aria-expanded/aria-controls проставит ds-popover.js -->
 
   <div id="pop-1" class="pop pop--w-m pop--bottom pop--start pop--floating" role="dialog" aria-modal="false" aria-labelledby="pop-1-title">
     <div class="pop__head">
@@ -42,7 +63,7 @@ Popover — нон-модальный всплывающий контейнер,
         <h3 class="pop__title" id="pop-1-title">Изменить тег</h3>
         <!-- опц.: chip/link, gap 8px от заголовка -->
       </div>
-      <span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><svg…></svg></button></span>
+      <span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span>
     </div>
     <div class="pop__body">…форма, легенда, карточка, таблица…</div>
     <div class="pop__foot">
@@ -58,6 +79,8 @@ Popover — нон-модальный всплывающий контейнер,
 ```
 
 ### Поведение · псевдокод (framework-agnostic)
+
+Рабочая реализация алгоритма — `scripts/ds-popover.js`.
 
 ```
 // 1. Реестр единственного открытого поповера — новый открывающийся закрывает предыдущий
@@ -114,6 +137,6 @@ interface PopoverProps {
 | `.pop__close` | Обёртка ✕ — кнопка `.ibtn.ibtn--neutral.ibtn--s` |
 | `.pop__body` (+ `--flush`) | Единственная гибкая/прокручиваемая зона; содержать может почти что угодно |
 | `.pop__foot-left` / `-right` | Независимо включаемые группы: слева инфо/ссылка/кнопка, справа Secondary+Primary |
-| `.pop__skeleton` | Loading-плейсхолдер (шиммер) |
+| `.sk-line` / `.sk-group` | Loading-плейсхолдер (общий компонент Skeleton, styles/skeleton.css) |
 | `role="dialog"` / `aria-modal="false"` | Не блокирующий диалог |
 | `aria-haspopup` / `aria-expanded` / `aria-controls` | На триггере — связь с поповером |

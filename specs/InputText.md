@@ -1,8 +1,8 @@
 ---
 component: InputText
 title: "InputText"
-version: "v1.8"
-updated: "04.08.2026"
+version: "v1.9"
+updated: "12.08.2026"
 page: pages/molecules/InputText.html
 page_js: scripts/input-text.page.js
 css: styles/input.css
@@ -14,6 +14,17 @@ status: curated
 
 ## Назначение
 Базовое поле ввода произвольного текста. Собирается из компонентов подкачки LabelHelper (метка + хелпер) и Input_Content (поле с рамкой: текстовый слой + действия). База `.inp` общая для InputText / InputDate / InputAutocomplete. На той же основе — числовой InputAmount.
+
+## Инварианты
+- Текст ошибки/предупреждения показывается только в тултипе при *Focus (`.inp__box > .tip`), не дублируется в хелпере под полем.
+- Очистка (`.inp__act[aria-label="Очистить поле"]`) скрывается целиком в Disabled — сброса значения быть не может.
+- Фокус всегда даёт бордер 2px + halo-тень независимо от состояния error/warning — общий паттерн `*-focus`.
+- Счётчик символов (`.inp__counter`) красится в error только при достижении лимита (`--limit`), не раньше.
+- Многострочный вариант (`--multiline`) выравнивает действия по верхнему краю поля, не по центру.
+
+## Диагностика
+- «Ошибка показана и в хелпере, и в тултипе одновременно» → убрать текст ошибки из хелпера, оставить только тултип на фокусе
+- «Крестик очистки виден на disabled-поле» → должен скрываться правилом `.inp--disabled .inp__act[aria-label="Очистить поле"]`
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — свободный текст (наименование, комментарий, реквизит); числа — InputAmount; редактирование в ячейке — размер S (Table Edit). Выбор из справочника → InputAutocomplete/Select; дата → InputDate; показ без ввода → ReadOnlyField.
@@ -35,8 +46,8 @@ status: curated
 ### Разметка · HTML (эталонная реализация ДС)
 
 ```
-<div class="inp inp--m">
-  <label class="ds-label ds-label--left" for="inn"><span class="ds-label__text">ИНН</span></label>
+<div class="inp">
+  <label class="ds-label" for="inn"><span class="ds-label__text">ИНН</span></label>
   <div class="inp__field">
     <span class="inp__lead">…search…</span>
     <span class="inp__prefix">От</span>

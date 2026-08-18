@@ -129,22 +129,10 @@
     return f;
   }
 
-  /* ---------------- rail-тултипы (position:fixed, вне скролл-контейнера) --- */
-  function bindRailTooltips(scope) {
-    (scope || document).querySelectorAll('.nav--rail:not([data-rt])').forEach(function (nav) {
-      nav.setAttribute('data-rt', '');
-      nav.addEventListener('mouseover', place);
-      nav.addEventListener('focusin', place);
-      function place(e) {
-        var item = e.target.closest ? e.target.closest('.nav__item') : null;
-        if (!item || !nav.contains(item)) return;
-        var lbl = item.querySelector('.nav__label');
-        if (!lbl) return;
-        var r = item.getBoundingClientRect();
-        lbl.style.top = (r.top + r.height / 2) + 'px';
-        lbl.style.left = (r.right + 10) + 'px';
-      }
-    });
+  /* ---------------- rail-тултипы и режимы — общий рантайм, scripts/ds-nav-panel.js --- */
+  function bindRailTooltips(scope, opts) {
+    if (!window.DSNavPanel) return;
+    (scope || document).querySelectorAll('.nav').forEach(function (nav) { window.DSNavPanel.bind(nav, opts || {}); });
   }
 
   /* =====================================================================
@@ -177,6 +165,9 @@
       stage.appendChild(frame(mode.value, opts, 620));
       paint(stage);
       bindRailTooltips(stage);
+      /* бургер и пин реально переключают режим — селект следует за панелью */
+      var nav = stage.querySelector('.nav');
+      if (nav) nav.addEventListener('ds-nav-mode', function (e) { mode.value = e.detail.mode; });
     }
     mode.addEventListener('change', render);
     badges.addEventListener('change', render);
@@ -210,7 +201,8 @@
       wrap.appendChild(col);
     });
     paint(wrap);
-    bindRailTooltips(wrap);
+    /* режим каждой плитки зафиксирован подписью — только rail-тултипы */
+    bindRailTooltips(wrap, { modes: false });
   }
 
   /* =====================================================================

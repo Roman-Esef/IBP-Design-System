@@ -60,3 +60,25 @@
 .tfilter__trigger.is-off,
 .tfilter__chips.is-off,
 .tfilter__tail.is-off { display: none !important; }
+
+
+/* ---------- Модалка фильтра (.tfm) ----------
+   Композиция вынесена со страницы-витрины (11.08.2026): корневой блок —
+   .modal.modal--w6.tfm, внутри собственная сетка «табы + панель». */
+/* модалка фильтра: высота НЕ фиксируется — растёт по контенту до 80vh,
+     прокручивается только Modal_Body (правило Modal) */
+.tfm__body { display:grid; grid-template-columns: 232px minmax(0,1fr); gap:0; padding:0; align-items:start; width:100%;
+    background-image:linear-gradient(var(--border-light),var(--border-light)); background-size:1px 100%; background-position:232px 0; background-repeat:no-repeat; }
+@media (max-width:640px){ .tfm__body { grid-template-columns:1fr; background-image:none; } }
+/* вертикальные табы вплотную к левой границе модалки; при прокрутке тела остаются видны */
+.tfm__nav { padding:16px 0; min-width:0; position:sticky; top:0; }
+@media (max-width:640px){ .tfm__nav { position:static; border-bottom:1px solid var(--border-light); } }
+.tfm__panel { padding:24px 26px 24px; display:flex; flex-direction:column; gap:28px; min-width:0; }
+.tfm__sec { display:flex; flex-direction:column; gap:16px; }
+.tfm__sec-title, .tfm__panel-title { font: var(--type-body-m-strong); color: var(--text-primary); margin:0; }
+/* двухколоночная форма: поле = одна клетка, широкое поле — .tfm__span-2 */
+.tfm__grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:start; }
+/* .inp по умолчанию 280px — в сетке поле тянется на всю клетку */
+.tfm__grid > .inp { width:100%; }
+.tfm__grid > .tfm__span-2 { grid-column:1 / -1; }
+@media (max-width:640px){ .tfm__grid { grid-template-columns:1fr; } }

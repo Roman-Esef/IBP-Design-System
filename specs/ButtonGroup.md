@@ -1,9 +1,10 @@
 ---
 component: ButtonGroup
 title: "ButtonGroup"
-version: "v1.1"
-updated: "22.07.2026"
+version: "v1.4"
+updated: "13.08.2026"
 page: pages/molecules/ButtonGroup.html
+runtime: scripts/ds-menu.js, scripts/ds-buttongroup.js
 css: styles/button-group.css
 deps: [button]
 status: auto
@@ -13,6 +14,19 @@ status: auto
 
 ## Назначение
 Объединяет связанные кнопки в единый визуальный блок с общим фоном или обводкой. Поддерживает 2–5 кнопок, типы Accent / Outline, все три размера, вариант Split Button и сегментированный выбор. Собирается из компонентов Button — кнопки наследуют свои свойства.
+
+## Инварианты
+- Все кнопки группы — один тип и один размер; не смешивать.
+- Disabled — только на всю группу целиком (`.btn-group--disabled` + `aria-disabled` на контейнере); нельзя блокировать отдельную кнопку.
+- Split Button — текстовая кнопка (действие по умолчанию) и стрелка (ContextMenu) — всегда вдвоём, одной без другой не бывает.
+- Toggle-схема (одиночный radio-like / множественный checkbox-like) задаётся на уровне группы целиком, не смешивается внутри одной.
+- Toggle-переключение — общий рантайм `scripts/ds-buttongroup.js`: различает схему по `role` группы (`radiogroup` — одиночный, `group` — множественный).
+- Outline в группе не меняет цвет обводки на Hover/Active — иначе соседний шов «прыгает».
+
+## Диагностика
+- «В группе кнопки разного размера/типа» → не поддерживается, привести к одному
+- «Стрелка Split Button не открывает меню» → отсутствует парный `.menu` + `DSMenu.bind(chev, {menu, …})`
+- «В тоггл-режиме выбрано два сегмента одновременно» → смешаны схемы radio-like/checkbox-like — выбрать одну на группу
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — ButtonGroup группирует кнопки, связанные общим контекстом или относящиеся к одному объекту: переключение режимов отображения, набор действий над записью, парные действия «Применить / Отмена». Группа делает связь между кнопками явной и экономит горизонтальное пространство.
@@ -46,11 +60,13 @@ status: auto
   <button class="btn btn--accent btn--m">Плитка</button>
 </div>
 
-<!-- Split Button: основное действие + стрелка с меню -->
-<div class="btn-group btn-group--accent btn-group--split" role="group">
+<!-- Split Button: основное действие + стрелка — реальный ContextMenu (DSMenu.bind) -->
+<div class="btn-group btn-group--accent btn-group--split menu-anchor" role="group">
   <button class="btn btn--accent btn--m">Сохранить</button>
   <button class="btn btn--accent btn--m btn--icon-only" aria-haspopup="menu" aria-expanded="false">…</button>
-  <div class="dropdown__menu" role="menu" hidden>…</div>
+  <div class="menu menu--floating" role="menu">
+    <button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">…</span><span class="menu__item-label">Сохранить как…</span></button>
+  </div>
 </div>
 
 <!-- Сегментированный выбор (toggle): aria-pressed на каждой кнопке -->
@@ -75,8 +91,8 @@ status: auto
 
 // 3. Split Button:
 //    клик по текстовой кнопке — выполняет действие по умолчанию напрямую
-//    клик по стрелке — переключает aria-expanded и показывает/скрывает меню;
-//    клик вне группы или Esc — закрывает меню
+//    стрелка — обычный триггер ContextMenu: DSMenu.bind(chev, { menu, placement:'bottom', align:'start' })
+//    даёт открытие/позиционирование/клавиатуру/закрытие (клик вне / Esc / выбор пункта), без своего кода
 
 // 4. Disabled — только на всю группу целиком: класс .btn-group--disabled (pointer-events: none)
 //    + aria-disabled="true" на контейнере; нельзя блокировать отдельную кнопку
@@ -124,7 +140,7 @@ interface SplitButtonProps {
 | .btn-group--disabled | div | pointer-events:none на всюй группе; парный aria-disabled |
 | .btn-group--toggle | div | Сегментированный выбор; стилизует кнопки с aria-pressed="true" |
 | .btn-group--split | div | Split Button: текстовая + icon-only стрелка |
-| .dropdown / .dropdown__menu / .dropdown__item | div/button | Контекстное меню Split Button |
+| .menu.menu--floating / .menu__item | div/button | Контекстное меню Split Button — компонент ContextMenu, поведение из `scripts/ds-menu.js` (`DSMenu.bind`), не своя разметка |
 | role="group" / aria-label | div | Доступность: описывает назначение группы целиком |
 | aria-pressed | button | Состояние кнопки в сегментированном выборе |
 | aria-haspopup / aria-expanded | button | Стрелка Split Button — связь с контекстным меню |

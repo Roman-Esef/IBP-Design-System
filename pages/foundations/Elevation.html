@@ -11,7 +11,9 @@
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/shadow.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
+<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
+<link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
 
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
@@ -55,25 +57,22 @@
   }
 
   /* ---------- scale ---------- */
-  .tbl-wrap { background: var(--bg-tile); border:1px solid var(--border-light); border-radius: var(--radius-2xl); overflow:hidden; }
-  table.ref { width:100%; border-collapse:collapse; table-layout:fixed; }
-  table.ref th, table.ref td { text-align:left; padding:16px 22px; border-bottom:1px solid var(--border-light); font: var(--type-body-m); color: var(--text-primary); vertical-align:middle; overflow-wrap:break-word; word-break:break-word; }
-  table.ref th { font: var(--type-body-s-strong); color: var(--text-secondary); text-transform:uppercase; letter-spacing:.04em; font-size:11px; }
-  table.ref tr:last-child td { border-bottom:none; }
-  table.ref tr:hover td { background: var(--bgtable-row-hover); }
-  table.ref td.tok code { font-size:12.5px; color: var(--primary); }
-  table.ref td.val code { font-size:12px; color: var(--text-secondary); }
-  table.ref td.map code { font-size:12.5px; color: var(--text-secondary); }
-  table.ref td.demo { width:76px; }
-  table.ref .swatch { width:52px; height:52px; flex:none; border-radius: var(--radius-l); background:#fff; }
-  table.ref td.status { white-space:nowrap; }
-  table.ref td.note { font: var(--type-body-s); color: var(--text-inactive); }
+  .tbl-wrap { overflow-x: auto; }
+  .tbl--scale .tbl__row { grid-template-columns: 8px 76px 220px 240px 1.4fr 132px 8px; }
+  .tbl--map { min-width: 1360px; }
+  .tbl--map .tbl__row { grid-template-columns: 8px 76px 200px 168px 160px 200px 128px 1.8fr 8px; }
+  .tbl--scale { min-width: 940px; }
+  .tbl .tc--wrap code { white-space: normal; overflow-wrap: anywhere; }
+  .tbl .th__label { white-space: normal; }
+  .tbl--rings .tbl__row { grid-template-columns: 8px 76px 1.4fr 1.4fr 1.4fr 8px; }
+  .tbl .swatch { width:52px; height:52px; flex:none; border-radius: var(--radius-l); background: var(--bg-tile); }
+  .tbl .tc code { font-size:12.5px; color: var(--text-secondary); }
+  .tbl .tc--token code { color: var(--primary); }
+  .tbl .tc__subtext { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   .pill { display:inline-flex; align-items:center; font: var(--type-body-xs); font-weight:600; padding:3px 9px; border-radius:999px; }
   .pill.warn { color: var(--warning-dark); background: var(--warning-bg); }
   .pill.ok { color: var(--success-dark); background: var(--success-bg); }
   .pill.off { color: var(--text-inactive); background: var(--c-cgrey-100); }
-  table.ref td.name .n { font: var(--type-body-m-strong); color: var(--text-primary); }
-  table.ref td.name .s { display:block; font: var(--type-body-xs); color: var(--text-inactive); margin-top:2px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
   /* ---------- guidelines ---------- */
   .guides { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap:18px; }
@@ -95,7 +94,7 @@
 <main class="page" data-screen-label="Elevation">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>25.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>07.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Основы</p>
     <h1>Тени (Elevation)</h1>
     <p class="lead">Шкала теней ровно та, что уже используется в основном продукте: <strong>Elevation_1…5</strong> и отдельно именованная <strong>Shadow4.0_modalform</strong>. Значения не изобретены здесь и не меняются этой страницей — она каталогизирует то, что уже есть, и фиксирует, какой компонент какой уровень использует.</p>
@@ -136,10 +135,17 @@
     <h2>Шкала</h2>
     <p class="desc">6 именованных токенов. Elevation_1 и Elevation_2 уже закреплены за конкретными компонентами; Elevation_3–5 зарезервированы — в продукте пока не назначены ни одному компоненту, но числятся в шкале «на будущее» (как и верхние ступени <code class="tok">--radius-*</code>). Shadow4.0_modalform стоит отдельно от лестницы Elevation_* — это именованная тень конкретно под модальные поверхности.</p>
     <div class="tbl-wrap">
-      <table class="ref">
-        <thead><tr><th class="demo"></th><th>Токен</th><th>Значение</th><th>Где используется</th><th>Статус</th></tr></thead>
-        <tbody id="scaleRows"></tbody>
-      </table>
+      <div class="tbl tbl--scale" id="scaleRows">
+        <div class="tbl__row">
+          <div class="th th--separator"></div>
+          <div class="th"></div>
+          <div class="th"><span class="th__label">Токен</span></div>
+          <div class="th"><span class="th__label">Значение</span></div>
+          <div class="th"><span class="th__label">Где используется</span></div>
+          <div class="th"><span class="th__label">Статус</span></div>
+          <div class="th th--separator"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -148,10 +154,19 @@
     <h2>Где применяется</h2>
     <p class="desc">Раскладка по конкретным компонентам, включая расхождения с текущим CSS этой ДС, которые стоит сверить перед внедрением токенов.</p>
     <div class="tbl-wrap">
-      <table class="ref">
-        <thead><tr><th class="demo"></th><th>Компонент / поверхность</th><th>Файл</th><th>Токен</th><th class="val">Значение в коде сейчас</th><th>Статус</th><th>Комментарий</th></tr></thead>
-        <tbody id="mapRows"></tbody>
-      </table>
+      <div class="tbl tbl--map" id="mapRows">
+        <div class="tbl__row">
+          <div class="th th--separator"></div>
+          <div class="th"></div>
+          <div class="th"><span class="th__label">Компонент / поверхность</span></div>
+          <div class="th"><span class="th__label">Файл</span></div>
+          <div class="th"><span class="th__label">Токен</span></div>
+          <div class="th"><span class="th__label">Значение в коде сейчас</span></div>
+          <div class="th"><span class="th__label">Статус</span></div>
+          <div class="th"><span class="th__label">Комментарий</span></div>
+          <div class="th th--separator"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -160,29 +175,40 @@
     <h2>Не тени: кольца и швы</h2>
     <p class="desc">В коде компонентов есть похожие по синтаксису <code class="tok">box-shadow</code>-объявления, которые НЕ относятся к шкале Elevation — они не приподнимают поверхность, а рисуют разделительное кольцо, фокус-хало или тонкий шов. Не путайте их с токенами <code class="tok">--elevation-*</code> и не берите значения этой шкалы для них.</p>
     <div class="tbl-wrap">
-      <table class="ref">
-        <thead><tr><th class="demo"></th><th>Назначение</th><th class="val">Значение</th><th>Где используется</th></tr></thead>
-        <tbody>
-          <tr>
-            <td class="demo"><div class="ring-demo ring1"></div></td>
-            <td>Разделительное кольцо (isolation ring)</td>
-            <td class="val"><code>0 0 0 2px var(--bg-tile)</code></td>
-            <td>Avatar group, Badge — bordered</td>
-          </tr>
-          <tr>
-            <td class="demo"><div class="ring-demo ring2"></div></td>
-            <td>Фокус/hover-хало интерактивного контрола</td>
-            <td class="val"><code>0 0 0 4px / 6px var(--primary-bg-*)</code></td>
-            <td>Checkbox, Radiobutton, Switch (hover/pressed)</td>
-          </tr>
-          <tr>
-            <td class="demo"><div class="ring-demo ring3"></div></td>
-            <td>Тонкий шов между элементами (border через inset)</td>
-            <td class="val"><code>inset 1px 0 0 0 var(--border-light)</code></td>
-            <td>ButtonGroup — граница между кнопками, Tab — общий рельс</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="tbl tbl--rings">
+        <div class="tbl__row">
+          <div class="th th--separator"></div>
+          <div class="th"></div>
+          <div class="th"><span class="th__label">Назначение</span></div>
+          <div class="th"><span class="th__label">Значение</span></div>
+          <div class="th"><span class="th__label">Где используется</span></div>
+          <div class="th th--separator"></div>
+        </div>
+        <div class="tbl__row">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><div class="ring-demo ring1"></div></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Разделительное кольцо (isolation ring)</span></span></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><code>0 0 0 2px var(--bg-tile)</code></span></span></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Avatar group, Badge — bordered</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><div class="ring-demo ring2"></div></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Фокус/hover-хало интерактивного контрола</span></span></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><code>0 0 0 4px / 6px var(--primary-bg-*)</code></span></span></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Checkbox, Radiobutton, Switch (hover/pressed)</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+        <div class="tbl__row">
+          <div class="tc tc--separator"></div>
+          <div class="tc"><div class="ring-demo ring3"></div></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Тонкий шов между элементами (border через inset)</span></span></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><code>inset 1px 0 0 0 var(--border-light)</code></span></span></div>
+          <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">ButtonGroup — граница между кнопками, Tab — общий рельс</span></span></div>
+          <div class="tc tc--separator"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -246,33 +272,37 @@
 
   (function(){
     var host = document.getElementById('scaleRows');
-    host.innerHTML = SCALE.map(function(s){
+    host.insertAdjacentHTML('beforeend', SCALE.map(function(s){
       var st = s.status === 'active'
         ? statusPill('ok', 'применяется')
         : statusPill('off', 'резерв');
-      return '<tr>' +
-        '<td class="demo"><span class="swatch" style="box-shadow:' + s.value + '"></span></td>' +
-        '<td class="name"><span class="n">' + s.name + '</span><span class="s">' + s.token + '</span></td>' +
-        '<td class="val"><code>' + s.value + '</code></td>' +
-        '<td>' + s.use + '</td>' +
-        '<td class="status">' + st + '</td>' +
-      '</tr>';
-    }).join('');
+      return '<div class="tbl__row">' +
+        '<div class="tc tc--separator"></div>' +
+        '<div class="tc"><span class="swatch" style="box-shadow:' + s.value + '"></span></div>' +
+        '<div class="tc"><span class="tc__body"><span class="tc__row"><span class="tc__text">' + s.name + '</span></span><span class="tc__subtext">' + s.token + '</span></span></div>' +
+        '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><code>' + s.value + '</code></span></span></div>' +
+        '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">' + s.use + '</span></span></div>' +
+        '<div class="tc">' + st + '</div>' +
+        '<div class="tc tc--separator"></div>' +
+      '</div>';
+    }).join(''));
   })();
 
   (function(){
     var host = document.getElementById('mapRows');
-    host.innerHTML = MAP.map(function(m){
-      return '<tr>' +
-        '<td class="demo"><span class="swatch" style="box-shadow:' + (m[3].indexOf('rgba') > -1 ? m[3] : 'none') + '"></span></td>' +
-        '<td>' + m[0] + '</td>' +
-        '<td class="map"><code>' + m[1] + '</code></td>' +
-        '<td class="tok"><code>' + m[2] + '</code></td>' +
-        '<td class="val"><code>' + m[3] + '</code></td>' +
-        '<td class="status">' + statusPill(m[4], m[5]) + '</td>' +
-        '<td class="note">' + m[6] + '</td>' +
-      '</tr>';
-    }).join('');
+    host.insertAdjacentHTML('beforeend', MAP.map(function(m){
+      return '<div class="tbl__row">' +
+        '<div class="tc tc--separator"></div>' +
+        '<div class="tc"><span class="swatch" style="box-shadow:' + (m[3].indexOf('rgba') > -1 ? m[3] : 'none') + '"></span></div>' +
+        '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">' + m[0] + '</span></span></div>' +
+        '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><code>' + m[1] + '</code></span></span></div>' +
+        '<div class="tc tc--wrap tc--token"><span class="tc__row"><span class="tc__text"><code>' + m[2] + '</code></span></span></div>' +
+        '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><code>' + m[3] + '</code></span></span></div>' +
+        '<div class="tc">' + statusPill(m[4], m[5]) + '</div>' +
+        '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">' + m[6] + '</span></span></div>' +
+        '<div class="tc tc--separator"></div>' +
+      '</div>';
+    }).join(''));
   })();
 
   (function(){
@@ -305,6 +335,7 @@
   })();
 </script>
 <script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
 </body>
 </html>

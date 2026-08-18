@@ -116,7 +116,7 @@
   /* Active · Secondary — токен --secondary */
   color: var(--secondary);
 }
-.ddl__item-icon svg { width: 100%; height: 100%; display: block; }
+.ddl__item-icon :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 
 /* ---------- ведущий чекбокс (множественный выбор) ----------
    Переиспользует визуал компонента Checkbox (.cb__box / .cb__mark):
@@ -154,7 +154,7 @@
   color: var(--primary);
   opacity: 0;
 }
-.ddl__item-check-single svg { width: 100%; height: 100%; display: block; }
+.ddl__item-check-single :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 .ddl__item[aria-selected="true"] .ddl__item-check-single { opacity: 1; }
 
 /* ---------- подсветка совпадения (автокомплит) ---------- */
@@ -274,7 +274,7 @@
   justify-content: center;
   color: var(--text-inactive);
 }
-.ddl__state-icon svg, .ddl__state-icon i { width: 100%; height: 100%; display: block; }
+.ddl__state-icon :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 /* строка с пояснением (ошибка) — иконка выравнивается по первой строке текста */
 .ddl__state:has(.ddl__state-sub) { align-items: flex-start; }
 .ddl__state:has(.ddl__state-sub) .ddl__state-icon { margin-top: -2px; }
@@ -294,19 +294,13 @@
 /* error */
 .ddl__state--error .ddl__state-icon { color: var(--error); }
 
-/* спиннер загрузки */
-.ddl__spinner {
+/* спиннер загрузки — общий Spinner: <span class="spin"> внутри .ddl__state-icon */
+.ddl__state-icon .spin {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
   border: 2.4px solid var(--border-primary);
   border-top-color: var(--text-secondary);
-  animation: ddl-spin .7s linear infinite;
 }
-@media (prefers-reduced-motion: reduce) {
-  .ddl__spinner { animation-duration: 1.6s; }
-}
-@keyframes ddl-spin { to { transform: rotate(360deg); } }
 
 /* «Создать» / свободный ввод — action-строка под списком (автокомплит) */
 .ddl__item--action { color: var(--primary); }

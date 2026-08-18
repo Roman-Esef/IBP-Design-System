@@ -21,6 +21,7 @@
   height: var(--ibtn-size, 20px);
   padding: 0;
   flex: none;
+  min-width: 0;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -30,12 +31,9 @@
   transition: color .15s ease;
 }
 
-/* иконка — поверх стейт-слоя */
-.ibtn svg { position: relative; z-index: 1; width: var(--ibtn-icon, 20px); height: var(--ibtn-icon, 20px); display: block; flex: none; }
-/* глиф, вставленный через <i data-icon> (ds-icons.js): бокс <i> должен быть
-   размера иконки кнопки, иначе он остаётся 24px по умолчанию и растягивает svg */
-.ibtn [data-icon] { width: var(--ibtn-icon, 20px); height: var(--ibtn-icon, 20px); }
-
+/* иконка — поверх стейт-слоя; правило покрывает обе формы разметки:
+   вставленный <svg> и <i data-icon> (ds-icons.js) */
+.ibtn :is(svg,[data-icon]){ position: relative; z-index: 1; width: var(--ibtn-icon, 20px); height: var(--ibtn-icon, 20px); display: block; flex: none; }
 /* ---------- стейт-слой (::before) — больше кнопки, hover-only, оверфлоу ---- *
    Размер слоя повторяет прежние габариты кнопки (L 40 · M 32 · S 24): визуально
    рипл и зона клика те же, а в лейауте кнопка занимает ровно размер иконки. */
@@ -65,12 +63,9 @@
 .ibtn--l::before { width: 40px; height: 40px; }
 .ibtn--m::before { width: 32px; height: 32px; }
 .ibtn--s::before { width: 24px; height: 24px; }
-.ibtn--l svg, .ibtn--l .ibtn__spinner { width: 24px; height: 24px; }
-.ibtn--m svg, .ibtn--m .ibtn__spinner { width: 20px; height: 20px; }
-.ibtn--s svg, .ibtn--s .ibtn__spinner { width: 16px; height: 16px; }
-.ibtn--l [data-icon] { width: 24px; height: 24px; }
-.ibtn--m [data-icon] { width: 20px; height: 20px; }
-.ibtn--s [data-icon] { width: 16px; height: 16px; }
+.ibtn--l :is(svg,[data-icon]), .ibtn--l .spin{ width: 24px; height: 24px; }
+.ibtn--m :is(svg,[data-icon]), .ibtn--m .spin{ width: 20px; height: 20px; }
+.ibtn--s :is(svg,[data-icon]), .ibtn--s .spin{ width: 16px; height: 16px; }
 /* square / embedded — стейт-слой со скруглением control вместо круга */
 .ibtn--l.ibtn--square::before, .ibtn--l.ibtn--embedded::before { border-radius: var(--radius-control); }
 .ibtn--m.ibtn--square::before, .ibtn--m.ibtn--embedded::before { border-radius: var(--radius-control); }
@@ -93,11 +88,13 @@
 .ibtn--contrast:hover::before,   .ibtn--contrast.is-hover::before   { background: color-mix(in srgb, #fff 18%, transparent); }
 .ibtn--contrast:active::before,  .ibtn--contrast.is-pressed::before { background: color-mix(in srgb, #fff 30%, transparent); }
 
-/* ---------- selected (toggle on) ------------------------------------------ */
-.ibtn--selected { color: var(--primary); }
-.ibtn--selected::before { background: color-mix(in srgb, var(--primary) 12%, transparent); }
-.ibtn--selected:hover::before,
-.ibtn--selected.is-hover::before { background: color-mix(in srgb, var(--primary) 20%, transparent); }
+/* ---------- selected (toggle on) ------------------------------------------
+   Класс .ibtn--selected — форс-состояние витрины; реальный toggle несёт
+   aria-pressed="true" на самой кнопке (RulesAudit W1). */
+.ibtn:is(.ibtn--selected,[aria-pressed="true"]) { color: var(--primary); }
+.ibtn:is(.ibtn--selected,[aria-pressed="true"])::before { background: color-mix(in srgb, var(--primary) 12%, transparent); }
+.ibtn:is(.ibtn--selected,[aria-pressed="true"]):hover::before,
+.ibtn:is(.ibtn--selected,[aria-pressed="true"]).is-hover::before { background: color-mix(in srgb, var(--primary) 20%, transparent); }
 
 /* ---------- variant: embedded (поля ввода / плотные тулбары) -------------- */
 /* Стейт-слоя нет; на hover иконка перекрашивается в primary. */
@@ -119,21 +116,9 @@
 .ibtn--disabled::before { background: transparent; }
 
 /* ---------- loading -------------------------------------------------------- */
+/* Индикатор — общий Spinner: <span class="spin spin--current">, размер — правила выше. */
 .ibtn--loading { pointer-events: none; }
-.ibtn__spinner {
-  flex: none;
-  position: relative;
-  z-index: 1;
-  width: var(--ibtn-icon, 20px);
-  height: var(--ibtn-icon, 20px);
-  border-radius: var(--radius-circle);
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  opacity: .9;
-  animation: ibtn-spin .7s linear infinite;
-}
-@keyframes ibtn-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .ibtn__spinner { animation-duration: 1.6s; } }
+.ibtn .spin { position: relative; z-index: 1; }
 
 /* ---------- badge slot ----------------------------------------------------- */
 /* Бейдж прижат к правому верхнему углу иконки (= габарит кнопки), не выходит

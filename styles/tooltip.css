@@ -34,6 +34,8 @@
   font: var(--type-body-s);          /* Body S — 14/16 */
   letter-spacing: 0;
   white-space: nowrap;               /* по умолчанию — одна строка, обтекание контента */
+  overflow: hidden;
+  text-overflow: ellipsis;           /* защита, если контент длиннее --tip-max и JS не переключил на --multiline */
   box-shadow: 0 4px 14px rgba(40, 50, 55, .18);
   z-index: 30;
 }
@@ -75,6 +77,7 @@
 /* подложка действия — производная от цвета текста тултипа, не новый цвет */
 .tip__action:hover { background: color-mix(in srgb, var(--tip-fg) 16%, transparent); }
 .tip__action:focus-visible { outline: 2px solid var(--tip-fg); outline-offset: 2px; }
+
 
 /* ---------- types --------------------------------------------------------- *
    Тип = фон тултипа и стрелки напрямую (не через --tip-bg в модификаторе). */

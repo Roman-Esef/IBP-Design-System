@@ -116,7 +116,7 @@
       const effDisplay = table ? 'summary' : state.display;
 
       stage.innerHTML = '';
-      const combo = document.createElement('div'); combo.className = 'combo';
+      const combo = document.createElement('div');
       combo.style.width = table ? '240px' : '300px';
 
       const spec = {
@@ -254,7 +254,10 @@
     let list = openUnder(node, makeList(CURRENCIES, { onPick: pick }));
     host.appendChild(combo);
 
-    function pick(op) { ctl.value = op.label; node.classList.remove('is-open'); list.style.display = 'none'; }
+    function pick(op) { ctl.value = op.label; close(); }
+    function close() { node.classList.remove('is-open'); list.style.display = 'none'; document.removeEventListener('pointerdown', onOutside, true); document.removeEventListener('keydown', onEsc); }
+    function onOutside(e) { if (!combo.contains(e.target)) close(); }
+    function onEsc(e) { if (e.key === 'Escape') { close(); ctl.focus(); } }
     function rerender() {
       const q = ctl.value.trim();
       const filtered = CURRENCIES.filter(c => c.label.toLowerCase().includes(q.toLowerCase()));
@@ -263,7 +266,7 @@
       node.classList.add('is-open');
     }
     ctl.addEventListener('input', rerender);
-    ctl.addEventListener('focus', () => { list.style.display = 'flex'; node.classList.add('is-open'); });
+    ctl.addEventListener('focus', () => { list.style.display = 'flex'; node.classList.add('is-open'); document.addEventListener('pointerdown', onOutside, true); document.addEventListener('keydown', onEsc); });
   })();
 
   /* =========================== BEHAVIOR · chips (live) =========================== */

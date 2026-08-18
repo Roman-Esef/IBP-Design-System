@@ -1,8 +1,8 @@
 ---
 component: LabelHelper
 title: "Label / Helper"
-version: "v1.3"
-updated: "22.07.2026"
+version: "v1.4"
+updated: "12.08.2026"
 page: pages/atoms/LabelHelper.html
 page_js: scripts/label-helper.page.js
 css: styles/label-helper.css
@@ -14,6 +14,16 @@ status: auto
 
 ## Назначение
 Общие вспомогательные текстовые слоты, вынесенные из нескольких родительских компонентов в отдельную группу. Label подписывает поле ввода, Helper поясняет назначение или ограничение контрола. Оба переиспользуются в разных компонентах, но не имеют собственного визуального контейнера.
+
+## Инварианты
+- Не самостоятельные компоненты — нет своего контейнера, не выводятся на экран без родителя.
+- Выравнивание (left/right) Label и Helper всегда синхронизировано в паре — не задавать им разное направление у одного родителя.
+- Ошибка — только у Helper (`--error`, опц. иконка); у Label собственного состояния ошибки нет.
+- Иконки в Label — редкий кейс, IconButton S сжимается до 16px под высоту строки Body XS.
+
+## Диагностика
+- «Label и Helper выровнены в разные стороны» → привести оба к одному направлению (`--left`/`--right`)
+- «Ошибка не видна» → она рендерится только в Helper (`.ds-helper--error`), не в Label
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Label и Helper — два переиспользуемых текстовых слота, которые каждый компонент подключает по необходимости:
@@ -40,14 +50,14 @@ status: auto
 ### Разметка · HTML (поле с Label + Helper в состоянии Error)
 
 ```
-<label class="ds-label ds-label--left" for="field-inn">
+<label class="ds-label" for="field-inn">
   <span class="ds-label__text">ИНН контрагента</span>
 </label>
 
 <input id="field-inn" aria-describedby="field-inn-helper" aria-invalid="true" />
 
 <span id="field-inn-helper" class="ds-helper ds-helper--left ds-helper--error ds-helper--with-icon" role="alert">
-  <span class="ds-helper__icon" aria-hidden="true"><svg>…</svg></span>
+  <span class="ds-helper__icon" aria-hidden="true"><i data-icon="alert-triangle"></i></span>
   <span class="ds-helper__text">Нужно 10 или 12 цифр</span>
 </span>
 ```
@@ -107,7 +117,7 @@ interface InputTextProps {
 |---|---|---|
 | .ds-label | label/span | Подпись; for связывает с полем |
 | .ds-label__text | span | Текст — обрезается многоточием, не переносится |
-| .ds-label--left / --right | label | Выравнивание — общее с Helper той же пары, задаётся синхронно |
+| .ds-label--right | label | Выравнивание вправо (left — база, класса нет). Выравнивание — общее с Helper той же пары, задаётся синхронно |
 | .ds-label__icons .is-action | span | Иконка (0–2, любое назначение) — IconButton S neutral (классы .ibtn .ibtn--s .ibtn--neutral), aria-label обязателен |
 | .ds-label--disabled | label | Цвет — --text-inactive |
 | .ds-helper | span | Пояснение; id + aria-describedby на поле |

@@ -85,9 +85,9 @@
         from: fieldSpec(state.left, val, { live: true, id: 'pg-from' }),
         to: fieldSpec(state.right, val, { live: true, id: 'pg-to' }),
       }));
-      const cls = ['.inp-range', 'inp-range--m'];
+      const cls = ['.inp-range'];
       if (disabled) cls.push('inp-range--disabled');
-      codeEl.innerHTML = '<code>' + cls.join('.') + '</code> · поля: <code>.inp.inp--m</code> × 2 + <code>.inp-range__line</code>';
+      codeEl.innerHTML = '<code>' + cls.join('.') + '</code> · поля: <code>.inp</code> × 2 + <code>.inp-range__line</code>';
     }
     render();
   })();

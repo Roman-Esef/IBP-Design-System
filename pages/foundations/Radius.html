@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
+<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
+<link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
 
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
@@ -77,17 +79,14 @@
   .scale-use { font: var(--type-body-xs); color: var(--text-inactive); margin-top:3px; text-wrap:pretty; }
 
   /* ---------- tables ---------- */
-  .tbl-wrap { background: var(--bg-tile); border:1px solid var(--border-light); border-radius: var(--radius-2xl); overflow:hidden; }
-  table.ref { width:100%; border-collapse:collapse; }
-  table.ref th, table.ref td { text-align:left; padding:14px 22px; border-bottom:1px solid var(--border-light); font: var(--type-body-m); color: var(--text-primary); vertical-align:middle; }
-  table.ref th { font: var(--type-body-s-strong); color: var(--text-secondary); text-transform:uppercase; letter-spacing:.04em; font-size:11px; }
-  table.ref tr:last-child td { border-bottom:none; }
-  table.ref tr:hover td { background: var(--bgtable-row-hover); }
-  table.ref td.tok code, table.ref td.map code { font-size:12.5px; color: var(--primary); }
-  table.ref td.map code { color: var(--text-secondary); }
-  table.ref td.num { font-variant-numeric: tabular-nums; color: var(--text-secondary); white-space:nowrap; }
-  table.ref .swatch { width:30px; height:30px; flex:none; background: color-mix(in srgb,var(--primary) 12%, var(--bg-tile)); border:1.5px solid var(--primary-light); }
-  table.ref td.demo { width:54px; }
+  .tbl-wrap { overflow-x: auto; }
+  .tbl--alias { min-width: 820px; }
+  .tbl--alias .tbl__row { grid-template-columns: 8px 54px 1.1fr 1.1fr 120px 1.8fr 8px; }
+  .tbl--map { min-width: 760px; }
+  .tbl--map .tbl__row { grid-template-columns: 8px 54px 1.6fr 1.2fr 120px 8px; }
+  .tbl .swatch { width:30px; height:30px; flex:none; background: color-mix(in srgb,var(--primary) 12%, var(--bg-tile)); border:1.5px solid var(--primary-light); }
+  .tbl .tc code { font-size:12.5px; color: var(--text-secondary); white-space:nowrap; }
+  .tbl .tc--token code { color: var(--primary); }
 
   /* ---------- guidelines ---------- */
   .guides { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap:18px; }
@@ -110,7 +109,7 @@
 <main class="page" data-screen-label="Radius">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>25.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>07.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Основы</p>
     <h1>Скругления</h1>
     <p class="lead">Единая шкала радиусов скругления. Компоненты и лайауты ссылаются на семантические токены <code class="tok">--radius-*</code>, а не на «магические» пиксели — так скругления остаются согласованными и управляются из одной точки.</p>
@@ -154,10 +153,17 @@
     <h2>Семантические алиасы</h2>
     <p class="desc">Прикладные токены, на которые ссылаются компоненты. Меняете алиас — меняется скругление во всех местах сразу. Сами компоненты не должны указывать пиксели напрямую.</p>
     <div class="tbl-wrap">
-      <table class="ref">
-        <thead><tr><th class="demo"></th><th>Алиас</th><th>Ссылается на</th><th class="num">Значение</th><th>Назначение</th></tr></thead>
-        <tbody id="aliasRows"></tbody>
-      </table>
+      <div class="tbl tbl--alias" id="aliasRows">
+        <div class="tbl__row">
+          <div class="th th--separator"></div>
+          <div class="th"></div>
+          <div class="th"><span class="th__label">Алиас</span></div>
+          <div class="th"><span class="th__label">Ссылается на</span></div>
+          <div class="th th--right"><span class="th__label">Значение</span></div>
+          <div class="th"><span class="th__label">Назначение</span></div>
+          <div class="th th--separator"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -166,10 +172,16 @@
     <h2>Где применяется</h2>
     <p class="desc">Текущая раскладка скруглений по компонентам системы.</p>
     <div class="tbl-wrap">
-      <table class="ref">
-        <thead><tr><th class="demo"></th><th>Компонент / поверхность</th><th>Токен</th><th class="num">Значение</th></tr></thead>
-        <tbody id="mapRows"></tbody>
-      </table>
+      <div class="tbl tbl--map" id="mapRows">
+        <div class="tbl__row">
+          <div class="th th--separator"></div>
+          <div class="th"></div>
+          <div class="th"><span class="th__label">Компонент / поверхность</span></div>
+          <div class="th"><span class="th__label">Токен</span></div>
+          <div class="th th--right"><span class="th__label">Значение</span></div>
+          <div class="th th--separator"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -279,29 +291,33 @@
   // ---------- алиасы ----------
   (function(){
     var host = document.getElementById('aliasRows');
-    host.innerHTML = ALIASES.map(function(a){
-      return '<tr>'+
-        '<td class="demo"><span class="swatch" style="border-radius:'+(a.px==='50%'?'50%':Math.min(parseInt(a.px),14)+'px')+'"></span></td>'+
-        '<td class="tok"><code>'+a.token+'</code></td>'+
-        '<td class="map"><code>'+a.map+'</code></td>'+
-        '<td class="num">'+(a.px==='50%'||a.px==='999'?px(a.px):a.px+' px')+'</td>'+
-        '<td>'+a.use+'</td>'+
-      '</tr>';
-    }).join('');
+    host.insertAdjacentHTML('beforeend', ALIASES.map(function(a){
+      return '<div class="tbl__row">'+
+        '<div class="tc tc--separator"></div>'+
+        '<div class="tc"><span class="swatch" style="border-radius:'+(a.px==='50%'?'50%':Math.min(parseInt(a.px),14)+'px')+'"></span></div>'+
+        '<div class="tc tc--token"><span class="tc__row"><span class="tc__text"><code>'+a.token+'</code></span></span></div>'+
+        '<div class="tc"><span class="tc__row"><span class="tc__text"><code>'+a.map+'</code></span></span></div>'+
+        '<div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">'+(a.px==='50%'||a.px==='999'?px(a.px):a.px+' px')+'</span></span></div>'+
+        '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">'+a.use+'</span></span></div>'+
+        '<div class="tc tc--separator"></div>'+
+      '</div>';
+    }).join(''));
   })();
 
   // ---------- маппинг ----------
   (function(){
     var host = document.getElementById('mapRows');
-    host.innerHTML = MAP.map(function(m){
+    host.insertAdjacentHTML('beforeend', MAP.map(function(m){
       var demoR = m[3]==='50%' ? '50%' : m[3]+'px';
-      return '<tr>'+
-        '<td class="demo"><span class="swatch" style="border-radius:'+demoR+'"></span></td>'+
-        '<td>'+m[0]+'</td>'+
-        '<td class="tok"><code>'+m[1]+'</code></td>'+
-        '<td class="num">'+(m[2]==='50%'||m[2]==='999'?px(m[2]):m[2]+' px')+'</td>'+
-      '</tr>';
-    }).join('');
+      return '<div class="tbl__row">'+
+        '<div class="tc tc--separator"></div>'+
+        '<div class="tc"><span class="swatch" style="border-radius:'+demoR+'"></span></div>'+
+        '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">'+m[0]+'</span></span></div>'+
+        '<div class="tc tc--token"><span class="tc__row"><span class="tc__text"><code>'+m[1]+'</code></span></span></div>'+
+        '<div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">'+(m[2]==='50%'||m[2]==='999'?px(m[2]):m[2]+' px')+'</span></span></div>'+
+        '<div class="tc tc--separator"></div>'+
+      '</div>';
+    }).join(''));
   })();
 
   // ---------- конструктор ----------
@@ -338,6 +354,7 @@
   })();
 </script>
 <script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
 </body>
 </html>

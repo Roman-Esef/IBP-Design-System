@@ -1,12 +1,13 @@
 ---
 component: Toast
 title: "Toast"
-version: "v1.3"
-updated: "29.07.2026"
+version: "v1.6"
+updated: "12.08.2026"
 page: pages/molecules/Toast.html
 page_js: scripts/toast.page.js
+runtime: scripts/ds-notify.js
 css: styles/toast.css
-deps: [button]
+deps: [button, spinner]
 status: auto
 ---
 
@@ -14,6 +15,15 @@ status: auto
 
 ## Назначение
 Тёмная пилюля-уведомление, всплывающая у верхней границы рабочей области по центру, — индикатор запуска фонового или блокирующего процесса. Два режима: ToastBar (фоновый, авто-скрытие, стек до трёх) и ToastLoader (блокирующий, со спиннером и затемнением). Ведущий слот — спиннер или статус-иконка (взаимоисключающие); тоны Neutral · Success · Error · Info.
+
+## Инварианты
+- Ведущий слот — спиннер ИЛИ статус-иконка, взаимоисключающие, не оба одновременно.
+- Максимальная ширина пилюли — 60% рабочей области (`--toast-maxw`); текст переносится, ширина не растёт без ограничения.
+- ToastBar (авто-скрытие, не блокирует) и ToastLoader (блокирует, затемнение) — один компонент, два режима, различаются слоями z-index (40 vs 60).
+
+## Диагностика
+- «Тост слишком широкий, текст не помещается по высоте» → ширина ограничена 60% рабочей области — переносить текст, не увеличивать `--toast-maxw`
+- «Не понятно, блокирует ли тост страницу» → проверить слой: `.toast-layer--loader` (с `.toast-scrim`) блокирует, `--bar` — нет
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Toast сообщает о запуске серверного процесса, результат которого отложен во времени, либо подтверждает инициированное пользователем действие. Он не требует реакции и не содержит действий — только информирует.
@@ -46,7 +56,7 @@ status: auto
     <!-- Тост с лоадером: role="alert" — процесс, о котором важно узнать сразу -->
     <div class="toast toast--enter" role="status" aria-live="polite">
       <span class="toast__lead">
-        <span class="toast__spinner" aria-hidden="true"></span>
+        <span class="spin spin--current" aria-hidden="true"></span>
       </span>
       <span class="toast__msg">Выполняется маршрутизация</span>
     </div>
@@ -54,7 +64,7 @@ status: auto
     <!-- Success: статус-иконка вместо / после спиннера, тон --success -->
     <div class="toast toast--success" role="status" aria-live="polite">
       <span class="toast__lead">
-        <span class="toast__icon" aria-hidden="true"><svg…></svg></span>
+        <span class="toast__icon" aria-hidden="true"><i data-icon="check-circle"></i></span>
       </span>
       <span class="toast__msg">Маршрутизация завершена</span>
     </div>
@@ -65,6 +75,31 @@ status: auto
 <div class="toast-scrim"></div>
 <div class="toast-layer toast-layer--loader">…</div>
 ```
+
+### Рантайм ДС — `scripts/ds-notify.js`
+
+Показ тостов вынесен в рантайм — очередь, лимит и тайминги больше не нужно
+воспроизводить на экране:
+
+```
+const h = DSToast.show({ message: 'Выполняется маршрутизация', kind: 'loader' });
+// пришёл ответ сервера:
+h.update({ tone: 'success', message: 'Маршрутизация завершена' });
+```
+
+| Что | Поведение |
+|---|---|
+| Стек | новый тост сверху, одновременно видно ≤ 3, лишний нижний уходит фейдом |
+| Авто-скрытие | bar без спиннера — 3с; со спиннером и loader — ждут `update()` / `dismiss()` |
+| Loader | единичен, замещает весь ToastBar и добавляет затемнение `.toast-scrim` |
+| `update({tone})` | меняет спиннер на статус-иконку, держит ~1с и уводит тост |
+| Live-region | error и neutral-loader — `assertive`, остальное — `polite` |
+
+API: `DSToast.show(opts) → handle { el, update(patch), dismiss() }`,
+`DSToast.dismiss(h)`, `DSToast.clear()`, `DSToast.stack()`,
+`DSToast.make(opts)` — только узел, для статичных примеров.
+Опции: `message`, `kind` (`'bar'` | `'loader'`), `tone`, `lead`,
+`duration` (`null` — ждать события), `layer` — контейнер вместо `body`.
 
 ### Поведение · псевдокод (framework-agnostic)
 
@@ -134,7 +169,7 @@ interface ToastController {
 | .toast--success / --error / --info | пилюля | Тон статус-иконки |
 | .toast--enter / --leave | пилюля | Анимация появления (сверху) / скрытия (фейд вниз) |
 | .toast__lead | span | Ведущий слот — спиннер и/или иконка; высота 1lh, центрирован по первой строке текста (при переносе остаётся у верхней строки) |
-| .toast__spinner | span | CSS-спиннер 16×16, 0.7с linear; aria-hidden |
+| .spin.spin--current | span | Индикатор — общий Spinner (styles/spinner.css), 16×16, currentColor; aria-hidden |
 | .toast__icon | span | Статус-иконка 16×16, цвет по тону; aria-hidden |
 | .toast__msg | span | Текст сообщения, перенос при 60% ширины |
 | [role="status"] / [role="alert"] | пилюля | Live-region: status (polite) для bar/success, alert (assertive) для error/loader |

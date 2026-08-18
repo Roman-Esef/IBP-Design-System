@@ -57,157 +57,14 @@
     return g;
   }
 
-  /* make a tablist actually switch (single-select) */
-  function wireTablist(group) {
-    const tabs = [...group.querySelectorAll('.tab')];
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        if (tab.classList.contains('tab--disabled')) return;
-        tabs.forEach(t => { t.classList.remove('tab--selected'); t.setAttribute('aria-selected', 'false'); t.tabIndex = -1; });
-        tab.classList.add('tab--selected'); tab.setAttribute('aria-selected', 'true'); tab.tabIndex = 0;
-      });
-    });
-    group.addEventListener('keydown', (e) => {
-      const live = tabs.filter(t => !t.classList.contains('tab--disabled'));
-      const cur = document.activeElement;
-      let i = live.indexOf(cur);
-      const horiz = group.classList.contains('tabs--horiz');
-      const next = horiz ? 'ArrowRight' : 'ArrowDown';
-      const prev = horiz ? 'ArrowLeft' : 'ArrowUp';
-      if (e.key === next) { e.preventDefault(); i = (i + 1) % live.length; live[i].focus(); live[i].click(); }
-      else if (e.key === prev) { e.preventDefault(); i = (i - 1 + live.length) % live.length; live[i].focus(); live[i].click(); }
-      else if (e.key === 'Home') { e.preventDefault(); live[0].focus(); live[0].click(); }
-      else if (e.key === 'End') { e.preventDefault(); live[live.length - 1].focus(); live[live.length - 1].click(); }
-    });
-  }
+  /* переключение и клавиатура — рантайм ДС (scripts/ds-tabs.js):
+     roving tabindex, стрелки по ориентации, Home/End, подскролл выбранного */
+  function wireTablist(group) { return window.DSTabs && DSTabs.tabs(group); }
 
-  /* ---------- overflow group: fit as many tabs as the container allows,
-     the rest collapse behind a "more" (⋯) trigger with a dropdown menu ---------- */
-  const MORE_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>';
-
-  function makeOverflowTabs(items, o = {}) {
-    const size = o.size || 'm';
-    const host = document.createElement('div'); host.className = 'tabs-overflow';
-    const group = document.createElement('div'); group.className = 'tabs tabs--horiz'; group.setAttribute('role', 'tablist');
-    host.appendChild(group);
-
-    let selected = items.findIndex(it => it.state === 'selected');
-    if (selected < 0) selected = 0;
-
-    const tabEls = items.map((it, i) => {
-      const t = makeTab(Object.assign({ orient: 'horiz', size, standalone: false }, it, { state: 'default' }));
-      t.addEventListener('click', () => { selected = i; update(); });
-      return t;
-    });
-    tabEls.forEach(t => group.appendChild(t));
-
-    const moreBtn = document.createElement('button');
-    moreBtn.type = 'button';
-    moreBtn.className = 'tab tab--' + size + ' tab--horiz tab--more';
-    moreBtn.setAttribute('aria-haspopup', 'true');
-    moreBtn.setAttribute('aria-expanded', 'false');
-    moreBtn.setAttribute('aria-label', 'Показать остальные разделы');
-    const mi = document.createElement('span'); mi.className = 'tab__icon'; mi.innerHTML = MORE_ICON; moreBtn.appendChild(mi);
-    group.appendChild(moreBtn);
-
-    const menu = document.createElement('div'); menu.className = 'tabs-overflow__menu'; menu.setAttribute('role', 'menu');
-    host.appendChild(menu);
-
-    function closeMenu() { menu.classList.remove('is-open'); moreBtn.setAttribute('aria-expanded', 'false'); moreBtn.classList.remove('is-menu-open'); }
-    function openMenu() { menu.classList.add('is-open'); moreBtn.setAttribute('aria-expanded', 'true'); moreBtn.classList.add('is-menu-open'); }
-    moreBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
-    });
-    document.addEventListener('click', (e) => { if (!host.contains(e.target)) closeMenu(); });
-    host.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-
-    function layout() {
-      tabEls.forEach(t => { t.style.display = ''; });
-      moreBtn.style.display = 'none';
-      const available = host.clientWidth;
-      if (!available) return;
-      const widths = tabEls.map(t => t.getBoundingClientRect().width);
-      const total = widths.reduce((a, b) => a + b, 0);
-      if (total <= available + 0.5) { buildMenu(); return; }
-      moreBtn.style.display = '';
-      const moreWidth = moreBtn.getBoundingClientRect().width;
-      let sum = 0, cutoff = tabEls.length;
-      for (let i = 0; i < widths.length; i++) {
-        sum += widths[i];
-        if (sum + moreWidth > available) { cutoff = i; break; }
-      }
-      cutoff = Math.max(cutoff, 1);
-      tabEls.forEach((t, i) => { t.style.display = i < cutoff ? '' : 'none'; });
-      buildMenu();
-    }
-
-    function buildMenu() {
-      menu.innerHTML = '';
-      tabEls.forEach((t, i) => {
-        if (t.style.display !== 'none') return;
-        const it = items[i];
-        const btn = document.createElement('button');
-        btn.type = 'button'; btn.className = 'tabs-overflow__item'; btn.setAttribute('role', 'menuitemradio');
-        btn.setAttribute('aria-checked', String(i === selected));
-        if (it.icon) { const ic2 = document.createElement('span'); ic2.className = 'tab__icon'; ic2.innerHTML = icon(it.icon); btn.appendChild(ic2); }
-        const lb = document.createElement('span'); lb.className = 'tab__label'; lb.textContent = it.label; btn.appendChild(lb);
-        if (it.badge != null) { const bd = document.createElement('span'); bd.className = 'tab__badge'; bd.textContent = groupNum(it.badge); btn.appendChild(bd); }
-        btn.addEventListener('click', () => { selected = i; closeMenu(); update(); });
-        menu.appendChild(btn);
-      });
-    }
-
-    function update() {
-      tabEls.forEach((t, i) => {
-        const sel = i === selected;
-        t.classList.toggle('tab--selected', sel);
-        t.setAttribute('aria-selected', String(sel));
-      });
-      layout();
-    }
-
-    requestAnimationFrame(update);
-    window.addEventListener('resize', layout);
-    window.addEventListener('load', layout);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
-    if (window.ResizeObserver) new ResizeObserver(layout).observe(host);
-
-    return host;
-  }
-
-  /* ---------- scroll arrows: wraps a .tabs-scroll with prev/next buttons that
-     fade in/out depending on whether there is more content to reach on that side ---------- */
-  function makeScrollArrows(scrollEl) {
-    const wrap = document.createElement('div'); wrap.className = 'tabs-scroll-wrap';
-    wrap.appendChild(scrollEl);
-
-    function mkArrow(dir) {
-      const b = document.createElement('button'); b.type = 'button';
-      b.className = 'tabs-scroll__arrow tabs-scroll__arrow--' + dir;
-      b.setAttribute('aria-label', dir === 'left' ? 'Прокрутить влево' : 'Прокрутить вправо');
-      b.innerHTML = dir === 'left'
-        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>'
-        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
-      b.addEventListener('click', () => { scrollEl.scrollBy({ left: dir === 'left' ? -160 : 160, behavior: 'smooth' }); });
-      return b;
-    }
-    const left = mkArrow('left'), right = mkArrow('right');
-    wrap.appendChild(left); wrap.appendChild(right);
-
-    function update() {
-      const max = scrollEl.scrollWidth - scrollEl.clientWidth;
-      left.classList.toggle('is-visible', scrollEl.scrollLeft > 4);
-      right.classList.toggle('is-visible', scrollEl.scrollLeft < max - 4);
-    }
-    scrollEl.addEventListener('scroll', update);
-    window.addEventListener('resize', update);
-    window.addEventListener('load', update);
-    if (window.ResizeObserver) new ResizeObserver(update).observe(scrollEl);
-    requestAnimationFrame(update);
-
-    return wrap;
-  }
+  /* ---------- overflow — оба паттерна (скролл со стрелками, fit + меню «ёщё») живут
+     в рантайме ds-tabs.js (RulesAudit W2) — страница только собирает реальную
+     разметку и вызывает DSTabs.tabs(); паттерн активируется сам по факту
+     переполнения — для второго ряда паттерн форсируется data-tabs-overflow="menu". ---------- */
 
   /* ============================ PLAYGROUND ============================ */
   (function () {
@@ -492,15 +349,18 @@
       { label: 'Закрытые' }, { label: 'На согласовании' }, { label: 'Черновики' },
     ];
 
-    // pattern A — horizontal scroll, hidden scrollbar (container narrower than content), with arrows
+    // pattern A — horizontal scroll (рантайм сам обёрнёт в .tabs-scroll-wrap + стрелки, когда ряд шире контейнера)
     const host = document.getElementById('overflow-demo');
-    const wrap = document.createElement('div'); wrap.className = 'tabs-scroll';
     const g = makeGroup('horiz', overflowItems);
-    wireTablist(g); wrap.appendChild(g); host.appendChild(makeScrollArrows(wrap));
+    host.appendChild(g);
+    wireTablist(g);
 
-    // pattern B — fit + "⋯" trigger opening a dropdown with the rest
+    // pattern B — fit + «⋯», та же разметка, форсируется data-tabs-overflow="menu"
     const hostFit = document.getElementById('overflow-fit');
-    hostFit.appendChild(makeOverflowTabs(overflowItems));
+    const gFit = makeGroup('horiz', overflowItems);
+    gFit.setAttribute('data-tabs-overflow', 'menu');
+    hostFit.appendChild(gFit);
+    wireTablist(gFit);
 
     // truncation: a vert tab with a very long label
     const t = document.getElementById('overflow-trunc');

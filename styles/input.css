@@ -113,7 +113,7 @@
   color: var(--secondary); /* иконки в полях — Active · secondary */
   display: inline-flex;
 }
-.inp__lead svg { width: 100%; height: 100%; }
+.inp__lead :is(svg,[data-icon]){ width: 100%; height: 100%; }
 
 .inp__prefix,
 .inp__postfix {
@@ -202,9 +202,7 @@ textarea.inp__control { resize: none; line-height: 20px; }
   border-radius: var(--radius-xs);
   transition: color .15s ease;
 }
-.inp__act svg { width: 100%; height: 100%; }
-.inp__act [data-icon], .inp__lead [data-icon] { width: 100%; height: 100%; }
-.inp__act:hover { color: var(--secondary-dark); }
+.inp__act :is(svg,[data-icon]){ width: 100%; height: 100%; }.inp__act:hover { color: var(--secondary-dark); }
 .inp__act:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .inp__act--static { cursor: default; color: var(--secondary); }
 .inp__act--static:hover { color: var(--secondary); }

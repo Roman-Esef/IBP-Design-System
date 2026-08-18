@@ -35,48 +35,25 @@ function crumbMore(hidden) {
   btn.setAttribute('aria-label', 'Показать промежуточные страницы: ' + hidden.map(h => h.text).join(', '));
   li.appendChild(btn);
 
-  let open = false, menu = null;
-  function place() {
-    const br = btn.getBoundingClientRect();
-    menu.style.left = Math.round(br.left) + 'px';
-    menu.style.top = Math.round(br.bottom + 6) + 'px';
-  }
-  function close() {
-    if (!open) return;
-    open = false; btn.setAttribute('aria-expanded', 'false');
-    if (menu) { menu.remove(); menu = null; }
-    document.removeEventListener('pointerdown', onOutside, true);
-    document.removeEventListener('keydown', onEsc, true);
-    window.removeEventListener('scroll', place, true);
-    window.removeEventListener('resize', place);
-  }
-  function onOutside(e) { if (menu && !menu.contains(e.target) && e.target !== btn) close(); }
-  function onEsc(e) { if (e.key === 'Escape') { close(); btn.focus(); } }
-  btn.addEventListener('click', () => {
-    if (open) { close(); return; }
-    open = true; btn.setAttribute('aria-expanded', 'true');
-    menu = document.createElement('div');
-    /* без .menu--floating/.is-open — эти классы полагаются на CSS-transition
-       (opacity 0→1), который не всегда успевает отыграть; показываем меню
-       сразу, без анимации появления — оно и так короткоживущее всплывающее */
-    menu.className = 'menu crumbs__popup';
-    menu.style.position = 'fixed';
-    menu.setAttribute('role', 'menu');
-    hidden.forEach(h => {
-      const item = document.createElement('button'); item.type = 'button'; item.className = 'menu__item';
-      item.setAttribute('role', 'menuitem');
-      const label = document.createElement('span'); label.className = 'menu__item-label'; label.textContent = h.text;
-      item.appendChild(label);
-      item.addEventListener('click', () => close());
-      menu.appendChild(item);
-    });
-    document.body.appendChild(menu);
-    place();
-    document.addEventListener('pointerdown', onOutside, true);
-    document.addEventListener('keydown', onEsc, true);
-    window.addEventListener('scroll', place, true);
-    window.addEventListener('resize', place);
+  /* поведение — рантайм ДС (scripts/ds-menu.js): открытие/закрытие, позиция
+     с разворотом, клавиатура, Esc. Меню живёт в body с position:fixed —
+     иначе его обрезал бы overflow:hidden контейнера .crumbs. */
+  const menu = document.createElement('div');
+  menu.className = 'menu crumbs__popup';
+  menu.style.position = 'fixed';
+  menu.hidden = true;
+  hidden.forEach(h => {
+    const item = document.createElement('button'); item.type = 'button'; item.className = 'menu__item';
+    const label = document.createElement('span'); label.className = 'menu__item-label'; label.textContent = h.text;
+    item.appendChild(label);
+    menu.appendChild(item);
   });
+  /* демо перерисовывается — снимаем меню, чей триггер уже вне документа */
+  document.querySelectorAll('.crumbs__popup').forEach(m => {
+    if (!m.__dsMenu || !document.contains(m.__dsMenu.trigger)) m.remove();
+  });
+  document.body.appendChild(menu);
+  if (window.DSMenu) DSMenu.bind(btn, { menu: menu, align: 'start' });
   return li;
 }
 

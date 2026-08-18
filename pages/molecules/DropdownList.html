@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="../../styles/checkbox.css">
 <link rel="stylesheet" href="../../styles/label-helper.css">
 <link rel="stylesheet" href="../../styles/dropdown-list.css">
+<link rel="stylesheet" href="../../styles/spinner.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -113,7 +114,7 @@
   .vp { position:relative; height:360px; border:1px dashed var(--border-primary); border-radius:14px; overflow:hidden;
     background:
       linear-gradient(var(--tertiary-light),var(--tertiary-light)) padding-box,
-      repeating-conic-gradient(#eef3f2 0% 25%, #f7faf9 0% 50%) 0 / 20px 20px; }
+      repeating-conic-gradient(var(--c-cgrey-50) 0% 25%, var(--bg-tile) 0% 50%) 0 / 20px 20px; }
   .vp .fldwrap { cursor:grab; touch-action:none; }
   .vp .fldwrap:active { cursor:grabbing; }
   .vp .hint-drag { position:absolute; left:14px; bottom:12px; font: var(--type-body-xs); color: var(--text-primary); pointer-events:none; }
@@ -142,7 +143,7 @@
 <main class="page" data-screen-label="DropdownList">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>29.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.8</b></span><span>Обновлено: <b>13.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>DropdownList</h1>
     <p class="lead">Выпадающий список — всплывающая поверхность со списком опций, которая раскрывается под полем <b>Select</b> или <a class="inl" href="../molecules/InputAutocomplete.html">InputAutocomplete</a>. Служит для выбора значения из перечня: одиночного (подсветка выбранной строки), множественного (ведущие чекбоксы) или с поиском по мере набора (подсветка совпадения). В отличие от <a class="inl" href="../molecules/ContextMenu.html">Context Menu</a> — это выбор данных, а не список команд.</p>
@@ -413,6 +414,7 @@
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
+<script src="../../scripts/ds-dropdownlist.js"></script>
 <script src="../../scripts/dropdown-list.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>

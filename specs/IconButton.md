@@ -1,11 +1,11 @@
 ---
 component: IconButton
 title: "IconButton"
-version: "v1.6"
-updated: "04.08.2026"
+version: "v1.10"
+updated: "13.08.2026"
 page: pages/atoms/IconButton.html
 css: styles/icon-button.css
-deps: [badge]
+deps: [badge, spinner]
 status: auto
 ---
 
@@ -13,6 +13,17 @@ status: auto
 
 ## Назначение
 Безрамочная кнопка с одной иконкой и круглым стейт-слоем (риплом). Цвет рипла соответствует цвету иконки. Тоны Neutral / Primary / Danger / Contrast, размеры L / M / S, состояния Default / Hover / Pressed / Focus / Disabled / Loading, режим-переключатель и встроенный вариант для полей ввода.
+
+## Инварианты
+- Обязателен `aria-label` — нет видимого текста, смысл несёт только атрибут.
+- Toggle одной кнопки не зависит от соседних IconButton в ряду — взаимоисключающую группу собирать через ButtonGroup toggle, не соседние IconButton.
+- Размер компонента в лейауте = размер иконки (L24/M20/S16); круглый стейт-слой (`::before`) больше кнопки и не влияет на её габарит в потоке.
+- `.ibtn--embedded` не имеет стейт-слоя — только смена цвета иконки на hover (для полей ввода/плотных тулбаров).
+- Бейдж-слот (`.ibtn__badge`) прижат к правому верхнему углу иконки и не выходит за её габарит.
+
+## Диагностика
+- «Кнопка сжимается в тесном flex-ряду» → `.ibtn{flex:none}` — по спеке не должна сжиматься, проверить переопределение flex
+- «Скринридер не озвучивает кнопку» → отсутствует `aria-label`
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — IconButton подходит, когда:
@@ -41,22 +52,22 @@ status: auto
 ```
 <!-- базовый вариант: одна иконка, aria-label обязателен -->
 <button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать">
-  <svg aria-hidden="true">…</svg>          <!-- 24/20/16 px по размеру кнопки -->
+  <i data-icon="edit"></i>          <!-- 24/20/16 px по размеру кнопки -->
 </button>
 
 <!-- toggle: aria-pressed + залитая иконка в selected -->
 <button type="button" class="ibtn ibtn--primary ibtn--l ibtn--selected" aria-pressed="true" aria-label="В избранном">
-  <svg aria-hidden="true">…</svg>
+  <i data-icon="star-filled"></i>
 </button>
 
 <!-- loading: спиннер вместо иконки, клики заблокированы -->
 <button type="button" class="ibtn ibtn--neutral ibtn--m ibtn--loading" aria-busy="true" aria-label="Ещё">
-  <span class="ibtn__spinner"></span>
+  <span class="spin spin--current"></span>
 </button>
 
 <!-- с бейджем: Badge не перехватывает клики (pointer-events: none) -->
 <button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Сделки">
-  <svg aria-hidden="true">…</svg>
+  <i data-icon="folder"></i>
   <span class="ibtn__badge"><span class="badge badge--xs badge--accent">3</span></span>
 </button>
 ```
@@ -76,7 +87,7 @@ status: auto
 // React: состав рендерится декларативно:
 glyph = selected ? iconSelected : icon
 
-// 3. Loading: иконка заменяется на .ibtn__spinner (размер = размеру иконки);
+// 3. Loading: иконка заменяется на .spin.spin--current — общий Spinner (размер = размеру иконки);
 //    .ibtn--loading даёт pointer-events: none; добавить aria-busy="true"
 
 // 4. Embedded (поля ввода): стейт-слоя нет, hover меняет цвет иконки
@@ -119,10 +130,10 @@ interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 | .ibtn--square | button | Квадратная форма стейт-слоя вместо круга (радиус 8 / 8 / 6) |
 | .ibtn--embedded | button | Встроенный вариант (поля ввода): без стейт-слоя, hover меняет цвет |
 | .ibtn--selected | button | Toggle включён: иконка primary + постоянный лёгкий стейт-слой; парой идёт aria-pressed="true" |
-| .ibtn--loading | button | Загрузка: pointer-events: none, внутри .ibtn__spinner |
+| .ibtn--loading | button | Загрузка: pointer-events: none, внутри .spin.spin--current |
 | disabled | button | Отключённое состояние — иконка --text-inactive, без стейт-слоя |
 | .is-hover / .is-pressed / .is-focus | button | Форсированные состояния — только для спецификаций в документации, не для продакшена |
-| .ibtn__spinner | span | Лоадер — кольцо currentColor размером с иконку, уважает prefers-reduced-motion |
+| .spin.spin--current | span | Лоадер — общий компонент Spinner (styles/spinner.css), currentColor размером с иконку |
 | .ibtn__badge | span | Слот для Badge в правом верхнем углу; клики не перехватывает |
 | aria-label | button | Обязателен всегда — глагол действия (см. «Контент») |
-| aria-pressed | button | Только в toggle-режиме; синхронизируется с .ibtn--selected |
+| aria-pressed | button | Только в toggle-режиме; CSS красит toggle и по `[aria-pressed="true"]` напрямую — `.ibtn--selected` нужен только для форс-состояния витрины (RulesAudit W1, 12.08.2026) |

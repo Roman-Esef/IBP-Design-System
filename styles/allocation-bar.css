@@ -17,7 +17,7 @@
 .albar__unit{font:var(--type-body-xs);color:var(--text-inactive)}
 .albar__total--empty{font:var(--type-body-m);color:var(--text-inactive)}
 .albar__warn{display:inline-flex;align-items:center;align-self:center;flex:0 0 auto;color:var(--warning)}
-.albar__warn i,.albar__warn svg{width:16px;height:16px}
+.albar__warn :is(svg,[data-icon]){width:16px;height:16px}
 
 /* ---------- бар ---------- */
 .albar__bar{display:flex;gap:2px;height:8px;min-height:8px;border-radius:var(--radius-pill);overflow:hidden;background:var(--st-grey-light)}

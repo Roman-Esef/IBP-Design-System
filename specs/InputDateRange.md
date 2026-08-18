@@ -2,7 +2,7 @@
 component: InputDateRange
 title: "InputDateRange"
 version: "v1.6"
-updated: "29.07.2026"
+updated: "11.08.2026"
 page: pages/molecules/InputDateRange.html
 page_js: scripts/input-date-range.page.js
 css: styles/input-range.css
@@ -14,6 +14,15 @@ status: curated
 
 ## Назначение
 Поле ввода диапазона дат: два InputDate с префиксами «От» / «До», размещённых горизонтально и соединённых линией Range_Line, с общей меткой сверху и общим хелпером снизу. При фокусе на поле поднимается DatePicker. Каждое поле — самостоятельный экземпляр `.inp` со своими состояниями.
+
+## Инварианты
+- Минимальная ширина поля — 186px (дата + иконки крестика и календаря); меньше не сжимается.
+- Календарь у каждого поля самоподключается независимо через `ds-datepicker.js`, как у одиночного InputDate.
+- Поля независимы — состояния/ошибки не связаны, кроме логики диапазона (конец не раньше начала).
+- Только размер M — размера S нет.
+
+## Диагностика
+- «Поле диапазона дат обрезает иконки при сужении» → `.inp-range--date .inp-range__field{min-width:186px}` не должен переопределяться
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — диапазон дат «с … по …» в фильтрах/формах (период сделки, срок действия, окно отчётности); одно поле может быть пустым (открытая граница). Одиночная дата → InputDate; числовой диапазон → InputAmountRange.
@@ -35,10 +44,10 @@ status: curated
 ### Разметка · HTML (эталонная реализация ДС)
 
 ```
-<div class="inp-range inp-range--m inp-range--date">
-  <label class="ds-label ds-label--left"><span class="ds-label__text">Период сделки</span></label>
+<div class="inp-range inp-range--date">
+  <label class="ds-label"><span class="ds-label__text">Период сделки</span></label>
   <div class="inp-range__row">
-    <div class="inp inp--m inp-range__field">
+    <div class="inp inp-range__field">
       <div class="inp__field">
         <span class="inp__prefix">От</span>
         <input class="inp__control" inputmode="numeric" placeholder="ММ.ДД.ГГГГ">
@@ -49,7 +58,7 @@ status: curated
       </div>
     </div>
     <span class="inp-range__line" aria-hidden="true"></span>
-    <div class="inp inp--m inp-range__field">…префикс «До»…</div>
+    <div class="inp inp-range__field">…префикс «До»…</div>
   </div>
   <span class="ds-helper ds-helper--left">Helper</span>
 </div>

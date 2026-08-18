@@ -29,7 +29,7 @@ function buildPhead(o){
 
   var chipsHtml = '';
   if (o.chips === 'one' || o.chips === 'list'){
-    var chip = function(t){ return '<span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">' + t + '</span></span>'; };
+    var chip = function(t){ return '<span class="chip chip--rounded chip--s"><span class="chip__label">' + t + '</span></span>'; };
     var chips = (o.chips === 'one') ? chip('Черновик') : chip('Черновик') + chip('На утверждении') + chip('PE');
     chipsHtml = '<div class="phead__chips">' + chips + '</div>';
   }
@@ -66,7 +66,7 @@ function buildPhead(o){
     if (n >= 3) list.push('<button type="button" class="btn btn--outline btn--m">' + getIcon('refresh',20) + '<span class="btn__label">Пересчёт метрик</span></button>');
     if (n >= 2) list.push('<button type="button" class="btn btn--accent btn--m">' + getIcon('download',20) + '<span class="btn__label">Выгрузить</span></button>');
     if (o.menu) list.push('<button type="button" class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё действия" aria-haspopup="menu" aria-expanded="' + (o.menuOpen ? 'true' : 'false') + '">' + getIcon('more-dots',20) + '</button>');
-    acts = '<div class="phead__actions">' + list.join('') + '</div>';
+    acts = '<div class="phead__actions" data-actions-overflow>' + list.join('') + '</div>';
   }
 
   var cls = 'phead';
@@ -78,7 +78,12 @@ function buildPhead(o){
 
 function mount(id, opts){
   var el = document.getElementById(id);
-  if (el) el.innerHTML = buildPhead(opts);
+  if (el) { el.innerHTML = buildPhead(opts); rebindOverflow(el); }
+}
+function rebindOverflow(root){
+  var host = root.querySelector('[data-actions-overflow]');
+  if (host && host.__dsActOverflow) host.__dsActOverflow.refresh();
+  else if (host && window.DSActionsOverflow) window.DSActionsOverflow.bind(host);
 }
 
 /* ---------- конструктор ---------- */
@@ -103,7 +108,9 @@ function rebuild(){
     wrapChips: width < 1024
   };
   /* MenuButton неактуален, когда действий нет вовсе */
-  document.getElementById('demo-phead').innerHTML = buildPhead(o);
+  var demoHost = document.getElementById('demo-phead');
+  demoHost.innerHTML = buildPhead(o);
+  rebindOverflow(demoHost);
   closePheadMenus();
   fitViewport();
 }
@@ -118,39 +125,26 @@ function menuMarkup(){
          '<button type="button" class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-icon">' + getIcon('trash',20) + '</span><span class="menu__item-label">Удалить сделку</span></button>';
 }
 function closePheadMenus(){
-  document.querySelectorAll('.phead-menu-pop').forEach(function(m){ m.remove(); });
-  document.querySelectorAll('[aria-haspopup="menu"][aria-expanded="true"]').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+  if (window.DSMenu) DSMenu.closeAll();
+  /* демо перерисовывается — снимаем меню, чей триггер уже вне документа */
+  document.querySelectorAll('.phead-menu-pop').forEach(function(m){
+    if (!m.__dsMenu || !document.contains(m.__dsMenu.trigger)) m.remove();
+  });
 }
-function openPheadMenu(btn){
+/* Первый клик по триггеру собирает меню и передаёт его рантайму ДС
+   (scripts/ds-menu.js) — дальше открытие, позиционирование, клавиатура,
+   закрытие по клику вне, Esc и репозиция на scroll/resize за ним. */
+document.addEventListener('click', function(e){
+  if (!e.target.closest || !window.DSMenu) return;
+  var btn = e.target.closest('.phead [aria-haspopup="menu"], .phx [aria-haspopup="menu"]');
+  if (!btn || btn.__dsMenu) return;
   var pop = document.createElement('div');
-  pop.className = 'menu menu--floating is-open phead-menu-pop';
-  pop.setAttribute('role','menu');
+  pop.className = 'menu phead-menu-pop';
   pop.style.cssText = 'position:fixed;z-index:9000;';
   pop.innerHTML = menuMarkup();
   document.body.appendChild(pop);
-  var r = btn.getBoundingClientRect();
-  var w = pop.offsetWidth, h = pop.offsetHeight;
-  var left = Math.min(Math.max(8, r.right - w), window.innerWidth - w - 8);
-  var top = r.bottom + 6;
-  if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - 6 - h);
-  pop.style.left = left + 'px';
-  pop.style.top = top + 'px';
-  btn.setAttribute('aria-expanded','true');
-}
-document.addEventListener('click', function(e){
-  if (!e.target.closest) return;
-  var btn = e.target.closest('.phead [aria-haspopup="menu"], .phx [aria-haspopup="menu"]');
-  if (btn){
-    var wasOpen = btn.getAttribute('aria-expanded') === 'true';
-    closePheadMenus();
-    if (!wasOpen) openPheadMenu(btn);
-    return;
-  }
-  if (!e.target.closest('.phead-menu-pop')) closePheadMenus();
+  DSMenu.bind(btn, { menu: pop, align: 'end' }).open();
 });
-document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closePheadMenus(); });
-window.addEventListener('resize', closePheadMenus);
-window.addEventListener('scroll', closePheadMenus, true);
 
 /* масштабирование вьюпорта под ширину фрейма */
 function fitViewport(){
@@ -219,7 +213,7 @@ function buildPhx(){
     '<div class="phx__row">' +
       '<div class="phx__main">' +
         '<div class="phx__title-row"><h3 class="phx__title">1234. СамолётИнвестПродакшн</h3>' +
-          '<div class="phx__chips"><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">Черновик</span></span><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">На утверждении</span></span></div>' +
+          '<div class="phx__chips"><span class="chip chip--rounded chip--s"><span class="chip__label">Черновик</span></span><span class="chip chip--rounded chip--s"><span class="chip__label">На утверждении</span></span></div>' +
         '</div>' +
         '<div class="phx__subtitle">Дата фактического погашения 12.01.2021 · ответственный Александров П. К. · последнее изменение 07.02.2021</div>' +
       '</div>' +

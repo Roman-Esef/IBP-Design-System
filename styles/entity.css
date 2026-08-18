@@ -43,7 +43,7 @@
 .entity--s { gap: 10px; }
 .entity--s .entity__main { gap: 5px; }
 .entity--s .entity__icon { width: 32px; height: 32px; border-radius: var(--radius-l); }
-.entity--s .entity__icon > i, .entity--s .entity__icon > svg { width: 18px; height: 18px; }
+.entity--s .entity__icon > :is(svg,[data-icon]){ width: 18px; height: 18px; }
 .entity--s .entity__label { font: var(--type-body-s-strong); }
 .entity--s .entity__prefix, .entity--s .entity__postfix { font: var(--type-body-s); }
 .entity--s .entity__subs { font: var(--type-body-xs); }
@@ -53,7 +53,7 @@
 .entity--l .entity__titles { gap: 3px; }
 .entity--l .entity__main { gap: 8px; }
 .entity--l .entity__icon { width: 96px; height: 96px; border-radius: var(--radius-5xl); }
-.entity--l .entity__icon > i, .entity--l .entity__icon > svg { width: 48px; height: 48px; }
+.entity--l .entity__icon > :is(svg,[data-icon]){ width: 48px; height: 48px; }
 .entity--l .entity__header { font: var(--type-body-s); }
 .entity--l .entity__label { font: var(--type-body-xl-strong); }
 .entity--l .entity__prefix, .entity--l .entity__postfix { font: var(--type-body-xl); }
@@ -77,8 +77,7 @@
   background: var(--c-swamp-100);
   color: var(--text-primary);
 }
-.entity__icon > i,
-.entity__icon > svg { width: var(--e-lead-icon); height: var(--e-lead-icon); display: block; }
+.entity__icon > :is(svg,[data-icon]){ width: var(--e-lead-icon); height: var(--e-lead-icon); display: block; }
 
 /* тон иконочного контейнера */
 .entity__icon--accent  { background: color-mix(in srgb, var(--primary) 14%, var(--c-mgrey-50)); color: var(--primary-dark); }
@@ -126,7 +125,7 @@
   color: var(--text-inactive);
   display: inline-flex;
 }
-.entity__prefix-icon > i, .entity__prefix-icon > svg { width: 100%; height: 100%; display: block; }
+.entity__prefix-icon > :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 .entity__prefix { font: var(--e-font-affix); color: var(--text-inactive); flex: none; }
 
 .entity__label {
@@ -156,7 +155,7 @@
   display: inline-flex;
   transition: color .15s ease;
 }
-.entity__bookmark > i, .entity__bookmark > svg { width: 100%; height: 100%; display: block; }
+.entity__bookmark > :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 .entity__bookmark:hover { color: var(--text-secondary); }
 .entity__bookmark--active { color: var(--primary); }
 .entity__bookmark:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: var(--radius-xs); }
@@ -180,7 +179,7 @@
   display: inline-flex;
   margin-top: .05em;
 }
-.entity__subs-icon > i, .entity__subs-icon > svg { width: 100%; height: 100%; display: block; }
+.entity__subs-icon > :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
 .entity__subs-list {
   min-width: 0;
   display: -webkit-box;
@@ -226,8 +225,10 @@
 }
 .entity--interactive:hover { background: var(--bgtable-row-hover); }
 .entity--interactive:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
-.entity--selected { background: var(--primary-bg); }
-.entity--selected:hover { background: color-mix(in srgb, var(--primary) 10%, transparent); }
+/* Класс .entity--selected — форс-состояние витрины; реальный выбор из списка
+   несёт aria-selected="true" на самом тайле (RulesAudit W1). */
+.entity:is(.entity--selected,[aria-selected="true"]) { background: var(--primary-bg); }
+.entity:is(.entity--selected,[aria-selected="true"]):hover { background: color-mix(in srgb, var(--primary) 10%, transparent); }
 
 /* выбор чекбоксом (список с множественным выбором) */
 .entity--selectable .entity__lead { position: relative; }
@@ -249,42 +250,15 @@
   align-items: center;
   justify-content: center;
 }
-.entity__drag > i, .entity__drag > svg { width: 18px; height: 18px; display: block; }
+.entity__drag > :is(svg,[data-icon]){ width: 18px; height: 18px; display: block; }
 .entity__drag:hover { color: var(--text-secondary); }
 .entity__drag:active { cursor: grabbing; }
 
 /* =========================================================================
-   Skeleton / загрузка (компонент подкачки)
+   Skeleton / загрузка (компонент подкачки) — общий компонент Skeleton:
+   ведущая иконка получает .sk-surface (свой размер/радиус сохраняются),
+   строки — обычные .sk-line с шириной через --sk-w (styles/skeleton.css).
    ========================================================================= */
-.entity--skeleton .entity__icon,
-.entity--skeleton .sk-line {
-  background: color-mix(in srgb, var(--c-swamp-400) 13%, transparent);
-  color: transparent;
-  position: relative;
-  overflow: hidden;
-}
-/* иконка скелетона сохраняет радиус по размеру (базовый/.entity--s/.entity--l);
-   sk-line — малый радиус */
-.entity--skeleton .sk-line { height: .72em; border-radius: var(--radius-s); }
-.entity--skeleton .sk-line--head { width: 42%; }
-.entity--skeleton .sk-line--label { width: 68%; height: 1em; }
-.entity--skeleton .sk-line--sub { width: 88%; }
-.entity--skeleton .entity__icon > *,
-.entity--skeleton .sk-line > * { visibility: hidden; }
-.entity--skeleton .entity__icon::after,
-.entity--skeleton .sk-line::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, #fff 55%, transparent), transparent);
-  animation: entity-shimmer 1.3s ease-in-out infinite;
-}
-@keyframes entity-shimmer { 100% { transform: translateX(100%); } }
-@media (prefers-reduced-motion: reduce) {
-  .entity--skeleton .entity__icon::after,
-  .entity--skeleton .sk-line::after { animation: none; }
-}
 
 /* =========================================================================
    Пустое / нет данных (—) и состояние ошибки (объект удалён/недоступен)

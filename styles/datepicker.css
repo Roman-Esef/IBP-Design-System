@@ -38,6 +38,8 @@
   gap: 4px;
   height: 32px;
   padding: 0 6px 0 8px;
+  min-width: 0;
+  max-width: 100%;
   border: none;
   border-radius: var(--radius-s);
   background: transparent;
@@ -46,10 +48,11 @@
   cursor: pointer;
   transition: background-color .12s;
 }
+.dpk__caption > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .dpk__caption:hover { background: var(--bgtable-row-hover); }
 .dpk__caption:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
 .dpk__cap-icon { display: inline-flex; color: var(--text-secondary); transition: transform .18s; }
-.dpk__cap-icon svg { width: 18px; height: 18px; display: block; }
+.dpk__cap-icon :is(svg,[data-icon]){ width: 18px; height: 18px; display: block; }
 .dpk--panel .dpk__cap-icon { transform: rotate(180deg); }
 .dpk__nav { display: inline-flex; gap: 2px; }
 /* в режиме выбора месяца/года стрелки листают блок (±1 год у месяцев, ±12 лет у годов) */
@@ -103,7 +106,7 @@
   font-variant-numeric: tabular-nums;
   transition: background-color .12s, box-shadow .12s, color .12s;
 }
-.dpk__day:not(.dpk__day--disabled):not(.dpk__day--selected):not(.dpk__day--range-start):not(.dpk__day--range-end):hover .dpk__daynum {
+.dpk__day:not(.dpk__day--disabled):not([aria-disabled="true"]):not(.dpk__day--selected):not([aria-selected="true"]):not(.dpk__day--range-start):not(.dpk__day--range-end):hover .dpk__daynum {
   background: var(--bgtable-row-hover);
 }
 .dpk__day:focus-visible { outline: none; }
@@ -115,8 +118,10 @@
 /* сегодня */
 .dpk__day--today .dpk__daynum { box-shadow: inset 0 0 0 1px var(--primary); color: var(--primary); font-weight: 600; }
 
-/* выбрано / концы диапазона */
+/* выбрано / концы диапазона — класс форс-состояния витрины; реальная ячейка
+   несёт aria-selected="true" (грид-паттерн, RulesAudit W1). */
 .dpk__day--selected .dpk__daynum,
+.dpk__day[aria-selected="true"] .dpk__daynum,
 .dpk__day--range-start .dpk__daynum,
 .dpk__day--range-end .dpk__daynum {
   background: var(--primary);
@@ -126,9 +131,12 @@
 }
 
 /* недоступно */
-.dpk__day--disabled { cursor: default; }
-.dpk__day--disabled .dpk__daynum { color: var(--st-disabled); }
-.dpk__day--disabled::before { display: none; }
+.dpk__day--disabled,
+.dpk__day[aria-disabled="true"] { cursor: default; }
+.dpk__day--disabled .dpk__daynum,
+.dpk__day[aria-disabled="true"] .dpk__daynum { color: var(--st-disabled); }
+.dpk__day--disabled::before,
+.dpk__day[aria-disabled="true"]::before { display: none; }
 
 /* ---------- панель выбора месяца / года ---------- */
 .dpk__panel {

@@ -74,7 +74,7 @@
 
     function headHTML(caption) {
       return '<div class="dpk__head">' +
-        '<button type="button" class="dpk__caption" aria-haspopup="true"><span class="dpk__cap-text">' + caption + '</span>' +
+        '<button type="button" class="dpk__caption" aria-haspopup="true"><span>' + caption + '</span>' +
         '<span class="dpk__cap-icon" aria-hidden="true">' + icon('chevron-down') + '</span></button>' +
         '<div class="dpk__nav">' +
           '<button type="button" class="ibtn ibtn--neutral ibtn--s dpk__prev" aria-label="Назад">' + icon('chevron-left') + '</button>' +

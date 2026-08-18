@@ -93,7 +93,7 @@
   appearance: none;
   transition: color .15s ease, background-color .15s ease;
 }
-.segctrl__item svg { flex: none; width: var(--seg-icon); height: var(--seg-icon); display: block; }
+.segctrl__item :is(svg,[data-icon]){ flex: none; width: var(--seg-icon); height: var(--seg-icon); display: block; }
 
 /* icon-only segment — square-ish, needs an aria-label */
 .segctrl__item--icon-only { padding: 0 calc(var(--seg-px) - 4px); gap: 0; }
@@ -181,10 +181,10 @@
 .segctrl--s .segctrl__thumb { top: 2px; bottom: 2px; border-radius: calc(var(--radius-s) - 2px); }
 .segctrl--s .segctrl__item { height: 32px; padding: 0 11px; font: var(--type-button-s); border-radius: calc(var(--radius-s) - 2px); }
 .segctrl--s .segctrl__item--icon-only { padding: 0 calc(11px - 4px); }
-.segctrl--s .segctrl__item svg { width: 18px; height: 18px; }
+.segctrl--s .segctrl__item :is(svg,[data-icon]){ width: 18px; height: 18px; }
 
 .segctrl--xs { padding: 2px; border-radius: var(--radius-s); }
 .segctrl--xs .segctrl__thumb { top: 2px; bottom: 2px; border-radius: calc(var(--radius-s) - 2px); }
 .segctrl--xs .segctrl__item { height: 24px; padding: 0 8px; font: var(--type-button-xs); border-radius: calc(var(--radius-s) - 2px); }
 .segctrl--xs .segctrl__item--icon-only { padding: 0 calc(8px - 4px); }
-.segctrl--xs .segctrl__item svg { width: 16px; height: 16px; }
+.segctrl--xs .segctrl__item :is(svg,[data-icon]){ width: 16px; height: 16px; }

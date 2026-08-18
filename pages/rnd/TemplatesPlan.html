@@ -1,0 +1,599 @@
+<!-- @dsCard group="RND" name="План: шаблоны и прототип" viewport="1440x900" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script>window.__DS_ROOT = '../../';</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>План: шаблоны, локальные компоненты и прототип — Дизайн-система</title>
+<link rel="stylesheet" href="../../styles/typography.css">
+<link rel="stylesheet" href="../../styles/colors.css">
+<link rel="stylesheet" href="../../styles/ds-nav.css">
+<link rel="stylesheet" href="../../styles/ds-toc.css">
+<link rel="stylesheet" href="../../styles/radius.css">
+<link rel="stylesheet" href="../../styles/ds-docs.css">
+<link rel="stylesheet" href="../../styles/table-cell.css">
+<style>
+.page{max-width:1560px;margin:0 auto;padding:clamp(40px,7vw,96px) clamp(24px,4vw,56px) 140px;}
+a{color:var(--link);} a:hover{color:var(--link-dark);}
+.section>p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 28px;max-width:92ch;text-wrap:pretty;}
+.section h3+p.desc{margin-top:0;}
+.where{display:inline-flex;align-items:center;font:700 11px/1 var(--font-text),sans-serif;border-radius:6px;padding:5px 8px;white-space:nowrap;}
+.where-ds{background:var(--secondary-light,var(--c-cgrey-50));color:var(--primary,var(--text-primary));}
+.where-proto{background:var(--c-cgrey-100);color:var(--text-secondary);}
+.where-both{background:var(--warning);color:var(--warning-dark);}
+.rec{display:inline-flex;font:700 11px/1 var(--font-text),sans-serif;border-radius:999px;padding:5px 9px;background:var(--success,var(--c-cgrey-100));color:var(--text-on-dark);}
+.area{display:inline-flex;font:600 11px/1 var(--font-text),sans-serif;border-radius:999px;padding:5px 9px;white-space:nowrap;background:var(--c-cgrey-50);color:var(--text-secondary);}
+.q{display:inline-flex;font:700 11px/1 var(--font-text),sans-serif;border-radius:6px;padding:5px 8px;background:var(--c-cgrey-50);color:var(--text-secondary);}
+.claim{font:var(--type-body-l);color:var(--text-primary);margin:0 0 10px;max-width:92ch;text-wrap:pretty;}
+ul.tight{margin:0 0 24px;padding-left:22px;font:var(--type-body-m);color:var(--text-primary);max-width:92ch;}
+ul.tight li{margin:0 0 8px;text-wrap:pretty;}
+ul.tight li b{font-weight:600;}
+.tree{font:13px/1.75 var(--font-screen),ui-monospace,monospace;color:var(--text-primary);background:var(--c-cgrey-50);border-radius:var(--radius-s);padding:20px 24px;margin:0 0 28px;white-space:pre;overflow-x:auto;}
+.tree b{font-weight:700;}
+.tree i{font-style:normal;color:var(--text-secondary);}
+.note{font:var(--type-body-m);color:var(--text-secondary);border-left:3px solid var(--c-cgrey-100);padding:2px 0 2px 16px;margin:0 0 28px;max-width:92ch;text-wrap:pretty;}
+</style>
+</head>
+<body>
+<main class="page">
+  <a class="crumb" href="../../index.html">← Дизайн-система</a>
+  <header class="masthead">
+    <p class="eyebrow">RND</p>
+    <h1>План: шаблоны, локальные компоненты и прототип</h1>
+    <p class="meta"><span>Версия: <b>v1.0</b></span><span>Обновлено: <b>18.08.2026</b></span></p>
+    <p class="lead">Предложение по следующему этапу: где живут правила построения макетов, как устроены локальные компоненты (тайлы), из чего состоит набор шаблонов и как собрать интерактивный прототип продукта с перекрёстными ссылками. Изменений в ДС по этому плану ещё не вносилось — страница создана как черновик решения. Решения, помеченные знаком вопроса, за вами.</p>
+  </header>
+
+  <section class="section" data-screen-label="Свод">
+    <h2>Свод предложения</h2>
+    <p class="desc">Пять решений, из которых складывается остальное. Обоснования — в разделах ниже.</p>
+    <ul class="tight">
+      <li><b>Проекта два, не один.</b> ДС остаётся библиотекой визуального языка без знания предметной области. Копия продукта (экраны, локальные тайлы, данные, сценарии) — отдельный проект, который биндит эту ДС. Критерий границы — один: «переиспользуется ли это в другом продукте/фиче». Правило отступов — да, тайл «КНР» — нет.</li>
+      <li><b>Правила макета — новый foundation в ДС.</b> Раздел «Сетка и раскладка» (Layout) плюс <i>styles/layout.css</i>: FHD как база, безопасная область, ширина контента, колонки, паддинги страницы, зазоры между тайлами, поведение на 1440/2560. Сейчас эти значения живут в CSS экранов копипастом — то есть нигде.</li>
+      <li><b>Локальные компоненты — в проекте продукта, но по контракту из ДС.</b> В ДС уходит методология: как заводить, что описывать, как версионировать, как переопределять. Экземпляры («КНР», «Финансовые метрики сделки», «Дерево продуктов ДИД») знают предметную область и живут рядом с экранами.</li>
+      <li><b>Мастер-компонент делается инклудом, а не копипастом.</b> Один партиал разметки + свой CSS на токенах ДС; экраны его подключают, а не дублируют. Это единственный способ выполнить требование «тайл всегда выглядит так, как задумано». Рантайм — маленький <i>scripts/ds-include.js</i> в ДС.</li>
+      <li><b>Реестр зависимостей генерируется из файлов, а не ведётся руками.</b> Каждый экран объявляет, что использует; скрипт собирает из этого карту прототипа: экран → локальные компоненты → компоненты ДС, и обратную проекцию «где используется». Реестр, который надо обновлять вручную, устаревает на второй неделе.</li>
+    </ul>
+  </section>
+
+  <section class="section" data-screen-label="Граница">
+    <h2>Граница: что в ДС, что в отдельном проекте</h2>
+    <p class="desc">Критерий: сущность остаётся в ДС, если она переиспользуется за пределами конкретного продукта или фичи и не содержит предметных данных. Всё, что знает про сделки, продукты ДИД и КНР, — в проекте продукта.</p>
+    <div class="tbl">
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="th th--separator"></div>
+        <div class="th"><span class="th__label">Сущность</span></div>
+        <div class="th th--center"><span class="th__label">Где</span></div>
+        <div class="th"><span class="th__label">Почему</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Токены, атомы, молекулы, организмы</b></span></span></div>
+        <div class="tc tc--center"><span class="where where-ds">ДС</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Как сейчас. Ничего не меняется</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Правила макета: разрешение, сетка, отступы страницы</b></span></span></div>
+        <div class="tc tc--center"><span class="where where-ds">ДС</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Одинаковы для всех страниц продукта и для любого будущего экрана — это визуальный язык, а не фича</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Шаблоны страниц (каркасы без данных)</b></span></span></div>
+        <div class="tc tc--center"><span class="where where-ds">ДС</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Каркас «список», «карточка сущности», «дашборд» повторяется в любом продукте банка. Данных внутри нет — только раскладка и слоты</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Методология локальных компонентов: контракт, чек-лист, шаблон папки, рантайм инклуда</b></span></span></div>
+        <div class="tc tc--center"><span class="where where-ds">ДС</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Правило «как заводить локальный тайл» переиспользуется каждым продуктом. Кода мало — один скрипт и одна страница-инструкция</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Экземпляры локальных тайлов («КНР», «Финансовые метрики сделки», «Дерево продуктов ДИД»)</b></span></span></div>
+        <div class="tc tc--center"><span class="where where-proto">Продукт</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Знают предметную область: поля, термины, связи. В ДС они превратили бы библиотеку в каталог одного продукта</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Экраны продукта, сценарии, данные-фикстуры</b></span></span></div>
+        <div class="tc tc--center"><span class="where where-proto">Продукт</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Основной объём (десятки экранов × состояния × данные) и свой темп изменений. В ДС это утопит документацию компонентов</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Карта прототипа, реестр зависимостей, роутинг между экранами</b></span></span></div>
+        <div class="tc tc--center"><span class="where where-proto">Продукт</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Карта описывает продукт. В ДС — только сам механизм (скрипт-роутер и сборщик реестра), если решим его переиспользовать</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 120px 3fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Проверочные экраны (<i>pages/screens/</i>)</b></span></span></div>
+        <div class="tc tc--center"><span class="where where-both">ДС, но 1–2</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Экран как способ проверки ДС полезен — но остаётся 1–2 эталонных (сейчас DealCard). Остальные переезжают в проект продукта</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
+    <p class="note">Связь между проектами — бинд этой ДС в проект продукта: там она видна как <i>_ds/</i>, стили подключаются одной ссылкой, компоненты не копируются. Плата за границу — правка в ДС не проверяется на экранах автоматически; снимается процедурой сверки (см. «Риски»).</p>
+  </section>
+
+  <section class="section" data-screen-label="Правила макета">
+    <h2>Правила макета</h2>
+
+    <h3>Что описываем</h3>
+    <p class="desc">Раздел «Сетка и раскладка» в «Основах» — рядом с «Отступами». Отступы задают шкалу значений, раскладка — куда эти значения применяются на уровне экрана.</p>
+    <ul class="tight">
+      <li><b>Базовое разрешение</b> — FHD 1920×1080 как эталон макета и как ширина проверки фиделити (это правило уже действует в скиллах, но не описано на странице ДС).</li>
+      <li><b>Каркас экрана</b> — NavPanel, шапка страницы, область контента: их ширины, фиксация, поведение при прокрутке.</li>
+      <li><b>Колонки и зазоры</b> — сколько колонок в области контента, ширина зазора, какие раскладки тайлов законны (1/2, 1/3, 2/3, полная).</li>
+      <li><b>Паддинги страницы</b> — по горизонтали и вертикали, отступ первого и последнего блока, расстояние между секциями.</li>
+      <li><b>Другие разрешения</b> — что происходит на 1440 и 2560: контент тянется, или фиксируется максимум, или меняется число колонок. Здесь нужно ваше решение.</li>
+      <li><b>Слои</b> — порядок наложения (контент, липкая шапка, дропдаун, поповер, модалка, тост) единым набором токенов, чтобы прототип не ловил случайные перекрытия.</li>
+    </ul>
+
+    <h3>Где хранить</h3>
+    <p class="desc">Страница <i>pages/foundations/Layout.html</i> + токены <i>styles/layout.css</i> + спека <i>specs/Layout.md</i>, по обычному чек-листу нового компонента. Значения токенов — предложение, требует сверки с макетами Pixso.</p>
+    <div class="tbl">
+      <div class="tbl__row" style="grid-template-columns:8px 1.4fr 120px 2.6fr 8px;">
+        <div class="th th--separator"></div>
+        <div class="th"><span class="th__label">Токен</span></div>
+        <div class="th th--center"><span class="th__label">Значение</span></div>
+        <div class="th"><span class="th__label">Смысл</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.4fr 120px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">--screen-base-w</span></span></div>
+        <div class="tc tc--center"><span class="tc__text">1920</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Эталонная ширина макета</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.4fr 120px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">--page-pad-x / --page-pad-y</span></span></div>
+        <div class="tc tc--center"><span class="q">?</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Паддинги области контента</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.4fr 120px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">--content-max-w</span></span></div>
+        <div class="tc tc--center"><span class="q">?</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Максимум ширины контента (или «без ограничения»)</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.4fr 120px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">--grid-cols / --grid-gap</span></span></div>
+        <div class="tc tc--center"><span class="q">?</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Колонки области контента и зазор между тайлами</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.4fr 120px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">--section-gap</span></span></div>
+        <div class="tc tc--center"><span class="q">?</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Вертикальное расстояние между блоками страницы</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.4fr 120px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc"><span class="tc__row"><span class="tc__text">--z-*</span></span></div>
+        <div class="tc tc--center"><span class="q">?</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Слои: sticky, dropdown, popover, modal, toast</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
+    <p class="note">Быстрый путь снять реальные значения без выдумывания: замерить их на уже собранных экранах (<i>pages/screens/DealCard.html</i>) и сверить с макетом Pixso — расхождения станут списком решений.</p>
+  </section>
+
+  <section class="section" data-screen-label="Локальные компоненты">
+    <h2>Локальные компоненты (тайлы)</h2>
+
+    <h3>Что это в терминах ДС</h3>
+    <p class="claim">Локальный компонент — организм, который знает предметную область: собран из компонентов ДС, но фиксирует конкретный состав полей, порядок, термины и правила отображения. ДС такой компонент выдать не может (она не знает про КНР), а экран не должен его переизобретать.</p>
+    <p class="desc">Это ровно тот промежуточный слой, который в CLAUDE.md назван целевым потребителем ДС. Значит у него должен быть свой каталог — с версией, датой, вариантами, состояниями и списком «где используется». Не документируем — теряем требование «выглядит так, как задумано».</p>
+
+    <h3>Механика мастер-компонента</h3>
+    <p class="desc">Главный вопрос: что физически лежит в файле экрана. Четыре варианта, рекомендация — B + свой CSS.</p>
+    <div class="tbl">
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 2.4fr 1.6fr 110px 8px;">
+        <div class="th th--separator"></div>
+        <div class="th"><span class="th__label">Вариант</span></div>
+        <div class="th"><span class="th__label">Как работает</span></div>
+        <div class="th"><span class="th__label">Цена</span></div>
+        <div class="th th--center"><span class="th__label">Итог</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 2.4fr 1.6fr 110px 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>A. Копипаст разметки</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Как сейчас: тайл верстается в каждом экране заново</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Правка в N местах, копии расходятся молча — то, от чего вы уходите в Pixso мастер-компонентами</span></span></div>
+        <div class="tc tc--center"><span class="tc__text">Нет</span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 2.4fr 1.6fr 110px 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>B. Рантайм-инклуд</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">В экране одна строка вида <i>&lt;div data-include="local/TileKNR.html" data-fixture="deal-102"&gt;&lt;/div&gt;</i>; скрипт ДС подставляет партиал и данные</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Содержимое тайла не видно в файле экрана; нужен маленький рантайм и правило переопределений</span></span></div>
+        <div class="tc tc--center"><span class="rec">Да</span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 2.4fr 1.6fr 110px 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>C. Только свой CSS</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Класс локального тайла с собственным CSS на токенах ДС, разметка пишется в экране руками</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Фиксирует вид, но не состав и порядок полей — структура всё равно расходится</span></span></div>
+        <div class="tc tc--center"><span class="tc__text">В паре с B</span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 2.4fr 1.6fr 110px 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>D. Сборка экранов скриптом</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Партиалы вклеиваются в статические HTML билд-шагом</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Два артефакта на один экран (источник и сборка), рассинхрон при правке «в готовом файле»</span></span></div>
+        <div class="tc tc--center"><span class="tc__text">Нет</span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
+    <p class="note">B даёт ровно поведение мастер-компонента Pixso: правка партиала меняет все вхождения. Переопределения на месте вставки — атрибутами (<i>data-title</i>, <i>data-state</i>) и CSS-переменными, как «отвязанные свойства» инстанса. Экраны при этом читаются короче, а не длиннее: файл экрана становится раскладкой, а не полотном разметки.</p>
+
+    <h3>Контракт локального компонента</h3>
+    <p class="desc">Папка на компонент, пять файлов. Это минимум, при котором «выглядит как задумано» проверяемо, а не на честном слове.</p>
+    <div class="tree"><b>local/TileKNR/</b>
+  TileKNR.html      <i>— партиал: только разметка тайла, без обвязки страницы</i>
+  TileKNR.css       <i>— свои классы на токенах ДС (если нужны)</i>
+  TileKNR.md        <i>— спека: назначение, поля, варианты, состояния, переполнение, из чего собран</i>
+  TileKNR.doc.html  <i>— страница-витрина: все варианты и состояния рядом, @dsCard</i>
+  fixtures.json     <i>— демо-данные для витрины и экранов</i></div>
+    <p class="desc">В спеке обязательны: версия и дата (как у компонентов ДС), список компонентов ДС внутри, поведение при переполнении и пустых данных, и раздел «Где используется» — он генерируется из экранов, а не пишется руками.</p>
+
+    <h3>Где хранить</h3>
+    <p class="desc">В проекте продукта, каталогом <i>local/</i> рядом с экранами; в этой ДС — только страница-инструкция «Локальные компоненты» с контрактом и чек-листом плюс рантайм инклуда. Альтернатива (держать экземпляры в ДС, в новой группе <i>pages/local/</i>) годится, только если их будет мало и один продукт — но это ровно тот случай, когда через полгода ДС становится каталогом IBP. Решение за вами; вопрос вынесен в конец.</p>
+  </section>
+
+  <section class="section" data-screen-label="Шаблоны">
+    <h2>Шаблоны</h2>
+    <p class="desc">Шаблон — каркас страницы с раскладкой и слотами, без предметных данных. Сейчас есть один: <i>templates/screen/Screen.html</i> (пустая страница с подключённой ДС). Предлагаю набор из шести — они покрывают почти все экраны продукта, и дальше сборка экрана начинается с копии, а не с нуля.</p>
+    <div class="tbl">
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr 2.4fr 2fr 8px;">
+        <div class="th th--separator"></div>
+        <div class="th"><span class="th__label">Шаблон</span></div>
+        <div class="th"><span class="th__label">Что внутри</span></div>
+        <div class="th"><span class="th__label">Из чего собран</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr 2.4fr 2fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>AppShell</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Каркас приложения: панель навигации, шапка страницы, область контента на сетке. База для остальных</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">NavPanel, PageHeader, Breadcrumbs, layout-токены</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr 2.4fr 2fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>ListPage</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Реестр: фильтры, таблица, пагинация, пустое состояние, состояние загрузки</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Table, TableFilter, Pagination, EmptyState, Skeleton</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr 2.4fr 2fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>EntityPage</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Карточка сущности: шапка сущности, табы, сетка тайлов с равными высотами в ряду</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Entity, Tab, Tile, RiskMetric, ReadOnlyField</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr 2.4fr 2fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>FormPage</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Заведение и редактирование: секции полей, шаги, футер с действиями, валидация</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Input*, Select, Checkbox, Alert, Button, Modal</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr 2.4fr 2fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>DashboardPage</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Сводка: тайлы метрик, графики, распределения на сетке</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Tile, Chart, AllocationBar, RiskMetric</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.5fr 2.4fr 2fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Prototype</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Оболочка прототипа: список экранов, переходы, режим презентации во весь экран, панель сценария</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Роутер прототипа + AppShell</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
+    <p class="note">Каждый шаблон — папка <i>templates/&lt;slug&gt;/</i> с HTML и коротким readme «что менять в первую очередь». Данных внутри нет: слоты подписаны словами вроде «здесь тайлы фичи». Шаблоны в этом проекте видны потребителям ДС отдельной группой — то есть проект продукта берёт их одним копированием.</p>
+  </section>
+
+  <section class="section" data-screen-label="Прототип">
+    <h2>Прототип</h2>
+
+    <h3>Структура проекта продукта</h3>
+    <p class="desc">Отдельный проект, биндит эту ДС. Пять каталогов, каждый с одной ответственностью.</p>
+    <div class="tree"><b>IBP Prototype/</b>
+  <b>screens/</b>       <i>— экраны: 02-Deal.html, 02-Deal--empty.html, 02-Deal--error.html …</i>
+  <b>local/</b>         <i>— локальные компоненты (тайлы) по контракту выше</i>
+  <b>flows/</b>         <i>— сценарии: шаги, точки входа, что тестируем</i>
+  <b>data/</b>          <i>— фикстуры: одна сделка выглядит одинаково на всех экранах</i>
+  <b>map.html</b>       <i>— карта прототипа: экраны, переходы, зависимости, «где используется»</i>
+  <b>registry.json</b>  <i>— генерируемый реестр, руками не правится</i>
+  <b>_ds/</b>           <i>— эта ДС, подключается одной ссылкой</i></div>
+    <p class="desc">Состояния одного экрана — отдельные файлы с суффиксом (<i>--empty</i>, <i>--loading</i>, <i>--error</i>), а не переключатели внутри: так каждое состояние можно дать на тест ссылкой и сравнить рядом.</p>
+
+    <h3>Перекрёстные ссылки и зависимости</h3>
+    <p class="desc">Источник истины — сами файлы. Экран объявляет своё окружение в шапке; сборщик обходит каталог и строит реестр и карту. Ручной список зависимостей устареет — генерируемый расходится с реальностью только вместе с файлами.</p>
+    <ul class="tight">
+      <li><b>Объявление в экране</b> — заголовок экрана (имя, сценарий, статус: черновик/на тесте/утверждён) и переходы: у каждой кликабельной цели указан экран-назначение.</li>
+      <li><b>Зависимости — не декларацией, а фактом</b>: сборщик видит подключённые локальные компоненты по строкам инклуда, а компоненты ДС — по использованным классам. Это нельзя забыть обновить.</li>
+      <li><b>Две проекции на карте</b>: «экран → локальные компоненты → компоненты ДС» и обратная «этот тайл используется на экранах …» — вторая и отвечает на вопрос «что сломается, если я поменяю тайл».</li>
+      <li><b>Граф переходов</b> — экраны колонками по шагам сценария со стрелками переходов; висячие ссылки и недостижимые экраны подсвечиваются.</li>
+      <li><b>Обратная связь с ДС</b>: третья проекция «компонент ДС → экраны, где он живёт» показывает, что затронет правка компонента. Тот же принцип, что в линтере целостности.</li>
+    </ul>
+
+    <h3>Кликабельность</h3>
+    <p class="desc">Прототип для тестирования пользователями — значит нужны переходы, простое состояние и режим без документации. Минимум механики: переходы по ссылкам между файлами экранов (никакого фреймворка), состояние в адресе страницы (чтобы ссылка воспроизводила ровно то, что видел тестировщик), режим презентации — экран во весь монитор без служебных панелей, и панель сценария с шагами, скрываемая на время теста.</p>
+
+    <h3>Данные</h3>
+    <p class="desc">Одни фикстуры на весь прототип. Тестировщик не должен видеть сделку с одним номером на списке и другим — в карточке; такие расхождения читаются как баг продукта и портят результаты теста.</p>
+  </section>
+
+  <section class="section" data-screen-label="Новое в ДС">
+    <h2>Что добавить в ДС</h2>
+    <p class="desc">Полный список изменений в этом проекте по плану. Объём — оценка в файлах, не в часах.</p>
+    <div class="tbl">
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 130px 2.6fr 8px;">
+        <div class="th th--separator"></div>
+        <div class="th"><span class="th__label">Что</span></div>
+        <div class="th th--center"><span class="th__label">Тип</span></div>
+        <div class="th"><span class="th__label">Зачем</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 130px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Layout — сетка и раскладка</b></span></span></div>
+        <div class="tc tc--center"><span class="area">Основы</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Правила FHD, колонок и паддингов страницы; сейчас их нет ни на одной странице</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 130px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Motion — тайминги и easing</b></span></span></div>
+        <div class="tc tc--center"><span class="area">Основы</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Прототип живёт переходами; сейчас тайминги разбросаны по компонентам. Пункт уже лежит в общем бэклоге</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 130px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Локальные компоненты — контракт и чек-лист</b></span></span></div>
+        <div class="tc tc--center"><span class="area">Правила</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Единый способ заводить и версионировать локальные тайлы в любом продукте</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 130px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Шесть шаблонов страниц</b></span></span></div>
+        <div class="tc tc--center"><span class="area">Шаблоны</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Сборка экрана начинается с каркаса, а не с пустого файла</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 130px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Рантайм инклуда партиалов</b></span></span></div>
+        <div class="tc tc--center"><span class="area">Скрипты</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Механизм мастер-компонента; подключается через единую точку входа ДС</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 130px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Сборщик реестра и роутер прототипа</b></span></span></div>
+        <div class="tc tc--center"><span class="area">Скрипты</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Переиспользуемая механика карты и переходов. Можно оставить и в проекте продукта — вопрос ниже</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.6fr 130px 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Скиллы: локальный компонент, экран прототипа, сверка ДС и прототипа</b></span></span></div>
+        <div class="tc tc--center"><span class="area">Правила</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Чек-листы для агента — по образцу существующих скиллов сборки по макету</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-screen-label="Порядок работ">
+    <h2>Порядок работ</h2>
+    <p class="desc">Этапы так, чтобы каждый следующий опирался на готовое, и на любом можно остановиться с полезным результатом.</p>
+    <div class="tbl">
+      <div class="tbl__row" style="grid-template-columns:8px 60px 1.6fr 2.6fr 8px;">
+        <div class="th th--separator"></div>
+        <div class="th th--center"><span class="th__label">Этап</span></div>
+        <div class="th"><span class="th__label">Что делаем</span></div>
+        <div class="th"><span class="th__label">Результат</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 60px 1.6fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--center"><span class="tc__text">0</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Решения по вопросам ниже</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Согласованная граница проектов и значения сетки</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 60px 1.6fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--center"><span class="tc__text">1</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Layout в ДС</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Правила макета описаны и вынесены в токены; существующие экраны переводятся на них</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 60px 1.6fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--center"><span class="tc__text">2</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">AppShell + ListPage + EntityPage</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Три каркаса, на которых проверяются токены Layout. Остальные шаблоны — после</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 60px 1.6fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--center"><span class="tc__text">3</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Механика локальных компонентов и контракт</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Рантайм инклуда + страница-инструкция; проверка на одном настоящем тайле</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 60px 1.6fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--center"><span class="tc__text">4</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Проект прототипа: каркас, 2–3 экрана одного сценария, карта</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Работающий срез на одном сценарии — на нём видно, что упущено, до масштабирования на весь продукт</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 60px 1.6fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--center"><span class="tc__text">5</span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Перенос экранов и локальных тайлов, остальные шаблоны</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Копия продукта целиком; в ДС остаются 1–2 проверочных экрана</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-screen-label="Риски">
+    <h2>Риски</h2>
+    <div class="tbl">
+      <div class="tbl__row" style="grid-template-columns:8px 1.8fr 2.6fr 8px;">
+        <div class="th th--separator"></div>
+        <div class="th"><span class="th__label">Риск</span></div>
+        <div class="th"><span class="th__label">Как снимаем</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.8fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Правка в ДС ломает экраны в другом проекте, и это выясняется поздно</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Проекция «компонент ДС → экраны» на карте прототипа плюс процедура сверки после правки компонента (агент-ревизор распространения изменений уже в бэклоге)</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.8fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Локальный тайл дублирует то, что уже есть в ДС</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">В контракте локального компонента обязателен список компонентов ДС внутри; свой CSS разрешён только на токенах, новых цветов и размеров в локальных компонентах не появляется</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.8fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Прототип разрастается, экраны и данные расходятся между собой</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Одни фикстуры на прототип, состояния экрана отдельными файлами, карта показывает недостижимые и висячие экраны</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.8fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Инклуд усложняет отладку: в файле экрана тайла «не видно»</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">У каждого локального компонента есть своя витрина со всеми вариантами; экран остаётся раскладкой. При падении инклуда на месте вставки видно имя недостающего партиала, а не пустое место</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 1.8fr 2.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Два проекта — двойная работа по правилам и линтеру</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Правила и линтер остаются в ДС; проект продукта подключает их, а не переписывает. Свои правила там только про предметную область</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-screen-label="Вопросы">
+    <h2>Открытые вопросы</h2>
+    <p class="desc">Ответы на них определяют объём этапов 1–4. Мои варианты по умолчанию — в последнем столбце; там, где ответ известен только вам, стоит прочерк.</p>
+    <div class="tbl">
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="th th--separator"></div>
+        <div class="th"><span class="th__label">Вопрос</span></div>
+        <div class="th"><span class="th__label">Почему важно</span></div>
+        <div class="th"><span class="th__label">Мой вариант</span></div>
+        <div class="th th--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Прототип — отдельный проект или всё в ДС?</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Определяет всё остальное: где лежат экраны, тайлы и данные</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Отдельный проект с биндом ДС</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Сколько локальных тайлов ожидается — десяток или сотня?</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">От этого зависит, нужен ли им отдельный каталог с навигацией или хватит одной страницы-витрины</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__empty">—</span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Один прототип на продукт или по одному на фичу?</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Один — общая карта и общие данные; по фичам — независимые тесты, но тайлы придётся делить между проектами</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Один проект, сценарии внутри</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Значения сетки: паддинги страницы, число колонок, зазор, максимум ширины</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Без них Layout будет выдумкой. Могу снять с собранных экранов и принести на сверку</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Снять с экранов и сверить с Pixso</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Что происходит на 1440 и 2560</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Тестировщики придут с разными мониторами; без правила экран поедет непредсказуемо</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__empty">—</span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Насколько прототип должен быть «живым»: ссылки между экранами или ввод, фильтры, валидация?</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Разница в объёме работы кратная. Живой ввод стоит делать только там, где его проверяют в тесте</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Ссылки и переходы, живой ввод — точечно</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Первый сценарий для этапа 4</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Нужен один настоящий сквозной путь из 3–5 экранов, чтобы проверить механику на реальном материале</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__empty">—</span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Нужен ли Motion сейчас</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Прототип с переходами без токенов длительностей начнёт обрастать случайными значениями</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Да, минимальный набор на этапе 1</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+      <div class="tbl__row" style="grid-template-columns:8px 2.2fr 2.4fr 1.6fr 8px;">
+        <div class="tc tc--separator"></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Судьба экранов, уже собранных в ДС</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Они писались как проверка ДС; часть станет основой прототипа</span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Оставить DealCard, остальное переносить в прототип</span></span></div>
+        <div class="tc tc--separator"></div>
+      </div>
+    </div>
+    <p class="note">Эта страница ещё не внесена в обзор ДС и в навигацию — по вашей просьбе изменений в ДС не делал. Скажу отдельно, когда добавлять: тогда же обновлю счётчик группы RND.</p>
+  </section>
+</main>
+<script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-toc.js"></script>
+</body>
+</html>

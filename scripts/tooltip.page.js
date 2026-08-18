@@ -12,66 +12,13 @@ const UI_ICONS = {
   download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 20h14"/></svg>',
 };
 
-const ARROW_INSET = 13; /* 6px edge gap + 7px to triangle apex centre */
+/* ---------- разметка и позиционирование — общий рантайм, scripts/ds-tooltip.js ---------- */
+function makeTip(text, o = {}) { return window.DSTooltip.make(text, o); }
 
-/* ---------- tooltip factory ---------- */
-function makeTip(text, o = {}) {
-  const { type='main', placement='top', align='center',
-          arrow=true, multiline=false, floating=false, pinned=false,
-          rich=false, title='', action='' } = o;
-  const el = document.createElement('span');
-  el.className = 'tip tip--' + type + ' tip--' + placement + ' tip--' + align;
-  if (!arrow)     el.classList.add('tip--no-arrow');
-  if (multiline)  el.classList.add('tip--multiline');
-  if (floating)   el.classList.add('tip--floating');
-  if (pinned)     el.classList.add('tip--pinned');
-  if (rich) {
-    el.classList.add('tip--rich');
-    if (title) {
-      const t = document.createElement('span'); t.className = 'tip__title'; t.textContent = title;
-      el.appendChild(t);
-    }
-    const p = document.createElement('span'); p.className = 'tip__text'; p.textContent = text;
-    el.appendChild(p);
-    if (action) {
-      const box = document.createElement('span'); box.className = 'tip__actions';
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'tip__action'; b.textContent = action;
-      box.appendChild(b); el.appendChild(box);
-    }
-  } else {
-    el.append(document.createTextNode(text));
-  }
-  const a = document.createElement('span'); a.className = 'tip__arrow';
-  el.appendChild(a);
-  return el;
-}
-
-/* ---------- positioner (floating, inside a relative stage) ---------- */
+/* демо фиксируют позицию, поэтому flip выключен */
 function placeTip(stage, tip, target, placement, align, gap) {
-  gap = gap == null ? 8 : gap;
-  const sr = stage.getBoundingClientRect();
-  const tr = target.getBoundingClientRect();
-  const tw = tip.offsetWidth, th = tip.offsetHeight;
-  const tl = tr.left - sr.left, tt = tr.top - sr.top;
-  const cx = tl + tr.width / 2, cy = tt + tr.height / 2;
-  let x = 0, y = 0;
-
-  if (placement === 'top')    y = tt - gap - th;
-  else if (placement === 'bottom') y = tt + tr.height + gap;
-  else if (placement === 'left')   x = tl - gap - tw;
-  else if (placement === 'right')  x = tl + tr.width + gap;
-
-  if (placement === 'top' || placement === 'bottom') {
-    if (align === 'center')      x = cx - tw / 2;
-    else if (align === 'start')  x = cx - ARROW_INSET;
-    else                         x = cx - (tw - ARROW_INSET);
-  } else {
-    if (align === 'center')      y = cy - th / 2;
-    else if (align === 'start')  y = cy - ARROW_INSET;
-    else                         y = cy - (th - ARROW_INSET);
-  }
-  tip.style.left = x + 'px';
-  tip.style.top  = y + 'px';
+  return window.DSTooltip.place(tip, target,
+    { placement, align, gap: gap == null ? 8 : gap, flip: false, offsetParent: stage });
 }
 
 /* =========================================================================
@@ -138,6 +85,11 @@ function placeTip(stage, tip, target, placement, align, gap) {
   render();
   const reposition = () => { if (tip) placeTip(stage, tip, target, state.placement, state.align, 8); };
   window.addEventListener('resize', reposition);
+  /* раскладка pg-kit достраивается после первого render(): сцена получает
+     position:relative и уезжает вправо — пересчитываем, когда всё устоялось */
+  requestAnimationFrame(() => requestAnimationFrame(reposition));
+  window.addEventListener('load', reposition);
+  if (window.ResizeObserver) new ResizeObserver(reposition).observe(stage);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposition);
 })();
 
@@ -194,7 +146,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
   if (!host) return;
   const wrap = document.createElement('span'); wrap.className = 'tip-anchor';
   const btn = document.createElement('button');
-  btn.type = 'button'; btn.className = 'iconbtn'; btn.innerHTML = UI_ICONS.help;
+  btn.type = 'button'; btn.className = 'ibtn ibtn--neutral ibtn--m'; btn.innerHTML = UI_ICONS.help;
   btn.setAttribute('aria-label', 'Что такое лимит риска');
   btn.setAttribute('aria-describedby', 'tt-rich');
   wrap.appendChild(btn);
@@ -206,17 +158,8 @@ function placeTip(stage, tip, target, placement, align, gap) {
   wrap.appendChild(tip);
   host.appendChild(wrap);
 
-  let showT = null, hideT = null;
-  const open  = () => { clearTimeout(hideT); showT = setTimeout(() => { placeTip(wrap, tip, btn, 'bottom', 'center', 8); tip.classList.add('is-visible'); }, 400); };
-  const close = () => { clearTimeout(showT); hideT = setTimeout(() => tip.classList.remove('is-visible'), 300); };
-  btn.addEventListener('mouseenter', open);
-  btn.addEventListener('mouseleave', close);
-  btn.addEventListener('focus', () => { clearTimeout(hideT); placeTip(wrap, tip, btn, 'bottom', 'center', 8); tip.classList.add('is-visible'); });
-  btn.addEventListener('blur', close);
-  // курсор может зайти в сам тултип — это отличие rich от обычного
-  tip.addEventListener('mouseenter', () => clearTimeout(hideT));
-  tip.addEventListener('mouseleave', close);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { clearTimeout(showT); tip.classList.remove('is-visible'); } });
+  // hover/focus, задержки, Esc и «курсор внутри rich» — общий рантайм
+  window.DSTooltip.bind(btn, { tip, placement: 'bottom', align: 'center', gap: 8, flip: false, offsetParent: wrap });
 })();
 
 /* =========================================================================
@@ -267,56 +210,13 @@ function placeTip(stage, tip, target, placement, align, gap) {
   const vp = document.getElementById('flip-vp');
   const target = document.getElementById('flip-target');
   const select = document.getElementById('flip-prefer');
-  const tip = makeTip('Подсказка с авто-разворотом', { placement:'bottom', align:'center', floating:true });
+  const tip = makeTip('Подсказка с авто-разворотом', { placement:'bottom', align:'center', floating:true, pinned:true });
   vp.appendChild(tip);
 
-  function setArrow(placement, alongPx) {
-    const a = tip.querySelector('.tip__arrow');
-    a.style.transform = 'none';
-    if (placement === 'top' || placement === 'bottom') {
-      const min = ARROW_INSET, max = tip.offsetWidth - ARROW_INSET;
-      const v = Math.max(min, Math.min(max, alongPx));
-      a.style.left = (v - 7) + 'px'; a.style.right = 'auto';
-    } else {
-      const min = ARROW_INSET, max = tip.offsetHeight - ARROW_INSET;
-      const v = Math.max(min, Math.min(max, alongPx));
-      a.style.top = (v - 7) + 'px'; a.style.bottom = 'auto';
-    }
-  }
-
+  /* авто-flip, clamp по границе и доводка стрелки в центр цели — общий рантайм */
   function update() {
-    const prefer = select.value;
-    const br = vp.getBoundingClientRect();
-    const tr = target.getBoundingClientRect();
-    const tw = tip.offsetWidth, th = tip.offsetHeight, gap = 8;
-    const spaceTop = tr.top - br.top, spaceBottom = br.bottom - tr.bottom;
-    const spaceLeft = tr.left - br.left, spaceRight = br.right - tr.right;
-    const order = {
-      top:   ['top','bottom','right','left'],
-      bottom:['bottom','top','right','left'],
-      left:  ['left','right','bottom','top'],
-      right: ['right','left','bottom','top'],
-    }[prefer];
-    const fits = { top: spaceTop>=th+gap, bottom: spaceBottom>=th+gap, left: spaceLeft>=tw+gap, right: spaceRight>=tw+gap };
-    let placement = order.find(p => fits[p]) || prefer;
-
-    tip.className = 'tip tip--main tip--' + placement + ' tip--center tip--floating tip--pinned';
-
-    // base position via center alignment
-    placeTip(vp, tip, target, placement, 'center', gap);
-    // clamp within viewport box and re-aim arrow
-    let x = parseFloat(tip.style.left), y = parseFloat(tip.style.top);
-    const m = 6;
-    const tlc = (tr.left - br.left) + tr.width/2, ttc = (tr.top - br.top) + tr.height/2;
-    if (placement === 'top' || placement === 'bottom') {
-      x = Math.max(m, Math.min(br.width - tw - m, x));
-      tip.style.left = x + 'px';
-      setArrow(placement, tlc - x);
-    } else {
-      y = Math.max(m, Math.min(br.height - th - m, y));
-      tip.style.top = y + 'px';
-      setArrow(placement, ttc - y);
-    }
+    window.DSTooltip.place(tip, target,
+      { placement: select.value, align: 'center', gap: 8, boundary: vp, offsetParent: vp });
   }
 
   // drag
@@ -354,7 +254,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
   const SHOW_DELAY = 400;
   defs.forEach(([ic, label], i) => {
     const btn = document.createElement('button');
-    btn.type = 'button'; btn.className = 'iconbtn'; btn.innerHTML = ic;
+    btn.type = 'button'; btn.className = 'ibtn ibtn--neutral ibtn--m'; btn.innerHTML = ic;
     btn.setAttribute('aria-label', label);
     const id = 'tt-trigger-' + i;
     btn.setAttribute('aria-describedby', id);
@@ -364,20 +264,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
     tip.setAttribute('role', 'tooltip'); tip.id = id;
     bar.appendChild(tip);
 
-    let timer = null;
-    function show() {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        placeTip(bar, tip, btn, 'top', 'center', 8);
-        tip.classList.add('is-visible');
-      }, SHOW_DELAY);
-    }
-    function hide() { clearTimeout(timer); tip.classList.remove('is-visible'); }
-    btn.addEventListener('mouseenter', show);
-    btn.addEventListener('mouseleave', hide);
-    btn.addEventListener('focus', () => { placeTip(bar, tip, btn, 'top', 'center', 8); tip.classList.add('is-visible'); });
-    btn.addEventListener('blur', hide);
-    btn.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+    window.DSTooltip.bind(btn, { tip, placement: 'top', align: 'center', gap: 8, flip: false, offsetParent: bar, delay: SHOW_DELAY });
   });
 
   // timing table
@@ -490,7 +377,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
   const ib = document.getElementById('use-iconbtn');
   if (ib) {
     const btn = document.createElement('button');
-    btn.type = 'button'; btn.className = 'iconbtn'; btn.innerHTML = UI_ICONS.trash;
+    btn.type = 'button'; btn.className = 'ibtn ibtn--neutral ibtn--m'; btn.innerHTML = UI_ICONS.trash;
     btn.setAttribute('aria-label', 'Удалить');
     btn.setAttribute('aria-describedby', 'use-tip-1');
     const wrap = document.createElement('span'); wrap.className = 'tip-anchor';
@@ -499,11 +386,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
     tip.id = 'use-tip-1'; tip.setAttribute('role', 'tooltip');
     wrap.appendChild(tip);
     ib.appendChild(wrap);
-    let timer;
-    btn.addEventListener('mouseenter', () => { timer = setTimeout(() => { placeTip(wrap, tip, btn, 'top', 'center', 8); tip.classList.add('is-visible'); }, 400); });
-    btn.addEventListener('mouseleave', () => { clearTimeout(timer); tip.classList.remove('is-visible'); });
-    btn.addEventListener('focus', () => { placeTip(wrap, tip, btn, 'top', 'center', 8); tip.classList.add('is-visible'); });
-    btn.addEventListener('blur', () => tip.classList.remove('is-visible'));
+    window.DSTooltip.bind(btn, { tip, placement: 'top', align: 'center', gap: 8, flip: false, offsetParent: wrap });
   }
 
   const tr = document.getElementById('use-truncate');
@@ -515,9 +398,8 @@ function placeTip(stage, tip, target, placement, align, gap) {
     tip.style.maxWidth = '220px';
     wrap.appendChild(tip);
     tr.appendChild(wrap);
-    let timer;
-    el.addEventListener('mouseenter', () => { timer = setTimeout(() => { placeTip(wrap, tip, el, 'bottom', 'center', 8); tip.classList.add('is-visible'); }, 400); });
-    el.addEventListener('mouseleave', () => { clearTimeout(timer); tip.classList.remove('is-visible'); });
+    // подсказка только при усечении текста — детект в рантайме
+    window.DSTooltip.bind(el, { tip, placement: 'bottom', align: 'center', gap: 8, flip: false, offsetParent: wrap, truncatedOnly: true });
   }
 
   const fl = document.getElementById('use-field');
@@ -533,11 +415,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
     inputWrap.appendChild(tip);
     wrap.appendChild(inputWrap);
     fl.appendChild(wrap);
-    let timer;
-    input.addEventListener('mouseenter', () => { timer = setTimeout(() => { placeTip(inputWrap, tip, input, 'bottom', 'start', 8); tip.classList.add('is-visible'); }, 400); });
-    input.addEventListener('mouseleave', () => { clearTimeout(timer); tip.classList.remove('is-visible'); });
-    input.addEventListener('focus', () => { placeTip(inputWrap, tip, input, 'bottom', 'start', 8); tip.classList.add('is-visible'); });
-    input.addEventListener('blur', () => tip.classList.remove('is-visible'));
+    window.DSTooltip.bind(input, { tip, placement: 'bottom', align: 'start', gap: 8, flip: false, offsetParent: inputWrap });
   }
 })();
 

@@ -88,7 +88,7 @@
   cursor: pointer;
   transition: background-color .12s ease, color .12s ease;
 }
-.pgn__pagesize-btn svg { width: 20px; height: 20px; display: block; transition: transform .15s ease; }
+.pgn__pagesize-btn :is(svg,[data-icon]){ width: 20px; height: 20px; display: block; transition: transform .15s ease; }
 .pgn__pagesize-btn:hover  { background: color-mix(in srgb, currentColor 12%, transparent); }
 .pgn__pagesize-btn:active { background: color-mix(in srgb, currentColor 22%, transparent); }
 .pgn__pagesize-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
@@ -139,7 +139,7 @@
   cursor: pointer;
   transition: background-color .12s ease, color .12s ease;
 }
-.pgn__arrow svg { width: 20px; height: 20px; display: block; }
+.pgn__arrow :is(svg,[data-icon]){ width: 20px; height: 20px; display: block; }
 .pgn__arrow:hover  { background: color-mix(in srgb, currentColor 12%, transparent); }
 .pgn__arrow:active { background: color-mix(in srgb, currentColor 22%, transparent); }
 .pgn__arrow:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
@@ -199,7 +199,7 @@
 
 /* =========================================================================
    RESPONSIVE — адаптив по фактически доступному месту (не по порогам вьюпорта).
-   Скрипт (pagination.page.js → fit) измеряет ширину строки и натуральную
+   Скрипт (ds-pagination.js → fit) измеряет ширину строки и натуральную
    ширину инфо-сводки, после чего выставляет две независимые оси:
      data-tier на .pgn      — уровень навигации: l | m | sm | c | xs
      data-layout на .pgn-row — раскладка строки: row | stack
@@ -281,4 +281,4 @@
   gap: 6px;
   color: var(--warning-dark);
 }
-.pgn-info__warn svg { width: 16px; height: 16px; flex: none; color: var(--warning); }
+.pgn-info__warn :is(svg,[data-icon]){ width: 16px; height: 16px; flex: none; color: var(--warning); }

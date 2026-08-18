@@ -98,7 +98,7 @@
   .vp { position:relative; height:300px; border:1px dashed var(--border-primary); border-radius:14px; overflow:hidden;
     background:
       linear-gradient(var(--tertiary-light),var(--tertiary-light)) padding-box,
-      repeating-conic-gradient(#eef3f2 0% 25%, #f7faf9 0% 50%) 0 / 20px 20px; }
+      repeating-conic-gradient(var(--c-cgrey-50) 0% 25%, var(--bg-tile) 0% 50%) 0 / 20px 20px; }
   .vp .tgt { position:absolute; cursor:grab; touch-action:none; background: var(--primary); border-color: var(--primary-dark); color:#fff; }
   .vp .tgt:active { cursor:grabbing; }
   .vp .hint-drag { position:absolute; left:14px; bottom:12px; font: var(--type-body-xs); color: var(--text-primary); }
@@ -109,6 +109,7 @@
   .iconbtn:hover { background: var(--tertiary-light); color: var(--text-primary); }
   .iconbtn:focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
   .iconbtn svg { width:22px; height:22px; }
+  .tgt i, .iconbtn i, .use-field__input i { display:contents; }
 
   /* ---------- do / don't ---------- */
   .guide { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
@@ -150,7 +151,7 @@
 <main class="page" data-screen-label="Tooltip">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v2.2</b></span><span>Обновлено: <b>27.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v2.4</b></span><span>Обновлено: <b>13.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Tooltip</h1>
     <p class="lead">Всплывающая подсказка при наведении или фокусе на объект — иконку, IconButton, обрезанный текст или поле с ошибкой. Контент — строка, тултип не может быть пустым. Хинт может быть со стрелкой или без неё, в любом из 12 краевых положений.</p>
@@ -164,7 +165,7 @@
       <div class="pg__controls" id="pg-controls"></div>
       <div class="pg__stage" id="pg-stage">
         <span class="tgt" id="pg-target">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="7.5" r=".6" fill="currentColor" stroke="none"/></svg>
+          <i data-icon="info-circle"></i>
         </span>
       </div>
     </div>
@@ -354,7 +355,7 @@
       </div>
       <div class="vp" id="flip-vp">
         <span class="tgt" id="flip-target" style="left:140px; top:128px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="7.5" r=".6" fill="currentColor" stroke="none"/></svg>
+          <i data-icon="info-circle"></i>
         </span>
         <span class="hint-drag">Перетащите цель ↕↔</span>
       </div>
@@ -487,6 +488,8 @@
   </footer>
 </main>
 
+<script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/ds-tooltip.js"></script>
 <script src="../../scripts/tooltip.page.js"></script>
 <script src="../../scripts/icons-data.js"></script>
 <script>

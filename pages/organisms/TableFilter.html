@@ -62,7 +62,7 @@
   .toggle { display:flex; align-items:center; gap:10px; cursor:pointer; }
   .toggle input { position:absolute; opacity:0; width:0; height:0; }
   .toggle__track { width:38px; height:22px; border-radius:999px; background:var(--st-disabled-midlight, #c9d2d2); position:relative; transition:background-color .15s; flex:none; }
-  .toggle__track::after { content:""; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:#fff; transition:transform .15s; box-shadow:0 1px 2px rgba(0,0,0,.2); }
+  .toggle__track::after { content:""; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:var(--bg-tile); transition:transform .15s; box-shadow:var(--elevation-1); }
   .toggle input:checked + .toggle__track { background:var(--primary); }
   .toggle input:checked + .toggle__track::after { transform:translateX(16px); }
   .toggle input:focus-visible + .toggle__track { outline:2px solid var(--primary); outline-offset:2px; }
@@ -118,23 +118,21 @@
   /* ---------- filter modal demo (композиция на Modal + Tab + Input) ---------- */
   .demo-launch { display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding:26px; border:1px solid var(--border-light); border-radius:14px; background: var(--tertiary-light); }
   .demo-launch .cap { font: var(--type-body-s); color: var(--text-secondary); }
-  /* модалка фильтра: высота НЕ фиксируется — растёт по контенту до 80vh,
-     прокручивается только Modal_Body (правило Modal) */
-  .tfm__body { display:grid; grid-template-columns: 232px minmax(0,1fr); gap:0; padding:0; align-items:start; width:100%;
-    background-image:linear-gradient(var(--border-light),var(--border-light)); background-size:1px 100%; background-position:232px 0; background-repeat:no-repeat; }
-  @media (max-width:640px){ .tfm__body { grid-template-columns:1fr; background-image:none; } }
-  /* вертикальные табы вплотную к левой границе модалки; при прокрутке тела остаются видны */
-  .tfm__nav { padding:16px 0; min-width:0; position:sticky; top:0; }
-  @media (max-width:640px){ .tfm__nav { position:static; border-bottom:1px solid var(--border-light); } }
-  .tfm__panel { padding:24px 26px 24px; display:flex; flex-direction:column; gap:28px; min-width:0; }
-  .tfm__sec { display:flex; flex-direction:column; gap:16px; }
-  .tfm__sec-title, .tfm__panel-title { font: var(--type-body-m-strong); color: var(--text-primary); margin:0; }
-  /* двухколоночная форма: поле = одна клетка, широкое поле — .tfm__span-2 */
-  .tfm__grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:start; }
-  /* .inp \u043f\u043e \u0434\u0435\u0444\u043e\u043b\u0442\u0443 280px \u2014 \u0432 \u0441\u0435\u0442\u043a\u0435 \u043f\u043e\u043b\u0435 \u0442\u044f\u043d\u0435\u0442\u0441\u044f \u043d\u0430 \u0432\u0441\u044e \u043a\u043b\u0435\u0442\u043a\u0443, \u0438\u043d\u0430\u0447\u0435 \u043c\u0435\u0436\u0434\u0443 \u043f\u043e\u043b\u044f\u043c\u0438 \u0432\u0438\u0434\u0435\u043d \u043b\u043e\u0436\u043d\u044b\u0439 \u0437\u0430\u0437\u043e\u0440 */
-  .tfm__grid > .inp { width:100%; }
-  .tfm__grid > .tfm__span-2 { grid-column:1 / -1; }
-  @media (max-width:640px){ .tfm__grid { grid-template-columns:1fr; } }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   /* выпадающий список пресетов в баре (Split Button) */
   .tfilter__split .tfilter__menu { top:calc(100% + 6px); left:0; min-width:248px; }
   /* presets */
@@ -169,7 +167,7 @@
 <main class="page" data-screen-label="TableFilter">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.5</b></span><span>Обновлено: <b>05.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.8</b></span><span>Обновлено: <b>13.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>TableFilter</h1>
     <p class="lead">TableFilter — панель фильтра над таблицей. Кнопка <b>«Фильтр»</b> (Button Outline S) открывает модалку с параметрами фильтрации; применённый фильтр возвращается в бар одним чипом-счётчиком <b>«Применено: N»</b> (Chip Edit M), где N — число применённых параметров. Крестик чипа сбрасывает фильтр целиком; отдельной кнопки сброса в баре нет.</p>
@@ -512,6 +510,9 @@ onPanelScroll():                            // scroll spy
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/ds-menu.js"></script>
+<script src="../../scripts/ds-modal.js"></script>
+<script src="../../scripts/ds-table-filter.js"></script>
 <script src="../../scripts/table-filter.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>

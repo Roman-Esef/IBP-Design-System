@@ -18,7 +18,7 @@
 
     var disabled = o.state === 'disabled';
     var cls = 'ntile';
-    if (o.variant === 'links') cls += ' ntile--links';
+    /* вариант «Со ссылками» задаётся составом (.ntile__title-link + .ntile__links), отдельного модификатора нет */
     if (o.state === 'hover') cls += ' is-hover';
     if (o.state === 'focus') cls += ' is-focus';
     if (disabled) cls += ' is-disabled';
@@ -61,7 +61,7 @@
     }) + '</div>';
     var code = document.getElementById('pg-code');
     code.textContent = pg.variant === 'links'
-      ? '<div class="ntile ntile--links"> … <a class="ntile__title-link"> + <nav class="ntile__links">'
+      ? '<div class="ntile"> … <a class="ntile__title-link"> + <nav class="ntile__links">'
       : '<a class="ntile" href="…"> illu · title · desc </a>';
     stage.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); });
@@ -75,7 +75,7 @@
       ctl('Состояние', 'pgState', [['default', 'Default'], ['hover', 'Hover'], ['focus', 'Focus'], ['disabled', 'Disabled']], pg.state) +
       chk('Иллюстрация', 'pgIllu', pg.showIllu) +
       chk('Описание', 'pgDesc', pg.showDesc) +
-      '<div class="ctl" id="ctlLinks"><label class="ctl__label" for="pgLinks">Ссылок</label>' +
+      '<div class="ctl" id="ctlLinks"><label class="ds-label" for="pgLinks"><span class="ds-label__text">Ссылок</span></label>' +
       '<div class="pg-select"><select id="pgLinks">' + [1, 2, 3, 4].map(function (n) {
         return '<option value="' + n + '"' + (n === pg.nLinks ? ' selected' : '') + '>' + n + '</option>';
       }).join('') + '</select></div></div>';
@@ -95,7 +95,6 @@
       var cb = input.closest('.cb');
       if (cb) {
         cb.classList.toggle('cb--selected', input.checked);
-        cb.classList.toggle('cb--unselected', !input.checked);
       }
     }
 
@@ -108,13 +107,13 @@
   }
 
   function ctl(label, id, opts, cur) {
-    return '<div class="ctl"><label class="ctl__label" for="' + id + '">' + label + '</label>' +
+    return '<div class="ctl"><label class="ds-label" for="' + id + '"><span class="ds-label__text">' + label + '</span></label>' +
       '<div class="pg-select"><select id="' + id + '">' + opts.map(function (o) {
         return '<option value="' + o[0] + '"' + (o[0] === cur ? ' selected' : '') + '>' + o[1] + '</option>';
       }).join('') + '</select></div></div>';
   }
   function chk(label, id, on) {
-    return '<div class="ctl"><label class="cb' + (on ? ' cb--selected' : ' cb--unselected') + '">' +
+    return '<div class="ctl"><label class="cb' + (on ? ' cb--selected' : '') + '">' +
       '<input type="checkbox" class="cb__input" id="' + id + '"' + (on ? ' checked' : '') + '>' +
       '<span class="cb__box"><span class="cb__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></span>' +
       '<span class="cb__content"><span class="cb__label">' + label + '</span></span>' +

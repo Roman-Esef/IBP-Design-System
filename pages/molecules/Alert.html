@@ -64,6 +64,7 @@
   .replay { display:inline-flex; align-items:center; gap:7px; border:1px solid var(--border-primary); background:var(--bg-tile); color:var(--text-primary); font:var(--type-button-s); border-radius:8px; padding:7px 13px; cursor:pointer; transition:.12s; }
   .replay:hover { border-color: var(--primary); color: var(--primary); }
   .replay svg { width:15px; height:15px; }
+  .replay i { display:contents; }
 
   /* two-column comparison */
   .cols2 { display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:20px; }
@@ -130,7 +131,7 @@
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>05.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.9</b></span><span>Обновлено: <b>12.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Alert</h1>
     <p class="lead">Инлайновое сообщение о состоянии, встроенное в поток контента. В отличие от <b>Toast</b> и <b>SnackBar</b> не всплывает и не исчезает само — занимает место на странице и остаётся, пока не закрыт пользователем или пока не исчезла причина. Четыре тона (Info · Warning · Error · Success) и набор опциональных частей: иконка, заголовок, текст, кнопки, действия.</p>
@@ -349,7 +350,7 @@
       <div class="panel">
         <div id="beh-dismiss"></div>
         <div class="row" style="margin-top:16px;">
-          <button class="replay" type="button" id="dismiss-reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Вернуть Алерт</button>
+          <button class="replay" type="button" id="dismiss-reset"><i data-icon="refresh"></i>Вернуть Алерт</button>
         </div>
       </div>
     </div>
@@ -372,7 +373,7 @@
       <div class="panel">
         <div class="row" style="gap:16px;">
           <div id="anim-demo" style="flex:1 1 260px; min-width:260px;"></div>
-          <button class="replay" type="button" id="anim-replay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Проиграть заново</button>
+          <button class="replay" type="button" id="anim-replay"><i data-icon="refresh"></i>Проиграть заново</button>
         </div>
       </div>
     </div>

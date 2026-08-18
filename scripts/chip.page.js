@@ -40,13 +40,13 @@
 
     // leading slot
     if (state === 'loading') {
-      const sp = document.createElement('span'); sp.className = 'chip__spinner'; el.appendChild(sp);
+      const sp = document.createElement('span'); sp.className = 'spin'; el.appendChild(sp);
     } else if (state === 'selected') {
       const ic = document.createElement('span'); ic.className = 'chip__icon'; ic.innerHTML = icon('check'); el.appendChild(ic);
     } else if (leading === 'marker') {
       const m = document.createElement('span'); m.className = 'chip__marker'; m.innerHTML = icon(resolvedLeadingIcon); el.appendChild(m);
     } else if (leading === 'icon') {
-      const ic = document.createElement('span'); ic.className = 'chip__marker chip__marker--icon'; ic.innerHTML = icon(resolvedLeadingIcon); el.appendChild(ic);
+      const ic = document.createElement('span'); ic.className = 'chip__marker'; ic.innerHTML = icon(resolvedLeadingIcon); el.appendChild(ic);
     } else if (leading === 'avatar') {
       // аватар = компонент Avatar (.av) с выбираемым содержимым: текст / иконка / фото
       const a = document.createElement('span'); a.className = 'chip__avatar av av--circular';

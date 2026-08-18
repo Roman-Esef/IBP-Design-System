@@ -1,8 +1,8 @@
 ---
 component: DatePicker
 title: "DatePicker"
-version: "v1.2"
-updated: "22.07.2026"
+version: "v1.5"
+updated: "13.08.2026"
 page: pages/molecules/DatePicker.html
 page_js: scripts/datepicker.page.js
 css: styles/datepicker.css
@@ -15,6 +15,17 @@ status: curated
 ## Назначение
 Календарь — всплывающая поверхность выбора даты или диапазона дат. Поднимается полями InputDate / InputDateRange (floating над полем) либо встраивается в панель/модалку (inline). Material-подход на токенах ДС; неделя с понедельника, локаль русская. Рантайм — `scripts/ds-datepicker.js` (out-of-box): `makeCalendar`, `openPicker(anchor, spec)` и автоподключение — клик по кнопке-календарю поля (`.inp__act[aria-label="Открыть календарь"]`) поднимает календарь; одиночное поле → выбор даты, поле в `.inp-range--date` → выбор диапазона.
 
+## Инварианты
+- Один открытый календарь одновременно — второй открывшийся закрывает первый.
+- Реальная ячейка несёт `aria-selected`/`aria-disabled`; визуальные классы `--selected`/`--disabled` — только форс-состояния витрины.
+- В режиме диапазона клик раньше начала перезапускает выбор заново, а не двигает конец диапазона.
+- В панели месяца/года стрелки навигации листают блок целиком (±1 год у месяцев, ±12 лет у годов), не по одной ячейке.
+- `.dpk--inline` (docked) — без тени, только рамка; floating-вариант — тень `--elevation-5`; не смешивать на одном инстансе.
+
+## Диагностика
+- «Заголовок календаря обрезается непредсказуемо» → `.dpk__caption` требует ellipsis на первом `span` внутри `max-width:100%`
+- «Клик по дате раньше начала диапазона не перезапускает выбор» → проверить логику рантайма выбора диапазона
+
 ## Ключевые правила (из разделов страницы)
 - **Использование** — выбор даты указателем: одиночная дата (InputDate), диапазон «с … по …» (InputDateRange), месяц целиком. Ручной ввод по маске возможен в поле и без открытия календаря. Не для выбора из 2–6 фиксированных периодов — это SegmentControl.
 - **Анатомия** — три зоны: шапка (заголовок «Месяц Год» + стрелки навигации), дни недели + сетка 6×7, опциональный футер («Сегодня» слева, «Отмена / Готово» справа).
@@ -23,7 +34,7 @@ status: curated
 - **Контент** — неделя с понедельника, дни Пн…Вс; заголовок — месяц в И.п. + год; дни соседних месяцев приглушены и кликабельны; min/max делают даты недоступными (disabled), не скрывают.
 - **Поведение** — стрелки: ±1 месяц (day), ±1 год (month), ±12 лет (year) — видны во всех представлениях, включая month/year, чтобы можно было листать более ранние/поздние года; заголовок day→year→month→day. Диапазон: клик1 = начало (конец сброшен), клик2 = конец; клик раньше начала перезапускает. Floating — под полем, зазор 8px, авто-flip вверх, как Popover; один открытый календарь.
 - **Состояния** — на уровне ячейки дня: default · hover (заливка кружка) · today (обводка --primary) · selected / концы диапазона (заливка --primary, белое число) · in-range (полоса --primary-bg) · disabled (приглушено, не реагирует) · outside (сосед. месяц, приглушено).
-- **Доступность** — root `role="dialog"` + `aria-modal="false"` + `aria-label="Выбор даты"`; сетка `role="grid"`, ячейки `role="gridcell"` + полный `aria-label` даты + `aria-selected`; недоступные `aria-disabled="true"`. Клавиатура: ←→ день, ↑↓ неделя, PageUp/Down месяц, Home/End неделя, Enter/Space выбрать, Esc закрыть.
+- **Доступность** — root `role="dialog"` + `aria-modal="false"` + `aria-label="Выбор даты"`; сетка `role="grid"`, ячейки `role="gridcell"` + полный `aria-label`. Выбор/недоступность ячейки дня красятся и по `[aria-selected="true"]`/`[aria-disabled="true"]` напрямую — классы `.dpk__day--selected`/`--disabled` нужны только для форс-состояний витрины (RulesAudit W1, 12.08.2026).даты + `aria-selected`; недоступные `aria-disabled="true"`. Клавиатура: ←→ день, ↑↓ неделя, PageUp/Down месяц, Home/End неделя, Enter/Space выбрать, Esc закрыть.
 - **Типографика** — заголовок Body S Strong; числа и ячейки месяца/года Body S (табличные цифры); дни недели Body XS.
 - **Цвета** — поверхность --bg-popup + --elevation-5; выбор/концы диапазона --primary (число --text-on-dark); полоса диапазона --primary-bg; сегодня — обводка --primary; дни недели/сосед. месяц --text-inactive; ховер --bgtable-row-hover; недоступно --st-disabled; радиус --radius-m.
 
@@ -37,7 +48,7 @@ status: curated
 ```
 <div class="dpk" role="dialog" aria-modal="false" aria-label="Выбор даты">
   <div class="dpk__head">
-    <button class="dpk__caption" aria-haspopup="true"><span class="dpk__cap-text">Октябрь 2025</span><span class="dpk__cap-icon">…chevron-down…</span></button>
+    <button class="dpk__caption" aria-haspopup="true"><span>Октябрь 2025</span><span class="dpk__cap-icon">…chevron-down…</span></button>
     <div class="dpk__nav">
       <button class="ibtn ibtn--neutral ibtn--s dpk__prev" aria-label="Назад">…chevron-left…</button>
       <button class="ibtn ibtn--neutral ibtn--s dpk__next" aria-label="Вперёд">…chevron-right…</button>

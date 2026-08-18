@@ -13,6 +13,16 @@ status: auto
 ## Назначение
 Бейдж — небольшой дочерний элемент, который накладывается на родительский компонент или ставится рядом с ним. Тип Counter показывает количество (счётчик), тип Dot — статус без числа. Пять размеров — M / S / XS / XXS / Dot — и семантические тона.
 
+## Инварианты
+- Dot фиксирован 8px (доп. масштаб только `--dot-s`/`--dot-l`) — не входит в размерный ряд counter (m/s/xs/xxs).
+- `.badge--muted` переопределяет цвет тона через `!important` — на отключённом родителе бейдж не может одновременно нести цветной тон.
+- `.badge-anchor`/`.av-stack` кладёт бейдж `position:absolute` со сдвигом к углу — родитель обязан быть их контекстом (`position:relative`), иначе бейдж уезжает.
+- Бейдж не интерактивен (`pointer-events:none` в анкоре) — клик обрабатывает родитель.
+
+## Диагностика
+- «Бейдж не встаёт в угол родителя» → родитель не обёрнут в `.badge-anchor`/`.av-stack`
+- «Цвет бейджа не гаснет на disabled родителе» → не добавлен класс `.badge--muted`
+
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Встраивается в компонент в качестве дочернего:
 - **Анатомия** — Бейдж — это контейнер-капсула со значением внутри. Ширина зависит от контента, высота фиксирована по размеру. При наложении на родителя бейдж позиционируется в правом верхнем углу и выступает за его границу.
@@ -39,13 +49,13 @@ status: auto
 ```
 <!-- counter, наложенный на родителя (иконка) -->
 <span class="badge-anchor" aria-label="Уведомления, 7">
-  <span class="navcell"><svg aria-hidden="true">…</svg></span>
+  <span class="ibtn ibtn--neutral ibtn--m"><i data-icon="mail"></i></span>
   <span class="badge badge--xs badge--accent badge--bordered" aria-hidden="true">7</span>
 </span>
 
 <!-- dot-статус на аватаре: без числа, описание — через aria-label родителя -->
 <span class="badge-anchor" aria-label="Иван Белов, онлайн">
-  <span class="avatar">ИБ</span>
+  <span class="av av--m"><span class="av__text">ИБ</span></span>
   <span class="badge badge--dot badge--success badge--bordered" aria-hidden="true"></span>
 </span>
 

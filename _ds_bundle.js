@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"f3f298e7d0b5","scripts/allocation-bar.page.js":"4c8850cf93c3","scripts/breadcrumbs.page.js":"6a283a619adc","scripts/chip.page.js":"92b96d822c7e","scripts/context-menu.page.js":"6329ba3c7744","scripts/datepicker.page.js":"c718cb830853","scripts/divider.page.js":"d67e55256e52","scripts/dropdown-list.page.js":"6c2b92a954cc","scripts/ds-datepicker.js":"e0f8401d06f1","scripts/ds-icons.js":"238ac150f3d3","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-nav.js":"489fda72609b","scripts/ds-toc.js":"439dfd891b7b","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"7363c1784d19","scripts/input-autocomplete.page.js":"bf30a097d463","scripts/input-date-range.page.js":"f3f0b77dc453","scripts/input-date.page.js":"ee6029575037","scripts/input-kit.js":"966d72c02bdb","scripts/input-text.page.js":"8e9ebfe72660","scripts/label-helper.page.js":"059abc60fd84","scripts/modal.page.js":"66405112e3cf","scripts/nav-panel.page.js":"95d999cfa8a2","scripts/nav-tile.page.js":"1998b2eac844","scripts/page-header.page.js":"efc98b1a8275","scripts/pagination.page.js":"03a4bbd7eb90","scripts/pg-kit.js":"b8d98a3caacc","scripts/popover.page.js":"3f8f006190ad","scripts/read-only-field.page.js":"3bb05f495ef5","scripts/riskmetric.page.js":"bee054f69be3","scripts/screens-chrome.js":"468cea8461f1","scripts/segment-control.page.js":"817470a492d3","scripts/splitter.page.js":"354b7a37865c","scripts/tab.page.js":"7e5521f6b805","scripts/table-cell.page.js":"d63e0905181b","scripts/table-filter.page.js":"7d3bd5293954","scripts/table.page.js":"a6d64bafe13a","scripts/tbl-resize.js":"cb6aa4b8d1c5","scripts/toast.page.js":"0656b5240f64","scripts/tooltip.page.js":"b2784423e8b5"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"f3f298e7d0b5","scripts/allocation-bar.page.js":"4c8850cf93c3","scripts/breadcrumbs.page.js":"02326caf5421","scripts/chart.page.js":"3557e187c92a","scripts/chip.page.js":"ac8873e5291e","scripts/context-menu.page.js":"099ed33ec911","scripts/datepicker.page.js":"c718cb830853","scripts/divider.page.js":"d67e55256e52","scripts/dropdown-list.page.js":"a8eb94f18e99","scripts/ds-actions-overflow.js":"4ce4febf87d8","scripts/ds-alert.js":"e27e33b27ce2","scripts/ds-allocationbar.js":"58953430cd1d","scripts/ds-breadcrumbs.js":"c83397956b4c","scripts/ds-buttongroup.js":"370a931f7aab","scripts/ds-chart.js":"c7d349a8e68d","scripts/ds-chip.js":"cd1c728c1ab6","scripts/ds-copy.js":"5d128e92649b","scripts/ds-datepicker.js":"9b32da2799a5","scripts/ds-dropdownlist.js":"9dd2157f6206","scripts/ds-icons.js":"b1d35e469b8d","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-lint.js":"f840c88a8994","scripts/ds-menu.js":"5a2a98e0b6e6","scripts/ds-modal.js":"36a1b9d2deb8","scripts/ds-nav-panel.js":"d590e71e8cd2","scripts/ds-nav.js":"de023dcc35a0","scripts/ds-notify.js":"52c33449b738","scripts/ds-pagination.js":"5122c783e351","scripts/ds-popover.js":"34b01bc18b82","scripts/ds-riskmetric.js":"79fcfcfc4c1b","scripts/ds-splitter.js":"7cfc36849ef4","scripts/ds-table-filter.js":"3cd218499322","scripts/ds-table.js":"87b58d3788f1","scripts/ds-tabs.js":"7a9b8d7f020b","scripts/ds-tile.js":"437a77fdb02a","scripts/ds-toc.js":"20175a95d911","scripts/ds-tooltip.js":"39a077717aeb","scripts/ds.js":"5c94f1716378","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"7f298af8465a","scripts/input-autocomplete.page.js":"c3a26ad40ff2","scripts/input-date-range.page.js":"ec72a7b20f5a","scripts/input-date.page.js":"ee6029575037","scripts/input-kit.js":"ca9a8c61009a","scripts/input-text.page.js":"8e9ebfe72660","scripts/label-helper.page.js":"4809da1ea35b","scripts/modal.page.js":"021ccdb49936","scripts/nav-panel.page.js":"19e2d1aa58cc","scripts/nav-tile.page.js":"2a23215864ff","scripts/page-header.page.js":"84d48571c320","scripts/pagination.page.js":"157d9ff91041","scripts/pg-kit.js":"0582d8619f2e","scripts/popover.page.js":"6a631266d865","scripts/read-only-field.page.js":"9e0a13978cd3","scripts/riskmetric.page.js":"494c739cdf4a","scripts/segment-control.page.js":"0ec46e5daa2e","scripts/splitter.page.js":"2695e5fb3a40","scripts/tab.page.js":"f3b30b2d4c05","scripts/table-cell.page.js":"0289da8edc56","scripts/table-filter.page.js":"8db54d53465e","scripts/table.page.js":"4d5d3e7758a7","scripts/tbl-resize.js":"cb6aa4b8d1c5","scripts/toast.page.js":"fc09f75778c3","scripts/tooltip.page.js":"83166ec284d7"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -1332,67 +1332,32 @@ function crumbMore(hidden) {
   btn.setAttribute('aria-expanded', 'false');
   btn.setAttribute('aria-label', 'Показать промежуточные страницы: ' + hidden.map(h => h.text).join(', '));
   li.appendChild(btn);
-  let open = false,
-    menu = null;
-  function place() {
-    const br = btn.getBoundingClientRect();
-    menu.style.left = Math.round(br.left) + 'px';
-    menu.style.top = Math.round(br.bottom + 6) + 'px';
-  }
-  function close() {
-    if (!open) return;
-    open = false;
-    btn.setAttribute('aria-expanded', 'false');
-    if (menu) {
-      menu.remove();
-      menu = null;
-    }
-    document.removeEventListener('pointerdown', onOutside, true);
-    document.removeEventListener('keydown', onEsc, true);
-    window.removeEventListener('scroll', place, true);
-    window.removeEventListener('resize', place);
-  }
-  function onOutside(e) {
-    if (menu && !menu.contains(e.target) && e.target !== btn) close();
-  }
-  function onEsc(e) {
-    if (e.key === 'Escape') {
-      close();
-      btn.focus();
-    }
-  }
-  btn.addEventListener('click', () => {
-    if (open) {
-      close();
-      return;
-    }
-    open = true;
-    btn.setAttribute('aria-expanded', 'true');
-    menu = document.createElement('div');
-    /* без .menu--floating/.is-open — эти классы полагаются на CSS-transition
-       (opacity 0→1), который не всегда успевает отыграть; показываем меню
-       сразу, без анимации появления — оно и так короткоживущее всплывающее */
-    menu.className = 'menu crumbs__popup';
-    menu.style.position = 'fixed';
-    menu.setAttribute('role', 'menu');
-    hidden.forEach(h => {
-      const item = document.createElement('button');
-      item.type = 'button';
-      item.className = 'menu__item';
-      item.setAttribute('role', 'menuitem');
-      const label = document.createElement('span');
-      label.className = 'menu__item-label';
-      label.textContent = h.text;
-      item.appendChild(label);
-      item.addEventListener('click', () => close());
-      menu.appendChild(item);
-    });
-    document.body.appendChild(menu);
-    place();
-    document.addEventListener('pointerdown', onOutside, true);
-    document.addEventListener('keydown', onEsc, true);
-    window.addEventListener('scroll', place, true);
-    window.addEventListener('resize', place);
+
+  /* поведение — рантайм ДС (scripts/ds-menu.js): открытие/закрытие, позиция
+     с разворотом, клавиатура, Esc. Меню живёт в body с position:fixed —
+     иначе его обрезал бы overflow:hidden контейнера .crumbs. */
+  const menu = document.createElement('div');
+  menu.className = 'menu crumbs__popup';
+  menu.style.position = 'fixed';
+  menu.hidden = true;
+  hidden.forEach(h => {
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'menu__item';
+    const label = document.createElement('span');
+    label.className = 'menu__item-label';
+    label.textContent = h.text;
+    item.appendChild(label);
+    menu.appendChild(item);
+  });
+  /* демо перерисовывается — снимаем меню, чей триггер уже вне документа */
+  document.querySelectorAll('.crumbs__popup').forEach(m => {
+    if (!m.__dsMenu || !document.contains(m.__dsMenu.trigger)) m.remove();
+  });
+  document.body.appendChild(menu);
+  if (window.DSMenu) DSMenu.bind(btn, {
+    menu: menu,
+    align: 'start'
   });
   return li;
 }
@@ -1894,6 +1859,979 @@ whenReady(function () {
 }); /* end whenReady */
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/breadcrumbs.page.js", error: String((e && e.message) || e) }); }
 
+// scripts/chart.page.js
+try { (() => {
+/* =========================================================================
+   Chart — логика страницы документации: демонстрации, конструктор,
+   redline и справочные таблицы. Сам компонент живёт в scripts/ds-chart.js.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var CH = window.DSChart;
+
+  /* ---------------- демо-данные (нейтральные, не доменные) ---------------- */
+  var M12 = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+  var Q4 = ['I кв.', 'II кв.', 'III кв.', 'IV кв.'];
+  var IN = [420e6, 380e6, 510e6, 470e6, 620e6, 590e6, 700e6, 660e6, 730e6, 690e6, 810e6, 760e6];
+  var OUT = [210e6, 260e6, 240e6, 300e6, 280e6, 340e6, 320e6, 390e6, 360e6, 420e6, 400e6, 470e6];
+  var REST = [120e6, 160e6, 150e6, 190e6, 210e6, 240e6, 260e6, 250e6, 300e6, 320e6, 340e6, 380e6];
+  function mount(id, cfg) {
+    var box = document.getElementById(id);
+    if (!box) return null;
+    box.innerHTML = '';
+    var node = CH.make(cfg);
+    box.appendChild(node);
+    return node;
+  }
+  function base(over) {
+    return Object.assign({
+      type: 'bar',
+      size: 'm',
+      categories: M12,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN
+      }],
+      title: null,
+      legend: true
+    }, over || {});
+  }
+
+  /* ---------------- таблицы документации на компоненте Table ---------------- */
+  function tbl(target, cols, rows) {
+    var host = typeof target === 'string' ? document.getElementById(target) : target;
+    if (!host) return;
+    var tpl = 'grid-template-columns:8px ' + cols.map(function (c) {
+      return c[1];
+    }).join(' ') + ' 8px;';
+    var html = '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">';
+    html += '<div class="tbl__row" style="' + tpl + '"><div class="th th--separator"></div>';
+    cols.forEach(function (c) {
+      html += '<div class="th"><span class="th__label">' + c[0] + '</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>';
+    });
+    html += '<div class="th th--separator"></div></div>';
+    rows.forEach(function (r) {
+      html += '<div class="tbl__row" style="' + tpl + '"><div class="tc tc--separator"></div>';
+      r.forEach(function (cell) {
+        html += '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">' + cell + '</span></span></div>';
+      });
+      html += '<div class="tc tc--separator"></div></div>';
+    });
+    host.innerHTML = html + '</div>';
+  }
+  function tok(t) {
+    return '<code class="tok">' + t + '</code>';
+  }
+  function sw(t) {
+    return '<span class="sw" style="background:var(' + t + ')"></span>';
+  }
+
+  /* =========================================================================
+     Примеры на странице
+     ========================================================================= */
+  function initExamples() {
+    /* --- использование --- */
+    mount('use-tile', base({
+      size: 's',
+      type: 'bar',
+      legend: false,
+      categories: M12.slice(6),
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN.slice(6)
+      }]
+    }));
+    mount('use-page', base({
+      size: 'l',
+      type: 'combo',
+      title: 'Движение средств по месяцам',
+      subtitle: 'Поступления и списания, руб.',
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN,
+        type: 'bar'
+      }, {
+        id: 'out',
+        name: 'Списания',
+        data: OUT,
+        type: 'bar'
+      }, {
+        id: 'rest',
+        name: 'Остаток',
+        data: REST,
+        type: 'line',
+        color: '--chart-indigo'
+      }],
+      crosshair: true,
+      toolbar: {
+        periods: ['Месяц', 'Квартал', 'Год'],
+        active: 'Месяц'
+      }
+    }));
+
+    /* --- анатомия --- */
+    mount('anat-stage', base({
+      size: 'm',
+      title: 'Движение средств',
+      subtitle: 'по месяцам, руб.',
+      categories: M12.slice(0, 8),
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN.slice(0, 8)
+      }, {
+        id: 'out',
+        name: 'Списания',
+        data: OUT.slice(0, 8)
+      }],
+      type: 'grouped',
+      refLine: {
+        value: 500e6,
+        label: 'Цель'
+      },
+      crosshair: true,
+      toolbar: {
+        periods: ['М', 'Кв'],
+        active: 'М'
+      }
+    }));
+
+    /* --- варианты: типы --- */
+    var six = M12.slice(0, 6),
+      IN6 = IN.slice(0, 6),
+      OUT6 = OUT.slice(0, 6);
+    mount('var-bar', base({
+      legend: false,
+      categories: six,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN6
+      }]
+    }));
+    mount('var-hbar', base({
+      type: 'hbar',
+      legend: false,
+      valueLabels: true,
+      categories: ['Категория A', 'Категория B', 'Категория C', 'Категория D'],
+      series: [{
+        id: 'v',
+        name: 'Объём',
+        data: [810e6, 530e6, 420e6, 260e6]
+      }]
+    }));
+    mount('var-grouped', base({
+      type: 'grouped',
+      categories: six,
+      series: [{
+        id: 'p',
+        name: 'План',
+        data: IN6
+      }, {
+        id: 'f',
+        name: 'Факт',
+        data: OUT6
+      }]
+    }));
+    mount('var-stacked', base({
+      type: 'stacked',
+      categories: six,
+      series: [{
+        id: 'a',
+        name: 'Сегмент A',
+        data: IN6
+      }, {
+        id: 'b',
+        name: 'Сегмент B',
+        data: OUT6
+      }, {
+        id: 'c',
+        name: 'Сегмент C',
+        data: REST.slice(0, 6)
+      }]
+    }));
+    mount('var-stacked100', base({
+      type: 'stacked100',
+      categories: six,
+      series: [{
+        id: 'a',
+        name: 'Сегмент A',
+        data: IN6
+      }, {
+        id: 'b',
+        name: 'Сегмент B',
+        data: OUT6
+      }, {
+        id: 'c',
+        name: 'Сегмент C',
+        data: REST.slice(0, 6)
+      }]
+    }));
+    mount('var-line', base({
+      type: 'line',
+      legend: false,
+      series: [{
+        id: 'r',
+        name: 'Остаток',
+        data: REST
+      }],
+      crosshair: true
+    }));
+    mount('var-area', base({
+      type: 'area',
+      legend: false,
+      series: [{
+        id: 'r',
+        name: 'Остаток',
+        data: REST
+      }]
+    }));
+    mount('var-stacked-area', base({
+      type: 'stackedArea',
+      series: [{
+        id: 'a',
+        name: 'Сегмент A',
+        data: REST
+      }, {
+        id: 'b',
+        name: 'Сегмент B',
+        data: OUT
+      }]
+    }));
+    mount('var-combo', base({
+      type: 'combo',
+      categories: six,
+      series: [{
+        id: 'v',
+        name: 'Поступления',
+        data: IN6,
+        type: 'bar'
+      }, {
+        id: 'r',
+        name: 'Среднее за квартал',
+        data: [437e6, 437e6, 437e6, 560e6, 560e6, 560e6],
+        type: 'line',
+        color: '--chart-indigo'
+      }]
+    }));
+    mount('var-pie', base({
+      type: 'pie',
+      size: 'm',
+      categories: ['Сегмент A', 'Сегмент B', 'Сегмент C', 'Сегмент D'],
+      series: [{
+        id: 'p',
+        name: 'Доля',
+        data: [45, 25, 18, 12]
+      }]
+    }));
+    mount('var-donut', base({
+      type: 'donut',
+      size: 'm',
+      categories: ['Сегмент A', 'Сегмент B', 'Сегмент C', 'Сегмент D'],
+      series: [{
+        id: 'p',
+        name: 'Доля',
+        data: [45, 25, 18, 12]
+      }],
+      centerLabel: '1,2 млрд',
+      centerSub: 'всего'
+    }));
+    mount('var-scatter', base({
+      type: 'scatter',
+      legend: false,
+      series: [{
+        id: 'p',
+        name: 'Наблюдения',
+        data: [{
+          x: 12,
+          y: 120e6
+        }, {
+          x: 30,
+          y: 260e6
+        }, {
+          x: 55,
+          y: 180e6
+        }, {
+          x: 70,
+          y: 420e6
+        }, {
+          x: 90,
+          y: 380e6
+        }, {
+          x: 40,
+          y: 90e6
+        }, {
+          x: 62,
+          y: 300e6
+        }, {
+          x: 22,
+          y: 210e6
+        }]
+      }]
+    }));
+    mount('var-waterfall', base({
+      type: 'waterfall',
+      legend: false,
+      valueLabels: true,
+      categories: ['На начало', 'Поступления', 'Списания', 'Переоценка', 'На конец'],
+      totalIndexes: [4],
+      series: [{
+        id: 'w',
+        name: 'Изменение',
+        data: [500e6, 320e6, -180e6, 60e6, 700e6]
+      }]
+    }));
+    mount('var-spark', {
+      type: 'spark',
+      size: 's',
+      spark: 'line',
+      tone: 'auto',
+      series: [{
+        id: 's',
+        data: REST
+      }]
+    });
+    mount('var-spark-bar', {
+      type: 'spark',
+      size: 's',
+      spark: 'bar',
+      series: [{
+        id: 's',
+        data: OUT,
+        color: '--chart-blue'
+      }]
+    });
+
+    /* --- размеры --- */
+    ['s', 'm', 'l'].forEach(function (sz) {
+      mount('size-' + sz, base({
+        size: sz,
+        legend: sz !== 's',
+        categories: M12,
+        series: [{
+          id: 'in',
+          name: 'Поступления',
+          data: IN
+        }]
+      }));
+    });
+    mount('size-tile', base({
+      size: 's',
+      legend: false,
+      type: 'area',
+      categories: M12,
+      series: [{
+        id: 'r',
+        name: 'Остаток',
+        data: REST
+      }]
+    }));
+
+    /* --- контент --- */
+    mount('cnt-compact', base({
+      legend: false,
+      categories: six,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN6
+      }]
+    }));
+    mount('cnt-full', base({
+      legend: false,
+      format: 'full',
+      categories: Q4,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: [4.2, 5.1, 4.7, 6.3]
+      }]
+    }));
+    mount('cnt-dense', base({
+      legend: false,
+      type: 'line',
+      categories: Array.from({
+        length: 36
+      }, function (_, i) {
+        return M12[i % 12] + ' ' + (24 + Math.floor(i / 12));
+      }),
+      series: [{
+        id: 'r',
+        name: 'Остаток',
+        data: Array.from({
+          length: 36
+        }, function (_, i) {
+          return 200e6 + Math.round(Math.sin(i / 3) * 80e6) + i * 6e6;
+        })
+      }]
+    }));
+    mount('cnt-labels', base({
+      legend: false,
+      valueLabels: true,
+      categories: Q4,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: [420e6, 510e6, 470e6, 620e6]
+      }]
+    }));
+    mount('cnt-legend-many', base({
+      type: 'line',
+      categories: six,
+      series: CH.palette.slice(0, 8).map(function (c, i) {
+        return {
+          id: 'c' + i,
+          name: 'Показатель ' + (i + 1),
+          color: c,
+          data: IN6.map(function (v) {
+            return v * (0.5 + i * 0.12);
+          })
+        };
+      })
+    }));
+
+    /* --- поведение --- */
+    mount('beh-tip', base({
+      type: 'grouped',
+      categories: six,
+      crosshair: true,
+      series: [{
+        id: 'p',
+        name: 'План',
+        data: IN6
+      }, {
+        id: 'f',
+        name: 'Факт',
+        data: OUT6
+      }]
+    }));
+    mount('beh-legend', base({
+      type: 'line',
+      categories: M12,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN
+      }, {
+        id: 'out',
+        name: 'Списания',
+        data: OUT
+      }, {
+        id: 'r',
+        name: 'Остаток',
+        data: REST
+      }]
+    }));
+    mount('beh-brush', base({
+      type: 'line',
+      legend: false,
+      categories: M12,
+      brush: true,
+      initialRange: [3, 10],
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN
+      }]
+    }));
+    mount('beh-ref', base({
+      legend: false,
+      categories: six,
+      refLine: {
+        value: 550e6,
+        label: 'Цель 550 млн'
+      },
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN6
+      }]
+    }));
+    mount('beh-toolbar', base({
+      legend: false,
+      categories: Q4,
+      title: 'Поступления',
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: [1.4e9, 1.7e9, 1.55e9, 2.1e9]
+      }],
+      toolbar: {
+        periods: ['Месяц', 'Квартал', 'Год'],
+        active: 'Квартал'
+      }
+    }));
+
+    /* --- состояния --- */
+    mount('st-loaded', base({
+      legend: false,
+      categories: six,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN6
+      }]
+    }));
+    mount('st-loading', base({
+      status: 'loading',
+      title: 'Движение средств'
+    }));
+    mount('st-slow', base({
+      status: 'loading-slow',
+      title: 'Движение средств'
+    }));
+    mount('st-error', base({
+      status: 'error',
+      title: 'Движение средств'
+    }));
+    mount('st-empty', base({
+      status: 'empty',
+      title: 'Движение средств'
+    }));
+    mount('st-gaps', base({
+      type: 'line',
+      legend: false,
+      categories: M12,
+      series: [{
+        id: 'r',
+        name: 'Остаток',
+        data: [120e6, 160e6, null, null, 210e6, 240e6, 260e6, null, 300e6, 320e6, 340e6, 380e6]
+      }],
+      footNote: 'За март — апрель и август данных нет: разрыв в ряду, не нулевые значения'
+    }));
+    mount('st-forecast', base({
+      type: 'bar',
+      legend: false,
+      categories: M12,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN,
+        forecastFrom: 9
+      }]
+    }));
+    mount('st-forecast-line', base({
+      type: 'line',
+      legend: false,
+      categories: M12,
+      series: [{
+        id: 'r',
+        name: 'Остаток',
+        data: REST,
+        forecastFrom: 9
+      }]
+    }));
+    mount('st-hover', base({
+      type: 'line',
+      categories: M12,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN
+      }, {
+        id: 'out',
+        name: 'Списания',
+        data: OUT
+      }, {
+        id: 'r',
+        name: 'Остаток',
+        data: REST
+      }]
+    }));
+
+    /* --- цвета --- */
+    mount('col-palette', base({
+      type: 'line',
+      categories: six,
+      series: CH.palette.map(function (c, i) {
+        return {
+          id: 'p' + i,
+          name: c.replace('--chart-', ''),
+          color: c,
+          data: IN6.map(function (v) {
+            return v * (0.35 + i * 0.06);
+          })
+        };
+      })
+    }));
+    mount('col-planfact', base({
+      type: 'grouped',
+      categories: Q4,
+      series: [{
+        id: 'p',
+        name: 'План',
+        data: [500e6, 520e6, 560e6, 600e6],
+        color: '--st-grey-midlight'
+      }, {
+        id: 'f',
+        name: 'Факт',
+        data: [470e6, 545e6, 590e6, 575e6],
+        color: '--primary'
+      }]
+    }));
+    mount('col-delta', base({
+      type: 'waterfall',
+      legend: false,
+      valueLabels: true,
+      categories: ['На начало', 'Рост', 'Снижение', 'На конец'],
+      totalIndexes: [3],
+      series: [{
+        id: 'w',
+        name: 'Изменение',
+        data: [400e6, 180e6, -90e6, 490e6]
+      }]
+    }));
+
+    /* --- спарклайны в таблице --- */
+    buildTableDemo();
+  }
+
+  /* таблица со столбцом динамики: спарклайн — вариант ячейки TableCell */
+  function buildTableDemo() {
+    var host = document.getElementById('use-table');
+    if (!host) return;
+    var rows = [['Показатель A', '810 000 000,00', [120, 160, 150, 190, 210, 240, 260, 300], 'up'], ['Показатель B', '530 000 000,00', [300, 280, 260, 250, 230, 210, 190, 160], 'down'], ['Показатель C', '420 000 000,00', [200, 210, 190, 220, 205, 215, 210, 225], 'up']];
+    var tplCols = 'grid-template-columns:8px 1.6fr 1fr 0.8fr 8px;';
+    var html = '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">';
+    html += '<div class="tbl__row" style="' + tplCols + '"><div class="th th--separator"></div>';
+    ['Показатель', 'Значение', 'Динамика'].forEach(function (t) {
+      html += '<div class="th"><span class="th__label">' + t + '</span></div>';
+    });
+    html += '<div class="th th--separator"></div></div>';
+    rows.forEach(function (r, i) {
+      html += '<div class="tbl__row" style="' + tplCols + '"><div class="tc tc--separator"></div>' + '<div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div>' + '<div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div>' + '<div class="tc"><span class="tc__row"><span class="tc__spark" id="spk-' + i + '"></span></span></div>' + '<div class="tc tc--separator"></div></div>';
+    });
+    host.innerHTML = html + '</div>';
+    rows.forEach(function (r, i) {
+      var cell = document.getElementById('spk-' + i);
+      if (!cell) return;
+      cell.appendChild(CH.make({
+        type: 'spark',
+        size: 's',
+        spark: 'line',
+        tone: 'auto',
+        series: [{
+          id: 'k',
+          data: r[2]
+        }],
+        ariaLabel: 'Динамика показателя: ' + (r[3] === 'up' ? 'рост' : 'снижение')
+      }));
+    });
+  }
+
+  /* =========================================================================
+     Конструктор
+     ========================================================================= */
+  function initPlayground() {
+    var controls = document.getElementById('pg-controls');
+    var stage = document.getElementById('pg-stage');
+    if (!controls || !stage) return;
+    var state = {
+      type: 'bar',
+      size: 'm',
+      width: '640',
+      series: '2',
+      legend: 'top',
+      tooltip: 'yes',
+      crosshair: 'no',
+      grid: 'y',
+      labels: 'no',
+      ref: 'no',
+      brush: 'no',
+      toolbar: 'no',
+      status: 'loaded',
+      format: 'compact'
+    };
+    var ctlRefs = {};
+    function ctl(key, labelText, options) {
+      var wrap = document.createElement('div');
+      wrap.className = 'ctl';
+      var l = document.createElement('div');
+      l.className = 'lbl';
+      l.textContent = labelText;
+      wrap.appendChild(l);
+      var box = document.createElement('div');
+      box.className = 'pg-select';
+      var sel = document.createElement('select');
+      options.forEach(function (o) {
+        var op = document.createElement('option');
+        op.value = o[0];
+        op.textContent = o[1];
+        if (o[0] === state[key]) op.selected = true;
+        sel.appendChild(op);
+      });
+      sel.addEventListener('change', function () {
+        state[key] = sel.value;
+        render();
+      });
+      box.appendChild(sel);
+      wrap.appendChild(box);
+      controls.appendChild(wrap);
+      ctlRefs[key] = wrap;
+      return wrap;
+    }
+    ctl('type', 'Тип графика', [['bar', 'Столбчатый'], ['hbar', 'Горизонтальный'], ['grouped', 'Группированные'], ['stacked', 'Стек'], ['stacked100', 'Стек 100%'], ['line', 'Линейный'], ['area', 'Область'], ['stackedArea', 'Стек-области'], ['combo', 'Комбо'], ['pie', 'Круговой'], ['donut', 'Кольцевой'], ['scatter', 'Точечный'], ['waterfall', 'Водопад'], ['spark', 'Спарклайн']]);
+    ctl('size', 'Размер', [['s', 'S'], ['m', 'M'], ['l', 'L']]);
+    ctl('width', 'Ширина контейнера', [['880', '880px'], ['640', '640px'], ['440', '440px'], ['320', '320px'], ['240', '240px']]);
+    ctl('series', 'Серий', [['1', '1'], ['2', '2'], ['3', '3'], ['6', '6']]);
+    ctl('status', 'Состояние', [['loaded', 'Загружено'], ['loading', 'Загрузка'], ['loading-slow', 'Долгий расчёт'], ['error', 'Ошибка'], ['empty', 'Нет данных'], ['gaps', 'Пропуски в ряду'], ['forecast', 'Прогноз с 10-го месяца']]);
+    ctl('legend', 'Легенда', [['top', 'Сверху'], ['bottom', 'Снизу'], ['no', 'Скрыть']]);
+    ctl('tooltip', 'Тултип', [['yes', 'Есть'], ['no', 'Нет']]);
+    ctl('crosshair', 'Кросс-хэйр', [['no', 'Нет'], ['yes', 'Есть']]);
+    ctl('grid', 'Сетка', [['y', 'По значениям'], ['none', 'Без сетки']]);
+    ctl('labels', 'Подписи значений', [['no', 'Нет'], ['yes', 'Есть']]);
+    ctl('ref', 'Опорная линия', [['no', 'Нет'], ['yes', 'Есть']]);
+    ctl('brush', 'Выделение диапазона', [['no', 'Нет'], ['yes', 'Есть']]);
+    ctl('toolbar', 'Тулбар', [['no', 'Нет'], ['yes', 'Период + экспорт']]);
+    ctl('format', 'Формат чисел', [['compact', 'Компактный'], ['full', 'Полный']]);
+    function seriesFor(n) {
+      var pool = [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN
+      }, {
+        id: 'out',
+        name: 'Списания',
+        data: OUT
+      }, {
+        id: 'rest',
+        name: 'Остаток',
+        data: REST
+      }, {
+        id: 'x1',
+        name: 'Показатель 4',
+        data: IN.map(function (v) {
+          return v * 0.45;
+        })
+      }, {
+        id: 'x2',
+        name: 'Показатель 5',
+        data: OUT.map(function (v) {
+          return v * 1.25;
+        })
+      }, {
+        id: 'x3',
+        name: 'Показатель 6',
+        data: REST.map(function (v) {
+          return v * 0.7;
+        })
+      }];
+      return pool.slice(0, n).map(function (se) {
+        return Object.assign({}, se);
+      });
+    }
+    function render() {
+      var t = state.type;
+      var isRound = t === 'pie' || t === 'donut';
+      var isSpark = t === 'spark';
+      var isScatter = t === 'scatter';
+      /* неактуальные контролы скрываем целиком */
+      var off = {
+        series: isRound || isSpark || t === 'waterfall',
+        legend: isSpark,
+        crosshair: isRound || isSpark || isScatter,
+        grid: isRound || isSpark,
+        labels: isRound || isSpark || isScatter || t === 'stacked' || t === 'stacked100',
+        ref: isRound || isSpark || isScatter,
+        brush: isRound || isSpark || isScatter,
+        toolbar: isSpark,
+        tooltip: isSpark,
+        format: isSpark
+      };
+      Object.keys(ctlRefs).forEach(function (k) {
+        ctlRefs[k].classList.toggle('is-off', !!off[k]);
+      });
+      var n = parseInt(state.series, 10);
+      var series = seriesFor(t === 'waterfall' ? 1 : n);
+      var cats = M12;
+      var cfg = {
+        type: t,
+        size: state.size,
+        format: state.format,
+        legend: state.legend === 'no' ? false : state.legend === 'bottom' ? 'bottom' : true,
+        tooltip: state.tooltip === 'yes',
+        crosshair: state.crosshair === 'yes',
+        grid: state.grid,
+        valueLabels: state.labels === 'yes',
+        brush: state.brush === 'yes',
+        title: 'Движение средств',
+        subtitle: 'по месяцам, руб.',
+        categories: cats,
+        series: series
+      };
+      if (state.ref === 'yes') cfg.refLine = {
+        value: 550e6,
+        label: 'Цель'
+      };
+      if (state.toolbar === 'yes') cfg.toolbar = {
+        periods: ['М', 'Кв', 'Г'],
+        active: 'Кв'
+      };
+      if (t === 'waterfall') {
+        cfg.categories = ['На начало', 'Поступления', 'Списания', 'Переоценка', 'На конец'];
+        cfg.totalIndexes = [4];
+        cfg.series = [{
+          id: 'w',
+          name: 'Изменение',
+          data: [500e6, 320e6, -180e6, 60e6, 700e6]
+        }];
+      }
+      if (isRound) {
+        cfg.categories = ['Сегмент A', 'Сегмент B', 'Сегмент C', 'Сегмент D'];
+        cfg.series = [{
+          id: 'p',
+          name: 'Доля',
+          data: [45, 25, 18, 12]
+        }];
+        if (t === 'donut') {
+          cfg.centerLabel = '1,2 млрд';
+          cfg.centerSub = 'всего';
+        }
+      }
+      if (isScatter) {
+        cfg.series = [{
+          id: 'p',
+          name: 'Наблюдения',
+          data: [{
+            x: 12,
+            y: 120e6
+          }, {
+            x: 30,
+            y: 260e6
+          }, {
+            x: 55,
+            y: 180e6
+          }, {
+            x: 70,
+            y: 420e6
+          }, {
+            x: 90,
+            y: 380e6
+          }, {
+            x: 40,
+            y: 90e6
+          }, {
+            x: 62,
+            y: 300e6
+          }, {
+            x: 22,
+            y: 210e6
+          }]
+        }];
+      }
+      if (isSpark) {
+        cfg.spark = 'line';
+        cfg.tone = 'auto';
+        cfg.title = null;
+        cfg.subtitle = null;
+        cfg.series = [{
+          id: 's',
+          data: REST
+        }];
+      }
+      if (state.status === 'gaps') cfg.series[0].data = [120e6, 160e6, null, null, 210e6, 240e6, 260e6, null, 300e6, 320e6, 340e6, 380e6];else if (state.status === 'forecast') cfg.series.forEach(function (se) {
+        se.forecastFrom = 9;
+      });else if (state.status !== 'loaded') cfg.status = state.status;
+      stage.innerHTML = '';
+      var frame = document.createElement('div');
+      frame.style.cssText = 'width:' + state.width + 'px;max-width:100%;background:var(--bg-tile);border:1px solid var(--border-light);border-radius:var(--radius-control);padding:16px';
+      frame.appendChild(CH.make(cfg));
+      stage.appendChild(frame);
+    }
+    render();
+  }
+
+  /* =========================================================================
+     Таблицы: типографика, цвета, redline
+     ========================================================================= */
+  function initTables() {
+    tbl('typo-table', [['Часть', '1.6fr'], ['Токен', '1.2fr'], ['Размер / интерлиньяж', '1fr'], ['Цвет', '1.2fr']], [['Заголовок ' + tok('.chart__title') + ' (M)', tok('--type-body-m-strong'), '16 / 20', tok('--text-primary')], ['Заголовок, размер S', tok('--type-body-s-strong'), '14 / 16', tok('--text-primary')], ['Заголовок, размер L', tok('--type-body-l-strong'), '18 / 24', tok('--text-primary')], ['Подзаголовок ' + tok('.chart__subtitle'), tok('--type-body-xs'), '12 / 16', tok('--text-secondary')], ['Подписи осей ' + tok('.chart__axis text'), tok('--type-body-xs'), '12 / 16', tok('--text-inactive')], ['Подписи осей, размер L', tok('--type-body-s'), '14 / 16', tok('--text-inactive')], ['Легенда ' + tok('.chart__legend-item'), tok('--type-body-xs'), '12 / 16', tok('--text-secondary')], ['Значение в легенде', tok('--type-body-xs'), '12 / 16', tok('--text-primary')], ['Подпись значения ' + tok('.chart__vlabel'), tok('--type-body-xs'), '12 / 16', tok('--text-secondary')], ['Заголовок тултипа', tok('--type-body-s-strong'), '14 / 16', tok('--text-on-dark')], ['Строка тултипа', tok('--type-body-s'), '14 / 16', tok('--text-on-dark') + ', opacity .82'], ['Значение в тултипе', tok('--type-body-s-strong'), '14 / 16', tok('--text-on-dark')]]);
+    var palRows = CH.palette.map(function (t, i) {
+      return ['Серия ' + String(i + 1).padStart(2, '0'), tok(t), sw(t), hexOf(t)];
+    });
+    tbl('color-palette-table', [['Порядок', '0.8fr'], ['Токен', '1.6fr'], ['Образец', '0.6fr'], ['Hex', '1fr']], palRows);
+    tbl('color-role-table', [['Раздел', '1fr'], ['Роль', '1.6fr'], ['Токен', '1.4fr'], ['Образец', '0.6fr']], [['Сетка', 'Линии сетки', tok('--border-light'), sw('--border-light')], ['Сетка', 'Ось и нулевая линия', tok('--border-primary'), sw('--border-primary')], ['Оси', 'Подписи делений', tok('--text-inactive'), sw('--text-inactive')], ['Поле', 'Подсветка категории под курсором', tok('--bgtable-row-hover'), sw('--bgtable-row-hover')], ['Поле', 'Кросс-хэйр', tok('--border-dark'), sw('--border-dark')], ['Опора', 'Опорная линия и её подпись', tok('--text-secondary'), sw('--text-secondary')], ['Семантика', 'Рост, положительная дельта', tok('--success'), sw('--success')], ['Семантика', 'Падение, отрицательная дельта', tok('--error'), sw('--error')], ['Семантика', 'Итоговый столбец водопада', tok('--primary'), sw('--primary')], ['Семантика', 'План (фон) в паре план/факт', tok('--st-grey-midlight'), sw('--st-grey-midlight')], ['Служебное', 'Фон пустого состояния и расчёта', tok('--bg-page'), sw('--bg-page')], ['Служебное', 'Скелетон загрузки', tok('--st-disabled-light'), sw('--st-disabled-light')], ['Brush', 'Окно выделенного диапазона', tok('--primary-bg-semitransparent'), sw('--primary-bg-semitransparent')], ['Brush', 'Мини-график диапазона', tok('--st-grey-midlight'), sw('--st-grey-midlight')]]);
+    tbl('type-guide-tbl', [['Тип', '1fr'], ['Значение ' + tok('type'), '1.1fr'], ['Когда применять', '2.4fr']], [['Столбчатый', tok('bar'), 'Сравнение значений по категориям или периодам, 4–24 колонки'], ['Горизонтальный', tok('hbar'), 'Те же данные, когда названия категорий длинные или их больше 8'], ['Группированные', tok('grouped'), 'Сравнение 2–3 серий внутри каждой категории (план/факт, период к периоду)'], ['Стек', tok('stacked'), 'Состав категории и общий итог одновременно; серий до 6'], ['Стек 100%', tok('stacked100'), 'Только доли: важна структура, а не абсолютный итог'], ['Линейный', tok('line'), 'Динамика по равномерной шкале времени, от 6 точек'], ['Область', tok('area'), 'Одна серия-динамика, где важен объём под кривой'], ['Стек-области', tok('stackedArea'), 'Динамика состава: сумма серий читается как общий уровень'], ['Комбо', tok('combo'), 'Разнородные величины: столбцы — объём, линия — ставка или доля'], ['Круговой', tok('pie'), 'Доли одного целого, 2–6 секторов, без динамики'], ['Кольцевой', tok('donut'), 'То же, плюс итог в центре кольца'], ['Точечный', tok('scatter'), 'Связь двух числовых величин, 10+ наблюдений'], ['Водопад', tok('waterfall'), 'Как итог получился из начального значения и вкладов'], ['Спарклайн', tok('spark'), 'Форма тренда в строке таблицы или рядом с числом; осей и легенды нет']]);
+  }
+  function hexOf(tokenName) {
+    var v = getComputedStyle(document.documentElement).getPropertyValue(tokenName).trim();
+    return v || '—';
+  }
+
+  /* ---------------- redline ---------------- */
+  function initRedline() {
+    var host = document.getElementById('dev-redline');
+    if (!host) return;
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;left:-9999px;top:0;width:640px';
+    document.body.appendChild(probe);
+    probe.appendChild(CH.make(base({
+      title: 'Проба',
+      subtitle: 'redline',
+      size: 'm',
+      categories: M12,
+      series: [{
+        id: 'in',
+        name: 'Поступления',
+        data: IN
+      }],
+      valueLabels: true,
+      crosshair: true
+    })));
+    var rows = [];
+    try {
+      var cs = function (sel) {
+        var n = probe.querySelector(sel);
+        return n ? getComputedStyle(n) : {};
+      };
+      var hostCs = getComputedStyle(probe.querySelector('.chart-host'));
+      rows = [['Высота поля построения · S', '132px'], ['Высота поля построения · M', hostCs.getPropertyValue('--chart-h').trim()], ['Высота поля построения · L', '320px'], ['Зазор между блоками (.chart)', cs('.chart').rowGap], ['Шапка · зазор', cs('.chart__head').columnGap], ['Заголовок', cs('.chart__title').font], ['Подзаголовок', cs('.chart__subtitle').font], ['Тулбар · зазор', cs('.chart__toolbar').columnGap], ['Легенда · зазор', cs('.chart__legend').rowGap + ' / ' + cs('.chart__legend').columnGap], ['Легенда · элемент, паддинг', cs('.chart__legend-item').padding], ['Легенда · минимальная высота', cs('.chart__legend-item').minHeight], ['Маркер серии', cs('.chart__marker').width + ' × ' + cs('.chart__marker').height], ['Маркер серии · радиус', cs('.chart__marker').borderRadius], ['Подписи осей', cs('.chart__axis text').font || 'var(--type-body-xs)'], ['Отступ подписи Y от поля', '8px'], ['Отступ подписи X от оси', '15px (базовая линия)'], ['Радиус столбца', 'var(--radius-2xs) — 2px'], ['Зазор между столбцами в группе', '2px'], ['Внешний отступ полосы категории', 'min(24% полосы, 12px)'], ['Толщина линии', '2px'], ['Радиус точки на линии', '3.5px (активная — 5px)'], ['Толщина опорной линии', '1px, штрих 4/4'], ['Кросс-хэйр', '1px, ' + cs('.chart__cursor').backgroundColor], ['Тултип · максимальная ширина', cs('.chart__tip').maxWidth], ['Тултип · смещение от курсора', '14px по X и Y'], ['Brush · высота', '36px'], ['Спарклайн · высота', '24px']];
+    } finally {
+      probe.remove();
+    }
+    var tplCols = 'grid-template-columns:8px 1.84fr 0.81fr 8px;';
+    host.innerHTML = rows.filter(function (r) {
+      return r[1];
+    }).map(function (r) {
+      return '<div class="tbl__row" style="' + tplCols + '"><div class="tc tc--separator"></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div><div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><code class="tok">' + r[1] + '</code></span></span></div><div class="tc tc--separator"></div></div>';
+    }).join('');
+  }
+
+  /* ---------------- copy ---------------- */
+  function initCopy() {
+    document.querySelectorAll('.code-panel__copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var t = document.getElementById(btn.dataset.copyTarget);
+        if (!t) return;
+        navigator.clipboard.writeText(t.textContent).then(function () {
+          var lab = btn.querySelector('.copy-label');
+          if (!lab) return;
+          var old = lab.textContent;
+          lab.textContent = 'Скопировано';
+          setTimeout(function () {
+            lab.textContent = old;
+          }, 1400);
+        });
+      });
+    });
+  }
+  function boot() {
+    [initExamples, initPlayground, initTables, initRedline, initCopy].forEach(function (fn) {
+      try {
+        fn();
+      } catch (e) {
+        console.error('chart.page:', e);
+      }
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);else boot();
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/chart.page.js", error: String((e && e.message) || e) }); }
+
 // scripts/chip.page.js
 try { (() => {
 /* =========================================================================
@@ -1952,7 +2890,7 @@ try { (() => {
     // leading slot
     if (state === 'loading') {
       const sp = document.createElement('span');
-      sp.className = 'chip__spinner';
+      sp.className = 'spin';
       el.appendChild(sp);
     } else if (state === 'selected') {
       const ic = document.createElement('span');
@@ -1966,7 +2904,7 @@ try { (() => {
       el.appendChild(m);
     } else if (leading === 'icon') {
       const ic = document.createElement('span');
-      ic.className = 'chip__marker chip__marker--icon';
+      ic.className = 'chip__marker';
       ic.innerHTML = icon(resolvedLeadingIcon);
       el.appendChild(ic);
     } else if (leading === 'avatar') {
@@ -3006,7 +3944,10 @@ function makeItem(spec) {
   if (spec.sub) it.classList.add('menu__item--sub');
   it.setAttribute('role', spec.selectable ? 'menuitemradio' : 'menuitem');
   if (spec.selectable) it.setAttribute('aria-checked', String(!!spec.selected));
-  if (spec.disabled) it.setAttribute('aria-disabled', 'true');
+  if (spec.disabled) {
+    it.setAttribute('aria-disabled', 'true');
+    it.tabIndex = -1;
+  } /* вне табуляции */
   if (spec.state) it.classList.add('is-' + spec.state);
   if (spec.icon) {
     const i = document.createElement('span');
@@ -3058,60 +3999,17 @@ function makeMenu(items, o = {}) {
   return el;
 }
 
-/* ---------- позиционирование floating-меню относительно триггера ---------- */
-function placeMenu(stage, menu, target, placement, align, gap) {
-  gap = gap == null ? 6 : gap;
-  const sr = stage.getBoundingClientRect();
-  const tr = target.getBoundingClientRect();
-  const mw = menu.offsetWidth,
-    mh = menu.offsetHeight;
-  const tl = tr.left - sr.left,
-    tt = tr.top - sr.top;
-  let x = 0,
-    y = 0;
-  if (placement === 'bottom') y = tt + tr.height + gap;else if (placement === 'top') y = tt - gap - mh;else if (placement === 'right') x = tl + tr.width + gap;else if (placement === 'left') x = tl - gap - mw;
-  if (placement === 'bottom' || placement === 'top') {
-    if (align === 'start') x = tl;else if (align === 'end') x = tl + tr.width - mw;else x = tl + tr.width / 2 - mw / 2;
-    menu.style.setProperty('--menu-origin', (placement === 'top' ? 'bottom' : 'top') + ' ' + (align === 'end' ? 'right' : align === 'start' ? 'left' : 'center'));
-  } else {
-    if (align === 'start') y = tt;else if (align === 'end') y = tt + tr.height - mh;else y = tt + tr.height / 2 - mh / 2;
-  }
-  menu.style.left = Math.round(x) + 'px';
-  menu.style.top = Math.round(y) + 'px';
-}
-
-/* ---------- авто-размещение: разворот по вертикали и флип выравнивания
-   при упоре в границы вьюпорта, затем финальный зажим по горизонтали ---------- */
-function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
-  prefer = prefer || 'bottom';
-  align = align || 'start';
-  gap = gap == null ? 6 : gap;
-  const vw = document.documentElement.clientWidth,
-    vh = document.documentElement.clientHeight;
-  const tr = trigger.getBoundingClientRect();
-  const mw = menu.offsetWidth,
-    mh = menu.offsetHeight,
-    m = 8;
-
-  // вертикаль: разворот вверх, если снизу не хватает места
-  const below = vh - tr.bottom,
-    above = tr.top;
-  let placement = prefer;
-  if (prefer === 'bottom' && below < mh + gap + m && above > below) placement = 'top';else if (prefer === 'top' && above < mh + gap + m && below > above) placement = 'bottom';
-
-  // горизонталь: флип стороны выравнивания, если меню вылезает за экран
-  let al = align;
-  if (al === 'start' && tr.left + mw > vw - m && tr.right - mw >= m) al = 'end';else if (al === 'end' && tr.right - mw < m && tr.left + mw <= vw - m) al = 'start';
-  placeMenu(stage, menu, trigger, placement, al, gap);
-
-  // финальный зажим по горизонтали в пределах вьюпорта (left задан относительно anchor)
-  const sr = stage.getBoundingClientRect();
-  const leftVp = sr.left + parseFloat(menu.style.left);
-  if (leftVp < m) menu.style.left = parseFloat(menu.style.left) + (m - leftVp) + 'px';else if (leftVp + mw > vw - m) menu.style.left = parseFloat(menu.style.left) - (leftVp + mw - (vw - m)) + 'px';
-  return {
-    placement,
-    align: al
-  };
+/* ---------- позиционирование: рантайм ДС (scripts/ds-menu.js) ----------
+   Страница ничего не считает сама — DSMenu.place() делает разворот вверх,
+   флип выравнивания и зажим в границах. boundary=null → вьюпорт. */
+function autoPlaceMenu(stage, menu, trigger, prefer, align, gap, boundary) {
+  return window.DSMenu.place(menu, trigger, {
+    placement: prefer || 'bottom',
+    align: align || 'start',
+    gap: gap == null ? 6 : gap,
+    boundary: boundary || null,
+    offsetParent: stage
+  });
 }
 
 /* =========================================================================
@@ -3134,6 +4032,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
   let anchor,
     trigger,
     menu,
+    api,
     open = true;
   function ctlSelect(label, options, key) {
     const wrap = document.createElement('div');
@@ -3250,7 +4149,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
     anchor.className = 'menu-anchor';
     trigger = document.createElement('button');
     trigger.type = 'button';
-    trigger.className = 'kebab';
+    trigger.className = 'ibtn ibtn--neutral ibtn--l';
     trigger.innerHTML = KEBAB;
     trigger.setAttribute('aria-label', 'Действия');
     trigger.setAttribute('aria-haspopup', 'menu');
@@ -3261,23 +4160,24 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
     });
     anchor.appendChild(menu);
     wireSubmenu(menu);
-    place();
-    if (open) {
-      menu.classList.add('is-open');
-      trigger.setAttribute('aria-expanded', 'true');
-    }
-    trigger.addEventListener('click', () => {
-      open = !open;
-      menu.classList.toggle('is-open', open);
-      trigger.setAttribute('aria-expanded', String(open));
-      if (open) place();
+    /* меню в конструкторе показано открытым: рантайм ведёт открытие/закрытие,
+       клавиатуру и позиционирование, страница лишь просит открыть по умолчанию */
+    api = window.DSMenu.bind(trigger, {
+      menu,
+      placement: 'bottom',
+      align: 'start',
+      gap: 6,
+      autoFocus: false,
+      keepOpen: true,
+      dismiss: false
     });
+    if (open) api.open();
 
     // code
     codeEl.innerHTML = '<code>&lt;div class="menu" role="menu"&gt;…&lt;/div&gt;</code>';
   }
   function place() {
-    autoPlaceMenu(anchor, menu, trigger, 'bottom', 'start', 6);
+    if (api) api.place();
   }
   render();
   window.addEventListener('resize', () => {
@@ -3288,7 +4188,7 @@ function autoPlaceMenu(stage, menu, trigger, prefer, align, gap) {
   });
 })();
 
-/* ---------- подменю: раскрытие по наведению + клавиатуре (→ / ←), любое меню ---------- */
+/* ---------- подменю: разметка пунктов + поведение из рантайма DSMenu ---------- */
 function wireSubmenu(menu, opts) {
   const items = opts && opts.items || [{
     label: 'PDF'
@@ -3298,43 +4198,14 @@ function wireSubmenu(menu, opts) {
     label: 'CSV'
   }];
   menu.querySelectorAll('.menu__item--sub').forEach(subHost => {
-    if (subHost.__wired) return;
-    subHost.__wired = true;
+    if (subHost.querySelector('.menu__sub')) return;
     const sub = makeMenu(items, {
       floating: true
     });
     sub.classList.add('menu__sub');
     subHost.appendChild(sub);
-    let t;
-    const openSub = () => {
-      clearTimeout(t);
-      sub.classList.add('is-open');
-      subHost.setAttribute('aria-expanded', 'true');
-    };
-    const closeSub = () => {
-      t = setTimeout(() => {
-        sub.classList.remove('is-open');
-        subHost.setAttribute('aria-expanded', 'false');
-      }, 160);
-    };
-    subHost.setAttribute('aria-haspopup', 'menu');
-    subHost.setAttribute('aria-expanded', 'false');
-    subHost.addEventListener('mouseenter', openSub);
-    subHost.addEventListener('mouseleave', closeSub);
-    subHost.addEventListener('focus', openSub);
-    subHost.addEventListener('blur', closeSub);
-    subHost.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') {
-        openSub();
-        const f = sub.querySelector('.menu__item');
-        if (f) f.focus();
-      }
-      if (e.key === 'ArrowLeft' || e.key === 'Escape') {
-        closeSub();
-        subHost.focus();
-      }
-    });
   });
+  window.DSMenu.wireSubs(menu);
 }
 
 /* =========================================================================
@@ -3501,43 +4372,17 @@ function wireSubmenu(menu, opts) {
 /* =========================================================================
    USAGE — table header · table row · card
    ========================================================================= */
+/* открытие/закрытие, клавиатура и позиционирование — рантайм DSMenu */
 function openable(anchor, trigger, menu, placement, align) {
-  let open = false;
-  function place() {
-    autoPlaceMenu(anchor, menu, trigger, placement, align, 6);
-  }
-  function set(v) {
-    open = v;
-    menu.classList.toggle('is-open', open);
-    trigger.setAttribute('aria-expanded', String(open));
-    if (open) {
-      place();
-      document.addEventListener('pointerdown', outside, true);
-      document.addEventListener('keydown', esc);
-    } else {
-      document.removeEventListener('pointerdown', outside, true);
-      document.removeEventListener('keydown', esc);
-    }
-  }
-  function outside(e) {
-    if (!anchor.contains(e.target)) set(false);
-  }
-  function esc(e) {
-    if (e.key === 'Escape') {
-      set(false);
-      trigger.focus();
-    }
-  }
-  trigger.addEventListener('click', () => set(!open));
-  menu.addEventListener('click', e => {
-    if (e.target.closest('.menu__item') && !e.target.closest('.menu__item--sub')) set(false);
-  });
-  window.addEventListener('resize', () => {
-    if (open) place();
+  const api = window.DSMenu.bind(trigger, {
+    menu,
+    placement,
+    align,
+    gap: 6
   });
   return {
-    place,
-    set
+    place: () => api.place(),
+    set: v => v ? api.open() : api.close()
   };
 }
 (function () {
@@ -3548,7 +4393,7 @@ function openable(anchor, trigger, menu, placement, align) {
     anchor.className = 'menu-anchor';
     const trg = document.createElement('button');
     trg.type = 'button';
-    trg.className = 'kebab';
+    trg.className = 'ibtn ibtn--neutral ibtn--l';
     trg.innerHTML = KEBAB;
     trg.setAttribute('aria-label', 'Ещё');
     trg.setAttribute('aria-haspopup', 'menu');
@@ -3571,7 +4416,7 @@ function openable(anchor, trigger, menu, placement, align) {
     anchor.className = 'menu-anchor';
     const trg = document.createElement('button');
     trg.type = 'button';
-    trg.className = 'kebab kebab--s';
+    trg.className = 'ibtn ibtn--neutral ibtn--m';
     trg.innerHTML = KEBAB;
     trg.setAttribute('aria-label', 'Действия');
     trg.setAttribute('aria-haspopup', 'menu');
@@ -3594,7 +4439,7 @@ function openable(anchor, trigger, menu, placement, align) {
     anchor.className = 'menu-anchor';
     const trg = document.createElement('button');
     trg.type = 'button';
-    trg.className = 'kebab kebab--s';
+    trg.className = 'ibtn ibtn--neutral ibtn--m';
     trg.innerHTML = KEBAB;
     trg.setAttribute('aria-label', 'Действия');
     trg.setAttribute('aria-haspopup', 'menu');
@@ -3646,37 +4491,15 @@ function openable(anchor, trigger, menu, placement, align) {
   });
   vp.appendChild(menu);
   function update() {
-    const prefer = preferSel.value;
-    const br = vp.getBoundingClientRect();
-    const tr = trg.getBoundingClientRect();
-    const mw = menu.offsetWidth,
-      mh = menu.offsetHeight,
-      gap = 6,
-      m = 6;
-    const sTop = tr.top - br.top,
-      sBottom = br.bottom - tr.bottom;
-    const order = {
-      bottom: ['bottom', 'top'],
-      top: ['top', 'bottom']
-    }[prefer] || ['bottom', 'top'];
-    const fits = {
-      top: sTop >= mh + gap,
-      bottom: sBottom >= mh + gap
-    };
-    const placement = order.find(p => fits[p]) || prefer;
-
-    // выравнивание: start (рост вправо); если не помещается — end (рост влево)
-    let align = 'start';
-    if (br.right - tr.left < mw + m) align = 'end';
-    placeMenu(vp, menu, trg, placement, align, gap);
-
-    // зажим по обеим осям в границах области
-    let x = parseFloat(menu.style.left),
-      y = parseFloat(menu.style.top);
-    x = Math.max(m, Math.min(br.width - mw - m, x));
-    y = Math.max(m, Math.min(br.height - mh - m, y));
-    menu.style.left = x + 'px';
-    menu.style.top = y + 'px';
+    /* границей служит сама демо-область: рантайм сам развернёт меню вверх
+       и зажмёт его внутри рамки */
+    window.DSMenu.place(menu, trg, {
+      placement: preferSel.value,
+      align: 'start',
+      gap: 6,
+      boundary: vp,
+      offsetParent: vp
+    });
   }
   let dragging = false,
     ox = 0,
@@ -3726,26 +4549,7 @@ function openable(anchor, trigger, menu, placement, align) {
     danger: true
   }]);
   menu.style.minWidth = '220px';
-  const subHost = menu.querySelector('.menu__item--sub');
-  const sub = makeMenu([{
-    label: 'PDF'
-  }, {
-    label: 'Excel (XLSX)'
-  }, {
-    label: 'CSV'
-  }], {
-    floating: true
-  });
-  sub.classList.add('menu__sub');
-  subHost.appendChild(sub);
-  let t;
-  subHost.addEventListener('mouseenter', () => {
-    clearTimeout(t);
-    sub.classList.add('is-open');
-  });
-  subHost.addEventListener('mouseleave', () => {
-    t = setTimeout(() => sub.classList.remove('is-open'), 160);
-  });
+  wireSubmenu(menu);
   host.appendChild(menu);
 })();
 
@@ -5207,7 +6011,7 @@ function makeItem(spec) {
     row.className = 'ddl__state ddl__state--' + spec.system;
     const ic = document.createElement('span');
     ic.className = 'ddl__state-icon';
-    if (spec.system === 'loading') ic.innerHTML = '<span class="ddl__spinner"></span>';else if (spec.system === 'error') ic.innerHTML = icon('alert-circle-filled');else ic.innerHTML = icon('close-circle');
+    if (spec.system === 'loading') ic.innerHTML = '<span class="spin"></span>';else if (spec.system === 'error') ic.innerHTML = icon('alert-circle-filled');else ic.innerHTML = icon('close-circle');
     const tx = document.createElement('span');
     tx.className = 'ddl__state-text';
     tx.innerHTML = escapeHtml(spec.label) + (spec.sub ? '<span class="ddl__state-sub">' + escapeHtml(spec.sub) + '</span>' : '');
@@ -5288,36 +6092,6 @@ function makeList(items, o = {}) {
   return el;
 }
 
-/* ---------- множественный выбор и строка «Выбрать всё» ----------
-   Состояние строки «Выбрать всё»: все опции → true, часть → mixed, ничего → false. */
-function setChecked(it, v) {
-  it.setAttribute('aria-checked', v === 'mixed' ? 'mixed' : String(!!v));
-  const mark = it.querySelector('.cb__mark');
-  if (mark) mark.innerHTML = v === 'mixed' ? DASH : CHECK;
-}
-function wireMulti(list, onChange) {
-  const allRow = list.querySelector('.ddl__item--all');
-  const rows = Array.from(list.querySelectorAll('.ddl__item--checkbox:not(.ddl__item--all)')).filter(r => r.getAttribute('aria-disabled') !== 'true');
-  function refresh() {
-    const on = rows.filter(r => r.getAttribute('aria-checked') === 'true').length;
-    if (allRow) setChecked(allRow, on === rows.length ? true : on ? 'mixed' : false);
-    if (onChange) onChange(on, rows.length);
-  }
-  rows.forEach(r => r.addEventListener('click', () => {
-    setChecked(r, r.getAttribute('aria-checked') !== 'true');
-    refresh();
-  }));
-  if (allRow) allRow.addEventListener('click', () => {
-    const turnOn = allRow.getAttribute('aria-checked') !== 'true';
-    rows.forEach(r => setChecked(r, turnOn));
-    refresh();
-  });
-  refresh();
-  return {
-    refresh
-  };
-}
-
 /* ---------- поле-триггер (Select / Autocomplete) ---------- */
 function makeField(o = {}) {
   const f = document.createElement('div');
@@ -5339,17 +6113,7 @@ function setSummary(field, n) {
   field.querySelector('.fld__value').textContent = n ? String(n) : 'Не выбрано';
 }
 
-/* ---------- позиционирование floating-списка под полем ---------- */
-function placeList(anchor, list, field, placement, gap) {
-  gap = gap == null ? 6 : gap;
-  const ar = anchor.getBoundingClientRect();
-  const fr = field.getBoundingClientRect();
-  const lh = list.offsetHeight;
-  const y = placement === 'top' ? fr.top - ar.top - gap - lh : fr.bottom - ar.top + gap;
-  list.style.left = Math.round(fr.left - ar.left) + 'px';
-  list.style.top = Math.round(y) + 'px';
-  list.style.setProperty('--ddl-origin', (placement === 'top' ? 'bottom' : 'top') + ' left');
-}
+/* позиционирование и открытие/закрытие/клавиатура/три-стейт — рантайм scripts/ds-dropdownlist.js */
 
 /* =========================================================================
    PLAYGROUND
@@ -5575,14 +6339,16 @@ function placeList(anchor, list, field, placement, gap) {
     anchor.appendChild(list);
     stage.appendChild(anchor);
     if (state.variant === 'checkbox' && !sys) {
-      wireMulti(list, n => setSummary(field, n));
+      window.DSDropdownList.wireMulti(list, n => setSummary(field, n));
     }
     place();
     const tag = state.variant === 'checkbox' ? 'aria-multiselectable="true"' : '';
     codeEl.innerHTML = '<code>&lt;div class="ddl" role="listbox" ' + tag + '&gt;…&lt;/div&gt;</code>';
   }
   function place() {
-    placeList(anchor, list, field, 'bottom', 6);
+    window.DSDropdownList.place(list, field, {
+      gap: 6
+    });
   }
   render();
   window.addEventListener('resize', () => {
@@ -5917,16 +6683,13 @@ function placeList(anchor, list, field, placement, gap) {
   });
   vp.appendChild(list);
   function update() {
-    list.style.width = field.offsetWidth + 'px'; // ширина списка = ширине поля
     const br = vp.getBoundingClientRect();
-    const fr = field.getBoundingClientRect();
-    const lh = list.offsetHeight,
-      gap = 6,
-      m = 6;
-    const below = br.bottom - fr.bottom,
-      above = fr.top - br.top;
-    const placement = below < lh + gap && above > below ? 'top' : 'bottom';
-    placeList(vp, list, field, placement, gap);
+    window.DSDropdownList.place(list, field, {
+      boundary: vp,
+      offsetParent: vp,
+      gap: 6
+    });
+    const m = 6;
     let x = parseFloat(list.style.left),
       y = parseFloat(list.style.top);
     x = Math.max(m, Math.min(br.width - list.offsetWidth - m, x));
@@ -5965,48 +6728,8 @@ function placeList(anchor, list, field, placement, gap) {
 
 /* =========================================================================
    USAGE — Select (single) · Multiselect · Autocomplete
+   Открытие/позиционирование/клавиатура/три-стейт — window.DSDropdownList.bind, без своего кода
    ========================================================================= */
-function openable(anchor, field, list, prefer) {
-  let open = false;
-  function place() {
-    list.style.width = field.offsetWidth + 'px';
-    const ar = anchor.getBoundingClientRect();
-    const vh = document.documentElement.clientHeight;
-    const fr = field.getBoundingClientRect();
-    const lh = list.offsetHeight,
-      gap = 6;
-    let placement = prefer || 'bottom';
-    if (placement === 'bottom' && vh - fr.bottom < lh + gap && fr.top > lh) placement = 'top';
-    placeList(anchor, list, field, placement, gap);
-  }
-  function set(v) {
-    open = v;
-    list.classList.toggle('is-open', open);
-    field.classList.toggle('is-open', open);
-    if (open) {
-      place();
-      document.addEventListener('pointerdown', outside, true);
-      document.addEventListener('keydown', esc);
-    } else {
-      document.removeEventListener('pointerdown', outside, true);
-      document.removeEventListener('keydown', esc);
-    }
-  }
-  function outside(e) {
-    if (!anchor.contains(e.target)) set(false);
-  }
-  function esc(e) {
-    if (e.key === 'Escape') set(false);
-  }
-  field.addEventListener('click', () => set(!open));
-  window.addEventListener('resize', () => {
-    if (open) place();
-  });
-  return {
-    set,
-    place
-  };
-}
 (function () {
   // --- single select ---
   const s1 = document.getElementById('use-select');
@@ -6036,13 +6759,12 @@ function openable(anchor, field, list, prefer) {
     });
     anchor.appendChild(list);
     s1.appendChild(anchor);
-    const api = openable(anchor, field, list, 'bottom');
-    list.querySelectorAll('.ddl__item').forEach(it => it.addEventListener('click', () => {
-      list.querySelectorAll('.ddl__item').forEach(x => x.setAttribute('aria-selected', 'false'));
-      it.setAttribute('aria-selected', 'true');
-      field.querySelector('.fld__value').textContent = it.querySelector('.ddl__item-label').textContent;
-      api.set(false);
-    }));
+    window.DSDropdownList.bind(field, {
+      list,
+      onSelect: it => {
+        field.querySelector('.fld__value').textContent = it.querySelector('.ddl__item-label').textContent;
+      }
+    });
   }
 
   // --- multiselect ---
@@ -6072,9 +6794,11 @@ function openable(anchor, field, list, prefer) {
     });
     anchor.appendChild(list);
     s2.appendChild(anchor);
-    openable(anchor, field, list, 'bottom');
-    wireMulti(list, n => setSummary(field, n));
-    // не закрывать по клику — оставляем открытым при мультивыборе (закрытие вне/Esc)
+    window.DSDropdownList.bind(field, {
+      list,
+      multiple: true,
+      onToggle: () => setSummary(field, list.querySelectorAll('.ddl__item--checkbox:not(.ddl__item--all)[aria-checked="true"]').length)
+    });
   }
 
   // --- autocomplete ---
@@ -6109,11 +6833,12 @@ function openable(anchor, field, list, prefer) {
     });
     anchor.appendChild(list);
     s3.appendChild(anchor);
-    const api = openable(anchor, field, list, 'bottom');
-    list.querySelectorAll('.ddl__item').forEach(it => it.addEventListener('click', () => {
-      field.querySelector('.fld__value').textContent = it.querySelector('.ddl__item-label').textContent;
-      api.set(false);
-    }));
+    window.DSDropdownList.bind(field, {
+      list,
+      onSelect: it => {
+        field.querySelector('.fld__value').textContent = it.querySelector('.ddl__item-label').textContent;
+      }
+    });
   }
 })();
 
@@ -6295,6 +7020,2016 @@ function openable(anchor, field, list, prefer) {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/dropdown-list.page.js", error: String((e && e.message) || e) }); }
 
+// scripts/ds-actions-overflow.js
+try { (() => {
+/* ds-actions-overflow.js — переполнение ряда кнопок в меню «Ещё» (out-of-box, RulesAudit Фаза 3).
+   Тот же принцип, что у ds-tabs.js для табов (data-tabs-overflow="menu"): кнопки,
+   не поместившиеся в ширину контейнера, скрываются и появляются как пункты меню
+   за кнопкой «Ещё действия» (открытие/позиция/клавиатура — ds-menu.js). Первым
+   кандидатом — PageHeader (.phead__actions), но применим к любому ряду .btn.
+
+   Подключение (opt-in): <div class="phead__actions" data-actions-overflow>…</div>
+   Экспорт: window.DSActionsOverflow = { bind(host)→api|null, bindAll(root) } */
+(function () {
+  'use strict';
+
+  function bind(host) {
+    if (host.__dsActOverflow) return host.__dsActOverflow;
+    if (!host.parentNode) return null;
+    var btns = Array.prototype.filter.call(host.children, function (n) {
+      return n.matches && n.matches('.btn');
+    });
+    if (btns.length < 2) return null;
+    var sizeM = btns[0].className.match(/\bbtn--(xs|s|m)\b/);
+    var typeM = btns[0].className.match(/\bbtn--(accent|outline|transparent)\b/);
+    var moreBtn = document.createElement('button');
+    moreBtn.type = 'button';
+    moreBtn.className = 'btn btn--icon-only ' + (typeM ? typeM[0] : 'btn--outline') + ' ' + (sizeM ? sizeM[0] : 'btn--m');
+    moreBtn.setAttribute('aria-haspopup', 'menu');
+    moreBtn.setAttribute('aria-expanded', 'false');
+    moreBtn.setAttribute('aria-label', 'Показать скрытые действия');
+    moreBtn.innerHTML = window.DS_ICONS && window.DS_ICONS['more-dots'] || '&#8943;';
+    moreBtn.style.display = 'none';
+    host.appendChild(moreBtn);
+    var menu = document.createElement('div');
+    menu.className = 'menu';
+    menu.setAttribute('role', 'menu');
+    menu.hidden = true;
+    document.body.appendChild(menu);
+    var menuApi = window.DSMenu ? window.DSMenu.bind(moreBtn, {
+      menu: menu,
+      align: 'end'
+    }) : null;
+
+    /* натуральная (несжатая) ширина каждой кнопки — сжатая getBoundingClientRect
+       живых .btn (flex-shrink:1 + min-width:0 в page-header.css) всегда "влезает",
+       порог обрезки никогда не сработает. Меряем клон off-screen, как probe в
+       ds-breadcrumbs.js: flex:none + white-space:nowrap внутри max-content хоста. */
+    var probe = host.cloneNode(false);
+    probe.style.cssText = 'position:fixed;visibility:hidden;pointer-events:none;left:-9999px;top:-9999px;width:max-content;flex-wrap:nowrap;';
+    var widths = btns.map(function (b) {
+      var c = b.cloneNode(true);
+      c.style.flex = 'none';
+      c.style.minWidth = '';
+      c.style.whiteSpace = 'nowrap';
+      probe.appendChild(c);
+      return c;
+    });
+    document.body.appendChild(probe);
+    widths = widths.map(function (c) {
+      return c.getBoundingClientRect().width;
+    });
+    probe.remove();
+    function buildMenu() {
+      menu.innerHTML = '';
+      btns.forEach(function (b) {
+        if (b.style.display !== 'none') return;
+        var item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'menu__item';
+        item.setAttribute('role', 'menuitem');
+        var srcIcon = b.querySelector('svg, [data-icon]');
+        if (srcIcon) {
+          var ic = document.createElement('span');
+          ic.className = 'menu__item-icon';
+          ic.innerHTML = srcIcon.outerHTML;
+          item.appendChild(ic);
+        }
+        var label = b.querySelector('.btn__label');
+        var lb = document.createElement('span');
+        lb.className = 'menu__item-label';
+        lb.textContent = label ? label.textContent : b.getAttribute('aria-label') || b.textContent.trim();
+        item.appendChild(lb);
+        if (b.disabled) item.setAttribute('aria-disabled', 'true');
+        item.addEventListener('click', function () {
+          if (menuApi) menuApi.close();
+          b.click();
+        });
+        menu.appendChild(item);
+      });
+      if (window.dsIcons) window.dsIcons.apply(menu);
+    }
+    function layout() {
+      var available = host.clientWidth;
+      var gap = parseFloat(getComputedStyle(host).columnGap || getComputedStyle(host).gap) || 0;
+      var total = widths.reduce(function (a, w) {
+        return a + w;
+      }, 0) + gap * Math.max(0, widths.length - 1);
+      if (total <= available + 0.5) {
+        btns.forEach(function (b) {
+          b.style.display = '';
+        });
+        moreBtn.style.display = 'none';
+        buildMenu();
+        return;
+      }
+      moreBtn.style.display = '';
+      var moreW = moreBtn.getBoundingClientRect().width;
+      var sum = moreW,
+        cutoff = 0;
+      for (var i = 0; i < widths.length; i++) {
+        sum += widths[i] + (i > 0 ? gap : 0);
+        if (sum + gap > available) break;
+        cutoff = i + 1;
+      }
+      btns.forEach(function (b, i) {
+        b.style.display = i < cutoff ? '' : 'none';
+      });
+      buildMenu();
+    }
+    var ro = new ResizeObserver(layout);
+    ro.observe(host);
+    var api = {
+      refresh: layout
+    };
+    host.__dsActOverflow = api;
+    requestAnimationFrame(layout);
+    return api;
+  }
+  function bindAll(root) {
+    (root || document).querySelectorAll('[data-actions-overflow]').forEach(bind);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    bindAll(document);
+  });else bindAll(document);
+  window.DSActionsOverflow = {
+    bind: bind,
+    bindAll: bindAll
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-actions-overflow.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-alert.js
+try { (() => {
+/* ds-alert.js — общий рантайм Alert: свернуть/закрыть (RulesAudit W5 · K5).
+   Делегированные слушатели на document — работает на любой .alert, включая
+   динамически добавленные. Разметка сама ничего не делает без этого скрипта:
+   .alert__collapse только меняет aria-expanded, .alert--collapsed на .alert
+   даёт CSS (display:none у текста/кнопок) — оба шага делает этот файл. */
+(function () {
+  document.addEventListener('click', function (e) {
+    var collapseBtn = e.target.closest ? e.target.closest('.alert__collapse') : null;
+    if (collapseBtn) {
+      var alertEl = collapseBtn.closest('.alert');
+      if (!alertEl) return;
+      var expanded = collapseBtn.getAttribute('aria-expanded') !== 'false';
+      collapseBtn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      alertEl.classList.toggle('alert--collapsed', expanded);
+      return;
+    }
+    var closeBtn = e.target.closest ? e.target.closest('.alert__close') : null;
+    if (closeBtn) {
+      var toRemove = closeBtn.closest('.alert');
+      if (toRemove) toRemove.remove();
+    }
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-alert.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-allocationbar.js
+try { (() => {
+/* ds-allocationbar.js — общий рантайм AllocationBar: связь бар↔строка по hover
+   (RulesAudit W5 · K5). Делегированные слушатели на document — работает на
+   любой .albar, включая динамически отрендеренный. CSS уже умеет гасить
+   несвязанные сегменты/строки через [data-hover] + .is-active, этот файл
+   только выставляет их по наведению. */
+(function () {
+  function setActive(root, id) {
+    root.querySelectorAll('.albar__seg,.albar__row').forEach(function (n) {
+      n.classList.toggle('is-active', n.getAttribute('data-id') === id);
+    });
+  }
+  document.addEventListener('mouseover', function (e) {
+    var node = e.target.closest ? e.target.closest('.albar__seg,.albar__row') : null;
+    if (!node) return;
+    var root = node.closest('.albar');
+    if (!root) return;
+    root.setAttribute('data-hover', '');
+    setActive(root, node.getAttribute('data-id'));
+  });
+  document.addEventListener('mouseout', function (e) {
+    var node = e.target.closest ? e.target.closest('.albar__seg,.albar__row') : null;
+    if (!node) return;
+    var root = node.closest('.albar');
+    if (!root || root.contains(e.relatedTarget)) return;
+    root.removeAttribute('data-hover');
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-allocationbar.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-breadcrumbs.js
+try { (() => {
+/* ds-breadcrumbs.js — авто-схлопывание трейла Breadcrumbs по ширине (out-of-box, RulesAudit Фаза 3).
+   Зависимости: styles/breadcrumbs.css, ds-menu.js («…»), ds-tooltip.js (тултип обрезанной крошки).
+
+   Подключение (opt-in, чтобы не оживлять статичные примеры витрин):
+     <ol class="crumbs" data-breadcrumbs>
+       <li class="crumbs__item"><a class="link link--muted" href="…">Главная</a></li>
+       <li class="crumbs__item"><a class="link link--muted" href="…">Раздел</a></li>
+       <li class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">Текущая</span></li>
+     </ol>
+   Полный список звеньев считывается ОДИН РАЗ при первом bind() (a[href]/текст
+   каждого <li>) — дальше по ResizeObserver алгоритм сам решает полный трейл
+   показывать или схлопнутый (срединные звенья → «…» с меню), не трогая
+   переданную разметку сверх этого.
+
+   Экспорт: window.DSBreadcrumbs = { bind(ol)→api|null, bindAll(root) } */
+(function () {
+  'use strict';
+
+  function textOf(el) {
+    return (el.textContent || '').trim();
+  }
+  function captureItems(ol) {
+    return Array.prototype.map.call(ol.querySelectorAll(':scope > .crumbs__item'), function (li) {
+      var current = li.classList.contains('crumbs__item--current');
+      var cur = current ? li.querySelector('.crumbs__current') : null;
+      var a = li.querySelector('a');
+      return {
+        text: textOf(cur || a || li),
+        href: a ? a.getAttribute('href') : null
+      };
+    });
+  }
+  function crumbLink(item) {
+    var li = document.createElement('li');
+    li.className = 'crumbs__item';
+    var a = document.createElement('a');
+    a.href = item.href || '#';
+    a.className = 'link link--muted';
+    a.textContent = item.text;
+    a.title = item.text;
+    li.appendChild(a);
+    return li;
+  }
+  function crumbCurrent(item) {
+    var li = document.createElement('li');
+    li.className = 'crumbs__item crumbs__item--current';
+    var span = document.createElement('span');
+    span.className = 'crumbs__current';
+    span.setAttribute('aria-current', 'page');
+    span.textContent = item.text;
+    li.appendChild(span);
+    if (window.DSTooltip) window.DSTooltip.bind(span, {
+      text: item.text,
+      truncatedOnly: true,
+      multiline: true
+    });
+    return li;
+  }
+  function crumbMore(hidden) {
+    var li = document.createElement('li');
+    li.className = 'crumbs__item';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'crumbs__more';
+    btn.textContent = '…';
+    btn.setAttribute('aria-haspopup', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Показать промежуточные страницы: ' + hidden.map(function (h) {
+      return h.text;
+    }).join(', '));
+    var menu = document.createElement('div');
+    menu.className = 'menu crumbs__popup';
+    menu.style.position = 'fixed';
+    menu.hidden = true;
+    hidden.forEach(function (h) {
+      var item = document.createElement(h.href ? 'a' : 'button');
+      if (h.href) item.href = h.href;else item.type = 'button';
+      item.className = 'menu__item';
+      var label = document.createElement('span');
+      label.className = 'menu__item-label';
+      label.textContent = h.text;
+      item.appendChild(label);
+      menu.appendChild(item);
+    });
+    document.body.appendChild(menu);
+    li.appendChild(btn);
+    if (window.DSMenu) window.DSMenu.bind(btn, {
+      menu: menu,
+      align: 'start'
+    });
+    li.__dsPopup = menu;
+    return li;
+  }
+  function overflows(el) {
+    return el.scrollWidth > el.clientWidth + 1;
+  }
+  function render(ol, items) {
+    if (ol.__dsPopups) ol.__dsPopups.forEach(function (m) {
+      m.remove();
+    });
+    ol.__dsPopups = [];
+    var w = ol.clientWidth;
+    var probe = document.createElement('ol');
+    probe.className = ol.className;
+    probe.style.cssText = 'position:fixed;visibility:hidden;pointer-events:none;left:-9999px;top:-9999px;width:' + w + 'px;';
+    items.forEach(function (it, i) {
+      probe.appendChild(i === items.length - 1 ? crumbCurrent(it) : crumbLink(it));
+    });
+    document.body.appendChild(probe);
+    var collapse = items.length > 2 && overflows(probe);
+    probe.remove();
+    ol.innerHTML = '';
+    if (!collapse) {
+      items.forEach(function (it, i) {
+        ol.appendChild(i === items.length - 1 ? crumbCurrent(it) : crumbLink(it));
+      });
+    } else {
+      ol.appendChild(crumbLink(items[0]));
+      var moreLi = crumbMore(items.slice(1, -1));
+      ol.__dsPopups.push(moreLi.__dsPopup);
+      ol.appendChild(moreLi);
+      ol.appendChild(crumbCurrent(items[items.length - 1]));
+    }
+  }
+  function bind(ol) {
+    if (ol.__dsBreadcrumbs) return ol.__dsBreadcrumbs;
+    var items = captureItems(ol);
+    if (!items.length) return null;
+    function reflow() {
+      render(ol, items);
+    }
+    reflow();
+    var ro = new ResizeObserver(reflow);
+    ro.observe(ol);
+    var api = {
+      refresh: reflow,
+      items: items
+    };
+    ol.__dsBreadcrumbs = api;
+    return api;
+  }
+  function bindAll(root) {
+    (root || document).querySelectorAll('[data-breadcrumbs]').forEach(bind);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    bindAll(document);
+  });else bindAll(document);
+  window.DSBreadcrumbs = {
+    bind: bind,
+    bindAll: bindAll
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-breadcrumbs.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-buttongroup.js
+try { (() => {
+/* ds-buttongroup.js — переключение toggle-кнопок ButtonGroup (out-of-box, RulesAudit Фаза 3).
+   Split Button (меню) уже общий рантайм — ds-menu.js; здесь — только сам toggle.
+
+   Делегированный клик по .btn[aria-pressed] внутри .btn-group--toggle:
+     role="group"      — независимый мультивыбор, клик инвертирует только свою кнопку
+     role="radiogroup" — одиночный выбор (сегмент-подобный), клик снимает pressed с соседей
+   Отключённая группа (aria-disabled="true" на .btn-group) или сама кнопка (disabled) — без реакции. */
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.btn-group--toggle > .btn[aria-pressed]') : null;
+    if (!btn || btn.disabled) return;
+    var group = btn.closest('.btn-group--toggle');
+    if (!group || group.getAttribute('aria-disabled') === 'true') return;
+    var exclusive = group.getAttribute('role') === 'radiogroup';
+    if (exclusive) {
+      if (btn.getAttribute('aria-pressed') === 'true') return;
+      Array.prototype.forEach.call(group.querySelectorAll('.btn[aria-pressed]'), function (b) {
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+    } else {
+      btn.setAttribute('aria-pressed', String(btn.getAttribute('aria-pressed') !== 'true'));
+    }
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-buttongroup.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-chart.js
+try { (() => {
+/* =========================================================================
+   Chart — рантайм ДС. Строит SVG-график из данных и держит поведение:
+   легенда, тултип, кросс-хэйр, подписи значений, опорная линия, brush.
+   Публичное API: window.DSChart
+     .make(cfg)  → DOM-узел .chart-host (перерисовывается по ResizeObserver)
+     .palette    → 12 токенов --chart-* в порядке назначения
+     .fmt        → { number, compact, percent } — форматтеры ru-RU
+   Разметка: см. specs/Chart.md. Стиль: styles/chart.css.
+   ========================================================================= */
+(function (global) {
+  'use strict';
+
+  var PALETTE = ['--chart-blue', '--chart-turquoise', '--chart-indigo', '--chart-orange', '--chart-pastel-green', '--chart-purple', '--chart-light-blue', '--chart-yellow', '--chart-shiny-green', '--chart-pink-purple', '--chart-red', '--chart-pale-purple'];
+  var NS = 'http://www.w3.org/2000/svg';
+  var CAT_TYPES = {
+    bar: 1,
+    hbar: 1,
+    grouped: 1,
+    stacked: 1,
+    stacked100: 1,
+    line: 1,
+    area: 1,
+    combo: 1,
+    waterfall: 1
+  };
+
+  /* ---------- числа ru-RU ---------- */
+  function fmtNumber(n, min, max) {
+    if (n == null || isNaN(n)) return '—';
+    return new Intl.NumberFormat('ru-RU', {
+      minimumFractionDigits: min == null ? 0 : min,
+      maximumFractionDigits: max == null ? 2 : max
+    }).format(n);
+  }
+  function fmtPercent(p) {
+    return fmtNumber(p, 1, 1) + '%';
+  }
+  function fmtCompact(n) {
+    if (n == null || isNaN(n)) return '—';
+    var a = Math.abs(n);
+    if (a >= 1e9) return fmtNumber(n / 1e9, 0, 1) + ' млрд';
+    if (a >= 1e6) return fmtNumber(n / 1e6, 0, 1) + ' млн';
+    if (a >= 1e4) return fmtNumber(n / 1e3, 0, 1) + ' тыс.';
+    return fmtNumber(n, 0, 2);
+  }
+
+  /* ---------- DOM/SVG ---------- */
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt != null) e.textContent = txt;
+    return e;
+  }
+  function s(tag, attrs, txt) {
+    var e = document.createElementNS(NS, tag);
+    if (attrs) for (var k in attrs) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
+    if (txt != null) e.textContent = txt;
+    return e;
+  }
+  function tokenColor(tok) {
+    return tok ? 'var(' + tok + ')' : null;
+  }
+
+  /* ---------- шкала: «красивые» деления ---------- */
+  function niceTicks(min, max, count) {
+    if (min === max) {
+      max = min + 1;
+    }
+    var span = max - min;
+    var step = Math.pow(10, Math.floor(Math.log10(span / count)));
+    var err = span / count / step;
+    if (err >= 7.5) step *= 10;else if (err >= 3.5) step *= 5;else if (err >= 1.5) step *= 2;
+    var lo = Math.floor(min / step) * step,
+      hi = Math.ceil(max / step) * step;
+    var ticks = [],
+      v = lo,
+      guard = 0;
+    while (v <= hi + step / 1000 && guard++ < 40) {
+      ticks.push(Math.abs(v) < step / 1000 ? 0 : v);
+      v += step;
+    }
+    return {
+      min: lo,
+      max: hi,
+      ticks: ticks
+    };
+  }
+
+  /* =========================================================================
+     Основной конструктор
+     ========================================================================= */
+  function make(cfg) {
+    cfg = Object.assign({
+      type: 'bar',
+      size: 'm',
+      legend: true,
+      tooltip: true,
+      crosshair: false,
+      grid: 'y',
+      valueLabels: false,
+      brush: false,
+      format: 'compact',
+      yTicks: 4,
+      status: 'loaded',
+      categories: [],
+      series: []
+    }, cfg || {});
+    var host = el('div', 'chart-host' + (cfg.type === 'spark' ? ' chart-host--spark' : ''));
+    host.dataset.size = cfg.size;
+    host.dataset.type = cfg.type;
+    var root = el('div', 'chart' + (cfg.type === 'spark' ? ' chart--spark' : '') + (cfg.stretch ? ' chart--stretch' : ''));
+    host.appendChild(root);
+    var inst = {
+      cfg: cfg,
+      host: host,
+      root: root,
+      hidden: {},
+      /* id серии → скрыта легендой */
+      range: null,
+      /* [i0, i1] при brush */
+      palette: cfg.palette || PALETTE
+    };
+    host.__chart = inst;
+    if (cfg.status === 'loading' || cfg.status === 'loading-slow') {
+      renderSkeleton(inst);
+      return host;
+    }
+    if (cfg.status === 'error') {
+      renderError(inst);
+      return host;
+    }
+    if (cfg.status === 'empty' || !hasData(cfg)) {
+      renderEmpty(inst);
+      return host;
+    }
+    buildAnatomy(inst);
+    observe(inst);
+    return host;
+  }
+  function hasData(cfg) {
+    if (!cfg.series || !cfg.series.length) return false;
+    return cfg.series.some(function (se) {
+      return (se.data || []).some(function (v) {
+        return v != null && (typeof v !== 'object' || v.y != null);
+      });
+    });
+  }
+
+  /* ---------- служебные состояния ---------- */
+  function head(inst) {
+    var cfg = inst.cfg;
+    if (!cfg.title && !cfg.subtitle && !cfg.toolbar) return null;
+    var h = el('div', 'chart__head');
+    var t = el('div', 'chart__titles');
+    if (cfg.title) t.appendChild(el('div', 'chart__title', cfg.title));
+    if (cfg.subtitle) t.appendChild(el('div', 'chart__subtitle', cfg.subtitle));
+    h.appendChild(t);
+    if (cfg.toolbar) h.appendChild(buildToolbar(inst));
+    return h;
+  }
+  function renderSkeleton(inst) {
+    var h = head(inst);
+    if (h) inst.root.appendChild(h);
+    var wrap = el('div', 'chart__sk');
+    wrap.setAttribute('aria-busy', 'true');
+    if (inst.cfg.status === 'loading-slow') {
+      var c = el('div', 'chart__calc');
+      c.appendChild(el('div', 'chart__calc-title', 'Данные рассчитываются'));
+      c.appendChild(el('div', 'chart__calc-sub', inst.cfg.calcMessage || 'Расчёт занимает больше обычного, график появится автоматически'));
+      inst.root.appendChild(c);
+      return;
+    }
+    var bars = el('div', 'chart__sk-bars');
+    [58, 82, 44, 96, 70, 62].forEach(function (p) {
+      var b = el('span', 'sk-block');
+      b.style.setProperty('--sk-h', p + '%');
+      b.setAttribute('aria-hidden', 'true');
+      bars.appendChild(b);
+    });
+    wrap.appendChild(bars);
+    var line = el('span', 'sk-line sk-line--caption');
+    line.style.setProperty('--sk-w', '100%');
+    line.setAttribute('aria-hidden', 'true');
+    wrap.appendChild(line);
+    inst.root.appendChild(wrap);
+  }
+  function renderError(inst) {
+    var h = head(inst);
+    if (h) inst.root.appendChild(h);
+    var box = el('div', 'chart__foot');
+    var a = el('div', 'alert alert--error alert--m');
+    a.setAttribute('role', 'alert');
+    var ico = el('span', 'alert__icon');
+    ico.setAttribute('aria-hidden', 'true');
+    ico.innerHTML = '<i data-icon="alert-circle-filled"></i>';
+    var body = el('div', 'alert__body');
+    var p = el('p', 'alert__text', inst.cfg.errorMessage || 'Не удалось загрузить данные графика');
+    body.appendChild(p);
+    var btns = el('div', 'alert__buttons');
+    var b = el('button', 'btn btn--outline btn--xs btn--error');
+    b.type = 'button';
+    b.appendChild(el('span', 'btn__label', 'Повторить'));
+    if (inst.cfg.onRetry) b.addEventListener('click', inst.cfg.onRetry);
+    btns.appendChild(b);
+    body.appendChild(btns);
+    a.appendChild(ico);
+    a.appendChild(body);
+    box.appendChild(a);
+    inst.root.appendChild(box);
+    if (global.dsIcons) global.dsIcons.apply(inst.root);
+  }
+  function renderEmpty(inst) {
+    var h = head(inst);
+    if (h) inst.root.appendChild(h);
+    inst.root.appendChild(el('div', 'chart__empty', inst.cfg.emptyMessage || 'Нет данных за выбранный период'));
+  }
+
+  /* ---------- тулбар ---------- */
+  function buildToolbar(inst) {
+    var tb = inst.cfg.toolbar,
+      box = el('div', 'chart__toolbar');
+    if (tb.periods && tb.periods.length) {
+      var rail = el('div', 'segctrl segctrl--xs');
+      rail.setAttribute('role', 'radiogroup');
+      rail.setAttribute('aria-label', 'Период');
+      var thumb = el('div', 'segctrl__thumb');
+      rail.appendChild(thumb);
+      var btns = tb.periods.map(function (p) {
+        var b = el('button', 'segctrl__item');
+        b.type = 'button';
+        b.setAttribute('role', 'radio');
+        b.dataset.val = p;
+        b.innerHTML = '<span class="segctrl__label"></span>';
+        b.firstChild.textContent = p;
+        b.addEventListener('click', function () {
+          tb.active = p;
+          sync();
+          if (tb.onPeriod) tb.onPeriod(p, inst);
+        });
+        rail.appendChild(b);
+        return b;
+      });
+      function sync() {
+        var on = null;
+        btns.forEach(function (b) {
+          var is = b.dataset.val === tb.active;
+          b.setAttribute('aria-checked', String(is));
+          if (is) on = b;
+        });
+        if (on && on.offsetWidth) {
+          thumb.style.width = on.offsetWidth + 'px';
+          thumb.style.transform = 'translateX(' + on.offsetLeft + 'px)';
+          thumb.classList.add('is-visible');
+        }
+      }
+      if (global.ResizeObserver) new ResizeObserver(sync).observe(rail);
+      setTimeout(sync, 0);
+      setTimeout(sync, 160);
+      box.appendChild(rail);
+    }
+    if (tb.export !== false) {
+      var ib = el('button', 'ibtn ibtn--neutral ibtn--s');
+      ib.type = 'button';
+      ib.setAttribute('aria-label', 'Скачать график');
+      ib.title = 'Скачать SVG';
+      ib.innerHTML = '<i data-icon="download"></i>';
+      ib.addEventListener('click', function () {
+        exportSvg(inst);
+      });
+      box.appendChild(ib);
+    }
+    return box;
+  }
+  function exportSvg(inst) {
+    if (!inst.svg) return;
+    var clone = inst.svg.cloneNode(true);
+    clone.setAttribute('xmlns', NS);
+    var blob = new Blob([new XMLSerializer().serializeToString(clone)], {
+      type: 'image/svg+xml'
+    });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (inst.cfg.title || 'chart') + '.svg';
+    a.click();
+    setTimeout(function () {
+      URL.revokeObjectURL(a.href);
+    }, 1000);
+  }
+
+  /* ---------- анатомия ---------- */
+  function buildAnatomy(inst) {
+    var cfg = inst.cfg,
+      root = inst.root;
+    var h = head(inst);
+    if (h) root.appendChild(h);
+    if (cfg.legend && cfg.type !== 'spark') {
+      inst.legend = el('div', 'chart__legend' + (cfg.legend === 'bottom' ? ' chart__legend--bottom' : ''));
+      root.appendChild(inst.legend);
+    }
+    inst.plot = el('div', 'chart__plot');
+    inst.svg = s('svg', {
+      class: 'chart__svg',
+      role: 'img'
+    });
+    inst.plot.appendChild(inst.svg);
+    if (cfg.crosshair) {
+      inst.cursor = el('div', 'chart__cursor');
+      inst.plot.appendChild(inst.cursor);
+    }
+    if (cfg.tooltip && cfg.type !== 'spark') {
+      inst.tip = el('div', 'tip tip--main tip--multiline tip--no-arrow chart__tip');
+      inst.tip.setAttribute('role', 'tooltip');
+      inst.tip.style.display = 'none';
+      inst.plot.appendChild(inst.tip);
+    }
+    root.appendChild(inst.plot);
+    if (cfg.brush && CAT_TYPES[cfg.type]) buildBrush(inst);
+    if (cfg.footNote) {
+      var f = el('div', 'chart__foot');
+      var a = el('div', 'alert alert--info alert--m');
+      var ico = el('span', 'alert__icon');
+      ico.setAttribute('aria-hidden', 'true');
+      ico.innerHTML = '<i data-icon="Info-circle-filled"></i>';
+      var body = el('div', 'alert__body');
+      body.appendChild(el('p', 'alert__text', cfg.footNote));
+      a.appendChild(ico);
+      a.appendChild(body);
+      f.appendChild(a);
+      root.appendChild(f);
+    }
+    if (global.dsIcons) global.dsIcons.apply(root);
+    if (global.DSTooltip) global.DSTooltip.bindAll(root);
+  }
+
+  /* ---------- легенда ---------- */
+  function renderLegend(inst, series) {
+    if (!inst.legend) return;
+    inst.legend.innerHTML = '';
+    series.forEach(function (se) {
+      var b = el('button', 'chart__legend-item');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(!inst.hidden[se.id]));
+      var mk = el('span', 'chart__marker' + (se.kind === 'line' ? ' chart__marker--line' : '') + (se.kind === 'scatter' ? ' chart__marker--dot' : '') + (se.dashed ? ' chart__marker--dashed' : ''));
+      mk.style.setProperty('--chart-c', se.color);
+      b.appendChild(mk);
+      b.appendChild(el('span', 'chart__legend-name', se.name));
+      if (se.legendValue != null) b.appendChild(el('span', 'chart__legend-val', se.legendValue));
+      b.addEventListener('click', function () {
+        var visible = series.filter(function (x) {
+          return !inst.hidden[x.id];
+        });
+        if (!inst.hidden[se.id] && visible.length === 1) return; /* последнюю серию не гасим */
+        inst.hidden[se.id] = !inst.hidden[se.id];
+        draw(inst);
+      });
+      b.addEventListener('mouseenter', function () {
+        inst.root.dataset.hover = se.id;
+        markActive(inst, se.id);
+      });
+      b.addEventListener('mouseleave', function () {
+        delete inst.root.dataset.hover;
+        markActive(inst, null);
+      });
+      inst.legend.appendChild(b);
+    });
+  }
+  function markActive(inst, id) {
+    inst.svg.querySelectorAll('.chart__ser').forEach(function (g) {
+      g.classList.toggle('is-active', id != null && g.dataset.id === id);
+    });
+  }
+
+  /* ---------- нормализация серий ---------- */
+  function prepare(inst) {
+    var cfg = inst.cfg;
+    return (cfg.series || []).map(function (se, i) {
+      var kind = se.type || (cfg.type === 'line' ? 'line' : cfg.type === 'area' || cfg.type === 'stackedArea' ? 'area' : cfg.type === 'scatter' ? 'scatter' : 'bar');
+      return {
+        id: se.id || 's' + i,
+        name: se.name || 'Серия ' + (i + 1),
+        data: se.data || [],
+        kind: kind,
+        dashed: !!se.dashed,
+        forecastFrom: se.forecastFrom == null ? null : se.forecastFrom,
+        legendValue: se.legendValue,
+        color: tokenColor(se.color || inst.palette[i % inst.palette.length])
+      };
+    });
+  }
+
+  /* ---------- перерисовка по размеру ---------- */
+  function observe(inst) {
+    function schedule() {
+      clearTimeout(inst.raf);
+      inst.raf = setTimeout(function () {
+        draw(inst);
+      }, 16);
+    }
+    inst.redraw = schedule;
+    if (global.ResizeObserver) {
+      inst.ro = new ResizeObserver(schedule);
+      inst.ro.observe(inst.plot);
+    }
+    global.addEventListener('resize', schedule);
+    /* первая отрисовка: узел мог ещё не попасть в документ — ждём ненулевую ширину */
+    var tries = 0;
+    (function attempt() {
+      if (inst.plot.clientWidth) {
+        draw(inst);
+        return;
+      }
+      if (tries++ < 60) setTimeout(attempt, 32);
+    })();
+  }
+
+  /* =========================================================================
+     Отрисовка
+     ========================================================================= */
+  function draw(inst) {
+    var cfg = inst.cfg,
+      svg = inst.svg;
+    var box = svg.getBoundingClientRect();
+    var W = Math.round(box.width),
+      H = Math.round(box.height);
+    if (!W || !H) return;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.innerHTML = '';
+    var all = prepare(inst);
+    renderLegend(inst, all);
+    var series = all.filter(function (se) {
+      return !inst.hidden[se.id];
+    });
+    if (!series.length) series = all.slice(0, 1);
+    var cats = cfg.categories || [];
+    var range = inst.range || [0, Math.max(cats.length - 1, 0)];
+    inst.view = {
+      series: series,
+      all: all,
+      W: W,
+      H: H
+    };
+    if (cfg.type === 'spark') {
+      drawSpark(inst, series, W, H);
+      return;
+    }
+    if (cfg.type === 'pie' || cfg.type === 'donut') {
+      drawPie(inst, series, W, H);
+      return;
+    }
+    if (cfg.type === 'scatter') {
+      drawScatter(inst, series, W, H);
+      return;
+    }
+    drawCartesian(inst, series, cats, range, W, H);
+  }
+
+  /* ---- измерение ширины подписи: меряем в том же контексте, что и ось,
+     иначе на размере L (Body S) подписи окажутся шире расчётного поля ---- */
+  function textW(svg, txt, fontClass) {
+    var g = s('g', {
+      class: 'chart__axis'
+    });
+    var t = s('text', {
+      class: fontClass || null,
+      x: -999,
+      y: -999
+    }, txt);
+    g.appendChild(t);
+    svg.appendChild(g);
+    var w = t.getComputedTextLength();
+    g.remove();
+    return w;
+  }
+
+  /* ---------- декартовы типы ---------- */
+  function drawCartesian(inst, series, cats, range, W, H) {
+    var cfg = inst.cfg,
+      svg = inst.svg;
+    var horiz = cfg.type === 'hbar';
+    var i0 = Math.max(0, Math.round(range[0])),
+      i1 = Math.min(cats.length - 1, Math.round(range[1]));
+    var idx = [];
+    for (var i = i0; i <= i1; i++) idx.push(i);
+    var stacked = cfg.type === 'stacked' || cfg.type === 'stacked100' || cfg.type === 'stackedArea';
+    var stackedArea = cfg.type === 'stackedArea';
+    var pct = cfg.type === 'stacked100';
+    var waterfall = cfg.type === 'waterfall';
+
+    /* --- диапазон значений --- */
+    var lo = 0,
+      hi = 0,
+      wf = null;
+    if (waterfall) {
+      wf = [];
+      var acc = 0;
+      idx.forEach(function (j, k) {
+        var v = num(series[0].data[j]);
+        var isTot = (cfg.totalIndexes || []).indexOf(j) >= 0;
+        var from = isTot ? 0 : acc,
+          to = isTot ? v : acc + v;
+        wf.push({
+          j: j,
+          from: from,
+          to: to,
+          v: v,
+          total: isTot
+        });
+        acc = to;
+        lo = Math.min(lo, from, to);
+        hi = Math.max(hi, from, to);
+      });
+    } else if (pct) {
+      lo = 0;
+      hi = 100;
+    } else if (stacked) {
+      idx.forEach(function (j) {
+        var pos = 0,
+          neg = 0;
+        series.forEach(function (se) {
+          var v = num(se.data[j]);
+          if (v >= 0) pos += v;else neg += v;
+        });
+        hi = Math.max(hi, pos);
+        lo = Math.min(lo, neg);
+      });
+    } else {
+      series.forEach(function (se) {
+        idx.forEach(function (j) {
+          var v = se.data[j];
+          if (v == null) return;
+          hi = Math.max(hi, num(v));
+          lo = Math.min(lo, num(v));
+        });
+      });
+    }
+    if (cfg.refLine) {
+      hi = Math.max(hi, cfg.refLine.value);
+      lo = Math.min(lo, cfg.refLine.value);
+    }
+    if (cfg.maxY != null) hi = cfg.maxY;
+    if (cfg.minY != null) lo = cfg.minY;
+    if (hi === lo) hi = lo + 1;
+    var scale = pct ? {
+      min: 0,
+      max: 100,
+      ticks: [0, 25, 50, 75, 100]
+    } : niceTicks(lo, hi, cfg.yTicks);
+
+    /* --- поля --- */
+    var fmtV = function (v) {
+      return pct ? fmtNumber(v, 0, 0) + '%' : cfg.format === 'full' ? fmtNumber(v, 0, 2) : fmtCompact(v);
+    };
+    var valW = 0;
+    scale.ticks.forEach(function (t) {
+      valW = Math.max(valW, textW(svg, fmtV(t)));
+    });
+    var catW = 0;
+    idx.forEach(function (j) {
+      catW = Math.max(catW, textW(svg, String(cats[j] == null ? '' : cats[j])));
+    });
+    var pad = {
+      t: cfg.valueLabels ? 18 : 10,
+      r: 10,
+      b: 22,
+      l: 8
+    };
+    if (horiz) {
+      pad.l = Math.min(catW + 10, W * 0.42);
+      pad.b = 20;
+      pad.r = Math.max(10, textW(svg, fmtV(scale.max)) / 2 + 6);
+    } else {
+      pad.l = valW + 10;
+    }
+    var x0 = pad.l,
+      x1 = W - pad.r,
+      y0 = pad.t,
+      y1 = H - pad.b;
+    if (x1 <= x0 || y1 <= y0) return;
+    var gGrid = s('g', {
+        class: 'chart__grid'
+      }),
+      gBand = s('g'),
+      gSer = s('g'),
+      gAxis = s('g', {
+        class: 'chart__axis'
+      }),
+      gLab = s('g'),
+      gHit = s('g');
+
+    /* --- сетка и ось значений --- */
+    var vPos = horiz ? function (v) {
+      return x0 + (v - scale.min) / (scale.max - scale.min) * (x1 - x0);
+    } : function (v) {
+      return y1 - (v - scale.min) / (scale.max - scale.min) * (y1 - y0);
+    };
+    if (cfg.grid !== 'none') scale.ticks.forEach(function (t) {
+      var p = Math.round(vPos(t)) + .5;
+      gGrid.appendChild(horiz ? s('line', {
+        x1: p,
+        x2: p,
+        y1: y0,
+        y2: y1,
+        class: t === 0 ? 'chart__zero' : null
+      }) : s('line', {
+        x1: x0,
+        x2: x1,
+        y1: p,
+        y2: p,
+        class: t === 0 ? 'chart__zero' : null
+      }));
+      gAxis.appendChild(horiz ? s('text', {
+        x: p,
+        y: y1 + 15,
+        'text-anchor': 'middle'
+      }, fmtV(t)) : s('text', {
+        x: x0 - 8,
+        y: p + 4,
+        'text-anchor': 'end'
+      }, fmtV(t)));
+    });
+
+    /* --- полосы категорий --- */
+    var n = idx.length;
+    var bandFull = (horiz ? y1 - y0 : x1 - x0) / Math.max(n, 1);
+    var bandPos = function (k) {
+      return (horiz ? y0 : x0) + bandFull * k;
+    };
+    var barPad = Math.min(bandFull * 0.24, 12);
+    var bw = Math.max(bandFull - barPad * 2, 2);
+
+    /* подписи категорий: прореживание, если не помещаются */
+    var step = 1;
+    if (!horiz) {
+      var need = catW + 10;
+      while (bandFull * step < need && step < n) step++;
+    }
+    idx.forEach(function (j, k) {
+      if (!horiz && k % step) return;
+      var lbl = String(cats[j] == null ? '' : cats[j]);
+      if (horiz) {
+        gAxis.appendChild(s('text', {
+          x: x0 - 8,
+          y: bandPos(k) + bandFull / 2 + 4,
+          'text-anchor': 'end'
+        }, lbl));
+        return;
+      }
+      /* центр полосы, но крайние подписи прижимаются к границам поля — иначе их срезает overflow */
+      var cxL = bandPos(k) + bandFull / 2,
+        half = textW(svg, lbl) / 2,
+        anchor = 'middle';
+      if (cxL - half < x0) {
+        cxL = x0;
+        anchor = 'start';
+      } else if (cxL + half > x1) {
+        cxL = x1;
+        anchor = 'end';
+      }
+      gAxis.appendChild(s('text', {
+        x: cxL,
+        y: y1 + 15,
+        'text-anchor': anchor
+      }, lbl));
+    });
+    gAxis.appendChild(horiz ? s('line', {
+      x1: x0 + .5,
+      x2: x0 + .5,
+      y1: y0,
+      y2: y1
+    }) : s('line', {
+      x1: x0,
+      x2: x1,
+      y1: Math.round(vPos(Math.max(scale.min, 0))) + .5,
+      y2: Math.round(vPos(Math.max(scale.min, 0))) + .5
+    }));
+
+    /* --- серии --- */
+    var barSeries = series.filter(function (se) {
+      return se.kind === 'bar';
+    });
+    var lineSeries = series.filter(function (se) {
+      return se.kind === 'line' || se.kind === 'area';
+    });
+    var stackAcc = {},
+      areaAcc = {};
+    if (waterfall) {
+      var g = s('g', {
+        class: 'chart__ser',
+        'data-id': series[0].id
+      });
+      wf.forEach(function (b, k) {
+        var yA = vPos(b.from),
+          yB = vPos(b.to);
+        var color = b.total ? 'var(--primary)' : b.v >= 0 ? 'var(--success)' : 'var(--error)';
+        var rect = s('rect', {
+          class: 'chart__bar',
+          x: bandPos(k) + barPad,
+          width: bw,
+          y: Math.min(yA, yB),
+          height: Math.max(Math.abs(yB - yA), 2),
+          'data-i': b.j
+        });
+        rect.style.setProperty('--chart-c', color);
+        g.appendChild(rect);
+        if (cfg.valueLabels) gLab.appendChild(s('text', {
+          class: 'chart__vlabel',
+          x: bandPos(k) + bandFull / 2,
+          y: Math.min(yA, yB) - 5,
+          'text-anchor': 'middle'
+        }, (b.v > 0 && !b.total ? '+' : '') + fmtV(b.v)));
+        if (k < wf.length - 1) gGrid.appendChild(s('line', {
+          x1: bandPos(k) + barPad,
+          x2: bandPos(k + 1) + barPad + bw,
+          y1: Math.round(vPos(b.to)) + .5,
+          y2: Math.round(vPos(b.to)) + .5
+        }));
+      });
+      gSer.appendChild(g);
+    } else if (barSeries.length) {
+      /* bar/hbar с несколькими сериями группируются автоматически — накладывать серии друг на друга нельзя */
+      var groupN = stacked ? 1 : barSeries.length;
+      var slot = bw / groupN;
+      barSeries.forEach(function (se, si) {
+        var g = s('g', {
+          class: 'chart__ser',
+          'data-id': se.id
+        });
+        g.style.setProperty('--chart-c', se.color);
+        idx.forEach(function (j, k) {
+          var raw = se.data[j];
+          if (raw == null) return;
+          var v = num(raw);
+          if (pct) {
+            var sum = series.reduce(function (a, x) {
+              return a + Math.abs(num(x.data[j]));
+            }, 0) || 1;
+            v = num(raw) / sum * 100;
+          }
+          var base = 0,
+            top = v;
+          if (stacked) {
+            var key = j + '|' + (v >= 0 ? 'p' : 'n');
+            base = stackAcc[key] || 0;
+            top = base + v;
+            stackAcc[key] = top;
+          }
+          var yA = vPos(base),
+            yB = vPos(top);
+          var forecast = se.forecastFrom != null && j >= se.forecastFrom;
+          var attrs = horiz ? {
+            x: Math.min(yA, yB),
+            y: bandPos(k) + barPad + slot * (groupN > 1 ? si : 0),
+            width: Math.max(Math.abs(yB - yA), 2),
+            height: groupN > 1 ? slot - 2 : bw
+          } : {
+            x: bandPos(k) + barPad + slot * (groupN > 1 ? si : 0) + (groupN > 1 ? 1 : 0),
+            y: Math.min(yA, yB),
+            width: groupN > 1 ? Math.max(slot - 2, 1) : bw,
+            height: Math.max(Math.abs(yB - yA), 2)
+          };
+          attrs.class = 'chart__bar' + (forecast ? ' chart__bar--forecast' : '');
+          attrs['data-i'] = j;
+          var rect = s('rect', attrs);
+          if (forecast) rect.style.setProperty('--chart-forecast', hatch(inst, se.color));
+          g.appendChild(rect);
+          if (cfg.valueLabels && !stacked) gLab.appendChild(s('text', {
+            class: 'chart__vlabel',
+            x: horiz ? Math.max(yA, yB) + 4 : attrs.x + attrs.width / 2,
+            y: horiz ? attrs.y + attrs.height / 2 + 4 : Math.min(yA, yB) - 5,
+            'text-anchor': horiz ? 'start' : 'middle'
+          }, fmtV(num(raw))));
+        });
+        gSer.appendChild(g);
+      });
+    }
+    var lineList = lineSeries.map(function (se) {
+      var vAt = {};
+      idx.forEach(function (j) {
+        if (se.data[j] == null) return;
+        var v = num(se.data[j]);
+        if (stackedArea) {
+          areaAcc[j] = (areaAcc[j] || 0) + v;
+          v = areaAcc[j];
+        }
+        vAt[j] = v;
+      });
+      return {
+        se: se,
+        vAt: vAt
+      };
+    });
+    if (stackedArea) lineList.reverse(); /* верхний слой рисуется первым, чтобы не перекрыть нижние */
+
+    lineList.forEach(function (item) {
+      var se = item.se,
+        vAt = item.vAt;
+      var g = s('g', {
+        class: 'chart__ser',
+        'data-id': se.id
+      });
+      g.style.setProperty('--chart-c', se.color);
+      var cx = function (k) {
+        return horiz ? vPos(vAt[idx[k]]) : bandPos(k) + bandFull / 2;
+      };
+      var cy = function (k) {
+        return horiz ? bandPos(k) + bandFull / 2 : vPos(vAt[idx[k]]);
+      };
+      var runs = [],
+        cur = [];
+      idx.forEach(function (j, k) {
+        if (se.data[j] == null) {
+          if (cur.length) {
+            runs.push(cur);
+            cur = [];
+          }
+          return;
+        }
+        cur.push(k);
+      });
+      if (cur.length) runs.push(cur);
+      runs.forEach(function (run) {
+        var solid = [],
+          dash = [];
+        run.forEach(function (k) {
+          var isF = se.forecastFrom != null && idx[k] >= se.forecastFrom;
+          (isF ? dash : solid).push(k);
+          if (isF && solid.length && dash.length === 1) dash.unshift(solid[solid.length - 1]);
+        });
+        [[solid, false], [dash, true]].forEach(function (pair) {
+          var pts = pair[0];
+          if (pts.length < 1) return;
+          var d = pts.map(function (k, m) {
+            return (m ? 'L' : 'M') + cx(k).toFixed(1) + ' ' + cy(k).toFixed(1);
+          }).join(' ');
+          if (se.kind === 'area' && !pair[1]) {
+            var area = s('path', {
+              class: 'chart__area',
+              d: d + ' L' + cx(pts[pts.length - 1]).toFixed(1) + ' ' + vPos(Math.max(scale.min, 0)) + ' L' + cx(pts[0]).toFixed(1) + ' ' + vPos(Math.max(scale.min, 0)) + ' Z'
+            });
+            g.appendChild(area);
+          }
+          if (pts.length === 1) {
+            var dot1 = s('circle', {
+              class: 'chart__dot chart__dot--solid',
+              cx: cx(pts[0]),
+              cy: cy(pts[0]),
+              r: 3.5
+            });
+            g.appendChild(dot1);
+            return;
+          }
+          var p = s('path', {
+            class: 'chart__line' + (pair[1] || se.dashed ? ' chart__line--dashed' : ''),
+            d: d
+          });
+          g.appendChild(p);
+        });
+        if (run.length && runs.length > 1) {
+          /* разрыв ряда: точки на краях сегмента подчёркивают пропуск */
+          [run[0], run[run.length - 1]].forEach(function (k) {
+            var dt = s('circle', {
+              class: 'chart__dot',
+              cx: cx(k),
+              cy: cy(k),
+              r: 3.5
+            });
+            g.appendChild(dt);
+          });
+        }
+      });
+      if (cfg.dots !== false && idx.length <= 32) idx.forEach(function (j, k) {
+        if (se.data[j] == null) return;
+        var dt = s('circle', {
+          class: 'chart__dot',
+          cx: cx(k),
+          cy: cy(k),
+          r: 3.5,
+          'data-i': j
+        });
+        g.appendChild(dt);
+      });
+      if (cfg.valueLabels) idx.forEach(function (j, k) {
+        if (se.data[j] == null) return;
+        gLab.appendChild(s('text', {
+          class: 'chart__vlabel',
+          x: cx(k),
+          y: cy(k) - 9,
+          'text-anchor': 'middle'
+        }, fmtV(num(se.data[j]))));
+      });
+      gSer.appendChild(g);
+    });
+    /* --- опорная линия --- */
+    if (cfg.refLine) {
+      var rp = Math.round(vPos(cfg.refLine.value)) + .5;
+      gLab.appendChild(horiz ? s('line', {
+        class: 'chart__ref',
+        x1: rp,
+        x2: rp,
+        y1: y0,
+        y2: y1
+      }) : s('line', {
+        class: 'chart__ref',
+        x1: x0,
+        x2: x1,
+        y1: rp,
+        y2: rp
+      }));
+      if (cfg.refLine.label) {
+        var lw = textW(svg, cfg.refLine.label) + 8;
+        if (horiz) {
+          gLab.appendChild(s('rect', {
+            x: rp + 2,
+            y: y0 - 1,
+            width: lw,
+            height: 16,
+            fill: 'var(--bg-tile)'
+          }));
+          gLab.appendChild(s('text', {
+            class: 'chart__ref-label',
+            x: rp + 6,
+            y: y0 + 11
+          }, cfg.refLine.label));
+        } else {
+          gLab.appendChild(s('rect', {
+            x: x1 - lw,
+            y: rp - 16,
+            width: lw,
+            height: 15,
+            fill: 'var(--bg-tile)'
+          }));
+          gLab.appendChild(s('text', {
+            class: 'chart__ref-label',
+            x: x1 - 4,
+            y: rp - 5,
+            'text-anchor': 'end'
+          }, cfg.refLine.label));
+        }
+      }
+    }
+
+    /* --- зоны наведения --- */
+    if (cfg.tooltip || cfg.crosshair) idx.forEach(function (j, k) {
+      var geom = {
+        'data-i': j,
+        x: horiz ? x0 : bandPos(k),
+        y: horiz ? bandPos(k) : y0,
+        width: horiz ? x1 - x0 : bandFull,
+        height: horiz ? bandFull : y1 - y0
+      };
+      gBand.appendChild(s('rect', Object.assign({
+        class: 'chart__band'
+      }, geom)));
+      gHit.appendChild(s('rect', Object.assign({
+        class: 'chart__hit'
+      }, geom)));
+    });
+    svg.appendChild(gGrid);
+    svg.appendChild(gBand);
+    svg.appendChild(gSer);
+    svg.appendChild(gAxis);
+    svg.appendChild(gLab);
+    svg.appendChild(gHit);
+    svg.setAttribute('aria-label', ariaSummary(inst, series, cats, idx));
+    bindHover(inst, {
+      horiz: horiz,
+      series: series,
+      cats: cats,
+      idx: idx,
+      bandPos: bandPos,
+      bandFull: bandFull,
+      vPos: vPos,
+      fmtV: fmtV,
+      y0: y0,
+      y1: y1,
+      pct: pct
+    });
+    if (inst.brush) syncBrushWindow(inst);
+  }
+  function num(v) {
+    return v == null ? 0 : typeof v === 'object' ? +v.y : +v;
+  }
+
+  /* штриховка прогноза */
+  function hatch(inst, color) {
+    var svg = inst.svg;
+    var id = 'hatch-' + Math.abs(hashCode(color));
+    if (!svg.querySelector('#' + id)) {
+      var defs = svg.querySelector('defs') || svg.insertBefore(s('defs'), svg.firstChild);
+      var p = s('pattern', {
+        id: id,
+        width: 6,
+        height: 6,
+        patternUnits: 'userSpaceOnUse',
+        patternTransform: 'rotate(45)'
+      });
+      var bg = s('rect', {
+        width: 6,
+        height: 6,
+        opacity: .28
+      });
+      bg.setAttribute('fill', color);
+      var ln = s('rect', {
+        width: 3,
+        height: 6
+      });
+      ln.setAttribute('fill', color);
+      p.appendChild(bg);
+      p.appendChild(ln);
+      defs.appendChild(p);
+    }
+    return 'url(#' + id + ')';
+  }
+  function hashCode(str) {
+    var h = 0;
+    for (var i = 0; i < str.length; i++) h = h * 31 + str.charCodeAt(i) | 0;
+    return h;
+  }
+
+  /* ---------- круговой / кольцевой ---------- */
+  function drawPie(inst, series, W, H) {
+    var cfg = inst.cfg,
+      svg = inst.svg;
+    inst.hiddenSlice = inst.hiddenSlice || {};
+    var all = (series[0].data || []).map(function (v, i) {
+      return {
+        i: i,
+        v: Math.abs(num(v)),
+        name: cfg.categories[i] || 'Позиция ' + (i + 1),
+        color: tokenColor(inst.palette[i % inst.palette.length])
+      };
+    }).filter(function (d) {
+      return d.v > 0;
+    });
+    var data = all.filter(function (d) {
+      return !inst.hiddenSlice[d.i];
+    });
+    if (!data.length) data = all.slice(0, 1);
+    var total = data.reduce(function (a, d) {
+      return a + d.v;
+    }, 0) || 1;
+    var cx = W / 2,
+      cy = H / 2,
+      R = Math.max(Math.min(W, H) / 2 - 6, 10);
+    var inner = cfg.type === 'donut' ? R * (cfg.donutRatio || 0.62) : 0;
+    var a0 = -Math.PI / 2;
+    var g = s('g', {
+      class: 'chart__ser',
+      'data-id': series[0].id
+    });
+    data.forEach(function (d, i) {
+      var a1 = a0 + d.v / total * Math.PI * 2;
+      var path = s('path', {
+        class: 'chart__slice',
+        d: arc(cx, cy, R, inner, a0, a1),
+        'data-i': i
+      });
+      path.setAttribute('fill', d.color);
+      path.addEventListener('mouseenter', function (e) {
+        showTip(inst, [{
+          color: d.color,
+          name: d.name,
+          val: fmtCompact(d.v) + ' · ' + fmtPercent(d.v / total * 100)
+        }], cfg.title || null, e);
+      });
+      path.addEventListener('mousemove', function (e) {
+        moveTip(inst, e);
+      });
+      path.addEventListener('mouseleave', function () {
+        hideTip(inst);
+      });
+      g.appendChild(path);
+      a0 = a1;
+    });
+    svg.appendChild(g);
+    if (cfg.centerLabel) {
+      svg.appendChild(s('text', {
+        x: cx,
+        y: cy - 2,
+        'text-anchor': 'middle',
+        class: 'chart__vlabel',
+        style: 'font:var(--type-body-m-strong);fill:var(--text-primary)'
+      }, cfg.centerLabel));
+      if (cfg.centerSub) svg.appendChild(s('text', {
+        x: cx,
+        y: cy + 15,
+        'text-anchor': 'middle',
+        class: 'chart__tick'
+      }, cfg.centerSub));
+    }
+    if (inst.legend) {
+      inst.legend.innerHTML = '';
+      all.forEach(function (d) {
+        var on = !inst.hiddenSlice[d.i];
+        var b = el('button', 'chart__legend-item');
+        b.type = 'button';
+        b.setAttribute('aria-pressed', String(on));
+        var mk = el('span', 'chart__marker');
+        mk.style.setProperty('--chart-c', d.color);
+        b.appendChild(mk);
+        b.appendChild(el('span', 'chart__legend-name', d.name));
+        b.appendChild(el('span', 'chart__legend-val', on ? fmtPercent(d.v / total * 100) : '—'));
+        b.addEventListener('click', function () {
+          if (on && data.length === 1) return; /* последний видимый сектор не выключаем */
+          inst.hiddenSlice[d.i] = on;
+          draw(inst);
+        });
+        inst.legend.appendChild(b);
+      });
+    }
+    svg.setAttribute('aria-label', (cfg.title || 'Круговой график') + ': ' + data.map(function (d) {
+      return d.name + ' ' + fmtPercent(d.v / total * 100);
+    }).join(', '));
+  }
+  function arc(cx, cy, R, r, a0, a1) {
+    var large = a1 - a0 > Math.PI ? 1 : 0;
+    var p = function (rad, a) {
+      return [cx + rad * Math.cos(a), cy + rad * Math.sin(a)];
+    };
+    var A = p(R, a0),
+      B = p(R, a1),
+      C = p(r, a1),
+      D = p(r, a0);
+    if (!r) return 'M' + cx + ' ' + cy + ' L' + A + ' A' + R + ' ' + R + ' 0 ' + large + ' 1 ' + B + ' Z';
+    return 'M' + A + ' A' + R + ' ' + R + ' 0 ' + large + ' 1 ' + B + ' L' + C + ' A' + r + ' ' + r + ' 0 ' + large + ' 0 ' + D + ' Z';
+  }
+
+  /* ---------- точечный ---------- */
+  function drawScatter(inst, series, W, H) {
+    var cfg = inst.cfg,
+      svg = inst.svg;
+    var xs = [],
+      ys = [];
+    series.forEach(function (se) {
+      se.data.forEach(function (p) {
+        if (!p) return;
+        xs.push(+p.x);
+        ys.push(+p.y);
+      });
+    });
+    var sx = niceTicks(Math.min.apply(null, xs), Math.max.apply(null, xs), 4);
+    var sy = niceTicks(Math.min.apply(null, ys), Math.max.apply(null, ys), cfg.yTicks);
+    var fmtV = function (v) {
+      return cfg.format === 'full' ? fmtNumber(v, 0, 2) : fmtCompact(v);
+    };
+    var valW = 0;
+    sy.ticks.forEach(function (t) {
+      valW = Math.max(valW, textW(svg, fmtV(t)));
+    });
+    var pad = {
+      t: 10,
+      r: 12,
+      b: 22,
+      l: valW + 10
+    };
+    var x0 = pad.l,
+      x1 = W - pad.r,
+      y0 = pad.t,
+      y1 = H - pad.b;
+    var X = function (v) {
+      return x0 + (v - sx.min) / (sx.max - sx.min) * (x1 - x0);
+    };
+    var Y = function (v) {
+      return y1 - (v - sy.min) / (sy.max - sy.min) * (y1 - y0);
+    };
+    var gGrid = s('g', {
+        class: 'chart__grid'
+      }),
+      gAxis = s('g', {
+        class: 'chart__axis'
+      }),
+      gSer = s('g');
+    sy.ticks.forEach(function (t) {
+      var p = Math.round(Y(t)) + .5;
+      gGrid.appendChild(s('line', {
+        x1: x0,
+        x2: x1,
+        y1: p,
+        y2: p,
+        class: t === 0 ? 'chart__zero' : null
+      }));
+      gAxis.appendChild(s('text', {
+        x: x0 - 8,
+        y: p + 4,
+        'text-anchor': 'end'
+      }, fmtV(t)));
+    });
+    sx.ticks.forEach(function (t) {
+      var p = Math.round(X(t)) + .5;
+      gGrid.appendChild(s('line', {
+        x1: p,
+        x2: p,
+        y1: y0,
+        y2: y1
+      }));
+      gAxis.appendChild(s('text', {
+        x: p,
+        y: y1 + 15,
+        'text-anchor': 'middle'
+      }, fmtV(t)));
+    });
+    series.forEach(function (se) {
+      var g = s('g', {
+        class: 'chart__ser',
+        'data-id': se.id
+      });
+      g.style.setProperty('--chart-c', se.color);
+      se.data.forEach(function (p) {
+        if (!p) return;
+        var dot = s('circle', {
+          class: 'chart__dot chart__dot--solid',
+          cx: X(+p.x),
+          cy: Y(+p.y),
+          r: p.r || 4.5
+        });
+        dot.addEventListener('mouseenter', function (e) {
+          showTip(inst, [{
+            color: se.color,
+            name: se.name,
+            val: fmtV(+p.x) + ' / ' + fmtV(+p.y)
+          }], p.name || se.name, e);
+        });
+        dot.addEventListener('mousemove', function (e) {
+          moveTip(inst, e);
+        });
+        dot.addEventListener('mouseleave', function () {
+          hideTip(inst);
+        });
+        g.appendChild(dot);
+      });
+      gSer.appendChild(g);
+    });
+    svg.appendChild(gGrid);
+    svg.appendChild(gSer);
+    svg.appendChild(gAxis);
+    svg.setAttribute('aria-label', (cfg.title || 'Точечный график') + ': ' + xs.length + ' наблюдений');
+  }
+
+  /* ---------- спарклайн ---------- */
+  function drawSpark(inst, series, W, H) {
+    var cfg = inst.cfg,
+      svg = inst.svg,
+      se = series[0];
+    var vals = se.data.map(num);
+    var lo = Math.min.apply(null, vals),
+      hi = Math.max.apply(null, vals);
+    if (hi === lo) {
+      hi = lo + 1;
+    }
+    var pad = 3,
+      y0 = pad,
+      y1 = H - pad;
+    var Y = function (v) {
+      return y1 - (v - lo) / (hi - lo) * (y1 - y0);
+    };
+    var color = se.color;
+    if (cfg.tone === 'auto') color = vals[vals.length - 1] >= vals[0] ? 'var(--success)' : 'var(--error)';
+    if (cfg.spark === 'bar') {
+      var bw = W / vals.length;
+      vals.forEach(function (v, i) {
+        var r = s('rect', {
+          class: 'chart__bar',
+          x: i * bw + bw * .15,
+          width: Math.max(bw * .7, 1),
+          y: Y(v),
+          height: Math.max(y1 - Y(v), 1)
+        });
+        r.style.setProperty('--chart-c', color);
+        svg.appendChild(r);
+      });
+    } else {
+      var d = vals.map(function (v, i) {
+        return (i ? 'L' : 'M') + (i / (vals.length - 1) * (W - 4) + 2).toFixed(1) + ' ' + Y(v).toFixed(1);
+      }).join(' ');
+      if (cfg.spark === 'area') {
+        var a = s('path', {
+          class: 'chart__area',
+          d: d + ' L' + (W - 2) + ' ' + y1 + ' L2 ' + y1 + ' Z'
+        });
+        a.style.setProperty('--chart-c', color);
+        svg.appendChild(a);
+      }
+      var p = s('path', {
+        class: 'chart__line',
+        d: d,
+        style: '--chart-line-w:1.5'
+      });
+      p.style.setProperty('--chart-c', color);
+      svg.appendChild(p);
+      var last = s('circle', {
+        class: 'chart__spark-dot',
+        cx: W - 2,
+        cy: Y(vals[vals.length - 1]),
+        r: 2.5
+      });
+      last.style.setProperty('--chart-c', color);
+      svg.appendChild(last);
+    }
+    svg.setAttribute('aria-label', cfg.ariaLabel || 'Динамика: ' + fmtCompact(vals[0]) + ' → ' + fmtCompact(vals[vals.length - 1]));
+  }
+
+  /* ---------- наведение: курсор + тултип ---------- */
+  function bindHover(inst, ctx) {
+    var cfg = inst.cfg;
+    if (!cfg.tooltip && !cfg.crosshair) return;
+    var svg = inst.svg;
+    if (inst.unbind) inst.unbind();
+    function at(e) {
+      var box = svg.getBoundingClientRect();
+      var pos = ctx.horiz ? e.clientY - box.top : e.clientX - box.left;
+      var k = Math.floor((pos - (ctx.horiz ? ctx.bandPos(0) : ctx.bandPos(0))) / ctx.bandFull);
+      return Math.max(0, Math.min(ctx.idx.length - 1, k));
+    }
+    function onMove(e) {
+      var k = at(e),
+        j = ctx.idx[k];
+      svg.querySelectorAll('.chart__band').forEach(function (r) {
+        r.classList.toggle('is-active', +r.dataset.i === j);
+      });
+      if (inst.cursor && !ctx.horiz) {
+        inst.cursor.style.left = ctx.bandPos(k) + ctx.bandFull / 2 + 'px';
+        inst.cursor.style.height = ctx.y1 - ctx.y0 + 'px';
+        inst.cursor.style.top = ctx.y0 + 'px';
+        inst.cursor.classList.add('is-visible');
+      }
+      if (cfg.tooltip) {
+        var rows = ctx.series.map(function (se) {
+          var v = se.data[j];
+          return {
+            color: se.color,
+            name: se.name,
+            val: v == null ? 'нет данных' : ctx.fmtV(num(v))
+          };
+        });
+        var total = ctx.series.reduce(function (a, se) {
+          return a + num(se.data[j]);
+        }, 0);
+        showTip(inst, rows, String(ctx.cats[j] == null ? '' : ctx.cats[j]), e, ctx.series.length > 1 && !ctx.pct ? {
+          name: 'Итого',
+          val: ctx.fmtV(total)
+        } : null);
+      }
+    }
+    function onLeave() {
+      hideTip(inst);
+      if (inst.cursor) inst.cursor.classList.remove('is-visible');
+      svg.querySelectorAll('.chart__band').forEach(function (r) {
+        r.classList.remove('is-active');
+      });
+    }
+    svg.addEventListener('mousemove', onMove);
+    svg.addEventListener('mouseleave', onLeave);
+    inst.unbind = function () {
+      svg.removeEventListener('mousemove', onMove);
+      svg.removeEventListener('mouseleave', onLeave);
+    };
+  }
+  function showTip(inst, rows, title, e, total) {
+    var tip = inst.tip;
+    if (!tip) return;
+    tip.innerHTML = '';
+    if (title) tip.appendChild(el('span', 'chart__tip-title', title));
+    rows.forEach(function (r) {
+      var row = el('div', 'chart__tip-row');
+      var mk = el('span', 'chart__marker');
+      mk.style.setProperty('--chart-c', r.color);
+      row.appendChild(mk);
+      row.appendChild(el('span', 'chart__tip-name', r.name));
+      row.appendChild(el('span', 'chart__tip-val', r.val));
+      tip.appendChild(row);
+    });
+    if (total) {
+      var t = el('div', 'chart__tip-row chart__tip-total');
+      t.appendChild(el('span'));
+      t.appendChild(el('span', 'chart__tip-name', total.name));
+      t.appendChild(el('span', 'chart__tip-val', total.val));
+      tip.appendChild(t);
+    }
+    tip.style.display = '';
+    tip.classList.add('is-visible');
+    moveTip(inst, e);
+  }
+  function moveTip(inst, e) {
+    var tip = inst.tip;
+    if (!tip) return;
+    var box = inst.plot.getBoundingClientRect();
+    var x = e.clientX - box.left + 14,
+      y = e.clientY - box.top + 14;
+    var w = tip.offsetWidth,
+      h = tip.offsetHeight;
+    if (x + w > box.width) x = Math.max(0, e.clientX - box.left - w - 14);
+    if (y + h > box.height) y = Math.max(0, y - h - 28);
+    tip.style.left = Math.round(x) + 'px';
+    tip.style.top = Math.round(y) + 'px';
+  }
+  function hideTip(inst) {
+    if (!inst.tip) return;
+    inst.tip.classList.remove('is-visible');
+    inst.tip.style.display = 'none';
+  }
+
+  /* ---------- краткое описание для скринридера ---------- */
+  function ariaSummary(inst, series, cats, idx) {
+    var cfg = inst.cfg;
+    var head = (cfg.title || 'График') + ', тип: ' + cfg.type + '. ';
+    return head + series.map(function (se) {
+      var first = se.data[idx[0]],
+        last = se.data[idx[idx.length - 1]];
+      return se.name + ': от ' + fmtCompact(num(first)) + ' (' + cats[idx[0]] + ') до ' + fmtCompact(num(last)) + ' (' + cats[idx[idx.length - 1]] + ')';
+    }).join('; ');
+  }
+
+  /* ---------- brush ---------- */
+  function buildBrush(inst) {
+    var box = el('div', 'chart__brush');
+    var svg = s('svg', {
+      class: 'chart__brush-svg'
+    });
+    var win = el('div', 'chart__brush-window');
+    win.appendChild(el('span', 'chart__brush-handle chart__brush-handle--l'));
+    win.appendChild(el('span', 'chart__brush-handle chart__brush-handle--r'));
+    box.appendChild(svg);
+    box.appendChild(win);
+    inst.root.appendChild(box);
+    inst.brush = {
+      box: box,
+      svg: svg,
+      win: win
+    };
+    var n = inst.cfg.categories.length;
+    inst.range = inst.cfg.initialRange || [0, n - 1];
+    function drawMini() {
+      var W = box.clientWidth,
+        H = 36;
+      if (!W) return;
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      svg.innerHTML = '';
+      var se = inst.cfg.series[0] || {
+        data: []
+      };
+      var vals = (se.data || []).map(num);
+      var hi = Math.max.apply(null, vals.concat([0])) || 1;
+      var bw = W / Math.max(vals.length, 1);
+      var r = inst.range || [0, vals.length - 1];
+      vals.forEach(function (v, i) {
+        var inWin = i >= r[0] && i <= r[1];
+        svg.appendChild(s('rect', {
+          class: 'chart__brush-spark' + (inWin ? ' is-active' : ''),
+          x: i * bw + bw * .2,
+          width: Math.max(bw * .6, 1),
+          y: H - 4 - v / hi * (H - 8),
+          height: Math.max(v / hi * (H - 8), 1)
+        }));
+      });
+    }
+    inst.brush = inst.brush || {};
+    inst.brushDraw = drawMini;
+    if (global.ResizeObserver) new ResizeObserver(function () {
+      drawMini();
+      syncBrushWindow(inst);
+    }).observe(box);
+    var t = 0;
+    (function attempt() {
+      if (box.clientWidth) {
+        drawMini();
+        syncBrushWindow(inst);
+        return;
+      }
+      if (t++ < 60) setTimeout(attempt, 32);
+    })();
+    var drag = null;
+    box.addEventListener('pointerdown', function (e) {
+      var W = box.clientWidth,
+        unit = W / n;
+      var target = e.target.classList.contains('chart__brush-handle') ? e.target.classList.contains('chart__brush-handle--l') ? 'l' : 'r' : e.target === win ? 'move' : 'set';
+      var x = e.clientX - box.getBoundingClientRect().left;
+      if (target === 'set') {
+        var c = Math.round(x / unit),
+          half = Math.max(Math.round((inst.range[1] - inst.range[0]) / 2), 1);
+        setRange(inst, c - half, c + half, n);
+      }
+      drag = {
+        mode: target,
+        x: x,
+        r0: inst.range.slice(),
+        unit: unit
+      };
+      box.setPointerCapture(e.pointerId);
+    });
+    box.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var x = e.clientX - box.getBoundingClientRect().left;
+      var d = Math.round((x - drag.x) / drag.unit);
+      if (drag.mode === 'l') setRange(inst, drag.r0[0] + d, drag.r0[1], n);else if (drag.mode === 'r') setRange(inst, drag.r0[0], drag.r0[1] + d, n);else if (drag.mode === 'move' || drag.mode === 'set') setRange(inst, drag.r0[0] + d, drag.r0[1] + d, n);
+    });
+    box.addEventListener('pointerup', function () {
+      drag = null;
+    });
+    box.addEventListener('dblclick', function () {
+      setRange(inst, 0, n - 1, n);
+    });
+  }
+  function setRange(inst, a, b, n) {
+    a = Math.max(0, Math.min(a, n - 2));
+    b = Math.min(n - 1, Math.max(b, a + 1));
+    inst.range = [a, b];
+    draw(inst);
+  }
+  function syncBrushWindow(inst) {
+    if (!inst.brush) return;
+    if (inst.brushDraw) inst.brushDraw();
+    var n = inst.cfg.categories.length,
+      W = inst.brush.box.clientWidth,
+      unit = W / n;
+    inst.brush.win.style.left = inst.range[0] * unit + 'px';
+    inst.brush.win.style.width = (inst.range[1] - inst.range[0] + 1) * unit + 'px';
+  }
+  global.DSChart = {
+    make: make,
+    _draw: draw,
+    palette: PALETTE,
+    fmt: {
+      number: fmtNumber,
+      compact: fmtCompact,
+      percent: fmtPercent
+    }
+  };
+})(window);
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-chart.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-chip.js
+try { (() => {
+/* ds-chip.js — общий рантайм Chip: удаление (RulesAudit W5 · K5).
+   Делегированные слушатели на document. Клик по .chip__remove ИЛИ
+   Backspace/Delete на сфокусированном .chip убирает чип и переносит фокус
+   на соседний чип (или на контейнер чиплиста, если чипов не осталось). */
+(function () {
+  function removeChip(chip) {
+    if (!chip) return;
+    var list = chip.parentElement;
+    var next = chip.nextElementSibling || chip.previousElementSibling;
+    chip.remove();
+    if (next && next.classList && next.classList.contains('chip')) next.focus();else if (list) list.focus && list.focus();
+  }
+  document.addEventListener('click', function (e) {
+    var removeBtn = e.target.closest ? e.target.closest('.chip__remove') : null;
+    if (!removeBtn) return;
+    removeChip(removeBtn.closest('.chip'));
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Backspace' && e.key !== 'Delete') return;
+    var chip = e.target.closest ? e.target.closest('.chip.chip--edit') : null;
+    if (!chip || chip !== document.activeElement) return;
+    if (!chip.querySelector('.chip__remove')) return;
+    e.preventDefault();
+    removeChip(chip);
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-chip.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-copy.js
+try { (() => {
+/* ds-copy.js — общий рантайм копирования в буфер обмена (out-of-box, RulesAudit Фаза 3).
+   window.DSCopy = {
+     write(text) → Promise   — clipboard API с фолбэком через execCommand
+     flash(anchor, text, ms) — короткая всплывающая подсказка над anchor (по умолчанию 1300мс)
+   }
+   Не навешивает собственных слушателей на разметку — компонент сам решает, когда
+   вызвать write()/flash() (иконка ReadOnlyField меняет глиф на галочку на время
+   подсказки, это визуальное поведение остаётся за компонентом). */
+(function () {
+  function fallback(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+    } catch (e) {}
+    ta.remove();
+  }
+  function write(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(function () {
+        fallback(text);
+      });
+    }
+    fallback(text);
+    return Promise.resolve();
+  }
+  function flash(anchor, text, ms) {
+    ms = ms || 1300;
+    var tip = document.createElement('span');
+    tip.className = 'tip tip--main tip--top tip--center tip--floating';
+    tip.style.position = 'fixed';
+    tip.style.pointerEvents = 'none';
+    tip.style.zIndex = '1000';
+    tip.appendChild(document.createTextNode(text));
+    var arrow = document.createElement('span');
+    arrow.className = 'tip__arrow';
+    tip.appendChild(arrow);
+    document.body.appendChild(tip);
+    var r = anchor.getBoundingClientRect();
+    var tw = tip.offsetWidth,
+      th = tip.offsetHeight;
+    var left = Math.max(8, Math.min(r.left + r.width / 2 - tw / 2, window.innerWidth - tw - 8));
+    var top = Math.max(8, r.top - th - 8);
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
+    void tip.offsetHeight;
+    tip.classList.add('is-visible');
+    setTimeout(function () {
+      tip.classList.remove('is-visible');
+      setTimeout(function () {
+        tip.remove();
+      }, 160);
+    }, ms);
+  }
+  window.DSCopy = {
+    write: write,
+    flash: flash
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-copy.js", error: String((e && e.message) || e) }); }
+
 // scripts/ds-datepicker.js
 try { (() => {
 /* =========================================================================
@@ -6385,7 +9120,7 @@ try { (() => {
       return false;
     }
     function headHTML(caption) {
-      return '<div class="dpk__head">' + '<button type="button" class="dpk__caption" aria-haspopup="true"><span class="dpk__cap-text">' + caption + '</span>' + '<span class="dpk__cap-icon" aria-hidden="true">' + icon('chevron-down') + '</span></button>' + '<div class="dpk__nav">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s dpk__prev" aria-label="Назад">' + icon('chevron-left') + '</button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s dpk__next" aria-label="Вперёд">' + icon('chevron-right') + '</button>' + '</div></div>';
+      return '<div class="dpk__head">' + '<button type="button" class="dpk__caption" aria-haspopup="true"><span>' + caption + '</span>' + '<span class="dpk__cap-icon" aria-hidden="true">' + icon('chevron-down') + '</span></button>' + '<div class="dpk__nav">' + '<button type="button" class="ibtn ibtn--neutral ibtn--s dpk__prev" aria-label="Назад">' + icon('chevron-left') + '</button>' + '<button type="button" class="ibtn ibtn--neutral ibtn--s dpk__next" aria-label="Вперёд">' + icon('chevron-right') + '</button>' + '</div></div>';
     }
     function footHTML() {
       if (!st.foot) return '';
@@ -6665,6 +9400,369 @@ try { (() => {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-datepicker.js", error: String((e && e.message) || e) }); }
 
+// scripts/ds-dropdownlist.js
+try { (() => {
+/* =========================================================================
+   DS DropdownList — рантайм комбобокса Select/Autocomplete (out-of-box).
+   Зависимости: styles/dropdown-list.css. Иконки в разметке опций — как
+   обычно через icons-data.js + ds-icons.js (рантайм их не требует).
+
+   Экспорт: window.DSDropdownList = {
+     bind(field, opts) → api | null   — навесить открытие/позиционирование/
+                                          клавиатуру/выбор на поле-триггер
+     bindAll(root)                     — обойти [data-ddl] внутри root
+     place(list, field, opts)          — позиционирование под полем (авто-flip)
+     wireMulti(list, onChange)         — три-стейт «Выбрать всё» + чекбоксы
+     closeAll() · current() → api|null
+   }
+
+   Автоподключение: <span class="ddl-anchor"><div class="fld" data-ddl>…
+   </div><div id="…" class="ddl" role="listbox">…</div></span>. opts.list
+   можно передать напрямую (без data-ddl/.ddl-anchor). opts.multiple
+   включает три-стейт «Выбрать всё» и не закрывает список при выборе.
+
+   Поведение по спеке: список раскрывается под полем, ширина = ширине поля,
+   разворот вверх при нехватке места, клавиатура (↑ ↓ Home End Enter Space
+   typeahead Esc) без потери фокуса из поля — активная опция получает класс
+   .is-focus и aria-activedescendant; закрытие по клику вне / Esc / выбору
+   (кроме множественного выбора).
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var GAP = 6,
+    GUARD = 6;
+  var current = null;
+  var uid = 0;
+  function bounds(el) {
+    if (!el) return {
+      left: 0,
+      top: 0,
+      right: document.documentElement.clientWidth,
+      bottom: document.documentElement.clientHeight
+    };
+    var r = el.getBoundingClientRect();
+    return {
+      left: r.left,
+      top: r.top,
+      right: r.right,
+      bottom: r.bottom
+    };
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* позиционирование: ширина списка = ширине поля, авто-flip вверх       */
+  /* ------------------------------------------------------------------ */
+  function place(list, field, o) {
+    o = o || {};
+    var gap = o.gap == null ? GAP : o.gap;
+    var op = o.offsetParent || list.offsetParent || list.parentElement;
+    var br = bounds(o.boundary || null);
+    var fr = field.getBoundingClientRect();
+    list.style.width = fr.width + 'px';
+    var lh = list.offsetHeight;
+    var below = br.bottom - fr.bottom,
+      above = fr.top - br.top;
+    var placement = o.placement === 'top' || below < lh + gap + GUARD && above > below ? 'top' : 'bottom';
+    var y = placement === 'top' ? fr.top - gap - lh : fr.bottom + gap;
+    var x = fr.left;
+    var ox = -(window.pageXOffset || 0),
+      oy = -(window.pageYOffset || 0);
+    if (op && op !== document.body && op !== document.documentElement) {
+      var opr = op.getBoundingClientRect(),
+        cs = getComputedStyle(op);
+      ox = opr.left + (parseFloat(cs.borderLeftWidth) || 0) - op.scrollLeft;
+      oy = opr.top + (parseFloat(cs.borderTopWidth) || 0) - op.scrollTop;
+    }
+    list.style.left = Math.round(x - ox) + 'px';
+    list.style.top = Math.round(y - oy) + 'px';
+    list.style.setProperty('--ddl-origin', (placement === 'top' ? 'bottom' : 'top') + ' left');
+    return placement;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* множественный выбор: три-стейт «Выбрать всё»                        */
+  /* ------------------------------------------------------------------ */
+  function setChecked(it, v) {
+    it.setAttribute('aria-checked', v === 'mixed' ? 'mixed' : String(!!v));
+    var mark = it.querySelector('.cb__mark');
+    if (mark) mark.innerHTML = v === 'mixed' ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 12h12"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+  }
+  function refreshAllRow(list) {
+    var allRow = list.querySelector('.ddl__item--all');
+    if (!allRow) return;
+    var rows = Array.prototype.filter.call(list.querySelectorAll('.ddl__item--checkbox:not(.ddl__item--all)'), function (r) {
+      return r.getAttribute('aria-disabled') !== 'true';
+    });
+    var on = rows.filter(function (r) {
+      return r.getAttribute('aria-checked') === 'true';
+    }).length;
+    setChecked(allRow, on === rows.length ? true : on ? 'mixed' : false);
+  }
+  function wireMulti(list, onChange) {
+    var allRow = list.querySelector('.ddl__item--all');
+    var rows = Array.prototype.filter.call(list.querySelectorAll('.ddl__item--checkbox:not(.ddl__item--all)'), function (r) {
+      return r.getAttribute('aria-disabled') !== 'true';
+    });
+    function refresh() {
+      var on = rows.filter(function (r) {
+        return r.getAttribute('aria-checked') === 'true';
+      }).length;
+      if (allRow) setChecked(allRow, on === rows.length ? true : on ? 'mixed' : false);
+      if (onChange) onChange(on, rows.length);
+    }
+    if (!list.__dsDdlMulti) {
+      list.__dsDdlMulti = true;
+      rows.forEach(function (r) {
+        r.addEventListener('click', function () {
+          setChecked(r, r.getAttribute('aria-checked') !== 'true');
+          refresh();
+        });
+      });
+      if (allRow) allRow.addEventListener('click', function () {
+        var turnOn = allRow.getAttribute('aria-checked') !== 'true';
+        rows.forEach(function (r) {
+          setChecked(r, turnOn);
+        });
+        refresh();
+      });
+    }
+    refresh();
+    return {
+      refresh: refresh
+    };
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* bind — поведение поля-триггера                                       */
+  /* ------------------------------------------------------------------ */
+  function resolveList(field, opts) {
+    if (opts.list) return opts.list;
+    var id = field.getAttribute('data-ddl');
+    if (id) return document.getElementById(id);
+    var anchor = field.closest('.ddl-anchor');
+    if (anchor) return anchor.querySelector('.ddl');
+    var next = field.nextElementSibling;
+    return next && next.classList.contains('ddl') ? next : null;
+  }
+  function items(list) {
+    return Array.prototype.filter.call(list.querySelectorAll('.ddl__item'), function (it) {
+      return it.getAttribute('aria-disabled') !== 'true';
+    });
+  }
+  function bind(field, opts) {
+    opts = opts || {};
+    if (field.__dsDdl) return field.__dsDdl;
+    var list = resolveList(field, opts);
+    if (!list) return null;
+    var conf = {
+      multiple: !!opts.multiple,
+      gap: opts.gap != null ? opts.gap : GAP,
+      boundary: opts.boundary || null,
+      offsetParent: opts.offsetParent || null,
+      placement: opts.placement || null,
+      keepOpenOnSelect: opts.keepOpenOnSelect != null ? opts.keepOpenOnSelect : conf_multiple(opts)
+    };
+    function conf_multiple(o) {
+      return !!o.multiple;
+    }
+    list.classList.add('ddl--floating');
+    if (!list.getAttribute('role')) list.setAttribute('role', 'listbox');
+    if (conf.multiple) list.setAttribute('aria-multiselectable', 'true');
+    if (!list.id) list.id = 'ddl-' + ++uid;
+    if (field.tabIndex < 0 && !/^(input|button|select|textarea|a)$/i.test(field.tagName)) field.tabIndex = 0;
+    field.setAttribute('role', 'combobox');
+    field.setAttribute('aria-haspopup', 'listbox');
+    field.setAttribute('aria-expanded', 'false');
+    field.setAttribute('aria-controls', list.id);
+    items(list).forEach(function (it) {
+      it.tabIndex = -1;
+    });
+    var activeEl = null,
+      buf = '',
+      bufT;
+    function isOpen() {
+      return list.classList.contains('is-open');
+    }
+    function reposition() {
+      return place(list, field, conf);
+    }
+    function setActive(el) {
+      if (activeEl) activeEl.classList.remove('is-focus');
+      activeEl = el || null;
+      if (activeEl) {
+        activeEl.classList.add('is-focus');
+        if (!activeEl.id) activeEl.id = list.id + '-opt' + ++uid;
+        field.setAttribute('aria-activedescendant', activeEl.id);
+        if (activeEl.scrollIntoView) activeEl.scrollIntoView({
+          block: 'nearest'
+        });
+      } else field.removeAttribute('aria-activedescendant');
+    }
+    function open() {
+      if (isOpen()) return api;
+      if (current && current !== api) current.close();
+      list.classList.add('is-open');
+      field.classList.add('is-open');
+      field.setAttribute('aria-expanded', 'true');
+      reposition();
+      var sel = list.querySelector('.ddl__item[aria-selected="true"]') || items(list)[0];
+      setActive(sel);
+      current = api;
+      return api;
+    }
+    function close(returnFocus) {
+      if (!isOpen()) return api;
+      list.classList.remove('is-open');
+      field.classList.remove('is-open');
+      field.setAttribute('aria-expanded', 'false');
+      setActive(null);
+      if (current === api) current = null;
+      if (returnFocus) field.focus();
+      return api;
+    }
+    function toggle() {
+      return isOpen() ? close() : open();
+    }
+    field.addEventListener('click', function () {
+      toggle();
+    });
+    field.addEventListener('keydown', function (e) {
+      if (!isOpen()) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open();
+        }
+        return;
+      }
+      var list_ = items(list);
+      var i = list_.indexOf(activeEl);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActive(list_[(i + 1 + list_.length) % list_.length]);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActive(list_[(i - 1 + list_.length) % list_.length]);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        setActive(list_[0]);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        setActive(list_[list_.length - 1]);
+      } else if (e.key === 'Enter' || e.key === ' ' && conf.multiple) {
+        e.preventDefault();
+        if (activeEl) activeEl.click();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        close(true);
+      } else if (e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        clearTimeout(bufT);
+        buf += e.key.toLowerCase();
+        bufT = setTimeout(function () {
+          buf = '';
+        }, 700);
+        var from = i < 0 ? 0 : i + 1;
+        for (var n = 0; n < list_.length; n++) {
+          var it = list_[(from + n) % list_.length];
+          var lab = (it.querySelector('.ddl__item-label') || it).textContent.trim().toLowerCase();
+          if (lab.indexOf(buf) === 0) {
+            setActive(it);
+            break;
+          }
+        }
+      }
+    });
+    list.addEventListener('click', function (e) {
+      var it = e.target.closest('.ddl__item');
+      if (!it || it.getAttribute('aria-disabled') === 'true') return;
+      if (it.classList.contains('ddl__item--action')) {
+        if (opts.onAction) opts.onAction(it);
+        return;
+      }
+      if (it.classList.contains('ddl__item--checkbox')) {
+        if (it.classList.contains('ddl__item--all')) {
+          var turnOn = it.getAttribute('aria-checked') !== 'true';
+          items(list).forEach(function (x) {
+            if (x.classList.contains('ddl__item--checkbox') && x !== it) setChecked(x, turnOn);
+          });
+          setChecked(it, turnOn);
+        } else {
+          setChecked(it, it.getAttribute('aria-checked') !== 'true');
+          refreshAllRow(list);
+        }
+        if (opts.onToggle) opts.onToggle(it);
+        setActive(it);
+        return;
+      }
+      items(list).forEach(function (x) {
+        if (x.hasAttribute('aria-selected')) x.setAttribute('aria-selected', 'false');
+      });
+      it.setAttribute('aria-selected', 'true');
+      if (opts.onSelect) opts.onSelect(it);
+      if (!conf.keepOpenOnSelect) close(true);
+    });
+    var api = {
+      list: list,
+      field: field,
+      open: open,
+      close: close,
+      toggle: toggle,
+      place: reposition,
+      isOpen: isOpen,
+      config: conf
+    };
+    field.__dsDdl = api;
+    list.__dsDdl = api;
+    return api;
+  }
+  function bindAll(root) {
+    (root || document).querySelectorAll('[data-ddl]').forEach(function (f) {
+      bind(f);
+    });
+  }
+  function closeAll() {
+    if (current) current.close();
+  }
+  document.addEventListener('pointerdown', function (e) {
+    if (!current) return;
+    if (current.list.contains(e.target) || current.field.contains(e.target)) return;
+    current.close();
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && current) current.close(true);
+  });
+  var reflowQueued = false;
+  function onReflow() {
+    if (!current || reflowQueued) return;
+    reflowQueued = true;
+    requestAnimationFrame(function () {
+      reflowQueued = false;
+      if (current) current.place();
+    });
+  }
+  window.addEventListener('resize', onReflow, {
+    passive: true
+  });
+  window.addEventListener('scroll', onReflow, {
+    capture: true,
+    passive: true
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    bindAll(document);
+  });else bindAll(document);
+  window.DSDropdownList = {
+    bind: bind,
+    bindAll: bindAll,
+    place: place,
+    wireMulti: wireMulti,
+    closeAll: closeAll,
+    current: function () {
+      return current;
+    }
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-dropdownlist.js", error: String((e && e.message) || e) }); }
+
 // scripts/ds-icons.js
 try { (() => {
 /* ============================================================
@@ -6674,10 +9772,13 @@ try { (() => {
      <script src="ds-icons.js"></script>
    Использование:
      <i data-icon="check"></i>
-   Цвет — через color родителя (перекрашивается в currentColor),
-   размер — width/height элемента (по умолчанию 24px через :where(),
-   поэтому любое компонентное правило — даже равной специфичности —
-   всегда переопределяет дефолт независимо от порядка загрузки скрипта).
+   Цвет — через color родителя (перекрашивается в currentColor).
+   Размер — от слота: правила размера в CSS компонентов написаны на
+   `:is(svg,[data-icon])`, поэтому один и тот же слот задаёт габарит
+   и вставленному <svg>, и <i data-icon> — формы взаимозаменяемы,
+   вид не меняется (RulesAudit W0 · K2). Вне компонентов действует
+   дефолт 24px через :where() — нулевая специфичность, любое
+   компонентное правило перебивает его независимо от порядка загрузки.
    Имена глифов — specs/Icons.md. Динамика: window.dsIcons.apply(root).
    ============================================================ */
 (function () {
@@ -6772,6 +9873,1573 @@ try { (() => {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-illustrations.js", error: String((e && e.message) || e) }); }
 
+// scripts/ds-lint.js
+try { (() => {
+/* ============================================================
+   DS-LINT — статический ревизор целостности страниц ДС (группы A–D, P).
+   ВНИМАНИЕ: это НЕ браузерный скрипт. Не подключать на страницах.
+   Запуск только из run_script:
+
+     const src = await readFile('scripts/ds-lint.js');
+     const { run } = new Function('readFile', 'ls', src + ';return dsLint;')(readFile, ls);
+     log(await run(['pages/atoms/Badge.html'], { changed: ['pages/atoms/Badge.html'] }));
+
+   Отчёт — плоский текст, только нарушения. Живые проверки (группа E) —
+   в skills/ds-integrity-check.md, отдельным батч-сниппетом для eval_js.
+
+   Группа P — гейт парности «документация = код» (Фаза 3, P0 аудита разделов).
+   Запускается отдельно, страницы не нужны:
+
+     log(await run([], { global: false, parity: true }));
+   ============================================================ */
+
+/* ---------- белые списки (каждое подавление — с причиной) ---------- */
+// контракт разделов применяется только к компонентным страницам
+const CONTRACT_DIRS = ['pages/atoms/', 'pages/molecules/', 'pages/organisms/'];
+// реестры (index/ds-nav/спеки) ведутся для этих папок
+const REGISTRY_DIRS = ['pages/foundations/', 'pages/atoms/', 'pages/molecules/', 'pages/organisms/'];
+// у страниц-экранов и rnd свои разделы и своя роль
+const SKIP_ALL = [/^index\.html$/, /^thumbnail\.html$/, /^templates\//];
+// CSS документации и экранов — намеренно вне ds.css/styles.css (не компоненты ДС)
+const CSS_NOT_IN_BUNDLE = ['ds-docs.css', 'ds-nav.css', 'ds-toc.css', 'pg-kit.css', 'input-pages.css', 'screens.css'];
+// hex, которые легальны: демо-тени и шахматная подложка прозрачности
+const HEX_OK = /(chess|checker|shadow-demo|elevation-demo)/i;
+// значения, легальные в разметке документации (не выдуманные цвета продукта):
+// #fff/#000 — демо-контраст и текст на тёмной панели кода; rgba(255,255,255,*) — оверлеи там же;
+// #f2f5f5/#fbfcfc/#d9e0e0 — подложка и рамка превью конструктора; rgba(40,50,55,*) — демо-тени
+const HEX_ALLOW = [/^#(fff|ffffff|000|000000)$/i, /^rgba?\(\s*255\s*,\s*255\s*,\s*255/i, /^#(f2f5f5|fbfcfc|d9e0e0)$/i, /^rgba?\(\s*40\s*,\s*50\s*,\s*55/i];
+// пары «скрипт ↔ его CSS» (сами скрипты умеют подтягивать стиль, потому WARN)
+const JS_CSS_PAIRS = [['ds-nav.js', 'ds-nav.css'], ['ds-toc.js', 'ds-toc.css'], ['pg-kit.js', 'pg-kit.css']];
+// рантаймы, которые ds.js (RulesAudit W0/K0) догружает сам — экран не должен подключать их напрямую
+const DS_JS_BUNDLES = ['icons-data.js', 'ds-icons.js', 'screens-chrome.js', 'ds-tabs.js', 'ds-tile.js', 'ds-menu.js', 'ds-popover.js', 'ds-tooltip.js', 'ds-modal.js', 'ds-table.js', 'ds-pagination.js', 'ds-riskmetric.js', 'ds-alert.js', 'ds-chip.js', 'ds-allocationbar.js', 'ds-notify.js', 'ds-datepicker.js', 'input-kit.js', 'ds-nav-panel.js', 'ds-splitter.js', 'ds-illustrations.js'];
+// утилитарные классы разметки документации — владельца в styles/* не имеют
+const CLASS_IGNORE = new Set(['page', 'section', 'masthead', 'meta', 'lead', 'eyebrow', 'crumb', 'desc', 'panel', 'row', 'col', 'grid', 'card', 'note', 'name', 'c', 'n', 'is-off']);
+// F5 — реестр «анатомия компонента взята целиком, не урезана под текущий вид». Каждый
+// компонент, у которого есть узлы, обязанные существовать в DOM ВСЕГДА (класс-свап
+// режима/состояния их только показывает/прячет CSS-ом, но не порождает), регистрируется
+// здесь одной строкой вместо кода на каждый инцидент (см. skills/ds-integrity-check.md, F5).
+// when — по этому маркеру лint понимает, что компонент использован; require — список
+// [regex, человекочитаемое имя узла], каждый обязан встретиться в разметке страницы.
+const ANATOMY_CONTRACTS = [{
+  name: 'NavPanel',
+  when: /\bnav--(rail|drawer|fixed)\b/,
+  require: [[/\bnav__pin\b/, '.nav__pin'], [/\bnav__user-text\b/, '.nav__user-text'], [/\bnav-layout\b/, '.nav-layout (обёртка хост-контракта)']]
+}];
+// нативные таблицы и устаревшие сетки-справочники
+// плюс: служебный тост «Скопировано» на страницах-каталогах и галочки внутри контролов ДС
+// (.cb__mark/.sw__/.rb__ — инлайн-SVG прописан в самих DOM-снипах компонентов)
+const SVG_OK = /(code-panel__copy|copy-btn|card__go|crumb|ds-nav__toggle|ds-toc|chev|arrow|guide|rules|dont|good|bad|class="toast"|cb__mark|cb__box|sw__|rb__)/i;
+const BAD_TABLE = [/<table[\s>]/i, /\bref-table\b/, /\bdev-table\b/, /\bcolor-ref\b/, /\bcref-/];
+
+/* ---------- утилиты ---------- */
+const RX = {
+  cssVarDef: /(--[a-zA-Z0-9-]+)\s*:/g,
+  cssVarUse: /var\(\s*(--[a-zA-Z0-9-]+)\s*[),]/g,
+  cls: /class="([^"]*)"/g,
+  h2: /<h2[^>]*>([\s\S]*?)<\/h2>/g,
+  link: /<link[^>]+href="([^"]+)"/g,
+  src: /<script[^>]+src="([^"]+)"/g,
+  href: /\shref="([^"]+)"/g,
+  imgSrc: /<img[^>]+src="([^"]+)"/g,
+  styleBlock: /<style[\s\S]*?<\/style>/gi,
+  classNameAssign: /className\s*=\s*['"]([^'"]*)['"]/g,
+  boxPx: /(padding|margin|gap|border-radius)\s*:\s*([^;{}]+)/gi
+};
+const strip = s => s.replace(/<[^>]*>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ').trim();
+const uniq = a => [...new Set(a)];
+const base = p => p.split('/').pop();
+const all = (re, s, i = 1) => {
+  const out = [];
+  let m;
+  re.lastIndex = 0;
+  while (m = re.exec(s)) out.push(m[i]);
+  return out;
+};
+/* делит селектор по запятым верхнего уровня, не заходя внутрь ()/[] — нужно B7,
+   чтобы отличить ":is(.entity--selected,[aria-selected=true])" (одна топ-ветка,
+   не заскоуплена) от нормального "A, B" списка селекторов. */
+const splitTopLevel = sel => {
+  const out = [];
+  let depth = 0,
+    cur = '';
+  for (const ch of sel) {
+    if (ch === '(' || ch === '[') depth++;else if (ch === ')' || ch === ']') depth--;
+    if (ch === ',' && depth === 0) {
+      out.push(cur);
+      cur = '';
+    } else cur += ch;
+  }
+  if (cur.trim()) out.push(cur);
+  return out;
+};
+const today = () => {
+  const d = new Date();
+  const p = n => String(n).padStart(2, '0');
+  return p(d.getDate()) + '.' + p(d.getMonth() + 1) + '.' + d.getFullYear();
+};
+async function tree() {
+  const files = new Set(),
+    seen = new Set();
+  async function walk(dir, depth) {
+    if (depth > 3 || seen.has(dir)) return;
+    seen.add(dir);
+    let items;
+    try {
+      items = await ls(dir);
+    } catch (e) {
+      return;
+    }
+    const subs = [];
+    for (const raw of items) {
+      const nm = String(raw).replace(/\/$/, '');
+      const p = dir ? dir + '/' + nm : nm;
+      if (/\.[a-z0-9]{2,5}$/i.test(nm)) files.add(p);else subs.push(p);
+    }
+    await Promise.all(subs.map(p => walk(p, depth + 1)));
+  }
+  await walk('', 0);
+  return files;
+}
+
+/* ---------- сбор реестров проекта ---------- */
+async function loadProject() {
+  const files = await tree();
+  const list = [...files];
+  const styleFiles = list.filter(f => /^styles\/.+\.css$/.test(f));
+
+  // токены: все определения --x в styles/*
+  const tokens = new Set();
+  const classOwners = new Map(); // класс -> Set(файлов)
+  const cssSources = await Promise.all(styleFiles.map(f => readFile(f)));
+  for (let i = 0; i < styleFiles.length; i++) {
+    const f = styleFiles[i],
+      css = cssSources[i];
+    for (const t of all(RX.cssVarDef, css)) tokens.add(t);
+    const selectors = css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\{[^{}]*\}/g, '{}');
+    for (const c of uniq(all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, selectors))) {
+      if (!classOwners.has(c)) classOwners.set(c, new Set());
+      classOwners.get(c).add(f);
+    }
+  }
+  // владелец класса — только если файл единственный
+  const owner = new Map();
+  for (const [c, set] of classOwners) if (set.size === 1) owner.set(c, [...set][0]);
+  const cssClasses = new Set(classOwners.keys());
+  const [index, nav, specIndex, cheat, dsCss, rootCss, claude] = await Promise.all(['index.html', 'scripts/ds-nav.js', 'specs/_index.md', 'specs/_cheatsheet.md', 'ds.css', 'styles.css', 'CLAUDE.md'].map(f => readFile(f)));
+
+  // канонический порядок h2 — из CLAUDE.md, не дублируем
+  let canon = [];
+  const blk = claude.split('Контракт страницы компонента')[1];
+  if (blk) {
+    canon = all(/^\d+\.\s*(.+)$/gm, blk.split('###')[0]).map(s => s.split(/\s+[—(]|:/)[0].trim()).filter(s => s && !/^Шапка/.test(s));
+  }
+  return {
+    files,
+    list,
+    styleFiles,
+    tokens,
+    owner,
+    cssClasses,
+    index,
+    nav,
+    specIndex,
+    cheat,
+    dsCss,
+    rootCss,
+    canon
+  };
+}
+
+/* ---------- глобальные проверки: A3, B6, D3, D4 ---------- */
+async function globalChecks(P, out) {
+  for (const f of P.styleFiles) {
+    if (CSS_NOT_IN_BUNDLE.includes(base(f))) continue;
+    const imp = 'url("' + f + '")';
+    const miss = [];
+    if (!P.dsCss.includes(imp) && !P.dsCss.includes("url('" + f + "')")) miss.push('ds.css');
+    if (!P.rootCss.includes(imp) && !P.rootCss.includes("url('" + f + "')")) miss.push('styles.css');
+    if (miss.length) out.push(['BLOCKER', 'A3', f + ' — нет @import в ' + miss.join(' и ')]);
+  }
+  const react = P.list.filter(f => /\.(jsx|tsx|d\.ts)$/.test(f) && !/^_ds_/.test(f));
+  if (react.length) out.push(['BLOCKER', 'B6', 'React-файлы в ванильной ДС: ' + react.slice(0, 5).join(', ')]);
+
+  /* B7 — незаскоупленный ARIA-состояние-селектор в styles/*.css: топ-уровневая ветка
+     селектора (до `{`, разбитая по запятым верхнего уровня) начинается прямо с `:is(`/
+     `[aria-...]` без класса-компонента перед ней — значит матчит ЛЮБОЙ элемент с этим
+     атрибутом на странице. Через общий ds.css это протекает на другие компоненты с тем
+     же ARIA-паттерном (инцидент Entity → Tab, 14.08.2026: `:is(.entity--selected,
+     [aria-selected="true"])` без `.entity` перед `:is()` красило выбранный Tab в фон
+     Entity). Правильно — класс-скоуп ПЕРЕД `:is(`/атрибутом: `.entity:is(…)`. */
+  for (const f of P.styleFiles) {
+    const css = P.src.get(f) || (await readFile(f).catch(() => ''));
+    for (const sel of all(/([^{}]+)\{/g, css)) {
+      const branches = splitTopLevel(sel);
+      for (const br of branches) {
+        const t = br.trim();
+        if (/^\[aria-(selected|current|checked|pressed|expanded)="true"\]/.test(t) || /^:is\([^)]*\[aria-(selected|current|checked|pressed|expanded)="true"\]/.test(t)) {
+          out.push(['BLOCKER', 'B7', f + ': "' + t.slice(0, 80) + '" — топ-ветка без класса-скоупа перед :is()/атрибутом, протечёт на любой другой компонент с тем же ARIA-атрибутом']);
+        }
+      }
+    }
+  }
+
+  /* M1 — матрица K1-K6 в RulesAudit.html размечена вручную; K5 (рантайм) можно
+     сверить с фактом: спека декларирует `runtime:` ⇔ матрица говорит k5:'ok'.
+     Расхождение — матрица устарела (инцидент Tab, 12.08.2026). */
+  {
+    const audit = await readFile('pages/rnd/RulesAudit.html').catch(() => '');
+    const mBlock = (audit.match(/const M = \[([\s\S]*?)\];/) || [])[1] || '';
+    const entries = [...mBlock.matchAll(/\{n:'([^']+)',k1:'(\w+)',k2:'(\w+)',k3:'(\w+)',k5:'(\w+)',k6:'(\w+)'\}/g)];
+    const specSrcs = await Promise.all(entries.map(([, name]) => readFile('specs/' + name + '.md').catch(() => '')));
+    entries.forEach(([, name,,,, k5], i) => {
+      const spec = specSrcs[i];
+      if (!spec) return;
+      const hasRuntimeField = /^runtime:\s*\S/m.test(spec);
+      const declaresOwnJs = /^js:\s*\S/m.test(spec) || /`scripts\/ds-[\w-]+\.js`/.test(spec);
+      const looksWired = hasRuntimeField || declaresOwnJs;
+      if (k5 === 'ok' && !looksWired) out.push(['WARN', 'M1', 'RulesAudit: ' + name + ' k5=ok, но specs/' + name + '.md не декларирует runtime:/js: — матрица может отставать от факта']);
+      if (k5 === 'no' && hasRuntimeField) out.push(['WARN', 'M1', 'RulesAudit: ' + name + ' k5=no, но specs/' + name + '.md уже декларирует runtime: — обновить матрицу']);
+    });
+  }
+
+  /* A6 — index.html тянет styles/* поштучно: если на витрине есть разметка
+     компонента, его CSS обязан быть подключён. Инцидент 07.08.2026: карточка
+     ProgressBar была пустой — .pbar не имел ни одного правила. */
+  {
+    const linked = new Set(all(RX.link, P.index).map(h => base(h)));
+    const own0 = new Set();
+    for (const st of all(RX.styleBlock, P.index, 0)) for (const c of all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, st.replace(/\{[^{}]*\}/g, '{}'))) own0.add(c);
+    const need = new Map();
+    for (const attr of all(RX.cls, P.index)) {
+      if (/['`+]|\$\{/.test(attr)) continue;
+      for (const c of attr.split(/\s+/)) {
+        const own = P.owner.get(c);
+        if (own0.has(c)) continue;
+        if (own && /^styles\//.test(own) && !linked.has(base(own))) {
+          if (!need.has(own)) need.set(own, c);
+        }
+      }
+    }
+    for (const [f, c] of need) out.push(['BLOCKER', 'A6', 'index.html: есть разметка .' + c + ', но ' + f + ' не подключён — компонент рендерится без стилей']);
+  }
+  // D3/D4 — секции index.html
+  const parts = P.index.split(/<div class="sec-head">/).slice(1);
+  for (const part of parts) {
+    const head = part.slice(0, 300);
+    const title = (head.match(/<h2>([^<]*)<\/h2>/) || [, '?'])[1];
+    const declared = parseInt((head.match(/class="n">\s*(\d+)/) || [, ''])[1], 10);
+    const body = part.split('</section>')[0];
+    const titles = all(/class="card__title"[^>]*>([^<]*)/g, body).map(s => strip(s));
+    const cards = (body.match(/class="card"/g) || []).length;
+    const jsGrid = /class="grid" id="/.test(body) && cards === 0;
+    if (!isNaN(declared) && declared !== cards && !jsGrid) out.push(['BLOCKER', 'D3', 'index.html: «' + title + '» → карточек ' + cards + ', счётчик говорит ' + declared]);
+    const sorted = [...titles].sort((a, b) => a.localeCompare(b, 'ru'));
+    if (titles.join('|') !== sorted.join('|')) {
+      const bad = titles.find((t, i) => t !== sorted[i]);
+      out.push(['WARN', 'D4', 'index.html: «' + title + '» — порядок не алфавитный: «' + bad + '» стоит ' + (titles.indexOf(bad) + 1) + '-м, ожидается ' + (sorted.indexOf(bad) + 1) + '-м']);
+    }
+  }
+  // D4 — порядок в ds-nav.js по группам
+  const chunks = P.nav.split(/(?:cat|group):\s*'/).slice(1);
+  for (const ch of chunks) {
+    const gname = ch.slice(0, ch.indexOf("'"));
+    const body = ch.split(/(?:cat|group):\s*'/)[0];
+    const labels = all(/label:\s*'([^']+)'[^}]*\}/g, body).filter(l => !/^\d/.test(l)); // экраны нумерованы — порядок по номеру
+    const soon = new Set(all(/label:\s*'([^']+)'[^}]*soon:\s*true/g, body));
+    const real = labels.filter(l => !soon.has(l));
+    if (real.length < 2) continue;
+    const sorted = [...real].sort((a, b) => a.localeCompare(b, 'ru'));
+    if (real.join('|') !== sorted.join('|')) out.push(['WARN', 'D4', 'ds-nav.js: «' + gname + '» — порядок не алфавитный']);
+  }
+}
+
+/* ---------- группа P: гейт парности «документация = код» ----------
+   P1 — класс из копируемого сниппета (specs/_cheatsheet.md, specs/<Имя>.md)
+        не существует ни в одном styles/*.css: документация обещает то, чего нет.
+   P2 — класс в разметке экрана не существует в CSS и не объявлен в <style>
+        самого экрана: класс выдуман при сборке.
+   P3 — класс из код-панели витрины (<code> внутри scripts/*.page.js) отсутствует
+        в CSS: страница предлагает скопировать несуществующий класс. */
+const PARITY_SKIP = /^(is-|js-|has-)/;
+// стили этих рантаймов живут в shadow DOM самого скрипта, а не в styles/*.css
+const SHADOW_RUNTIMES = /image-slot\.js$/;
+function parityIgnore(c) {
+  return CLASS_IGNORE.has(c) || PARITY_SKIP.test(c) || /[^a-z0-9_-]/i.test(c);
+}
+// JS-хуки: класс без собственных правил, но по нему работает рантайм — не опечатка
+// документации. Снятие такого класса ломает компонент (инцидент tile__toggle).
+function collectHooks(src, into) {
+  for (const c of all(/closest\(\s*['"]\.([\w-]+)/g, src)) into.add(c);
+  for (const c of all(/querySelector(?:All)?\(\s*['"][^'"]*\.([\w-]+)/g, src)) into.add(c);
+  for (const c of all(/classList\.(?:add|remove|toggle|contains)\(\s*['"]([\w-]+)/g, src)) into.add(c);
+  return into;
+}
+function fenceClasses(md) {
+  const out = [];
+  for (const f of all(/```[a-z]*\n([\s\S]*?)```/g, md)) for (const attr of all(RX.cls, f)) out.push(...attr.split(/\s+/));
+  return uniq(out.filter(Boolean));
+}
+async function parityChecks(P, out) {
+  const specs = P.list.filter(f => /^specs\/[^/]+\.md$/.test(f) && !/_TEMPLATE/.test(f));
+  const screens = P.list.filter(f => /^pages\/screens\/.+\.html$/.test(f));
+  const pageJs = P.list.filter(f => /^scripts\/.+\.page\.js$/.test(f));
+  const runtimeJs = P.list.filter(f => /^scripts\/.+\.js$/.test(f) && !/icons-data|ds-lint/.test(f));
+  const srcs = await Promise.all([...specs, ...screens, ...runtimeJs].map(f => readFile(f).catch(() => '')));
+  const src = new Map([...specs, ...screens, ...runtimeJs].map((f, i) => [f, srcs[i]]));
+  const hooks = new Set();
+  const localDoc = new Set(); // локальные классы витрин из инлайн-<style> страниц
+  const written = new Set(); // классы, которые рантайм ДС реально пишет в разметку
+  for (const f of runtimeJs) {
+    const s = src.get(f);
+    collectHooks(s, hooks);
+    for (const a of [...all(RX.cls, s), ...all(RX.classNameAssign, s)]) for (const c of a.split(/\s+/)) if (c) written.add(c);
+  }
+  for (const f of screens) collectHooks(src.get(f), hooks);
+  // локальная раскладка экрана живёт в его же <style> — для скрипта этого экрана
+  // (<имя>.screen.js) такой класс законен, P4 не должен считать его сиротой
+  for (const f of screens) for (const st of all(RX.styleBlock, src.get(f) || '', 0)) for (const c of all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, st.replace(/\{[^{}]*\}/g, '{}'))) localDoc.add(c);
+  // хуки из inline-<script> страниц — читаем только страницы из поля page: спек
+  const pagesOfSpecs = uniq(specs.map(f => (src.get(f).match(/^page:\s*(\S+)/m) || [])[1]).filter(Boolean));
+  const pageSrcs = await Promise.all(pagesOfSpecs.map(f => readFile(f).catch(() => '')));
+  for (let i = 0; i < pagesOfSpecs.length; i++) {
+    src.set(pagesOfSpecs[i], pageSrcs[i]);
+    for (const st of all(/<script[\s\S]*?<\/script>/gi, pageSrcs[i], 0)) collectHooks(st, hooks);
+    for (const st of all(RX.styleBlock, pageSrcs[i], 0)) for (const c of all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, st.replace(/\{[^{}]*\}/g, '{}'))) localDoc.add(c);
+  }
+  const idx = await readFile('index.html').catch(() => '');
+  src.set('index.html', idx);
+  for (const st of all(RX.styleBlock, idx, 0)) for (const c of all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, st.replace(/\{[^{}]*\}/g, '{}'))) localDoc.add(c);
+  const known = c => P.cssClasses.has(c) || hooks.has(c) || written.has(c);
+  const knownStrict = c => P.cssClasses.has(c) || hooks.has(c);
+  // корневой BEM-блок без собственных правил, но с описанными элементами (.tfm → .tfm__sec):
+  // имя блока задаёт пространство имён, отдельного правила ему не нужно
+  const cssList = [...P.cssClasses];
+  const isBemRoot = c => !/__|--/.test(c) && cssList.some(k => k.startsWith(c + '__') || k.startsWith(c + '--'));
+  for (const f of specs) {
+    const bad = fenceClasses(src.get(f)).filter(c => !parityIgnore(c) && !known(c));
+    for (const c of bad) out.push(['BLOCKER', 'P1', f + ': сниппет обещает .' + c + ' — в styles/*.css такого класса нет']);
+  }
+  for (const f of screens) {
+    const html = src.get(f);
+    const local = new Set();
+    for (const st of all(RX.styleBlock, html, 0)) for (const c of all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, st.replace(/\{[^{}]*\}/g, '{}'))) local.add(c);
+    const used = uniq([...all(RX.cls, html), ...all(RX.classNameAssign, html)].filter(a => !/['`+]|\$\{/.test(a)).flatMap(a => a.split(/\s+/)).filter(Boolean));
+    const bad = used.filter(c => !parityIgnore(c) && !known(c) && !local.has(c));
+    for (const c of bad) out.push(['WARN', 'P2', f + ': .' + c + ' не объявлен ни в ДС, ни в <style> экрана']);
+  }
+  // P3 — код-панели витрин: то, что страница предлагает скопировать, тоже документация.
+  // Внутри <code>…</code> в исходнике могут быть куски JS (конкатенация,
+  // cls.join('.')) — смотрим только на содержимое строковых литералов.
+  const literalsOnly = span => span.split(/['"`]/).filter((_, i) => i % 2 === 0).join(' ');
+  // Класс-цепочка (.inp.inp--m) — только если перед ней не идентификатор:
+  // отсекает обращения к свойствам JS (cls.join, state.tone), но не цепочки классов.
+  const RX_TRUNC = /(?:class="([^"]*)"|className\s*=\s*'([^']*)')\s*\+/g;
+  const RX_CHAIN = /(?:^|[^\w$)\].])((?:\.[a-zA-Z][a-zA-Z0-9_-]*)+)/g;
+  // код-панели живут и в *.page.js, и в inline-<script> страниц, и в index.html
+  // P4 — класс, который рантайм витрины реально вешает (className = '…'), но правил в CSS нет
+  for (const f of [...runtimeJs, ...pagesOfSpecs, 'index.html']) {
+    if (SHADOW_RUNTIMES.test(f)) continue;
+    const s4 = src.get(f) || '';
+    const scope4 = /\.js$/.test(f) ? s4 : all(/<script[\s\S]*?<\/script>/gi, s4, 0).join('\n');
+    const trunc = new Set();
+    for (const m of scope4.matchAll(RX_TRUNC)) {
+      const v = (m[1] ?? m[2] ?? '').trim();
+      if (v) trunc.add(v.split(/\s+/).pop());
+    }
+    const isTrunc = c => trunc.has(c) && [...P.cssClasses].some(k => k !== c && k.startsWith(c));
+    const toks4 = uniq([...all(RX.classNameAssign, scope4), ...all(RX.cls, scope4)].filter(a => !/['"`+]|\$\{/.test(a)).flatMap(a => a.split(/\s+/)).filter(Boolean)).filter(c => !isTrunc(c));
+    for (const c of toks4.filter(c => !parityIgnore(c) && !knownStrict(c) && !localDoc.has(c) && !isBemRoot(c) && !/-$/.test(c))) {
+      if (/^(card__|file$)/.test(c) && f === 'index.html') continue;
+      out.push(['BLOCKER', 'P4', f + ": рантайм вешает ." + c + ' — в styles/*.css такого класса нет']);
+    }
+  }
+  for (const f of [...pageJs, ...pagesOfSpecs, 'index.html']) {
+    let s = src.get(f);
+    if (s === undefined) {
+      s = await readFile(f).catch(() => '');
+      src.set(f, s);
+    }
+    const scope = /\.js$/.test(f) ? s : all(/<script[\s\S]*?<\/script>/gi, s, 0).join('\n');
+    const toks = uniq(all(/<code>([\s\S]*?)<\/code>/g, scope).flatMap(sn => all(RX_CHAIN, literalsOnly(sn))).flatMap(chain => chain.split('.').filter(Boolean)));
+    for (const c of toks.filter(c => !parityIgnore(c) && !known(c))) {
+      out.push(['BLOCKER', 'P3', f + ': код-панель предлагает .' + c + ' — в styles/*.css такого класса нет']);
+    }
+  }
+}
+
+/* ---------- проверки страницы ---------- */
+async function pageChecks(p, P, opts, out) {
+  const html = P.src.get(p);
+  const dir = p.split('/').slice(0, -1).join('/');
+  const name = base(p).replace(/\.html$/, '');
+  const inContract = CONTRACT_DIRS.some(d => p.startsWith(d));
+  const inRegistry = REGISTRY_DIRS.some(d => p.startsWith(d));
+  const isScreen = p.startsWith('pages/screens/');
+  const markup = html.replace(RX.styleBlock, '').replace(/<script[\s\S]*?<\/script>/gi, '');
+  const styleSrc = (html.match(RX.styleBlock) || []).join('\n');
+  const links = all(RX.link, html);
+  const scripts = all(RX.src, html);
+  const linkNames = links.map(base);
+  const hasBundle = linkNames.includes('ds.css') || linkNames.includes('styles.css');
+  const say = (lvl, id, msg) => {
+    // на экранах контракт разделов и реестры не применяются, таблица-мокап — замечание
+    if (isScreen && /^[CD]/.test(id)) return;
+    if (isScreen && lvl === 'BLOCKER' && id === 'B5') lvl = 'WARN';
+    out.push([lvl, id, msg]);
+  };
+
+  /* A1 — скрипт без парного CSS */
+  for (const [js, css] of JS_CSS_PAIRS) {
+    if (scripts.some(s => base(s) === js) && !linkNames.includes(css) && !hasBundle) say('WARN', 'A1', js + ' подключён без ' + css);
+  }
+  /* A2 — компонентный CSS не подключён */
+  if (!hasBundle) {
+    const local = new Set(all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, styleSrc.replace(/\{[^{}]*\}/g, '{}')));
+    const used = uniq(all(RX.cls, markup).join(' ').split(/\s+/).filter(Boolean));
+    const missing = new Map();
+    for (const c of used) {
+      if (local.has(c) || CLASS_IGNORE.has(c)) continue;
+      const own = P.owner.get(c);
+      if (own && !CSS_NOT_IN_BUNDLE.includes(base(own)) && !linkNames.includes(base(own))) {
+        const key = own + '|' + (/__|--/.test(c) ? 'WARN' : 'BLOCKER');
+        if (!missing.has(key)) missing.set(key, []);
+        if (missing.get(key).length < 3) missing.get(key).push('.' + c);
+      }
+    }
+    for (const [key, cls] of missing) {
+      const [f, lvl] = key.split('|');
+      say(lvl, 'A2', 'классы ' + cls.join(', ') + ' есть, а <link> на ' + f + ' нет');
+    }
+  }
+  /* A6 — контейнер страницы: ds-nav/ds-toc монтируются только в <main class="page"> */
+  if (!isScreen && !/<main class="page"/.test(markup) && scripts.some(s => /ds-(nav|toc)\.js$/.test(s))) say('BLOCKER', 'A6', 'нет <main class="page"> — ds-nav/ds-toc молча не смонтируются');
+  /* A4 — иконки без своих скриптов (ds.js на экранах закрывает оба) */
+  if (/data-icon="[^"…\s]/.test(markup) && !scripts.some(x => base(x) === 'ds.js')) {
+    const need = ['icons-data.js', 'ds-icons.js'].filter(s => !scripts.some(x => base(x) === s));
+    if (need.length) say('BLOCKER', 'A4', '<i data-icon> есть, не подключено: ' + need.join(', '));
+  }
+  /* A7 — экран мимо единой точки входа ds.js (K0, RulesAudit W0) */
+  if (isScreen) {
+    const dsJsCount = scripts.filter(s => base(s) === 'ds.js').length;
+    const direct = scripts.filter(s => DS_JS_BUNDLES.includes(base(s)));
+    if (dsJsCount === 0) say('BLOCKER', 'A7', 'экран без <script src="ds.js"> — рантаймы подключаются вручную и легко забываются');
+    if (dsJsCount > 1) say('WARN', 'A7', 'ds.js подключён ' + dsJsCount + ' раза');
+    if (direct.length) say('BLOCKER', 'A7', 'рантайм(ы) подключены мимо ds.js: ' + uniq(direct.map(base)).join(', '));
+  }
+  /* A5 — битые относительные ссылки */
+  const refs = uniq([...links, ...scripts, ...all(RX.href, html), ...all(RX.imgSrc, html)]).filter(h => h && !/^(https?:|mailto:|#|data:|\/)/.test(h)).filter(h => /\.[a-z0-9]{2,5}(\?|#|$)/i.test(h) && !/[\s…{}<>]/.test(h));
+  for (const r of refs) {
+    const clean = r.split(/[?#]/)[0];
+    const segs = dir ? dir.split('/') : [];
+    for (const s of clean.split('/')) {
+      if (s === '..') segs.pop();else if (s !== '.') segs.push(s);
+    }
+    const abs = segs.join('/');
+    if (!P.files.has(abs)) say('BLOCKER', 'A5', 'битая ссылка ' + r + ' → ' + abs);
+  }
+  /* B1 — несуществующий токен */
+  // локальными считаем переменные, объявленные где угодно на странице: <style>, inline style, JS (setProperty)
+  const localVars = new Set([...all(RX.cssVarDef, html), ...all(/setProperty\(\s*['"`](--[a-zA-Z0-9-]+)/g, html)]);
+  const badTokens = uniq(all(RX.cssVarUse, html)).filter(t => !P.tokens.has(t) && !localVars.has(t));
+  for (const t of badTokens) say('BLOCKER', 'B1', 'var(' + t + ') — токена нет в styles/*.css');
+  /* B2 — хардкод цвета в <style> страницы (fallback внутри var() легален) */
+  const hexes = uniq(all(/(#[0-9a-f]{3,8}\b|rgba?\([^)]*\))/gi, styleSrc.replace(/var\([^)]*\)/g, ''), 1)).filter(h => !HEX_ALLOW.some(rx => rx.test(h.replace(/\s/g, '')))).filter(h => !HEX_OK.test(styleSrc.slice(Math.max(0, styleSrc.indexOf(h) - 80), styleSrc.indexOf(h))));
+  if (hexes.length) say('WARN', 'B2', 'хардкод цвета в <style>: ' + hexes.slice(0, 4).join(', ') + (hexes.length > 4 ? ' … всего ' + hexes.length : ''));
+  const changed = (opts.changed || []).includes(p);
+  /* B3 — отступ/радиус вне шкалы 4 (шум старых страниц — только для правленых файлов) */
+  const offScale = [];
+  let m;
+  RX.boxPx.lastIndex = 0;
+  while (m = RX.boxPx.exec(styleSrc)) {
+    if (/var\(|calc\(|clamp\(|%|em|auto/.test(m[2])) continue;
+    for (const v of m[2].match(/\b\d+(?:\.\d+)?px\b/g) || []) {
+      const n = parseFloat(v);
+      if (n % 4 !== 0 && ![1, 2, 6, 10, 14, 999, 9999].includes(n)) offScale.push(m[1] + ':' + v);
+    }
+  }
+  if (offScale.length && changed) say('INFO', 'B3', 'вне шкалы 4: ' + uniq(offScale).slice(0, 5).join(', '));
+  /* B4 — инлайн-SVG вместо <i data-icon> */
+  let svgs = 0;
+  for (const piece of markup.split(/<svg[\s>]/).slice(0, -1)) if (!SVG_OK.test(piece.slice(-200))) svgs++;
+  if (svgs) say('WARN', 'B4', 'инлайн-SVG в разметке: ' + svgs + ' шт. — иконки должны быть <i data-icon>');
+  /* B5 — нативная таблица */
+  const visible = markup.replace(/<[^>]*display:\s*none[^>]*>[\s\S]*?<\/[a-z]+>/gi, '');
+  if (BAD_TABLE.some(rx => rx.test(visible))) say('BLOCKER', 'B5', 'нативная таблица/устаревшая сетка справочника — переделать на .tbl (Table/TableCell)');
+  /* F1 — .chip__info без парного .pop/DSPopover (RiskMetric — половина композиции, RulesAudit W5) */
+  if (/\bchip__info\b/.test(markup) && !/class="[^"]*\bpop\b/.test(markup) && !/data-riskmetric/.test(markup) && !scripts.some(s => base(s) === 'ds-popover.js' || base(s) === 'ds-riskmetric.js')) {
+    say('BLOCKER', 'F1', '.chip__info есть, а .pop/DSPopover рядом нет — композиция Chip+Popover собрана наполовину');
+  }
+  /* F2 — <i data-icon> внутри слота, который сам не размерен под иконку (не .cb__mark/.rb__mark —
+     у чекбокса/радио слот принимает [data-icon] по конструкции, :is(svg,[data-icon]) в CSS) */
+  if (/class="sw__knob"[^>]*>\s*<i\s+data-icon/.test(markup)) {
+    say('BLOCKER', 'F2', '<i data-icon> вставлен прямо в .sw__knob — слот свитча не рассчитан на иконку, анатомия перевёрстана');
+  }
+  /* F3 — .tabs--horiz без data-tabs: ds-tabs.js не подключит переполнение (скролл/меню «Ещё») */
+  if (/\btabs--horiz\b/.test(markup) && !/\bdata-tabs\b/.test(markup)) {
+    say('BLOCKER', 'F3', '.tabs--horiz без data-tabs — переполнение ряда не подключится (ds-tabs.js молчит без атрибута)');
+  }
+  /* F4 — одноколоночный grid-track на фиксированной ширине вместо minmax(0,1fr) — трек сжимается по контенту */
+  if (/grid-template-columns:\s*[\d.]+px\s*;/.test(styleSrc)) {
+    say('WARN', 'F4', 'grid-template-columns: <px> без minmax(0,1fr) — трек не тянется, только сжимается по max-content');
+  }
+  /* F5 — «анатомия компонента взята не целиком»: реестр контрактов, а не код на каждый
+     инцидент — новый компонент с обязательными «всегда обязаны присутствовать в DOM»
+     узлами (не зависящими от текущего визуального режима/состояния) регистрируется ОДНОЙ
+     строкой в ANATOMY_CONTRACTS ниже; проверка одна для всех компонентов. */
+  for (const c of ANATOMY_CONTRACTS) {
+    if (c.when.test(markup)) {
+      const missing = c.require.filter(([re]) => !re.test(markup)).map(([, label]) => label);
+      if (missing.length) say('BLOCKER', 'F5', c.name + ' использован не целиком — анатомия урезана под текущий вид вместо взятой как есть (разметка не должна меняться между режимами/состояниями); отсутствует: ' + missing.join(', '));
+    }
+  }
+  /* G1 — гейт фиделити макету (skills/mockup-fidelity-review.md) отмечен не в чате, а в
+     самом файле: без строки-маркера ready_for_verification вызывать нельзя (правило
+     процесса, не мнение) — самоотчёт в переписке не переживает новую сессию/другого
+     агента и не проверяем постфактум. Дата в маркере обязана совпадать с датой правки
+     (тот же принцип, что C3), иначе разметка могла измениться уже ПОСЛЕ прогона гейта. */
+  if (isScreen) {
+    const gate = html.match(/<!--\s*FIDELITY-GATE:\s*PASS\s*·\s*ширина\s*[\d]+\s*·\s*([\d.]+)\s*-->/i);
+    if (!gate) say('BLOCKER', 'G1', 'нет строки <!-- FIDELITY-GATE: PASS · ширина <N> · ДД.ММ.ГГГГ --> сразу после <!DOCTYPE html> — гейт mockup-fidelity-review.md не отмечен как пройденный в самом файле');else if (changed && gate[1] !== (opts.today || today())) say('WARN', 'G1', 'экран правился, а дата в FIDELITY-GATE = ' + gate[1] + ', сегодня ' + (opts.today || today()) + ' — гейт нужно перепрогнать после правки и обновить дату');
+  }
+  /* C1 — карточка @dsCard первой строкой */
+  if (!/^<!--\s*@dsCard\b/.test(html)) say('BLOCKER', 'C1', 'первая строка — не <!-- @dsCard … -->');
+  /* C2/C3 — masthead */
+  const metaBlk = (html.match(/<(?:p|div) class="meta"[\s\S]{0,900}?<\/(?:p|div)>/) || [''])[0];
+  const ver = (metaBlk.match(/Версия:?\s*<b>([^<]+)/) || [])[1];
+  const upd = (metaBlk.match(/Обновлено:?\s*<b>([^<]+)/) || [])[1];
+  if (!ver || !upd) say('BLOCKER', 'C2', 'в masthead нет ' + (!ver ? '«Версия»' : '') + (!ver && !upd ? ' и ' : '') + (!upd ? '«Обновлено»' : ''));
+  if (changed && upd && upd.trim() !== (opts.today || today())) say('WARN', 'C3', 'страница правилась, «Обновлено» = ' + upd + ', сегодня ' + (opts.today || today()));
+  /* C4/C5/C6 — разделы */
+  if (inContract && P.canon.length) {
+    // разделы документации пишутся как <h2>Название</h2>; <h2 class=…> — часть демо-компонента
+    const h2s = all(/<h2>([\s\S]*?)<\/h2>/g, html).map(h => strip(h).replace(/\s*(Новое|Расширение|Обновлено)\s*$/, '').trim());
+    const idx = [];
+    const unknown = [];
+    for (const h of h2s) {
+      const i = P.canon.findIndex(c => h === c || h.startsWith(c));
+      if (i >= 0) idx.push(i);else if (!/бэклог|что предлагаем/i.test(h)) unknown.push(h);else if (/что предлагаем/i.test(h)) say('WARN', 'C5', 'раздел бэклога должен называться «Бэклог» (найдено: «' + h + '») — имя h2 контракт для агентов');
+    }
+    const missing = P.canon.filter(c => !h2s.some(h => h === c || h.startsWith(c)));
+    if (missing.length) say('WARN', 'C4', 'нет h2: ' + missing.join(', '));
+    if (!h2s.some(h => /бэклог|что предлагаем/i.test(h))) say('BLOCKER', 'C4', 'нет обязательного раздела «Что предлагаем добавить» / «Бэклог»');
+    const ordered = idx.every((v, i) => i === 0 || v >= idx[i - 1]);
+    if (!ordered) say('WARN', 'C4', 'порядок h2 расходится с каноном: ' + idx.map(i => P.canon[i]).join(' → '));
+    if (unknown.length) say('WARN', 'C5', 'неканонические h2: ' + unknown.join(', '));
+    if (h2s.includes('Конструктор') && h2s[0] !== 'Конструктор') say('WARN', 'C6', '«Конструктор» не первым после шапки (первый — «' + h2s[0] + '»)');
+  }
+  /* D1/D2 — реестры */
+  if (inRegistry) {
+    if (!P.index.includes('"' + p + '"')) say('BLOCKER', 'D1', 'нет карточки в index.html (href="' + p + '")');
+    if (!P.nav.includes("'" + p + "'")) say('BLOCKER', 'D2', 'нет пункта в scripts/ds-nav.js');
+    /* D5 — спека и манифест */
+    const spec = 'specs/' + name + '.md';
+    if (!P.files.has(spec)) say('BLOCKER', 'D5', 'нет спеки ' + spec);else {
+      if (!P.specIndex.includes(spec)) say('BLOCKER', 'D5', 'нет строки в specs/_index.md');
+      /* D6 */
+      if (inContract && !new RegExp('^##\\s*' + name + '\\b', 'mi').test(P.cheat)) say('WARN', 'D6', 'нет блока «## ' + name + '» в specs/_cheatsheet.md');else if (inContract) {
+        const blockM = P.cheat.match(new RegExp('\\n##\\s*' + name + '\\b[\\s\\S]*?(?=\\n## |$)', 'i'));
+        const block = blockM ? blockM[0] : '';
+        if (block && !/\*\*Инварианты:\*\*/.test(block)) say('WARN', 'D8', 'блок «## ' + name + '» в чит-шите без «**Инварианты:**»');
+        if (block && !new RegExp('specs/' + name + '\\.md').test(block)) say('WARN', 'D8', 'блок «## ' + name + '» в чит-шите без отсылки specs/' + name + '.md');
+      }
+      /* A5 — css компонента из спеки обязан быть подключён страницей */
+      const sCss = ((P.src.get(spec) || '').match(/^css:\s*`?([^`\n·]+)/m) || [])[1];
+      if (sCss && /^styles\//.test(sCss.trim())) {
+        const need = base(sCss.trim());
+        if (!all(RX.link, html).some(href => base(href) === need)) say('BLOCKER', 'A5', 'спека объявляет css: ' + sCss.trim() + ', но страница его не линкует');
+      }
+      /* D7 */
+      const s = P.src.get(spec) || '';
+      const sv = (s.match(/^version:\s*"?([^"\n]+)/m) || [])[1];
+      const su = (s.match(/^updated:\s*"?([^"\n]+)/m) || [])[1];
+      if (ver && sv && sv.trim() !== ver.trim()) say('WARN', 'D7', 'версия в спеке ' + sv + ' ≠ ' + ver + ' на странице');
+      if (upd && su && su.trim() !== upd.trim()) say('WARN', 'D7', 'дата в спеке ' + su + ' ≠ ' + upd + ' на странице');
+    }
+  }
+  /* D7 вне реестров (pages/rnd/* и прочие): спека есть — версия и дата обязаны совпадать */
+  if (!inRegistry) {
+    const s = P.src.get('specs/' + name + '.md');
+    if (s) {
+      const sv = (s.match(/^version:\s*"?([^"\n]+)/m) || [])[1];
+      const su = (s.match(/^updated:\s*"?([^"\n]+)/m) || [])[1];
+      if (ver && sv && sv.trim() !== ver.trim()) say('WARN', 'D7', 'версия в спеке ' + sv + ' ≠ ' + ver + ' на странице');
+      if (upd && su && su.trim() !== upd.trim()) say('WARN', 'D7', 'дата в спеке ' + su + ' ≠ ' + upd + ' на странице');
+    }
+  }
+}
+
+/* ---------- запуск ---------- */
+async function run(targets, opts) {
+  opts = opts || {};
+  const P = await loadProject();
+  const pages = (targets && targets.length ? targets : []).filter(p => !SKIP_ALL.some(rx => rx.test(p)));
+  const wanted = [...pages];
+  for (const p of pages) {
+    const spec = 'specs/' + base(p).replace(/\.html$/, '') + '.md';
+    if (P.files.has(spec)) wanted.push(spec);
+  }
+  const loaded = await Promise.all(wanted.map(f => readFile(f).catch(() => '')));
+  P.src = new Map(wanted.map((f, i) => [f, loaded[i]]));
+  const lines = [];
+  const rep = [];
+  if (opts.global !== false) {
+    const g = [];
+    await globalChecks(P, g);
+    for (const r of g) rep.push([null, ...r]);
+  }
+  if (opts.parity) {
+    const g = [];
+    try {
+      await parityChecks(P, g);
+    } catch (e) {
+      g.push(['BLOCKER', '!!', 'гейт парности упал: ' + e.message]);
+    }
+    for (const r of g) rep.push([null, ...r]);
+  }
+  for (const p of pages) {
+    const o = [];
+    try {
+      await pageChecks(p, P, opts, o);
+    } catch (e) {
+      o.push(['BLOCKER', '!!', 'линтер упал: ' + e.message]);
+    }
+    for (const r of o) rep.push([p, ...r]);
+  }
+  const order = {
+    BLOCKER: 0,
+    WARN: 1,
+    INFO: 2
+  };
+  rep.sort((a, b) => order[a[1]] - order[b[1]] || String(a[0]).localeCompare(String(b[0])));
+  const scope = pages.length ? pages.join(', ') : 'проект (только глобальные правила)';
+  lines.push('DS-LINT · ' + scope + ' · ' + (opts.today || today()));
+  const count = {
+    BLOCKER: 0,
+    WARN: 0,
+    INFO: 0
+  };
+  for (const [pg, lvl, id, msg] of rep) {
+    count[lvl]++;
+    lines.push(lvl.padEnd(8) + id.padEnd(4) + (pages.length > 1 && pg ? base(pg) + ': ' : '') + msg);
+  }
+  if (!rep.length) return 'DS-LINT: чисто · ' + scope;
+  lines.push('—');
+  lines.push('BLOCKER ' + count.BLOCKER + ' · WARN ' + count.WARN + ' · INFO ' + count.INFO + ' → ' + (count.BLOCKER ? 'NEEDS-WORK' : 'PASS с замечаниями'));
+  return lines.join('\n');
+}
+
+/* API наружу: файл должен оставаться валидным скриптом (компилятор ДС его парсит),
+   поэтому не `return`, а переменная — вызывающий дописывает `;return dsLint;` */
+var dsLint = {
+  run
+};
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-lint.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-menu.js
+try { (() => {
+/* =========================================================================
+   DS Menu — рантайм контекстного меню (out-of-box).
+   Зависимости: styles/context-menu.css. Иконки в разметке — как обычно
+   через icons-data.js + ds-icons.js (рантайм их не требует).
+
+   Экспорт: window.DSMenu = {
+     bind(trigger, opts) → api | null   — навесить поведение на триггер
+     bindAll(root)                      — обойти [data-menu] внутри root
+     place(menu, trigger, opts) → {placement, align}
+     wireKeys(menu, opts)               — клавиатура для статичного меню
+     wireSubs(menu)                     — подменю (hover + → / ←) внутри меню
+     closeAll() · current() → api|null
+   }
+
+   Автоподключение (без единой строки кода на экране):
+     <span class="menu-anchor">
+       <button data-menu="m1" aria-label="Действия">⋮</button>
+       <div id="m1" class="menu" role="menu">…</div>
+     </span>
+   Значение data-menu — id меню; пустое значение — ближайшее .menu внутри
+   .menu-anchor. Настройки на триггере: data-menu-placement (bottom|top,
+   по умолчанию bottom), data-menu-align (start|end, start), data-menu-gap
+   (px, 6), data-menu-flip="no" (выключить авто-разворот),
+   data-menu-boundary (CSS-селектор контейнера-границы, по умолчанию вьюпорт),
+   data-menu-keep-open (не закрывать по клику на пункт — меню-выбор).
+
+   Поведение по спеке: разворот вверх при нехватке места снизу, флип
+   выравнивания и зажим по горизонтали, одно открытое меню, закрытие по
+   клику на пункт / клику вне / Esc с возвратом фокуса, полная клавиатура
+   (↑ ↓ Home End Enter Space → ← Esc + typeahead), подменю по наведению
+   с задержкой закрытия 160мс и разворотом влево при нехватке места.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var GAP = 6; /* зазор меню от триггера */
+  var GUARD = 8; /* минимальный отступ от края границы */
+  var SUB_CLOSE = 160; /* задержка закрытия подменю, мс */
+  var TYPE_RESET = 700; /* сброс буфера typeahead, мс */
+
+  var ITEM = '.menu__item';
+  var current = null; /* единственное открытое меню верхнего уровня */
+
+  /* ------------------------------------------------------------------ */
+  /* геометрия                                                           */
+  /* ------------------------------------------------------------------ */
+  function bounds(el) {
+    if (!el) return {
+      left: 0,
+      top: 0,
+      right: document.documentElement.clientWidth,
+      bottom: document.documentElement.clientHeight
+    };
+    var r = el.getBoundingClientRect();
+    return {
+      left: r.left,
+      top: r.top,
+      right: r.right,
+      bottom: r.bottom
+    };
+  }
+
+  /* origin для transform-scale появления — со стороны триггера */
+  function setOrigin(menu, placement, align) {
+    menu.style.setProperty('--menu-origin', (placement === 'top' ? 'bottom ' : 'top ') + (align === 'end' ? 'right' : 'left'));
+  }
+
+  /* place — позиционирование + авто-разворот. Возвращает placement/align. */
+  function place(menu, trigger, o) {
+    o = o || {};
+    var gap = o.gap == null ? GAP : o.gap;
+    var placement = o.placement || 'bottom';
+    var align = o.align || 'start';
+    var flip = o.flip !== false;
+    var op = o.offsetParent || menu.offsetParent || menu.parentElement;
+    var br = bounds(o.boundary || null);
+    var tr = trigger.getBoundingClientRect();
+    var mw = menu.offsetWidth,
+      mh = menu.offsetHeight;
+
+    /* триггер вне границы (секция ещё за пределами вьюпорта) — ни разворота,
+       ни зажима: иначе меню «уедет» к краю экрана вместо своего триггера */
+    var inView = tr.bottom > br.top && tr.top < br.bottom && tr.right > br.left && tr.left < br.right;
+    if (flip && inView) {
+      var below = br.bottom - tr.bottom,
+        above = tr.top - br.top;
+      if (placement === 'bottom' && below < mh + gap + GUARD && above > below) placement = 'top';else if (placement === 'top' && above < mh + gap + GUARD && below > above) placement = 'bottom';
+      /* выравнивание: start растёт вправо, end — влево */
+      var fwd = br.right - tr.left,
+        back = tr.right - br.left;
+      if (align === 'start' && fwd < mw + GUARD && back >= mw + GUARD) align = 'end';else if (align === 'end' && back < mw + GUARD && fwd >= mw + GUARD) align = 'start';
+    }
+    var y = placement === 'top' ? tr.top - gap - mh : tr.bottom + gap;
+    var x = align === 'end' ? tr.right - mw : tr.left;
+    if (inView && (flip || o.boundary)) {
+      x = Math.min(Math.max(br.left + GUARD, x), Math.max(br.left + GUARD, br.right - mw - GUARD));
+      y = Math.min(Math.max(br.top + GUARD, y), Math.max(br.top + GUARD, br.bottom - mh - GUARD));
+    }
+
+    /* из координат вьюпорта — в координаты позиционирующего предка */
+    var ox = -(window.pageXOffset || 0),
+      oy = -(window.pageYOffset || 0);
+    if (getComputedStyle(menu).position === 'fixed') {
+      ox = 0;
+      oy = 0;
+    } else if (op && op !== document.body && op !== document.documentElement) {
+      var opr = op.getBoundingClientRect(),
+        cs = getComputedStyle(op);
+      ox = opr.left + (parseFloat(cs.borderLeftWidth) || 0) - op.scrollLeft;
+      oy = opr.top + (parseFloat(cs.borderTopWidth) || 0) - op.scrollTop;
+    }
+    /* пишем только при изменении: лишняя запись стилей провоцирует
+       reflow → scroll → repositioning по кругу */
+    var nl = Math.round(x - ox) + 'px',
+      nt = Math.round(y - oy) + 'px';
+    if (menu.style.left !== nl) menu.style.left = nl;
+    if (menu.style.top !== nt) menu.style.top = nt;
+    setOrigin(menu, placement, align);
+    return {
+      placement: placement,
+      align: align
+    };
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* пункты и клавиатура                                                 */
+  /* ------------------------------------------------------------------ */
+  /* все пункты, включая отключённые — для roving tabindex: отключённый пункт
+     должен получить tabindex=-1, иначе Tab уводит фокус на нерабочий пункт */
+  function allItems(menu) {
+    return Array.prototype.filter.call(menu.children, function (el) {
+      return el.classList && el.classList.contains('menu__item');
+    });
+  }
+  function items(menu) {
+    return Array.prototype.filter.call(menu.children, function (el) {
+      return el.classList && el.classList.contains('menu__item') && el.getAttribute('aria-disabled') !== 'true' && !el.classList.contains('is-disabled');
+    });
+  }
+  function focusItem(menu, el) {
+    if (!el) return;
+    allItems(menu).forEach(function (i) {
+      i.tabIndex = i === el ? 0 : -1;
+    });
+    el.focus();
+  }
+  function step(menu, dir) {
+    var list = items(menu);
+    if (!list.length) return;
+    var i = list.indexOf(document.activeElement.closest ? document.activeElement.closest(ITEM) : null);
+    var next = i < 0 ? dir > 0 ? 0 : list.length - 1 : (i + dir + list.length) % list.length;
+    focusItem(menu, list[next]);
+  }
+
+  /* wireKeys — роving tabindex и полная клавнавигация внутри меню */
+  function wireKeys(menu, opts) {
+    if (menu.__dsMenuKeys) return menu;
+    menu.__dsMenuKeys = true;
+    opts = opts || {};
+    if (!menu.getAttribute('role')) menu.setAttribute('role', 'menu');
+    allItems(menu).forEach(function (it) {
+      if (!it.getAttribute('role')) it.setAttribute('role', 'menuitem');
+      it.tabIndex = -1;
+    });
+    var first = items(menu)[0];
+    if (first) first.tabIndex = 0;
+    var buf = '',
+      bufT;
+    menu.addEventListener('keydown', function (e) {
+      var host = e.target.closest ? e.target.closest(ITEM) : null;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        step(menu, 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        step(menu, -1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        focusItem(menu, items(menu)[0]);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        var l = items(menu);
+        focusItem(menu, l[l.length - 1]);
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        if (host && host.classList.contains('menu__item--sub')) {
+          e.preventDefault();
+          if (host.__dsSubOpen) host.__dsSubOpen(true);
+        } else if (host && host.tagName !== 'BUTTON' && host.tagName !== 'A') {
+          e.preventDefault();
+          host.click();
+        }
+      } else if (e.key === 'Escape' || e.key === 'ArrowLeft') {
+        if (menu.classList.contains('menu__sub')) return; /* обрабатывает подменю */
+        if (opts.onClose) {
+          e.preventDefault();
+          e.stopPropagation();
+          opts.onClose();
+        }
+      } else if (e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        /* typeahead по первой букве подписи */
+        clearTimeout(bufT);
+        buf += e.key.toLowerCase();
+        bufT = setTimeout(function () {
+          buf = '';
+        }, TYPE_RESET);
+        var list = items(menu),
+          from = list.indexOf(host) + 1;
+        for (var n = 0; n < list.length; n++) {
+          var it = list[(from + n) % list.length];
+          var lab = (it.querySelector('.menu__item-label') || it).textContent.trim().toLowerCase();
+          if (lab.indexOf(buf) === 0) {
+            focusItem(menu, it);
+            break;
+          }
+        }
+      }
+    });
+    return menu;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* подменю (flyout)                                                    */
+  /* ------------------------------------------------------------------ */
+  function wireSubs(menu) {
+    menu.querySelectorAll('.menu__item--sub').forEach(function (host) {
+      var sub = host.querySelector('.menu__sub');
+      if (!sub || host.__dsSub) return;
+      host.__dsSub = true;
+      host.setAttribute('aria-haspopup', 'menu');
+      host.setAttribute('aria-expanded', 'false');
+      if (host.tabIndex !== 0) host.tabIndex = -1;
+      wireKeys(sub);
+      var t;
+      function open(focusFirst) {
+        clearTimeout(t);
+        sub.classList.add('is-open');
+        host.setAttribute('aria-expanded', 'true');
+        /* нет места справа — разворачиваем влево */
+        var r = sub.getBoundingClientRect();
+        var vw = document.documentElement.clientWidth;
+        sub.classList.toggle('menu__sub--left', r.right > vw - GUARD && host.getBoundingClientRect().left - r.width > GUARD);
+        if (focusFirst) {
+          var f = items(sub)[0];
+          if (f) focusItem(sub, f);
+        }
+      }
+      function close(now) {
+        clearTimeout(t);
+        t = setTimeout(function () {
+          sub.classList.remove('is-open');
+          host.setAttribute('aria-expanded', 'false');
+        }, now ? 0 : SUB_CLOSE);
+      }
+      host.__dsSubOpen = open;
+      host.__dsSubClose = close;
+      host.addEventListener('mouseenter', function () {
+        open(false);
+      });
+      host.addEventListener('mouseleave', function () {
+        close(false);
+      });
+      host.addEventListener('focusin', function () {
+        open(false);
+      });
+      host.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          e.stopPropagation();
+          open(true);
+        } else if ((e.key === 'ArrowLeft' || e.key === 'Escape') && sub.classList.contains('is-open')) {
+          e.preventDefault();
+          e.stopPropagation();
+          close(true);
+          host.focus();
+        }
+      });
+    });
+    return menu;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* bind — поведение триггера                                           */
+  /* ------------------------------------------------------------------ */
+  function resolveMenu(trigger, opts) {
+    if (opts.menu) return opts.menu;
+    var id = trigger.getAttribute('data-menu');
+    if (id) return document.getElementById(id);
+    var anchor = trigger.closest('.menu-anchor');
+    if (anchor) return anchor.querySelector('.menu');
+    var next = trigger.nextElementSibling;
+    return next && next.classList.contains('menu') ? next : null;
+  }
+  function bind(trigger, opts) {
+    opts = opts || {};
+    if (trigger.__dsMenu) return trigger.__dsMenu;
+    var menu = resolveMenu(trigger, opts);
+    if (!menu) return null;
+    var d = trigger.dataset || {};
+    var conf = {
+      placement: opts.placement || d.menuPlacement || 'bottom',
+      align: opts.align || d.menuAlign || 'start',
+      gap: opts.gap != null ? opts.gap : d.menuGap != null ? parseFloat(d.menuGap) : GAP,
+      flip: opts.flip != null ? opts.flip : d.menuFlip !== 'no',
+      boundary: opts.boundary || (d.menuBoundary ? document.querySelector(d.menuBoundary) : null),
+      offsetParent: opts.offsetParent || null,
+      keepOpen: opts.keepOpen != null ? opts.keepOpen : d.menuKeepOpen != null,
+      autoFocus: opts.autoFocus !== false,
+      /* dismiss:false — закреплённое меню витрины: не закрывается по клику вне
+         и Esc, не занимает слот единственного открытого меню */
+      dismiss: opts.dismiss !== false
+    };
+    menu.classList.add('menu--floating');
+    if (!menu.getAttribute('role')) menu.setAttribute('role', 'menu');
+    trigger.setAttribute('aria-haspopup', 'menu');
+    trigger.setAttribute('aria-expanded', 'false');
+    if (menu.id) trigger.setAttribute('aria-controls', menu.id);
+    var wasHidden = menu.hasAttribute('hidden');
+    wireKeys(menu, {
+      onClose: function () {
+        close(true);
+      }
+    });
+    wireSubs(menu);
+    function isOpen() {
+      return menu.classList.contains('is-open');
+    }
+    function reposition() {
+      return place(menu, trigger, {
+        placement: conf.placement,
+        align: conf.align,
+        gap: conf.gap,
+        flip: conf.flip,
+        boundary: conf.boundary,
+        offsetParent: conf.offsetParent
+      });
+    }
+    function open() {
+      if (isOpen()) return api;
+      if (trigger.disabled || trigger.getAttribute('aria-disabled') === 'true') return api;
+      if (conf.dismiss && current && current !== api) current.close();
+      if (wasHidden) menu.removeAttribute('hidden');
+      menu.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      reposition();
+      if (conf.dismiss) current = api;
+      if (conf.autoFocus) {
+        var f = items(menu)[0];
+        if (f) focusItem(menu, f);
+      }
+      return api;
+    }
+    function close(returnFocus) {
+      if (!isOpen()) return api;
+      menu.classList.remove('is-open');
+      menu.querySelectorAll('.menu__sub.is-open').forEach(function (s) {
+        s.classList.remove('is-open');
+      });
+      trigger.setAttribute('aria-expanded', 'false');
+      if (wasHidden) menu.setAttribute('hidden', '');
+      if (current === api) current = null;
+      if (returnFocus) trigger.focus();
+      return api;
+    }
+    function toggle() {
+      return isOpen() ? close() : open();
+    }
+    trigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      toggle();
+    });
+    if (!/^(button|a)$/i.test(trigger.tagName)) {
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          open();
+        }
+      });
+    } else {
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' && !isOpen()) {
+          e.preventDefault();
+          open();
+        }
+      });
+    }
+    /* клик на пункт — закрытие (кроме пункта с подменю и меню-выбора) */
+    menu.addEventListener('click', function (e) {
+      var it = e.target.closest(ITEM);
+      if (!it || it.classList.contains('menu__item--sub')) return;
+      if (!conf.keepOpen) close(true);
+    });
+    var api = {
+      menu: menu,
+      trigger: trigger,
+      open: open,
+      close: close,
+      toggle: toggle,
+      place: reposition,
+      isOpen: isOpen,
+      config: conf
+    };
+    trigger.__dsMenu = api;
+    menu.__dsMenu = api;
+    return api;
+  }
+  function bindAll(root) {
+    (root || document).querySelectorAll('[data-menu]').forEach(function (t) {
+      bind(t);
+    });
+  }
+  function closeAll() {
+    if (current) current.close();
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* глобальные слушатели: клик вне, Esc, resize/scroll                  */
+  /* ------------------------------------------------------------------ */
+  document.addEventListener('pointerdown', function (e) {
+    if (!current) return;
+    if (current.menu.contains(e.target) || current.trigger.contains(e.target)) return;
+    current.close();
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && current) current.close(true);
+  });
+  /* пересчёт позиции — не чаще кадра, иначе всплеск scroll-событий
+     превращается в бесконечный цикл reflow */
+  var reflowQueued = false;
+  function onReflow() {
+    if (!current || reflowQueued) return;
+    reflowQueued = true;
+    requestAnimationFrame(function () {
+      reflowQueued = false;
+      if (current) current.place();
+    });
+  }
+  window.addEventListener('resize', onReflow, {
+    passive: true
+  });
+  window.addEventListener('scroll', onReflow, {
+    capture: true,
+    passive: true
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    bindAll(document);
+  });else bindAll(document);
+  window.DSMenu = {
+    bind: bind,
+    bindAll: bindAll,
+    place: place,
+    wireKeys: wireKeys,
+    wireSubs: wireSubs,
+    items: items,
+    closeAll: closeAll,
+    current: function () {
+      return current;
+    }
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-menu.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-modal.js
+try { (() => {
+/* =========================================================================
+   DS Modal — рантайм модального окна (out-of-box).
+   Зависимости: styles/modal.css. Иконки в разметке — <i data-icon> как обычно.
+
+   Экспорт: window.DSModal = {
+     open(scrim, opts) → api        — смонтировать и открыть слой
+     bind(trigger, opts) → api|null — открытие по клику на триггер
+     bindAll(root)                  — обойти [data-modal] внутри root
+     wireScroll(modal)              — тени шапки/подвала при прокрутке тела
+     closeTop() · closeAll() · current() → api|null · stack() → api[]
+   }
+
+   Автоподключение (без единой строки кода на экране):
+     <button data-modal="m1">Открыть</button>
+     <div class="modal-scrim" id="m1" hidden>
+       <div class="modal modal--w6" role="dialog" aria-modal="true">…</div>
+     </div>
+   Настройки на триггере: data-modal-guarded (клик по скриму не закрывает —
+   форма с несохранённым вводом), data-modal-nested (открыть поверх текущего слоя).
+   Закрытие: крестик .modal__close button, любой [data-modal-close], Esc,
+   клик по скриму. Всё по спеке Modal: портал в body, блокировка прокрутки
+   страницы, inert фона, focus trap, возврат фокуса на инициатора.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  var layers = []; /* стек открытых слоёв, последний — верхний */
+  var savedOverflow = '',
+    savedPadRight = '';
+  function top() {
+    return layers.length ? layers[layers.length - 1] : null;
+  }
+  function visible(el) {
+    return el.offsetParent !== null || el.getClientRects().length > 0;
+  }
+  function focusables(root) {
+    return Array.prototype.filter.call(root.querySelectorAll(FOCUSABLE), visible);
+  }
+
+  /* прокрутка страницы блокируется один раз — на первом слое; вложенные
+     диалоги её не трогают, иначе закрытие вложенного разблокирует фон */
+  function lockPage() {
+    if (layers.length > 1) return;
+    var b = document.body;
+    var gap = window.innerWidth - document.documentElement.clientWidth;
+    savedOverflow = b.style.overflow;
+    savedPadRight = b.style.paddingRight;
+    b.style.overflow = 'hidden';
+    if (gap > 0) b.style.paddingRight = gap + 'px';
+    Array.prototype.forEach.call(b.children, function (el) {
+      if (el.classList && el.classList.contains('modal-scrim')) return;
+      el.inert = true;
+      el.setAttribute('aria-hidden', 'true');
+      el.__dsModalHidden = true;
+    });
+  }
+  function unlockPage() {
+    if (layers.length) return;
+    document.body.style.overflow = savedOverflow;
+    document.body.style.paddingRight = savedPadRight;
+    Array.prototype.forEach.call(document.body.children, function (el) {
+      if (!el.__dsModalHidden) return;
+      el.inert = false;
+      el.removeAttribute('aria-hidden');
+      delete el.__dsModalHidden;
+    });
+  }
+
+  /* wireScroll — тень у шапки и подвала по прокрутке тела (спека, п.4) */
+  function wireScroll(modal) {
+    if (!modal || modal.__dsModalScroll) return modal;
+    var body = modal.querySelector('.modal__body');
+    var head = modal.querySelector('.modal__head');
+    var foot = modal.querySelector('.modal__foot');
+    if (!body) return modal;
+    modal.__dsModalScroll = true;
+    function sync() {
+      if (head) head.classList.toggle('is-scrolled', body.scrollTop > 1);
+      if (foot) foot.classList.toggle('is-scrolled', body.scrollTop + body.clientHeight < body.scrollHeight - 1);
+    }
+    body.addEventListener('scroll', sync, {
+      passive: true
+    });
+    window.addEventListener('resize', sync, {
+      passive: true
+    });
+    requestAnimationFrame(sync);
+    modal.__dsModalSyncShadow = sync;
+    return modal;
+  }
+  function firstTarget(modal) {
+    var body = modal.querySelector('.modal__body');
+    var inBody = body ? focusables(body) : [];
+    if (inBody.length) return inBody[0];
+    var close = modal.querySelector('.modal__close button, [data-modal-close]');
+    if (close) return close;
+    return focusables(modal)[0] || null;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* open — смонтировать слой                                            */
+  /* ------------------------------------------------------------------ */
+  function open(scrim, opts) {
+    opts = opts || {};
+    if (!scrim) return null;
+    if (scrim.__dsModal && layers.indexOf(scrim.__dsModal) >= 0) return scrim.__dsModal;
+    var d = scrim.dataset || {};
+    var conf = {
+      guarded: opts.guarded != null ? opts.guarded : d.modalGuarded != null,
+      nested: opts.nested != null ? opts.nested : d.modalNested != null || scrim.classList.contains('modal-scrim--nested'),
+      keep: opts.keep != null ? opts.keep : scrim.hasAttribute('hidden'),
+      returnFocus: opts.returnFocus !== undefined ? opts.returnFocus : document.activeElement,
+      onClose: opts.onClose || null
+    };
+    /* верхний слой закрывается, если новый — не вложенный */
+    if (!conf.nested) while (layers.length) closeTop();
+    var modal = scrim.querySelector('.modal') || scrim;
+    if (conf.nested) scrim.classList.add('modal-scrim--nested');
+    if (scrim.parentElement !== document.body) document.body.appendChild(scrim);
+    scrim.removeAttribute('hidden');
+    if (!modal.getAttribute('role')) modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    var api = {
+      scrim: scrim,
+      modal: modal,
+      config: conf,
+      close: function (ok) {
+        return closeLayer(api, ok);
+      },
+      isOpen: function () {
+        return layers.indexOf(api) >= 0;
+      }
+    };
+    scrim.__dsModal = api;
+    layers.push(api);
+    lockPage();
+    wireScroll(modal);
+    var f = firstTarget(modal);
+    if (f) f.focus();
+    if (opts.onOpen) opts.onOpen(api);
+    return api;
+  }
+  function closeLayer(api, ok) {
+    var i = layers.indexOf(api);
+    if (i < 0) return api;
+    layers.splice(i, 1);
+    if (api.config.keep) api.scrim.setAttribute('hidden', '');else api.scrim.remove();
+    delete api.scrim.__dsModal;
+    unlockPage();
+    var rf = api.config.returnFocus;
+    if (rf && document.contains(rf)) rf.focus();
+    if (api.config.onClose) api.config.onClose(ok === true);
+    return api;
+  }
+  function closeTop(ok) {
+    var t = top();
+    return t ? closeLayer(t, ok) : null;
+  }
+  function closeAll() {
+    while (layers.length) closeTop();
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* bind — открытие по триггеру                                         */
+  /* ------------------------------------------------------------------ */
+  function resolveScrim(trigger, opts) {
+    if (opts.scrim) return opts.scrim;
+    var id = trigger.getAttribute('data-modal');
+    if (id) return document.getElementById(id);
+    var next = trigger.nextElementSibling;
+    return next && next.classList.contains('modal-scrim') ? next : null;
+  }
+  function bind(trigger, opts) {
+    opts = opts || {};
+    if (trigger.__dsModalBound) return trigger.__dsModalBound;
+    var scrim = resolveScrim(trigger, opts);
+    if (!scrim) return null;
+    var d = trigger.dataset || {};
+    trigger.setAttribute('aria-haspopup', 'dialog');
+    if (scrim.id) trigger.setAttribute('aria-controls', scrim.id);
+    var api = {
+      trigger: trigger,
+      scrim: scrim,
+      open: function () {
+        return open(scrim, {
+          guarded: opts.guarded != null ? opts.guarded : d.modalGuarded != null,
+          nested: opts.nested != null ? opts.nested : d.modalNested != null,
+          returnFocus: trigger,
+          onOpen: opts.onOpen,
+          onClose: opts.onClose
+        });
+      }
+    };
+    trigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      api.open();
+    });
+    trigger.__dsModalBound = api;
+    return api;
+  }
+  function bindAll(root) {
+    (root || document).querySelectorAll('[data-modal]').forEach(function (t) {
+      bind(t);
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* глобальные слушатели: крестик, скрим, Esc, focus trap               */
+  /* ------------------------------------------------------------------ */
+  document.addEventListener('click', function (e) {
+    var t = top();
+    if (!t || !e.target.closest) return;
+    var closer = e.target.closest('[data-modal-close], .modal__close button');
+    if (closer && t.scrim.contains(closer)) {
+      e.preventDefault();
+      closeTop();
+      return;
+    }
+    /* клик мимо модалки: guarded-форма закрывается только крестиком и Esc */
+    if (e.target === t.scrim && !t.config.guarded) closeTop();
+  });
+  document.addEventListener('keydown', function (e) {
+    var t = top();
+    if (!t) return;
+    if (e.key === 'Escape') {
+      e.stopPropagation();
+      closeTop();
+      return;
+    }
+    if (e.key !== 'Tab') return;
+    var items = focusables(t.modal);
+    if (!items.length) return;
+    var first = items[0],
+      last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    } else if (!t.modal.contains(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+    }
+  }, true);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    bindAll(document);
+  });else bindAll(document);
+  window.DSModal = {
+    open: open,
+    bind: bind,
+    bindAll: bindAll,
+    wireScroll: wireScroll,
+    closeTop: closeTop,
+    closeAll: closeAll,
+    current: top,
+    stack: function () {
+      return layers.slice();
+    }
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-modal.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-nav-panel.js
+try { (() => {
+/* =========================================================================
+   DS NavPanel — рантайм панели навигации (out-of-box).
+   Зависимости: styles/nav-panel.css; иконки — icons-data.js + ds-icons.js.
+
+   Экспорт: window.DSNavPanel = {
+     bind(nav, opts) → api | null   — навесить поведение на .nav
+     bindAll(root)                   — обойти .nav внутри root
+     setMode(nav, mode)              — 'rail' | 'drawer' | 'fixed'
+     placeRailLabels(nav)            — пересчитать позиции rail-тултипов
+   }
+
+   Автоподключение: любой <nav class="nav nav--rail|--drawer|--fixed"> на
+   странице получает поведение — бургер сворачивает/разворачивает панель,
+   пин переключает drawer ↔ fixed, подписи пунктов в rail позиционируются
+   как тултипы (position:fixed, вне скролл-контейнера).
+
+   Настройки на панели: data-nav-collapsed-mode (в какой режим уводит бургер
+   из rail: drawer|fixed, по умолчанию — последний развёрнутый, иначе drawer),
+   data-nav-auto="no" — выключить автоподключение для этой панели,
+   data-nav-modes="no" — оставить только rail-тултипы, без переключения режимов
+   (витрины, где режим панели зафиксирован подписью).
+
+   Событие: 'ds-nav-mode' на .nav — detail {mode, prev}.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var MODES = ['rail', 'drawer', 'fixed'];
+  var RAIL_GAP = 10; /* зазор от правого края панели до подписи-тултипа */
+
+  function icon(el, name) {
+    if (!el) return;
+    var i = el.querySelector('i[data-icon]');
+    if (!i) return;
+    i.setAttribute('data-icon', name);
+    i.innerHTML = '';
+    delete i.dataset.iconDone; /* ds-icons помечает отрисованные — снимаем метку */
+    if (window.dsIcons) window.dsIcons.apply(el);
+  }
+  function modeOf(nav) {
+    for (var i = 0; i < MODES.length; i++) if (nav.classList.contains('nav--' + MODES[i])) return MODES[i];
+    return 'drawer';
+  }
+
+  /* rail-подписи спозиционированы фиксированно — иначе их режет скролл списка */
+  function placeRailLabels(nav) {
+    if (modeOf(nav) !== 'rail') return;
+    var r = nav.getBoundingClientRect();
+    nav.querySelectorAll('.nav__item').forEach(function (item) {
+      var lbl = item.querySelector('.nav__label');
+      if (!lbl) return;
+      var ir = item.getBoundingClientRect();
+      lbl.style.top = ir.top + ir.height / 2 + 'px';
+      lbl.style.left = r.right + RAIL_GAP + 'px';
+    });
+  }
+  function setMode(nav, mode) {
+    if (MODES.indexOf(mode) < 0) return modeOf(nav);
+    var prev = modeOf(nav);
+    if (prev === mode) return mode;
+    MODES.forEach(function (m) {
+      nav.classList.toggle('nav--' + m, m === mode);
+    });
+    var burger = nav.querySelector('.nav__burger');
+    if (burger) burger.setAttribute('aria-label', mode === 'rail' ? 'Развернуть меню' : 'Свернуть меню');
+    var pin = nav.querySelector('.nav__pin');
+    if (pin) {
+      pin.setAttribute('aria-pressed', String(mode === 'fixed'));
+      pin.setAttribute('aria-label', mode === 'fixed' ? 'Открепить панель' : 'Закрепить панель');
+      icon(pin, mode === 'fixed' ? 'unpin-menu' : 'pin-menu');
+    }
+    /* подписи в развёрнутых режимах — обычный поток, инлайн-координаты снимаем */
+    if (mode !== 'rail') {
+      nav.querySelectorAll('.nav__label').forEach(function (l) {
+        l.style.top = '';
+        l.style.left = '';
+      });
+    } else {
+      placeRailLabels(nav);
+    }
+    nav.dispatchEvent(new CustomEvent('ds-nav-mode', {
+      bubbles: true,
+      detail: {
+        mode: mode,
+        prev: prev
+      }
+    }));
+    return mode;
+  }
+  function bind(nav, opts) {
+    opts = opts || {};
+    if (nav.__dsNavPanel) return nav.__dsNavPanel;
+    var d = nav.dataset || {};
+    var expanded = opts.expandedMode || d.navCollapsedMode || (modeOf(nav) === 'rail' ? 'drawer' : modeOf(nav));
+    var modes = opts.modes !== false && d.navModes !== 'no';
+    function toggleRail() {
+      var cur = modeOf(nav);
+      if (cur === 'rail') setMode(nav, expanded);else {
+        expanded = cur;
+        setMode(nav, 'rail');
+      }
+    }
+    function togglePin() {
+      var cur = modeOf(nav);
+      if (cur === 'rail') return;
+      expanded = cur === 'fixed' ? 'drawer' : 'fixed';
+      setMode(nav, expanded);
+    }
+    nav.addEventListener('click', function (e) {
+      if (!modes) return;
+      if (e.target.closest('.nav__burger')) {
+        e.preventDefault();
+        toggleRail();
+        return;
+      }
+      if (e.target.closest('.nav__pin')) {
+        e.preventDefault();
+        togglePin();
+      }
+    });
+    /* позиция подписи считается на входе курсора: пункт мог уехать скроллом */
+    nav.addEventListener('mouseover', function (e) {
+      var item = e.target.closest && e.target.closest('.nav__item');
+      if (item && nav.contains(item)) placeRailLabels(nav);
+    });
+    nav.addEventListener('focusin', function (e) {
+      var item = e.target.closest && e.target.closest('.nav__item');
+      if (item && nav.contains(item)) placeRailLabels(nav);
+    });
+    var list = nav.querySelector('.nav__list');
+    if (list) list.addEventListener('scroll', function () {
+      placeRailLabels(nav);
+    });
+    var api = {
+      nav: nav,
+      mode: function () {
+        return modeOf(nav);
+      },
+      setMode: function (m) {
+        return setMode(nav, m);
+      },
+      toggleRail: toggleRail,
+      togglePin: togglePin,
+      placeLabels: function () {
+        placeRailLabels(nav);
+      }
+    };
+    nav.__dsNavPanel = api;
+    return api;
+  }
+  function bindAll(root) {
+    (root || document).querySelectorAll('.nav').forEach(function (nav) {
+      if (nav.getAttribute('data-nav-auto') === 'no') return;
+      bind(nav);
+    });
+  }
+  window.addEventListener('resize', function () {
+    document.querySelectorAll('.nav--rail').forEach(placeRailLabels);
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    bindAll(document);
+  });else bindAll(document);
+  window.DSNavPanel = {
+    bind: bind,
+    bindAll: bindAll,
+    setMode: setMode,
+    placeRailLabels: placeRailLabels
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-nav-panel.js", error: String((e && e.message) || e) }); }
+
 // scripts/ds-nav.js
 try { (() => {
 /* ============================================================
@@ -6789,6 +11457,9 @@ try { (() => {
       label: 'Иллюстрации',
       href: 'pages/foundations/Illustrations.html'
     }, {
+      label: 'Сетка и отступы',
+      href: 'pages/foundations/Spacing.html'
+    }, {
       label: 'Скругления',
       href: 'pages/foundations/Radius.html'
     }, {
@@ -6800,9 +11471,6 @@ try { (() => {
     }, {
       label: 'Цвета',
       href: 'pages/foundations/Colors.html'
-    }, {
-      label: 'Сетка и отступы',
-      soon: true
     }]
   }, {
     cat: 'Компоненты',
@@ -6842,6 +11510,12 @@ try { (() => {
         label: 'Radiobutton',
         href: 'pages/atoms/Radiobutton.html'
       }, {
+        label: 'Skeleton',
+        href: 'pages/atoms/Skeleton.html'
+      }, {
+        label: 'Spinner',
+        href: 'pages/atoms/Spinner.html'
+      }, {
         label: 'Switch',
         href: 'pages/atoms/Switch.html'
       }]
@@ -6865,6 +11539,9 @@ try { (() => {
       }, {
         label: 'DropdownList',
         href: 'pages/molecules/DropdownList.html'
+      }, {
+        label: 'EmptyState',
+        href: 'pages/molecules/EmptyState.html'
       }, {
         label: 'InputAmountRange',
         href: 'pages/molecules/InputAmountRange.html'
@@ -6911,6 +11588,9 @@ try { (() => {
         label: 'AllocationBar',
         href: 'pages/organisms/AllocationBar.html'
       }, {
+        label: 'Chart',
+        href: 'pages/organisms/Chart.html'
+      }, {
         label: 'Entity',
         href: 'pages/organisms/Entity.html'
       }, {
@@ -6948,12 +11628,6 @@ try { (() => {
   }, {
     cat: 'Правила и паттерны',
     items: [{
-      label: 'Аудит разделов',
-      href: 'pages/patterns/SectionsAudit.html'
-    }, {
-      label: 'Общий бэклог',
-      href: 'pages/patterns/Backlog.html'
-    }, {
       label: 'Редполитика',
       soon: true
     }, {
@@ -6962,40 +11636,33 @@ try { (() => {
     }, {
       label: 'Паттерны интерфейса',
       soon: true
-    }],
-    groups: [{
-      group: 'Примеры экранов',
-      items: [{
-        label: '01 · Текущий портфель ДИД',
-        href: 'pages/screens/01-Portfolio.html'
-      }, {
-        label: '02 · Карточка сделки (v1)',
-        href: 'pages/screens/02-Deal.html'
-      }, {
-        label: '02 · Карточка сделки (v2)',
-        href: 'pages/screens/02-Deal-v2.html'
-      }, {
-        label: '03 · Фиксация ЭПС/ВБС',
-        href: 'pages/screens/03-DealFixModal.html'
-      }, {
-        label: '04 · Финансовые метрики',
-        href: 'pages/screens/04-Metrics.html'
-      }, {
-        label: '05 · ФИ: Доп. доходность',
-        href: 'pages/screens/05-Instrument.html'
-      }, {
-        label: '06 · Процентные схемы',
-        href: 'pages/screens/06-RateSchemes.html'
-      }, {
-        label: '07 · Прогноз CashFlow',
-        href: 'pages/screens/07-CashFlow.html'
-      }, {
-        label: '08 · Плановые платежи',
-        href: 'pages/screens/08-Payments.html'
-      }, {
-        label: '09 · Корпоративный запрос',
-        href: 'pages/screens/09-CorpRequest.html'
-      }]
+    }]
+  }, {
+    cat: 'Примеры экранов',
+    items: [{
+      label: 'Карточка сделки',
+      href: 'pages/screens/DealCard.html'
+    }]
+  }, {
+    cat: 'RND',
+    items: [{
+      label: 'Аудит правил',
+      href: 'pages/rnd/RulesAudit.html'
+    }, {
+      label: 'Аудит разделов',
+      href: 'pages/rnd/SectionsAudit.html'
+    }, {
+      label: 'Общий бэклог',
+      href: 'pages/rnd/Backlog.html'
+    }, {
+      label: 'План: шаблоны и прототип',
+      href: 'pages/rnd/TemplatesPlan.html'
+    }, {
+      label: 'План 2: слой продукта',
+      href: 'pages/rnd/Plan2.html'
+    }, {
+      label: 'План 3: единое видение',
+      href: 'pages/rnd/Plan3.html'
     }]
   }];
 
@@ -7087,12 +11754,22 @@ try { (() => {
   nav.addEventListener('click', function (e) {
     if (e.target.closest('.ds-nav__link')) setOpen(false);
   });
+
+  // самодостаточность: подтягиваем свой стиль, если страница его не подключила
+  function ensureCss() {
+    if (document.querySelector('link[rel="stylesheet"][href$="ds-nav.css"]')) return;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = (window.__DS_ROOT || '') + 'styles/ds-nav.css';
+    document.head.appendChild(l);
+  }
   function mount() {
     // no-op guard: монтируемся только на страницах-хостах навигации (index и документация
     // имеют <main class="page">). На карточках @dsCard, которые тянут ds-nav.js через
     // _ds_bundle.js, такого контейнера нет — молча выходим и не ломаем карточку/index.
     if (!document.querySelector('main.page')) return;
     if (document.body.classList.contains('ds-has-nav')) return;
+    ensureCss();
     document.body.classList.add('ds-has-nav');
     document.body.insertBefore(backdrop, document.body.firstChild);
     document.body.insertBefore(nav, document.body.firstChild);
@@ -7111,6 +11788,2641 @@ try { (() => {
   }
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-nav.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-notify.js
+try { (() => {
+/* =========================================================================
+   DS Notify — рантайм уведомлений: SnackBar и Toast (out-of-box).
+   Зависимости: styles/snackbar.css, styles/toast.css, styles/spinner.css,
+   styles/button.css, styles/link.css; scripts/icons-data.js (window.DS_ICONS).
+
+   Экспорт:
+     window.DSSnack = { show(opts) → id, dismiss(id), dismissAll(),
+                        expand(), layer(), stack() }
+     window.DSToast = { show(opts) → handle, dismiss(h), clear(), stack() }
+
+   SnackBar (правый верхний угол, слой создаётся сам при первом show):
+     DSSnack.show({ tone:'info'|'warning'|'error'|'success', title, text,
+                    buttons:[{label, variant, href, onClick}], dedup:true,
+                    duration }) → id
+     Внутри: стек новым сверху, видимых ≤ 5 и плашка «+N уведомл.» с
+     «развернуть» / «закрыть все», дедупликация одинаковых (тон+заголовок+
+     текст) со счётчиком ×N и перезапуском таймера, авто-скрытие 5с у снека
+     без кнопок с паузой на hover/focus, Esc закрывает верхний, live-region
+     по тону (error/warning — assertive).
+
+   Toast (центр у верхней границы рабочей области):
+     DSToast.show({ message, kind:'bar'|'loader', tone, lead, duration,
+                    layer }) → handle { el, update(patch), dismiss() }
+     Внутри: стек ≤ 3 (новый сверху, вытесняется нижний), авто-скрытие 3с у
+     bar без спиннера, loader единичен, замещает бары и добавляет затемнение,
+     update({tone:'success'}) меняет спиннер на иконку и уводит через 1с.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var L = function () {
+    return window.DS_ICONS || {};
+  };
+  function iconHtml(name, size) {
+    var raw = L()[name] || '';
+    if (!raw) return '';
+    var d = document.createElement('div');
+    d.innerHTML = raw;
+    var s = d.firstElementChild;
+    if (!s) return '';
+    s.setAttribute('width', size || 20);
+    s.setAttribute('height', size || 20);
+    s.setAttribute('aria-hidden', 'true');
+    return s.outerHTML;
+  }
+  function esc(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  /* удаление по animationend с подстраховкой: если анимация выключена
+     (prefers-reduced-motion, скрытая вкладка), событие не придёт */
+  function leave(el, cls, done) {
+    var fired = false;
+    var finish = function () {
+      if (fired) return;
+      fired = true;
+      done();
+    };
+    el.classList.add(cls);
+    el.addEventListener('animationend', finish, {
+      once: true
+    });
+    setTimeout(finish, 400);
+  }
+
+  /* ===================================================================== */
+  /* SnackBar                                                               */
+  /* ===================================================================== */
+  var SNACK_ICON = {
+    info: 'Info-circle-filled',
+    warning: 'alert-triangle-filled',
+    error: 'alert-circle-filled',
+    success: 'check-circle-filled'
+  };
+  var MAX_VISIBLE = 5,
+    SNACK_AUTO = 5000;
+  var stack = [],
+    hiddenCount = 0,
+    overflowEl = null,
+    layerEl = null,
+    seq = 0;
+  function snackLayer() {
+    if (layerEl && document.contains(layerEl)) return layerEl;
+    /* страница может отдать свой контейнер (демо внутри мокапа рабочей области) */
+    layerEl = document.querySelector('[data-ds-snackbar]');
+    if (!layerEl) {
+      layerEl = document.createElement('div');
+      layerEl.className = 'snackbar-layer';
+      layerEl.setAttribute('aria-label', 'Уведомления');
+      layerEl.setAttribute('data-ds-snackbar', '');
+      document.body.appendChild(layerEl);
+    }
+    return layerEl;
+  }
+  function startTimer(s) {
+    if (s.hasButtons || s.duration === null) return;
+    s.timer = setTimeout(function () {
+      dismissSnack(s.id);
+    }, s.duration || SNACK_AUTO);
+  }
+  function clearTimer(s) {
+    if (s.timer) {
+      clearTimeout(s.timer);
+      s.timer = null;
+    }
+  }
+  function updateOverflow() {
+    var layer = snackLayer();
+    if (hiddenCount > 0) {
+      if (!overflowEl) {
+        overflowEl = document.createElement('div');
+        overflowEl.className = 'snack-more';
+        overflowEl.innerHTML = 'Ещё <span class="snack-more__count">0</span> уведомл.' + '<div class="snack-more__actions">' + '<button type="button" class="snack-more__btn" aria-label="Развернуть">' + iconHtml('chevron-down', 16) + '</button>' + '<button type="button" class="snack-more__btn" aria-label="Закрыть все">' + iconHtml('close', 16) + '</button>' + '</div>';
+        var btns = overflowEl.querySelectorAll('.snack-more__btn');
+        btns[0].addEventListener('click', expand);
+        btns[1].addEventListener('click', dismissAll);
+        layer.appendChild(overflowEl);
+      }
+      overflowEl.querySelector('.snack-more__count').textContent = hiddenCount;
+    } else if (overflowEl) {
+      overflowEl.remove();
+      overflowEl = null;
+    }
+  }
+  function expand() {
+    stack.forEach(function (s) {
+      if (s.hidden) {
+        s.el.style.display = '';
+        s.hidden = false;
+      }
+    });
+    hiddenCount = 0;
+    updateOverflow();
+  }
+  function dismissSnack(id) {
+    var idx = stack.findIndex(function (s) {
+      return s.id === id;
+    });
+    if (idx < 0) return;
+    var s = stack[idx];
+    if (s.leaving) return;
+    /* помечаем синхронно: пока снек доигрывает уход, он не должен считаться
+       видимым — иначе следующий показ прячет лишний под плашку «+N» */
+    s.leaving = true;
+    clearTimer(s);
+    leave(s.el, 'snack--leave', function () {
+      s.el.remove();
+      var i = stack.indexOf(s);
+      if (i >= 0) stack.splice(i, 1);
+      /* освободилось место — поднимаем самый свежий из спрятанных */
+      if (hiddenCount > 0) {
+        var nxt = stack.find(function (x) {
+          return x.hidden && !x.leaving;
+        });
+        if (nxt) {
+          nxt.el.style.display = '';
+          nxt.hidden = false;
+          hiddenCount--;
+        }
+      }
+      updateOverflow();
+    });
+  }
+  function dismissAll() {
+    stack.map(function (s) {
+      return s.id;
+    }).forEach(dismissSnack);
+    hiddenCount = 0;
+    if (overflowEl) {
+      overflowEl.remove();
+      overflowEl = null;
+    }
+  }
+  function buttonsHtml(tone, buttons) {
+    if (!buttons || !buttons.length) return '';
+    var html = buttons.map(function (b, i) {
+      if (b.href != null) return '<a class="link link--' + tone + '" href="' + esc(b.href) + '">' + esc(b.label) + '</a>';
+      var variant = b.variant || (i === 0 ? 'outline' : 'transparent');
+      return '<button type="button" class="btn btn--' + variant + ' btn--xs btn--' + tone + '">' + '<span class="btn__label">' + esc(b.label) + '</span></button>';
+    }).join('');
+    return '<div class="snack__buttons">' + html + '</div>';
+  }
+  function makeSnackEl(o) {
+    var tone = o.tone;
+    var loud = tone === 'error' || tone === 'warning';
+    var el = document.createElement('div');
+    el.className = 'snack snack--' + tone;
+    el.setAttribute('data-snack-tone', tone);
+    el.setAttribute('role', loud ? 'alert' : 'status');
+    el.setAttribute('aria-live', loud ? 'assertive' : 'polite');
+    el.innerHTML = '<span class="snack__icon" aria-hidden="true">' + iconHtml(SNACK_ICON[tone], 20) + '</span>' + '<div class="snack__body"><div class="snack__title">' + esc(o.title) + '</div>' + (o.text ? '<div class="snack__text">' + esc(o.text) + '</div>' : '') + buttonsHtml(tone, o.buttons) + '</div>' + '<button type="button" class="snack__close" aria-label="Закрыть">' + iconHtml('close', 16) + '</button>';
+    return el;
+  }
+  function showSnack(o) {
+    o = o || {};
+    var tone = o.tone || 'info';
+    var title = o.title || '';
+    var text = o.text || '';
+    var buttons = o.buttons || null;
+    var hasButtons = !!(buttons && buttons.length);
+    var key = tone + '|' + title + '|' + text;
+    if (o.dedup !== false) {
+      var ex = stack.find(function (s) {
+        return s.key === key && !s.leaving;
+      });
+      if (ex) {
+        ex.count++;
+        var d = ex.el.querySelector('.snack__dupe');
+        if (d) d.textContent = '\u00d7' + ex.count;else {
+          var t = ex.el.querySelector('.snack__title');
+          if (t) t.insertAdjacentHTML('beforeend', '<span class="snack__dupe">\u00d7' + ex.count + '</span>');
+        }
+        clearTimer(ex);
+        startTimer(ex);
+        return ex.id;
+      }
+    }
+
+    /* лимит видимых: самый старый уходит под плашку «+N», а не удаляется */
+    var visible = stack.filter(function (s) {
+      return !s.hidden && !s.leaving;
+    });
+    if (visible.length >= MAX_VISIBLE) {
+      var oldest = visible[visible.length - 1];
+      if (oldest) {
+        oldest.el.style.display = 'none';
+        oldest.hidden = true;
+        hiddenCount++;
+      }
+    }
+    var id = 'snack-' + ++seq;
+    var el = makeSnackEl({
+      tone: tone,
+      title: title,
+      text: text,
+      buttons: buttons
+    });
+    var s = {
+      id: id,
+      el: el,
+      key: key,
+      tone: tone,
+      hasButtons: hasButtons,
+      timer: null,
+      count: 1,
+      hidden: false,
+      duration: o.duration
+    };
+    el.querySelector('.snack__close').addEventListener('click', function () {
+      dismissSnack(id);
+    });
+    if (buttons) {
+      el.querySelectorAll('.snack__buttons .btn, .snack__buttons .link').forEach(function (node, i) {
+        var b = buttons[i];
+        node.addEventListener('click', function (e) {
+          if (b && b.onClick) {
+            e.preventDefault();
+            b.onClick(id, e);
+          }
+          if (b && b.dismiss !== false && b.onClick) dismissSnack(id);
+        });
+      });
+    }
+    /* таймер живёт, пока снек не под курсором и не в фокусе */
+    el.addEventListener('mouseenter', function () {
+      clearTimer(s);
+    });
+    el.addEventListener('mouseleave', function () {
+      startTimer(s);
+    });
+    el.addEventListener('focusin', function () {
+      clearTimer(s);
+    });
+    el.addEventListener('focusout', function () {
+      startTimer(s);
+    });
+    stack.unshift(s);
+    snackLayer().prepend(el);
+    updateOverflow();
+    startTimer(s);
+    return id;
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && stack.length) dismissSnack(stack[0].id);
+  });
+  window.DSSnack = {
+    show: showSnack,
+    dismiss: dismissSnack,
+    dismissAll: dismissAll,
+    expand: expand,
+    layer: snackLayer,
+    stack: function () {
+      return stack.slice();
+    }
+  };
+
+  /* ===================================================================== */
+  /* Toast                                                                  */
+  /* ===================================================================== */
+  var TOAST_ICON = {
+    success: 'check-circle',
+    error: 'alert-circle',
+    info: 'info-circle',
+    neutral: null
+  };
+  var TOAST_MAX = 3,
+    TOAST_AUTO = 3000,
+    TOAST_RESULT_HOLD = 1000;
+  var bars = [],
+    loaderItem = null,
+    scrimEl = null;
+  function toastLayer(kind, host) {
+    var root = host || document.body;
+    var cls = kind === 'loader' ? 'toast-layer--loader' : 'toast-layer--bar';
+    /* уже размеченный слой страницы имеет приоритет над создаваемым */
+    var found = root.querySelector('.toast-layer.' + cls + '[data-ds-toast]') || root.querySelector('.toast-layer.' + cls);
+    if (found) return found.querySelector('.toast-stack') || found;
+    var lay = document.createElement('div');
+    lay.className = 'toast-layer ' + cls;
+    lay.setAttribute('data-ds-toast', '');
+    var st = document.createElement('div');
+    st.className = 'toast-stack';
+    lay.appendChild(st);
+    root.appendChild(lay);
+    return st;
+  }
+  function makeToastEl(o) {
+    var kind = o.kind || 'bar',
+      tone = o.tone || 'neutral';
+    var lead = o.lead || (kind === 'loader' ? 'spinner' : TOAST_ICON[tone] ? 'icon' : 'none');
+    var el = document.createElement('div');
+    el.className = 'toast';
+    if (tone !== 'neutral') el.classList.add('toast--' + tone);
+    var loud = tone === 'error' || kind === 'loader' && tone === 'neutral';
+    el.setAttribute('role', loud ? 'alert' : 'status');
+    el.setAttribute('aria-live', loud ? 'assertive' : 'polite');
+    if (lead !== 'none') {
+      var slot = document.createElement('span');
+      slot.className = 'toast__lead';
+      if (lead === 'spinner') {
+        slot.innerHTML = '<span class="spin spin--current" aria-hidden="true"></span>';
+      } else {
+        slot.innerHTML = '<span class="toast__icon" aria-hidden="true">' + (L()[TOAST_ICON[tone] || 'info-circle'] || '') + '</span>';
+      }
+      el.appendChild(slot);
+    }
+    var msg = document.createElement('span');
+    msg.className = 'toast__msg';
+    msg.textContent = o.message || '';
+    el.appendChild(msg);
+    return el;
+  }
+  function setScrim(on, host) {
+    if (on) {
+      if (scrimEl && document.contains(scrimEl)) return;
+      scrimEl = document.createElement('div');
+      scrimEl.className = 'toast-scrim';
+      (host || document.body).appendChild(scrimEl);
+    } else if (scrimEl) {
+      scrimEl.remove();
+      scrimEl = null;
+    }
+  }
+  function dismissToast(h) {
+    if (!h || h.gone) return;
+    h.gone = true;
+    if (h.timer) clearTimeout(h.timer);
+    /* из стека тост выбывает сразу, из DOM — когда доиграет уход: иначе при
+       быстрых показах вытеснялся бы уже уходящий, а лишний оставался бы висеть */
+    var i = bars.indexOf(h);
+    if (i >= 0) bars.splice(i, 1);
+    if (loaderItem === h) {
+      loaderItem = null;
+      setScrim(false, h.host);
+    }
+    leave(h.el, 'toast--leave', function () {
+      h.el.remove();
+    });
+  }
+  function armToast(h) {
+    if (h.duration === null) return; /* ждём события извне */
+    if (h.kind === 'loader' || h.lead === 'spinner') return;
+    h.timer = setTimeout(function () {
+      dismissToast(h);
+    }, h.duration || TOAST_AUTO);
+  }
+  function showToast(o) {
+    o = o || {};
+    var kind = o.kind || 'bar';
+    var host = o.layer || null;
+    var el = makeToastEl(o);
+    el.classList.add('toast--enter');
+    var h = {
+      el: el,
+      kind: kind,
+      tone: o.tone || 'neutral',
+      lead: o.lead || (kind === 'loader' ? 'spinner' : TOAST_ICON[o.tone] ? 'icon' : 'none'),
+      duration: o.duration,
+      host: host,
+      timer: null,
+      gone: false
+    };
+    if (kind === 'loader') {
+      /* блокирующий тост единичен и замещает собой весь ToastBar */
+      bars.slice().forEach(dismissToast);
+      if (loaderItem) dismissToast(loaderItem);
+      loaderItem = h;
+      setScrim(true, host);
+      toastLayer('loader', host).appendChild(el);
+    } else {
+      toastLayer('bar', host).prepend(el);
+      bars.unshift(h);
+      while (bars.length > TOAST_MAX) dismissToast(bars[bars.length - 1]);
+    }
+    armToast(h);
+    h.update = function (patch) {
+      patch = patch || {};
+      if (patch.message != null) h.el.querySelector('.toast__msg').textContent = patch.message;
+      if (patch.tone) {
+        h.el.classList.remove('toast--success', 'toast--error', 'toast--info');
+        if (patch.tone !== 'neutral') h.el.classList.add('toast--' + patch.tone);
+        h.tone = patch.tone;
+        /* результат пришёл: спиннер заменяется иконкой, тост держится ~1с */
+        var slot = h.el.querySelector('.toast__lead');
+        if (slot && TOAST_ICON[patch.tone]) {
+          slot.innerHTML = '<span class="toast__icon" aria-hidden="true">' + (L()[TOAST_ICON[patch.tone]] || '') + '</span>';
+          h.lead = 'icon';
+        }
+        h.el.setAttribute('role', patch.tone === 'error' ? 'alert' : 'status');
+        if (patch.duration !== null) {
+          if (h.timer) clearTimeout(h.timer);
+          h.timer = setTimeout(function () {
+            dismissToast(h);
+          }, patch.duration || TOAST_RESULT_HOLD);
+        }
+      }
+      return h;
+    };
+    h.dismiss = function () {
+      dismissToast(h);
+      return h;
+    };
+    return h;
+  }
+  window.DSToast = {
+    show: showToast,
+    make: makeToastEl,
+    dismiss: dismissToast,
+    clear: function () {
+      bars.slice().forEach(dismissToast);
+      if (loaderItem) dismissToast(loaderItem);
+    },
+    stack: function () {
+      return bars.slice();
+    }
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-notify.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-pagination.js
+try { (() => {
+/* =========================================================================
+   DS Pagination — рантайм пагинатора таблицы (out-of-box).
+   Зависимости: styles/pagination.css, styles/dropdown-list.css, styles/divider.css;
+   scripts/icons-data.js подключён ДО этого файла (window.DS_ICONS).
+
+   Экспорт: window.DSPagination = {
+     pager(opts) → HTMLElement       — сам пагинатор (pagesize + range + nav)
+     row(opts) → HTMLElement          — строка колонтитула: левый слот + пагинатор
+     footer(opts) → HTMLElement       — колонтитул: Action panel (опц.) + строка
+     bulk(opts) · info(opts)          — Action panel и Pagi counters по отдельности
+     pageWindow(current, total, sibling, boundary) → (number|'...')[]
+     totalPages(total, pageSize) · sizeLabel(v) · SIZES
+   }
+   Опции pager/row/footer: total, page, pageSize, pageSizeOptions, showPageSize,
+   compact, onChange(page), onPageSizeChange(size); у row/footer дополнительно
+   left ('none'|'info'|узел), selectionCount, actions.
+
+   Всё поведение внутри: окно номеров со свёрткой в «…», dropdown размера
+   страницы, aria-current/aria-disabled и адаптивный подбор уровня навигации
+   измерением (ResizeObserver + гистерезис), без порогов ширины.
+   Совместимость: старые имена window.PGN_build / PGN_buildRow / PGN_buildFooter
+   / PGN_buildBulk / PGN_buildInfo / PGN_pageWindow остаются рабочими.
+   ========================================================================= */
+(function () {
+  const L = window.DS_ICONS || {};
+  const icon = n => L[n] || '';
+  const WARN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+  function escapeHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = String(s);
+    return d.innerHTML;
+  }
+  function range(a, b) {
+    const r = [];
+    for (let i = a; i <= b; i++) r.push(i);
+    return r;
+  }
+
+  /* =========================================================================
+     WINDOWING ALGORITHM — какие номера страниц показывать, где «…»
+     boundaryCount — сколько номеров у каждого края всегда видно (по умолч. 1)
+     siblingCount  — сколько номеров вокруг текущей страницы (по умолч. 1)
+     ========================================================================= */
+  function pageWindow(current, total, siblingCount, boundaryCount) {
+    siblingCount = siblingCount == null ? 1 : siblingCount;
+    boundaryCount = boundaryCount == null ? 1 : boundaryCount;
+    if (total <= 1) return [1];
+    const totalNumbers = boundaryCount * 2 + siblingCount * 2 + 3;
+    if (total <= totalNumbers) return range(1, total);
+    const leftSibling = Math.max(current - siblingCount, 1);
+    const rightSibling = Math.min(current + siblingCount, total);
+    const showLeftEllipsis = leftSibling > boundaryCount + 2;
+    const showRightEllipsis = rightSibling < total - boundaryCount - 1;
+    if (!showLeftEllipsis && showRightEllipsis) {
+      const leftItemCount = boundaryCount + siblingCount * 2 + 2;
+      return [...range(1, leftItemCount), '...', ...range(total - boundaryCount + 1, total)];
+    }
+    if (showLeftEllipsis && !showRightEllipsis) {
+      const rightItemCount = boundaryCount + siblingCount * 2 + 2;
+      return [...range(1, boundaryCount), '...', ...range(total - rightItemCount + 1, total)];
+    }
+    if (showLeftEllipsis && showRightEllipsis) {
+      return [...range(1, boundaryCount), '...', ...range(leftSibling, rightSibling), '...', ...range(total - boundaryCount + 1, total)];
+    }
+    return range(1, total);
+  }
+  window.PGN_pageWindow = pageWindow; // exposed for the dev "how it's computed" demo
+
+  /* =========================================================================
+     FACTORY — .pgn (pager)
+     o: { total, pageSize, page, pageSizeOptions, showPageSize, compact,
+          disabled, loading, onChange(page), onPageSizeChange(size) }
+     ========================================================================= */
+  const DEFAULT_SIZES = [5, 10, 15, 20, 50, 'all'];
+  function sizeLabel(v) {
+    return v === 'all' ? 'Все' : String(v);
+  }
+  function totalPages(total, pageSize) {
+    return pageSize === 'all' ? 1 : Math.max(1, Math.ceil(total / pageSize));
+  }
+  function buildPager(o = {}) {
+    const opts = Object.assign({
+      total: 800,
+      pageSize: 50,
+      page: 1,
+      pageSizeOptions: DEFAULT_SIZES,
+      showPageSize: true,
+      compact: false,
+      responsive: true,
+      onChange: null,
+      onPageSizeChange: null
+    }, o);
+    const host = document.createElement('div');
+    host.className = 'pgn' + (opts.compact ? ' pgn--compact' : '');
+    const tp = totalPages(opts.total, opts.pageSize);
+    const page = Math.min(Math.max(1, opts.page), tp);
+
+    /* ---------- pagesize — неинтерактивный текст + IconButton-M чеврон ---------- */
+    if (opts.showPageSize) {
+      const CHEV_D = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+      const anchor = document.createElement('span');
+      anchor.className = 'pgn__pagesize ddl-anchor';
+      const label = document.createElement('span');
+      label.className = 'pgn__pagesize-label';
+      label.innerHTML = 'Показывать строк: <b>' + sizeLabel(opts.pageSize) + '</b>';
+      const trg = document.createElement('button');
+      trg.type = 'button';
+      trg.className = 'pgn__pagesize-btn';
+      trg.setAttribute('aria-haspopup', 'listbox');
+      trg.setAttribute('aria-label', 'Изменить размер страницы');
+      trg.innerHTML = icon('chevron-down') || CHEV_D;
+      const list = document.createElement('div');
+      list.className = 'ddl ddl--floating';
+      list.setAttribute('role', 'listbox');
+      opts.pageSizeOptions.forEach(v => {
+        const it = document.createElement('button');
+        it.type = 'button';
+        it.className = 'ddl__item';
+        it.setAttribute('role', 'option');
+        it.setAttribute('aria-selected', String(v === opts.pageSize));
+        it.innerHTML = '<span class="ddl__item-body"><span class="ddl__item-label">' + sizeLabel(v) + '</span></span>';
+        it.addEventListener('click', () => {
+          set(false);
+          if (opts.onPageSizeChange) opts.onPageSizeChange(v);
+        });
+        list.appendChild(it);
+      });
+      anchor.append(label, trg, list);
+      host.appendChild(anchor);
+      let open = false;
+      function place() {
+        list.style.minWidth = trg.offsetWidth + 'px';
+        const ar = anchor.getBoundingClientRect();
+        const vh = document.documentElement.clientHeight;
+        const fr = trg.getBoundingClientRect();
+        const lh = list.offsetHeight,
+          gap = 6;
+        let placement = 'bottom';
+        if (vh - fr.bottom < lh + gap && fr.top > lh) placement = 'top';
+        const y = placement === 'top' ? fr.top - ar.top - gap - lh : fr.bottom - ar.top + gap;
+        list.style.left = Math.round(fr.left - ar.left) + 'px';
+        list.style.top = Math.round(y) + 'px';
+        list.style.setProperty('--ddl-origin', (placement === 'top' ? 'bottom' : 'top') + ' left');
+      }
+      function set(v) {
+        open = v;
+        list.classList.toggle('is-open', open);
+        trg.classList.toggle('is-open', open);
+        if (open) {
+          place();
+          document.addEventListener('pointerdown', outside, true);
+          document.addEventListener('keydown', onEsc);
+        } else {
+          document.removeEventListener('pointerdown', outside, true);
+          document.removeEventListener('keydown', onEsc);
+        }
+      }
+      function outside(e) {
+        if (!anchor.contains(e.target)) set(false);
+      }
+      function onEsc(e) {
+        if (e.key === 'Escape') set(false);
+      }
+      trg.addEventListener('click', () => set(!open));
+      window.addEventListener('resize', () => {
+        if (open) place();
+      });
+    }
+
+    /* ---------- range ---------- */
+    const rangeEl = document.createElement('span');
+    rangeEl.className = 'pgn__range';
+    rangeEl.textContent = page + ' из ' + tp;
+    host.appendChild(rangeEl);
+
+    /* ---------- nav (перестраиваемый: число номеров зависит от tier) ---------- */
+    const CHEV_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
+    const CHEV_R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
+    const nav = document.createElement('nav');
+    nav.className = 'pgn__nav';
+    nav.setAttribute('aria-label', 'Страницы');
+    function makeArrow(dir) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pgn__arrow';
+      b.setAttribute('aria-label', dir < 0 ? 'Предыдущая страница' : 'Следующая страница');
+      b.innerHTML = dir < 0 ? icon('chevron-left') || CHEV_L : icon('chevron-right') || CHEV_R;
+      const atBound = dir < 0 ? page <= 1 : page >= tp;
+      if (atBound) b.setAttribute('aria-disabled', 'true');
+      b.addEventListener('click', () => {
+        const target = page + dir;
+        if (target >= 1 && target <= tp && opts.onChange) opts.onChange(target);
+      });
+      return b;
+    }
+
+    /* уровни деградации навигации — от полного набора к «стрелки + N из M» */
+    const LEVELS = [{
+      t: 'l',
+      sibling: 1,
+      boundary: 1,
+      mode: 'nums'
+    }, {
+      t: 'm',
+      sibling: 0,
+      boundary: 1,
+      mode: 'nums'
+    }, {
+      t: 'sm',
+      sibling: 0,
+      boundary: 0,
+      mode: 'current'
+    }, {
+      t: 'c',
+      sibling: 0,
+      boundary: 0,
+      mode: 'compact'
+    }];
+    const LEVEL_XS = {
+      t: 'xs',
+      sibling: 0,
+      boundary: 0,
+      mode: 'compact'
+    };
+    function navItems(level) {
+      if (level.mode === 'compact') return [];
+      if (level.mode === 'current') return [page];
+      return pageWindow(page, tp, level.sibling, level.boundary);
+    }
+    function renderNav(level) {
+      nav.innerHTML = '';
+      nav.appendChild(makeArrow(-1));
+      navItems(level).forEach(p => {
+        if (p === '...') {
+          const e = document.createElement('span');
+          e.className = 'pgn__ellipsis';
+          e.setAttribute('aria-hidden', 'true');
+          e.textContent = '\u2026';
+          nav.appendChild(e);
+          return;
+        }
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pgn__num';
+        b.textContent = String(p);
+        b.setAttribute('aria-label', 'Страница ' + p);
+        if (p === page) b.setAttribute('aria-current', 'page');else b.addEventListener('click', () => {
+          if (opts.onChange) opts.onChange(p);
+        });
+        nav.appendChild(b);
+      });
+      if (level.mode === 'compact') {
+        const r = document.createElement('span');
+        r.className = 'pgn__range';
+        r.textContent = page + ' из ' + tp;
+        nav.appendChild(r);
+      }
+      nav.appendChild(makeArrow(1));
+    }
+    renderNav(opts.compact ? LEVELS[LEVELS.length - 1] : LEVELS[0]);
+    host.appendChild(nav);
+
+    /* ---------- responsive controller — fit по доступному месту ----------
+       Уровень выбирается не по порогам вьюпорта, а измерением: сколько места
+       остаётся пагинатору после инфо-сводки левого слота. Пока пара
+       «сводка + пагинатор» не влезает в одну строку — сокращается пагинатор
+       (номера → только текущая → «N из M»); когда сокращать больше нечего,
+       строка складывается в вертикаль и сводка получает всю ширину.
+       Ничто не обрезается и не выходит за границы строки.
+       -------------------------------------------------------------------- */
+    const M = {
+      slot: 32,
+      gap: 2,
+      section: 28,
+      pagesize: 0,
+      range: 56,
+      ell: 24,
+      done: false
+    };
+    function calibrate() {
+      M.section = parseFloat(getComputedStyle(host).columnGap) || 28;
+      M.gap = parseFloat(getComputedStyle(nav).columnGap) || 2;
+      const n = nav.querySelector('.pgn__num');
+      if (n) M.slot = n.getBoundingClientRect().width || M.slot;
+      const e = nav.querySelector('.pgn__ellipsis');
+      if (e) M.ell = e.getBoundingClientRect().width || M.ell;
+      const ps = host.querySelector('.pgn__pagesize');
+      M.pagesize = ps ? ps.getBoundingClientRect().width : 0;
+      M.range = rangeEl.getBoundingClientRect().width || M.range;
+      M.done = true;
+    }
+    /* требуемая ширина пагинатора на уровне level (+ буфер 8px) */
+    function needOf(level) {
+      let w = 0,
+        sections = 1; // sections — nav + опциональные pagesize/range
+      if (M.pagesize) {
+        w += M.pagesize;
+        sections++;
+      }
+      if (level.mode === 'compact') {
+        w += 2 * M.slot + M.range + 16 + M.gap * 2; // range переезжает внутрь nav (padding 0 8px)
+      } else {
+        const items = navItems(level);
+        const nums = items.filter(p => p !== '...').length;
+        w += M.range;
+        sections++;
+        w += (2 + nums) * M.slot + (items.length - nums) * M.ell + M.gap * (items.length + 1);
+      }
+      return w + M.section * (sections - 1) + 8;
+    }
+    /* ширина инфо-сводки: full — в одну строку, min — самый широкий пункт
+       (пункты можно переносить, но не резать) */
+    function leftNeed(row) {
+      const left = row && row.querySelector('.pgn-row__left');
+      const info = left && left.firstElementChild;
+      if (!info) return {
+        full: 0,
+        min: 0,
+        count: 0
+      };
+      const kids = Array.prototype.filter.call(info.children, el => el.getBoundingClientRect().width > 0);
+      if (!kids.length) {
+        const w = left.getBoundingClientRect().width;
+        return {
+          full: w,
+          min: w,
+          count: 1
+        };
+      }
+      const gap = parseFloat(getComputedStyle(info).columnGap) || 24;
+      let full = gap * (kids.length - 1),
+        min = 0;
+      kids.forEach(el => {
+        const w = el.getBoundingClientRect().width;
+        full += w;
+        if (w > min) min = w;
+      });
+      return {
+        full,
+        min,
+        count: kids.length
+      };
+    }
+    let applied = '',
+      appliedIdx = 0;
+    function apply(level, layout, idx) {
+      const key = level.t + '|' + layout + '|' + page + '|' + tp;
+      appliedIdx = idx;
+      if (applied === key) return;
+      applied = key;
+      host.dataset.tier = level.t;
+      host.classList.toggle('pgn--compact', level.mode === 'compact');
+      renderNav(level);
+      const row = host.closest('.pgn-row');
+      if (!row) return;
+      const footer = row.closest('.pgn-footer');
+      const rows = footer ? footer.querySelectorAll(':scope > .pgn-row') : [row];
+      Array.prototype.forEach.call(rows, r => {
+        r.dataset.tier = level.t;
+        r.dataset.layout = layout;
+      });
+    }
+    /* HYST — переход к менее компактному уровню требует запаса, иначе рост высоты
+       строки (появление скроллбара у контейнера) вызывает дребезг решения */
+    const HYST = 24;
+    function fit() {
+      const row = host.closest('.pgn-row');
+      const box = row || host.parentElement || host;
+      const cs = getComputedStyle(box);
+      const inner = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+      if (!(inner > 0)) return;
+      if (!M.done) calibrate();
+      const L = leftNeed(row);
+      const gapRow = L.full ? parseFloat(cs.columnGap) || 20 : 0;
+      const stacked = row && row.dataset.layout === 'stack';
+      /* первый уровень, влезающий в avail; подъём к более полному набору — с запасом */
+      function pick(avail, hyst) {
+        for (let i = 0; i < LEVELS.length; i++) {
+          if (needOf(LEVELS[i]) <= avail - (hyst && (i < appliedIdx || stacked) ? HYST : 0)) return i;
+        }
+        return -1;
+      }
+      /* Выбираем раскладку по правилу «максимум номеров»: если в одну строку
+         помещается не хуже, чем в вертикаль — остаёмся в строке (колонтитул ниже);
+         иначе складываемся в вертикаль — там сводка и пагинатор получают всю ширину. */
+      const iRow = pick(inner - L.full - gapRow, true);
+      const iStack = pick(inner, false);
+      if (iRow >= 0 && (iStack < 0 || iRow <= iStack)) {
+        apply(LEVELS[iRow], 'row', iRow);
+        return;
+      }
+      if (iStack >= 0) {
+        apply(LEVELS[iStack], 'stack', iStack);
+        return;
+      }
+      apply(LEVEL_XS, 'stack', LEVELS.length);
+    }
+    /* один пересчёт на кадр + предохранитель от осцилляции (скроллбар контейнера) */
+    let raf = 0,
+      hits = 0,
+      since = 0,
+      lastW = -1,
+      tail = 0;
+    /* Отброшенный вызов не теряется: любое гашение (кадр уже запланирован
+       или сработал предохранитель) ставит хвостовой пересчёт по покою —
+       иначе после быстрого ресайза финальная ширина осталась бы без пересчёта */
+    function scheduleTail() {
+      clearTimeout(tail);
+      tail = setTimeout(() => {
+        tail = 0;
+        hits = 0;
+        since = 0;
+        fit();
+      }, 300);
+    }
+    function scheduleFit() {
+      if (raf) {
+        scheduleTail();
+        return;
+      }
+      const run = () => {
+        raf = 0;
+        const now = Date.now();
+        if (now - since > 400) {
+          since = now;
+          hits = 0;
+        }
+        if (++hits > 8) {
+          scheduleTail();
+          return;
+        }
+        fit();
+      };
+      raf = 1;
+      if (typeof requestAnimationFrame === 'function' && !document.hidden) requestAnimationFrame(run);else setTimeout(run, 16);
+    }
+    host.__pgnFit = fit;
+    const AUTO = !opts.compact && opts.responsive !== false;
+    if (AUTO && typeof ResizeObserver !== 'undefined') {
+      /* бутстрап без rAF: на скрытой вкладке (document.hidden) кадры не идут вовсе */
+      const boot = () => {
+        const measured = host.closest('.pgn-row') || host.parentElement || host;
+        calibrate();
+        setTimeout(fit, 0); /* первый расчёт вне доставки RO — без loop-предупреждения */
+        /* реагируем только на изменение ШИРИНЫ: высоту меняет сам пересчёт —
+           если слушать её, RO зацикливается */
+        const ro = new ResizeObserver(es => {
+          if (!host.isConnected) {
+            ro.disconnect();
+            return;
+          }
+          const w = Math.round(es[0].contentRect.width);
+          if (w === lastW && applied) return;
+          lastW = w;
+          scheduleFit();
+        });
+        ro.observe(measured);
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, {
+        once: true
+      });else setTimeout(boot, 0);
+      /* если на момент бутстрапа ширины ещё не было (display:none, скрытая вкладка) — догоняем */
+      const retry = () => {
+        if (host.isConnected && !applied) fit();
+      };
+      document.addEventListener('visibilitychange', retry);
+      window.addEventListener('load', retry);
+    }
+    return host;
+  }
+  window.PGN_build = buildPager;
+
+  /* ---------- Action_panel (bulk selection) ---------- */
+  function buildBulk(o = {}) {
+    const opts = Object.assign({
+      count: 4,
+      actions: ['Экспорт', 'Согласовать', 'Удалить']
+    }, o);
+    const host = document.createElement('div');
+    host.className = 'pgn-bulk';
+    const c = document.createElement('span');
+    c.className = 'pgn-bulk__count';
+    c.innerHTML = 'Выбрано строк: <b>' + opts.count + '</b>';
+    const acts = document.createElement('div');
+    acts.className = 'pgn-bulk__actions';
+    opts.actions.forEach(label => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn btn--s btn--outline';
+      b.textContent = label;
+      acts.appendChild(b);
+    });
+    host.append(c, acts);
+    return host;
+  }
+  window.PGN_buildBulk = buildBulk;
+
+  /* ---------- Pagi_counters (info summary) ---------- */
+  function buildInfo(o = {}) {
+    const opts = Object.assign({
+      items: [['Сумма дохода', '23 597 млрд ₽']],
+      warn: 'Превышение лимита'
+    }, o);
+    const host = document.createElement('div');
+    host.className = 'pgn-info';
+    opts.items.forEach(([label, value]) => {
+      const it = document.createElement('span');
+      it.className = 'pgn-info__item';
+      it.innerHTML = escapeHtml(label) + ': <b>' + escapeHtml(value) + '</b>';
+      host.appendChild(it);
+    });
+    if (opts.warn) {
+      const w = document.createElement('span');
+      w.className = 'pgn-info__warn';
+      w.innerHTML = WARN + '<span>' + escapeHtml(opts.warn) + '</span>';
+      host.appendChild(w);
+    }
+    return host;
+  }
+  window.PGN_buildInfo = buildInfo;
+
+  /* ---------- Row composition ---------- */
+  function buildRow(o = {}) {
+    const host = document.createElement('div');
+    host.className = 'pgn-row';
+    const left = document.createElement('div');
+    left.className = 'pgn-row__left';
+    if (o.info) left.appendChild(buildInfo(o.info));
+    const right = document.createElement('div');
+    right.className = 'pgn-row__right';
+    right.appendChild(buildPager(o.pager || {}));
+    host.append(left, right);
+    return host;
+  }
+  window.PGN_buildRow = buildRow;
+
+  /* ---------- Footer composition — Action_panel (опционально, НАД) + обычная строка ---------- */
+  function buildFooter(o = {}) {
+    const wrap = document.createElement('div');
+    wrap.className = 'pgn-footer';
+    const selectionCount = o.selectionCount || 0;
+    if (selectionCount > 0) {
+      const bulkRow = document.createElement('div');
+      bulkRow.className = 'pgn-row pgn-row--bulk';
+      bulkRow.appendChild(buildBulk(Object.assign({
+        count: selectionCount
+      }, o.bulk || {})));
+      wrap.appendChild(bulkRow);
+      const dvd = document.createElement('hr');
+      dvd.className = 'dvd dvd--h';
+      wrap.appendChild(dvd);
+    }
+    wrap.appendChild(buildRow(o));
+    return wrap;
+  }
+  window.PGN_buildFooter = buildFooter;
+  window.DSPagination = {
+    pager: buildPager,
+    row: buildRow,
+    footer: buildFooter,
+    bulk: buildBulk,
+    info: buildInfo,
+    pageWindow: pageWindow,
+    totalPages: totalPages,
+    sizeLabel: sizeLabel,
+    SIZES: DEFAULT_SIZES
+  };
+
+  /* автоподключение: <div data-pagination data-total="800" data-page="3" data-page-size="50"></div> */
+  function boot(root) {
+    (root || document).querySelectorAll('[data-pagination]').forEach(function (host) {
+      if (host.__dsPgn) return;
+      var d = host.dataset;
+      var state = {
+        total: +d.total || 0,
+        page: +d.page || 1,
+        pageSize: d.pageSize === 'all' ? 'all' : +d.pageSize || 20,
+        showPageSize: d.pageSize !== 'off',
+        selectionCount: +d.selection || 0,
+        left: d.left || 'none'
+      };
+      function draw() {
+        host.innerHTML = '';
+        host.appendChild(buildFooter(Object.assign({}, state, {
+          onChange: function (p) {
+            state.page = p;
+            draw();
+            host.dispatchEvent(new CustomEvent('pagechange', {
+              detail: {
+                page: p
+              },
+              bubbles: true
+            }));
+          },
+          onPageSizeChange: function (v) {
+            state.pageSize = v;
+            state.page = 1;
+            draw();
+            host.dispatchEvent(new CustomEvent('pagesizechange', {
+              detail: {
+                pageSize: v
+              },
+              bubbles: true
+            }));
+          }
+        })));
+      }
+      host.__dsPgn = {
+        state: state,
+        redraw: draw
+      };
+      draw();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    boot(document);
+  });else boot(document);
+  window.DSPagination.wireAll = boot;
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-pagination.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-popover.js
+try { (() => {
+/* =========================================================================
+   DS Popover — рантайм поповера (out-of-box).
+   Зависимости: styles/popover.css. Иконки в разметке поповера — как обычно
+   через icons-data.js + ds-icons.js (рантайм их не требует).
+
+   Экспорт: window.DSPopover = {
+     bind(trigger, opts) → api | null      — навесить поведение на триггер
+     bindAll(root)                          — обойти [data-popover] внутри root
+     place(pop, trigger, opts) → {placement, align}
+     watchScroll(pop) → sync()              — тени шапки/подвала при прокрутке тела
+     closeAll()                             — закрыть открытый поповер
+     current() → api | null
+   }
+
+   Автоподключение (без единой строки кода на экране):
+     <span class="pop-anchor">
+       <button data-popover="pop-1" …>…</button>
+       <div id="pop-1" class="pop pop--w-m" role="dialog">…</div>
+     </span>
+   Значение data-popover — id поповера; пустое значение — ближайший .pop
+   внутри .pop-anchor. Настройки триггера: data-popover-placement
+   (top|bottom|left|right, по умолчанию bottom), data-popover-align
+   (start|center|end, по умолчанию start), data-popover-gap (px, 8),
+   data-popover-flip="no" (выключить авто-flip), data-popover-boundary
+   (CSS-селектор контейнера-границы, по умолчанию — вьюпорт).
+
+   Поведение по спеке: 12 позиций, авто-flip стороны и выравнивания, стрелка
+   доводится до центра триггера, один открытый поповер одновременно,
+   5 способов закрытия (✕ / клик вне / Esc / Tab за последний элемент /
+   [data-pop-close]), тени шапки и подвала при прокрутке тела.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var ARROW_H = 18; /* совпадает с popover.css: отступ стрелки при top/bottom */
+  var ARROW_V = 14; /* то же при left/right */
+  var GAP = 8; /* зазор от триггера */
+  var GUARD = 8; /* минимальный отступ от края контейнера */
+  var ARROW_EDGE = 12; /* стрелка не ближе 12px к углу */
+
+  var OPPOSITE = {
+    top: 'bottom',
+    bottom: 'top',
+    left: 'right',
+    right: 'left'
+  };
+  var PERP = {
+    top: ['right', 'left'],
+    bottom: ['right', 'left'],
+    left: ['bottom', 'top'],
+    right: ['bottom', 'top']
+  };
+  var FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  var current = null; /* единственный открытый поповер */
+
+  /* ------------------------------------------------------------------ */
+  /* геометрия                                                           */
+  /* ------------------------------------------------------------------ */
+  function bounds(el) {
+    if (!el) return {
+      left: 0,
+      top: 0,
+      right: window.innerWidth,
+      bottom: window.innerHeight
+    };
+    var r = el.getBoundingClientRect();
+    return {
+      left: r.left,
+      top: r.top,
+      right: r.right,
+      bottom: r.bottom
+    };
+  }
+  function fits(side, tr, br, pw, ph, gap) {
+    if (side === 'top') return tr.top - br.top >= ph + gap + GUARD;
+    if (side === 'bottom') return br.bottom - tr.bottom >= ph + gap + GUARD;
+    if (side === 'left') return tr.left - br.left >= pw + gap + GUARD;
+    return br.right - tr.right >= pw + gap + GUARD;
+  }
+  function setMods(pop, placement, align) {
+    pop.classList.remove('pop--top', 'pop--bottom', 'pop--left', 'pop--right', 'pop--start', 'pop--center', 'pop--end');
+    pop.classList.add('pop--' + placement, 'pop--' + align);
+  }
+
+  /* place — позиционирование + авто-flip. Возвращает выбранные placement/align. */
+  function place(pop, trigger, o) {
+    o = o || {};
+    var gap = o.gap == null ? GAP : o.gap;
+    var placement = o.placement || 'bottom';
+    var align = o.align || 'start';
+    var op = o.offsetParent || pop.offsetParent || pop.parentElement;
+    var br = bounds(o.boundary || null);
+    var tr = trigger.getBoundingClientRect();
+    var pw = pop.offsetWidth,
+      ph = pop.offsetHeight;
+    var cx = tr.left + tr.width / 2,
+      cy = tr.top + tr.height / 2;
+    if (o.flip !== false && tr.bottom > br.top && tr.top < br.bottom && tr.right > br.left && tr.left < br.right) {
+      if (!fits(placement, tr, br, pw, ph, gap)) {
+        var cand = [OPPOSITE[placement]].concat(PERP[placement]);
+        for (var i = 0; i < cand.length; i++) {
+          if (fits(cand[i], tr, br, pw, ph, gap)) {
+            placement = cand[i];
+            break;
+          }
+        }
+      }
+      if (align !== 'center') {
+        var horizAxis = placement === 'top' || placement === 'bottom';
+        var need = (horizAxis ? pw : ph) - (horizAxis ? ARROW_H : ARROW_V) + GUARD;
+        var fwd = horizAxis ? br.right - cx : br.bottom - cy;
+        var back = horizAxis ? cx - br.left : cy - br.top;
+        if (align === 'start' && fwd < need && back > fwd) align = 'end';else if (align === 'end' && back < need && fwd > back) align = 'start';
+      }
+    }
+    var horiz = placement === 'top' || placement === 'bottom';
+    var x = 0,
+      y = 0;
+    if (placement === 'top') y = tr.top - gap - ph;else if (placement === 'bottom') y = tr.bottom + gap;else if (placement === 'left') x = tr.left - gap - pw;else x = tr.right + gap;
+    if (horiz) {
+      x = align === 'center' ? cx - pw / 2 : align === 'start' ? cx - ARROW_H : cx - (pw - ARROW_H);
+      x = Math.min(Math.max(br.left + GUARD, x), Math.max(br.left + GUARD, br.right - pw - GUARD));
+    } else {
+      y = align === 'center' ? cy - ph / 2 : align === 'start' ? cy - ARROW_V : cy - (ph - ARROW_V);
+      y = Math.min(Math.max(br.top + GUARD, y), Math.max(br.top + GUARD, br.bottom - ph - GUARD));
+    }
+
+    /* из координат вьюпорта — в координаты позиционирующего предка */
+    var ox = -(window.pageXOffset || 0),
+      oy = -(window.pageYOffset || 0);
+    if (op && op !== document.body && op !== document.documentElement) {
+      var opr = op.getBoundingClientRect(),
+        cs = getComputedStyle(op);
+      ox = opr.left + (parseFloat(cs.borderLeftWidth) || 0) - op.scrollLeft;
+      oy = opr.top + (parseFloat(cs.borderTopWidth) || 0) - op.scrollTop;
+    }
+    pop.style.left = x - ox + 'px';
+    pop.style.top = y - oy + 'px';
+    setMods(pop, placement, align);
+
+    /* стрелка всегда смотрит в центр триггера — даже после clamp и flip */
+    var arrow = pop.querySelector('.pop__arrow');
+    if (arrow && pop.classList.contains('pop--arrow')) {
+      if (horiz) {
+        arrow.style.left = Math.min(Math.max(ARROW_EDGE, cx - x), pw - ARROW_EDGE) + 'px';
+        arrow.style.right = 'auto';
+        arrow.style.transform = 'translateX(-50%)';
+      } else {
+        arrow.style.top = Math.min(Math.max(ARROW_EDGE, cy - y), ph - ARROW_EDGE) + 'px';
+        arrow.style.bottom = 'auto';
+        arrow.style.transform = 'translateY(-50%)';
+      }
+    }
+    return {
+      placement: placement,
+      align: align
+    };
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* тени шапки/подвала при прокрутке тела — идентично Modal              */
+  /* ------------------------------------------------------------------ */
+  function watchScroll(pop) {
+    var body = pop.querySelector('.pop__body');
+    if (!body) return function () {};
+    function sync() {
+      var head = pop.querySelector('.pop__head'),
+        foot = pop.querySelector('.pop__foot');
+      if (head) head.classList.toggle('is-scrolled', body.scrollTop > 1);
+      if (foot) foot.classList.toggle('is-scrolled', body.scrollTop + body.clientHeight < body.scrollHeight - 1);
+    }
+    if (!body.__dsPopScroll) {
+      body.addEventListener('scroll', sync);
+      body.__dsPopScroll = true;
+    }
+    requestAnimationFrame(sync);
+    return sync;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* bind — поведение триггера                                            */
+  /* ------------------------------------------------------------------ */
+  function resolvePop(trigger, opts) {
+    if (opts.pop) return opts.pop;
+    var id = trigger.getAttribute('data-popover');
+    if (id) return document.getElementById(id);
+    var anchor = trigger.closest('.pop-anchor');
+    if (anchor) return anchor.querySelector('.pop');
+    var next = trigger.nextElementSibling;
+    return next && next.classList.contains('pop') ? next : null;
+  }
+  function bind(trigger, opts) {
+    opts = opts || {};
+    if (trigger.__dsPopover) return trigger.__dsPopover;
+    var pop = resolvePop(trigger, opts);
+    if (!pop) return null;
+    var d = trigger.dataset || {};
+    var conf = {
+      placement: opts.placement || d.popoverPlacement || 'bottom',
+      align: opts.align || d.popoverAlign || 'start',
+      gap: opts.gap != null ? opts.gap : d.popoverGap != null ? parseFloat(d.popoverGap) : GAP,
+      flip: opts.flip != null ? opts.flip : d.popoverFlip !== 'no',
+      boundary: opts.boundary || (d.popoverBoundary ? document.querySelector(d.popoverBoundary) : null),
+      offsetParent: opts.offsetParent || null,
+      autoFocus: opts.autoFocus !== false
+    };
+    pop.classList.add('pop--floating');
+    if (!pop.getAttribute('role')) pop.setAttribute('role', 'dialog');
+    if (!pop.hasAttribute('aria-modal')) pop.setAttribute('aria-modal', 'false');
+    trigger.setAttribute('aria-haspopup', 'dialog');
+    trigger.setAttribute('aria-expanded', 'false');
+    if (pop.id) trigger.setAttribute('aria-controls', pop.id);
+    var syncShadow = watchScroll(pop);
+    function isOpen() {
+      return pop.classList.contains('is-open');
+    }
+    function reposition() {
+      return place(pop, trigger, {
+        placement: conf.placement,
+        align: conf.align,
+        gap: conf.gap,
+        flip: conf.flip,
+        boundary: conf.boundary,
+        offsetParent: conf.offsetParent
+      });
+    }
+    function open() {
+      if (isOpen()) return api;
+      if (trigger.disabled || trigger.getAttribute('aria-disabled') === 'true') return api;
+      if (current && current !== api) current.close();
+      pop.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      reposition();
+      syncShadow();
+      current = api;
+      if (conf.autoFocus) {
+        var f = pop.querySelector(FOCUSABLE);
+        if (f) f.focus();
+      }
+      return api;
+    }
+    function close(returnFocus) {
+      if (!isOpen()) return api;
+      pop.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      if (current === api) current = null;
+      if (returnFocus) trigger.focus();
+      return api;
+    }
+    function toggle() {
+      return isOpen() ? close() : open();
+    }
+    trigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      toggle();
+    });
+    /* триггер-не-кнопка (чип с role="button") — клавиатура */
+    if (!/^(button|a)$/i.test(trigger.tagName)) {
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    }
+    /* ✕ и любые [data-pop-close] внутри — закрытие */
+    pop.addEventListener('click', function (e) {
+      if (e.target.closest('.pop__close, [data-pop-close]')) close(true);
+    });
+    /* Tab за последний интерактивный элемент — фокус не заперт, поповер закрывается */
+    pop.addEventListener('focusout', function (e) {
+      if (!isOpen()) return;
+      var to = e.relatedTarget;
+      if (to && (pop.contains(to) || trigger === to || trigger.contains(to))) return;
+      if (to) close();
+    });
+    var api = {
+      pop: pop,
+      trigger: trigger,
+      open: open,
+      close: close,
+      toggle: toggle,
+      place: reposition,
+      isOpen: isOpen,
+      config: conf
+    };
+    trigger.__dsPopover = api;
+    pop.__dsPopover = api;
+    return api;
+  }
+  function bindAll(root) {
+    (root || document).querySelectorAll('[data-popover]').forEach(function (t) {
+      bind(t);
+    });
+  }
+  function closeAll() {
+    if (current) current.close();
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* глобальные слушатели: клик вне, Esc, resize/scroll                   */
+  /* ------------------------------------------------------------------ */
+  document.addEventListener('click', function (e) {
+    if (!current) return;
+    if (current.pop.contains(e.target) || current.trigger.contains(e.target)) return;
+    current.close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && current) current.close(true);
+  });
+  function onReflow() {
+    if (current) current.place();
+  }
+  window.addEventListener('resize', onReflow);
+  window.addEventListener('scroll', onReflow, true);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    bindAll(document);
+  });else bindAll(document);
+  window.DSPopover = {
+    bind: bind,
+    bindAll: bindAll,
+    place: place,
+    watchScroll: watchScroll,
+    closeAll: closeAll,
+    current: function () {
+      return current;
+    },
+    ARROW_INSET_H: ARROW_H,
+    ARROW_INSET_V: ARROW_V
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-popover.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-riskmetric.js
+try { (() => {
+/* =========================================================================
+   DS RiskMetric — рантайм композиции Chip + Popover (out-of-box, RulesAudit W3).
+   Спека прямо говорит: компонент — это Chip (ReadOnly, S, pill) + Popover,
+   без собственных стилей (styles/riskmetric.css — только классы .rm-*).
+   Без рантайма сборка руками теряет вторую половину композиции незаметно.
+
+   Разметка на экране:
+     <span class="pop-anchor" data-riskmetric
+           data-risk="26" data-zone="red"
+           data-rating-date="24.10.2025" data-zone-date="24.10.2025"
+           data-segment="…" data-profile="Непроектный"></span>
+   data-zone: green|watchlist|red|black (нет атрибута — нет данных о зоне).
+   data-loading — показать skeleton вместо данных; data-error="текст" — role="alert".
+   Класс pop-anchor можно не указывать — рантайм добавляет сам.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var ZONE = {
+    green: {
+      cls: 'chip--success',
+      name: 'Зелёная'
+    },
+    watchlist: {
+      cls: 'chip--warning',
+      name: 'Watchlist'
+    },
+    red: {
+      cls: 'chip--error-solid',
+      name: 'Красная'
+    },
+    black: {
+      cls: 'chip--dark-solid',
+      name: 'Чёрная'
+    }
+  };
+  var ZONE_COLOR = {
+    green: 'var(--st-green)',
+    watchlist: 'var(--st-orange)',
+    red: 'var(--st-red)',
+    black: 'var(--st-grey)'
+  };
+  var uid = 0;
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    for (var k in attrs || {}) {
+      if (attrs[k] != null) n.setAttribute(k, attrs[k]);
+    }
+    (kids || []).forEach(function (c) {
+      if (c) n.appendChild(c);
+    });
+    return n;
+  }
+  function txt(tag, cls, str) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    n.textContent = str;
+    return n;
+  }
+  function resolve(d) {
+    var rating = d.risk != null && d.risk !== '' ? parseInt(d.risk, 10) : null;
+    var zone = d.zone && ZONE[d.zone] ? d.zone : null;
+    var hasInfo = !!(zone || rating != null || d.segment || d.profile);
+    return {
+      rating: rating,
+      zone: zone,
+      hasInfo: hasInfo,
+      label: rating != null ? String(rating) : '—',
+      toneClass: zone ? ZONE[zone].cls : 'chip--outline'
+    };
+  }
+  function ariaLabel(r, d) {
+    if (d.label) return d.label;
+    if (!r.hasInfo) return 'Риск-метрика. Данных нет.';
+    var parts = ['Риск-метрика.'];
+    if (r.rating != null) parts.push('Рейтинг ' + r.rating + (r.zone ? ',' : '.'));
+    if (r.zone) parts.push('зона проблемности — ' + ZONE[r.zone].name.toLowerCase() + '.');
+    return parts.join(' ');
+  }
+  function buildChip(r, d, popId) {
+    var chip = el('span', {
+      class: 'chip chip--rounded chip--s ' + r.toneClass,
+      'aria-label': ariaLabel(r, d)
+    }, [txt('span', 'chip__label', r.label)]);
+    if (r.hasInfo) {
+      chip.appendChild(el('button', {
+        type: 'button',
+        class: 'chip__info',
+        'aria-haspopup': 'dialog',
+        'aria-expanded': 'false',
+        'aria-controls': popId,
+        'aria-label': 'Показать детали риск-метрики'
+      }, [el('i', {
+        'data-icon': 'info-circle'
+      })]));
+    }
+    return chip;
+  }
+  function row(label, valueNode) {
+    return el('div', {
+      class: 'rm-block__row'
+    }, [txt('span', 'rm-block__label', label), valueNode]);
+  }
+  function value(str, strong, color) {
+    var span = txt('span', 'rm-block__value' + (strong ? ' rm-block__value--strong' : ''), str);
+    if (color) span.style.color = color;
+    return span;
+  }
+  function buildBody(r, d) {
+    if (d.loading != null) {
+      var loading = el('div', {
+        class: 'pop__body',
+        'aria-busy': 'true'
+      });
+      [100, 60, 100, 40].forEach(function (w) {
+        loading.appendChild(el('span', {
+          class: 'sk-line',
+          style: '--sk-w:' + w + '%'
+        }));
+      });
+      return loading;
+    }
+    if (d.error) return el('div', {
+      class: 'pop__body',
+      role: 'alert'
+    }, [txt('p', 'rm-field__value', d.error)]);
+    var blocks = el('div', {
+      class: 'rm-blocks'
+    }, [el('div', {
+      class: 'rm-block'
+    }, [row('Зона проблемности', r.zone ? value(ZONE[r.zone].name, true, ZONE_COLOR[r.zone]) : value('—', true)), row('Дата расчета', value(d.zoneDate || '—'))]), el('div', {
+      class: 'rm-block'
+    }, [row('Рейтинг контрагента', value(r.rating != null ? String(r.rating) : '—', true)), row('Дата расчета', value(d.ratingDate || '—'))])]);
+    return el('div', {
+      class: 'pop__body'
+    }, [blocks, el('div', {
+      class: 'rm-field'
+    }, [txt('p', 'rm-field__label', 'Риск-сегмент'), txt('p', 'rm-field__value', d.segment || '—')]), el('div', {
+      class: 'rm-field'
+    }, [txt('p', 'rm-field__label', 'Риск-профиль'), txt('p', 'rm-field__value', d.profile || '—')])]);
+  }
+  function buildPopover(id, r, d) {
+    var titleId = id + '-title';
+    var title = txt('h3', 'pop__title', 'Рейтинг и зона проблемности');
+    title.id = titleId;
+    var head = el('div', {
+      class: 'pop__head'
+    }, [title, el('span', {
+      class: 'pop__close'
+    }, [el('button', {
+      type: 'button',
+      class: 'ibtn ibtn--neutral ibtn--s',
+      'aria-label': 'Закрыть'
+    }, [el('i', {
+      'data-icon': 'close'
+    })])])]);
+    return el('div', {
+      id: id,
+      class: 'pop pop--w-m pop--bottom pop--start pop--floating',
+      role: 'dialog',
+      'aria-modal': 'false',
+      'aria-labelledby': titleId
+    }, [head, buildBody(r, d)]);
+  }
+  function build(host) {
+    if (host.__dsRiskMetric) return;
+    host.classList.add('pop-anchor');
+    var d = host.dataset;
+    var id = host.id ? host.id + '-pop' : 'rm-pop-' + ++uid;
+    var r = resolve(d);
+    host.innerHTML = '';
+    var chip = buildChip(r, d, id);
+    host.appendChild(chip);
+    if (r.hasInfo) {
+      var pop = buildPopover(id, r, d);
+      host.appendChild(pop);
+      var btn = chip.querySelector('.chip__info');
+      if (window.DSPopover && btn) window.DSPopover.bind(btn, {
+        pop: pop,
+        placement: 'bottom',
+        align: 'start'
+      });
+    }
+    if (window.dsIcons) window.dsIcons.apply(host);
+    host.__dsRiskMetric = true;
+  }
+  function mount(root) {
+    (root || document).querySelectorAll('[data-riskmetric]').forEach(build);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    mount(document);
+  });else mount(document);
+  window.DSRiskMetric = {
+    mount: mount,
+    build: build
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-riskmetric.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-splitter.js
+try { (() => {
+/* =========================================================================
+   DS Splitter — рантайм функционального разделителя панелей (out-of-box).
+   Зависимости: styles/splitter.css.
+
+   Экспорт: window.DSSplitter = {
+     make(opts) → HTMLElement       — один сплиттер .spl (без панелей)
+     pane(opts) → { wrap, spl, a, b, setPct(v), value() }  — готовая пара панелей
+     wire(splEl, opts) → api        — оживить сплиттер в уже свёрстанной разметке
+     wireAll(root)                  — обойти [data-splitter]
+   }
+
+   Автоподключение: поставить data-splitter на .splitpane — рантайм найдёт
+   внутри .spl и соседние .splitpane__panel и оживит их:
+     <div class="splitpane" data-splitter data-min="25" data-max="75" data-initial="50">
+       <div class="splitpane__panel splitpane__a">…</div>
+       <div class="spl" role="separator"><span class="spl__grip">…</span></div>
+       <div class="splitpane__panel splitpane__b">…</div>
+     </div>
+
+   Поведение по спеке Splitter: перетаскивание с pointer capture и курсором,
+   зафиксированным на body (работает поверх любых элементов под курсором),
+   ограничение min/max, стрелки с шагом 2% (Shift — 10%), Home/End,
+   aria-valuemin/max/now, двойной клик — сброс к исходному значению.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  function make(o) {
+    o = o || {};
+    var orientation = o.orientation || 'v',
+      state = o.state || 'default';
+    var el = document.createElement('div');
+    el.className = 'spl' + (orientation === 'h' ? ' spl--h' : '');
+    if (state === 'hover') el.classList.add('spl--hover');
+    if (state === 'move') el.classList.add('spl--move');
+    if (state === 'disabled') el.classList.add('spl--disabled');
+    el.setAttribute('role', 'separator');
+    el.setAttribute('aria-orientation', orientation === 'h' ? 'horizontal' : 'vertical');
+    el.setAttribute('aria-label', o.label || 'Изменить размер панелей');
+    if (state !== 'disabled') el.tabIndex = 0;
+    var grip = document.createElement('span');
+    grip.className = 'spl__grip';
+    for (var i = 0; i < 6; i++) grip.appendChild(document.createElement('i'));
+    el.appendChild(grip);
+    return el;
+  }
+
+  /* оживляет сплиттер, у которого панели A и B — его соседи в .splitpane */
+  function wire(spl, o) {
+    o = o || {};
+    if (!spl || spl.__dsSpl) return spl && spl.__dsSpl;
+    var wrap = o.wrap || spl.parentElement;
+    var a = o.a || spl.previousElementSibling;
+    var b = o.b || spl.nextElementSibling;
+    if (!wrap || !a || !b) return null;
+    var horiz = o.orientation ? o.orientation === 'h' : spl.classList.contains('spl--h') || wrap.classList.contains('splitpane--h');
+    var min = o.min != null ? o.min : 20;
+    var max = o.max != null ? o.max : 80;
+    var initial = o.initial != null ? o.initial : 50;
+    var step = o.step != null ? o.step : 2;
+    var bigStep = o.bigStep != null ? o.bigStep : 10;
+    var pct = Math.max(min, Math.min(max, initial));
+    function apply() {
+      a.style.flex = '0 0 ' + pct + '%';
+      b.style.flex = '1 1 auto';
+      spl.setAttribute('aria-valuemin', String(min));
+      spl.setAttribute('aria-valuemax', String(max));
+      spl.setAttribute('aria-valuenow', String(Math.round(pct)));
+      if (o.onChange) o.onChange(Math.round(pct));
+    }
+    var dragging = false;
+    function pointerPct(clientPos) {
+      var r = wrap.getBoundingClientRect();
+      var total = horiz ? r.height : r.width;
+      var offset = horiz ? clientPos - r.top : clientPos - r.left;
+      return Math.max(min, Math.min(max, offset / total * 100));
+    }
+    spl.addEventListener('pointerdown', function (e) {
+      if (spl.classList.contains('spl--disabled')) return;
+      dragging = true;
+      spl.classList.add('spl--move');
+      /* курсор держим на body: под указателем во время перетаскивания
+         оказываются чужие элементы со своими курсорами */
+      document.body.classList.add(horiz ? 'spl-dragging-h' : 'spl-dragging');
+      spl.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    spl.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      pct = pointerPct(horiz ? e.clientY : e.clientX);
+      apply();
+    });
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      spl.classList.remove('spl--move');
+      document.body.classList.remove('spl-dragging', 'spl-dragging-h');
+      try {
+        spl.releasePointerCapture(e.pointerId);
+      } catch (_) {}
+    }
+    spl.addEventListener('pointerup', endDrag);
+    spl.addEventListener('pointercancel', endDrag);
+    spl.addEventListener('keydown', function (e) {
+      var s = e.shiftKey ? bigStep : step,
+        used = true;
+      if (horiz) {
+        if (e.key === 'ArrowUp') pct = Math.max(min, pct - s);else if (e.key === 'ArrowDown') pct = Math.min(max, pct + s);else used = false;
+      } else {
+        if (e.key === 'ArrowLeft') pct = Math.max(min, pct - s);else if (e.key === 'ArrowRight') pct = Math.min(max, pct + s);else used = false;
+      }
+      if (e.key === 'Home') {
+        pct = min;
+        used = true;
+      }
+      if (e.key === 'End') {
+        pct = max;
+        used = true;
+      }
+      if (used) {
+        e.preventDefault();
+        apply();
+      }
+    });
+    if (o.resetOnDblClick !== false) {
+      spl.addEventListener('dblclick', function () {
+        pct = Math.max(min, Math.min(max, initial));
+        apply();
+      });
+    }
+    apply();
+    var api = {
+      wrap: wrap,
+      spl: spl,
+      a: a,
+      b: b,
+      setPct: function (v) {
+        pct = Math.max(min, Math.min(max, v));
+        apply();
+      },
+      value: function () {
+        return Math.round(pct);
+      }
+    };
+    spl.__dsSpl = api;
+    return api;
+  }
+
+  /* собирает пару панелей вместе со сплиттером */
+  function pane(o) {
+    o = o || {};
+    var horiz = o.orientation === 'h';
+    var wrap = document.createElement('div');
+    wrap.className = 'splitpane' + (horiz ? ' splitpane--h' : '');
+    if (o.height) wrap.style.height = o.height + 'px';
+    var a = document.createElement('div');
+    a.className = 'splitpane__panel splitpane__a';
+    var b = document.createElement('div');
+    b.className = 'splitpane__panel splitpane__b';
+    if (o.buildLeft) o.buildLeft(a);else a.innerHTML = '<span class="splitpane__ph">' + (o.leftLabel || 'Левая панель') + '</span>';
+    if (o.buildRight) o.buildRight(b);else b.innerHTML = '<span class="splitpane__ph">' + (o.rightLabel || 'Правая панель') + '</span>';
+    var spl = make({
+      orientation: o.orientation || 'v',
+      label: o.label
+    });
+    wrap.appendChild(a);
+    wrap.appendChild(spl);
+    wrap.appendChild(b);
+    var api = wire(spl, Object.assign({}, o, {
+      wrap: wrap,
+      a: a,
+      b: b
+    }));
+    return Object.assign({
+      wrap: wrap
+    }, api);
+  }
+  function wireAll(root) {
+    (root || document).querySelectorAll('[data-splitter]').forEach(function (host) {
+      var spl = host.classList.contains('spl') ? host : host.querySelector('.spl');
+      if (!spl) return;
+      var d = host.dataset;
+      wire(spl, {
+        min: d.min != null ? +d.min : undefined,
+        max: d.max != null ? +d.max : undefined,
+        initial: d.initial != null ? +d.initial : undefined
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    wireAll(document);
+  });else wireAll(document);
+  window.DSSplitter = {
+    make: make,
+    pane: pane,
+    wire: wire,
+    wireAll: wireAll
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-splitter.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-table-filter.js
+try { (() => {
+/* ds-table-filter.js — сброс применённого фильтра в TableFilter (out-of-box, RulesAudit Фаза 3).
+   Открытие модалки — уже общий рантайм ds-modal.js; содержимое модалки (секции,
+   пресеты) держит модель данных потребителя, как и колонки/данные у Table — не
+   даём из коробки. Здесь — только сброс чипа-счётчика «Применено: N».
+
+   Клик по .tfilter__applied .chip__remove ИЛИ Backspace/Delete на сфокусированном
+   .tfilter__applied — плавно убирает чип и всплывает 'tfilter:reset' на .tfilter
+   (bubbles), который потребитель слушает, чтобы очистить параметры фильтра. */
+(function () {
+  function reset(chip) {
+    if (!chip) return;
+    var bar = chip.closest('.tfilter');
+    chip.style.transition = 'opacity .18s, transform .18s';
+    chip.style.opacity = '0';
+    chip.style.transform = 'scale(.85)';
+    setTimeout(function () {
+      chip.remove();
+      if (bar) bar.dispatchEvent(new CustomEvent('tfilter:reset', {
+        bubbles: true
+      }));
+    }, 180);
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.tfilter__applied .chip__remove') : null;
+    if (!btn) return;
+    reset(btn.closest('.chip'));
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Backspace' && e.key !== 'Delete') return;
+    var chip = e.target.closest ? e.target.closest('.tfilter__applied') : null;
+    if (!chip || chip !== document.activeElement) return;
+    e.preventDefault();
+    reset(chip);
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-table-filter.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-table.js
+try { (() => {
+/* =========================================================================
+   DS Table — рантайм таблицы (out-of-box).
+   Зависимости: styles/table.css, styles/table-cell.css;
+   опционально scripts/ds-tooltip.js (тултип на усечённом тексте).
+
+   Экспорт: window.DSTable = {
+     bind(bodyEl) · bindAll(root)          — тени прокрутки .dtable
+     wire(tblEl, opts) → api               — интерактив строк и ячеек
+     wireAll(root)                         — обойти [data-table]
+   }
+
+   Тени прокрутки: .dtable__body сам подхватывается (scroll + ResizeObserver)
+   и красит корень классами --scrolled / --edge-l / --edge-r.
+
+   Интерактив (opt-in: data-table на .tbl) — делегированием, поэтому
+   перерисовка строк ничего не ломает:
+     сортировка   — клик по [data-sort] в шапке: none → asc → desc → none,
+                    aria-sort и глиф синхронны, активна одна колонка;
+                    событие 'sort' с { column, dir }
+     дерево       — .tc__twisty переключает aria-expanded и показ дочерних
+                    строк ([data-parent] = id узла); событие 'treetoggle'
+     выбор строк   — чекбокс .tbl__row .cb__input красит строку .tbl__row--selected,
+                    чекбокс шапки выделяет все (с промежуточным состоянием);
+                    событие 'rowselect' с { selected: [id…] }
+     фокус строки  — клик по строке ставит .tbl__row--focus (снимается кликом вне)
+     усечение      — .tc__text--truncate получает тултип с полным текстом,
+                    показываемый только при реальном усечении
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  /* ---------- тени прокрутки ---------- */
+  function sync(body) {
+    var root = body.closest('.dtable');
+    if (!root) return;
+    root.classList.toggle('dtable--scrolled', body.scrollTop > 0);
+    root.classList.toggle('dtable--edge-l', body.scrollLeft > 0);
+    root.classList.toggle('dtable--edge-r', body.scrollWidth - body.scrollLeft - body.clientWidth > 1);
+  }
+  function bind(body) {
+    if (!body || body.__dsTableBound) return;
+    body.__dsTableBound = true;
+    var handler = function () {
+      sync(body);
+    };
+    body.addEventListener('scroll', handler);
+    if (window.ResizeObserver) new ResizeObserver(handler).observe(body);else window.addEventListener('resize', handler);
+    handler();
+  }
+  function bindAll(root) {
+    (root || document).querySelectorAll('.dtable__body').forEach(bind);
+  }
+
+  /* ---------- интерактив строк и ячеек ---------- */
+  var SORT_GLYPH = {
+    none: 'arrow-up-down',
+    asc: 'arrow-narrow-up',
+    desc: 'arrow-narrow-down'
+  };
+  var NEXT_DIR = {
+    none: 'asc',
+    asc: 'desc',
+    desc: 'none'
+  };
+  var ARIA_SORT = {
+    none: 'none',
+    asc: 'ascending',
+    desc: 'descending'
+  };
+  function icon(name) {
+    return (window.DS_ICONS || {})[name] || '';
+  }
+  function emit(el, type, detail) {
+    el.dispatchEvent(new CustomEvent(type, {
+      detail: detail,
+      bubbles: true
+    }));
+  }
+  function setSort(tbl, btn, dir) {
+    tbl.querySelectorAll('[data-sort]').forEach(function (b) {
+      var head = b.closest('.th') || b;
+      var own = b === btn;
+      var d = own ? dir : 'none';
+      b.dataset.sortDir = d;
+      var g = b.querySelector('.th__sort-icon') || b;
+      if (g !== b) g.innerHTML = icon(SORT_GLYPH[d]);
+      head.setAttribute('aria-sort', ARIA_SORT[d]);
+      b.classList.toggle('is-sorted', d !== 'none');
+    });
+    emit(tbl, 'sort', {
+      column: btn.dataset.sort,
+      dir: dir
+    });
+  }
+  function treeToggle(tbl, twisty) {
+    var open = twisty.getAttribute('aria-expanded') !== 'true';
+    twisty.setAttribute('aria-expanded', String(open));
+    twisty.setAttribute('aria-label', open ? 'Свернуть' : 'Развернуть');
+    var row = twisty.closest('.tbl__row');
+    var id = row && (row.dataset.node || row.dataset.row);
+    if (id) {
+      /* закрытие узла прячет всё поддерево, а не только прямых детей */
+      var hide = [];
+      var walk = function (parent) {
+        tbl.querySelectorAll('.tbl__row[data-parent="' + parent + '"]').forEach(function (r) {
+          hide.push(r);
+          var kid = r.dataset.node || r.dataset.row;
+          if (kid) walk(kid);
+        });
+      };
+      walk(id);
+      hide.forEach(function (r) {
+        if (open) {
+          /* раскрываем только те ветки, чей собственный твисти открыт */
+          var pr = tbl.querySelector('.tbl__row[data-node="' + r.dataset.parent + '"]');
+          var pt = pr && pr.querySelector('.tc__twisty[aria-expanded]');
+          r.hidden = !!(pt && pt.getAttribute('aria-expanded') !== 'true');
+        } else r.hidden = true;
+      });
+    }
+    emit(tbl, 'treetoggle', {
+      node: id,
+      open: open
+    });
+  }
+  function selectedIds(tbl) {
+    return Array.prototype.map.call(tbl.querySelectorAll('.tbl__row--selected'), function (r) {
+      return r.dataset.row || null;
+    }).filter(Boolean);
+  }
+  function syncHeadCheckbox(tbl) {
+    var head = tbl.querySelector('.tbl__row--head .cb__input, .th .cb__input');
+    if (!head) return;
+    var boxes = tbl.querySelectorAll('.tbl__row:not(.tbl__row--head) .cb__input');
+    if (!boxes.length) return;
+    var on = 0;
+    boxes.forEach(function (b) {
+      if (b.checked) on++;
+    });
+    head.checked = on === boxes.length;
+    head.indeterminate = on > 0 && on < boxes.length;
+  }
+  function setRowSelected(row, on) {
+    row.classList.toggle('tbl__row--selected', on);
+    var box = row.querySelector('.cb__input');
+    if (box) {
+      box.checked = on;
+      var cb = box.closest('.cb');
+      if (cb) cb.classList.toggle('cb--selected', on);
+    }
+  }
+  function wire(tbl, opts) {
+    if (!tbl || tbl.__dsTableWired) return tbl && tbl.__dsTableWired;
+    opts = opts || {};
+    tbl.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t.closest) return;
+      var sortBtn = t.closest('[data-sort]');
+      if (sortBtn && tbl.contains(sortBtn)) {
+        setSort(tbl, sortBtn, NEXT_DIR[sortBtn.dataset.sortDir || 'none']);
+        return;
+      }
+      var twisty = t.closest('.tc__twisty:not(.tc__twisty--leaf)');
+      if (twisty && tbl.contains(twisty)) {
+        treeToggle(tbl, twisty);
+        return;
+      }
+
+      /* чекбокс шапки выделяет и снимает все строки разом */
+      var headBox = t.closest('.tbl__row--head .cb, .th .cb');
+      if (headBox && tbl.contains(headBox)) {
+        var input = headBox.querySelector('.cb__input');
+        var on = input ? !input.checked : true;
+        setTimeout(function () {
+          tbl.querySelectorAll('.tbl__row:not(.tbl__row--head)').forEach(function (r) {
+            setRowSelected(r, on);
+          });
+          syncHeadCheckbox(tbl);
+          emit(tbl, 'rowselect', {
+            selected: selectedIds(tbl)
+          });
+        }, 0);
+        return;
+      }
+      var row = t.closest('.tbl__row:not(.tbl__row--head)');
+      if (!row || !tbl.contains(row)) return;
+      var cb = t.closest('.cb');
+      if (cb) {
+        setTimeout(function () {
+          var box = row.querySelector('.cb__input');
+          setRowSelected(row, !!(box && box.checked));
+          syncHeadCheckbox(tbl);
+          emit(tbl, 'rowselect', {
+            selected: selectedIds(tbl)
+          });
+        }, 0);
+        return;
+      }
+      if (opts.focusRow === false) return;
+      tbl.querySelectorAll('.tbl__row--focus').forEach(function (r) {
+        r.classList.remove('tbl__row--focus');
+      });
+      row.classList.add('tbl__row--focus');
+      emit(tbl, 'rowfocus', {
+        row: row.dataset.row || null
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest || e.target.closest('.tbl') === tbl) return;
+      tbl.querySelectorAll('.tbl__row--focus').forEach(function (r) {
+        r.classList.remove('tbl__row--focus');
+      });
+    });
+    truncationTooltips(tbl);
+    var api = {
+      el: tbl,
+      selected: function () {
+        return selectedIds(tbl);
+      },
+      sort: function (column, dir) {
+        var b = tbl.querySelector('[data-sort="' + column + '"]');
+        if (b) setSort(tbl, b, dir || 'asc');
+      },
+      refresh: function () {
+        syncHeadCheckbox(tbl);
+        truncationTooltips(tbl);
+      }
+    };
+    tbl.__dsTableWired = api;
+    return api;
+  }
+
+  /* усечённый текст объясняет себя тултипом — показывается только когда
+     текст действительно не помещается (ds-tooltip проверяет scrollWidth) */
+  function truncationTooltips(tbl) {
+    if (!window.DSTooltip) return;
+    tbl.querySelectorAll('.tc__text--truncate:not([data-tooltip])').forEach(function (el) {
+      var text = el.textContent.trim();
+      if (!text) return;
+      el.setAttribute('data-tooltip', text);
+      el.setAttribute('data-tooltip-truncated', 'only');
+      DSTooltip.bind(el);
+    });
+  }
+  function wireAll(root) {
+    (root || document).querySelectorAll('[data-table]').forEach(function (el) {
+      wire(el);
+    });
+  }
+  function boot() {
+    bindAll();
+    wireAll();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);else boot();
+  window.DSTable = {
+    bind: bind,
+    bindAll: bindAll,
+    wire: wire,
+    wireAll: wireAll
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-table.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-tabs.js
+try { (() => {
+/* =========================================================================
+   DS Tabs — рантайм табов и сегмент-контрола (out-of-box).
+   Зависимости: styles/tab.css, styles/segment-control.css.
+
+   Общее у Tab и SegmentControl — roving tabindex и навигация стрелками;
+   различаются разметкой (role/атрибут выбора) и тем, что у сегмент-контрола
+   есть измеряемый индикатор (thumb), а у табов — переполнение.
+
+   Переполнение горизонтальных табов — из коробки, включено в tabs():
+   ряд шире контейнера сам получает паттерн переполнения — по умолчанию скролл со
+   стрелками (ни один таб не скрывается). Атрибут data-tabs-overflow на самом
+   .tabs принудительно задаёт паттерн: "menu" — fit + кнопка «ёщё» с выпадающим
+   списком остальных; "none" — отключить (ответственность за границу на экране остаётся
+   на вызывающей стороне). Активируется только у горизонтальных групп (.tabs--horiz) —
+   вертикальные переполняются своим контейнером, это не задача этого рантайма.
+
+   Экспорт: window.DSTabs = {
+     tabs(el, opts) → api          — группа .tabs[role="tablist"]
+     segment(el, opts) → api       — контрол .segctrl[role="radiogroup"]
+     positionThumb(el)             — пересчитать индикатор сегмент-контрола
+     wireAll(root)                 — обойти [data-tabs] и [data-segctrl]
+   }
+   api: { el, items() → [], select(elOrIndex), value() → index, refresh(),
+          overflow — { mode, refresh() } у горизонтальных групп (или null) }
+
+   Автоподключение (opt-in, чтобы не оживлять статичные примеры витрин):
+     <div class="tabs tabs--horiz" role="tablist" data-tabs>…</div>
+     <div class="tabs tabs--horiz" role="tablist" data-tabs data-tabs-overflow="menu">…</div>
+     <div class="segctrl" role="radiogroup" aria-label="Период" data-segctrl>…</div>
+   opts.onChange(index, el) — коллбэк при смене выбора.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  function disabled(el) {
+    return el.disabled || el.getAttribute('aria-disabled') === 'true' || el.classList.contains('tab--disabled');
+  }
+
+  /* общий движок: roving tabindex + стрелки/Home/End с активацией на месте */
+  function roving(host, cfg) {
+    function items() {
+      return Array.prototype.slice.call(host.querySelectorAll(cfg.itemSel));
+    }
+    function live() {
+      return items().filter(function (b) {
+        return !disabled(b);
+      });
+    }
+    function select(target, silent) {
+      var list = items();
+      var el = typeof target === 'number' ? list[target] : target;
+      if (!el || disabled(el)) return null;
+      list.forEach(function (b) {
+        var on = b === el;
+        b.setAttribute(cfg.selAttr, String(on));
+        if (cfg.selClass) b.classList.toggle(cfg.selClass, on);
+        b.tabIndex = on ? 0 : -1;
+      });
+      if (cfg.afterSelect) cfg.afterSelect(host, el);
+      if (!silent && cfg.onChange) cfg.onChange(list.indexOf(el), el);
+      return el;
+    }
+
+    /* фокус остаётся на выбранном элементе — иначе стрелки уходят в никуда */
+    function move(delta) {
+      var l = live();
+      if (!l.length) return;
+      var cur = l.indexOf(document.activeElement);
+      if (cur < 0) cur = l.indexOf(host.querySelector('[' + cfg.selAttr + '="true"]'));
+      var next = l[(cur + delta + l.length) % l.length];
+      select(next);
+      next.focus();
+    }
+    host.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest(cfg.itemSel) : null;
+      if (btn && host.contains(btn) && !disabled(btn)) select(btn);
+    });
+    host.addEventListener('keydown', function (e) {
+      var l = live();
+      if (!l.length) return;
+      var k = e.key;
+      if (k === 'ArrowRight' || k === 'ArrowDown') {
+        e.preventDefault();
+        move(1);
+      } else if (k === 'ArrowLeft' || k === 'ArrowUp') {
+        e.preventDefault();
+        move(-1);
+      } else if (k === 'Home') {
+        e.preventDefault();
+        select(l[0]);
+        l[0].focus();
+      } else if (k === 'End') {
+        e.preventDefault();
+        select(l[l.length - 1]);
+        l[l.length - 1].focus();
+      }
+    });
+
+    /* исходное состояние разметки: roving tabindex и индикатор */
+    var cur = host.querySelector('[' + cfg.selAttr + '="true"]') || live()[0];
+    if (cur) select(cur, true);
+    return {
+      el: host,
+      items: items,
+      select: select,
+      value: function () {
+        return items().indexOf(host.querySelector('[' + cfg.selAttr + '="true"]'));
+      },
+      refresh: function () {
+        if (cfg.afterSelect) cfg.afterSelect(host, host.querySelector('[' + cfg.selAttr + '="true"]'));
+      }
+    };
+  }
+
+  /* --------------------------------------------------------------------- */
+  /* SegmentControl: индикатор измеряется, а не считается по индексу        */
+  /* --------------------------------------------------------------------- */
+  function positionThumb(host) {
+    var thumb = host.querySelector('.segctrl__thumb');
+    if (!thumb) return;
+    var sel = host.querySelector('.segctrl__item[aria-checked="true"]');
+    if (!sel) {
+      thumb.classList.remove('is-visible');
+      return;
+    }
+    thumb.style.width = sel.offsetWidth + 'px';
+    thumb.style.transform = 'translateX(' + sel.offsetLeft + 'px)';
+    thumb.classList.add('is-visible');
+  }
+  function segment(host, opts) {
+    if (!host || host.__dsSeg) return host && host.__dsSeg;
+    opts = opts || {};
+    var api = roving(host, {
+      itemSel: '.segctrl__item',
+      selAttr: 'aria-checked',
+      selClass: null,
+      afterSelect: positionThumb,
+      onChange: opts.onChange
+    });
+    /* метрики шрифта и адаптивная ширина меняют offsetWidth уже после первого
+       рендера — пересчитываем на каждый повод, а не один раз при монтировании */
+    var recalc = function () {
+      positionThumb(host);
+    };
+    requestAnimationFrame(recalc);
+    window.addEventListener('resize', recalc);
+    window.addEventListener('load', recalc);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(recalc);
+    if (window.ResizeObserver) new ResizeObserver(recalc).observe(host);
+    host.__dsSeg = api;
+    return api;
+  }
+
+  /* --------------------------------------------------------------------- */
+  /* Tabs                                                                    */
+  /* --------------------------------------------------------------------- */
+  function tabs(host, opts) {
+    if (!host || host.__dsTabs) return host && host.__dsTabs;
+    opts = opts || {};
+    var api = roving(host, {
+      itemSel: '.tab',
+      selAttr: 'aria-selected',
+      selClass: 'tab--selected',
+      afterSelect: opts.scrollIntoView === false ? null : keepVisible,
+      onChange: opts.onChange
+    });
+    if (host.classList.contains('tabs--horiz')) {
+      var mode = host.getAttribute('data-tabs-overflow') || opts.overflow;
+      if (mode !== 'none') api.overflow = wireOverflow(host, mode === 'menu' ? 'menu' : 'scroll', opts);
+    }
+    host.__dsTabs = api;
+    return api;
+  }
+
+  /* --------------------------------------------------------------------- */
+  /* Overflow — горизонтальный ряд шире контейнера. Два паттерна:
+     scroll (по умолчанию) — обёртка со скроллом и стрелками, ни один таб
+     не прячется; menu — влезающие остаются в ряд, остальные уходят в
+     дропдаун за кнопкой «⋯». Оба активируются сами по факту переполнения
+     (CSS/замер ширины), форсировать конкретный — data-tabs-overflow.       */
+  function wireOverflow(host, mode, opts) {
+    if (!host.parentNode) return null; // группа ещё не вставлена в DOM — обёрнуть нечем; на реальных экранах wireAll всегда видит разметку уже в DOM
+    if (host.closest('.tabs-scroll, .tabs-overflow')) return null; // уже обёрнут разметкой
+    return mode === 'menu' ? wireOverflowMenu(host, opts) : wireOverflowScroll(host, opts);
+  }
+  function mkArrowIcon(name, label) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tabs-scroll__arrow tabs-scroll__arrow--' + (name === 'chevron-left' ? 'left' : 'right');
+    b.setAttribute('aria-label', label);
+    var i = document.createElement('i');
+    i.setAttribute('data-icon', name);
+    b.appendChild(i);
+    return b;
+  }
+  function wireOverflowScroll(host) {
+    var scrollBox = document.createElement('div');
+    scrollBox.className = 'tabs-scroll';
+    var wrap = document.createElement('div');
+    wrap.className = 'tabs-scroll-wrap';
+    host.parentNode.insertBefore(wrap, host);
+    wrap.appendChild(scrollBox);
+    scrollBox.appendChild(host);
+    var left = mkArrowIcon('chevron-left', 'Прокрутить влево');
+    var right = mkArrowIcon('chevron-right', 'Прокрутить вправо');
+    wrap.appendChild(left);
+    wrap.appendChild(right);
+    left.addEventListener('click', function () {
+      scrollBox.scrollBy({
+        left: -160,
+        behavior: 'smooth'
+      });
+    });
+    right.addEventListener('click', function () {
+      scrollBox.scrollBy({
+        left: 160,
+        behavior: 'smooth'
+      });
+    });
+    function update() {
+      var max = scrollBox.scrollWidth - scrollBox.clientWidth;
+      left.classList.toggle('is-visible', scrollBox.scrollLeft > 4);
+      right.classList.toggle('is-visible', scrollBox.scrollLeft < max - 4);
+    }
+    scrollBox.addEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    window.addEventListener('load', update);
+    if (window.ResizeObserver) new ResizeObserver(update).observe(scrollBox);
+    if (window.dsIcons) window.dsIcons.apply(wrap);
+    requestAnimationFrame(update);
+    return {
+      mode: 'scroll',
+      refresh: update
+    };
+  }
+  function wireOverflowMenu(host, opts) {
+    opts = opts || {};
+    var tabEls = Array.prototype.slice.call(host.querySelectorAll('.tab'));
+    if (tabEls.length < 2) return null;
+    var sizeCls = tabEls[0].className.match(/tab--[ms]\b/);
+    var outer = document.createElement('div');
+    outer.className = 'tabs-overflow';
+    host.parentNode.insertBefore(outer, host);
+    outer.appendChild(host);
+    var moreBtn = document.createElement('button');
+    moreBtn.type = 'button';
+    moreBtn.className = 'tab tab--more' + (sizeCls ? ' ' + sizeCls[0] : '');
+    moreBtn.setAttribute('aria-haspopup', 'true');
+    moreBtn.setAttribute('aria-expanded', 'false');
+    moreBtn.setAttribute('aria-label', opts.moreLabel || 'Показать остальные разделы');
+    var mi = document.createElement('span');
+    mi.className = 'tab__icon';
+    var mIcon = document.createElement('i');
+    mIcon.setAttribute('data-icon', 'more-dots');
+    mi.appendChild(mIcon);
+    moreBtn.appendChild(mi);
+    host.appendChild(moreBtn);
+    var menu = document.createElement('div');
+    menu.className = 'tabs-overflow__menu';
+    menu.setAttribute('role', 'menu');
+    outer.appendChild(menu);
+    function closeMenu() {
+      menu.classList.remove('is-open');
+      moreBtn.setAttribute('aria-expanded', 'false');
+      moreBtn.classList.remove('is-menu-open');
+    }
+    function openMenu() {
+      menu.classList.add('is-open');
+      moreBtn.setAttribute('aria-expanded', 'true');
+      moreBtn.classList.add('is-menu-open');
+    }
+    moreBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (menu.classList.contains('is-open')) closeMenu();else openMenu();
+    });
+    document.addEventListener('click', function (e) {
+      if (!outer.contains(e.target)) closeMenu();
+    });
+    outer.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    /* пункт меню — прокси на реальный (скрытый) таб: клик активирует его
+       собственный click, поведение/данные таба не дублируются */
+    function buildMenu() {
+      menu.innerHTML = '';
+      tabEls.forEach(function (t) {
+        if (t.style.display !== 'none') return;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tabs-overflow__item';
+        btn.setAttribute('role', 'menuitemradio');
+        btn.setAttribute('aria-checked', t.getAttribute('aria-selected') === 'true' ? 'true' : 'false');
+        var srcIcon = t.querySelector('.tab__icon');
+        if (srcIcon) {
+          var ic = document.createElement('span');
+          ic.className = 'tab__icon';
+          ic.innerHTML = srcIcon.innerHTML;
+          btn.appendChild(ic);
+        }
+        var lb = document.createElement('span');
+        lb.className = 'tab__label';
+        var srcLabel = t.querySelector('.tab__label');
+        lb.textContent = srcLabel ? srcLabel.textContent : t.textContent.trim();
+        btn.appendChild(lb);
+        var srcBadge = t.querySelector('.tab__badge');
+        if (srcBadge) {
+          var bd = document.createElement('span');
+          bd.className = 'tab__badge';
+          bd.textContent = srcBadge.textContent;
+          btn.appendChild(bd);
+        }
+        btn.addEventListener('click', function () {
+          closeMenu();
+          t.click();
+          t.focus();
+        });
+        menu.appendChild(btn);
+      });
+    }
+    function layout() {
+      tabEls.forEach(function (t) {
+        t.style.display = '';
+      });
+      moreBtn.style.display = 'none';
+      var available = host.clientWidth;
+      if (!available) return;
+      var widths = tabEls.map(function (t) {
+        return t.getBoundingClientRect().width;
+      });
+      var total = widths.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+      if (total <= available + 0.5) {
+        buildMenu();
+        return;
+      }
+      moreBtn.style.display = '';
+      var moreWidth = moreBtn.getBoundingClientRect().width;
+      var sum = 0,
+        cutoff = tabEls.length;
+      for (var i = 0; i < widths.length; i++) {
+        sum += widths[i];
+        if (sum + moreWidth > available) {
+          cutoff = i;
+          break;
+        }
+      }
+      cutoff = Math.max(cutoff, 1);
+      tabEls.forEach(function (t, i) {
+        t.style.display = i < cutoff ? '' : 'none';
+      });
+      buildMenu();
+    }
+    window.addEventListener('resize', layout);
+    window.addEventListener('load', layout);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    if (window.ResizeObserver) new ResizeObserver(layout).observe(host);
+    if (window.dsIcons) window.dsIcons.apply(host);
+    requestAnimationFrame(layout);
+    return {
+      mode: 'menu',
+      refresh: layout
+    };
+  }
+
+  /* выбранный таб подскролливается в зону видимости — только по горизонтали
+     и только внутри самой ленты, страница при этом не двигается */
+  function keepVisible(host, el) {
+    if (!el) return;
+    var box = host.classList.contains('tabs-scroll__viewport') ? host : host.parentElement;
+    if (!box || box.scrollWidth <= box.clientWidth + 1) return;
+    var l = el.offsetLeft,
+      r = l + el.offsetWidth;
+    if (l < box.scrollLeft) box.scrollTo({
+      left: l - 8,
+      behavior: 'smooth'
+    });else if (r > box.scrollLeft + box.clientWidth) box.scrollTo({
+      left: r - box.clientWidth + 8,
+      behavior: 'smooth'
+    });
+  }
+  function wireAll(root) {
+    root = root || document;
+    root.querySelectorAll('[data-tabs]').forEach(function (el) {
+      tabs(el);
+    });
+    root.querySelectorAll('[data-segctrl]').forEach(function (el) {
+      segment(el);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    wireAll(document);
+  });else wireAll(document);
+  window.DSTabs = {
+    tabs: tabs,
+    segment: segment,
+    positionThumb: positionThumb,
+    wireAll: wireAll
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-tabs.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-tile.js
+try { (() => {
+/* =========================================================================
+   DS Tile — рантайм плашки-аккордеона (out-of-box).
+   Зависимости: styles/tile.css.
+
+   Экспорт: window.DSTile = {
+     wire(tileEl, opts) → api      — оживить один аккордеон
+     wireAll(root)                 — обойти .tile--accordion
+     toggle(tileEl, collapsed)     — программно свернуть / развернуть
+   }
+   api: { el, toggle(v), collapsed() }
+
+   Подключение — разметкой, без атрибутов: любой .tile--accordion с кнопкой
+   .tile__toggle оживает сам.
+     <section class="tile tile--accordion">
+       <header class="tile__header">…
+         <button class="tile__toggle" aria-expanded="true">
+           <span class="tile__chevron"><i data-icon="chevron-down"></i></span>
+         </button>
+       </header>
+       <div class="tile__collapsible">…</div>
+     </section>
+   Свёрнутое состояние — класс .tile--collapsed на корне (в разметке можно
+   задать сразу, рантайм подхватит и выставит aria-expanded).
+   События: 'tiletoggle' с { collapsed } всплывает с корня плашки.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  function collapsed(tile) {
+    return tile.classList.contains('tile--collapsed');
+  }
+  function apply(tile, next) {
+    tile.classList.toggle('tile--collapsed', next);
+    var toggle = tile.querySelector('.tile__toggle');
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', String(!next));
+      toggle.setAttribute('aria-label', next ? 'Развернуть' : 'Свернуть');
+      /* связываем кнопку с областью, которой она управляет */
+      var body = tile.querySelector('.tile__collapsible');
+      if (body) {
+        if (!body.id) body.id = 'tile-collapsible-' + Math.random().toString(36).slice(2, 8);
+        toggle.setAttribute('aria-controls', body.id);
+      }
+    }
+    tile.dispatchEvent(new CustomEvent('tiletoggle', {
+      detail: {
+        collapsed: next
+      },
+      bubbles: true
+    }));
+  }
+  function wire(tile, opts) {
+    if (!tile || tile.__dsTile) return tile && tile.__dsTile;
+    opts = opts || {};
+    var toggle = tile.querySelector('.tile__toggle');
+    if (!toggle) return null;
+    /* исходное состояние берём из разметки: класс важнее атрибута */
+    apply(tile, opts.collapsed != null ? opts.collapsed : collapsed(tile));
+    if (opts.onToggle) tile.addEventListener('tiletoggle', function (e) {
+      opts.onToggle(e.detail.collapsed, tile);
+    });
+    var api = {
+      el: tile,
+      toggle: function (v) {
+        apply(tile, v != null ? v : !collapsed(tile));
+        return api;
+      },
+      collapsed: function () {
+        return collapsed(tile);
+      }
+    };
+    tile.__dsTile = api;
+    return api;
+  }
+  function wireAll(root) {
+    (root || document).querySelectorAll('.tile--accordion').forEach(function (t) {
+      wire(t);
+    });
+  }
+
+  /* клик обрабатывается делегированием: плашки, перерисованные конструктором
+     или пришедшие с сервера, работают без повторной инициализации */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('.tile__toggle');
+    if (!t) return;
+    var tile = t.closest('.tile');
+    if (tile) apply(tile, !collapsed(tile));
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    wireAll(document);
+  });else wireAll(document);
+  window.DSTile = {
+    wire: wire,
+    wireAll: wireAll,
+    toggle: function (tile, v) {
+      var a = wire(tile);
+      return a && a.toggle(v);
+    }
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-tile.js", error: String((e && e.message) || e) }); }
 
 // scripts/ds-toc.js
 try { (() => {
@@ -7166,14 +14478,24 @@ try { (() => {
   }
   function headingText(h) {
     var clone = h.cloneNode(true);
-    var junk = clone.querySelectorAll('.badge-new, .addon, .req, sup');
+    var junk = clone.querySelectorAll('.badge-new, .badge-proposal, .addon, .req, sup');
     for (var i = 0; i < junk.length; i++) junk[i].parentNode.removeChild(junk[i]);
     return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+  // самодостаточность: подтягиваем свой стиль, если страница его не подключила
+  function ensureCss() {
+    if (document.querySelector('link[rel="stylesheet"][href$="ds-toc.css"]')) return;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = (window.__DS_ROOT || '') + 'styles/ds-toc.css';
+    document.head.appendChild(l);
   }
   function init() {
     // no-op guard: только на страницах-хостах (<main class="page">); на карточках @dsCard,
     // тянущих ds-toc.js через _ds_bundle.js, контейнера нет — молча выходим.
     if (!document.querySelector('main.page')) return;
+    ensureCss();
     var sections = document.querySelectorAll('main section.section');
     if (!sections.length) sections = document.querySelectorAll('main section');
     if (sections.length < 2) return;
@@ -7284,6 +14606,444 @@ try { (() => {
   }
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-toc.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds-tooltip.js
+try { (() => {
+/* =========================================================================
+   DS Tooltip — рантайм тултипа (out-of-box).
+   Зависимости: styles/tooltip.css.
+
+   Экспорт: window.DSTooltip = {
+     bind(target, opts) → api | null   — навесить поведение на цель
+     bindAll(root)                      — обойти [data-tooltip] и цели с
+                                          aria-describedby на .tip внутри root
+     make(text, opts) → HTMLElement     — собрать разметку тултипа
+     place(tip, target, opts) → {placement, align}  — позиционирование + flip
+     hideAll()                          — скрыть показанный тултип
+     current() → api | null
+   }
+
+   Автоподключение (без кода на экране):
+     <button data-tooltip="Удалить">…</button>            — текст в атрибуте
+     <span class="tip-anchor">                            — своя разметка тултипа
+       <button aria-describedby="tt-1">…</button>
+       <span id="tt-1" class="tip tip--main" role="tooltip">Удалить</span>
+     </span>
+   Настройки цели: data-tooltip-placement (top|bottom|left|right, по
+   умолчанию top), data-tooltip-align (start|center|end, center),
+   data-tooltip-gap (px, 8), data-tooltip-type (main|error, main),
+   data-tooltip-flip="no", data-tooltip-boundary (CSS-селектор границы),
+   data-tooltip-delay (мс, 400), data-tooltip-truncated="only" — показывать
+   только при усечении текста цели (scrollWidth > clientWidth).
+
+   Поведение по спеке: 12 позиций, авто-flip стороны и выравнивания, стрелка
+   доводится до центра цели, задержка 400 мс по hover и мгновенно по focus,
+   мгновенное скрытие, Esc, один показанный тултип одновременно, курсор может
+   зайти в rich-тултип (скрытие с задержкой 300 мс).
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var ARROW_INSET = 13; /* 6px край + 7px до вершины треугольника */
+  var ARROW_EDGE = 7; /* половина ширины стрелки */
+  var GAP = 8;
+  var GUARD = 6; /* минимальный отступ от края границы */
+  var SHOW_DELAY = 400;
+  var RICH_HIDE_DELAY = 300;
+  var OPPOSITE = {
+    top: 'bottom',
+    bottom: 'top',
+    left: 'right',
+    right: 'left'
+  };
+  var PERP = {
+    top: ['right', 'left'],
+    bottom: ['right', 'left'],
+    left: ['bottom', 'top'],
+    right: ['bottom', 'top']
+  };
+  var current = null;
+
+  /* ------------------------------------------------------------------ */
+  /* разметка                                                            */
+  /* ------------------------------------------------------------------ */
+  function make(text, o) {
+    o = o || {};
+    var el = document.createElement('span');
+    el.className = 'tip tip--' + (o.type || 'main') + ' tip--' + (o.placement || 'top') + ' tip--' + (o.align || 'center');
+    if (o.arrow === false) el.classList.add('tip--no-arrow');
+    if (o.multiline) el.classList.add('tip--multiline');
+    if (o.floating) el.classList.add('tip--floating');
+    if (o.pinned) el.classList.add('tip--pinned');
+    if (o.rich) {
+      el.classList.add('tip--rich');
+      if (o.title) {
+        var t = document.createElement('span');
+        t.className = 'tip__title';
+        t.textContent = o.title;
+        el.appendChild(t);
+      }
+      var p = document.createElement('span');
+      p.className = 'tip__text';
+      p.textContent = text;
+      el.appendChild(p);
+      if (o.action) {
+        var box = document.createElement('span');
+        box.className = 'tip__actions';
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'tip__action';
+        b.textContent = o.action;
+        box.appendChild(b);
+        el.appendChild(box);
+      }
+    } else {
+      el.appendChild(document.createTextNode(text));
+    }
+    var a = document.createElement('span');
+    a.className = 'tip__arrow';
+    el.appendChild(a);
+    el.setAttribute('role', 'tooltip');
+    return el;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* геометрия                                                           */
+  /* ------------------------------------------------------------------ */
+  function bounds(el) {
+    if (!el) return {
+      left: 0,
+      top: 0,
+      right: window.innerWidth,
+      bottom: window.innerHeight,
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+    var r = el.getBoundingClientRect();
+    return {
+      left: r.left,
+      top: r.top,
+      right: r.right,
+      bottom: r.bottom,
+      width: r.width,
+      height: r.height
+    };
+  }
+  function fits(side, tr, br, w, h, gap) {
+    if (side === 'top') return tr.top - br.top >= h + gap + GUARD;
+    if (side === 'bottom') return br.bottom - tr.bottom >= h + gap + GUARD;
+    if (side === 'left') return tr.left - br.left >= w + gap + GUARD;
+    return br.right - tr.right >= w + gap + GUARD;
+  }
+  function setMods(tip, placement, align) {
+    tip.classList.remove('tip--top', 'tip--bottom', 'tip--left', 'tip--right', 'tip--start', 'tip--center', 'tip--end');
+    tip.classList.add('tip--' + placement, 'tip--' + align);
+  }
+
+  /* place — позиционирование + авто-flip; стрелка доводится до центра цели. */
+  function place(tip, target, o) {
+    o = o || {};
+    var gap = o.gap == null ? GAP : o.gap;
+    var placement = o.placement || 'top';
+    var align = o.align || 'center';
+    var op = o.offsetParent || tip.offsetParent || tip.parentElement;
+    var br = bounds(o.boundary || null);
+    var tr = target.getBoundingClientRect();
+    var tw = tip.offsetWidth,
+      th = tip.offsetHeight;
+    var cx = tr.left + tr.width / 2,
+      cy = tr.top + tr.height / 2;
+    if (o.flip !== false && !fits(placement, tr, br, tw, th, gap)) {
+      var cand = [OPPOSITE[placement]].concat(PERP[placement]);
+      for (var i = 0; i < cand.length; i++) {
+        if (fits(cand[i], tr, br, tw, th, gap)) {
+          placement = cand[i];
+          break;
+        }
+      }
+    }
+    var horiz = placement === 'top' || placement === 'bottom';
+    /* кламп — только когда граница задана явно или разрешён flip:
+       с flip:false демо фиксирует сторону и не должно зависеть от положения окна */
+    var clamp = o.flip !== false || !!o.boundary;
+    if (o.flip !== false && align !== 'center') {
+      var need = (horiz ? tw : th) - ARROW_INSET + GUARD;
+      var fwd = horiz ? br.right - cx : br.bottom - cy;
+      var back = horiz ? cx - br.left : cy - br.top;
+      if (align === 'start' && fwd < need && back > fwd) align = 'end';else if (align === 'end' && back < need && fwd > back) align = 'start';
+    }
+    var x = 0,
+      y = 0;
+    if (placement === 'top') y = tr.top - gap - th;else if (placement === 'bottom') y = tr.bottom + gap;else if (placement === 'left') x = tr.left - gap - tw;else x = tr.right + gap;
+    if (horiz) {
+      x = align === 'center' ? cx - tw / 2 : align === 'start' ? cx - ARROW_INSET : cx - (tw - ARROW_INSET);
+      if (clamp) x = Math.min(Math.max(br.left + GUARD, x), Math.max(br.left + GUARD, br.right - tw - GUARD));
+    } else {
+      y = align === 'center' ? cy - th / 2 : align === 'start' ? cy - ARROW_INSET : cy - (th - ARROW_INSET);
+      if (clamp) y = Math.min(Math.max(br.top + GUARD, y), Math.max(br.top + GUARD, br.bottom - th - GUARD));
+    }
+
+    /* координаты вьюпорта → координаты позиционирующего предка */
+    var ox = -(window.pageXOffset || 0),
+      oy = -(window.pageYOffset || 0);
+    if (op && op !== document.body && op !== document.documentElement) {
+      var opr = op.getBoundingClientRect(),
+        cs = getComputedStyle(op);
+      ox = opr.left + (parseFloat(cs.borderLeftWidth) || 0) - op.scrollLeft;
+      oy = opr.top + (parseFloat(cs.borderTopWidth) || 0) - op.scrollTop;
+    }
+    tip.style.left = x - ox + 'px';
+    tip.style.top = y - oy + 'px';
+    setMods(tip, placement, align);
+    var arrow = tip.querySelector('.tip__arrow');
+    if (arrow && !tip.classList.contains('tip--no-arrow')) {
+      arrow.style.transform = 'none';
+      if (horiz) {
+        arrow.style.left = Math.min(Math.max(ARROW_INSET, cx - x), tw - ARROW_INSET) - ARROW_EDGE + 'px';
+        arrow.style.right = 'auto';
+      } else {
+        arrow.style.top = Math.min(Math.max(ARROW_INSET, cy - y), th - ARROW_INSET) - ARROW_EDGE + 'px';
+        arrow.style.bottom = 'auto';
+      }
+    }
+    return {
+      placement: placement,
+      align: align
+    };
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* bind — поведение цели                                               */
+  /* ------------------------------------------------------------------ */
+  function resolveTip(target, opts) {
+    if (opts.tip) return opts.tip;
+    var id = target.getAttribute('aria-describedby');
+    if (id) {
+      var byId = document.getElementById(id);
+      if (byId && byId.classList.contains('tip')) return byId;
+    }
+    var anchor = target.closest('.tip-anchor');
+    if (anchor) {
+      var inside = anchor.querySelector('.tip');
+      if (inside) return inside;
+    }
+    var next = target.nextElementSibling;
+    return next && next.classList.contains('tip') ? next : null;
+  }
+
+  /* цель без готовой разметки — оборачиваем в .tip-anchor и строим тултип */
+  function createTip(target, conf) {
+    var anchor = target.closest('.tip-anchor');
+    if (!anchor) {
+      anchor = document.createElement('span');
+      anchor.className = 'tip-anchor';
+      target.parentNode.insertBefore(anchor, target);
+      anchor.appendChild(target);
+    }
+    var tip = make(conf.text, {
+      type: conf.type,
+      placement: conf.placement,
+      align: conf.align,
+      multiline: conf.multiline,
+      floating: true,
+      rich: conf.rich,
+      title: conf.title,
+      action: conf.action
+    });
+    anchor.appendChild(tip);
+    return tip;
+  }
+  function isTruncated(el) {
+    return el.scrollWidth - el.clientWidth > 1 || el.scrollHeight - el.clientHeight > 1;
+  }
+  function bind(target, opts) {
+    opts = opts || {};
+    if (target.__dsTooltip) return target.__dsTooltip;
+    var d = target.dataset || {};
+    var conf = {
+      text: opts.text || d.tooltip || '',
+      type: opts.type || d.tooltipType || 'main',
+      placement: opts.placement || d.tooltipPlacement || 'top',
+      align: opts.align || d.tooltipAlign || 'center',
+      gap: opts.gap != null ? opts.gap : d.tooltipGap != null ? parseFloat(d.tooltipGap) : GAP,
+      flip: opts.flip != null ? opts.flip : d.tooltipFlip !== 'no',
+      boundary: opts.boundary || (d.tooltipBoundary ? document.querySelector(d.tooltipBoundary) : null),
+      delay: opts.delay != null ? opts.delay : d.tooltipDelay != null ? parseFloat(d.tooltipDelay) : SHOW_DELAY,
+      truncatedOnly: opts.truncatedOnly != null ? opts.truncatedOnly : d.tooltipTruncated === 'only',
+      multiline: opts.multiline || false,
+      rich: opts.rich || false,
+      title: opts.title || '',
+      action: opts.action || ''
+    };
+    var tip = resolveTip(target, opts);
+    if (!tip) {
+      if (!conf.text) return null;
+      tip = createTip(target, conf);
+    }
+    tip.classList.add('tip--floating');
+    if (!tip.getAttribute('role')) tip.setAttribute('role', 'tooltip');
+    if (!tip.id) tip.id = 'ds-tip-' + ++bind._n;
+    if (!target.getAttribute('aria-describedby')) target.setAttribute('aria-describedby', tip.id);
+    var rich = tip.classList.contains('tip--rich');
+    var showT = null,
+      hideT = null;
+    function allowed() {
+      return !conf.truncatedOnly || isTruncated(target);
+    }
+    function reposition() {
+      return place(tip, target, {
+        placement: conf.placement,
+        align: conf.align,
+        gap: conf.gap,
+        flip: conf.flip,
+        boundary: conf.boundary,
+        offsetParent: opts.offsetParent || null
+      });
+    }
+    function show(immediate) {
+      clearTimeout(hideT);
+      clearTimeout(showT);
+      if (!allowed()) return api;
+      var run = function () {
+        if (current && current !== api) current.hide(true);
+        reposition();
+        tip.classList.add('is-visible');
+        current = api;
+      };
+      if (immediate) run();else showT = setTimeout(run, conf.delay);
+      return api;
+    }
+    function hide(immediate) {
+      clearTimeout(showT);
+      var run = function () {
+        tip.classList.remove('is-visible');
+        if (current === api) current = null;
+      };
+      /* rich интерактивен: курсор может перейти с цели в тултип */
+      if (!immediate && rich) {
+        clearTimeout(hideT);
+        hideT = setTimeout(run, RICH_HIDE_DELAY);
+      } else {
+        clearTimeout(hideT);
+        run();
+      }
+      return api;
+    }
+    target.addEventListener('mouseenter', function () {
+      show(false);
+    });
+    target.addEventListener('mouseleave', function () {
+      hide(false);
+    });
+    target.addEventListener('focus', function () {
+      show(true);
+    });
+    target.addEventListener('blur', function () {
+      hide(true);
+    });
+    target.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') hide(true);
+    });
+    if (rich) {
+      tip.addEventListener('mouseenter', function () {
+        clearTimeout(hideT);
+      });
+      tip.addEventListener('mouseleave', function () {
+        hide(false);
+      });
+    }
+    var api = {
+      tip: tip,
+      target: target,
+      show: show,
+      hide: hide,
+      place: reposition,
+      isVisible: function () {
+        return tip.classList.contains('is-visible');
+      },
+      config: conf
+    };
+    target.__dsTooltip = api;
+    tip.__dsTooltip = api;
+    return api;
+  }
+  bind._n = 0;
+  function bindAll(root) {
+    root = root || document;
+    root.querySelectorAll('[data-tooltip]').forEach(function (t) {
+      bind(t);
+    });
+    root.querySelectorAll('.tip-anchor [aria-describedby]').forEach(function (t) {
+      var tip = document.getElementById(t.getAttribute('aria-describedby'));
+      if (tip && tip.classList.contains('tip')) bind(t);
+    });
+  }
+  function hideAll() {
+    if (current) current.hide(true);
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') hideAll();
+  });
+  function onReflow() {
+    if (current) current.place();
+  }
+  window.addEventListener('resize', onReflow);
+  window.addEventListener('scroll', onReflow, true);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () {
+    bindAll(document);
+  });else bindAll(document);
+  window.DSTooltip = {
+    bind: bind,
+    bindAll: bindAll,
+    make: make,
+    place: place,
+    hideAll: hideAll,
+    current: function () {
+      return current;
+    },
+    ARROW_INSET: ARROW_INSET,
+    SHOW_DELAY: SHOW_DELAY
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds-tooltip.js", error: String((e && e.message) || e) }); }
+
+// scripts/ds.js
+try { (() => {
+/* ============================================================
+   ds.js — единая точка входа для рантаймов экрана (K0, RulesAudit W0).
+   Подключение — один тег в конце body, вместо ручного подбора рантаймов:
+     <script src="../../scripts/ds.js"></script>
+   Дальше — только скрипт, специфичный для конкретного экрана (если есть).
+
+   Что делает: догружает фиксированный список рантаймов ДС в порядке
+   зависимостей (icons-data → ds-icons → остальные). Каждый рантайм сам
+   ищет свою разметку и молча ничего не делает, если её нет на странице
+   (например ds-modal.js без .modal просто не свяжет ни одного слоя) —
+   поэтому список одинаков для любого экрана независимо от набора
+   компонентов на нём. Забыть рантайм становится невозможно.
+
+   document.write вставляет теги прямо в поток разбора документа — те же
+   гарантии порядка и синхронности, что у ручного списка <script src>,
+   поэтому скрипт экрана, идущий следом за ds.js (например
+   01-portfolio-v2.screen.js), гарантированно выполняется после того,
+   как все рантаймы ниже уже загружены. Работает только пока документ
+   ещё разбирается (обычный тег в конце body, без async/defer) — так
+   ds.js и подключается везде.
+
+   Добавили новый общий рантайм ds-*.js — впиши его в FILES ниже,
+   больше никаких правок на экранах не требуется.
+   ============================================================ */
+(function () {
+  var cur = document.currentScript;
+  var base = cur ? cur.src.replace(/[^/]*$/, '') : '';
+  var FILES = ['icons-data.js', 'ds-icons.js', 'ds-tabs.js', 'ds-tile.js', 'ds-menu.js', 'ds-popover.js', 'ds-riskmetric.js', 'ds-alert.js', 'ds-chip.js', 'ds-allocationbar.js', 'ds-chart.js', 'ds-buttongroup.js', 'ds-table-filter.js', 'ds-actions-overflow.js', 'ds-copy.js', 'ds-tooltip.js', 'ds-breadcrumbs.js', 'ds-dropdownlist.js', 'ds-modal.js', 'ds-table.js', 'ds-pagination.js', 'ds-notify.js', 'ds-datepicker.js', 'input-kit.js', 'ds-nav-panel.js', 'ds-splitter.js', 'ds-illustrations.js'];
+  var html = '';
+  FILES.forEach(function (f) {
+    html += '<script src="' + base + f + '"></script>';
+  });
+  document.write(html);
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/ds.js", error: String((e && e.message) || e) }); }
 
 // scripts/icons-data.js
 try { (() => {
@@ -8066,9 +15826,9 @@ try { (() => {
           id: 'pg-to'
         })
       }));
-      const cls = ['.inp-range', 'inp-range--m'];
+      const cls = ['.inp-range'];
       if (disabled) cls.push('inp-range--disabled');
-      codeEl.innerHTML = '<code>' + cls.join('.') + '</code> · поля: <code>.inp.inp--m</code> × 2 + <code>.inp-range__line</code>';
+      codeEl.innerHTML = '<code>' + cls.join('.') + '</code> · поля: <code>.inp</code> × 2 + <code>.inp-range__line</code>';
     }
     render();
   })();
@@ -8558,7 +16318,6 @@ try { (() => {
       const effDisplay = table ? 'summary' : state.display;
       stage.innerHTML = '';
       const combo = document.createElement('div');
-      combo.className = 'combo';
       combo.style.width = table ? '240px' : '300px';
       const spec = {
         size: state.size,
@@ -8837,8 +16596,22 @@ try { (() => {
     host.appendChild(combo);
     function pick(op) {
       ctl.value = op.label;
+      close();
+    }
+    function close() {
       node.classList.remove('is-open');
       list.style.display = 'none';
+      document.removeEventListener('pointerdown', onOutside, true);
+      document.removeEventListener('keydown', onEsc);
+    }
+    function onOutside(e) {
+      if (!combo.contains(e.target)) close();
+    }
+    function onEsc(e) {
+      if (e.key === 'Escape') {
+        close();
+        ctl.focus();
+      }
     }
     function rerender() {
       const q = ctl.value.trim();
@@ -8856,6 +16629,8 @@ try { (() => {
     ctl.addEventListener('focus', () => {
       list.style.display = 'flex';
       node.classList.add('is-open');
+      document.addEventListener('pointerdown', onOutside, true);
+      document.addEventListener('keydown', onEsc);
     });
   })();
 
@@ -9189,9 +16964,9 @@ try { (() => {
           id: 'pg-to'
         })
       }));
-      const cls = ['.inp-range', 'inp-range--m', 'inp-range--date'];
+      const cls = ['.inp-range', 'inp-range--date'];
       if (disabled) cls.push('inp-range--disabled');
-      codeEl.innerHTML = '<code>' + cls.join('.') + '</code> · поля: <code>.inp.inp--m</code> × 2 + <code>.inp-range__line</code>';
+      codeEl.innerHTML = '<code>' + cls.join('.') + '</code> · поля: <code>.inp</code> × 2 + <code>.inp-range__line</code>';
     }
     render();
   })();
@@ -10028,7 +17803,7 @@ try { (() => {
     const s = spec;
     const root = document.createElement('div');
     const size = s.size || 'm';
-    root.className = 'inp inp--' + size;
+    root.className = 'inp' + (size === 'm' ? '' : ' inp--' + size); // M — база, класса inp--m в CSS нет
     if (s.table) root.classList.add('inp--table');
     if (s.multiline) root.classList.add('inp--multiline');
     if (s.multiline && s.resizable) root.classList.add('inp--resizable');
@@ -10045,7 +17820,7 @@ try { (() => {
     /* label */
     if (s.label && !s.table) {
       const lb = document.createElement('label');
-      lb.className = 'ds-label ds-label--left' + (disabled ? ' ds-label--disabled' : '');
+      lb.className = 'ds-label' + (disabled ? ' ds-label--disabled' : '');
       if (s.id) lb.htmlFor = s.id;
       lb.innerHTML = '<span class="ds-label__text">' + esc(s.label) + '</span>';
       root.appendChild(lb);
@@ -10145,7 +17920,7 @@ try { (() => {
     if (s.tip && st.endsWith('-focus')) {
       const t = document.createElement('span');
       const kind = st.startsWith('error') ? 'error' : 'warning';
-      t.className = 'tip tip--bottom tip--start tip--multiline inp__tip' + (kind === 'error' ? ' tip--error' : '');
+      t.className = 'tip tip--bottom tip--start tip--multiline' + (kind === 'error' ? ' tip--error' : '');
       if (kind === 'warning') t.style.setProperty('--tip-bg', 'var(--warning)');
       t.setAttribute('role', 'alert');
       t.innerHTML = esc(s.tip) + '<span class="tip__arrow"></span>';
@@ -10221,14 +17996,14 @@ try { (() => {
     const size = spec.size || 'm';
     const kind = spec.kind === 'date' ? 'date' : 'amount';
     const root = document.createElement('div');
-    root.className = 'inp-range inp-range--' + size + ' inp-range--' + kind;
+    root.className = 'inp-range' + (size === 'm' ? '' : ' inp-range--' + size) + ' inp-range--' + kind; // M — база
     if (spec.disabled) root.classList.add('inp-range--disabled');
     if (spec.width === 'auto') root.style.width = 'auto';else if (typeof spec.width === 'number') root.style.width = spec.width + 'px';else if (spec.width) root.style.width = spec.width;
 
     /* общая метка */
     if (spec.label) {
       const lb = document.createElement('label');
-      lb.className = 'ds-label ds-label--left' + (spec.disabled ? ' ds-label--disabled' : '');
+      lb.className = 'ds-label' + (spec.disabled ? ' ds-label--disabled' : '');
       lb.innerHTML = '<span class="ds-label__text">' + esc(spec.label) + '</span>';
       root.appendChild(lb);
     }
@@ -11370,7 +19145,7 @@ function classListHelper(o) {
   // Checkbox
   (function () {
     const root = document.createElement('label');
-    root.className = 'cb cb--unselected';
+    root.className = 'cb';
     root.style.pointerEvents = 'none';
     root.innerHTML = '<span class="cb__box"><span class="cb__mark"></span></span>';
     const content = document.createElement('span');
@@ -11640,11 +19415,11 @@ const MODAL_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>
+        <label class="ds-label"><span class="ds-label__text">Название сделки</span></label>
         <div class="mock-input">1-Кредит-199</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Сумма, RUB</span></label>
+        <label class="ds-label"><span class="ds-label__text">Сумма, RUB</span></label>
         <div class="mock-input">2 500 000 000,00</div>
         <span class="ds-helper ds-helper--left">Указывается с учётом НДС</span>
       </div>
@@ -11660,11 +19435,11 @@ const MODAL_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Название сделки</span></label>
+        <label class="ds-label"><span class="ds-label__text">Название сделки</span></label>
         <div class="mock-input">1-Кредит-199</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">ИНН контрагента</span></label>
+        <label class="ds-label"><span class="ds-label__text">ИНН контрагента</span></label>
         <div class="mock-input mock-input--error" aria-invalid="true">77012345</div>
         <span class="ds-helper ds-helper--left ds-helper--error ds-helper--with-icon" role="alert">
           <span class="ds-helper__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></span>
@@ -11712,8 +19487,8 @@ const MODAL_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
     for (let i = 0; i < 3; i++) {
       const row = document.createElement('div');
-      row.style.cssText = 'display:flex; flex-direction:column; gap:8px;';
-      row.innerHTML = `<span class="modal__skeleton modal__skeleton--title" style="--sk-w:30%;"></span><span class="modal__skeleton" style="--sk-w:100%;"></span>`;
+      row.className = 'sk-group';
+      row.innerHTML = `<span class="sk-line sk-line--title" style="--sk-w:30%;"></span><span class="sk-line" style="--sk-w:100%;"></span>`;
       wrap.appendChild(row);
     }
     return wrap;
@@ -11759,7 +19534,7 @@ function buildModal(o = {}) {
   const right = document.createElement('div');
   right.className = 'modal__foot-right';
   if (footRight === 'both') right.innerHTML += `<button type="button" class="btn btn--transparent btn--m"><span class="btn__label">Очистить фильтр</span></button>`;
-  right.innerHTML += saving ? `<button type="button" class="btn btn--accent btn--m btn--loading" disabled aria-busy="true"><span class="btn__spinner"></span><span class="btn__label">Сохранить</span></button>` : `<button type="button" class="btn btn--accent btn--m"><span class="btn__label">Сохранить</span></button>`;
+  right.innerHTML += saving ? `<button type="button" class="btn btn--accent btn--m btn--loading" disabled aria-busy="true"><span class="spin spin--current"></span><span class="btn__label">Сохранить</span></button>` : `<button type="button" class="btn btn--accent btn--m"><span class="btn__label">Сохранить</span></button>`;
   foot.appendChild(left);
   foot.appendChild(right);
   modal.appendChild(head);
@@ -11768,13 +19543,8 @@ function buildModal(o = {}) {
   modal.appendChild(foot);
   scrim.appendChild(modal);
 
-  /* тень у шапки/подвала при прокрутке тела */
-  function syncScrollShadow() {
-    head.classList.toggle('is-scrolled', body.scrollTop > 1);
-    foot.classList.toggle('is-scrolled', body.scrollTop + body.clientHeight < body.scrollHeight - 1);
-  }
-  body.addEventListener('scroll', syncScrollShadow);
-  requestAnimationFrame(syncScrollShadow);
+  /* тени шапки и подвала при прокрутке тела — рантайм ДС (scripts/ds-modal.js) */
+  window.DSModal && DSModal.wireScroll(modal);
   window.dsIcons && window.dsIcons.apply(scrim);
   return {
     scrim,
@@ -11782,7 +19552,7 @@ function buildModal(o = {}) {
     head,
     body,
     foot,
-    syncScrollShadow
+    syncScrollShadow: modal.__dsModalSyncShadow || function () {}
   };
 }
 
@@ -12409,21 +20179,11 @@ try { (() => {
     return f;
   }
 
-  /* ---------------- rail-тултипы (position:fixed, вне скролл-контейнера) --- */
-  function bindRailTooltips(scope) {
-    (scope || document).querySelectorAll('.nav--rail:not([data-rt])').forEach(function (nav) {
-      nav.setAttribute('data-rt', '');
-      nav.addEventListener('mouseover', place);
-      nav.addEventListener('focusin', place);
-      function place(e) {
-        var item = e.target.closest ? e.target.closest('.nav__item') : null;
-        if (!item || !nav.contains(item)) return;
-        var lbl = item.querySelector('.nav__label');
-        if (!lbl) return;
-        var r = item.getBoundingClientRect();
-        lbl.style.top = r.top + r.height / 2 + 'px';
-        lbl.style.left = r.right + 10 + 'px';
-      }
+  /* ---------------- rail-тултипы и режимы — общий рантайм, scripts/ds-nav-panel.js --- */
+  function bindRailTooltips(scope, opts) {
+    if (!window.DSNavPanel) return;
+    (scope || document).querySelectorAll('.nav').forEach(function (nav) {
+      window.DSNavPanel.bind(nav, opts || {});
     });
   }
 
@@ -12447,6 +20207,11 @@ try { (() => {
       stage.appendChild(frame(mode.value, opts, 620));
       paint(stage);
       bindRailTooltips(stage);
+      /* бургер и пин реально переключают режим — селект следует за панелью */
+      var nav = stage.querySelector('.nav');
+      if (nav) nav.addEventListener('ds-nav-mode', function (e) {
+        mode.value = e.detail.mode;
+      });
     }
     mode.addEventListener('change', render);
     badges.addEventListener('change', render);
@@ -12481,7 +20246,10 @@ try { (() => {
       wrap.appendChild(col);
     });
     paint(wrap);
-    bindRailTooltips(wrap);
+    /* режим каждой плитки зафиксирован подписью — только rail-тултипы */
+    bindRailTooltips(wrap, {
+      modes: false
+    });
   }
 
   /* =====================================================================
@@ -12674,7 +20442,7 @@ try { (() => {
     }, opts || {});
     var disabled = o.state === 'disabled';
     var cls = 'ntile';
-    if (o.variant === 'links') cls += ' ntile--links';
+    /* вариант «Со ссылками» задаётся составом (.ntile__title-link + .ntile__links), отдельного модификатора нет */
     if (o.state === 'hover') cls += ' is-hover';
     if (o.state === 'focus') cls += ' is-focus';
     if (disabled) cls += ' is-disabled';
@@ -12712,7 +20480,7 @@ try { (() => {
       links: allLinks.slice(0, pg.nLinks)
     }) + '</div>';
     var code = document.getElementById('pg-code');
-    code.textContent = pg.variant === 'links' ? '<div class="ntile ntile--links"> … <a class="ntile__title-link"> + <nav class="ntile__links">' : '<a class="ntile" href="…"> illu · title · desc </a>';
+    code.textContent = pg.variant === 'links' ? '<div class="ntile"> … <a class="ntile__title-link"> + <nav class="ntile__links">' : '<a class="ntile" href="…"> illu · title · desc </a>';
     stage.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
@@ -12721,7 +20489,7 @@ try { (() => {
   }
   function pgControls() {
     var c = document.getElementById('pg-controls');
-    c.innerHTML = ctl('Вариант', 'pgVariant', [['base', 'Базовая'], ['links', 'Со ссылками']], pg.variant) + ctl('Состояние', 'pgState', [['default', 'Default'], ['hover', 'Hover'], ['focus', 'Focus'], ['disabled', 'Disabled']], pg.state) + chk('Иллюстрация', 'pgIllu', pg.showIllu) + chk('Описание', 'pgDesc', pg.showDesc) + '<div class="ctl" id="ctlLinks"><label class="ctl__label" for="pgLinks">Ссылок</label>' + '<div class="pg-select"><select id="pgLinks">' + [1, 2, 3, 4].map(function (n) {
+    c.innerHTML = ctl('Вариант', 'pgVariant', [['base', 'Базовая'], ['links', 'Со ссылками']], pg.variant) + ctl('Состояние', 'pgState', [['default', 'Default'], ['hover', 'Hover'], ['focus', 'Focus'], ['disabled', 'Disabled']], pg.state) + chk('Иллюстрация', 'pgIllu', pg.showIllu) + chk('Описание', 'pgDesc', pg.showDesc) + '<div class="ctl" id="ctlLinks"><label class="ds-label" for="pgLinks"><span class="ds-label__text">Ссылок</span></label>' + '<div class="pg-select"><select id="pgLinks">' + [1, 2, 3, 4].map(function (n) {
       return '<option value="' + n + '"' + (n === pg.nLinks ? ' selected' : '') + '>' + n + '</option>';
     }).join('') + '</select></div></div>';
     c.addEventListener('change', function (e) {
@@ -12744,7 +20512,6 @@ try { (() => {
       var cb = input.closest('.cb');
       if (cb) {
         cb.classList.toggle('cb--selected', input.checked);
-        cb.classList.toggle('cb--unselected', !input.checked);
       }
     }
     function sync() {
@@ -12755,12 +20522,12 @@ try { (() => {
     }
   }
   function ctl(label, id, opts, cur) {
-    return '<div class="ctl"><label class="ctl__label" for="' + id + '">' + label + '</label>' + '<div class="pg-select"><select id="' + id + '">' + opts.map(function (o) {
+    return '<div class="ctl"><label class="ds-label" for="' + id + '"><span class="ds-label__text">' + label + '</span></label>' + '<div class="pg-select"><select id="' + id + '">' + opts.map(function (o) {
       return '<option value="' + o[0] + '"' + (o[0] === cur ? ' selected' : '') + '>' + o[1] + '</option>';
     }).join('') + '</select></div></div>';
   }
   function chk(label, id, on) {
-    return '<div class="ctl"><label class="cb' + (on ? ' cb--selected' : ' cb--unselected') + '">' + '<input type="checkbox" class="cb__input" id="' + id + '"' + (on ? ' checked' : '') + '>' + '<span class="cb__box"><span class="cb__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></span>' + '<span class="cb__content"><span class="cb__label">' + label + '</span></span>' + '</label></div>';
+    return '<div class="ctl"><label class="cb' + (on ? ' cb--selected' : '') + '">' + '<input type="checkbox" class="cb__input" id="' + id + '"' + (on ? ' checked' : '') + '>' + '<span class="cb__box"><span class="cb__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></span>' + '<span class="cb__content"><span class="cb__label">' + label + '</span></span>' + '</label></div>';
   }
 
   /* ---------- Использование: сетка ---------- */
@@ -12949,7 +20716,7 @@ try { (() => {
     var chipsHtml = '';
     if (o.chips === 'one' || o.chips === 'list') {
       var chip = function (t) {
-        return '<span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">' + t + '</span></span>';
+        return '<span class="chip chip--rounded chip--s"><span class="chip__label">' + t + '</span></span>';
       };
       var chips = o.chips === 'one' ? chip('Черновик') : chip('Черновик') + chip('На утверждении') + chip('PE');
       chipsHtml = '<div class="phead__chips">' + chips + '</div>';
@@ -12980,7 +20747,7 @@ try { (() => {
       if (n >= 3) list.push('<button type="button" class="btn btn--outline btn--m">' + getIcon('refresh', 20) + '<span class="btn__label">Пересчёт метрик</span></button>');
       if (n >= 2) list.push('<button type="button" class="btn btn--accent btn--m">' + getIcon('download', 20) + '<span class="btn__label">Выгрузить</span></button>');
       if (o.menu) list.push('<button type="button" class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё действия" aria-haspopup="menu" aria-expanded="' + (o.menuOpen ? 'true' : 'false') + '">' + getIcon('more-dots', 20) + '</button>');
-      acts = '<div class="phead__actions">' + list.join('') + '</div>';
+      acts = '<div class="phead__actions" data-actions-overflow>' + list.join('') + '</div>';
     }
     var cls = 'phead';
     if (o.dashboard) cls += ' phead--dashboard';
@@ -12989,7 +20756,14 @@ try { (() => {
   }
   function mount(id, opts) {
     var el = document.getElementById(id);
-    if (el) el.innerHTML = buildPhead(opts);
+    if (el) {
+      el.innerHTML = buildPhead(opts);
+      rebindOverflow(el);
+    }
+  }
+  function rebindOverflow(root) {
+    var host = root.querySelector('[data-actions-overflow]');
+    if (host && host.__dsActOverflow) host.__dsActOverflow.refresh();else if (host && window.DSActionsOverflow) window.DSActionsOverflow.bind(host);
   }
 
   /* ---------- конструктор ---------- */
@@ -13013,7 +20787,9 @@ try { (() => {
       wrapChips: width < 1024
     };
     /* MenuButton неактуален, когда действий нет вовсе */
-    document.getElementById('demo-phead').innerHTML = buildPhead(o);
+    var demoHost = document.getElementById('demo-phead');
+    demoHost.innerHTML = buildPhead(o);
+    rebindOverflow(demoHost);
     closePheadMenus();
     fitViewport();
   }
@@ -13025,46 +20801,29 @@ try { (() => {
     return '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('download-report', 20) + '</span><span class="menu__item-label">Выгрузить в XLSX</span></button>' + '<button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">' + getIcon('history', 20) + '</span><span class="menu__item-label">История изменений</span></button>' + '<hr class="menu__divider">' + '<button type="button" class="menu__item menu__item--danger" role="menuitem"><span class="menu__item-icon">' + getIcon('trash', 20) + '</span><span class="menu__item-label">Удалить сделку</span></button>';
   }
   function closePheadMenus() {
+    if (window.DSMenu) DSMenu.closeAll();
+    /* демо перерисовывается — снимаем меню, чей триггер уже вне документа */
     document.querySelectorAll('.phead-menu-pop').forEach(function (m) {
-      m.remove();
-    });
-    document.querySelectorAll('[aria-haspopup="menu"][aria-expanded="true"]').forEach(function (b) {
-      b.setAttribute('aria-expanded', 'false');
+      if (!m.__dsMenu || !document.contains(m.__dsMenu.trigger)) m.remove();
     });
   }
-  function openPheadMenu(btn) {
+  /* Первый клик по триггеру собирает меню и передаёт его рантайму ДС
+     (scripts/ds-menu.js) — дальше открытие, позиционирование, клавиатура,
+     закрытие по клику вне, Esc и репозиция на scroll/resize за ним. */
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !window.DSMenu) return;
+    var btn = e.target.closest('.phead [aria-haspopup="menu"], .phx [aria-haspopup="menu"]');
+    if (!btn || btn.__dsMenu) return;
     var pop = document.createElement('div');
-    pop.className = 'menu menu--floating is-open phead-menu-pop';
-    pop.setAttribute('role', 'menu');
+    pop.className = 'menu phead-menu-pop';
     pop.style.cssText = 'position:fixed;z-index:9000;';
     pop.innerHTML = menuMarkup();
     document.body.appendChild(pop);
-    var r = btn.getBoundingClientRect();
-    var w = pop.offsetWidth,
-      h = pop.offsetHeight;
-    var left = Math.min(Math.max(8, r.right - w), window.innerWidth - w - 8);
-    var top = r.bottom + 6;
-    if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - 6 - h);
-    pop.style.left = left + 'px';
-    pop.style.top = top + 'px';
-    btn.setAttribute('aria-expanded', 'true');
-  }
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest) return;
-    var btn = e.target.closest('.phead [aria-haspopup="menu"], .phx [aria-haspopup="menu"]');
-    if (btn) {
-      var wasOpen = btn.getAttribute('aria-expanded') === 'true';
-      closePheadMenus();
-      if (!wasOpen) openPheadMenu(btn);
-      return;
-    }
-    if (!e.target.closest('.phead-menu-pop')) closePheadMenus();
+    DSMenu.bind(btn, {
+      menu: pop,
+      align: 'end'
+    }).open();
   });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closePheadMenus();
-  });
-  window.addEventListener('resize', closePheadMenus);
-  window.addEventListener('scroll', closePheadMenus, true);
 
   /* масштабирование вьюпорта под ширину фрейма */
   function fitViewport() {
@@ -13237,7 +20996,7 @@ try { (() => {
      неразрывен с заголовком и ограничен его шириной, не поместившиеся чипы
      уходят под подзаголовок. */
   function buildPhx() {
-    return '<div class="phx">' + '<div class="phx__return"><button type="button" class="btn btn--transparent btn--xs">' + getIcon('flip-backward', 16) + '<span class="btn__label">К списку сделок</span></button></div>' + '<div class="phx__row">' + '<div class="phx__main">' + '<div class="phx__title-row"><h3 class="phx__title">1234. СамолётИнвестПродакшн</h3>' + '<div class="phx__chips"><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">Черновик</span></span><span class="chip chip--readonly chip--rounded chip--s"><span class="chip__label">На утверждении</span></span></div>' + '</div>' + '<div class="phx__subtitle">Дата фактического погашения 12.01.2021 · ответственный Александров П. К. · последнее изменение 07.02.2021</div>' + '</div>' + '<div class="phx__actions"><button type="button" class="btn btn--outline btn--m">' + getIcon('star', 20) + '<span class="btn__label">В избранное</span></button>' + '<button type="button" class="btn btn--accent btn--m">' + getIcon('download', 20) + '<span class="btn__label">Выгрузить</span></button>' + '<button type="button" class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё действия" aria-haspopup="menu" aria-expanded="false">' + getIcon('more-dots', 20) + '</button></div>' + '</div>' + '</div>';
+    return '<div class="phx">' + '<div class="phx__return"><button type="button" class="btn btn--transparent btn--xs">' + getIcon('flip-backward', 16) + '<span class="btn__label">К списку сделок</span></button></div>' + '<div class="phx__row">' + '<div class="phx__main">' + '<div class="phx__title-row"><h3 class="phx__title">1234. СамолётИнвестПродакшн</h3>' + '<div class="phx__chips"><span class="chip chip--rounded chip--s"><span class="chip__label">Черновик</span></span><span class="chip chip--rounded chip--s"><span class="chip__label">На утверждении</span></span></div>' + '</div>' + '<div class="phx__subtitle">Дата фактического погашения 12.01.2021 · ответственный Александров П. К. · последнее изменение 07.02.2021</div>' + '</div>' + '<div class="phx__actions"><button type="button" class="btn btn--outline btn--m">' + getIcon('star', 20) + '<span class="btn__label">В избранное</span></button>' + '<button type="button" class="btn btn--accent btn--m">' + getIcon('download', 20) + '<span class="btn__label">Выгрузить</span></button>' + '<button type="button" class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё действия" aria-haspopup="menu" aria-expanded="false">' + getIcon('more-dots', 20) + '</button></div>' + '</div>' + '</div>';
   }
   function layoutPhx() {
     var host = document.getElementById('phx-demo');
@@ -13348,538 +21107,21 @@ try { (() => {
    Требует: icons-data.js подключён ДО этого файла (window.DS_ICONS).
    ========================================================================= */
 (function () {
+  /* Движок пагинатора вынесен в рантайм ДС — scripts/ds-pagination.js
+     (окно номеров, dropdown размера страницы, адаптивный подбор уровня).
+     Страница-витрина пользуется тем же публичным API. */
+  const P = window.DSPagination || {};
+  const buildPager = P.pager,
+    buildRow = P.row,
+    buildFooter = P.footer;
+  const buildBulk = P.bulk,
+    buildInfo = P.info;
+  const pageWindow = P.pageWindow,
+    totalPages = P.totalPages,
+    sizeLabel = P.sizeLabel;
+  const DEFAULT_SIZES = P.SIZES || [5, 10, 15, 20, 50, 'all'];
   const L = window.DS_ICONS || {};
   const icon = n => L[n] || '';
-  const WARN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
-  function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = String(s);
-    return d.innerHTML;
-  }
-  function range(a, b) {
-    const r = [];
-    for (let i = a; i <= b; i++) r.push(i);
-    return r;
-  }
-
-  /* =========================================================================
-     WINDOWING ALGORITHM — какие номера страниц показывать, где «…»
-     boundaryCount — сколько номеров у каждого края всегда видно (по умолч. 1)
-     siblingCount  — сколько номеров вокруг текущей страницы (по умолч. 1)
-     ========================================================================= */
-  function pageWindow(current, total, siblingCount, boundaryCount) {
-    siblingCount = siblingCount == null ? 1 : siblingCount;
-    boundaryCount = boundaryCount == null ? 1 : boundaryCount;
-    if (total <= 1) return [1];
-    const totalNumbers = boundaryCount * 2 + siblingCount * 2 + 3;
-    if (total <= totalNumbers) return range(1, total);
-    const leftSibling = Math.max(current - siblingCount, 1);
-    const rightSibling = Math.min(current + siblingCount, total);
-    const showLeftEllipsis = leftSibling > boundaryCount + 2;
-    const showRightEllipsis = rightSibling < total - boundaryCount - 1;
-    if (!showLeftEllipsis && showRightEllipsis) {
-      const leftItemCount = boundaryCount + siblingCount * 2 + 2;
-      return [...range(1, leftItemCount), '...', ...range(total - boundaryCount + 1, total)];
-    }
-    if (showLeftEllipsis && !showRightEllipsis) {
-      const rightItemCount = boundaryCount + siblingCount * 2 + 2;
-      return [...range(1, boundaryCount), '...', ...range(total - rightItemCount + 1, total)];
-    }
-    if (showLeftEllipsis && showRightEllipsis) {
-      return [...range(1, boundaryCount), '...', ...range(leftSibling, rightSibling), '...', ...range(total - boundaryCount + 1, total)];
-    }
-    return range(1, total);
-  }
-  window.PGN_pageWindow = pageWindow; // exposed for the dev "how it's computed" demo
-
-  /* =========================================================================
-     FACTORY — .pgn (pager)
-     o: { total, pageSize, page, pageSizeOptions, showPageSize, compact,
-          disabled, loading, onChange(page), onPageSizeChange(size) }
-     ========================================================================= */
-  const DEFAULT_SIZES = [5, 10, 15, 20, 50, 'all'];
-  function sizeLabel(v) {
-    return v === 'all' ? 'Все' : String(v);
-  }
-  function totalPages(total, pageSize) {
-    return pageSize === 'all' ? 1 : Math.max(1, Math.ceil(total / pageSize));
-  }
-  function buildPager(o = {}) {
-    const opts = Object.assign({
-      total: 800,
-      pageSize: 50,
-      page: 1,
-      pageSizeOptions: DEFAULT_SIZES,
-      showPageSize: true,
-      compact: false,
-      responsive: true,
-      onChange: null,
-      onPageSizeChange: null
-    }, o);
-    const host = document.createElement('div');
-    host.className = 'pgn' + (opts.compact ? ' pgn--compact' : '');
-    const tp = totalPages(opts.total, opts.pageSize);
-    const page = Math.min(Math.max(1, opts.page), tp);
-
-    /* ---------- pagesize — неинтерактивный текст + IconButton-M чеврон ---------- */
-    if (opts.showPageSize) {
-      const CHEV_D = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
-      const anchor = document.createElement('span');
-      anchor.className = 'pgn__pagesize ddl-anchor';
-      const label = document.createElement('span');
-      label.className = 'pgn__pagesize-label';
-      label.innerHTML = 'Показывать строк: <b>' + sizeLabel(opts.pageSize) + '</b>';
-      const trg = document.createElement('button');
-      trg.type = 'button';
-      trg.className = 'pgn__pagesize-btn';
-      trg.setAttribute('aria-haspopup', 'listbox');
-      trg.setAttribute('aria-label', 'Изменить размер страницы');
-      trg.innerHTML = icon('chevron-down') || CHEV_D;
-      const list = document.createElement('div');
-      list.className = 'ddl ddl--floating';
-      list.setAttribute('role', 'listbox');
-      opts.pageSizeOptions.forEach(v => {
-        const it = document.createElement('button');
-        it.type = 'button';
-        it.className = 'ddl__item';
-        it.setAttribute('role', 'option');
-        it.setAttribute('aria-selected', String(v === opts.pageSize));
-        it.innerHTML = '<span class="ddl__item-body"><span class="ddl__item-label">' + sizeLabel(v) + '</span></span>';
-        it.addEventListener('click', () => {
-          set(false);
-          if (opts.onPageSizeChange) opts.onPageSizeChange(v);
-        });
-        list.appendChild(it);
-      });
-      anchor.append(label, trg, list);
-      host.appendChild(anchor);
-      let open = false;
-      function place() {
-        list.style.minWidth = trg.offsetWidth + 'px';
-        const ar = anchor.getBoundingClientRect();
-        const vh = document.documentElement.clientHeight;
-        const fr = trg.getBoundingClientRect();
-        const lh = list.offsetHeight,
-          gap = 6;
-        let placement = 'bottom';
-        if (vh - fr.bottom < lh + gap && fr.top > lh) placement = 'top';
-        const y = placement === 'top' ? fr.top - ar.top - gap - lh : fr.bottom - ar.top + gap;
-        list.style.left = Math.round(fr.left - ar.left) + 'px';
-        list.style.top = Math.round(y) + 'px';
-        list.style.setProperty('--ddl-origin', (placement === 'top' ? 'bottom' : 'top') + ' left');
-      }
-      function set(v) {
-        open = v;
-        list.classList.toggle('is-open', open);
-        trg.classList.toggle('is-open', open);
-        if (open) {
-          place();
-          document.addEventListener('pointerdown', outside, true);
-          document.addEventListener('keydown', onEsc);
-        } else {
-          document.removeEventListener('pointerdown', outside, true);
-          document.removeEventListener('keydown', onEsc);
-        }
-      }
-      function outside(e) {
-        if (!anchor.contains(e.target)) set(false);
-      }
-      function onEsc(e) {
-        if (e.key === 'Escape') set(false);
-      }
-      trg.addEventListener('click', () => set(!open));
-      window.addEventListener('resize', () => {
-        if (open) place();
-      });
-    }
-
-    /* ---------- range ---------- */
-    const rangeEl = document.createElement('span');
-    rangeEl.className = 'pgn__range';
-    rangeEl.textContent = page + ' из ' + tp;
-    host.appendChild(rangeEl);
-
-    /* ---------- nav (перестраиваемый: число номеров зависит от tier) ---------- */
-    const CHEV_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
-    const CHEV_R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
-    const nav = document.createElement('nav');
-    nav.className = 'pgn__nav';
-    nav.setAttribute('aria-label', 'Страницы');
-    function makeArrow(dir) {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'pgn__arrow';
-      b.setAttribute('aria-label', dir < 0 ? 'Предыдущая страница' : 'Следующая страница');
-      b.innerHTML = dir < 0 ? icon('chevron-left') || CHEV_L : icon('chevron-right') || CHEV_R;
-      const atBound = dir < 0 ? page <= 1 : page >= tp;
-      if (atBound) b.setAttribute('aria-disabled', 'true');
-      b.addEventListener('click', () => {
-        const target = page + dir;
-        if (target >= 1 && target <= tp && opts.onChange) opts.onChange(target);
-      });
-      return b;
-    }
-
-    /* уровни деградации навигации — от полного набора к «стрелки + N из M» */
-    const LEVELS = [{
-      t: 'l',
-      sibling: 1,
-      boundary: 1,
-      mode: 'nums'
-    }, {
-      t: 'm',
-      sibling: 0,
-      boundary: 1,
-      mode: 'nums'
-    }, {
-      t: 'sm',
-      sibling: 0,
-      boundary: 0,
-      mode: 'current'
-    }, {
-      t: 'c',
-      sibling: 0,
-      boundary: 0,
-      mode: 'compact'
-    }];
-    const LEVEL_XS = {
-      t: 'xs',
-      sibling: 0,
-      boundary: 0,
-      mode: 'compact'
-    };
-    function navItems(level) {
-      if (level.mode === 'compact') return [];
-      if (level.mode === 'current') return [page];
-      return pageWindow(page, tp, level.sibling, level.boundary);
-    }
-    function renderNav(level) {
-      nav.innerHTML = '';
-      nav.appendChild(makeArrow(-1));
-      navItems(level).forEach(p => {
-        if (p === '...') {
-          const e = document.createElement('span');
-          e.className = 'pgn__ellipsis';
-          e.setAttribute('aria-hidden', 'true');
-          e.textContent = '\u2026';
-          nav.appendChild(e);
-          return;
-        }
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'pgn__num';
-        b.textContent = String(p);
-        b.setAttribute('aria-label', 'Страница ' + p);
-        if (p === page) b.setAttribute('aria-current', 'page');else b.addEventListener('click', () => {
-          if (opts.onChange) opts.onChange(p);
-        });
-        nav.appendChild(b);
-      });
-      if (level.mode === 'compact') {
-        const r = document.createElement('span');
-        r.className = 'pgn__range';
-        r.textContent = page + ' из ' + tp;
-        nav.appendChild(r);
-      }
-      nav.appendChild(makeArrow(1));
-    }
-    renderNav(opts.compact ? LEVELS[LEVELS.length - 1] : LEVELS[0]);
-    host.appendChild(nav);
-
-    /* ---------- responsive controller — fit по доступному месту ----------
-       Уровень выбирается не по порогам вьюпорта, а измерением: сколько места
-       остаётся пагинатору после инфо-сводки левого слота. Пока пара
-       «сводка + пагинатор» не влезает в одну строку — сокращается пагинатор
-       (номера → только текущая → «N из M»); когда сокращать больше нечего,
-       строка складывается в вертикаль и сводка получает всю ширину.
-       Ничто не обрезается и не выходит за границы строки.
-       -------------------------------------------------------------------- */
-    const M = {
-      slot: 32,
-      gap: 2,
-      section: 28,
-      pagesize: 0,
-      range: 56,
-      ell: 24,
-      done: false
-    };
-    function calibrate() {
-      M.section = parseFloat(getComputedStyle(host).columnGap) || 28;
-      M.gap = parseFloat(getComputedStyle(nav).columnGap) || 2;
-      const n = nav.querySelector('.pgn__num');
-      if (n) M.slot = n.getBoundingClientRect().width || M.slot;
-      const e = nav.querySelector('.pgn__ellipsis');
-      if (e) M.ell = e.getBoundingClientRect().width || M.ell;
-      const ps = host.querySelector('.pgn__pagesize');
-      M.pagesize = ps ? ps.getBoundingClientRect().width : 0;
-      M.range = rangeEl.getBoundingClientRect().width || M.range;
-      M.done = true;
-    }
-    /* требуемая ширина пагинатора на уровне level (+ буфер 8px) */
-    function needOf(level) {
-      let w = 0,
-        sections = 1; // sections — nav + опциональные pagesize/range
-      if (M.pagesize) {
-        w += M.pagesize;
-        sections++;
-      }
-      if (level.mode === 'compact') {
-        w += 2 * M.slot + M.range + 16 + M.gap * 2; // range переезжает внутрь nav (padding 0 8px)
-      } else {
-        const items = navItems(level);
-        const nums = items.filter(p => p !== '...').length;
-        w += M.range;
-        sections++;
-        w += (2 + nums) * M.slot + (items.length - nums) * M.ell + M.gap * (items.length + 1);
-      }
-      return w + M.section * (sections - 1) + 8;
-    }
-    /* ширина инфо-сводки: full — в одну строку, min — самый широкий пункт
-       (пункты можно переносить, но не резать) */
-    function leftNeed(row) {
-      const left = row && row.querySelector('.pgn-row__left');
-      const info = left && left.firstElementChild;
-      if (!info) return {
-        full: 0,
-        min: 0,
-        count: 0
-      };
-      const kids = Array.prototype.filter.call(info.children, el => el.getBoundingClientRect().width > 0);
-      if (!kids.length) {
-        const w = left.getBoundingClientRect().width;
-        return {
-          full: w,
-          min: w,
-          count: 1
-        };
-      }
-      const gap = parseFloat(getComputedStyle(info).columnGap) || 24;
-      let full = gap * (kids.length - 1),
-        min = 0;
-      kids.forEach(el => {
-        const w = el.getBoundingClientRect().width;
-        full += w;
-        if (w > min) min = w;
-      });
-      return {
-        full,
-        min,
-        count: kids.length
-      };
-    }
-    let applied = '',
-      appliedIdx = 0;
-    function apply(level, layout, idx) {
-      const key = level.t + '|' + layout + '|' + page + '|' + tp;
-      appliedIdx = idx;
-      if (applied === key) return;
-      applied = key;
-      host.dataset.tier = level.t;
-      host.classList.toggle('pgn--compact', level.mode === 'compact');
-      renderNav(level);
-      const row = host.closest('.pgn-row');
-      if (!row) return;
-      const footer = row.closest('.pgn-footer');
-      const rows = footer ? footer.querySelectorAll(':scope > .pgn-row') : [row];
-      Array.prototype.forEach.call(rows, r => {
-        r.dataset.tier = level.t;
-        r.dataset.layout = layout;
-      });
-    }
-    /* HYST — переход к менее компактному уровню требует запаса, иначе рост высоты
-       строки (появление скроллбара у контейнера) вызывает дребезг решения */
-    const HYST = 24;
-    function fit() {
-      const row = host.closest('.pgn-row');
-      const box = row || host.parentElement || host;
-      const cs = getComputedStyle(box);
-      const inner = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
-      if (!(inner > 0)) return;
-      if (!M.done) calibrate();
-      const L = leftNeed(row);
-      const gapRow = L.full ? parseFloat(cs.columnGap) || 20 : 0;
-      const stacked = row && row.dataset.layout === 'stack';
-      /* первый уровень, влезающий в avail; подъём к более полному набору — с запасом */
-      function pick(avail, hyst) {
-        for (let i = 0; i < LEVELS.length; i++) {
-          if (needOf(LEVELS[i]) <= avail - (hyst && (i < appliedIdx || stacked) ? HYST : 0)) return i;
-        }
-        return -1;
-      }
-      /* Выбираем раскладку по правилу «максимум номеров»: если в одну строку
-         помещается не хуже, чем в вертикаль — остаёмся в строке (колонтитул ниже);
-         иначе складываемся в вертикаль — там сводка и пагинатор получают всю ширину. */
-      const iRow = pick(inner - L.full - gapRow, true);
-      const iStack = pick(inner, false);
-      if (iRow >= 0 && (iStack < 0 || iRow <= iStack)) {
-        apply(LEVELS[iRow], 'row', iRow);
-        return;
-      }
-      if (iStack >= 0) {
-        apply(LEVELS[iStack], 'stack', iStack);
-        return;
-      }
-      apply(LEVEL_XS, 'stack', LEVELS.length);
-    }
-    /* один пересчёт на кадр + предохранитель от осцилляции (скроллбар контейнера) */
-    let raf = 0,
-      hits = 0,
-      since = 0,
-      lastW = -1,
-      tail = 0;
-    /* Отброшенный вызов не теряется: любое гашение (кадр уже запланирован
-       или сработал предохранитель) ставит хвостовой пересчёт по покою —
-       иначе после быстрого ресайза финальная ширина осталась бы без пересчёта */
-    function scheduleTail() {
-      clearTimeout(tail);
-      tail = setTimeout(() => {
-        tail = 0;
-        hits = 0;
-        since = 0;
-        fit();
-      }, 300);
-    }
-    function scheduleFit() {
-      if (raf) {
-        scheduleTail();
-        return;
-      }
-      const run = () => {
-        raf = 0;
-        const now = Date.now();
-        if (now - since > 400) {
-          since = now;
-          hits = 0;
-        }
-        if (++hits > 8) {
-          scheduleTail();
-          return;
-        }
-        fit();
-      };
-      raf = 1;
-      if (typeof requestAnimationFrame === 'function' && !document.hidden) requestAnimationFrame(run);else setTimeout(run, 16);
-    }
-    host.__pgnFit = fit;
-    const AUTO = !opts.compact && opts.responsive !== false;
-    if (AUTO && typeof ResizeObserver !== 'undefined') {
-      /* бутстрап без rAF: на скрытой вкладке (document.hidden) кадры не идут вовсе */
-      const boot = () => {
-        const measured = host.closest('.pgn-row') || host.parentElement || host;
-        calibrate();
-        setTimeout(fit, 0); /* первый расчёт вне доставки RO — без loop-предупреждения */
-        /* реагируем только на изменение ШИРИНЫ: высоту меняет сам пересчёт —
-           если слушать её, RO зацикливается */
-        const ro = new ResizeObserver(es => {
-          if (!host.isConnected) {
-            ro.disconnect();
-            return;
-          }
-          const w = Math.round(es[0].contentRect.width);
-          if (w === lastW && applied) return;
-          lastW = w;
-          scheduleFit();
-        });
-        ro.observe(measured);
-      };
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, {
-        once: true
-      });else setTimeout(boot, 0);
-      /* если на момент бутстрапа ширины ещё не было (display:none, скрытая вкладка) — догоняем */
-      const retry = () => {
-        if (host.isConnected && !applied) fit();
-      };
-      document.addEventListener('visibilitychange', retry);
-      window.addEventListener('load', retry);
-    }
-    return host;
-  }
-  window.PGN_build = buildPager;
-
-  /* ---------- Action_panel (bulk selection) ---------- */
-  function buildBulk(o = {}) {
-    const opts = Object.assign({
-      count: 4,
-      actions: ['Экспорт', 'Согласовать', 'Удалить']
-    }, o);
-    const host = document.createElement('div');
-    host.className = 'pgn-bulk';
-    const c = document.createElement('span');
-    c.className = 'pgn-bulk__count';
-    c.innerHTML = 'Выбрано строк: <b>' + opts.count + '</b>';
-    const acts = document.createElement('div');
-    acts.className = 'pgn-bulk__actions';
-    opts.actions.forEach(label => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'btn btn--s btn--outline';
-      b.textContent = label;
-      acts.appendChild(b);
-    });
-    host.append(c, acts);
-    return host;
-  }
-  window.PGN_buildBulk = buildBulk;
-
-  /* ---------- Pagi_counters (info summary) ---------- */
-  function buildInfo(o = {}) {
-    const opts = Object.assign({
-      items: [['Сумма дохода', '23 597 млрд ₽']],
-      warn: 'Превышение лимита'
-    }, o);
-    const host = document.createElement('div');
-    host.className = 'pgn-info';
-    opts.items.forEach(([label, value]) => {
-      const it = document.createElement('span');
-      it.className = 'pgn-info__item';
-      it.innerHTML = escapeHtml(label) + ': <b>' + escapeHtml(value) + '</b>';
-      host.appendChild(it);
-    });
-    if (opts.warn) {
-      const w = document.createElement('span');
-      w.className = 'pgn-info__warn';
-      w.innerHTML = WARN + '<span>' + escapeHtml(opts.warn) + '</span>';
-      host.appendChild(w);
-    }
-    return host;
-  }
-  window.PGN_buildInfo = buildInfo;
-
-  /* ---------- Row composition ---------- */
-  function buildRow(o = {}) {
-    const host = document.createElement('div');
-    host.className = 'pgn-row';
-    const left = document.createElement('div');
-    left.className = 'pgn-row__left';
-    if (o.info) left.appendChild(buildInfo(o.info));
-    const right = document.createElement('div');
-    right.className = 'pgn-row__right';
-    right.appendChild(buildPager(o.pager || {}));
-    host.append(left, right);
-    return host;
-  }
-  window.PGN_buildRow = buildRow;
-
-  /* ---------- Footer composition — Action_panel (опционально, НАД) + обычная строка ---------- */
-  function buildFooter(o = {}) {
-    const wrap = document.createElement('div');
-    wrap.className = 'pgn-footer';
-    const selectionCount = o.selectionCount || 0;
-    if (selectionCount > 0) {
-      const bulkRow = document.createElement('div');
-      bulkRow.className = 'pgn-row pgn-row--bulk';
-      bulkRow.appendChild(buildBulk(Object.assign({
-        count: selectionCount
-      }, o.bulk || {})));
-      wrap.appendChild(bulkRow);
-      const dvd = document.createElement('hr');
-      dvd.className = 'dvd dvd--h';
-      wrap.appendChild(dvd);
-    }
-    wrap.appendChild(buildRow(o));
-    return wrap;
-  }
-  window.PGN_buildFooter = buildFooter;
   function mount(id, node) {
     const el = document.getElementById(id);
     if (el && node) el.appendChild(node);
@@ -14389,7 +21631,6 @@ try { (() => {
       };
       [960, 800, 700, 640, 520, 340].forEach(w => {
         const wrap = document.createElement('div');
-        wrap.className = 'adapt-sample';
         const cap = document.createElement('p');
         cap.className = 'demo-rowlabel';
         cap.textContent = w + 'px';
@@ -14877,7 +22118,17 @@ try { (() => {
       controls.classList.toggle('pg__controls--wide', controls.clientWidth >= 640);
     }).observe(controls);
   }
+
+  // самодостаточность: подтягиваем свой стиль, если страница его не подключила
+  function ensureCss() {
+    if (document.querySelector('link[rel="stylesheet"][href$="pg-kit.css"]')) return;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = (window.__DS_ROOT || '') + 'styles/pg-kit.css';
+    document.head.appendChild(l);
+  }
   ready(() => {
+    if (document.querySelector('.panel.pg')) ensureCss();
     document.querySelectorAll('.panel.pg').forEach(panel => {
       const controls = panel.querySelector(':scope > .pg__controls');
       const stage = panel.querySelector(':scope > .pg__stage');
@@ -14896,8 +22147,8 @@ try { (() => {
    Popover — страница ДС: конструктор, редлайн, вспомогательные демо.
    ========================================================================= */
 
-const POP_ARROW_INSET_H = 18; /* совпадает с --pop CSS: отступ стрелки от края при top/bottom */
-const POP_ARROW_INSET_V = 14; /* совпадает с --pop CSS: отступ стрелки от края при left/right */
+/* Геометрия, авто-flip, открытие/закрытие и тени прокрутки живут в рантайме
+   scripts/ds-popover.js (out-of-box) — страница только собирает демо. */
 
 /* ---------- содержимое тела: варианты для конструктора и демо ---------- */
 const POP_CONTENT = {
@@ -14925,11 +22176,11 @@ const POP_CONTENT = {
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:14px;';
     wrap.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:6px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Название тега</span></label>
+        <label class="ds-label"><span class="ds-label__text">Название тега</span></label>
         <div class="mock-input">Проблемный актив</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:6px;">
-        <label class="ds-label ds-label--left"><span class="ds-label__text">Срок пересмотра</span></label>
+        <label class="ds-label"><span class="ds-label__text">Срок пересмотра</span></label>
         <div class="mock-input">15.08.2026</div>
       </div>`;
     return wrap;
@@ -14940,7 +22191,7 @@ const POP_CONTENT = {
     wrap.innerHTML = `
       <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
         <span style="font:var(--type-body-m-strong); color:var(--text-primary);">ДК-2025-4471</span>
-        <span class="chip chip--readonly chip--s"><span class="chip__label">В работе</span></span>
+        <span class="chip chip--s"><span class="chip__label">В работе</span></span>
       </div>
       <div style="display:flex; flex-direction:column; gap:4px;">
         <span style="font:var(--type-body-s); color:var(--text-inactive);">Сумма</span>
@@ -14967,10 +22218,10 @@ const POP_CONTENT = {
   },
   skeleton() {
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:12px;';
-    wrap.innerHTML = `<span class="pop__skeleton pop__skeleton--title" style="--sk-w:45%;"></span>
-      <span class="pop__skeleton" style="--sk-w:100%;"></span>
-      <span class="pop__skeleton" style="--sk-w:80%;"></span>`;
+    wrap.className = 'sk-group';
+    wrap.innerHTML = `<span class="sk-line sk-line--title" style="--sk-w:45%;"></span>
+      <span class="sk-line" style="--sk-w:100%;"></span>
+      <span class="sk-line" style="--sk-w:80%;"></span>`;
     return wrap;
   },
   error() {
@@ -15024,7 +22275,7 @@ function buildPopover(o = {}) {
     main.className = 'pop__head-main';
     main.innerHTML = `<h3 class="pop__title" id="${titleId}">${title}</h3>`;
     if (headerAccessory === 'chip') {
-      main.innerHTML += `<span class="chip chip--readonly chip--s"><span class="chip__label">Черновик</span></span>`;
+      main.innerHTML += `<span class="chip chip--s"><span class="chip__label">Черновик</span></span>`;
     }
     head.appendChild(main);
     if (headerAccessory === 'link') {
@@ -15064,14 +22315,7 @@ function buildPopover(o = {}) {
   const arrowEl = document.createElement('span');
   arrowEl.className = 'pop__arrow';
   pop.appendChild(arrowEl);
-  function syncScrollShadow() {
-    const head = pop.querySelector('.pop__head');
-    const foot = pop.querySelector('.pop__foot');
-    if (head) head.classList.toggle('is-scrolled', body.scrollTop > 1);
-    if (foot) foot.classList.toggle('is-scrolled', body.scrollTop + body.clientHeight < body.scrollHeight - 1);
-  }
-  body.addEventListener('scroll', syncScrollShadow);
-  requestAnimationFrame(syncScrollShadow);
+  const syncScrollShadow = window.DSPopover.watchScroll(pop);
   window.dsIcons && window.dsIcons.apply(pop);
   return {
     pop,
@@ -15090,53 +22334,23 @@ function makeTrigger(type, expanded) {
     return `<button type="button" class="pop-trigger-link" aria-haspopup="dialog" aria-expanded="${exp}"><span class="link link--accent">ДК-2025-4471</span><i data-icon="chevron-down"></i></button>`;
   }
   if (type === 'chip') {
-    return `<span class="chip chip--readonly chip--m" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="${exp}"><span class="chip__label">Проблемный актив</span></span>`;
+    return `<span class="chip chip--m" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="${exp}"><span class="chip__label">Проблемный актив</span></span>`;
   }
   return `<button type="button" class="btn btn--outline btn--m" aria-haspopup="dialog" aria-expanded="${exp}"><span class="btn__label">Фильтр</span><svg class="btn__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg></button>`;
 }
 
-/* ---------- позиционирование floating-поповера относительно триггера ---------- */
+/* ---------- позиционирование: тонкая обёртка над рантаймом ----------
+   Витрина фиксирует позицию (flip выключен), контейнер-стенд служит и
+   позиционирующим предком, и границей. */
 function placePop(stage, pop, target, placement, align, gap) {
-  gap = gap == null ? 8 : gap;
-  const sr = stage.getBoundingClientRect();
-  const tr = target.getBoundingClientRect();
-  const pw = pop.offsetWidth,
-    ph = pop.offsetHeight;
-  const tl = tr.left - sr.left,
-    tt = tr.top - sr.top;
-  const cx = tl + tr.width / 2,
-    cy = tt + tr.height / 2;
-  let x = 0,
-    y = 0;
-  if (placement === 'top') y = tt - gap - ph;else if (placement === 'bottom') y = tt + tr.height + gap;else if (placement === 'left') x = tl - gap - pw;else if (placement === 'right') x = tl + tr.width + gap;
-  if (placement === 'top' || placement === 'bottom') {
-    if (align === 'center') x = cx - pw / 2;else if (align === 'start') x = cx - POP_ARROW_INSET_H;else x = cx - (pw - POP_ARROW_INSET_H);
-  } else {
-    if (align === 'center') y = cy - ph / 2;else if (align === 'start') y = cy - POP_ARROW_INSET_V;else y = cy - (ph - POP_ARROW_INSET_V);
-  }
-  /* не выпускаем поповер за границы контейнера-стенда */
-  const guard = 8;
-  const maxX = Math.max(guard, stage.clientWidth - pw - guard);
-  const maxY = Math.max(guard, stage.clientHeight - ph - guard);
-  if (placement === 'top' || placement === 'bottom') x = Math.min(Math.max(guard, x), maxX);else y = Math.min(Math.max(guard, y), maxY);
-  pop.style.left = x + 'px';
-  pop.style.top = y + 'px';
-
-  /* стрелка всегда смотрит в центр триггера — даже после clamp и flip */
-  const arrow = pop.querySelector('.pop__arrow');
-  if (arrow && pop.classList.contains('pop--arrow')) {
-    if (placement === 'top' || placement === 'bottom') {
-      const off = Math.min(Math.max(12, cx - x), pw - 12);
-      arrow.style.left = off + 'px';
-      arrow.style.right = 'auto';
-      arrow.style.transform = 'translateX(-50%)';
-    } else {
-      const off = Math.min(Math.max(12, cy - y), ph - 12);
-      arrow.style.top = off + 'px';
-      arrow.style.bottom = 'auto';
-      arrow.style.transform = 'translateY(-50%)';
-    }
-  }
+  return window.DSPopover.place(pop, target, {
+    placement,
+    align,
+    gap: gap == null ? 8 : gap,
+    offsetParent: stage,
+    boundary: stage,
+    flip: false
+  });
 }
 
 /* ========================================================================= */
@@ -15430,24 +22644,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     vp.appendChild(pop);
     const stateOut = document.getElementById('flip-state');
+    /* авто-flip считает рантайм: предпочтение bottom/start, границы — стенд */
     function reposition() {
-      const br = vp.getBoundingClientRect();
-      const tr = target.getBoundingClientRect();
-      const pw = pop.offsetWidth,
-        ph = pop.offsetHeight;
-      /* сторона: снизу не хватает места — переворачиваем наверх */
-      const below = br.bottom - tr.bottom,
-        above = tr.top - br.top;
-      let placement = 'bottom';
-      if (below < ph + 8 && above > below) placement = 'top';
-      /* выравнивание: справа не хватает места — прижимаем к правому краю */
-      const spaceRight = br.right - tr.right,
-        spaceLeft = tr.left - br.left;
-      let align = 'start';
-      if (spaceRight < pw - POP_ARROW_INSET_H && spaceLeft > spaceRight) align = 'end';
-      pop.className = 'pop pop--w-m pop--' + placement + ' pop--' + align + ' pop--arrow pop--floating pop--pinned';
-      placePop(vp, pop, target, placement, align, 8);
-      if (stateOut) stateOut.textContent = 'placement: ' + placement + ' · align: ' + align;
+      const r = window.DSPopover.place(pop, target, {
+        placement: 'bottom',
+        align: 'start',
+        gap: 8,
+        flip: true,
+        boundary: vp,
+        offsetParent: vp
+      });
+      if (stateOut) stateOut.textContent = 'placement: ' + r.placement + ' · align: ' + r.align;
     }
     function applyPreset(posVal) {
       target.style.left = posVal === 'left' ? '12px' : posVal === 'right' ? 'calc(100% - 44px)' : 'calc(50% - 16px)';
@@ -15511,8 +22718,6 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Экспорт',
       content: 'text'
     }];
-    let openPop = null,
-      openBtn = null;
     defs.forEach(d => {
       const anchor = document.createElement('span');
       anchor.className = 'pop-anchor';
@@ -15537,50 +22742,16 @@ document.addEventListener('DOMContentLoaded', () => {
         placement: 'bottom',
         align: 'start'
       });
+      pop.id = 'pop-single-' + d.icon;
       anchor.appendChild(btn);
       anchor.appendChild(pop);
       host.appendChild(anchor);
-      function close() {
-        pop.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-        if (openPop === pop) {
-          openPop = null;
-          openBtn = null;
-        }
-      }
-      function open() {
-        if (openPop && openPop !== pop) {
-          openPop.classList.remove('is-open');
-          openBtn.setAttribute('aria-expanded', 'false');
-        }
-        placePop(anchor, pop, btn, 'bottom', 'start', 8);
-        pop.classList.add('is-open');
-        btn.setAttribute('aria-expanded', 'true');
-        openPop = pop;
-        openBtn = btn;
-      }
-      btn.addEventListener('click', () => {
-        pop.classList.contains('is-open') ? close() : open();
+      /* всё поведение — рантайм: single-open, клик вне, Esc, Tab-out, ✕, позиционирование */
+      window.DSPopover.bind(btn, {
+        pop,
+        placement: 'bottom',
+        align: 'start'
       });
-      pop.querySelector('.ibtn--neutral.ibtn--s') && pop.querySelector('.ibtn--neutral.ibtn--s').addEventListener('click', close);
-    });
-    document.addEventListener('click', e => {
-      if (openPop && !host.contains(e.target)) {
-        openPop.classList.remove('is-open');
-        openBtn.setAttribute('aria-expanded', 'false');
-        openPop = null;
-        openBtn = null;
-      }
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && openPop) {
-        const b = openBtn;
-        openPop.classList.remove('is-open');
-        openBtn.setAttribute('aria-expanded', 'false');
-        openPop = null;
-        openBtn = null;
-        b.focus();
-      }
     });
     window.dsIcons && window.dsIcons.apply(host);
   })();
@@ -15869,7 +23040,7 @@ try { (() => {
   }
   function chipReadonly(text) {
     const el = document.createElement('span');
-    el.className = 'chip chip--readonly chip--xs';
+    el.className = 'chip chip--xs';
     const lb = document.createElement('span');
     lb.className = 'chip__label';
     lb.textContent = text;
@@ -15913,7 +23084,7 @@ try { (() => {
     const limitTop = tops[maxRows - 1];
     let visibleCount = chips.filter(c => c.offsetTop <= limitTop + 2).length;
     const more = document.createElement('span');
-    more.className = 'chip chip--readonly chip--xs chip--outline';
+    more.className = 'chip chip--xs chip--outline';
     more.tabIndex = 0;
     const lb = document.createElement('span');
     lb.className = 'chip__label';
@@ -15990,13 +23161,13 @@ try { (() => {
     if (state === 'loading') {
       if (showLabel) {
         const s = document.createElement('span');
-        s.className = 'rof__skeleton rof__skeleton--label';
-        s.style.setProperty('--rof-skel-w', '64px');
+        s.className = 'sk-line sk-line--caption';
+        s.style.setProperty('--sk-w', '64px');
         root.appendChild(s);
       }
       const s2 = document.createElement('span');
-      s2.className = 'rof__skeleton';
-      s2.style.setProperty('--rof-skel-w', (140 + Math.random() * 80 | 0) + 'px');
+      s2.className = 'sk-line';
+      s2.style.setProperty('--sk-w', (140 + Math.random() * 80 | 0) + 'px');
       root.appendChild(s2);
       return root;
     }
@@ -16061,13 +23232,13 @@ try { (() => {
         ic.tabIndex = 0;
         ic.setAttribute('aria-label', 'Скопировать значение');
         ic.addEventListener('click', () => {
-          try {
+          if (window.DSCopy) window.DSCopy.write(fullText || value);else try {
             navigator.clipboard && navigator.clipboard.writeText(fullText || value);
           } catch (e) {/* no-op in sandbox */}
           const original = ic.innerHTML;
           ic.innerHTML = icon('check');
           ic.classList.add('is-done');
-          flashTip(row, ic, 'Скопировано');
+          if (window.DSCopy) window.DSCopy.flash(ic, 'Скопировано');else flashTip(row, ic, 'Скопировано');
           setTimeout(() => {
             ic.innerHTML = original;
             ic.classList.remove('is-done');
@@ -16122,7 +23293,8 @@ try { (() => {
       iconRightTipText: 'Значение требует внимания',
       tone: 'default',
       clamp: 'none',
-      chipRows: 'none'
+      chipRows: 'none',
+      loadState: 'default'
     };
     const controls = document.getElementById('pg-controls');
     const preview = document.getElementById('pg-preview');
@@ -16257,9 +23429,15 @@ try { (() => {
       return t;
     }
 
+    /* --- Состояние --- */
+    controls.appendChild(groupHead('Состояние'));
+    const loadCtl = seg('Состояние', [['default', 'Обычное'], ['loading', 'Загрузка']], () => state.loadState, v => state.loadState = v);
+    controls.appendChild(loadCtl);
+
     /* --- Значение --- */
     controls.appendChild(groupHead('Значение'));
-    controls.appendChild(seg('Тип значения', [['text', 'Текст'], ['chips', 'Чипы'], ['link', 'Ссылка']], () => state.type, v => state.type = v));
+    const typeCtl = seg('Тип значения', [['text', 'Текст'], ['chips', 'Чипы'], ['link', 'Ссылка']], () => state.type, v => state.type = v);
+    controls.appendChild(typeCtl);
     controls.appendChild(seg('Выравнивание', [['left', 'Слева'], ['right', 'Справа']], () => state.align, v => state.align = v));
     const toneCtl = seg('Цвет значения', [['default', 'Default'], ['positive', 'Positive'], ['negative', 'Negative'], ['empty', 'Empty']], () => state.tone, v => state.tone = v, true);
     controls.appendChild(toneCtl);
@@ -16301,6 +23479,7 @@ try { (() => {
     const CHIP_SET = ['Договор', 'Поставка', 'Опт', 'Крупный клиент', 'VIP', 'Новый регион'];
     function render() {
       preview.innerHTML = '';
+      const isLoading = state.loadState === 'loading';
       const isChips = state.type === 'chips';
       const isText = state.type === 'text';
       /* цвет значения — только у текста; аффиксы — не у чипов */
@@ -16309,14 +23488,15 @@ try { (() => {
       const postfix = isChips ? null : state.postfixText || null;
       const useClamp = !isChips ? state.clamp : 'none';
       const hasIconRight = state.iconRight !== 'none';
-      toneCtl.classList.toggle('is-off', !isText);
-      prefixCtl.classList.toggle('is-off', isChips);
-      postfixCtl.classList.toggle('is-off', isChips);
-      clampCtl.classList.toggle('is-off', isChips);
-      chipRowsCtl.classList.toggle('is-off', !isChips);
-      iconActionCtl.classList.toggle('is-off', !hasIconRight);
-      iconToneCtl.classList.toggle('is-off', !hasIconRight || state.iconRightAction !== 'tooltip');
-      iconTipCtl.classList.toggle('is-off', !hasIconRight || state.iconRightAction !== 'tooltip');
+      typeCtl.classList.toggle('is-off', isLoading);
+      toneCtl.classList.toggle('is-off', !isText || isLoading);
+      prefixCtl.classList.toggle('is-off', isChips || isLoading);
+      postfixCtl.classList.toggle('is-off', isChips || isLoading);
+      clampCtl.classList.toggle('is-off', isChips || isLoading);
+      chipRowsCtl.classList.toggle('is-off', !isChips || isLoading);
+      iconActionCtl.classList.toggle('is-off', !hasIconRight || isLoading);
+      iconToneCtl.classList.toggle('is-off', !hasIconRight || state.iconRightAction !== 'tooltip' || isLoading);
+      iconTipCtl.classList.toggle('is-off', !hasIconRight || state.iconRightAction !== 'tooltip' || isLoading);
       const o = {
         type: state.type,
         value: useClamp !== 'none' ? LONG_TEXT : state.type === 'link' ? 'ссылка-на-документ.pdf' : 'Значение атрибута',
@@ -16334,7 +23514,8 @@ try { (() => {
         iconRightTip: state.iconRightTipText,
         tone: tone,
         clampMode: useClamp,
-        align: state.align
+        align: state.align,
+        state: isLoading ? 'loading' : 'default'
       };
       preview.appendChild(makeROF(o));
       const parts = ['type=' + state.type];
@@ -16970,40 +24151,16 @@ try { (() => {
 try { (() => {
 /* =========================================================================
    RiskMetric — страница ДС: конструктор, редлайн, демо.
-   Композиция: Chip (readonly, S) + кнопка-информер (.chip__info) + Popover.
+   Композиция строится рантаймом scripts/ds-riskmetric.js (Chip + Popover,
+   позиционирование/открытие/single-open/Esc/клик-вне — из DSPopover).
+   Эта страница только расставляет data-riskmetric-хосты и читает их обратно.
    ========================================================================= */
 
-const RM_ZONES = {
-  none: {
-    label: '—',
-    name: 'нет данных',
-    code: '—',
-    tone: null
-  },
-  green: {
-    label: 'Зеленая',
-    name: 'зеленая',
-    code: 'Green Zone',
-    tone: 'success'
-  },
-  watchlist: {
-    label: 'Watchlist',
-    name: 'watchlist',
-    code: 'Watchlist',
-    tone: 'warning'
-  },
-  red: {
-    label: 'Красная',
-    name: 'красная',
-    code: 'Red Zone',
-    tone: 'error-solid'
-  },
-  black: {
-    label: 'Черная',
-    name: 'черная',
-    code: 'Black Zone',
-    tone: 'dark-solid'
-  }
+const RM_ZONE_LABEL = {
+  green: 'Зеленая',
+  watchlist: 'Watchlist',
+  red: 'Красная',
+  black: 'Черная'
 };
 const RM_ZONE_TOKEN = {
   green: '--st-green',
@@ -17011,204 +24168,38 @@ const RM_ZONE_TOKEN = {
   red: '--st-red',
   black: '--st-grey'
 };
-let rmSeq = 0;
-function rmAriaLabel(rating, zoneKey) {
-  const ratingTxt = rating != null ? 'рейтинг ' + rating : 'рейтинг не определён';
-  const zoneTxt = zoneKey === 'none' ? 'зона проблемности не определена' : 'зона проблемности — ' + RM_ZONES[zoneKey].name;
-  return 'Риск-метрика. ' + ratingTxt + ', ' + zoneTxt + '.';
+const RM_ERROR_TEXT = 'Не удалось загрузить риск-метрику. Проверьте соединение и попробуйте ещё раз.';
+
+/* ---------- создаёт data-riskmetric хост и собирает его рантаймом ---------- */
+function rmMount(container, o = {}) {
+  const host = document.createElement('span');
+  host.setAttribute('data-riskmetric', '');
+  if (o.rating != null) host.setAttribute('data-risk', o.rating);
+  if (o.zone) host.setAttribute('data-zone', o.zone);
+  if (o.ratingDate) host.setAttribute('data-rating-date', o.ratingDate);
+  if (o.zoneDate) host.setAttribute('data-zone-date', o.zoneDate);
+  if (o.segment) host.setAttribute('data-segment', o.segment);
+  if (o.profile) host.setAttribute('data-profile', o.profile);
+  if (o.loading) host.setAttribute('data-loading', '');
+  if (o.error) host.setAttribute('data-error', o.error);
+  container.appendChild(host);
+  window.DSRiskMetric.build(host);
+  window.dsIcons && window.dsIcons.apply(host);
+  return host;
+}
+function rmPopoverApi(host) {
+  const btn = host.querySelector('.chip__info');
+  return btn ? btn.__dsPopover : null;
 }
 
-/* ---------- фабрика чипа: label (рейтинг/тире) + кнопка-информер ---------- */
-function makeRiskChip(o = {}) {
-  const {
-    rating = null,
-    zone = 'none',
-    size = 's',
-    details = false
-  } = o;
-  const z = RM_ZONES[zone] || RM_ZONES.none;
-  const hasZone = zone !== 'none';
-  /* информер есть, если раскрывать есть что: зона, рейтинг ИЛИ риск-сегмент/профиль */
-  const hasInfo = hasZone || rating != null || details;
-  const el = document.createElement('span');
-  el.className = 'chip chip--readonly chip--rounded chip--' + size + (hasZone ? ' chip--' + z.tone : ' chip--outline');
-  el.setAttribute('aria-label', rmAriaLabel(rating, zone));
-  const lb = document.createElement('span');
-  lb.className = 'chip__label';
-  lb.textContent = rating != null ? String(rating) : '—';
-  el.appendChild(lb);
-  let btn = null;
-  if (hasInfo) {
-    btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'chip__info';
-    btn.setAttribute('aria-haspopup', 'dialog');
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-label', 'Показать детали риск-метрики');
-    btn.innerHTML = '<i data-icon="info-circle"></i>';
-    el.appendChild(btn);
-  }
-  return {
-    el,
-    btn
-  };
-}
-
-/* ---------- Popover_RiskMetric: Header (заголовок+✕) + Body, без Footer ---------- */
-function buildRiskPopover(o = {}) {
-  const {
-    rating = 26,
-    zone = 'red',
-    ratingDate = '24.10.2025',
-    zoneDate = '24.10.2025',
-    segment = 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%',
-    profile = 'Непроектный',
-    state = 'default',
-    width = 'm'
-  } = o;
-  const dash = '—';
-  const titleId = 'rm-pop-title-' + ++rmSeq;
-  const pop = document.createElement('div');
-  pop.className = 'pop pop--w-' + width + ' pop--bottom pop--start pop--floating';
-  pop.setAttribute('role', 'dialog');
-  pop.setAttribute('aria-modal', 'false');
-  pop.setAttribute('aria-labelledby', titleId);
-  const head = document.createElement('div');
-  head.className = 'pop__head';
-  head.innerHTML = '<h3 class="pop__title" id="' + titleId + '">Рейтинг и зона проблемности</h3>' + '<span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span>';
-  pop.appendChild(head);
-  const body = document.createElement('div');
-  body.className = 'pop__body rm-body';
-  if (state === 'loading') {
-    body.setAttribute('aria-busy', 'true');
-    body.innerHTML = '<span class="pop__skeleton pop__skeleton--title" style="--sk-w:55%;"></span>' + '<span class="pop__skeleton" style="--sk-w:100%;"></span>' + '<span class="pop__skeleton pop__skeleton--title" style="--sk-w:45%;"></span>' + '<span class="pop__skeleton" style="--sk-w:80%;"></span>';
-  } else if (state === 'error') {
-    body.setAttribute('role', 'alert');
-    body.innerHTML = '<div style="display:flex; gap:10px; align-items:flex-start;">' + '<span style="flex:none; width:20px; height:20px; color:var(--error);"><i data-icon="alert-circle"></i></span>' + '<p style="margin:0; font:var(--type-body-s); color:var(--text-primary);">Не удалось загрузить риск-метрику. Проверьте соединение и попробуйте ещё раз.</p></div>';
-  } else {
-    body.innerHTML = '<div class="rm-blocks">' + rmZoneBlockHTML(zone, zoneDate) + rmRateBlockHTML(rating, ratingDate) + '</div>' + '<div class="rm-field"><p class="rm-field__label">Риск-сегмент</p><p class="rm-field__value">' + (segment || dash) + '</p></div>' + '<div class="rm-field"><p class="rm-field__label">Риск-профиль</p><p class="rm-field__value">' + (profile || dash) + '</p></div>';
-  }
-  pop.appendChild(body);
-  const arrowEl = document.createElement('span');
-  arrowEl.className = 'pop__arrow';
-  pop.appendChild(arrowEl);
-  return {
-    pop,
-    body
-  };
-}
-
-/* ---------- позиционирование (см. Popover — placePop). Стейдж = сам .pop-anchor,
-   он тесно облегает кнопку-триггер, поэтому координаты считаются от неё же. ---------- */
-function rmPlacePop(anchor, pop, target, placement, align, gap) {
-  gap = gap == null ? 8 : gap;
-  const sr = anchor.getBoundingClientRect();
-  const tr = target.getBoundingClientRect();
-  const pw = pop.offsetWidth,
-    ph = pop.offsetHeight;
-  const tl = tr.left - sr.left,
-    tt = tr.top - sr.top;
-  const cx = tl + tr.width / 2,
-    cy = tt + tr.height / 2;
-  let x = 0,
-    y = 0;
-  if (placement === 'top') y = tt - gap - ph;else if (placement === 'bottom') y = tt + tr.height + gap;
-  if (align === 'center') x = cx - pw / 2;else if (align === 'start') x = cx - 18;else x = cx - (pw - 18);
-  /* охрана от правого края viewport — используется в широких demo-таблицах */
-  const viewportRight = window.innerWidth - 16;
-  const absLeft = sr.left + x;
-  if (absLeft + pw > viewportRight) x -= absLeft + pw - viewportRight;
-  pop.style.left = x + 'px';
-  pop.style.top = y + 'px';
-}
-
-/* ---------- единый реестр: одновременно открыт только один поповер ---------- */
-let rmOpen = null; /* { pop, btn } */
-function rmClose() {
-  if (!rmOpen) return;
-  rmOpen.pop.classList.remove('is-open');
-  rmOpen.btn.setAttribute('aria-expanded', 'false');
-  rmOpen = null;
-}
-document.addEventListener('click', e => {
-  if (rmOpen && !rmOpen.pop.contains(e.target) && e.target !== rmOpen.btn && !rmOpen.btn.contains(e.target)) rmClose();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && rmOpen) {
-    const b = rmOpen.btn;
-    rmClose();
-    b.focus();
-  }
-});
-
-/* ---------- строительные блоки Body (переиспользуются поповером и демо) ---------- */
+/* ---------- строительные блоки Body (только для демо «компоненты подкачки») ---------- */
 function rmZoneBlockHTML(zone, zoneDate) {
   const color = RM_ZONE_TOKEN[zone] ? ' style="color:var(' + RM_ZONE_TOKEN[zone] + ')"' : '';
-  const val = zone === 'none' ? '—' : RM_ZONES[zone].label;
-  return '<div class="rm-block">' + '<div class="rm-block__row"><span class="rm-block__label">Зона проблемности</span><span class="rm-block__value rm-block__value--strong"' + color + '>' + val + '</span></div>' + '<div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">' + (zone === 'none' ? '—' : zoneDate) + '</span></div>' + '</div>';
+  const val = zone ? RM_ZONE_LABEL[zone] : '—';
+  return '<div class="rm-block">' + '<div class="rm-block__row"><span class="rm-block__label">Зона проблемности</span><span class="rm-block__value rm-block__value--strong"' + color + '>' + val + '</span></div>' + '<div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">' + (zone ? zoneDate : '—') + '</span></div>' + '</div>';
 }
 function rmRateBlockHTML(rating, ratingDate) {
   return '<div class="rm-block">' + '<div class="rm-block__row"><span class="rm-block__label">Рейтинг контрагента</span><span class="rm-block__value rm-block__value--strong">' + (rating != null ? rating : '—') + '</span></div>' + '<div class="rm-block__row"><span class="rm-block__label">Дата расчета</span><span class="rm-block__value">' + (rating != null ? ratingDate : '—') + '</span></div>' + '</div>';
-}
-
-/* ---------- монтирует живой инстанс: анкор + чип + (опц.) поповер ---------- */
-function mountRiskMetric(container, o = {}) {
-  const anchor = document.createElement('span');
-  anchor.className = 'pop-anchor';
-  const pv = o.popover || {};
-  const hasDetails = !!(pv.segment || pv.profile);
-  const {
-    el,
-    btn
-  } = makeRiskChip(Object.assign({}, o, {
-    details: hasDetails
-  }));
-  anchor.appendChild(el);
-  container.appendChild(anchor);
-  if (!btn) {
-    window.dsIcons && window.dsIcons.apply(anchor);
-    return {
-      anchor,
-      btn: null,
-      pop: null
-    };
-  }
-  const {
-    pop
-  } = buildRiskPopover(Object.assign({
-    rating: o.rating,
-    zone: o.zone
-  }, pv));
-  anchor.appendChild(pop);
-  pop.id = 'rm-pop-' + ++rmSeq;
-  btn.setAttribute('aria-controls', pop.id);
-  function open() {
-    if (rmOpen && rmOpen.pop !== pop) rmClose();
-    rmPlacePop(anchor, pop, btn, 'bottom', 'start', 8);
-    pop.classList.add('is-open');
-    btn.setAttribute('aria-expanded', 'true');
-    rmOpen = {
-      pop,
-      btn
-    };
-  }
-  btn.addEventListener('click', e => {
-    e.stopPropagation();
-    pop.classList.contains('is-open') ? rmClose() : open();
-  });
-  const closeBtn = pop.querySelector('.pop__close .ibtn');
-  if (closeBtn) closeBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    rmClose();
-    btn.focus();
-  });
-  window.dsIcons && window.dsIcons.apply(anchor);
-  return {
-    anchor,
-    btn,
-    pop,
-    open
-  };
 }
 
 /* ========================================================================= */
@@ -17224,7 +24215,6 @@ document.addEventListener('DOMContentLoaded', () => {
       details: 'yes',
       popState: 'default'
     };
-    let inst = null;
     function ctl(labelText, options, get, set) {
       const wrap = document.createElement('div');
       wrap.className = 'ctl';
@@ -17261,19 +24251,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function render() {
       stage.innerHTML = '';
       const box = document.createElement('div');
-      box.style.cssText = 'padding-top:60px;';
+      box.style.cssText = 'padding-top:60px; position:relative;';
       const rating = state.rating === 'none' ? null : Number(state.rating);
       const withDetails = state.details === 'yes';
-      inst = mountRiskMetric(box, {
+      rmMount(box, {
         rating,
-        zone: state.zone,
-        popover: {
-          rating,
-          zone: state.zone,
-          state: state.popState,
-          segment: withDetails ? 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%' : null,
-          profile: withDetails ? 'Непроектный' : null
-        }
+        zone: state.zone === 'none' ? null : state.zone,
+        ratingDate: '24.10.2025',
+        zoneDate: '24.10.2025',
+        segment: withDetails ? 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%' : null,
+        profile: withDetails ? 'Непроектный' : null,
+        loading: state.popState === 'loading',
+        error: state.popState === 'error' ? RM_ERROR_TEXT : null
       });
       stage.appendChild(box);
     }
@@ -17284,7 +24273,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (function () {
     const host = document.getElementById('use-table');
     if (!host) return;
-    const rows = [['ООО «Северная верфь»', 26, 'red'], ['АО «Балтийский лизинг»', 12, 'watchlist'], ['ПАО «Речной торговый банк»', 4, 'green'], ['Фонд «Прибрежные инвестиции»', null, 'black'], ['ИП Смирнов А. К.', null, 'none']];
+    const rows = [['ООО «Северная верфь»', 26, 'red'], ['АО «Балтийский лизинг»', 12, 'watchlist'], ['ПАО «Речной торговый банк»', 4, 'green'], ['Фонд «Прибрежные инвестиции»', null, 'black'], ['ИП Смирнов А. К.', null, null]];
     rows.forEach(([name, rating, zone]) => {
       const row = document.createElement('div');
       row.className = 'rm-usage-row';
@@ -17295,9 +24284,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const cellWrap = document.createElement('span');
       cellWrap.className = 'rm-usage-row__metric';
       row.appendChild(cellWrap);
-      mountRiskMetric(cellWrap, {
+      rmMount(cellWrap, {
         rating,
-        zone
+        zone,
+        ratingDate: '24.10.2025',
+        zoneDate: '24.10.2025'
       });
       host.appendChild(row);
     });
@@ -17308,18 +24299,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const host = document.getElementById('anat-stage');
     if (!host) return;
     const box = document.createElement('div');
-    box.style.cssText = 'padding-top:60px;';
-    const inst = mountRiskMetric(box, {
+    box.style.cssText = 'padding-top:60px; position:relative;';
+    const rm = rmMount(box, {
       rating: 26,
       zone: 'red',
-      popover: {
-        rating: 26,
-        zone: 'red'
-      }
+      ratingDate: '24.10.2025',
+      zoneDate: '24.10.2025'
     });
     host.appendChild(box);
     requestAnimationFrame(() => {
-      inst.open();
+      const api = rmPopoverApi(rm);
+      if (api) api.open();
     });
   })();
 
@@ -17327,13 +24317,11 @@ document.addEventListener('DOMContentLoaded', () => {
   (function () {
     const host = document.getElementById('sizes-demo');
     if (!host) return;
-    mountRiskMetric(host, {
+    rmMount(host, {
       rating: 26,
       zone: 'red',
-      popover: {
-        rating: 26,
-        zone: 'red'
-      }
+      ratingDate: '24.10.2025',
+      zoneDate: '24.10.2025'
     });
   })();
 
@@ -17346,7 +24334,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cols.forEach(c => {
       const h = document.createElement('div');
       h.className = 'rm-matrix__colhead';
-      h.textContent = RM_ZONES[c].label;
+      h.textContent = RM_ZONE_LABEL[c];
       grid.appendChild(h);
     });
     const rowDefs = [['Rate + Zone', c => ({
@@ -17365,7 +24353,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const cell = document.createElement('div');
         cell.className = 'rm-matrix__cell';
         grid.appendChild(cell);
-        mountRiskMetric(cell, mk(c));
+        rmMount(cell, Object.assign({
+          ratingDate: '24.10.2025',
+          zoneDate: '24.10.2025'
+        }, mk(c)));
       });
     });
 
@@ -17377,13 +24368,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const rateCell = document.createElement('div');
     rateCell.className = 'rm-matrix__cell rm-matrix__cell--span';
     grid.appendChild(rateCell);
-    mountRiskMetric(rateCell, {
+    rmMount(rateCell, {
       rating: 26,
-      zone: 'none',
-      popover: {
-        rating: 26,
-        zone: 'none'
-      }
+      zone: null,
+      ratingDate: '24.10.2025'
     });
     const rateNote = document.createElement('span');
     rateNote.className = 'rm-matrix__note';
@@ -17396,15 +24384,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const noneCell = document.createElement('div');
     noneCell.className = 'rm-matrix__cell rm-matrix__cell--span';
     grid.appendChild(noneCell);
-    mountRiskMetric(noneCell, {
+    rmMount(noneCell, {
       rating: null,
-      zone: 'none',
-      popover: {
-        rating: null,
-        zone: 'none',
-        segment: 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%',
-        profile: 'Непроектный'
-      }
+      zone: null,
+      segment: 'Международный финансовый институт, НЕ относящийся к группе активов с риском 0%',
+      profile: 'Непроектный'
     });
     const noneNote = document.createElement('span');
     noneNote.className = 'rm-matrix__note';
@@ -17417,9 +24401,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const emptyCell = document.createElement('div');
     emptyCell.className = 'rm-matrix__cell rm-matrix__cell--span';
     grid.appendChild(emptyCell);
-    mountRiskMetric(emptyCell, {
+    rmMount(emptyCell, {
       rating: null,
-      zone: 'none'
+      zone: null
     });
     const emptyNote = document.createElement('span');
     emptyNote.className = 'rm-matrix__note';
@@ -17454,19 +24438,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const cell = document.createElement('span');
       cell.className = 'rm-usage-row__metric';
       row.appendChild(cell);
-      mountRiskMetric(cell, {
+      rmMount(cell, {
         rating: d.rating,
-        zone: d.zone
+        zone: d.zone,
+        ratingDate: '24.10.2025',
+        zoneDate: '24.10.2025'
       });
       host.appendChild(row);
     });
+    /* single-open, клик вне, Esc, ✕, позиционирование — всё в DSPopover, здесь нет ни строчки */
   })();
 
   /* ---------------- Загрузка и ошибка ---------------- */
   (function () {
     const host = document.getElementById('states-load-error');
     if (!host) return;
-    [['Загрузка', 'loading'], ['Ошибка', 'error']].forEach(([label, st]) => {
+    [['Загрузка', {
+      loading: true
+    }], ['Ошибка', {
+      error: RM_ERROR_TEXT
+    }]].forEach(([label, extra]) => {
       const cell = document.createElement('div');
       cell.className = 'state-cell';
       const cap = document.createElement('div');
@@ -17474,19 +24465,17 @@ document.addEventListener('DOMContentLoaded', () => {
       cap.textContent = label;
       cell.appendChild(cap);
       const box = document.createElement('div');
-      box.style.cssText = 'padding-top:60px;';
+      box.style.cssText = 'padding-top:60px; position:relative;';
       cell.appendChild(box);
-      const inst = mountRiskMetric(box, {
+      const rm = rmMount(box, Object.assign({
         rating: 26,
-        zone: 'red',
-        popover: {
-          rating: 26,
-          zone: 'red',
-          state: st
-        }
-      });
+        zone: 'red'
+      }, extra));
       host.appendChild(cell);
-      requestAnimationFrame(() => inst.open());
+      requestAnimationFrame(() => {
+        const api = rmPopoverApi(rm);
+        if (api) api.open();
+      });
     });
   })();
 
@@ -17494,7 +24483,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (function () {
     const zoneHost = document.getElementById('feeder-zone');
     if (zoneHost) {
-      ['green', 'watchlist', 'red', 'black', 'none'].forEach(z => {
+      ['green', 'watchlist', 'red', 'black', null].forEach(z => {
         const w = document.createElement('div');
         w.innerHTML = rmZoneBlockHTML(z, '24.10.2025');
         zoneHost.appendChild(w.firstChild);
@@ -17579,20 +24568,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- DEV: redline измерено на живом экземпляре ---------------- */
   (function () {
-    const host = document.createElement('div');
-    host.style.cssText = 'position:absolute;left:-9999px;top:0;';
-    document.body.appendChild(host);
-    const {
-      el
-    } = makeRiskChip({
+    const off = document.createElement('div');
+    off.style.cssText = 'position:absolute;left:-9999px;top:0;';
+    document.body.appendChild(off);
+    const rm = rmMount(off, {
       rating: 26,
-      zone: 'red'
+      zone: 'red',
+      ratingDate: '24.10.2025',
+      zoneDate: '24.10.2025'
     });
-    host.appendChild(el);
-    const cs = getComputedStyle(el);
-    const info = el.querySelector('.chip__info');
+    const chipEl = rm.querySelector('.chip');
+    const cs = getComputedStyle(chipEl);
+    const info = chipEl.querySelector('.chip__info');
     const rows = [['Высота', cs.height], ['Паддинг X', cs.paddingLeft], ['Зазор label ↔ информер', cs.columnGap], ['Радиус', cs.borderTopLeftRadius], ['Кегль текста', cs.fontSize], ['Иконка-информер', info ? getComputedStyle(info).width : '—']];
-    host.remove();
+    const popEl = rm.querySelector('.pop');
     const r = v => {
       const n = parseFloat(v);
       return isNaN(n) ? v : Math.round(n * 10) / 10 + ' px';
@@ -17603,30 +24592,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tb) tb.innerHTML = rowsHtml;
     });
     const tbody2 = document.querySelector('#dev-pop-table');
-    if (tbody2) {
-      const host = document.createElement('div');
-      host.style.cssText = 'position:absolute;left:-9999px;top:0;';
-      document.body.appendChild(host);
-      const {
-        pop
-      } = buildRiskPopover({
-        rating: 26,
-        zone: 'red'
-      });
-      pop.classList.remove('pop--floating');
-      pop.style.position = 'static';
-      host.appendChild(pop);
-      const cs = getComputedStyle(pop);
-      const head = pop.querySelector('.pop__head'),
-        body = pop.querySelector('.pop__body');
-      const rows = [['Ширина (w-m)', cs.width], ['Радиус', cs.borderRadius], ['Паддинг Header (Y/X)', getComputedStyle(head).paddingTop + ' / ' + getComputedStyle(head).paddingLeft], ['Паддинг Body (Y/X)', getComputedStyle(body).paddingTop + ' / ' + getComputedStyle(body).paddingLeft], ['Зазор от триггера', '8 px']];
-      host.remove();
-      const r = v => {
-        const n = parseFloat(v);
-        return isNaN(n) ? v : Math.round(n * 10) / 10 + ' px';
-      };
-      tbody2.innerHTML = rows.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${typeof v === 'string' && v.indexOf('/') > -1 ? v.split(' / ').map(r).join(' / ') : r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
+    if (tbody2 && popEl) {
+      popEl.classList.remove('pop--floating');
+      popEl.style.position = 'static';
+      const csp = getComputedStyle(popEl);
+      const head = popEl.querySelector('.pop__head'),
+        body = popEl.querySelector('.pop__body');
+      const rowsp = [['Ширина (w-m)', csp.width], ['Радиус', csp.borderRadius], ['Паддинг Header (Y/X)', getComputedStyle(head).paddingTop + ' / ' + getComputedStyle(head).paddingLeft], ['Паддинг Body (Y/X)', getComputedStyle(body).paddingTop + ' / ' + getComputedStyle(body).paddingLeft], ['Зазор от триггера', '8 px']];
+      tbody2.innerHTML = rowsp.map(([p, v]) => `<div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.81fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">${p}</span></span></div><div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">${typeof v === 'string' && v.indexOf('/') > -1 ? v.split(' / ').map(r).join(' / ') : r(v)}</span></span></div><div class="tc tc--separator"></div></div>`).join('');
     }
+    off.remove();
   })();
 
   /* ---------------- CONTENT: примеры зон в таблице ---------------- */
@@ -17641,16 +24616,14 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.keys(map).forEach(zone => {
       const cell = document.getElementById(map[zone]);
       if (!cell) return;
-      mountRiskMetric(cell, zone === 'none' ? {
+      rmMount(cell, zone === 'none' ? {
         rating: null,
-        zone: 'none'
+        zone: null
       } : {
         rating: 26,
         zone,
-        popover: {
-          rating: 26,
-          zone
-        }
+        ratingDate: '24.10.2025',
+        zoneDate: '24.10.2025'
       });
     });
   })();
@@ -17685,224 +24658,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/riskmetric.page.js", error: String((e && e.message) || e) }); }
-
-// scripts/screens-chrome.js
-try { (() => {
-/* ============================================================
-   SCREENS CHROME — общий рантайм оболочки приложения для раздела
-   «Примеры экранов». Собирает NavPanel из данных меню ДС и включает
-   её поведение (rail ⇄ drawer ⇄ fixed, тултип, оверлей), чтобы
-   компонент работал «из коробки», а не только как CSS-оболочка.
-
-   Монтаж: <aside class="scr__rail" data-screen-rail
-              data-active="<имя-иконки>" data-avatar="ИБ"
-              data-user="Александров Петр" data-role="Аналитик ДИД"
-              data-org="SMB Недвижимость +2"></aside>
-   Требует подключённых icons-data.js + ds-icons.js.
-   ============================================================ */
-(function () {
-  var host = document.querySelector('[data-screen-rail]');
-  if (!host) return;
-  var active = host.getAttribute('data-active') || 'main-page';
-  var avatar = host.getAttribute('data-avatar') || 'ИБ';
-  var uName = host.getAttribute('data-user') || 'Александров Петр Константинович';
-  var uRole = host.getAttribute('data-role') || 'Консультант-аналитик ДИД';
-  var uOrg = host.getAttribute('data-org') || 'SMB Недвижимость +2';
-  function ic(name) {
-    return '<i data-icon="' + name + '"></i>';
-  }
-
-  // Меню — тот же набор, что в проде IBP (см. nav-panel.page.js)
-  var HOME = {
-    icon: 'main-page',
-    label: 'Главная'
-  };
-  var BLOCKS = [{
-    label: 'Origination',
-    items: [{
-      icon: 'Important-deals',
-      label: 'Обязательные сделки'
-    }, {
-      icon: 'deals-possible-deals',
-      label: 'Возможные сделки'
-    }, {
-      icon: 'sales-projects',
-      label: 'Проекты продаж CIB'
-    }, {
-      icon: 'calc',
-      label: 'Калькулятор'
-    }, {
-      icon: 'funds',
-      label: 'Фонды'
-    }]
-  }, {
-    label: 'Pipeline',
-    items: [{
-      icon: 'pipeline',
-      label: 'Pipeline'
-    }, {
-      icon: 'corporate-transactions',
-      label: 'Корпоративные запросы'
-    }, {
-      icon: 'payments-ib',
-      label: 'Реестр платежей IB'
-    }]
-  }, {
-    label: 'Текущий портфель ДИД',
-    items: [{
-      icon: 'current-depo',
-      label: 'Текущий портфель ДИД'
-    }, {
-      icon: 'cash-flow',
-      label: 'Прогноз CashFlow'
-    }, {
-      icon: 'percent-circle',
-      label: 'Процентные схемы'
-    }]
-  }, {
-    label: 'Отчеты',
-    items: [{
-      icon: 'reports-1-c',
-      label: 'Отчёты 1C/Navision'
-    }, {
-      icon: 'reserve',
-      label: 'Расчет резерва'
-    }, {
-      icon: 'rwa',
-      label: 'RWA'
-    }, {
-      icon: 'bar-chart',
-      label: 'Метрики'
-    }]
-  }, {
-    label: 'Администрирование',
-    items: [{
-      icon: 'admin-panel-settings',
-      label: 'Администрирование'
-    }]
-  }];
-  function itemHTML(it, first) {
-    var sel = it.icon === active;
-    return '<a class="nav__item' + (sel ? ' nav__item--selected' : '') + '" href="#"' + (sel ? ' aria-current="page"' : '') + '>' + '<span class="nav__ico">' + ic(it.icon) + '</span>' + '<span class="nav__label">' + it.label + '</span>' + (it.badge ? '<span class="nav__badge"><span class="badge badge--xs badge--accent" aria-hidden="true">' + it.badge + '</span></span>' : '') + '</a>';
-  }
-  function build(mode) {
-    var s = '<nav class="nav nav--' + mode + '" aria-label="Главное меню">';
-    // top: бургер (+ pin в развёрнутых режимах)
-    s += '<div class="nav__top">';
-    s += '<button type="button" class="ibtn ibtn--neutral ibtn--m nav__burger" aria-label="' + (mode === 'rail' ? 'Развернуть меню' : 'Свернуть меню') + '">' + ic('left-menu') + '</button>';
-    if (mode !== 'rail') {
-      s += '<button type="button" class="ibtn ibtn--neutral ibtn--m nav__pin" aria-pressed="' + (mode === 'fixed') + '" aria-label="' + (mode === 'fixed' ? 'Открепить панель' : 'Закрепить панель') + '">' + ic(mode === 'fixed' ? 'unpin-menu' : 'pin-menu') + '</button>';
-    }
-    s += '</div>';
-    // list
-    s += '<div class="nav__list">';
-    s += itemHTML(HOME);
-    BLOCKS.forEach(function (b, i) {
-      s += '<div class="nav__block' + (i === 0 ? ' nav__block--first' : '') + '">';
-      s += '<div class="nav__block-label">' + b.label + '</div>';
-      b.items.forEach(function (it) {
-        s += itemHTML(it);
-      });
-      s += '</div>';
-    });
-    s += '</div>';
-    // footer: аватар + профиль + логаут
-    s += '<div class="nav__footer">' + '<div class="nav__user">' + '<span class="av av--circular av--m"><span class="av__text">' + avatar + '</span></span>' + '<span class="nav__user-text">' + '<span class="nav__user-name">' + uName + '</span>' + '<span class="nav__user-role">' + uRole + '</span>' + '<span class="nav__user-org">' + uOrg + '</span>' + '</span></div>' + '<button type="button" class="ibtn ibtn--neutral ibtn--m nav__logout" aria-label="Выйти">' + ic('logout') + '</button>' + '</div>';
-    s += '</nav>';
-    return s;
-  }
-  var scrim = null;
-  function removeScrim() {
-    if (scrim) {
-      scrim.remove();
-      scrim = null;
-    }
-  }
-  function addScrim() {
-    removeScrim();
-    scrim = document.createElement('div');
-    scrim.className = 'scr__scrim';
-    scrim.addEventListener('click', function () {
-      render('rail');
-    });
-    document.body.appendChild(scrim);
-  }
-  function render(mode) {
-    host.innerHTML = build(mode);
-    if (window.dsIcons) window.dsIcons.apply(host);
-    var nav = host.querySelector('.nav');
-    var burger = host.querySelector('.nav__burger');
-    var pin = host.querySelector('.nav__pin');
-
-    // rail: позиционирование тултипа (fixed label — как в nav-panel.page.js)
-    if (mode === 'rail') {
-      nav.addEventListener('mouseover', placeTip);
-      nav.addEventListener('focusin', placeTip);
-    }
-    function placeTip(e) {
-      var item = e.target.closest && e.target.closest('.nav__item');
-      if (!item || !nav.contains(item)) return;
-      var lbl = item.querySelector('.nav__label');
-      if (!lbl) return;
-      var r = item.getBoundingClientRect();
-      lbl.style.top = r.top + r.height / 2 + 'px';
-      lbl.style.left = r.right + 10 + 'px';
-    }
-
-    // бургер: rail → drawer (оверлей), drawer → rail
-    burger.addEventListener('click', function () {
-      render(mode === 'rail' ? 'drawer' : 'rail');
-    });
-    // pin: drawer → fixed (закрепить), fixed → drawer
-    if (pin) pin.addEventListener('click', function () {
-      render(mode === 'fixed' ? 'drawer' : 'fixed');
-    });
-
-    // drawer — оверлей поверх контента + скрим (клик вне / Esc → rail)
-    if (mode === 'drawer') addScrim();else removeScrim();
-  }
-  render('rail');
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && host.querySelector('.nav--drawer')) render('rail');
-  });
-})();
-
-/* ---------- RiskMetric: поповер по клику на информер (делегирование) ------- */
-(function () {
-  function closeAll(except) {
-    document.querySelectorAll('.pop-anchor .pop:not([hidden])').forEach(function (p) {
-      if (p === except) return;
-      p.hidden = true;
-      var t = p.closest('.pop-anchor').querySelector('.chip__info');
-      if (t) t.setAttribute('aria-expanded', 'false');
-    });
-  }
-  document.addEventListener('click', function (e) {
-    var closeBtn = e.target.closest ? e.target.closest('.pop__close') : null;
-    if (closeBtn) {
-      closeAll(null);
-      return;
-    }
-    var info = e.target.closest ? e.target.closest('.chip__info') : null;
-    if (info) {
-      var anchor = info.closest('.pop-anchor');
-      var pop = anchor && anchor.querySelector('.pop');
-      if (pop) {
-        e.preventDefault();
-        var willOpen = pop.hidden;
-        closeAll(willOpen ? pop : null);
-        pop.hidden = !willOpen;
-        info.setAttribute('aria-expanded', String(willOpen));
-        return;
-      }
-    }
-    if (!(e.target.closest && e.target.closest('.pop'))) closeAll(null);
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeAll(null);
-  });
-})();
-})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/screens-chrome.js", error: String((e && e.message) || e) }); }
 
 // scripts/segment-control.page.js
 try { (() => {
@@ -17978,68 +24733,17 @@ try { (() => {
     return host;
   }
 
-  /* position the floating thumb behind the checked item */
+  /* позиция индикатора — рантайм ДС (scripts/ds-tabs.js): измеряется по
+     выбранному сегменту, а не считается по индексу */
   function positionThumb(host) {
-    const thumb = host.querySelector('.segctrl__thumb');
-    if (!thumb) return;
-    const sel = host.querySelector('.segctrl__item[aria-checked="true"]');
-    if (!sel) {
-      thumb.classList.remove('is-visible');
-      return;
-    }
-    thumb.style.width = sel.offsetWidth + 'px';
-    thumb.style.transform = 'translateX(' + sel.offsetLeft + 'px)';
-    thumb.classList.add('is-visible');
+    window.DSTabs && DSTabs.positionThumb(host);
   }
 
-  /* make a control interactive: click + roving-tabindex keyboard nav */
+  /* клик, клавиатура и пересчёт индикатора — тот же рантайм ДС */
   function wireSegControl(host, onChange) {
-    const items = () => [...host.querySelectorAll('.segctrl__item')];
-    function select(btn) {
-      items().forEach(b => {
-        b.setAttribute('aria-checked', 'false');
-        b.tabIndex = -1;
-      });
-      btn.setAttribute('aria-checked', 'true');
-      btn.tabIndex = 0;
-      positionThumb(host);
-      if (onChange) onChange(items().indexOf(btn));
-    }
-    items().forEach(b => {
-      b.addEventListener('click', () => {
-        if (b.getAttribute('aria-disabled') === 'true' || b.disabled) return;
-        select(b);
-      });
+    window.DSTabs && DSTabs.segment(host, {
+      onChange: onChange
     });
-    host.addEventListener('keydown', e => {
-      const live = items().filter(b => b.getAttribute('aria-disabled') !== 'true' && !b.disabled);
-      if (!live.length) return;
-      let i = live.indexOf(document.activeElement);
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        i = (i + 1 + live.length) % live.length;
-        live[i].focus();
-        select(live[i]);
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        i = (i - 1 + live.length) % live.length;
-        live[i].focus();
-        select(live[i]);
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        live[0].focus();
-        select(live[0]);
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        live[live.length - 1].focus();
-        select(live[live.length - 1]);
-      }
-    });
-    requestAnimationFrame(() => positionThumb(host));
-    window.addEventListener('resize', () => positionThumb(host));
-    window.addEventListener('load', () => positionThumb(host));
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => positionThumb(host));
-    if (window.ResizeObserver) new ResizeObserver(() => positionThumb(host)).observe(host);
     return host;
   }
   function mount(id, node) {
@@ -18227,7 +24931,7 @@ try { (() => {
       [['Обзор', false], ['Документы', true], ['История', false]].forEach(([label, sel]) => {
         const t = document.createElement('button');
         t.type = 'button';
-        t.className = 'tab tab--s tab--horiz' + (sel ? ' tab--selected' : '');
+        t.className = 'tab tab--s' + (sel ? ' tab--selected' : '');
         t.setAttribute('role', 'tab');
         t.setAttribute('aria-selected', String(sel));
         const lb = document.createElement('span');
@@ -18836,135 +25540,11 @@ const SPL_UI = {
   }
 })();
 
-/* ---------- splitter element factory ----------
-   o: { orientation:'v'|'h', state:'default'|'hover'|'move'|'disabled', dots } */
-function makeSplitter(o = {}) {
-  const {
-    orientation = 'v',
-    state = 'default'
-  } = o;
-  const el = document.createElement('div');
-  el.className = 'spl' + (orientation === 'h' ? ' spl--h' : '');
-  if (state === 'hover') el.classList.add('spl--hover');
-  if (state === 'move') el.classList.add('spl--move');
-  if (state === 'disabled') el.classList.add('spl--disabled');
-  el.setAttribute('role', 'separator');
-  el.setAttribute('aria-orientation', orientation === 'h' ? 'horizontal' : 'vertical');
-  if (state !== 'disabled') el.tabIndex = 0;
-  const grip = document.createElement('span');
-  grip.className = 'spl__grip';
-  for (let i = 0; i < 6; i++) grip.appendChild(document.createElement('i'));
-  el.appendChild(grip);
-  return el;
-}
-
-/* ---------- working split-pane factory ----------
-   o: { orientation, left, right, min, max, initial, height } */
-function createSplitPane(o = {}) {
-  const {
-    orientation = 'v',
-    min = 20,
-    max = 80,
-    initial = 50,
-    height = 220,
-    leftLabel = 'Левая панель',
-    rightLabel = 'Правая панель',
-    buildLeft,
-    buildRight,
-    onChange
-  } = o;
-  const horiz = orientation === 'h';
-  const wrap = document.createElement('div');
-  wrap.className = 'splitpane' + (horiz ? ' splitpane--h' : '');
-  wrap.style.height = height + 'px';
-  const a = document.createElement('div');
-  a.className = 'splitpane__panel splitpane__a';
-  const b = document.createElement('div');
-  b.className = 'splitpane__panel splitpane__b';
-  if (buildLeft) buildLeft(a);else a.innerHTML = '<span class="splitpane__ph">' + leftLabel + '</span>';
-  if (buildRight) buildRight(b);else b.innerHTML = '<span class="splitpane__ph">' + rightLabel + '</span>';
-  const spl = makeSplitter({
-    orientation
-  });
-
-  // initial sizing via flex-basis percentage on panel A
-  let pct = initial;
-  function apply() {
-    a.style.flex = '0 0 ' + pct + '%';
-    b.style.flex = '1 1 auto';
-    spl.setAttribute('aria-valuemin', String(min));
-    spl.setAttribute('aria-valuemax', String(max));
-    spl.setAttribute('aria-valuenow', String(Math.round(pct)));
-    if (onChange) onChange(Math.round(pct));
-  }
-  wrap.appendChild(a);
-  wrap.appendChild(spl);
-  wrap.appendChild(b);
-
-  // drag
-  let dragging = false;
-  function pointerPct(clientPos) {
-    const r = wrap.getBoundingClientRect();
-    const total = horiz ? r.height : r.width;
-    const offset = horiz ? clientPos - r.top : clientPos - r.left;
-    return Math.max(min, Math.min(max, offset / total * 100));
-  }
-  spl.addEventListener('pointerdown', e => {
-    if (spl.classList.contains('spl--disabled')) return;
-    dragging = true;
-    spl.classList.add('spl--move');
-    document.body.classList.add(horiz ? 'spl-dragging-h' : 'spl-dragging');
-    spl.setPointerCapture(e.pointerId);
-    e.preventDefault();
-  });
-  spl.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    pct = pointerPct(horiz ? e.clientY : e.clientX);
-    apply();
-  });
-  function endDrag(e) {
-    if (!dragging) return;
-    dragging = false;
-    spl.classList.remove('spl--move');
-    document.body.classList.remove('spl-dragging', 'spl-dragging-h');
-    try {
-      spl.releasePointerCapture(e.pointerId);
-    } catch (_) {}
-  }
-  spl.addEventListener('pointerup', endDrag);
-  spl.addEventListener('pointercancel', endDrag);
-
-  // keyboard
-  spl.addEventListener('keydown', e => {
-    const step = e.shiftKey ? 10 : 2;
-    let used = true;
-    if (horiz) {
-      if (e.key === 'ArrowUp') pct = Math.max(min, pct - step);else if (e.key === 'ArrowDown') pct = Math.min(max, pct + step);else used = false;
-    } else {
-      if (e.key === 'ArrowLeft') pct = Math.max(min, pct - step);else if (e.key === 'ArrowRight') pct = Math.min(max, pct + step);else used = false;
-    }
-    if (e.key === 'Home') {
-      pct = min;
-      used = true;
-    }
-    if (e.key === 'End') {
-      pct = max;
-      used = true;
-    }
-    if (used) {
-      e.preventDefault();
-      apply();
-    }
-  });
-  apply();
-  return {
-    wrap,
-    setPct(v) {
-      pct = Math.max(min, Math.min(max, v));
-      apply();
-    }
-  };
-}
+/* Поведение сплиттера вынесено в рантайм ДС — scripts/ds-splitter.js
+   (перетаскивание с pointer capture, min/max, клавиатура, aria-value*).
+   Страница-витрина пользуется тем же публичным API. */
+const makeSplitter = o => window.DSSplitter.make(o);
+const createSplitPane = o => window.DSSplitter.pane(o);
 
 /* ===================================================================== *
    PLAYGROUND
@@ -19459,230 +26039,16 @@ try { (() => {
     return g;
   }
 
-  /* make a tablist actually switch (single-select) */
+  /* переключение и клавиатура — рантайм ДС (scripts/ds-tabs.js):
+     roving tabindex, стрелки по ориентации, Home/End, подскролл выбранного */
   function wireTablist(group) {
-    const tabs = [...group.querySelectorAll('.tab')];
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        if (tab.classList.contains('tab--disabled')) return;
-        tabs.forEach(t => {
-          t.classList.remove('tab--selected');
-          t.setAttribute('aria-selected', 'false');
-          t.tabIndex = -1;
-        });
-        tab.classList.add('tab--selected');
-        tab.setAttribute('aria-selected', 'true');
-        tab.tabIndex = 0;
-      });
-    });
-    group.addEventListener('keydown', e => {
-      const live = tabs.filter(t => !t.classList.contains('tab--disabled'));
-      const cur = document.activeElement;
-      let i = live.indexOf(cur);
-      const horiz = group.classList.contains('tabs--horiz');
-      const next = horiz ? 'ArrowRight' : 'ArrowDown';
-      const prev = horiz ? 'ArrowLeft' : 'ArrowUp';
-      if (e.key === next) {
-        e.preventDefault();
-        i = (i + 1) % live.length;
-        live[i].focus();
-        live[i].click();
-      } else if (e.key === prev) {
-        e.preventDefault();
-        i = (i - 1 + live.length) % live.length;
-        live[i].focus();
-        live[i].click();
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        live[0].focus();
-        live[0].click();
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        live[live.length - 1].focus();
-        live[live.length - 1].click();
-      }
-    });
+    return window.DSTabs && DSTabs.tabs(group);
   }
 
-  /* ---------- overflow group: fit as many tabs as the container allows,
-     the rest collapse behind a "more" (⋯) trigger with a dropdown menu ---------- */
-  const MORE_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>';
-  function makeOverflowTabs(items, o = {}) {
-    const size = o.size || 'm';
-    const host = document.createElement('div');
-    host.className = 'tabs-overflow';
-    const group = document.createElement('div');
-    group.className = 'tabs tabs--horiz';
-    group.setAttribute('role', 'tablist');
-    host.appendChild(group);
-    let selected = items.findIndex(it => it.state === 'selected');
-    if (selected < 0) selected = 0;
-    const tabEls = items.map((it, i) => {
-      const t = makeTab(Object.assign({
-        orient: 'horiz',
-        size,
-        standalone: false
-      }, it, {
-        state: 'default'
-      }));
-      t.addEventListener('click', () => {
-        selected = i;
-        update();
-      });
-      return t;
-    });
-    tabEls.forEach(t => group.appendChild(t));
-    const moreBtn = document.createElement('button');
-    moreBtn.type = 'button';
-    moreBtn.className = 'tab tab--' + size + ' tab--horiz tab--more';
-    moreBtn.setAttribute('aria-haspopup', 'true');
-    moreBtn.setAttribute('aria-expanded', 'false');
-    moreBtn.setAttribute('aria-label', 'Показать остальные разделы');
-    const mi = document.createElement('span');
-    mi.className = 'tab__icon';
-    mi.innerHTML = MORE_ICON;
-    moreBtn.appendChild(mi);
-    group.appendChild(moreBtn);
-    const menu = document.createElement('div');
-    menu.className = 'tabs-overflow__menu';
-    menu.setAttribute('role', 'menu');
-    host.appendChild(menu);
-    function closeMenu() {
-      menu.classList.remove('is-open');
-      moreBtn.setAttribute('aria-expanded', 'false');
-      moreBtn.classList.remove('is-menu-open');
-    }
-    function openMenu() {
-      menu.classList.add('is-open');
-      moreBtn.setAttribute('aria-expanded', 'true');
-      moreBtn.classList.add('is-menu-open');
-    }
-    moreBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      if (menu.classList.contains('is-open')) closeMenu();else openMenu();
-    });
-    document.addEventListener('click', e => {
-      if (!host.contains(e.target)) closeMenu();
-    });
-    host.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeMenu();
-    });
-    function layout() {
-      tabEls.forEach(t => {
-        t.style.display = '';
-      });
-      moreBtn.style.display = 'none';
-      const available = host.clientWidth;
-      if (!available) return;
-      const widths = tabEls.map(t => t.getBoundingClientRect().width);
-      const total = widths.reduce((a, b) => a + b, 0);
-      if (total <= available + 0.5) {
-        buildMenu();
-        return;
-      }
-      moreBtn.style.display = '';
-      const moreWidth = moreBtn.getBoundingClientRect().width;
-      let sum = 0,
-        cutoff = tabEls.length;
-      for (let i = 0; i < widths.length; i++) {
-        sum += widths[i];
-        if (sum + moreWidth > available) {
-          cutoff = i;
-          break;
-        }
-      }
-      cutoff = Math.max(cutoff, 1);
-      tabEls.forEach((t, i) => {
-        t.style.display = i < cutoff ? '' : 'none';
-      });
-      buildMenu();
-    }
-    function buildMenu() {
-      menu.innerHTML = '';
-      tabEls.forEach((t, i) => {
-        if (t.style.display !== 'none') return;
-        const it = items[i];
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'tabs-overflow__item';
-        btn.setAttribute('role', 'menuitemradio');
-        btn.setAttribute('aria-checked', String(i === selected));
-        if (it.icon) {
-          const ic2 = document.createElement('span');
-          ic2.className = 'tab__icon';
-          ic2.innerHTML = icon(it.icon);
-          btn.appendChild(ic2);
-        }
-        const lb = document.createElement('span');
-        lb.className = 'tab__label';
-        lb.textContent = it.label;
-        btn.appendChild(lb);
-        if (it.badge != null) {
-          const bd = document.createElement('span');
-          bd.className = 'tab__badge';
-          bd.textContent = groupNum(it.badge);
-          btn.appendChild(bd);
-        }
-        btn.addEventListener('click', () => {
-          selected = i;
-          closeMenu();
-          update();
-        });
-        menu.appendChild(btn);
-      });
-    }
-    function update() {
-      tabEls.forEach((t, i) => {
-        const sel = i === selected;
-        t.classList.toggle('tab--selected', sel);
-        t.setAttribute('aria-selected', String(sel));
-      });
-      layout();
-    }
-    requestAnimationFrame(update);
-    window.addEventListener('resize', layout);
-    window.addEventListener('load', layout);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
-    if (window.ResizeObserver) new ResizeObserver(layout).observe(host);
-    return host;
-  }
-
-  /* ---------- scroll arrows: wraps a .tabs-scroll with prev/next buttons that
-     fade in/out depending on whether there is more content to reach on that side ---------- */
-  function makeScrollArrows(scrollEl) {
-    const wrap = document.createElement('div');
-    wrap.className = 'tabs-scroll-wrap';
-    wrap.appendChild(scrollEl);
-    function mkArrow(dir) {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'tabs-scroll__arrow tabs-scroll__arrow--' + dir;
-      b.setAttribute('aria-label', dir === 'left' ? 'Прокрутить влево' : 'Прокрутить вправо');
-      b.innerHTML = dir === 'left' ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
-      b.addEventListener('click', () => {
-        scrollEl.scrollBy({
-          left: dir === 'left' ? -160 : 160,
-          behavior: 'smooth'
-        });
-      });
-      return b;
-    }
-    const left = mkArrow('left'),
-      right = mkArrow('right');
-    wrap.appendChild(left);
-    wrap.appendChild(right);
-    function update() {
-      const max = scrollEl.scrollWidth - scrollEl.clientWidth;
-      left.classList.toggle('is-visible', scrollEl.scrollLeft > 4);
-      right.classList.toggle('is-visible', scrollEl.scrollLeft < max - 4);
-    }
-    scrollEl.addEventListener('scroll', update);
-    window.addEventListener('resize', update);
-    window.addEventListener('load', update);
-    if (window.ResizeObserver) new ResizeObserver(update).observe(scrollEl);
-    requestAnimationFrame(update);
-    return wrap;
-  }
+  /* ---------- overflow — оба паттерна (скролл со стрелками, fit + меню «ёщё») живут
+     в рантайме ds-tabs.js (RulesAudit W2) — страница только собирает реальную
+     разметку и вызывает DSTabs.tabs(); паттерн активируется сам по факту
+     переполнения — для второго ряда паттерн форсируется data-tabs-overflow="menu". ---------- */
 
   /* ============================ PLAYGROUND ============================ */
   (function () {
@@ -20157,18 +26523,18 @@ try { (() => {
       label: 'Черновики'
     }];
 
-    // pattern A — horizontal scroll, hidden scrollbar (container narrower than content), with arrows
+    // pattern A — horizontal scroll (рантайм сам обёрнёт в .tabs-scroll-wrap + стрелки, когда ряд шире контейнера)
     const host = document.getElementById('overflow-demo');
-    const wrap = document.createElement('div');
-    wrap.className = 'tabs-scroll';
     const g = makeGroup('horiz', overflowItems);
+    host.appendChild(g);
     wireTablist(g);
-    wrap.appendChild(g);
-    host.appendChild(makeScrollArrows(wrap));
 
-    // pattern B — fit + "⋯" trigger opening a dropdown with the rest
+    // pattern B — fit + «⋯», та же разметка, форсируется data-tabs-overflow="menu"
     const hostFit = document.getElementById('overflow-fit');
-    hostFit.appendChild(makeOverflowTabs(overflowItems));
+    const gFit = makeGroup('horiz', overflowItems);
+    gFit.setAttribute('data-tabs-overflow', 'menu');
+    hostFit.appendChild(gFit);
+    wireTablist(gFit);
 
     // truncation: a vert tab with a very long label
     const t = document.getElementById('overflow-trunc');
@@ -20589,7 +26955,7 @@ try { (() => {
     return '<div class="inp inp--s inp--fullwidth' + (isErr ? ' inp--error' : '') + (open ? ' is-open' : '') + '">' + '<div class="inp__field"' + (kind === 'autocomplete' ? ' role="combobox" aria-expanded="' + open + '"' : '') + '>' + '<input class="inp__control" value="' + esc(cfg.text) + '" placeholder="' + ph + '" aria-label="Значение ячейки"' + (kind === 'date' ? ' inputmode="numeric"' : '') + '>' + '<span class="inp__acts">' + acts + '</span></div>' + ddl + '</div>';
   }
   function cellContent(cfg, i) {
-    if (cfg.state === 'skeleton') return '<span class="tc__skeleton"></span>';
+    if (cfg.state === 'skeleton') return '<span class="sk-line sk-line--caption" style="--sk-w:60%"></span>';
     if (cfg.state === 'empty') return '<span class="tc__empty">—</span>';
     var extra = cfg.hiddenOn && !has(INPUT_TYPES, cfg.type) && cfg.type !== 'checkbox' ? hiddenActions() : '';
     switch (cfg.type) {
@@ -20608,7 +26974,7 @@ try { (() => {
           var labels = ['Активна', 'VIP', 'Новый'];
           var html = '<div class="tc__controls">';
           for (var k = 0; k < cfg.chipsCount; k++) {
-            html += '<span class="chip chip--readonly chip--s' + roundCls + toneCls + '"><span class="chip__label">' + labels[k % labels.length] + '</span></span>';
+            html += '<span class="chip chip--s' + roundCls + toneCls + '"><span class="chip__label">' + labels[k % labels.length] + '</span></span>';
           }
           return html + '</div>' + extra;
         }
@@ -21211,7 +27577,7 @@ try { (() => {
     var cls = 'tc' + (c.num ? ' tc--numbers' : '') + (dragKey === c.k ? ' tc--dragging' : '');
     if (c.k === 'status') {
       var tone = r.status[0] ? ' chip--' + r.status[0] : '';
-      return '<div class="' + cls + '"><span class="chip chip--readonly chip--s chip--rounded' + tone + '"><span class="chip__label">' + r.status[1] + '</span></span></div>';
+      return '<div class="' + cls + '"><span class="chip chip--s chip--rounded' + tone + '"><span class="chip__label">' + r.status[1] + '</span></span></div>';
     }
     return '<div class="' + cls + '"><span class="tc__row"><span class="tc__text tc__text--truncate">' + esc(r[c.k]) + '</span></span></div>';
   }
@@ -21347,6 +27713,40 @@ try { (() => {
   });
   render();
 })();
+
+/* ------------------------------------------------------------------ */
+/* Вариант «Динамика»: спарклайн в ячейке — компонент Chart (spark)     */
+/* ------------------------------------------------------------------ */
+(function () {
+  function build() {
+    var host = document.getElementById('tc-spark-demo');
+    if (!host || !window.DSChart) return;
+    var rows = [['Показатель A', '810 000 000,00', [120, 160, 150, 190, 210, 240, 260, 300], 'auto'], ['Показатель B', '530 000 000,00', [300, 280, 260, 250, 230, 210, 190, 160], 'auto'], ['Показатель C', '420 000 000,00', [200, 210, 190, 220, 205, 215, 210, 225], 'series']];
+    var tpl = 'grid-template-columns:8px 1.6fr 1fr 0.7fr 8px;';
+    var html = '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">';
+    html += '<div class="tbl__row" style="' + tpl + '"><div class="th th--separator"></div>' + '<div class="th"><span class="th__label">Показатель</span></div>' + '<div class="th th--right"><span class="th__label">Значение</span></div>' + '<div class="th"><span class="th__label">Динамика</span></div>' + '<div class="th th--separator"></div></div>';
+    rows.forEach(function (r, i) {
+      html += '<div class="tbl__row" style="' + tpl + '"><div class="tc tc--separator"></div>' + '<div class="tc"><span class="tc__row"><span class="tc__text">' + r[0] + '</span></span></div>' + '<div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">' + r[1] + '</span></span></div>' + '<div class="tc"><span class="tc__row"><span class="tc__spark" id="tc-spk-' + i + '"></span></span></div>' + '<div class="tc tc--separator"></div></div>';
+    });
+    host.innerHTML = html + '</div>';
+    rows.forEach(function (r, i) {
+      var slot = document.getElementById('tc-spk-' + i);
+      if (!slot) return;
+      slot.appendChild(window.DSChart.make({
+        type: 'spark',
+        spark: 'line',
+        tone: r[3] === 'auto' ? 'auto' : null,
+        series: [{
+          id: 'k',
+          data: r[2],
+          color: '--chart-blue'
+        }],
+        ariaLabel: 'Динамика: ' + r[0]
+      }));
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);else build();
+})();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/table-cell.page.js", error: String((e && e.message) || e) }); }
 
 // scripts/table-filter.page.js
@@ -21366,56 +27766,6 @@ try { (() => {
     const out = [];
     for (let i = 0; i < n; i++) out.push(PARAM_POOL[i % PARAM_POOL.length]);
     return out;
-  }
-
-  /* ---------- блокировка скролла страницы под скримом + inert фона ---------- */
-  let scrollLocks = 0,
-    savedOverflow = '',
-    savedPadRight = '';
-  function lockScroll() {
-    if (scrollLocks++ > 0) return;
-    const b = document.body;
-    const gap = window.innerWidth - document.documentElement.clientWidth;
-    savedOverflow = b.style.overflow;
-    savedPadRight = b.style.paddingRight;
-    b.style.overflow = 'hidden';
-    if (gap > 0) b.style.paddingRight = gap + 'px';
-    Array.from(b.children).forEach(el => {
-      if (!el.classList.contains('modal-scrim')) {
-        el.inert = true;
-        el.setAttribute('aria-hidden', 'true');
-      }
-    });
-  }
-  function unlockScroll() {
-    if (scrollLocks === 0) return;
-    if (--scrollLocks > 0) return;
-    document.body.style.overflow = savedOverflow;
-    document.body.style.paddingRight = savedPadRight;
-    Array.from(document.body.children).forEach(el => {
-      el.inert = false;
-      el.removeAttribute('aria-hidden');
-    });
-  }
-
-  /* ---------- focus trap на активном слое ---------- */
-  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
-  function trapFocus(scrim) {
-    scrim.addEventListener('keydown', e => {
-      if (e.key !== 'Tab') return;
-      const layer = scrim.querySelector('.modal-scrim--nested') || scrim;
-      const items = Array.from(layer.querySelectorAll(FOCUSABLE)).filter(el => el.offsetParent !== null);
-      if (!items.length) return;
-      const first = items[0],
-        last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    });
   }
 
   /* ---------- чип-счётчик «Применено: N» ---------- */
@@ -21455,70 +27805,26 @@ try { (() => {
     if (applied && count > 0) {
       const chip = makeAppliedChip(count);
       bar.appendChild(chip);
-      const reset = () => {
-        chip.style.transition = 'opacity .18s, transform .18s';
-        chip.style.opacity = '0';
-        chip.style.transform = 'scale(.85)';
-        setTimeout(() => {
-          chip.remove();
-          onReset && onReset();
-        }, 180);
-      };
-      chip.querySelector('.chip__remove').addEventListener('click', reset);
-      chip.addEventListener('keydown', e => {
-        if (e.key === 'Backspace' || e.key === 'Delete') {
-          e.preventDefault();
-          reset();
-        }
+      /* сброс (клик по крестику / Backspace-Delete, фейд, удаление чипа) —
+         рантайм ДС (scripts/ds-table-filter.js); он всплывает 'tfilter:reset' на .tfilter */
+      if (onReset) bar.addEventListener('tfilter:reset', onReset, {
+        once: true
       });
     }
 
     /* выпадающий список пресетов */
     const chevBtn = bar.querySelector('.tfilter__presets');
     if (chevBtn) {
+      /* поведение — рантайм ДС (scripts/ds-menu.js): открытие/закрытие,
+         позиция, клавиатура, Esc, закрытие по выбору пункта */
       const menu = bar.querySelector('.tfilter__menu');
-      const closeMenu = () => {
-        menu.classList.remove('is-open');
-        menu.hidden = true;
-        chevBtn.setAttribute('aria-expanded', 'false');
-        document.removeEventListener('mousedown', outside, true);
-      };
-      const outside = e => {
-        if (!bar.contains(e.target)) closeMenu();
-      };
-      chevBtn.addEventListener('click', () => {
-        const open = chevBtn.getAttribute('aria-expanded') !== 'true';
-        if (open) {
-          menu.hidden = false;
-          requestAnimationFrame(() => menu.classList.add('is-open'));
-          chevBtn.setAttribute('aria-expanded', 'true');
-          document.addEventListener('mousedown', outside, true);
-          const first = menu.querySelector('.menu__item');
-          first && first.focus();
-        } else closeMenu();
-      });
-      menu.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          closeMenu();
-          chevBtn.focus();
-          return;
-        }
-        const items = Array.from(menu.querySelectorAll('.menu__item'));
-        const i = items.indexOf(document.activeElement);
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          items[(i + 1) % items.length].focus();
-        }
-        if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          items[(i - 1 + items.length) % items.length].focus();
-        }
+      if (window.DSMenu) DSMenu.bind(chevBtn, {
+        menu: menu,
+        align: 'end'
       });
       menu.querySelectorAll('.menu__item').forEach(item => {
         item.addEventListener('click', () => {
-          const p = presetList[parseInt(item.dataset.preset, 10)];
-          closeMenu();
-          onApplyPreset && onApplyPreset(p);
+          onApplyPreset && onApplyPreset(presetList[parseInt(item.dataset.preset, 10)]);
         });
       });
     }
@@ -21819,38 +28125,29 @@ try { (() => {
       const scrim = document.createElement('div');
       scrim.className = 'modal-scrim modal-scrim--nested';
       const w = width || (danger ? 3 : 4);
-      scrim.innerHTML = '<div class="modal modal--w' + w + '" role="alertdialog" aria-modal="true">' + '<header class="modal__head"><h2 class="modal__title">' + title + '</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></header>' + '<div class="modal__body">' + body + '</div>' + '<footer class="modal__foot"><div class="modal__foot-left"></div><div class="modal__foot-right">' + '<button type="button" class="btn btn--outline btn--m nested-cancel"><span class="btn__label">Отмена</span></button>' + '<button type="button" class="btn btn--accent btn--m' + (danger ? ' btn--danger' : '') + ' nested-ok"><span class="btn__label">' + confirmLabel + '</span></button>' + '</div></footer>' + '</div>';
+      scrim.innerHTML = '<div class="modal modal--w' + w + '" role="alertdialog" aria-modal="true">' + '<header class="modal__head"><h2 class="modal__title">' + title + '</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></header>' + '<div class="modal__body">' + body + '</div>' + '<footer class="modal__foot"><div class="modal__foot-left"></div><div class="modal__foot-right">' + '<button type="button" class="btn btn--outline btn--m" data-modal-close><span class="btn__label">Отмена</span></button>' + '<button type="button" class="btn btn--accent btn--m' + (danger ? ' btn--danger' : '') + ' nested-ok"><span class="btn__label">' + confirmLabel + '</span></button>' + '</div></footer>' + '</div>';
       parentScrim.appendChild(scrim);
-      lockScroll();
-      const close = () => {
-        scrim.remove();
-        unlockScroll();
-        const back = parentScrim.querySelector('.tfm-save, .modal__close button');
-        back && back.focus();
-      };
-      scrim.querySelector('.modal__close button').addEventListener('click', close);
-      scrim.querySelector('.nested-cancel').addEventListener('click', close);
+      window.dsIcons && window.dsIcons.apply(scrim);
       scrim.querySelector('.nested-ok').addEventListener('click', () => {
         onConfirm && onConfirm(scrim);
-        close();
+        DSModal.closeTop();
       });
-      scrim.addEventListener('mousedown', e => {
-        if (e.target === scrim) close();
+      /* слой ведёт рантайм ДС: крестик, Отмена, Esc, клик по скриму, фокус и его возврат */
+      DSModal.open(scrim, {
+        nested: true,
+        returnFocus: parentScrim.querySelector('.tfm-save, .modal__close button')
       });
-      window.dsIcons && window.dsIcons.apply(scrim);
-      const first = scrim.querySelector('.modal__body input, .modal__body button');
-      first && first.focus();
       return scrim;
     }
 
     /* ---------- секция «Общая информация» ---------- */
     function generalSection() {
-      return '<section class="tfm__sec" id="tfm-sec-general" aria-labelledby="tfm-sec-general-t">' + '<p class="tfm__sec-title" id="tfm-sec-general-t">Общая информация</p>' + '<div class="tfm__grid">' + '<div class="inp inp--m"><label class="ds-label" for="tfm-name"><span class="ds-label__text">Название сделки</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-name" placeholder="Например, 1-Кредит-199"></div></div>' + '<div class="inp inp--m"><label class="ds-label" for="tfm-client"><span class="ds-label__text">Клиент</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-client" placeholder="Наименование или ИНН"></div></div>' + '<div class="inp inp--m tfm__span-2"><label class="ds-label"><span class="ds-label__text">Территориальный банк</span></label>' + '<div class="inp__field"><span class="inp__chips">' + '<span class="chip chip--edit chip--s"><span class="chip__label">ЦА</span><span class="chip__remove" role="button" aria-label="Убрать ЦА">' + glyph('close') + '</span></span>' + '<span class="chip chip--edit chip--s"><span class="chip__label">МБ</span><span class="chip__remove" role="button" aria-label="Убрать МБ">' + glyph('close') + '</span></span>' + '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<div class="inp inp--m"><label class="ds-label"><span class="ds-label__text">Группа продуктов</span></label>' + '<div class="inp__field"><span class="inp__chips">' + '<span class="chip chip--edit chip--s"><span class="chip__label">Кредиты</span><span class="chip__remove" role="button" aria-label="Убрать Кредиты">' + glyph('close') + '</span></span>' + '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<div class="inp inp--m"><label class="ds-label" for="tfm-cur"><span class="ds-label__text">Валюта</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-cur" placeholder="Все валюты"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<label class="cb cb--selected tfm__span-2"><input type="checkbox" class="cb__input" checked>' + '<span class="cb__box"><span class="cb__mark">' + glyph('check') + '</span></span>' + '<span class="cb__content"><span class="cb__label">Скрыть сделки ЦЭ</span></span></label>' + '</div>' + '</section>';
+      return '<section class="tfm__sec" id="tfm-sec-general" aria-labelledby="tfm-sec-general-t">' + '<p class="tfm__sec-title" id="tfm-sec-general-t">Общая информация</p>' + '<div class="tfm__grid">' + '<div class="inp"><label class="ds-label" for="tfm-name"><span class="ds-label__text">Название сделки</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-name" placeholder="Например, 1-Кредит-199"></div></div>' + '<div class="inp"><label class="ds-label" for="tfm-client"><span class="ds-label__text">Клиент</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-client" placeholder="Наименование или ИНН"></div></div>' + '<div class="inp tfm__span-2"><label class="ds-label"><span class="ds-label__text">Территориальный банк</span></label>' + '<div class="inp__field"><span class="inp__chips">' + '<span class="chip chip--edit chip--s"><span class="chip__label">ЦА</span><span class="chip__remove" role="button" aria-label="Убрать ЦА">' + glyph('close') + '</span></span>' + '<span class="chip chip--edit chip--s"><span class="chip__label">МБ</span><span class="chip__remove" role="button" aria-label="Убрать МБ">' + glyph('close') + '</span></span>' + '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<div class="inp"><label class="ds-label"><span class="ds-label__text">Группа продуктов</span></label>' + '<div class="inp__field"><span class="inp__chips">' + '<span class="chip chip--edit chip--s"><span class="chip__label">Кредиты</span><span class="chip__remove" role="button" aria-label="Убрать Кредиты">' + glyph('close') + '</span></span>' + '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<div class="inp"><label class="ds-label" for="tfm-cur"><span class="ds-label__text">Валюта</span></label>' + '<div class="inp__field"><input class="inp__control" id="tfm-cur" placeholder="Все валюты"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' + '<label class="cb cb--selected tfm__span-2"><input type="checkbox" class="cb__input" checked>' + '<span class="cb__box"><span class="cb__mark">' + glyph('check') + '</span></span>' + '<span class="cb__content"><span class="cb__label">Скрыть сделки ЦЭ</span></span></label>' + '</div>' + '</section>';
     }
 
     /* ---------- секция «Даты» ---------- */
     function datesSection() {
-      const dateRange = label => '<div class="inp-range inp-range--m inp-range--date tfm__span-2">' + '<label class="ds-label"><span class="ds-label__text">' + label + '</span></label>' + '<div class="inp-range__row">' + '<div class="inp inp--m inp-range__field"><div class="inp__field">' + '<span class="inp__prefix">От</span>' + '<input class="inp__control" inputmode="numeric" placeholder="ДД.ММ.ГГГГ">' + '<span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">' + glyph('calendar') + '</button></span>' + '</div></div>' + '<span class="inp-range__line" aria-hidden="true"></span>' + '<div class="inp inp--m inp-range__field"><div class="inp__field">' + '<span class="inp__prefix">До</span>' + '<input class="inp__control" inputmode="numeric" placeholder="ДД.ММ.ГГГГ">' + '<span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">' + glyph('calendar') + '</button></span>' + '</div></div>' + '</div>' + '</div>';
+      const dateRange = label => '<div class="inp-range inp-range--date tfm__span-2">' + '<label class="ds-label"><span class="ds-label__text">' + label + '</span></label>' + '<div class="inp-range__row">' + '<div class="inp inp-range__field"><div class="inp__field">' + '<span class="inp__prefix">От</span>' + '<input class="inp__control" inputmode="numeric" placeholder="ДД.ММ.ГГГГ">' + '<span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">' + glyph('calendar') + '</button></span>' + '</div></div>' + '<span class="inp-range__line" aria-hidden="true"></span>' + '<div class="inp inp-range__field"><div class="inp__field">' + '<span class="inp__prefix">До</span>' + '<input class="inp__control" inputmode="numeric" placeholder="ДД.ММ.ГГГГ">' + '<span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">' + glyph('calendar') + '</button></span>' + '</div></div>' + '</div>' + '</div>';
       return '<section class="tfm__sec" id="tfm-sec-dates" aria-labelledby="tfm-sec-dates-t">' + '<p class="tfm__sec-title" id="tfm-sec-dates-t">Даты</p>' + '<div class="tfm__grid">' + dateRange('Дата сделки') + dateRange('Дата изменения') + '</div>' + '</section>';
     }
 
@@ -21937,9 +28234,6 @@ try { (() => {
       const nav = '<nav class="tabs tabs--vert tfm__nav" aria-label="Разделы фильтра">' + sections.map((s, i) => '<button type="button" class="tab tab--m tab--vert' + (i === 0 ? ' tab--selected' : '') + '"' + (i === 0 ? ' aria-current="true"' : '') + ' data-target="' + s.id + '">' + '<span class="tab__label">' + s.label + '</span>' + (s.count ? '<span class="tab__badge">' + s.count + '</span>' : '') + '</button>').join('') + '</nav>';
       modal.innerHTML = '<header class="modal__head"><h2 class="modal__title" id="tfm-title">Фильтр</h2>' + '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></header>' + '<div class="modal__body modal__body--flush"><div class="tfm__body">' + nav + '<div class="tfm__panel" id="tfm-panel"></div></div></div>' + '<footer class="modal__foot"><div class="modal__foot-left">' + '<button type="button" class="btn btn--transparent btn--m tfm-save"><i data-icon="bookmark-add"></i><span class="btn__label">Сохранить пресет</span></button>' + '</div><div class="modal__foot-right">' + '<button type="button" class="btn btn--transparent btn--m tfm-clear"><span class="btn__label">Очистить</span></button>' + '<button type="button" class="btn btn--accent btn--m tfm-apply"><span class="btn__label">Применить</span></button>' + '</div></footer>';
       scrim.appendChild(modal);
-      document.body.appendChild(scrim);
-      lockScroll();
-      trapFocus(scrim);
       activeScrim = scrim;
       if (opener) opener.setAttribute('aria-expanded', 'true');
       const panel = modal.querySelector('#tfm-panel');
@@ -22001,7 +28295,7 @@ try { (() => {
           title: 'Сохранить пресет',
           confirmLabel: 'Сохранить',
           width: 3,
-          body: '<div class="inp inp--m"><label class="ds-label ds-label--left"><span class="ds-label__text">Название пресета</span></label><div class="inp__field"><input class="inp__control nested-name" placeholder="Например, Мои сделки"></div></div>',
+          body: '<div class="inp"><label class="ds-label"><span class="ds-label__text">Название пресета</span></label><div class="inp__field"><input class="inp__control nested-name" placeholder="Например, Мои сделки"></div></div>',
           onConfirm: s => {
             const name = (s.querySelector('.nested-name').value || '').trim() || 'Новый пресет';
             const exists = presets.find(p => p.name === name);
@@ -22044,37 +28338,25 @@ try { (() => {
         });
       });
       modal.querySelector('.tfm-apply').addEventListener('click', () => closeFilterModal(true));
-      modal.querySelector('.modal__close button').addEventListener('click', () => closeFilterModal(false));
-      scrim.addEventListener('mousedown', e => {
-        if (e.target === scrim) closeFilterModal(false);
-      });
       window.dsIcons && window.dsIcons.apply(scrim);
-      /* фокус — на первый интерактивный элемент тела (иначе крестик) */
-      const firstIn = modal.querySelector(FOCUSABLE.split(',').map(s => '.modal__body ' + s.trim()).join(',')) || modal.querySelector('.modal__close button');
-      firstIn && firstIn.focus();
+
+      /* слой ведёт рантайм ДС (scripts/ds-modal.js): портал в body, блокировка
+         прокрутки, inert фона, focus trap, крестик/Esc/клик по скриму, тени
+         шапки и подвала, возврат фокуса на инициатора */
+      DSModal.open(scrim, {
+        returnFocus: opener || null,
+        onClose: () => {
+          activeScrim = null;
+          if (openerEl) {
+            openerEl.setAttribute('aria-expanded', 'false');
+            openerEl = null;
+          }
+        }
+      });
     }
     function closeFilterModal() {
-      if (!activeScrim) return;
-      /* вложенные диалоги тоже держат замок — снять столько же раз */
-      activeScrim.querySelectorAll('.modal-scrim--nested').forEach(() => unlockScroll());
-      activeScrim.remove();
-      activeScrim = null;
-      unlockScroll();
-      /* вернуть фокус на элемент-инициатор */
-      if (openerEl) {
-        openerEl.setAttribute('aria-expanded', 'false');
-        openerEl.focus();
-        openerEl = null;
-      }
+      DSModal.closeAll();
     }
-    document.addEventListener('keydown', e => {
-      if (e.key !== 'Escape' || !activeScrim) return;
-      const nestedScrim = activeScrim.querySelector('.modal-scrim--nested');
-      if (nestedScrim) {
-        nestedScrim.remove();
-        unlockScroll();
-      } else closeFilterModal(false);
-    });
     const openBtn = document.getElementById('open-modal');
     openBtn && openBtn.addEventListener('click', () => openFilterModal(openBtn));
 
@@ -22340,7 +28622,7 @@ try { (() => {
   function skeletonRow(cols) {
     var cells = cols.map(function (c, i) {
       if (c.key === 'select' || c.key === 'actions') return '<div class="tc" data-col-idx="' + i + '"></div>';
-      return '<div class="tc tc--skeleton" data-col-idx="' + i + '" aria-busy="true"><span class="tc__skeleton"></span></div>';
+      return '<div class="tc tc--skeleton" data-col-idx="' + i + '" aria-busy="true"><span class="sk-line sk-line--caption" style="--sk-w:60%"></span></div>';
     }).join('');
     return '<div class="tbl__row" style="grid-template-columns:' + gridTemplate(cols) + ';">' + '<div class="tc tc--separator"></div>' + cells + '<div class="tc tc--separator"></div>' + '</div>';
   }
@@ -22398,16 +28680,11 @@ try { (() => {
     html += '</div>';
     return html;
   }
+
+  /* липкая шапка/тени скролла — общий рантайм, scripts/ds-table.js */
   function bindScrollFx(root) {
     var body = root.querySelector('.dtable__body');
-    if (!body) return;
-    function sync() {
-      root.classList.toggle('dtable--scrolled', body.scrollTop > 0);
-      root.classList.toggle('dtable--edge-l', body.scrollLeft > 0);
-      root.classList.toggle('dtable--edge-r', body.scrollWidth - body.scrollLeft - body.clientWidth > 1);
-    }
-    body.addEventListener('scroll', sync);
-    sync();
+    if (body && window.DSTable) window.DSTable.bind(body);
   }
 
   /* ---------------- resize / reorder / select ---------------- */
@@ -22812,7 +29089,10 @@ try { (() => {
   document.addEventListener('DOMContentLoaded', function () {
     ['ctl-toolbar', 'ctl-title', 'ctl-filter', 'ctl-presets', 'ctl-state', 'ctl-footer'].forEach(function (id) {
       var el = document.getElementById(id);
-      if (el) el.addEventListener('input', render);
+      if (el) {
+        el.addEventListener('input', render);
+        el.addEventListener('change', render);
+      }
     });
     render();
     buildAnatomy();
@@ -22936,57 +29216,10 @@ try { (() => {
     neutral: null
   };
 
-  /* ---------- factory ----------
-     o: {
-       kind:'bar'|'loader',           // фоновый | блокирующий (влияет на дефолт lead)
-       tone:'neutral'|'success'|'error'|'info',
-       lead:'none'|'spinner'|'icon', // ведущий слот — спиннер ИЛИ иконка (не оба)
-       message:'…',
-       enter:false                    // добавить класс анимации появления
-     } */
-  function makeToast(o = {}) {
-    const {
-      kind = 'bar',
-      tone = 'neutral',
-      lead = kind === 'loader' ? 'spinner' : TONE_ICON[tone] ? 'icon' : 'none',
-      message = 'Процесс запущен',
-      enter = false
-    } = o;
-    const el = document.createElement('div');
-    el.className = 'toast';
-    if (tone !== 'neutral') el.classList.add('toast--' + tone);
-    if (enter) el.classList.add('toast--enter');
-
-    // ARIA live-region: error/loader важнее — assertive; остальное — polite
-    const assertive = tone === 'error' || kind === 'loader' && tone === 'neutral';
-    el.setAttribute('role', assertive ? 'alert' : 'status');
-    el.setAttribute('aria-live', assertive ? 'assertive' : 'polite');
-    const hasSpinner = lead === 'spinner';
-    const hasIcon = lead === 'icon';
-    if (hasSpinner || hasIcon) {
-      const slot = document.createElement('span');
-      slot.className = 'toast__lead';
-      if (hasSpinner) {
-        const sp = document.createElement('span');
-        sp.className = 'toast__spinner';
-        sp.setAttribute('aria-hidden', 'true');
-        slot.appendChild(sp);
-      }
-      if (hasIcon) {
-        const ic = document.createElement('span');
-        ic.className = 'toast__icon';
-        ic.setAttribute('aria-hidden', 'true');
-        ic.innerHTML = icon(TONE_ICON[tone] || 'info-circle');
-        slot.appendChild(ic);
-      }
-      el.appendChild(slot);
-    }
-    const msg = document.createElement('span');
-    msg.className = 'toast__msg';
-    msg.textContent = message;
-    el.appendChild(msg);
-    return el;
-  }
+  /* Узел тоста и вся логика показа — рантайм ДС (scripts/ds-notify.js):
+     стек ≤3, авто-скрытие, loader со скримом, переход loading → success.
+     Витрине нужен только сам узел для статичных примеров. */
+  const makeToast = o => window.DSToast.make(o || {});
   function mount(id, node) {
     const el = document.getElementById(id);
     if (el) el.appendChild(node);
@@ -23543,7 +29776,6 @@ try { (() => {
     const addBtn = document.getElementById('overflow-add');
     const resetBtn = document.getElementById('overflow-reset');
     if (!host) return;
-    const MAX = 3;
     const SEED = [{
       tone: 'neutral',
       lead: 'none',
@@ -23587,45 +29819,28 @@ try { (() => {
     ws.id = 'stack-overflow';
     ws.classList.add('worksurface', 'worksurface--tall');
     const stack = ws._stack;
+
+    /* вытеснение нижнего тоста при лимите — забота рантайма (DSToast) */
     function reset() {
+      window.DSToast.clear();
       stack.innerHTML = '';
-      // newest сверху, oldest снизу — добавляем так, чтобы SEED[0] оказался сверху
-      SEED.forEach(s => stack.appendChild(makeToast({
+      SEED.slice().reverse().forEach(spec => DSToast.show({
         kind: 'bar',
-        ...s
-      })));
+        duration: null,
+        ...spec,
+        layer: ws
+      }));
       qi = 0;
     }
     function add() {
       const spec = QUEUE[qi % QUEUE.length];
       qi++;
-      const t = makeToast({
+      DSToast.show({
         kind: 'bar',
-        ...spec
+        duration: null,
+        ...spec,
+        layer: ws
       });
-      t.classList.add('toast--enter');
-      // новый тост появляется СВЕРХУ
-      stack.insertBefore(t, stack.firstElementChild);
-      // переполнение: самый ранний (НИЖНИЙ) уходит фейдом вниз
-      if (stack.children.length > MAX) {
-        dismissDown(stack.lastElementChild);
-      }
-    }
-    // скрытие фейдом вниз с гарантированным удалением (animationend + fallback)
-    function dismissDown(node) {
-      if (!node || node.dataset.leaving) return;
-      node.dataset.leaving = '1';
-      node.classList.add('toast--leave');
-      let done = false;
-      const finish = () => {
-        if (done) return;
-        done = true;
-        node.remove();
-      };
-      node.addEventListener('animationend', finish, {
-        once: true
-      });
-      setTimeout(finish, 320); // fallback, если animationend не придёт
     }
     reset();
     if (addBtn) addBtn.addEventListener('click', add);
@@ -23823,7 +30038,7 @@ try { (() => {
     host.appendChild(tIcon);
     document.body.appendChild(host);
     const cs = getComputedStyle(t);
-    const spinner = t.querySelector('.toast__spinner');
+    const spinner = t.querySelector('.spin');
     const iconEl = tIcon.querySelector('.toast__icon');
     const msg = t.querySelector('.toast__msg');
     const csSp = spinner ? getComputedStyle(spinner) : null;
@@ -23893,80 +30108,21 @@ const UI_ICONS = {
   copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>',
   download: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 20h14"/></svg>'
 };
-const ARROW_INSET = 13; /* 6px edge gap + 7px to triangle apex centre */
 
-/* ---------- tooltip factory ---------- */
+/* ---------- разметка и позиционирование — общий рантайм, scripts/ds-tooltip.js ---------- */
 function makeTip(text, o = {}) {
-  const {
-    type = 'main',
-    placement = 'top',
-    align = 'center',
-    arrow = true,
-    multiline = false,
-    floating = false,
-    pinned = false,
-    rich = false,
-    title = '',
-    action = ''
-  } = o;
-  const el = document.createElement('span');
-  el.className = 'tip tip--' + type + ' tip--' + placement + ' tip--' + align;
-  if (!arrow) el.classList.add('tip--no-arrow');
-  if (multiline) el.classList.add('tip--multiline');
-  if (floating) el.classList.add('tip--floating');
-  if (pinned) el.classList.add('tip--pinned');
-  if (rich) {
-    el.classList.add('tip--rich');
-    if (title) {
-      const t = document.createElement('span');
-      t.className = 'tip__title';
-      t.textContent = title;
-      el.appendChild(t);
-    }
-    const p = document.createElement('span');
-    p.className = 'tip__text';
-    p.textContent = text;
-    el.appendChild(p);
-    if (action) {
-      const box = document.createElement('span');
-      box.className = 'tip__actions';
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'tip__action';
-      b.textContent = action;
-      box.appendChild(b);
-      el.appendChild(box);
-    }
-  } else {
-    el.append(document.createTextNode(text));
-  }
-  const a = document.createElement('span');
-  a.className = 'tip__arrow';
-  el.appendChild(a);
-  return el;
+  return window.DSTooltip.make(text, o);
 }
 
-/* ---------- positioner (floating, inside a relative stage) ---------- */
+/* демо фиксируют позицию, поэтому flip выключен */
 function placeTip(stage, tip, target, placement, align, gap) {
-  gap = gap == null ? 8 : gap;
-  const sr = stage.getBoundingClientRect();
-  const tr = target.getBoundingClientRect();
-  const tw = tip.offsetWidth,
-    th = tip.offsetHeight;
-  const tl = tr.left - sr.left,
-    tt = tr.top - sr.top;
-  const cx = tl + tr.width / 2,
-    cy = tt + tr.height / 2;
-  let x = 0,
-    y = 0;
-  if (placement === 'top') y = tt - gap - th;else if (placement === 'bottom') y = tt + tr.height + gap;else if (placement === 'left') x = tl - gap - tw;else if (placement === 'right') x = tl + tr.width + gap;
-  if (placement === 'top' || placement === 'bottom') {
-    if (align === 'center') x = cx - tw / 2;else if (align === 'start') x = cx - ARROW_INSET;else x = cx - (tw - ARROW_INSET);
-  } else {
-    if (align === 'center') y = cy - th / 2;else if (align === 'start') y = cy - ARROW_INSET;else y = cy - (th - ARROW_INSET);
-  }
-  tip.style.left = x + 'px';
-  tip.style.top = y + 'px';
+  return window.DSTooltip.place(tip, target, {
+    placement,
+    align,
+    gap: gap == null ? 8 : gap,
+    flip: false,
+    offsetParent: stage
+  });
 }
 
 /* =========================================================================
@@ -24080,6 +30236,11 @@ function placeTip(stage, tip, target, placement, align, gap) {
     if (tip) placeTip(stage, tip, target, state.placement, state.align, 8);
   };
   window.addEventListener('resize', reposition);
+  /* раскладка pg-kit достраивается после первого render(): сцена получает
+     position:relative и уезжает вправо — пересчитываем, когда всё устоялось */
+  requestAnimationFrame(() => requestAnimationFrame(reposition));
+  window.addEventListener('load', reposition);
+  if (window.ResizeObserver) new ResizeObserver(reposition).observe(stage);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposition);
 })();
 
@@ -24154,7 +30315,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
   wrap.className = 'tip-anchor';
   const btn = document.createElement('button');
   btn.type = 'button';
-  btn.className = 'iconbtn';
+  btn.className = 'ibtn ibtn--neutral ibtn--m';
   btn.innerHTML = UI_ICONS.help;
   btn.setAttribute('aria-label', 'Что такое лимит риска');
   btn.setAttribute('aria-describedby', 'tt-rich');
@@ -24171,35 +30332,15 @@ function placeTip(stage, tip, target, placement, align, gap) {
   tip.setAttribute('role', 'tooltip');
   wrap.appendChild(tip);
   host.appendChild(wrap);
-  let showT = null,
-    hideT = null;
-  const open = () => {
-    clearTimeout(hideT);
-    showT = setTimeout(() => {
-      placeTip(wrap, tip, btn, 'bottom', 'center', 8);
-      tip.classList.add('is-visible');
-    }, 400);
-  };
-  const close = () => {
-    clearTimeout(showT);
-    hideT = setTimeout(() => tip.classList.remove('is-visible'), 300);
-  };
-  btn.addEventListener('mouseenter', open);
-  btn.addEventListener('mouseleave', close);
-  btn.addEventListener('focus', () => {
-    clearTimeout(hideT);
-    placeTip(wrap, tip, btn, 'bottom', 'center', 8);
-    tip.classList.add('is-visible');
-  });
-  btn.addEventListener('blur', close);
-  // курсор может зайти в сам тултип — это отличие rich от обычного
-  tip.addEventListener('mouseenter', () => clearTimeout(hideT));
-  tip.addEventListener('mouseleave', close);
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      clearTimeout(showT);
-      tip.classList.remove('is-visible');
-    }
+
+  // hover/focus, задержки, Esc и «курсор внутри rich» — общий рантайм
+  window.DSTooltip.bind(btn, {
+    tip,
+    placement: 'bottom',
+    align: 'center',
+    gap: 8,
+    flip: false,
+    offsetParent: wrap
   });
 })();
 
@@ -24266,69 +30407,20 @@ function placeTip(stage, tip, target, placement, align, gap) {
   const tip = makeTip('Подсказка с авто-разворотом', {
     placement: 'bottom',
     align: 'center',
-    floating: true
+    floating: true,
+    pinned: true
   });
   vp.appendChild(tip);
-  function setArrow(placement, alongPx) {
-    const a = tip.querySelector('.tip__arrow');
-    a.style.transform = 'none';
-    if (placement === 'top' || placement === 'bottom') {
-      const min = ARROW_INSET,
-        max = tip.offsetWidth - ARROW_INSET;
-      const v = Math.max(min, Math.min(max, alongPx));
-      a.style.left = v - 7 + 'px';
-      a.style.right = 'auto';
-    } else {
-      const min = ARROW_INSET,
-        max = tip.offsetHeight - ARROW_INSET;
-      const v = Math.max(min, Math.min(max, alongPx));
-      a.style.top = v - 7 + 'px';
-      a.style.bottom = 'auto';
-    }
-  }
-  function update() {
-    const prefer = select.value;
-    const br = vp.getBoundingClientRect();
-    const tr = target.getBoundingClientRect();
-    const tw = tip.offsetWidth,
-      th = tip.offsetHeight,
-      gap = 8;
-    const spaceTop = tr.top - br.top,
-      spaceBottom = br.bottom - tr.bottom;
-    const spaceLeft = tr.left - br.left,
-      spaceRight = br.right - tr.right;
-    const order = {
-      top: ['top', 'bottom', 'right', 'left'],
-      bottom: ['bottom', 'top', 'right', 'left'],
-      left: ['left', 'right', 'bottom', 'top'],
-      right: ['right', 'left', 'bottom', 'top']
-    }[prefer];
-    const fits = {
-      top: spaceTop >= th + gap,
-      bottom: spaceBottom >= th + gap,
-      left: spaceLeft >= tw + gap,
-      right: spaceRight >= tw + gap
-    };
-    let placement = order.find(p => fits[p]) || prefer;
-    tip.className = 'tip tip--main tip--' + placement + ' tip--center tip--floating tip--pinned';
 
-    // base position via center alignment
-    placeTip(vp, tip, target, placement, 'center', gap);
-    // clamp within viewport box and re-aim arrow
-    let x = parseFloat(tip.style.left),
-      y = parseFloat(tip.style.top);
-    const m = 6;
-    const tlc = tr.left - br.left + tr.width / 2,
-      ttc = tr.top - br.top + tr.height / 2;
-    if (placement === 'top' || placement === 'bottom') {
-      x = Math.max(m, Math.min(br.width - tw - m, x));
-      tip.style.left = x + 'px';
-      setArrow(placement, tlc - x);
-    } else {
-      y = Math.max(m, Math.min(br.height - th - m, y));
-      tip.style.top = y + 'px';
-      setArrow(placement, ttc - y);
-    }
+  /* авто-flip, clamp по границе и доводка стрелки в центр цели — общий рантайм */
+  function update() {
+    window.DSTooltip.place(tip, target, {
+      placement: select.value,
+      align: 'center',
+      gap: 8,
+      boundary: vp,
+      offsetParent: vp
+    });
   }
 
   // drag
@@ -24369,7 +30461,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
   defs.forEach(([ic, label], i) => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'iconbtn';
+    btn.className = 'ibtn ibtn--neutral ibtn--m';
     btn.innerHTML = ic;
     btn.setAttribute('aria-label', label);
     const id = 'tt-trigger-' + i;
@@ -24383,27 +30475,14 @@ function placeTip(stage, tip, target, placement, align, gap) {
     tip.setAttribute('role', 'tooltip');
     tip.id = id;
     bar.appendChild(tip);
-    let timer = null;
-    function show() {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        placeTip(bar, tip, btn, 'top', 'center', 8);
-        tip.classList.add('is-visible');
-      }, SHOW_DELAY);
-    }
-    function hide() {
-      clearTimeout(timer);
-      tip.classList.remove('is-visible');
-    }
-    btn.addEventListener('mouseenter', show);
-    btn.addEventListener('mouseleave', hide);
-    btn.addEventListener('focus', () => {
-      placeTip(bar, tip, btn, 'top', 'center', 8);
-      tip.classList.add('is-visible');
-    });
-    btn.addEventListener('blur', hide);
-    btn.addEventListener('keydown', e => {
-      if (e.key === 'Escape') hide();
+    window.DSTooltip.bind(btn, {
+      tip,
+      placement: 'top',
+      align: 'center',
+      gap: 8,
+      flip: false,
+      offsetParent: bar,
+      delay: SHOW_DELAY
     });
   });
 
@@ -24536,7 +30615,7 @@ function placeTip(stage, tip, target, placement, align, gap) {
   if (ib) {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'iconbtn';
+    btn.className = 'ibtn ibtn--neutral ibtn--m';
     btn.innerHTML = UI_ICONS.trash;
     btn.setAttribute('aria-label', 'Удалить');
     btn.setAttribute('aria-describedby', 'use-tip-1');
@@ -24552,22 +30631,14 @@ function placeTip(stage, tip, target, placement, align, gap) {
     tip.setAttribute('role', 'tooltip');
     wrap.appendChild(tip);
     ib.appendChild(wrap);
-    let timer;
-    btn.addEventListener('mouseenter', () => {
-      timer = setTimeout(() => {
-        placeTip(wrap, tip, btn, 'top', 'center', 8);
-        tip.classList.add('is-visible');
-      }, 400);
+    window.DSTooltip.bind(btn, {
+      tip,
+      placement: 'top',
+      align: 'center',
+      gap: 8,
+      flip: false,
+      offsetParent: wrap
     });
-    btn.addEventListener('mouseleave', () => {
-      clearTimeout(timer);
-      tip.classList.remove('is-visible');
-    });
-    btn.addEventListener('focus', () => {
-      placeTip(wrap, tip, btn, 'top', 'center', 8);
-      tip.classList.add('is-visible');
-    });
-    btn.addEventListener('blur', () => tip.classList.remove('is-visible'));
   }
   const tr = document.getElementById('use-truncate');
   if (tr) {
@@ -24586,16 +30657,15 @@ function placeTip(stage, tip, target, placement, align, gap) {
     tip.style.maxWidth = '220px';
     wrap.appendChild(tip);
     tr.appendChild(wrap);
-    let timer;
-    el.addEventListener('mouseenter', () => {
-      timer = setTimeout(() => {
-        placeTip(wrap, tip, el, 'bottom', 'center', 8);
-        tip.classList.add('is-visible');
-      }, 400);
-    });
-    el.addEventListener('mouseleave', () => {
-      clearTimeout(timer);
-      tip.classList.remove('is-visible');
+    // подсказка только при усечении текста — детект в рантайме
+    window.DSTooltip.bind(el, {
+      tip,
+      placement: 'bottom',
+      align: 'center',
+      gap: 8,
+      flip: false,
+      offsetParent: wrap,
+      truncatedOnly: true
     });
   }
   const fl = document.getElementById('use-field');
@@ -24620,22 +30690,14 @@ function placeTip(stage, tip, target, placement, align, gap) {
     inputWrap.appendChild(tip);
     wrap.appendChild(inputWrap);
     fl.appendChild(wrap);
-    let timer;
-    input.addEventListener('mouseenter', () => {
-      timer = setTimeout(() => {
-        placeTip(inputWrap, tip, input, 'bottom', 'start', 8);
-        tip.classList.add('is-visible');
-      }, 400);
+    window.DSTooltip.bind(input, {
+      tip,
+      placement: 'bottom',
+      align: 'start',
+      gap: 8,
+      flip: false,
+      offsetParent: inputWrap
     });
-    input.addEventListener('mouseleave', () => {
-      clearTimeout(timer);
-      tip.classList.remove('is-visible');
-    });
-    input.addEventListener('focus', () => {
-      placeTip(inputWrap, tip, input, 'bottom', 'start', 8);
-      tip.classList.add('is-visible');
-    });
-    input.addEventListener('blur', () => tip.classList.remove('is-visible'));
   }
 })();
 

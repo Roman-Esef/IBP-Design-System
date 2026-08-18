@@ -243,22 +243,9 @@
 .modal__foot-left:empty { display: none; }
 
 /* =========================================================================
-   ЗАГРУЗКА КОНТЕНТА (скелетон при открытии) — тот же приём шиммера,
-   что и в ReadOnlyField (--st-disabled-light/-midlight, 1.6s ease).
+   ЗАГРУЗКА КОНТЕНТА (скелетон при открытии) — общий компонент Skeleton
+   (.sk-line/.sk-group, styles/skeleton.css), локальной реализации нет.
    ========================================================================= */
-
-.modal__skeleton {
-  display: block;
-  height: 16px;
-  width: var(--sk-w, 100%);
-  border-radius: var(--radius-xs);
-  background: linear-gradient(90deg, var(--st-disabled-light) 25%, var(--st-disabled-midlight) 37%, var(--st-disabled-light) 63%);
-  background-size: 400% 100%;
-  animation: modal-shimmer 1.6s ease infinite;
-}
-.modal__skeleton--title { height: 20px; width: var(--sk-w, 40%); }
-@keyframes modal-shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
-@media (prefers-reduced-motion: reduce) { .modal__skeleton { animation-duration: 3.2s; } }
 
 /* =========================================================================
    СОХРАНЕНИЕ В ПРОЦЕССЕ — форма заблокирована, Primary уходит в Loading

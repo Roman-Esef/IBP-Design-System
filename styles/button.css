@@ -23,6 +23,7 @@
   border-radius: var(--radius-control);
   border: 1px solid transparent;
   box-sizing: border-box;
+  min-width: 0; /* позволяет сжиматься до эллипсиса внутри flex-родителя (ButtonGroup fullwidth, тулбар) */
 
   /* type — overridden per size below */
   font: var(--type-button-m);
@@ -42,6 +43,7 @@
 
 /* icons */
 .btn svg { flex: none; display: block; }
+.btn__label { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 
 /* ---------- sizes ---------------------------------------------------------- *
    Размеры — прямыми свойствами (не через --btn-* в модификаторе), чтобы
@@ -59,21 +61,21 @@
 .btn--s:has(>:last-child:not(.btn__label))   { padding-right: 10px; }
 .btn--xs:has(>:first-child:not(.btn__label)) { padding-left: 6px; }
 .btn--xs:has(>:last-child:not(.btn__label))  { padding-right: 6px; }
-.btn--m svg  { width: 20px; height: 20px; }
-.btn--s svg  { width: 18px; height: 18px; }
-.btn--xs svg { width: 16px; height: 16px; }
-/* [data-icon] в ds-icons.js фиксирует 24px с той же специфичностью и грузится
-   после button.css — перебивает per-size `svg`-правило выше. Пин обратно
-   (тот же приём, что в chip.css для .chip__info). */
-.btn--m [data-icon]  { width: 20px; height: 20px; }
-.btn--s [data-icon]  { width: 18px; height: 18px; }
-.btn--xs [data-icon] { width: 16px; height: 16px; }
-.btn--m .btn__spinner  { width: 20px; height: 20px; }
-.btn--s .btn__spinner  { width: 18px; height: 18px; }
-.btn--xs .btn__spinner { width: 16px; height: 16px; }
+/* размер глифа задаёт слот и покрывает обе формы разметки — вставленный
+   <svg> и <i data-icon> (ds-icons.js). Менять одну на другую можно без правки CSS. */
+.btn--m :is(svg,[data-icon]){ width: 20px; height: 20px; }
+.btn--s :is(svg,[data-icon]){ width: 18px; height: 18px; }
+.btn--xs :is(svg,[data-icon]){ width: 16px; height: 16px; }
+.btn--m .spin  { width: 20px; height: 20px; }
+.btn--s .spin  { width: 18px; height: 18px; }
+.btn--xs .spin { width: 16px; height: 16px; }
 .btn.btn--m .btn__chevron  { width: calc(20px * .8); height: calc(20px * .8); }
 .btn.btn--s .btn__chevron  { width: calc(18px * .8); height: calc(18px * .8); }
 .btn.btn--xs .btn__chevron { width: calc(16px * .8); height: calc(16px * .8); }
+/* открытое меню — шеврон разворачивается на 180°: реагирует на aria-expanded,
+   который пишет рантайм (ds-menu.js/ds-popover.js), классов не нужно (RulesAudit W1) */
+.btn__chevron { transition: transform .15s ease; }
+.btn[aria-expanded="true"] .btn__chevron { transform: rotate(180deg); }
 
 /* icon-only: square-ish, padding per size (mirror --btn-iconpad) */
 .btn--icon-only { gap: 0; }
@@ -257,15 +259,7 @@
 .btn--transparent.is-active svg { color: var(--btn-pale); }
 
 /* ---------- state: LOADING ------------------------------------------------- */
-/* While loading the button is non-interactive (treated as disabled). */
+/* While loading the button is non-interactive (treated as disabled).
+   Индикатор — общий компонент Spinner (styles/spinner.css): <span class="spin spin--current">,
+   размер задают правила выше (.btn--m/s/xs .spin). */
 .btn--loading { pointer-events: none; }
-.btn__spinner {
-  flex: none;
-  border-radius: var(--radius-circle);
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  opacity: .9;
-  animation: btn-spin .7s linear infinite;
-}
-@keyframes btn-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .btn__spinner { animation-duration: 1.6s; } }

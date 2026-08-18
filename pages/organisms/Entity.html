@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="../../styles/checkbox.css">
 <link rel="stylesheet" href="../../styles/label-helper.css">
 <link rel="stylesheet" href="../../styles/entity.css">
+<link rel="stylesheet" href="../../styles/skeleton.css">
 <link rel="stylesheet" href="../../styles/pg-kit.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
 <link rel="stylesheet" href="../../styles/ds-toc.css">
@@ -101,8 +102,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.1</b></span>
-    <span>Обновлено <b>13.07.2026</b></span>
+    <span>Версия <b>v1.6</b></span>
+    <span>Обновлено <b>14.08.2026</b></span>
     <span>CSS <b>styles/entity.css</b></span>
     <span>Зависимости <b>avatar, chip, icon-button, button, badge</b></span>
   </div>
@@ -261,15 +262,15 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="ex-card">
         <p class="ex-card__title">Команда сделки</p>
         <div class="ex-card__list">
-          <div class="entity entity--m">
+          <div class="entity">
             <div class="entity__lead"><span class="av av--circular av--l"><span class="av__text">СИ</span></span></div>
             <div class="entity__main"><div class="entity__titles"><div class="entity__labelrow"><span class="entity__label entity__label--truncate">Сидоров Иван Иванович</span><span class="entity__postfix">18181824</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">Территориальный менеджер</span></div></div>
           </div>
-          <div class="entity entity--m">
+          <div class="entity">
             <div class="entity__lead"><span class="av av--circular av--l av--accent"><span class="av__text">ПК</span></span></div>
             <div class="entity__main"><div class="entity__titles"><div class="entity__labelrow"><span class="entity__label entity__label--truncate">Петров Константин Константинович</span><span class="entity__postfix">19181822</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">Старший банкир конгломерата</span></div></div>
           </div>
-          <div class="entity entity--m">
+          <div class="entity">
             <div class="entity__lead"><span class="av av--circular av--l"><span class="av__text">МЕ</span></span></div>
             <div class="entity__main"><div class="entity__titles"><div class="entity__labelrow"><span class="entity__label entity__label--truncate">Михайлов Евгений Александрович</span><span class="entity__postfix">17141824</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">Территориальный менеджер</span></div></div>
           </div>
@@ -280,15 +281,15 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="ex-card">
         <p class="ex-card__title">Связанные физические лица</p>
         <div class="ex-card__list">
-          <div class="entity entity--m">
+          <div class="entity">
             <div class="entity__lead"><span class="av av--circular av--l av--accent"><span class="av__text">ПК</span></span></div>
             <div class="entity__main"><div class="entity__titles"><div class="entity__labelrow"><span class="entity__label entity__label--truncate">Петров Константин Петрович</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">Территориальный менеджер</span></div><div class="entity__icons"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Позвонить"><i data-icon="phone"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Написать"><i data-icon="mail"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы"><i data-icon="passport"></i></button></div></div>
           </div>
-          <div class="entity entity--m">
+          <div class="entity">
             <div class="entity__lead"><span class="av av--circular av--l"><span class="av__text">ИА</span></span></div>
             <div class="entity__main"><div class="entity__titles"><div class="entity__labelrow"><span class="entity__label entity__label--truncate">Иванов Алексей Сергеевич</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">Территориальный менеджер</span></div><div class="entity__icons"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Позвонить"><i data-icon="phone"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Написать"><i data-icon="mail"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы"><i data-icon="passport"></i></button></div></div>
           </div>
-          <div class="entity entity--m">
+          <div class="entity">
             <div class="entity__lead"><span class="av av--circular av--l"><span class="av__text">МЕ</span></span></div>
             <div class="entity__main"><div class="entity__titles"><div class="entity__labelrow"><span class="entity__label entity__label--truncate">Михайлов Евгений Александрович</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-icon"><i data-icon="check-circle"></i></span><span class="entity__subs-list">Бенефициар владелец</span><span class="entity__subs-more">+99</span></div><div class="entity__icons"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Позвонить"><i data-icon="phone"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Написать"><i data-icon="mail"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Документы"><i data-icon="passport"></i></button></div></div>
           </div>
@@ -306,9 +307,9 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
           <div class="entity__labelrow"><span class="entity__label">ООО ЮгСтройИнвестМонтаж</span><button class="entity__bookmark" aria-label="В избранное"><i data-icon="bookmark-add"></i></button></div>
         </div>
         <div class="entity__chips">
-          <span class="chip chip--readonly chip--m chip--rounded"><span class="chip__label">Резидент РФ</span></span>
-          <span class="chip chip--readonly chip--m chip--rounded"><span class="chip__label">Ключевой клиент</span></span>
-          <span class="chip chip--readonly chip--m chip--rounded chip--success"><span class="chip__label">19</span></span>
+          <span class="chip chip--m chip--rounded"><span class="chip__label">Резидент РФ</span></span>
+          <span class="chip chip--m chip--rounded"><span class="chip__label">Ключевой клиент</span></span>
+          <span class="chip chip--m chip--rounded chip--success"><span class="chip__label">19</span></span>
         </div>
       </div>
     </div>
@@ -323,7 +324,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <div class="anat">
     <div class="anat__stage">
       <div class="anat-dia">
-        <div class="entity entity--m">
+        <div class="entity">
           <div class="entity__lead"><span class="entity__icon"><i data-icon="bar-chart-square"></i></span></div>
           <div class="entity__main">
             <div class="entity__titles">
@@ -331,7 +332,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
               <div class="entity__labelrow"><span class="entity__label">Text Label</span><span class="entity__postfix">Postf</span><button class="entity__bookmark" aria-label="В избранное"><i data-icon="bookmark-add"></i></button></div>
             </div>
             <div class="entity__subs"><span class="entity__subs-icon"><i data-icon="check-circle"></i></span><span class="entity__subs-list">Subheader, Subheader, Subheader</span><span class="entity__subs-more">+99</span></div>
-            <div class="entity__chips"><span class="chip chip--readonly chip--s"><span class="chip__label">Text</span></span><span class="chip chip--readonly chip--s"><span class="chip__label">Text</span></span></div>
+            <div class="entity__chips"><span class="chip chip--s"><span class="chip__label">Text</span></span><span class="chip chip--s"><span class="chip__label">Text</span></span></div>
             <div class="entity__icons"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Позвонить"><i data-icon="phone"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Написать"><i data-icon="mail"></i></button></div>
           </div>
           <div class="entity__actions"><button class="btn btn--outline btn--xs" aria-haspopup="menu"><span class="btn__label">Button</span><i data-icon="chevron-down" class="ent-chev"></i></button><button class="ibtn ibtn--neutral ibtn--s" aria-label="Убрать"><i data-icon="close"></i></button></div>
@@ -385,7 +386,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       </div>
       <div class="size-row">
         <div class="size-tag">M<small>40px</small></div>
-        <div class="entity entity--m">
+        <div class="entity">
           <div class="entity__lead"><span class="entity__icon"><i data-icon="document-unread"></i></span></div>
           <div class="entity__main"><div class="entity__titles"><p class="entity__header">Header</p><div class="entity__labelrow"><span class="entity__label">Text Label</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">Subheader</span></div></div>
         </div>
@@ -413,7 +414,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="guide-card__bar"></div>
       <div class="guide-card__tag">✓ Правильно</div>
       <div class="guide-card__body">
-        <div class="entity entity--m">
+        <div class="entity">
           <div class="entity__lead"><span class="entity__icon"><i data-icon="bank"></i></span></div>
           <div class="entity__main"><div class="entity__titles"><p class="entity__header">Контрагент</p><div class="entity__labelrow"><span class="entity__label entity__label--truncate">ООО ЮгСтройИнвестМонтаж</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">ИНН 7701234567</span></div></div>
         </div>
@@ -424,7 +425,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="guide-card__bar"></div>
       <div class="guide-card__tag">✗ Неправильно</div>
       <div class="guide-card__body">
-        <div class="entity entity--m">
+        <div class="entity">
           <div class="entity__lead"><span class="entity__icon"><i data-icon="bank"></i></span></div>
           <div class="entity__main"><div class="entity__titles"><p class="entity__header">Контрагент</p><div class="entity__labelrow"><span class="entity__label" style="white-space:normal;">ООО ЮгСтройИнвестМонтаж-Проектстрой-Девелопмент-Групп-Холдинг</span></div></div></div>
         </div>
@@ -462,56 +463,56 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <div class="states-grid">
     <div class="st-card">
       <div class="st-card__label"><b>Обычное</b> · статичный объект</div>
-      <div class="entity entity--m">
+      <div class="entity">
         <div class="entity__lead"><span class="entity__icon"><i data-icon="bank"></i></span></div>
         <div class="entity__main"><div class="entity__titles"><p class="entity__header">Контрагент</p><div class="entity__labelrow"><span class="entity__label">ООО ЮгСтрой</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">ИНН 7701234567</span></div></div>
       </div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Интерактивное</b> · hover (кликабельный тайл)</div>
-      <div class="entity entity--m entity--interactive" tabindex="0" style="background:var(--bgtable-row-hover);">
+      <div class="entity entity--interactive" tabindex="0" style="background:var(--bgtable-row-hover);">
         <div class="entity__lead"><span class="entity__icon"><i data-icon="bank"></i></span></div>
         <div class="entity__main"><div class="entity__titles"><p class="entity__header">Контрагент</p><div class="entity__labelrow"><span class="entity__label">ООО ЮгСтрой</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">ИНН 7701234567</span></div></div>
       </div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Выбрано</b> · selected</div>
-      <div class="entity entity--m entity--interactive entity--selected">
+      <div class="entity entity--interactive entity--selected">
         <div class="entity__lead"><span class="entity__icon entity__icon--accent"><i data-icon="bank"></i></span></div>
         <div class="entity__main"><div class="entity__titles"><p class="entity__header">Контрагент</p><div class="entity__labelrow"><span class="entity__label">ООО ЮгСтрой</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">ИНН 7701234567</span></div></div>
       </div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>С чекбоксом</b> · множественный выбор</div>
-      <div class="entity entity--m entity--selectable">
+      <div class="entity entity--selectable">
         <div class="entity__lead"><label class="cb cb--selected" style="gap:0;"><input type="checkbox" class="cb__input" checked><span class="cb__box"><span class="cb__mark"><i data-icon="check"></i></span></span></label></div>
         <div class="entity__main"><div class="entity__titles"><p class="entity__header">Контрагент</p><div class="entity__labelrow"><span class="entity__label">ООО ЮгСтрой</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">ИНН 7701234567</span></div></div>
       </div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Skeleton</b> · загрузка (компонент подкачки)</div>
-      <div class="entity entity--m entity--skeleton" aria-busy="true">
-        <div class="entity__lead"><span class="entity__icon"></span></div>
-        <div class="entity__main"><div class="entity__titles"><div class="sk-line sk-line--head"></div><div class="sk-line sk-line--label"></div></div><div class="sk-line sk-line--sub"></div></div>
+      <div class="entity entity--skeleton" aria-busy="true">
+        <div class="entity__lead"><span class="entity__icon sk-surface"></span></div>
+        <div class="entity__main"><div class="entity__titles"><span class="sk-line sk-line--caption" style="--sk-w:42%"></span><span class="sk-line sk-line--title" style="--sk-w:68%"></span></div><span class="sk-line sk-line--caption" style="--sk-w:88%"></span></div>
       </div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Нет данных</b> · пустое значение</div>
-      <div class="entity entity--m entity--empty">
+      <div class="entity entity--empty">
         <div class="entity__lead"><span class="entity__icon entity__icon--neutral"><i data-icon="bank"></i></span></div>
         <div class="entity__main"><div class="entity__titles"><p class="entity__header">Контрагент</p><div class="entity__labelrow"><span class="entity__label">—</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list entity__value--empty">Не указан</span></div></div>
       </div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Ошибка</b> · объект удалён</div>
-      <div class="entity entity--m entity--error">
+      <div class="entity entity--error">
         <div class="entity__lead"><span class="entity__icon"><i data-icon="alert-circle"></i></span></div>
         <div class="entity__main"><div class="entity__titles"><p class="entity__header">Объект удалён</p><div class="entity__labelrow"><span class="entity__label">ООО ЮгСтрой</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">Недоступен для просмотра</span></div></div>
       </div>
     </div>
     <div class="st-card">
       <div class="st-card__label"><b>Drag-handle</b> · переупорядочивание</div>
-      <div class="entity entity--m">
+      <div class="entity">
         <button class="entity__drag" aria-label="Перетащить"><i data-icon="drag-dots"></i></button>
         <div class="entity__lead"><span class="entity__icon"><i data-icon="bank"></i></span></div>
         <div class="entity__main"><div class="entity__titles"><p class="entity__header">Контрагент</p><div class="entity__labelrow"><span class="entity__label">ООО ЮгСтрой</span></div></div><div class="entity__subs entity__subs--single"><span class="entity__subs-list">ИНН 7701234567</span></div></div>
@@ -566,7 +567,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Свойство</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Значение (размер M)</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен / описание</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Высота ведущего</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-lead">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">= размеру Entity (32/40/96)</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Радиус контейнера иконки</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-radius">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-xl</code> для M</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Глиф иконки</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-icon">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">18 / 22 / 48px</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Зазор ведущий ↔ контент</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-gap">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">10 / 12 / 16px</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Зазор Header ↔ Label</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-headgap">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">2 / 2 / 3px</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Зазор блоков (Label↔Subs↔Chips)</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-blockgap">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">5 / 6 / 8px</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Зазор в строке Label</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-rowgap">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">prefix · label · postfix · bookmark</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.85fr 1.31fr 2.03fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Клэмп подзаголовков</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">2 строки</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">-webkit-line-clamp: 2</code>; single → 1</span></span></div><div class="tc tc--separator"></div></div></div>
   </div>
   <div class="rl-sample" aria-hidden="true">
-    <div class="entity entity--m" id="rl-entity">
+    <div class="entity" id="rl-entity">
       <div class="entity__lead"><span class="entity__icon" id="rl-iconbox"><i data-icon="bank"></i></span></div>
       <div class="entity__main"><div class="entity__titles"><p class="entity__header">Header</p><div class="entity__labelrow"><span class="entity__label">Text Label</span><span class="entity__postfix">Postf</span></div></div><div class="entity__subs"><span class="entity__subs-icon"><i data-icon="check-circle"></i></span><span class="entity__subs-list">Subheader</span></div></div>
     </div>
@@ -630,6 +631,8 @@ if (more > 0) render(<span class="entity__subs-more">+{more}</span>)
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/ds-tooltip.js"></script>
+<script src="../../scripts/ds-menu.js"></script>
 <script>
 /* ---- icon helper ---- */
 function getIcon(name, size) {
@@ -679,8 +682,8 @@ function buildEntity() {
   /* ---- skeleton short-circuit ---- */
   if (state === 'skeleton') {
     host.innerHTML =
-      '<div class="entity__lead"><span class="entity__icon"></span></div>' +
-      '<div class="entity__main"><div class="entity__titles"><div class="sk-line sk-line--head"></div><div class="sk-line sk-line--label"></div></div><div class="sk-line sk-line--sub"></div></div>';
+      '<div class="entity__lead"><span class="entity__icon sk-surface"></span></div>' +
+      '<div class="entity__main"><div class="entity__titles"><span class="sk-line sk-line--caption" style="--sk-w:42%"></span><span class="sk-line sk-line--title" style="--sk-w:68%"></span></div><span class="sk-line sk-line--caption" style="--sk-w:88%"></span></div>';
     return;
   }
 
@@ -717,7 +720,7 @@ function buildEntity() {
   }
 
   /* ---- chips ---- */
-  var chipsHtml = chips ? '<div class="entity__chips"><span class="chip chip--readonly chip--s"><span class="chip__label">Text</span></span><span class="chip chip--readonly chip--s"><span class="chip__label">Text</span></span><span class="chip chip--readonly chip--s"><span class="chip__label">Text</span></span></div>' : '';
+  var chipsHtml = chips ? '<div class="entity__chips"><span class="chip chip--s"><span class="chip__label">Text</span></span><span class="chip chip--s"><span class="chip__label">Text</span></span><span class="chip chip--s"><span class="chip__label">Text</span></span></div>' : '';
 
   /* ---- icon buttons ---- */
   var iconsHtml = '';

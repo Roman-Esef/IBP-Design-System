@@ -19,7 +19,8 @@
   -webkit-tap-highlight-color: transparent;
   position: relative;
 }
-.rb--disabled { cursor: default; pointer-events: none; }
+.rb--disabled,
+.rb:has(.rb__input:disabled) { cursor: default; pointer-events: none; }
 
 /* visually-hidden native input (keeps it accessible / focusable) */
 .rb__input {
@@ -52,10 +53,13 @@
   color: var(--border-dark);
   transition: color .15s ease, box-shadow .15s ease, outline-color .15s ease;
 }
-.rb__mark svg { width: 100%; height: 100%; display: block; transform: scale(1.2); }
+.rb__mark :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; transform: scale(1.2); }
 
-/* ---------- selected (иконка radio-button-checked: рамка + точка) --------- */
-.rb--selected .rb__mark { color: var(--primary); }
+/* ---------- selected (иконка radio-button-checked: рамка + точка) ---------
+   Класс — форс-состояние витрины; нативный .rb__input:checked даёт тот же
+   цвет без класса — см. RulesAudit W1. */
+.rb--selected .rb__mark,
+.rb__input:checked ~ .rb__box .rb__mark { color: var(--primary); }
 
 /* ---------- hover --------------------------------------------------------- */
 .rb:hover .rb__mark,
@@ -64,7 +68,8 @@
   box-shadow: 0 0 0 4px var(--primary-bg-light);
 }
 .rb:hover.rb--selected .rb__mark,
-.rb--hover.rb--selected .rb__mark {
+.rb--hover.rb--selected .rb__mark,
+.rb:hover:has(.rb__input:checked) .rb__mark {
   color: var(--primary-dark);
 }
 
@@ -105,9 +110,12 @@
 .rb__req { color: var(--error); margin-left: 2px; }
 
 /* ---------- disabled ------------------------------------------------------- */
-.rb--disabled .rb__mark { color: var(--disabled); box-shadow: none; }
+.rb--disabled .rb__mark,
+.rb__input:disabled ~ .rb__box .rb__mark { color: var(--disabled); box-shadow: none; }
 .rb--disabled .rb__label,
-.rb--disabled .ds-helper { color: var(--text-inactive); }
+.rb--disabled .ds-helper,
+.rb__input:disabled ~ .rb__content .rb__label,
+.rb__input:disabled ~ .rb__content .ds-helper { color: var(--text-inactive); }
 
 /* ---------- group ---------------------------------------------------------
    Radiobuttons всегда образуют группы. Внутри группы активная (кликабельная)
@@ -141,4 +149,4 @@
   align-items: center;
   gap: 6px;
 }
-.rb-group__error svg { width: 14px; height: 14px; flex: none; }
+.rb-group__error :is(svg,[data-icon]){ width: 14px; height: 14px; flex: none; }

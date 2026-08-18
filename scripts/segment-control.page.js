@@ -54,51 +54,13 @@
     return host;
   }
 
-  /* position the floating thumb behind the checked item */
-  function positionThumb(host) {
-    const thumb = host.querySelector('.segctrl__thumb');
-    if (!thumb) return;
-    const sel = host.querySelector('.segctrl__item[aria-checked="true"]');
-    if (!sel) { thumb.classList.remove('is-visible'); return; }
-    thumb.style.width = sel.offsetWidth + 'px';
-    thumb.style.transform = 'translateX(' + sel.offsetLeft + 'px)';
-    thumb.classList.add('is-visible');
-  }
+  /* позиция индикатора — рантайм ДС (scripts/ds-tabs.js): измеряется по
+     выбранному сегменту, а не считается по индексу */
+  function positionThumb(host) { window.DSTabs && DSTabs.positionThumb(host); }
 
-  /* make a control interactive: click + roving-tabindex keyboard nav */
+  /* клик, клавиатура и пересчёт индикатора — тот же рантайм ДС */
   function wireSegControl(host, onChange) {
-    const items = () => [...host.querySelectorAll('.segctrl__item')];
-
-    function select(btn) {
-      items().forEach(b => { b.setAttribute('aria-checked', 'false'); b.tabIndex = -1; });
-      btn.setAttribute('aria-checked', 'true'); btn.tabIndex = 0;
-      positionThumb(host);
-      if (onChange) onChange(items().indexOf(btn));
-    }
-
-    items().forEach(b => {
-      b.addEventListener('click', () => {
-        if (b.getAttribute('aria-disabled') === 'true' || b.disabled) return;
-        select(b);
-      });
-    });
-
-    host.addEventListener('keydown', (e) => {
-      const live = items().filter(b => b.getAttribute('aria-disabled') !== 'true' && !b.disabled);
-      if (!live.length) return;
-      let i = live.indexOf(document.activeElement);
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); i = (i + 1 + live.length) % live.length; live[i].focus(); select(live[i]); }
-      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); i = (i - 1 + live.length) % live.length; live[i].focus(); select(live[i]); }
-      else if (e.key === 'Home') { e.preventDefault(); live[0].focus(); select(live[0]); }
-      else if (e.key === 'End') { e.preventDefault(); live[live.length - 1].focus(); select(live[live.length - 1]); }
-    });
-
-    requestAnimationFrame(() => positionThumb(host));
-    window.addEventListener('resize', () => positionThumb(host));
-    window.addEventListener('load', () => positionThumb(host));
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => positionThumb(host));
-    if (window.ResizeObserver) new ResizeObserver(() => positionThumb(host)).observe(host);
-
+    window.DSTabs && DSTabs.segment(host, { onChange: onChange });
     return host;
   }
 
@@ -204,7 +166,7 @@
       [['Обзор', false], ['Документы', true], ['История', false]].forEach(([label, sel]) => {
         const t = document.createElement('button');
         t.type = 'button';
-        t.className = 'tab tab--s tab--horiz' + (sel ? ' tab--selected' : '');
+        t.className = 'tab tab--s' + (sel ? ' tab--selected' : '');
         t.setAttribute('role', 'tab');
         t.setAttribute('aria-selected', String(sel));
         const lb = document.createElement('span'); lb.className = 'tab__label'; lb.textContent = label; t.appendChild(lb);

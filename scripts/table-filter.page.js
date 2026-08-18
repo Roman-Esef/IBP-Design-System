@@ -24,39 +24,6 @@
     return out;
   }
 
-  /* ---------- блокировка скролла страницы под скримом + inert фона ---------- */
-  let scrollLocks = 0, savedOverflow = '', savedPadRight = '';
-  function lockScroll() {
-    if (scrollLocks++ > 0) return;
-    const b = document.body;
-    const gap = window.innerWidth - document.documentElement.clientWidth;
-    savedOverflow = b.style.overflow; savedPadRight = b.style.paddingRight;
-    b.style.overflow = 'hidden';
-    if (gap > 0) b.style.paddingRight = gap + 'px';
-    Array.from(b.children).forEach(el => { if (!el.classList.contains('modal-scrim')) { el.inert = true; el.setAttribute('aria-hidden', 'true'); } });
-  }
-  function unlockScroll() {
-    if (scrollLocks === 0) return;
-    if (--scrollLocks > 0) return;
-    document.body.style.overflow = savedOverflow;
-    document.body.style.paddingRight = savedPadRight;
-    Array.from(document.body.children).forEach(el => { el.inert = false; el.removeAttribute('aria-hidden'); });
-  }
-
-  /* ---------- focus trap на активном слое ---------- */
-  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
-  function trapFocus(scrim) {
-    scrim.addEventListener('keydown', (e) => {
-      if (e.key !== 'Tab') return;
-      const layer = scrim.querySelector('.modal-scrim--nested') || scrim;
-      const items = Array.from(layer.querySelectorAll(FOCUSABLE)).filter(el => el.offsetParent !== null);
-      if (!items.length) return;
-      const first = items[0], last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    });
-  }
-
   /* ---------- чип-счётчик «Применено: N» ---------- */
   function makeAppliedChip(count) {
     const el = document.createElement('span');
@@ -102,49 +69,21 @@
     if (applied && count > 0) {
       const chip = makeAppliedChip(count);
       bar.appendChild(chip);
-      const reset = () => {
-        chip.style.transition = 'opacity .18s, transform .18s';
-        chip.style.opacity = '0'; chip.style.transform = 'scale(.85)';
-        setTimeout(() => { chip.remove(); onReset && onReset(); }, 180);
-      };
-      chip.querySelector('.chip__remove').addEventListener('click', reset);
-      chip.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' || e.key === 'Delete') { e.preventDefault(); reset(); }
-      });
+      /* сброс (клик по крестику / Backspace-Delete, фейд, удаление чипа) —
+         рантайм ДС (scripts/ds-table-filter.js); он всплывает 'tfilter:reset' на .tfilter */
+      if (onReset) bar.addEventListener('tfilter:reset', onReset, { once: true });
     }
 
     /* выпадающий список пресетов */
     const chevBtn = bar.querySelector('.tfilter__presets');
     if (chevBtn) {
+      /* поведение — рантайм ДС (scripts/ds-menu.js): открытие/закрытие,
+         позиция, клавиатура, Esc, закрытие по выбору пункта */
       const menu = bar.querySelector('.tfilter__menu');
-      const closeMenu = () => {
-        menu.classList.remove('is-open'); menu.hidden = true;
-        chevBtn.setAttribute('aria-expanded', 'false');
-        document.removeEventListener('mousedown', outside, true);
-      };
-      const outside = (e) => { if (!bar.contains(e.target)) closeMenu(); };
-      chevBtn.addEventListener('click', () => {
-        const open = chevBtn.getAttribute('aria-expanded') !== 'true';
-        if (open) {
-          menu.hidden = false;
-          requestAnimationFrame(() => menu.classList.add('is-open'));
-          chevBtn.setAttribute('aria-expanded', 'true');
-          document.addEventListener('mousedown', outside, true);
-          const first = menu.querySelector('.menu__item'); first && first.focus();
-        } else closeMenu();
-      });
-      menu.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') { closeMenu(); chevBtn.focus(); return; }
-        const items = Array.from(menu.querySelectorAll('.menu__item'));
-        const i = items.indexOf(document.activeElement);
-        if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
-        if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
-      });
+      if (window.DSMenu) DSMenu.bind(chevBtn, { menu: menu, align: 'end' });
       menu.querySelectorAll('.menu__item').forEach(item => {
         item.addEventListener('click', () => {
-          const p = presetList[parseInt(item.dataset.preset, 10)];
-          closeMenu();
-          onApplyPreset && onApplyPreset(p);
+          onApplyPreset && onApplyPreset(presetList[parseInt(item.dataset.preset, 10)]);
         });
       });
     }
@@ -377,20 +316,15 @@
           '<span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span></header>' +
           '<div class="modal__body">' + body + '</div>' +
           '<footer class="modal__foot"><div class="modal__foot-left"></div><div class="modal__foot-right">' +
-            '<button type="button" class="btn btn--outline btn--m nested-cancel"><span class="btn__label">Отмена</span></button>' +
+            '<button type="button" class="btn btn--outline btn--m" data-modal-close><span class="btn__label">Отмена</span></button>' +
             '<button type="button" class="btn btn--accent btn--m' + (danger ? ' btn--danger' : '') + ' nested-ok"><span class="btn__label">' + confirmLabel + '</span></button>' +
           '</div></footer>' +
         '</div>';
       parentScrim.appendChild(scrim);
-      lockScroll();
-      const close = () => { scrim.remove(); unlockScroll(); const back = parentScrim.querySelector('.tfm-save, .modal__close button'); back && back.focus(); };
-      scrim.querySelector('.modal__close button').addEventListener('click', close);
-      scrim.querySelector('.nested-cancel').addEventListener('click', close);
-      scrim.querySelector('.nested-ok').addEventListener('click', () => { onConfirm && onConfirm(scrim); close(); });
-      scrim.addEventListener('mousedown', (e) => { if (e.target === scrim) close(); });
       window.dsIcons && window.dsIcons.apply(scrim);
-      const first = scrim.querySelector('.modal__body input, .modal__body button');
-      first && first.focus();
+      scrim.querySelector('.nested-ok').addEventListener('click', () => { onConfirm && onConfirm(scrim); DSModal.closeTop(); });
+      /* слой ведёт рантайм ДС: крестик, Отмена, Esc, клик по скриму, фокус и его возврат */
+      DSModal.open(scrim, { nested: true, returnFocus: parentScrim.querySelector('.tfm-save, .modal__close button') });
       return scrim;
     }
 
@@ -399,20 +333,20 @@
       return '<section class="tfm__sec" id="tfm-sec-general" aria-labelledby="tfm-sec-general-t">' +
         '<p class="tfm__sec-title" id="tfm-sec-general-t">Общая информация</p>' +
         '<div class="tfm__grid">' +
-          '<div class="inp inp--m"><label class="ds-label" for="tfm-name"><span class="ds-label__text">Название сделки</span></label>' +
+          '<div class="inp"><label class="ds-label" for="tfm-name"><span class="ds-label__text">Название сделки</span></label>' +
             '<div class="inp__field"><input class="inp__control" id="tfm-name" placeholder="Например, 1-Кредит-199"></div></div>' +
-          '<div class="inp inp--m"><label class="ds-label" for="tfm-client"><span class="ds-label__text">Клиент</span></label>' +
+          '<div class="inp"><label class="ds-label" for="tfm-client"><span class="ds-label__text">Клиент</span></label>' +
             '<div class="inp__field"><input class="inp__control" id="tfm-client" placeholder="Наименование или ИНН"></div></div>' +
-          '<div class="inp inp--m tfm__span-2"><label class="ds-label"><span class="ds-label__text">Территориальный банк</span></label>' +
+          '<div class="inp tfm__span-2"><label class="ds-label"><span class="ds-label__text">Территориальный банк</span></label>' +
             '<div class="inp__field"><span class="inp__chips">' +
               '<span class="chip chip--edit chip--s"><span class="chip__label">ЦА</span><span class="chip__remove" role="button" aria-label="Убрать ЦА">' + glyph('close') + '</span></span>' +
               '<span class="chip chip--edit chip--s"><span class="chip__label">МБ</span><span class="chip__remove" role="button" aria-label="Убрать МБ">' + glyph('close') + '</span></span>' +
             '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' +
-          '<div class="inp inp--m"><label class="ds-label"><span class="ds-label__text">Группа продуктов</span></label>' +
+          '<div class="inp"><label class="ds-label"><span class="ds-label__text">Группа продуктов</span></label>' +
             '<div class="inp__field"><span class="inp__chips">' +
               '<span class="chip chip--edit chip--s"><span class="chip__label">Кредиты</span><span class="chip__remove" role="button" aria-label="Убрать Кредиты">' + glyph('close') + '</span></span>' +
             '</span><input class="inp__control" placeholder="Добавить…"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' +
-          '<div class="inp inp--m"><label class="ds-label" for="tfm-cur"><span class="ds-label__text">Валюта</span></label>' +
+          '<div class="inp"><label class="ds-label" for="tfm-cur"><span class="ds-label__text">Валюта</span></label>' +
             '<div class="inp__field"><input class="inp__control" id="tfm-cur" placeholder="Все валюты"><span class="inp__acts"><button class="inp__act" aria-label="Показать список">' + glyph('chevron-down') + '</button></span></div></div>' +
           '<label class="cb cb--selected tfm__span-2"><input type="checkbox" class="cb__input" checked>' +
             '<span class="cb__box"><span class="cb__mark">' + glyph('check') + '</span></span>' +
@@ -424,16 +358,16 @@
     /* ---------- секция «Даты» ---------- */
     function datesSection() {
       const dateRange = (label) =>
-        '<div class="inp-range inp-range--m inp-range--date tfm__span-2">' +
+        '<div class="inp-range inp-range--date tfm__span-2">' +
           '<label class="ds-label"><span class="ds-label__text">' + label + '</span></label>' +
           '<div class="inp-range__row">' +
-            '<div class="inp inp--m inp-range__field"><div class="inp__field">' +
+            '<div class="inp inp-range__field"><div class="inp__field">' +
               '<span class="inp__prefix">От</span>' +
               '<input class="inp__control" inputmode="numeric" placeholder="ДД.ММ.ГГГГ">' +
               '<span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">' + glyph('calendar') + '</button></span>' +
             '</div></div>' +
             '<span class="inp-range__line" aria-hidden="true"></span>' +
-            '<div class="inp inp--m inp-range__field"><div class="inp__field">' +
+            '<div class="inp inp-range__field"><div class="inp__field">' +
               '<span class="inp__prefix">До</span>' +
               '<input class="inp__control" inputmode="numeric" placeholder="ДД.ММ.ГГГГ">' +
               '<span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">' + glyph('calendar') + '</button></span>' +
@@ -548,9 +482,6 @@
         '</div></footer>';
 
       scrim.appendChild(modal);
-      document.body.appendChild(scrim);
-      lockScroll();
-      trapFocus(scrim);
       activeScrim = scrim;
       if (opener) opener.setAttribute('aria-expanded', 'true');
 
@@ -604,7 +535,7 @@
         if (!save) return;
         nested(scrim, {
           title: 'Сохранить пресет', confirmLabel: 'Сохранить', width: 3,
-          body: '<div class="inp inp--m"><label class="ds-label ds-label--left"><span class="ds-label__text">Название пресета</span></label><div class="inp__field"><input class="inp__control nested-name" placeholder="Например, Мои сделки"></div></div>',
+          body: '<div class="inp"><label class="ds-label"><span class="ds-label__text">Название пресета</span></label><div class="inp__field"><input class="inp__control nested-name" placeholder="Например, Мои сделки"></div></div>',
           onConfirm: (s) => {
             const name = (s.querySelector('.nested-name').value || '').trim() || 'Новый пресет';
             const exists = presets.find(p => p.name === name);
@@ -630,29 +561,21 @@
         modal.querySelectorAll('.tfm__sec .cb__input').forEach(i => { i.checked = false; });
       });
       modal.querySelector('.tfm-apply').addEventListener('click', () => closeFilterModal(true));
-      modal.querySelector('.modal__close button').addEventListener('click', () => closeFilterModal(false));
-      scrim.addEventListener('mousedown', (e) => { if (e.target === scrim) closeFilterModal(false); });
-
       window.dsIcons && window.dsIcons.apply(scrim);
-      /* фокус — на первый интерактивный элемент тела (иначе крестик) */
-      const firstIn = modal.querySelector(FOCUSABLE.split(',').map(s => '.modal__body ' + s.trim()).join(',')) || modal.querySelector('.modal__close button');
-      firstIn && firstIn.focus();
+
+      /* слой ведёт рантайм ДС (scripts/ds-modal.js): портал в body, блокировка
+         прокрутки, inert фона, focus trap, крестик/Esc/клик по скриму, тени
+         шапки и подвала, возврат фокуса на инициатора */
+      DSModal.open(scrim, {
+        returnFocus: opener || null,
+        onClose: () => {
+          activeScrim = null;
+          if (openerEl) { openerEl.setAttribute('aria-expanded', 'false'); openerEl = null; }
+        },
+      });
     }
 
-    function closeFilterModal() {
-      if (!activeScrim) return;
-      /* вложенные диалоги тоже держат замок — снять столько же раз */
-      activeScrim.querySelectorAll('.modal-scrim--nested').forEach(() => unlockScroll());
-      activeScrim.remove(); activeScrim = null; unlockScroll();
-      /* вернуть фокус на элемент-инициатор */
-      if (openerEl) { openerEl.setAttribute('aria-expanded', 'false'); openerEl.focus(); openerEl = null; }
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key !== 'Escape' || !activeScrim) return;
-      const nestedScrim = activeScrim.querySelector('.modal-scrim--nested');
-      if (nestedScrim) { nestedScrim.remove(); unlockScroll(); } else closeFilterModal(false);
-    });
+    function closeFilterModal() { DSModal.closeAll(); }
 
     const openBtn = document.getElementById('open-modal');
     openBtn && openBtn.addEventListener('click', () => openFilterModal(openBtn));

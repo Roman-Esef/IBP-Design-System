@@ -16,7 +16,9 @@
 <link rel="stylesheet" href="../../styles/divider.css">
 <link rel="stylesheet" href="../../styles/chip.css">
 <link rel="stylesheet" href="../../styles/label-helper.css">
+<link rel="stylesheet" href="../../styles/skeleton.css">
 <link rel="stylesheet" href="../../styles/popover.css">
+  <link rel="stylesheet" href="../../styles/riskmetric.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -73,17 +75,7 @@
   .rm-usage-row__name { font: var(--type-body-m); color: var(--text-primary); }
   .rm-usage-row__metric { position:relative; flex:none; }
 
-  /* ---------- popover body: серые блоки подкачки (Зона / Рейтинг) + текстовые поля ---------- */
-  .rm-body { gap: 16px; }
-  .rm-blocks { display:flex; flex-direction:column; gap:8px; }
-  .rm-block { background: var(--bg-page); border-radius: 8px; padding: 10px 12px; display:flex; flex-direction:column; gap:4px; margin:0; }
-  .rm-block__row { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
-  .rm-block__label { font: var(--type-body-s); color: var(--text-secondary); }
-  .rm-block__value { font: var(--type-body-s); color: var(--text-primary); text-align:right; }
-  .rm-block__value--strong { font: var(--type-body-s-strong); color: var(--text-primary); }
-  .rm-field { display:flex; flex-direction:column; gap:4px; margin:0; }
-  .rm-field__label { margin:0; font: var(--type-body-xs); color: var(--text-secondary); }
-  .rm-field__value { margin:0; font: var(--type-body-s); color: var(--text-primary); text-wrap:pretty; }
+  /* композиция поповера (.rm-body/.rm-block*/.rm-field*) вынесена в styles/riskmetric.css */
 
   /* ---------- feeder blocks (standalone demo) ---------- */
   .feeder-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:22px; align-items:start; }
@@ -130,7 +122,7 @@
 <main class="page" data-screen-label="RiskMetric">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.1</b></span><span>Обновлено: <b>29.07.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>14.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>RiskMetric</h1>
     <p class="lead">Компонент для обозначения уровня надёжности контрагентов: рейтинг (число) и зона проблемности (цвет). Собран из <a class="inl" href="../atoms/Chip.html">Chip</a> (ReadOnly, S, pill) и <a class="inl" href="Popover.html">Popover</a>. <b>Popover_RiskMetric — неотъемлемая часть компонента</b>, а не опциональная зависимость: клик по иконке-информеру всегда открывает карточку с деталями расчёта. Собственных состояний наведения или клика по самому чипу нет.</p>
@@ -353,17 +345,11 @@ function resolveChip(rating, zone):
   tone  = hasZone ? ZONE_TONE[zone] : null      // null → chip--outline; красная/чёрная → *-solid
   return { label, tone, showInfoButton: hasInfo, rounded: true }</span>
 
-<span class="tk-cm">// 2. Открытие/позиционирование — идентично Popover (см. placePop в popover.page.js),
-//    с одним отличием: координаты считаются от самого .pop-anchor (он тесно облегает
-//    кнопку-информер), а не от внешнего контейнера — так позиционирование остаётся
-//    корректным независимо от того, где чип оказался в таблице.
-let open = null   // { pop, btn } — глобальный на страницу, как у Popover
-function onInfoClick(btn, pop, anchor):
-  if (open && open.pop !== pop) close(open)
-  position(pop, anchor, btn)             // gap 8px, align 'start'
-  pop.classList.add('is-open')
-  btn.setAttribute('aria-expanded', 'true')
-  open = { pop, btn }</span>
+<span class="tk-cm">// 2. Открытие/позиционирование/single-open/Esc/клик-вне — не своя логика,
+//    а прямая привязка кнопки-информера к базовому рантайму Popover:
+bind(infoButton, { pop: popoverEl, placement: 'bottom', align: 'start' })
+//    Дальше всё как у обычного Popover: один открытый экземпляр на страницу,
+//    12-позиционный авто-flip, тени скролла, ✕/Esc/клик-вне/Tab-out.</span>
 
 <span class="tk-cm">// 3. Закрытие — 3 равнозначных способа (Footer с действиями отсутствует):
 //    ✕ / клик вне / Esc. Фокус при Esc возвращается на кнопку-информер.</span>
@@ -375,7 +361,7 @@ function onInfoClick(btn, pop, anchor):
 //               + 2 × rm-field (Риск-сегмент / Риск-профиль), зазор тела 16px, без Divider
 //    отсутствующие значения выводятся прочерком «—», поля не скрываются</span></code></pre>
     </div>
-    <p class="dev-note">Рабочий референс на vanilla JS — функции <code class="tok">makeRiskChip</code>, <code class="tok">buildRiskPopover</code> и <code class="tok">rmPlacePop</code> в <code class="tok">riskmetric.page.js</code>.</p>
+    <p class="dev-note">Рабочий референс на vanilla JS — рантайм <code class="tok">scripts/ds-riskmetric.js</code> (сборка Chip + Popover из <code class="tok">data-riskmetric</code>) поверх <code class="tok">scripts/ds-popover.js</code>.</p>
 
     </section>
 
@@ -399,6 +385,8 @@ function onInfoClick(btn, pop, anchor):
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
+<script src="../../scripts/ds-popover.js"></script>
+<script src="../../scripts/ds-riskmetric.js"></script>
 <script src="../../scripts/riskmetric.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
 <script src="../../scripts/ds-toc.js"></script>

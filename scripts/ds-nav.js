@@ -10,11 +10,11 @@
       items: [
         { label: 'Иконки',      href: 'pages/foundations/Icons.html' },
         { label: 'Иллюстрации', href: 'pages/foundations/Illustrations.html' },
+        { label: 'Сетка и отступы', href: 'pages/foundations/Spacing.html' },
         { label: 'Скругления',  href: 'pages/foundations/Radius.html' },
         { label: 'Тени',        href: 'pages/foundations/Elevation.html' },
         { label: 'Типографика', href: 'pages/foundations/Typography.html' },
-        { label: 'Цвета',       href: 'pages/foundations/Colors.html' },
-        { label: 'Сетка и отступы', soon: true }
+        { label: 'Цвета',       href: 'pages/foundations/Colors.html' }
       ]
     },
     {
@@ -34,6 +34,8 @@
             { label: 'Link',         href: 'pages/atoms/Link.html' },
             { label: 'ProgressBar',  href: 'pages/atoms/ProgressBar.html' },
             { label: 'Radiobutton',  href: 'pages/atoms/Radiobutton.html' },
+            { label: 'Skeleton',     href: 'pages/atoms/Skeleton.html' },
+            { label: 'Spinner',      href: 'pages/atoms/Spinner.html' },
             { label: 'Switch',       href: 'pages/atoms/Switch.html' }
           ]
         },
@@ -46,6 +48,7 @@
             { label: 'Context Menu',     href: 'pages/molecules/ContextMenu.html' },
             { label: 'DatePicker',       href: 'pages/molecules/DatePicker.html' },
             { label: 'DropdownList',     href: 'pages/molecules/DropdownList.html' },
+            { label: 'EmptyState',       href: 'pages/molecules/EmptyState.html' },
             { label: 'InputAmountRange', href: 'pages/molecules/InputAmountRange.html' },
             { label: 'InputAutocomplete', href: 'pages/molecules/InputAutocomplete.html' },
             { label: 'InputDate',        href: 'pages/molecules/InputDate.html' },
@@ -65,6 +68,7 @@
           group: 'Организмы',
           items: [
             { label: 'AllocationBar', href: 'pages/organisms/AllocationBar.html' },
+            { label: 'Chart',    href: 'pages/organisms/Chart.html' },
             { label: 'Entity',     href: 'pages/organisms/Entity.html' },
             { label: 'Modal',    href: 'pages/organisms/Modal.html' },
             { label: 'NavPanel', href: 'pages/organisms/NavPanel.html' },
@@ -83,28 +87,26 @@
     {
       cat: 'Правила и паттерны',
       items: [
-        { label: 'Аудит разделов',        href: 'pages/patterns/SectionsAudit.html' },
-        { label: 'Общий бэклог',          href: 'pages/patterns/Backlog.html' },
         { label: 'Редполитика',           soon: true },
         { label: 'Тон оф войс',           soon: true },
         { label: 'Паттерны интерфейса',   soon: true }
       ],
-      groups: [
-        {
-          group: 'Примеры экранов',
-          items: [
-            { label: '01 · Текущий портфель ДИД', href: 'pages/screens/01-Portfolio.html' },
-            { label: '02 · Карточка сделки (v1)', href: 'pages/screens/02-Deal.html' },
-            { label: '02 · Карточка сделки (v2)', href: 'pages/screens/02-Deal-v2.html' },
-            { label: '03 · Фиксация ЭПС/ВБС',     href: 'pages/screens/03-DealFixModal.html' },
-            { label: '04 · Финансовые метрики',   href: 'pages/screens/04-Metrics.html' },
-            { label: '05 · ФИ: Доп. доходность',  href: 'pages/screens/05-Instrument.html' },
-            { label: '06 · Процентные схемы',     href: 'pages/screens/06-RateSchemes.html' },
-            { label: '07 · Прогноз CashFlow',     href: 'pages/screens/07-CashFlow.html' },
-            { label: '08 · Плановые платежи',     href: 'pages/screens/08-Payments.html' },
-            { label: '09 · Корпоративный запрос', href: 'pages/screens/09-CorpRequest.html' }
-          ]
-        }
+    },
+    {
+      cat: 'Примеры экранов',
+      items: [
+        { label: 'Карточка сделки', href: 'pages/screens/DealCard.html' }
+      ]
+    },
+    {
+      cat: 'RND',
+      items: [
+        { label: 'Аудит правил',            href: 'pages/rnd/RulesAudit.html' },
+        { label: 'Аудит разделов',          href: 'pages/rnd/SectionsAudit.html' },
+        { label: 'Общий бэклог',            href: 'pages/rnd/Backlog.html' },
+        { label: 'План: шаблоны и прототип', href: 'pages/rnd/TemplatesPlan.html' },
+        { label: 'План 2: слой продукта',    href: 'pages/rnd/Plan2.html' },
+        { label: 'План 3: единое видение',   href: 'pages/rnd/Plan3.html' }
       ]
     }
   ];
@@ -194,12 +196,23 @@
   backdrop.addEventListener('click', function () { setOpen(false); });
   nav.addEventListener('click', function (e) { if (e.target.closest('.ds-nav__link')) setOpen(false); });
 
+
+  // самодостаточность: подтягиваем свой стиль, если страница его не подключила
+  function ensureCss() {
+    if (document.querySelector('link[rel="stylesheet"][href$="ds-nav.css"]')) return;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = (window.__DS_ROOT || '') + 'styles/ds-nav.css';
+    document.head.appendChild(l);
+  }
+
   function mount() {
     // no-op guard: монтируемся только на страницах-хостах навигации (index и документация
     // имеют <main class="page">). На карточках @dsCard, которые тянут ds-nav.js через
     // _ds_bundle.js, такого контейнера нет — молча выходим и не ломаем карточку/index.
     if (!document.querySelector('main.page')) return;
     if (document.body.classList.contains('ds-has-nav')) return;
+    ensureCss();
     document.body.classList.add('ds-has-nav');
     document.body.insertBefore(backdrop, document.body.firstChild);
     document.body.insertBefore(nav, document.body.firstChild);

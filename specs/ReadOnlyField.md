@@ -1,10 +1,11 @@
 ---
 component: ReadOnlyField
 title: "ReadOnlyField"
-version: "v1.3"
-updated: "05.08.2026"
+version: "v1.6"
+updated: "13.08.2026"
 page: pages/molecules/ReadOnlyField.html
 page_js: scripts/read-only-field.page.js
+runtime: scripts/ds-copy.js
 css: styles/read-only-field.css
 deps: [label-helper, chip, link, tooltip, segment-control, splitter]
 status: auto
@@ -14,6 +15,17 @@ status: auto
 
 ## Назначение
 Поле для отображения данных без возможности редактирования. Показывает значение — текст, чипы или ссылку — с опциональными лейблом и хэлпером (см. Label / Helper), иконками слева/справа и префиксом/постфиксом. Не имеет собственного контейнера: без рамки и фона, это пара «подпись → значение» для карточек сущностей и детальных панелей.
+
+## Инварианты
+- Копирование по иконке-действию `copy` — общий рантайм `scripts/ds-copy.js` (`DSCopy.write`/`.flash`); визуальный морф иконки в галочку остаётся за компонентом.
+- Нет собственного контейнера (без рамки/фона) — это пара «подпись → значение», встраивается в чужой контейнер.
+- Префикс/постфикс — короткие по дизайну (~10–12 символов, символ/аббревиатура), не полное слово; длинная строка обрезается, не растягивает строку.
+- Значение типа `link` сохраняет цвета компонента Link — семантические цвета (positive/negative/muted) применяются только к text/chips-значениям.
+- Переполнение — либо одна строка (ellipsis), либо N строк (line-clamp), обе версии с тултипом на переполнении.
+
+## Диагностика
+- «Ссылка-значение окрашена в error/success» → семантический цвет применяется только к text/chips, ссылка держит свой цвет Link
+- «Префикс распирает строку» → должен обрезаться эллипсисом при `max-width:12ch`, не расти
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — ReadOnlyField используется исключительно для отображения данных — в карточках сущностей и детальных панелях, когда значение приходит из системы и не редактируется пользователем напрямую в этом месте экрана.
@@ -44,9 +56,9 @@ status: auto
 <div class="rof">
   <span class="ds-label"><span class="ds-label__text">ID во внешней АС</span></span>
   <div class="rof__row">
-    <span class="rof__icon"><svg aria-hidden="true">…</svg></span>
+    <span class="rof__icon"><i data-icon="info-circle"></i></span>
     <span class="rof__value">123456789012</span>
-    <span class="rof__icon rof__icon--interactive" role="button" tabindex="0" aria-label="Скопировать значение"><svg aria-hidden="true">…</svg></span>
+    <span class="rof__icon rof__icon--interactive" role="button" tabindex="0" aria-label="Скопировать значение"><i data-icon="copy"></i></span>
   </div>
 </div>
 
@@ -121,7 +133,7 @@ interface ReadOnlyFieldProps {
 | .rof__value | span / div / a | Единственный обязательный слот; тег зависит от типа (span/div/a) |
 | .rof__value--positive / --negative / --muted | span | Цвет значения — динамика / пусто (Предложение) |
 | .rof__value--clamp-1 / --clamp-n | span | Обрезка в одну строку (ellipsis) / N строк (line-clamp, --rof-clamp) |
-| .rof__value--chips | div | Обёртка чип-листа — внутри реальные .chip.chip--readonly.chip--xs |
-| .rof__skeleton | span | Loading-плейсхолдер — шиммер (Предложение) |
+| .rof__value--chips | div | Обёртка чип-листа — внутри реальные .chip.chip--xs |
+| .sk-line / .sk-line--caption | span | Loading-плейсхолдер — общий компонент Skeleton (Предложение) |
 | .ds-label / .ds-helper | span | Подпись и пояснение — общие классы компонента Label/Helper |
 | aria-labelledby / <dl><dt><dd> | div | Связь подписи и значения для скрин-ридера (см. «Доступность») |

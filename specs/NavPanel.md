@@ -1,10 +1,11 @@
 ---
 component: NavPanel
 title: "Панель навигации"
-version: "v1.5"
-updated: "29.07.2026"
+version: "v1.9"
+updated: "14.08.2026"
 page: pages/organisms/NavPanel.html
 page_js: scripts/nav-panel.page.js
+runtime: scripts/ds-nav-panel.js
 css: styles/nav-panel.css
 deps: [icon-button, badge, avatar]
 status: curated
@@ -15,6 +16,24 @@ status: curated
 ## Назначение
 NavPanel — главная навигация приложения в левой части каждой страницы: отображает все главные страницы продукта, сгруппированные по разделам, и подсвечивает текущую. Один компонент, три режима: свёрнутый **Rail** (только иконки, без тени, подпись — тултипом по hover), развёрнутый-оверлей **Drawer** (подписи, тень Shadow4.0_modalform) и закреплённый **Fixed** (тени нет, шов справа, контент ужимается под ширину панели).
 
+## Инварианты
+- Три режима (rail/drawer/fixed) — один компонент, не три разных; переключение — сменой класса `.nav--*`, разметка пунктов не меняется.
+- В Rail подпись пункта скрыта и появляется только тултипом по hover/focus — не показывается статично.
+- Вертикальная ось пунктов/бургера/аватара — фиксированные 28px от левого края во всех режимах; менять по отдельности нельзя.
+- Rail и Drawer/Fixed — взаимоисключающие по ширине (56px vs 272px), промежуточной ширины нет.
+
+## Диагностика
+- «В Rail подпись пункта видна постоянно» → должна быть скрыта, появляться только тултипом на hover/focus
+- «Иконки/бургер/аватар не на одной вертикальной линии» → все три должны считаться от общей оси 28px, не выравниваться по отдельности
+- «Drawer сдвигает контент экрана вместо оверлея» / «Панель обрезается или скроллится со страницей» → хост-контракт ниже не выполнен
+
+## Хост-контракт (интеграция на экране)
+Обёртка `.nav-layout` (сам компонент, `styles/nav-panel.css`) — работает из коробки, экран ничего не пишет сам:
+```html
+<div class="nav-layout"><nav class="nav nav--rail" aria-label="Главное меню">…</nav><main>…контент экрана…</main></div>
+```
+`.nav` внутри неё всегда `position:fixed; top:0; left:0; height:100vh` — растянута на весь вьюпорт, не скроллится со страницей и не участвует в потоке. Контент (`.nav-layout > *:not(.nav)`) резервирует отступ слева = ширине Rail (56px) и в Rail, и в Drawer (Drawer — оверлей поверх этого отступа, не раздвигает контент); отступ увеличивается до ширины Fixed (272px) только когда `.nav` в режиме `nav--fixed` — это чистый CSS (`:has()`), без JS на экране.
+
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Основная навигация по разделам всего приложения, когда разделов много и они делятся на смысловые блоки; сюда же профиль и выход.
 - **Анатомия** — Сверху шапка: Burger (глиф left-menu; + Pin в Drawer/Fixed). Ниже прокручиваемый список: пункт «Главная», затем navigation-block'и (заголовок-секция + пункты Navigation_Item). Внизу закреплён Footer: Avatar + профиль (ФИО/должность/организация) + IconButton выхода.
@@ -24,9 +43,22 @@ NavPanel — главная навигация приложения в лево�
 - **Контент** — Подпись пункта — короткое существительное/название раздела, усечение многоточием + тултип (в Rail подпись всегда в тултипе). Иконка — глиф 24×24 из раздела Icons (Menu), уникальна для пункта (опознаёт раздел в Rail). Заголовок блока — название подразделения/типа (в Rail — короткая черта той же высоты (пункты не смещаются)). Badge — только целое число сущностей, опционален, без пустых/декоративных. Футер — ФИО (усечение), должность, организация «+N».
 - **Поведение** — Rail: тени нет, тултип справа по hover, бургер → Drawer. Drawer: оверлей + тень, сворачивается бургером или кликом вне области; logout деавторизует. Fixed: пин закрепляет панель (контент ужимается, pin-menu → unpin-menu), повторный клик открепляет → Drawer.
 - **Состояния** — Пункт (.Navigation_Item): Default (Text_Secondary), Hover (заливка Table Row Hover, Text_Primary), Selected (заливка Table Row Focus, подпись Strong, aria-current), Disabled (Text_Inactive, вне таб-порядка, бейдж muted).
-- **Доступность** — `<nav aria-label="Главное меню">`; текущая страница `aria-current="page"`. Бургер/пин/выход — `aria-label`; пин — `aria-pressed`. Disabled-пункт — `aria-disabled="true"` + `tabindex="-1"`. Значение Badge включается в подпись пункта. Фокус — кольцо `--primary`.
+- **Доступность** — `<nav aria-label="Главное меню">`; текущая страница `aria-current="page"`. Бургер/пин/выход — `aria-label`; пин — `aria-pressed`. Выбранный/отключённый пункт красится и по `[aria-current]`/`[aria-disabled="true"]` напрямую — классы `.nav__item--selected`/`--disabled` нужны только там, где текущая страница не определяется атрибутом (RulesAudit W1, 12.08.2026).pressed`. Disabled-пункт — `aria-disabled="true"` + `tabindex="-1"`. Значение Badge включается в подпись пункта. Фокус — кольцо `--primary`.
 - **Типографика** — Подпись пункта Body M (Selected — Body M Strong); заголовок блока Body XS (Text_Inactive); ФИО Body S Strong; должность/организация Body XS; тултип Rail Body S (Text_on_dark).
 - **Цвета** — Фон панели `--bg-mainmenu`; шов/разделители `--border-light`; тень Drawer `--shadow-modal-form`. Пункт: текст `--text-secondary`/`--text-primary`, иконка `--secondary` (Default) → `--secondary-dark` (Hover/Selected), заливка `--bgtable-row-hover` (Hover) / `--bgtable-row-focus` (Selected), `--text-inactive` (Disabled). Заголовок блока `--text-inactive`. Badge — `--primary` (accent). Тултип Rail — фон `--bg-hint`, текст `--text-on-dark`.
+
+## Из коробки
+Рантайм `scripts/ds-nav-panel.js` (`window.DSNavPanel`) — самоинициализация по `.nav`, кода на экране не требуется.
+
+| Что | Как |
+|---|---|
+| Переключение режимов | Бургер: rail ↔ последний развёрнутый режим. Пин: drawer ↔ fixed; `aria-pressed` и глиф `pin-menu`/`unpin-menu` обновляются рантаймом, `aria-label` бургера — «Развернуть/Свернуть меню» |
+| Rail-тултипы | Подписи `.nav__label` позиционируются `position:fixed` справа от панели (зазор 10px); пересчёт по hover, focus, скроллу списка и resize |
+| Настройки на панели | `data-nav-collapsed-mode` (drawer\|fixed — куда разворачивает бургер) · `data-nav-modes="no"` (только тултипы, режимы не переключаются) · `data-nav-auto="no"` (не подключать) |
+| API | `bind(nav, opts)` · `bindAll(root)` · `setMode(nav, mode)` · `placeRailLabels(nav)` |
+| Событие | `ds-nav-mode` на `.nav`, `detail {mode, prev}` |
+
+`nav-panel.page.js` после экстракции только собирает демо-разметку и вызывает этот рантайм.
 
 ## Для разработчиков (выжимка)
 
@@ -43,7 +75,7 @@ NavPanel — главная навигация приложения в лево�
   </div>
   <div class="nav__list">
     <a class="nav__item nav__item--selected" href="#" aria-current="page"><span class="nav__ico"><i data-icon="main-page"></i></span><span class="nav__label">Главная</span></a>
-    <div class="nav__block nav__block--first">
+    <div class="nav__block">
       <div class="nav__block-label">Origination</div>
       <a class="nav__item" href="#"><span class="nav__ico"><i data-icon="Important-deals"></i></span><span class="nav__label">Обязательные сделки</span></a>
       <!-- … пункт с бейджем: -->
@@ -89,7 +121,7 @@ NavPanel — главная навигация приложения в лево�
 | `.nav__top` | Шапка: Burger (+ Pin в развёрнутых режимах) |
 | `.nav__burger` / `.nav__pin` | IconButton сворачивания / закрепления |
 | `.nav__list` | Прокручиваемая область пунктов |
-| `.nav__block` / `.nav__block--first` | Блок-секция разделов / первый (без верхней черты в Rail) |
+| `.nav__block` | Блок-секция разделов. В Rail черта рисуется у каждого блока (`.nav--rail .nav__block-label::before`), исключения для первого нет |
 | `.nav__block-label` | Заголовок блока (в Rail скрыт, заменён чертой) |
 | `.nav__item` | Пункт меню (.Navigation_Item) |
 | `.nav__item--selected` / `.nav__item--disabled` | Текущая страница / недоступный пункт |

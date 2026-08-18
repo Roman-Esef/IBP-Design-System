@@ -90,8 +90,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.2</b></span>
-    <span>Обновлено <b>17.07.2026</b></span>
+    <span>Версия <b>v1.4</b></span>
+    <span>Обновлено <b>12.08.2026</b></span>
     <span>CSS <b>styles/snackbar.css</b></span>
     <span>Зависимости <b>button, link</b></span>
   </div>
@@ -158,7 +158,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
               <div class="mock-row"></div>
             </div>
           </div>
-          <div class="snack-demo-layer" id="demo-layer" aria-live="polite" aria-atomic="false"></div>
+          <div class="snack-demo-layer" id="demo-layer" data-ds-snackbar aria-live="polite" aria-atomic="false"></div>
         </div>
         <p class="ws-cap">Нажмите «Показать снек» несколько раз — снеки укладываются в стек (до 5, затем «+N»). Hover — пауза авто-скрытия. Esc — закрыть верхний.</p>
       </div>
@@ -495,6 +495,7 @@ function dismiss(id):
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/ds-notify.js"></script>
 <script>
 /* ---- icon helper ---- */
 function getIcon(name, size) {
@@ -514,109 +515,29 @@ var TITLES = { info:'Информация', warning:'Внимание', error:'�
 var TEXTS  = { info:'Плановая дата подписания находится в прошлом году.', warning:'Плановая дата подписания находится в прошлом году. Проверьте условия.', error:'Плановая дата подписания находится в прошлом году. Измените сроки или обновите статус сделки.', success:'Сделка успешно обновлена.' };
 var BTNLBL = { info:'Подробнее', warning:'Изменить', error:'Изменить сроки', success:'К сделке' };
 
-/* ---- stack ---- */
-var stack = [], hiddenCount = 0, overflowEl = null, MAX_V = 5, AUTO_MS = 5000;
-
-function startTimer(s) { s.timer = setTimeout(function(){ dismiss(s.id); }, AUTO_MS); }
-function clearTimer(s) { if (s.timer) { clearTimeout(s.timer); s.timer = null; } }
-
-function dismiss(id) {
-  var idx = stack.findIndex(function(s){ return s.id === id; });
-  if (idx < 0) return;
-  var s = stack[idx]; clearTimer(s);
-  s.el.classList.add('snack--leave');
-  s.el.addEventListener('animationend', function() {
-    s.el.remove(); stack.splice(idx, 1);
-    if (hiddenCount > 0) {
-      var nxt = stack.find(function(x){ return x.hidden; });
-      if (nxt) { nxt.el.style.display = ''; nxt.hidden = false; hiddenCount--; }
-    }
-    updateOverflow();
-  }, { once: true });
-}
-
-function updateOverflow() {
-  var layer = document.getElementById('demo-layer'); if (!layer) return;
-  if (hiddenCount > 0) {
-    if (!overflowEl) {
-      overflowEl = document.createElement('div'); overflowEl.className = 'snack-more';
-      overflowEl.innerHTML = 'Ещё <span class="snack-more__count">0</span> уведомл.<div class="snack-more__actions"><button class="snack-more__btn" aria-label="Развернуть">' + getIcon('chevron-down',16) + '</button><button class="snack-more__btn" aria-label="Закрыть все">' + getIcon('close',16) + '</button></div>';
-      overflowEl.querySelectorAll('.snack-more__btn')[0].addEventListener('click', function(){
-        stack.forEach(function(s){ if(s.hidden){s.el.style.display='';s.hidden=false;} }); hiddenCount=0; updateOverflow();
-      });
-      overflowEl.querySelectorAll('.snack-more__btn')[1].addEventListener('click', function(){
-        var ids = stack.map(function(s){return s.id;});
-        ids.forEach(function(id){dismiss(id);}); hiddenCount=0; if(overflowEl){overflowEl.remove();overflowEl=null;}
-      });
-      layer.appendChild(overflowEl);
-    }
-    overflowEl.querySelector('.snack-more__count').textContent = hiddenCount;
-  } else if (overflowEl) { overflowEl.remove(); overflowEl = null; }
-}
-
-function makeSnackEl(tone, title, text, btnType, count) {
-  var el = document.createElement('div');
-  el.className = 'snack snack--' + tone;
-  el.setAttribute('data-snack-tone', tone);
-  el.setAttribute('role', (tone==='error'||tone==='warning') ? 'alert' : 'status');
-  el.setAttribute('aria-live', (tone==='error'||tone==='warning') ? 'assertive' : 'polite');
-  var dupeHtml = count > 1 ? '<span class="snack__dupe">\u00d7' + count + '</span>' : '';
-  var btnsHtml = '';
-  if (btnType === 'one')  btnsHtml = '<div class="snack__buttons"><button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">' + esc(BTNLBL[tone]) + '</span></button></div>';
-  if (btnType === 'two')  btnsHtml = '<div class="snack__buttons"><button type="button" class="btn btn--outline btn--xs btn--' + tone + '"><span class="btn__label">Изменить</span></button><button type="button" class="btn btn--transparent btn--xs btn--' + tone + '"><span class="btn__label">Отмена</span></button></div>';
-  if (btnType === 'link') btnsHtml = '<div class="snack__buttons"><a class="link link--' + tone + '" href="#" onclick="return false">Перейти к сделке</a></div>';
-  el.innerHTML =
-    '<span class="snack__icon" aria-hidden="true">' + getIcon(ICONS[tone], 20) + '</span>' +
-    '<div class="snack__body"><div class="snack__title">' + esc(title) + dupeHtml + '</div>' +
-    (text ? '<div class="snack__text">' + esc(text) + '</div>' : '') + btnsHtml + '</div>' +
-    '<button type="button" class="snack__close" aria-label="Закрыть">' + getIcon('close', 16) + '</button>';
-  return el;
-}
+/* ---- демо: контролы Конструктора → рантайм ДС (scripts/ds-notify.js) ----
+   стек, дедупликация, переполнение «+N», авто-скрытие с паузой на hover/focus
+   и Esc живут в DSSnack; страница только читает настройки и вызывает show() */
+var BTNSETS = {
+  none: null,
+  one:  function(tone){ return [{ label: BTNLBL[tone] }]; },
+  two:  function(){ return [{ label: 'Изменить' }, { label: 'Отмена', variant: 'transparent' }]; },
+  link: function(){ return [{ label: 'Перейти к сделке', href: '#' }]; },
+};
 
 function showSnack() {
-  var layer = document.getElementById('demo-layer'); if (!layer) return;
-  var tone   = document.getElementById('ctl-tone').value;
-  var btnType= document.getElementById('ctl-btns').value;
-  var title  = (document.getElementById('ctl-title').value.trim()) || TITLES[tone];
-  var text   = (document.getElementById('ctl-text').value.trim()) || TEXTS[tone];
-  var dedup  = document.getElementById('ctl-dedup').checked;
-  var hasBtn = btnType !== 'none';
-  var key    = tone + '|' + title + '|' + text;
-
-  if (dedup) {
-    var ex = stack.find(function(s){ return s.key===key; });
-    if (ex) {
-      ex.count++;
-      var d = ex.el.querySelector('.snack__dupe');
-      if (d) d.textContent = '\u00d7' + ex.count;
-      else { var t = ex.el.querySelector('.snack__title'); if(t) t.insertAdjacentHTML('beforeend','<span class="snack__dupe">\u00d7'+ex.count+'</span>'); }
-      clearTimer(ex); if(!hasBtn) startTimer(ex);
-      return;
-    }
-  }
-
-  var visibleCount = stack.filter(function(s){ return !s.hidden; }).length;
-  if (visibleCount >= MAX_V) {
-    var visible = stack.filter(function(s){ return !s.hidden; });
-    var oldest  = visible[visible.length-1];
-    if (oldest) { oldest.el.style.display='none'; oldest.hidden=true; hiddenCount++; updateOverflow(); }
-  }
-
-  var id = Date.now();
-  var el = makeSnackEl(tone, title, text, btnType, 1);
-  var s  = { id:id, el:el, key:key, tone:tone, hasButtons:hasBtn, timer:null, count:1, hidden:false };
-  el.querySelector('.snack__close').addEventListener('click', function(){ dismiss(id); });
-  el.addEventListener('mouseenter', function(){ clearTimer(s); });
-  el.addEventListener('mouseleave', function(){ if(!s.hasButtons) startTimer(s); });
-  el.addEventListener('focusin',    function(){ clearTimer(s); });
-  el.addEventListener('focusout',   function(){ if(!s.hasButtons) startTimer(s); });
-  stack.unshift(s);
-  layer.prepend(el);
-  if (!hasBtn) startTimer(s);
+  var tone    = document.getElementById('ctl-tone').value;
+  var btnType = document.getElementById('ctl-btns').value;
+  var mk      = BTNSETS[btnType];
+  window.DSSnack.show({
+    tone:  tone,
+    title: document.getElementById('ctl-title').value.trim() || TITLES[tone],
+    text:  document.getElementById('ctl-text').value.trim()  || TEXTS[tone],
+    buttons: mk ? mk(tone) : null,
+    dedup: document.getElementById('ctl-dedup').checked,
+  });
 }
-
 document.getElementById('btn-show').addEventListener('click', showSnack);
-document.addEventListener('keydown', function(e) { if (e.key==='Escape' && stack.length>0) dismiss(stack[0].id); });
 
 /* ---- redline ---- */
 function measureRedline() {

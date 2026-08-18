@@ -50,7 +50,7 @@
   display: flex; align-items: center; justify-content: center;
   margin-top: 1px; flex: none;
 }
-.snack__icon svg, .snack__icon i { width: 20px; height: 20px; display: block; }
+.snack__icon :is(svg,[data-icon]){ width: 20px; height: 20px; display: block; }
 .snack--info    .snack__icon { color: var(--info); }
 .snack--warning .snack__icon { color: var(--warning); }
 .snack--error   .snack__icon { color: var(--error); }
@@ -91,7 +91,7 @@
   width: 20px; height: 20px; flex: none; margin-top: 1px;
   opacity: .65; transition: opacity .15s;
 }
-.snack__close svg, .snack__close i { width: 16px; height: 16px; display: block; }
+.snack__close :is(svg,[data-icon]){ width: 16px; height: 16px; display: block; }
 .snack__close:hover { opacity: 1; }
 .snack__close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; opacity: 1; }
 .snack--info    .snack__close { color: var(--info); }
@@ -115,7 +115,7 @@
   border-radius: var(--radius-xs); color: var(--text-secondary);
   display: flex; align-items: center; justify-content: center; transition: color .12s;
 }
-.snack-more__btn svg { width: 16px; height: 16px; }
+.snack-more__btn :is(svg,[data-icon]){ width: 16px; height: 16px; }
 .snack-more__btn:hover { color: var(--text-primary); }
 .snack-more__btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 

@@ -1,8 +1,8 @@
 ---
 component: InputAutocomplete
 title: "InputAutocomplete"
-version: "v1.10"
-updated: "29.07.2026"
+version: "v1.12"
+updated: "13.08.2026"
 page: pages/molecules/InputAutocomplete.html
 page_js: scripts/input-autocomplete.page.js
 css: styles/input.css
@@ -14,6 +14,17 @@ status: curated
 
 ## Назначение
 Поле-триггер + раскрывающийся под ним DropdownList. Пользователь вводит запрос, список фильтруется. Список содержит текстовые опции (одиночный выбор) или опции с чекбоксами (множественный). База `.inp` общая с InputText/InputDate; устройство списка — компонент Select · DropdownList.
+
+## Инварианты
+- Список опций — текстовые (одиночный выбор) ИЛИ с чекбоксами (множественный) — режимы не смешиваются в одном инстансе.
+- Список подключается штатным рантаймом `scripts/ds-dropdownlist.js` (`DSDropdownList.bind(field, {...})`) — открытие/закрытие/фильтрация/клавиатура не пишутся заново на странице.
+- Показ выбранного — сводка (`.inp__summary`) ИЛИ чипы в поле (`.inp__chips`) ИЛИ внешний стек (`.inp-ext`) — один способ на инстанс, не два одновременно.
+- Ширина DropdownList под автокомплитом равна ширине поля-триггера (в отличие от самостоятельного DropdownList с собственной шириной).
+- Крестик очистки и шеврон в `.inp__acts` могут быть одновременно (в отличие от Button, где это взаимоисключающая пара).
+
+## Диагностика
+- «Список открывается своей ширины, не по полю» → DropdownList должен наследовать ширину триггера, не `--ddl-min/max`
+- «Выбранные значения показаны и чипами, и сводкой одновременно» → оставить один способ показа на инстанс
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — выбор из большого справочника с поиском; множественный выбор с чипами/сводкой; допустим свободный ввод (action-строка). Мало вариантов без поиска → Select; свободный текст → InputText.
@@ -35,8 +46,8 @@ status: curated
 ### Разметка · HTML (эталонная реализация ДС)
 
 ```
-<div class="inp inp--m is-open">
-  <label class="ds-label ds-label--left" for="ac"><span class="ds-label__text">Контрагент</span></label>
+<div class="inp is-open">
+  <label class="ds-label" for="ac"><span class="ds-label__text">Контрагент</span></label>
   <div class="inp__field" role="combobox" aria-expanded="true" aria-controls="ac-list">
     <span class="inp__chips"><span class="chip chip--edit chip--s"><span class="chip__label">Value 1</span><span class="chip__remove" role="button">…✕…</span></span></span>
     <input class="inp__control" id="ac" placeholder="Поиск…">

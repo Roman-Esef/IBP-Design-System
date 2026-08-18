@@ -1,10 +1,11 @@
 ---
 component: Splitter
 title: "Splitter"
-version: "v1.1"
-updated: "08.07.2026"
+version: "v1.3"
+updated: "12.08.2026"
 page: pages/molecules/Splitter.html
 page_js: scripts/splitter.page.js
+runtime: scripts/ds-splitter.js
 css: styles/splitter.css
 deps: [button]
 status: auto
@@ -14,6 +15,16 @@ status: auto
 
 ## Назначение
 Функциональный разделитель контейнера: пользователь тащит сплиттер и регулирует размеры соседних панелей. При наведении курсор меняется на col-resize / ew-resize, а сам сплиттер переходит в состояние Hover. Перемещается по одной оси; в момент перетаскивания вид и курсор сохраняются.
+
+## Инварианты
+- Зона захвата (11px) шире видимой линии (1px) — клик работает не только по самой линии.
+- Во время перетаскивания курсор фиксируется на весь документ (`body.spl-dragging`), не только на сплиттере.
+- Disabled — сплиттер зафиксирован (`pointer-events:none`), но линия и ручка остаются видимыми в приглушённом цвете, не пропадают.
+- Горизонтальный (`--h`) и вертикальный варианты — разные направления курсора и оси перемещения, не путать при реализации.
+
+## Диагностика
+- «Курсор resize пропадает при быстром драге» → должен держаться класс `body.spl-dragging`/`spl-dragging-h` на всё время перетаскивания
+- «Сплиттер не реагирует на клик рядом с линией» → зона захвата 11px, а не 1px видимой линии
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — Используйте сплиттер, когда нужно:
@@ -52,6 +63,38 @@ status: auto
   <div class="splitpane__panel splitpane__b">…</div>
 </div>
 ```
+
+### Рантайм ДС — `scripts/ds-splitter.js`
+
+Поведение разделителя вынесено в рантайм: перетаскивание с pointer capture и
+курсором, зафиксированным на `body` (работает поверх любых элементов под
+курсором), ограничение min/max, стрелки с шагом 2% и Shift — 10%, Home/End,
+`aria-valuemin` / `valuemax` / `valuenow`, двойной клик — сброс к исходному.
+
+Автоподключение — `data-splitter` на контейнере пары панелей:
+
+```
+<div class="splitpane" data-splitter data-min="25" data-max="75" data-initial="50">
+  <div class="splitpane__panel splitpane__a">…</div>
+  <div class="spl" role="separator"><span class="spl__grip">…</span></div>
+  <div class="splitpane__panel splitpane__b">…</div>
+</div>
+```
+
+| Метод | Что делает |
+|---|---|
+| `DSSplitter.pane(opts)` | собирает пару панелей со сплиттером — `{ wrap, spl, a, b, setPct(v), value() }` |
+| `DSSplitter.wire(splEl, opts)` | оживляет сплиттер в уже свёрстанной разметке (панели — его соседи) |
+| `DSSplitter.make(opts)` | один элемент `.spl` без панелей (для статичных примеров состояний) |
+| `DSSplitter.wireAll(root)` | обходит `[data-splitter]` |
+
+Опции: `orientation` (`'v'` | `'h'`), `min`, `max`, `initial`, `step`,
+`bigStep`, `height`, `leftLabel` / `rightLabel` или `buildLeft` / `buildRight`,
+`onChange(pct)`, `resetOnDblClick`.
+
+Композиция пары панелей (`.splitpane`, `.splitpane__panel`, `.splitpane__ph`,
+`.splitpane--app`) с 12.08.2026 лежит в `styles/splitter.css` — раньше она была
+только в инлайн-стилях витрины и на экран не переносилась.
 
 ### Поведение · псевдокод (framework-agnostic)
 
@@ -102,6 +145,10 @@ interface SplitterProps {
 | .spl--hover / :hover | div | Подсветка зоны, курсор col-resize / row-resize |
 | .spl--move | div | Перетаскивание — вид Hover удерживается всё время drag |
 | .spl--disabled | div | pointer-events:none, курсор default |
+| .splitpane | div | Пара панелей — контейнер, который оживляет рантайм (`data-splitter`) |
+| .splitpane--h / --app | div | Горизонтальная пара; вариант «как в приложении» (тень, прокрутка панелей) |
+| .splitpane__panel / __a / __b | div | Панели A и B по краям сплиттера |
+| .splitpane__ph | span | Плейсхолдер-подпись пустой панели |
 | :focus-visible | div | Обводка 2px --primary, offset −1px |
 | body.spl-dragging / .spl-dragging-h | body | Курсор col-resize/row-resize поверх всего документа во время Move |
 | role="separator" / aria-orientation / aria-valuemin/max/now | div | Доступность — семантика и текущее значение размера |

@@ -1,9 +1,10 @@
 ---
 component: Table
 title: "Table"
-version: "v1.2"
-updated: "06.08.2026"
+version: "v1.4"
+updated: "11.08.2026"
 page: pages/organisms/Table.html
+runtime: scripts/ds-table.js
 css: styles/table.css
 deps: [table-cell, pagination, table-filter, button, button-group, icon-button, chip, checkbox, illustration, modal, context-menu]
 status: curated
@@ -13,6 +14,16 @@ status: curated
 
 ## Назначение
 Контейнер-организм таблицы/реестра: Toolbar (заголовок + счётчик + фильтр/действия) + прокручиваемое тело с липкой шапкой + Footer (Pagination). Table не рисует содержимое строк — колонки и ячейки собираются из TableCell; постраничная навигация и панель массовых действий — из Pagination (`.pgn-bulk`, уже существует в `pagination.css`, ранее не документирована ни на одной странице).
+
+## Инварианты
+- Table добавляет только обёртку/Toolbar/липкую шапку/тени скролла/Loading-Empty — строки и ячейки строит TableCell, панель массовых действий и пагинация — Pagination.
+- Состояния Disabled у таблицы нет — строку/ячейку недоступной не делают, только тонируют/скрывают отдельные действия.
+- Тень липкой шапки появляется только когда тело реально проскроллено (`--scrolled`), не постоянно.
+- Loading блокирует только тулбар-действия и инструменты шапки (resize/tools), не всю таблицу — строки показывают skeleton через TableCell.
+
+## Диагностика
+- «Тень под шапкой видна без скролла» → нужен класс `.dtable--scrolled`, навешиваемый по факту scrollTop>0
+- «Таблица выглядит disabled целиком» → у Table такого состояния нет, приглушать нужно точечно (тулбар/инструменты)
 
 ## Ключевые правила (из разделов страницы)
 - **Использование** — любой список записей, которому нужен скролл, липкая шапка, счётчик, фильтр или массовые действия. Короткий фиксированный список без прокрутки — Entity/ReadOnlyField, без веса Table. Table — сама себе контейнер (фон/рамка/радиус); внутри Tile — вариант `--headless`, чтобы не дублировать рамку.
@@ -57,7 +68,7 @@ status: curated
   </div>
 </div>
 <!-- Empty: .dtable__body содержит только .dtable__empty (иллюстрация + текст + действие) -->
-<!-- Loading: .dtable__body содержит .tbl с N строками .tc--skeleton -->
+<!-- Loading: .dtable__body содержит .tbl с N строками .tc--skeleton (плейсхолдер .sk-line--caption) -->
 ```
 
 ### Поведение · псевдокод (framework-agnostic)
