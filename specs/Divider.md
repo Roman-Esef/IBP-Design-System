@@ -1,7 +1,7 @@
 ---
 component: Divider
 title: "Divider"
-version: "v2.1"
+version: "2.001"
 updated: "13.08.2026"
 page: pages/atoms/Divider.html
 page_js: scripts/divider.page.js

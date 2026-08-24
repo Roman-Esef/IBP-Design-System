@@ -1,8 +1,8 @@
 ---
 component: Spinner
 title: "Spinner"
-version: "v1.1"
-updated: "13.08.2026"
+version: "1.001"
+updated: "21.08.2026"
 page: pages/atoms/Spinner.html
 css: styles/spinner.css
 status: curated
@@ -27,6 +27,7 @@ status: curated
 - **Анатомия** — один элемент, двухцветная обводка: Трек (`--border-light`, неподвижный) + Индикатор (сегмент, цвет = тон, вращается). Подпись — опциональный внешний слот.
 - **Варианты** — Тон: accent/success/warning/error/info/system/inverse (7). Состав: голое кольцо / кольцо + подпись (в строку `.spin-group` / столбиком `.spin-group--stack`) / блокирующий оверлей `.spin-overlay`.
 - **Размеры** — XS 16px / S 20px / M 24px (по умолчанию) / L 32px; толщина кольца 2px (XS/S) и 3px (M/L).
+- **Размеры · Радиус скругления** — Круг во всех размерах. кольцо XL/L/M/S — 50% (--radius-circle).
 - **Контент** — подпись в форме процесса («Сохранение…»), без процента/счётчика.
 - **Поведение** — вращение на `transform: rotate()`, `.8s linear infinite`; `prefers-reduced-motion` → `1.6s` (не отключается). Оверлей — `position:absolute; inset:0` поверх позиционированного родителя, фон — вуаль на `--bg-page` (82%), НЕ модальный `--modal-scrim`; z-index локальный, не часть глобальной шкалы.
 - **Состояния** — одно состояние (вращается/не смонтирован); нет Disabled/Hover.

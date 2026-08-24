@@ -1,8 +1,8 @@
 ---
 component: NavTile
 title: "NavTile"
-version: "v1.7"
-updated: "13.08.2026"
+version: "1.007"
+updated: "21.08.2026"
 page: pages/molecules/NavTile.html
 css: styles/nav-tile.css
 deps: [illustration, link, colors, radius, shadow, typography]
@@ -72,3 +72,5 @@ status: curated
 | .ntile__title-link | Ссылка-обёртка названия (только --links) |
 | .ntile__links | Колонка ссылок, gap 8px, сразу за описанием |
 | .is-hover / .is-pressed / .is-focus / .is-disabled | Форс-состояния для документации; disabled — и для продакшена |
+
+- **Размеры · Радиус скругления** — Один размер, радиус не меняется при hover и фокусе. тайл — 8px (--radius-control) · фокус-обводка ссылки-заголовка — 4px (--radius-xs).

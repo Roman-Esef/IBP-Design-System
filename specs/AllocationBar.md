@@ -1,8 +1,8 @@
 ---
 component: AllocationBar
 title: "AllocationBar"
-version: "v1.1"
-updated: "12.08.2026"
+version: "1.001"
+updated: "21.08.2026"
 page: pages/organisms/AllocationBar.html
 runtime: scripts/ds-allocationbar.js
 css: styles/allocation-bar.css
@@ -103,3 +103,5 @@ status: curated
 
 ## Рантайм
 `scripts/allocation-bar.page.js` → `window.AllocationBar.make(cfg)`, `.palette`, `.fmtNumber`, `.fmtPercent`, `.fmtCompact`. `scripts/ds-allocationbar.js` — связь бара со строкой по hover (`root[data-hover]`/`.is-active`), подключается через единую точку входа `ds.js`. Для статичных экранов достаточно разметки выше.
+
+- **Размеры · Радиус скругления** — Пропса размера нет, радиусы одинаковы во всех раскладках. полоса — 999px (--radius-pill) · строка легенды — 4px (--radius-xs) · точка-маркер — 50% · блок «Расчёт» — 8px (--radius-control).

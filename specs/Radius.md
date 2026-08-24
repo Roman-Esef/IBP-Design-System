@@ -1,7 +1,7 @@
 ---
 component: Radius
 title: "Скругления"
-version: "v1.0"
+version: "1.000"
 updated: "07.08.2026"
 page: pages/foundations/Radius.html
 css: styles/radius.css

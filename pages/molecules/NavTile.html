@@ -29,7 +29,7 @@
 <main class="page" data-screen-label="NavTile">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.7</b></span><span>Обновлено: <b>13.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.007</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>NavTile</h1>
     <p class="lead">Навигационная плитка главной страницы платформы: иллюстрация, название раздела и краткое описание. Клик по плитке — переход на страницу раздела. Вариант со ссылками добавляет быстрые переходы к подразделам. Иллюстрации — из библиотеки <a class="inl" href="../foundations/Illustrations.html">Иллюстрации</a>. Не путать с дашбордом: NavTile не показывает данные и графики — только вход в раздел.</p>
@@ -112,6 +112,12 @@
     <h2>Размеры</h2>
     <p class="desc">Один размер — 442×188px по умолчанию (вне сетки), минимальная ширина 400px (не сжимается меньше). Внутри <code class="tok">.ntile-grid</code> ширина растягивается по колонке (`auto-fill, minmax(400px, 1fr)`, гэп 16px) — плитки, не помещающиеся в ряд, переносятся на следующий. Минимальная высота 188px; плитки одного ряда выравниваются по самой высокой.</p>
     <div class="panel" style="padding:28px;"><div class="ntile-grid" id="sizes-demo"></div></div>
+  
+<div class="subsec" data-screen-label="Radius">
+    <h3>Радиус скругления</h3>
+    <p class="desc">Один размер тайла; радиус не меняется при hover и фокусе.</p>
+    <div class="panel" style="padding:0;overflow:hidden;"><div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Элемент</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Радиус</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Тайл</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">8 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-control</code></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Фокус-обводка ссылки-заголовка</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">4 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-xs</code></span></span></div><div class="tc tc--separator"></div></div></div></div>
+  </div>
   </section>
 
   <!-- CONTENT -->

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"f3f298e7d0b5","scripts/allocation-bar.page.js":"4c8850cf93c3","scripts/breadcrumbs.page.js":"02326caf5421","scripts/chart.page.js":"3557e187c92a","scripts/chip.page.js":"ac8873e5291e","scripts/context-menu.page.js":"099ed33ec911","scripts/datepicker.page.js":"c718cb830853","scripts/divider.page.js":"d67e55256e52","scripts/dropdown-list.page.js":"a8eb94f18e99","scripts/ds-actions-overflow.js":"4ce4febf87d8","scripts/ds-alert.js":"e27e33b27ce2","scripts/ds-allocationbar.js":"58953430cd1d","scripts/ds-breadcrumbs.js":"c83397956b4c","scripts/ds-buttongroup.js":"370a931f7aab","scripts/ds-chart.js":"c7d349a8e68d","scripts/ds-chip.js":"cd1c728c1ab6","scripts/ds-copy.js":"5d128e92649b","scripts/ds-datepicker.js":"9b32da2799a5","scripts/ds-dropdownlist.js":"9dd2157f6206","scripts/ds-icons.js":"b1d35e469b8d","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-lint.js":"f840c88a8994","scripts/ds-menu.js":"5a2a98e0b6e6","scripts/ds-modal.js":"36a1b9d2deb8","scripts/ds-nav-panel.js":"d590e71e8cd2","scripts/ds-nav.js":"de023dcc35a0","scripts/ds-notify.js":"52c33449b738","scripts/ds-pagination.js":"5122c783e351","scripts/ds-popover.js":"34b01bc18b82","scripts/ds-riskmetric.js":"79fcfcfc4c1b","scripts/ds-splitter.js":"7cfc36849ef4","scripts/ds-table-filter.js":"3cd218499322","scripts/ds-table.js":"87b58d3788f1","scripts/ds-tabs.js":"7a9b8d7f020b","scripts/ds-tile.js":"437a77fdb02a","scripts/ds-toc.js":"20175a95d911","scripts/ds-tooltip.js":"39a077717aeb","scripts/ds.js":"5c94f1716378","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"7f298af8465a","scripts/input-autocomplete.page.js":"c3a26ad40ff2","scripts/input-date-range.page.js":"ec72a7b20f5a","scripts/input-date.page.js":"ee6029575037","scripts/input-kit.js":"ca9a8c61009a","scripts/input-text.page.js":"8e9ebfe72660","scripts/label-helper.page.js":"4809da1ea35b","scripts/modal.page.js":"021ccdb49936","scripts/nav-panel.page.js":"19e2d1aa58cc","scripts/nav-tile.page.js":"2a23215864ff","scripts/page-header.page.js":"84d48571c320","scripts/pagination.page.js":"157d9ff91041","scripts/pg-kit.js":"0582d8619f2e","scripts/popover.page.js":"6a631266d865","scripts/read-only-field.page.js":"9e0a13978cd3","scripts/riskmetric.page.js":"494c739cdf4a","scripts/segment-control.page.js":"0ec46e5daa2e","scripts/splitter.page.js":"2695e5fb3a40","scripts/tab.page.js":"f3b30b2d4c05","scripts/table-cell.page.js":"0289da8edc56","scripts/table-filter.page.js":"8db54d53465e","scripts/table.page.js":"4d5d3e7758a7","scripts/tbl-resize.js":"cb6aa4b8d1c5","scripts/toast.page.js":"fc09f75778c3","scripts/tooltip.page.js":"83166ec284d7"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"DesignSystem_173e6f","components":[],"sourceHashes":{"scripts/alert.page.js":"f3f298e7d0b5","scripts/allocation-bar.page.js":"4c8850cf93c3","scripts/breadcrumbs.page.js":"02326caf5421","scripts/chart.page.js":"3557e187c92a","scripts/chip.page.js":"ac8873e5291e","scripts/context-menu.page.js":"099ed33ec911","scripts/datepicker.page.js":"c718cb830853","scripts/divider.page.js":"d67e55256e52","scripts/dropdown-list.page.js":"a8eb94f18e99","scripts/ds-actions-overflow.js":"4ce4febf87d8","scripts/ds-alert.js":"e27e33b27ce2","scripts/ds-allocationbar.js":"58953430cd1d","scripts/ds-breadcrumbs.js":"c83397956b4c","scripts/ds-buttongroup.js":"370a931f7aab","scripts/ds-chart.js":"c7d349a8e68d","scripts/ds-chip.js":"cd1c728c1ab6","scripts/ds-copy.js":"5d128e92649b","scripts/ds-datepicker.js":"9b32da2799a5","scripts/ds-dropdownlist.js":"9dd2157f6206","scripts/ds-icons.js":"b1d35e469b8d","scripts/ds-illustrations.js":"c9b8f815714f","scripts/ds-lint.js":"d83cb55c2ab5","scripts/ds-menu.js":"5a2a98e0b6e6","scripts/ds-modal.js":"36a1b9d2deb8","scripts/ds-nav-panel.js":"d590e71e8cd2","scripts/ds-nav.js":"08dec5761c0c","scripts/ds-notify.js":"52c33449b738","scripts/ds-pagination.js":"5122c783e351","scripts/ds-popover.js":"34b01bc18b82","scripts/ds-riskmetric.js":"79fcfcfc4c1b","scripts/ds-splitter.js":"7cfc36849ef4","scripts/ds-table-filter.js":"3cd218499322","scripts/ds-table.js":"87b58d3788f1","scripts/ds-tabs.js":"7a9b8d7f020b","scripts/ds-tile.js":"437a77fdb02a","scripts/ds-toc.js":"20175a95d911","scripts/ds-tooltip.js":"39a077717aeb","scripts/ds.js":"5c94f1716378","scripts/icons-data.js":"a3493df9e8d4","scripts/image-slot.js":"9309434cb09c","scripts/input-amount-range.page.js":"7f298af8465a","scripts/input-autocomplete.page.js":"c3a26ad40ff2","scripts/input-date-range.page.js":"ec72a7b20f5a","scripts/input-date.page.js":"ee6029575037","scripts/input-kit.js":"ca9a8c61009a","scripts/input-text.page.js":"8e9ebfe72660","scripts/label-helper.page.js":"4809da1ea35b","scripts/layout.page.js":"804a33aa91bf","scripts/modal.page.js":"021ccdb49936","scripts/nav-panel.page.js":"19e2d1aa58cc","scripts/nav-tile.page.js":"2a23215864ff","scripts/page-header.page.js":"84d48571c320","scripts/pagination.page.js":"157d9ff91041","scripts/pg-kit.js":"0582d8619f2e","scripts/popover.page.js":"6a631266d865","scripts/read-only-field.page.js":"9e0a13978cd3","scripts/riskmetric.page.js":"494c739cdf4a","scripts/segment-control.page.js":"0ec46e5daa2e","scripts/splitter.page.js":"2695e5fb3a40","scripts/tab.page.js":"f3b30b2d4c05","scripts/table-cell.page.js":"0289da8edc56","scripts/table-filter.page.js":"8db54d53465e","scripts/table.page.js":"4d5d3e7758a7","scripts/tbl-resize.js":"cb6aa4b8d1c5","scripts/toast.page.js":"fc09f75778c3","scripts/tooltip.page.js":"83166ec284d7"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -10083,25 +10083,6 @@ async function globalChecks(P, out) {
     }
   }
 
-  /* M1 — матрица K1-K6 в RulesAudit.html размечена вручную; K5 (рантайм) можно
-     сверить с фактом: спека декларирует `runtime:` ⇔ матрица говорит k5:'ok'.
-     Расхождение — матрица устарела (инцидент Tab, 12.08.2026). */
-  {
-    const audit = await readFile('pages/rnd/RulesAudit.html').catch(() => '');
-    const mBlock = (audit.match(/const M = \[([\s\S]*?)\];/) || [])[1] || '';
-    const entries = [...mBlock.matchAll(/\{n:'([^']+)',k1:'(\w+)',k2:'(\w+)',k3:'(\w+)',k5:'(\w+)',k6:'(\w+)'\}/g)];
-    const specSrcs = await Promise.all(entries.map(([, name]) => readFile('specs/' + name + '.md').catch(() => '')));
-    entries.forEach(([, name,,,, k5], i) => {
-      const spec = specSrcs[i];
-      if (!spec) return;
-      const hasRuntimeField = /^runtime:\s*\S/m.test(spec);
-      const declaresOwnJs = /^js:\s*\S/m.test(spec) || /`scripts\/ds-[\w-]+\.js`/.test(spec);
-      const looksWired = hasRuntimeField || declaresOwnJs;
-      if (k5 === 'ok' && !looksWired) out.push(['WARN', 'M1', 'RulesAudit: ' + name + ' k5=ok, но specs/' + name + '.md не декларирует runtime:/js: — матрица может отставать от факта']);
-      if (k5 === 'no' && hasRuntimeField) out.push(['WARN', 'M1', 'RulesAudit: ' + name + ' k5=no, но specs/' + name + '.md уже декларирует runtime: — обновить матрицу']);
-    });
-  }
-
   /* A6 — index.html тянет styles/* поштучно: если на витрине есть разметка
      компонента, его CSS обязан быть подключён. Инцидент 07.08.2026: карточка
      ProgressBar была пустой — .pbar не имел ни одного правила. */
@@ -10227,6 +10208,19 @@ async function parityChecks(P, out) {
     const bad = used.filter(c => !parityIgnore(c) && !known(c) && !local.has(c));
     for (const c of bad) out.push(['WARN', 'P2', f + ': .' + c + ' не объявлен ни в ДС, ни в <style> экрана']);
   }
+  // P5 — класс в живой разметке страницы документации, у которого нет правил ни в ДС,
+  // ни в её собственном <style>: блок рендерится без стиля и выглядит сломанным
+  // (.readout/.lbl/.pg__stage на Layout.html, 20.08.2026). Сниппеты <pre>/<code> —
+  // документация, не живая разметка, поэтому вырезаются.
+  for (const f of pagesOfSpecs.concat(['index.html'])) {
+    const h = src.get(f) || '';
+    if (!h) continue;
+    const local = new Set();
+    for (const st of all(RX.styleBlock, h, 0)) for (const c of all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, st.replace(/\{[^{}]*\}/g, '{}'))) local.add(c);
+    const live = h.replace(RX.styleBlock, '').replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<pre[\s\S]*?<\/pre>/gi, '').replace(/<code[\s\S]*?<\/code>/gi, '');
+    const used = uniq(all(RX.cls, live).filter(a => !/['`+]|\$\{/.test(a)).flatMap(a => a.split(/\s+/)).filter(Boolean));
+    for (const c of used.filter(c => !parityIgnore(c) && !known(c) && !local.has(c))) out.push(['WARN', 'P5', f + ': .' + c + ' в разметке страницы без правил в CSS — блок отрендерится без стиля']);
+  }
   // P3 — код-панели витрин: то, что страница предлагает скопировать, тоже документация.
   // Внутри <code>…</code> в исходнике могут быть куски JS (конкатенация,
   // cls.join('.')) — смотрим только на содержимое строковых литералов.
@@ -10337,6 +10331,74 @@ async function pageChecks(p, P, opts, out) {
     const abs = segs.join('/');
     if (!P.files.has(abs)) say('BLOCKER', 'A5', 'битая ссылка ' + r + ' → ' + abs);
   }
+  /* ---------- группа L — правила раскладки (решения 21.08.2026) ----------
+     L1 сумма колонок в ряду .grid12 больше 12 · L2 блок в .grid12 вне колонок
+     без пометки data-off-grid · L3 самодельная сетка на экране · L4 переопределены
+     поля контентной области или зазор сетки · L5 порог раскладки на @media. */
+  {
+    const VOID = new Set(['br', 'img', 'input', 'hr', 'meta', 'link', 'source', 'use', 'path', 'circle', 'rect', 'area', 'col', 'embed', 'track', 'wbr']);
+    const grids = [];
+    const stack = [];
+    const tagRx = /<(\/?)([a-z][a-z0-9-]*)([^>]*?)(\/?)>/gi;
+    let t;
+    while (t = tagRx.exec(markup)) {
+      const name = t[2].toLowerCase(),
+        attrs = t[3] || '';
+      if (t[1] === '/') {
+        for (let i = stack.length - 1; i >= 0; i--) if (stack[i].name === name) {
+          stack.length = i;
+          break;
+        }
+        continue;
+      }
+      const cls = (attrs.match(/class="([^"]*)"/i) || [, ''])[1].split(/\s+/).filter(Boolean);
+      const parent = stack[stack.length - 1];
+      if (parent && parent.grid) parent.children.push({
+        cls,
+        attrs
+      });
+      if (VOID.has(name) || t[4] === '/') continue;
+      const node = {
+        name,
+        grid: cls.includes('grid12'),
+        narrow: cls.includes('grid12--narrow'),
+        children: []
+      };
+      if (node.grid) grids.push(node);
+      stack.push(node);
+    }
+    const spanOf = (cls, narrow) => {
+      const c = cls.find(x => /^col-\d+$/.test(x)),
+        w = cls.find(x => /^colw-\d+$/.test(x));
+      if (narrow && w) return +w.slice(5);
+      return c ? +c.slice(4) : null;
+    };
+    for (const g of grids) {
+      for (const narrow of g.children.some(c => c.cls.some(x => /^colw-\d+$/.test(x))) ? [false, true] : [false]) {
+        let sum = 0;
+        for (const ch of g.children) {
+          const s = spanOf(ch.cls, narrow);
+          if (!s) continue;
+          if (sum + s > 12) {
+            say('BLOCKER', 'L1', 'ряд .grid12 переполнен: ' + (sum + s) + ' колонок при 12' + (narrow ? ' (узкий режим, .colw-*)' : '') + ' — блок .' + ch.cls.join('.'));
+            sum = s;
+          } else sum = (sum + s) % 12;
+        }
+      }
+      for (const ch of g.children) {
+        if (/data-off-grid/.test(ch.attrs)) continue;
+        const style = (ch.attrs.match(/style="([^"]*)"/i) || [, ''])[1];
+        if (!ch.cls.some(x => /^col-\d+$/.test(x))) say('BLOCKER', 'L2', 'блок в .grid12 без .col-N: ' + (ch.cls.length ? '.' + ch.cls.join('.') : '<' + ch.name + '> без класса') + ' — привязка к колонке обязательна; осознанное исключение помечается data-off-grid="причина"');else if (/(?:^|;|\s)(?:width|min-width|max-width|flex-basis)\s*:\s*[^;]*\d+(?:px|rem)/i.test(style)) say('BLOCKER', 'L2', 'фиксированная ширина у .' + ch.cls.join('.') + ' в .grid12 — ширину задаёт колонка; исключение помечается data-off-grid="причина"');
+      }
+    }
+    if (isScreen) {
+      for (const r of all(/grid-template-columns\s*:\s*([^;}]+)/gi, styleSrc, 1)) if (/repeat\(\s*12\b/i.test(r) || (r.match(/fr\b/g) || []).length >= 12) say('WARN', 'L3', 'самодельная 12-колоночная сетка (grid-template-columns: ' + r.trim().slice(0, 40) + ') — раскладка экрана строится на .grid12 / .col-N (внутренняя раскладка блока — свое дело)');
+      const overrides = uniq(all(/--(layout-pad-x|layout-pad-bottom|layout-crumbs-h|grid-gutter|grid-margin)\s*:/g, styleSrc, 1));
+      if (overrides.length) say('BLOCKER', 'L4', 'экран переопределяет ' + overrides.map(o => '--' + o).join(', ') + ' — поля контентной области и зазор сетки не меняются; исключение указывается явно при проектировании макета');
+      if (/\.screen__content[^{]*\{[^}]*padding/.test(styleSrc)) say('BLOCKER', 'L4', 'экран переопределяет padding у .screen__content — поля 24px принадлежат каркасу');
+      if (/@media[^{]*(?:max|min)-width/.test(styleSrc)) say('WARN', 'L5', 'порог раскладки на @media — считать нужно от ширины рабочей области: @container screen (max-width: …), иначе закрепление панели навигации не учтётся');
+    }
+  }
   /* B1 — несуществующий токен */
   // локальными считаем переменные, объявленные где угодно на странице: <style>, inline style, JS (setProperty)
   const localVars = new Set([...all(RX.cssVarDef, html), ...all(/setProperty\(\s*['"`](--[a-zA-Z0-9-]+)/g, html)]);
@@ -10382,13 +10444,21 @@ async function pageChecks(p, P, opts, out) {
   if (/grid-template-columns:\s*[\d.]+px\s*;/.test(styleSrc)) {
     say('WARN', 'F4', 'grid-template-columns: <px> без minmax(0,1fr) — трек не тянется, только сжимается по max-content');
   }
+  // A8 — страница в pages без window.__DS_ROOT: ds-nav.js подставит пустой префикс,
+  // и ВСЕ ссылки левой навигации плюс логотип окажутся битыми (Layout.html, 20.08.2026):
+  // страница выглядит нормально, навигация не работает.
+  if (/^pages\//.test(p) && /ds-nav\.js/.test(html) && !/__DS_ROOT/.test(html)) say('BLOCKER', 'A8', "нет window.__DS_ROOT — ds-nav.js даст битые ссылки и логотип; для страниц в pages/<категория>/ нужно '../../'");
   /* F5 — «анатомия компонента взята не целиком»: реестр контрактов, а не код на каждый
      инцидент — новый компонент с обязательными «всегда обязаны присутствовать в DOM»
      узлами (не зависящими от текущего визуального режима/состояния) регистрируется ОДНОЙ
      строкой в ANATOMY_CONTRACTS ниже; проверка одна для всех компонентов. */
+  /* Документационные сниппеты (<pre>/<code>) — не живая разметка: страница может
+     показывать фрагмент чужого компонента как пример (Каркас экрана, 20.08.2026).
+     Проверяем только разметку вне них. */
+  const liveMarkup = markup.replace(/<pre[\s\S]*?<\/pre>/gi, '').replace(/<code[\s\S]*?<\/code>/gi, '');
   for (const c of ANATOMY_CONTRACTS) {
-    if (c.when.test(markup)) {
-      const missing = c.require.filter(([re]) => !re.test(markup)).map(([, label]) => label);
+    if (c.when.test(liveMarkup)) {
+      const missing = c.require.filter(([re]) => !re.test(liveMarkup)).map(([, label]) => label);
       if (missing.length) say('BLOCKER', 'F5', c.name + ' использован не целиком — анатомия урезана под текущий вид вместо взятой как есть (разметка не должна меняться между режимами/состояниями); отсутствует: ' + missing.join(', '));
     }
   }
@@ -10408,6 +10478,8 @@ async function pageChecks(p, P, opts, out) {
   const ver = (metaBlk.match(/Версия:?\s*<b>([^<]+)/) || [])[1];
   const upd = (metaBlk.match(/Обновлено:?\s*<b>([^<]+)/) || [])[1];
   if (!ver || !upd) say('BLOCKER', 'C2', 'в masthead нет ' + (!ver ? '«Версия»' : '') + (!ver && !upd ? ' и ' : '') + (!upd ? '«Обновлено»' : ''));
+  /* C7 — единый формат версии М.ммм без префикса v (решение 20.08.2026) */
+  if (ver && !/^\d+\.\d{3}$/.test(ver.trim())) say('BLOCKER', 'C7', 'версия «' + ver.trim() + '» не в формате М.ммм (три знака после точки, без «v»): например 1.006');
   if (changed && upd && upd.trim() !== (opts.today || today())) say('WARN', 'C3', 'страница правилась, «Обновлено» = ' + upd + ', сегодня ' + (opts.today || today()));
   /* C4/C5/C6 — разделы */
   if (inContract && P.canon.length) {
@@ -11457,6 +11529,9 @@ try { (() => {
       label: 'Иллюстрации',
       href: 'pages/foundations/Illustrations.html'
     }, {
+      label: 'Каркас экрана',
+      href: 'pages/foundations/Layout.html'
+    }, {
       label: 'Сетка и отступы',
       href: 'pages/foundations/Spacing.html'
     }, {
@@ -11628,6 +11703,9 @@ try { (() => {
   }, {
     cat: 'Правила и паттерны',
     items: [{
+      label: 'Локальные компоненты',
+      href: 'pages/patterns/LocalComponents.html'
+    }, {
       label: 'Редполитика',
       soon: true
     }, {
@@ -11646,23 +11724,11 @@ try { (() => {
   }, {
     cat: 'RND',
     items: [{
-      label: 'Аудит правил',
-      href: 'pages/rnd/RulesAudit.html'
-    }, {
-      label: 'Аудит разделов',
-      href: 'pages/rnd/SectionsAudit.html'
-    }, {
       label: 'Общий бэклог',
       href: 'pages/rnd/Backlog.html'
     }, {
-      label: 'План: шаблоны и прототип',
-      href: 'pages/rnd/TemplatesPlan.html'
-    }, {
-      label: 'План 2: слой продукта',
-      href: 'pages/rnd/Plan2.html'
-    }, {
-      label: 'План 3: единое видение',
-      href: 'pages/rnd/Plan3.html'
+      label: 'План 4: с учётом комментариев',
+      href: 'pages/rnd/Plan4.html'
     }]
   }];
 
@@ -19401,6 +19467,135 @@ function classListHelper(o) {
   }
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/label-helper.page.js", error: String((e && e.message) || e) }); }
+
+// scripts/layout.page.js
+try { (() => {
+/* =========================================================================
+   Layout (Каркас экрана) — страничный скрипт: конструктор, таблицы, копирование.
+   Значения redline читаются с живого каркаса через getComputedStyle.
+   ========================================================================= */
+(function () {
+  function ready(fn) {
+    if (document.readyState !== 'loading') fn();else document.addEventListener('DOMContentLoaded', fn);
+  }
+
+  /* ---------- таблицы на TableCell ---------- */
+  function table(cols, head, rows) {
+    const gt = '8px ' + cols.join(' ') + ' 8px';
+    let h = '<div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;">';
+    h += '<div class="tbl__row" style="grid-template-columns:' + gt + ';"><div class="th th--separator"></div>';
+    head.forEach(t => {
+      h += '<div class="th"><span class="th__label">' + t + '</span></div>';
+    });
+    h += '<div class="th th--separator"></div></div>';
+    rows.forEach(r => {
+      h += '<div class="tbl__row" style="grid-template-columns:' + gt + ';"><div class="tc tc--separator"></div>';
+      r.forEach(c => {
+        h += '<div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">' + c + '</span></span></div>';
+      });
+      h += '<div class="tc tc--separator"></div></div>';
+    });
+    return h + '</div>';
+  }
+  const tok = t => '<code class="tok">' + t + '</code>';
+
+  /* ---------- превью каркаса ---------- */
+  const CONTENT = {
+    tiles: '<div class="lay-phead"><span>Главная</span></div>' + '<div class="grid12">' + ['Маршрутизация', 'Текущий портфель', 'Отчёты', 'Администрирование'].map(g => '<section class="col-3" style="display:flex;flex-direction:column;gap:16px">' + '<div style="font:var(--type-body-xs);color:var(--text-inactive)">' + g + '</div>' + '<div class="lay-block lay-tile"></div><div class="lay-block lay-tile"></div>' + '<div class="lay-block lay-tile"></div><div class="lay-block lay-tile"></div></section>').join('') + '</div>',
+    table: '<div class="lay-phead"><span>Коды RWA</span></div>' + '<div class="lay-block" style="padding:0;overflow:hidden"><div class="lay-rows">' + Array.from({
+      length: 16
+    }, () => '<div></div>').join('') + '</div></div>',
+    entity: '<div class="lay-phead"><span>Корпоративный запрос 1344</span></div>' + '<div class="grid12">' + '<section class="col-4"><div class="lay-block" style="height:150px"></div></section>' + '<section class="col-4"><div class="lay-block" style="height:150px"></div></section>' + '<section class="col-4"><div class="lay-block" style="height:150px"></div></section>' + '<section class="col-8"><div class="lay-block" style="height:190px"></div></section>' + '<section class="col-4"><div class="lay-block" style="height:190px"></div></section>' + '<section class="col-6"><div class="lay-block" style="height:170px"></div></section>' + '<section class="col-6"><div class="lay-block" style="height:170px"></div></section>' + '</div>'
+  };
+
+  /* ---------- redline с живого каркаса ---------- */
+  function measure() {
+    const probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;left:-10000px;top:0;width:1500px';
+    probe.innerHTML = '<div class="nav-layout"><nav class="nav nav--rail">' + '<div class="nav__top"><button class="nav__burger"></button>' + '<button class="nav__pin" aria-pressed="false"></button></div>' + '<div class="nav__list"></div><div class="nav__footer"><div class="nav__user">' + '<span class="nav__user-text"></span></div></div></nav>' + '<div class="screen"><nav class="crumbs"><li class="crumbs__item">' + '<span class="crumbs__current">Крошка</span></li></nav>' + '<main class="screen__content"></main></div></div>';
+    document.body.appendChild(probe);
+    const screenEl = probe.querySelector('.screen');
+    const crumbs = probe.querySelector('.crumbs');
+    const content = probe.querySelector('.screen__content');
+    const nav = probe.querySelector('.nav');
+    const cs = el => getComputedStyle(el);
+    const s = cs(screenEl),
+      c = cs(crumbs),
+      ct = cs(content),
+      n = cs(nav);
+    const out = {
+      navW: n.width,
+      screenInset: parseFloat(s.paddingLeft) ? s.paddingLeft : s.marginLeft,
+      crumbsH: c.minHeight,
+      crumbsPad: [c.paddingTop, c.paddingRight, c.paddingBottom, c.paddingLeft].join(' '),
+      crumbsFont: c.fontSize + '/' + c.lineHeight,
+      contentPad: [ct.paddingTop, ct.paddingRight, ct.paddingBottom, ct.paddingLeft].join(' '),
+      contentGap: ct.rowGap
+    };
+    probe.remove();
+    return out;
+  }
+  ready(function () {
+    const m = measure();
+
+    /* конструктор */
+    const frame = document.getElementById('layFrame');
+    const navBox = document.getElementById('layNav');
+    const crumbs = document.getElementById('layCrumbs');
+    const content = document.getElementById('layContent');
+    const selNav = document.getElementById('pgNav');
+    const selKind = document.getElementById('pgKind');
+    const cbZones = document.getElementById('pgZones');
+    const cbCrumbs = document.getElementById('pgCrumbs');
+    const ro = {
+      nav: document.getElementById('roNav'),
+      crumbs: document.getElementById('roCrumbs'),
+      pad: document.getElementById('roPad'),
+      gap: document.getElementById('roGap')
+    };
+    function render() {
+      const fixed = selNav.value === 'fixed';
+      navBox.className = 'lay-nav' + (fixed ? ' lay-nav-fixed' : '');
+      const dots = n => Array.from({
+        length: n
+      }, () => '<span class="lay-nav__dot"></span>').join('');
+      navBox.innerHTML = '<div class="lay-nav__top">' + dots(fixed ? 1 : 2) + '</div>' + '<div class="lay-nav__list">' + dots(fixed ? 16 : 20) + '</div>' + '<div class="lay-nav__foot">' + dots(1) + '</div>';
+      content.innerHTML = CONTENT[selKind.value];
+      crumbs.style.display = cbCrumbs.checked ? '' : 'none';
+      frame.classList.toggle('is-zones', cbZones.checked);
+      ro.nav.textContent = fixed ? '272 px' : '56 px';
+      ro.crumbs.textContent = cbCrumbs.checked ? parseFloat(m.crumbsH) + ' px · 16/24/12' : 'нет (Дашборд)';
+      ro.pad.textContent = '0 / 24 / 24';
+      ro.gap.textContent = parseFloat(m.contentGap) + ' px';
+    }
+    [selNav, selKind, cbZones, cbCrumbs].forEach(el => el.addEventListener('change', render));
+    render();
+
+    /* таблицы */
+    document.getElementById('ownersTable').innerHTML = table(['0.8fr', '1.6fr', '1.6fr'], ['Решение', 'Каркас', 'Экран'], [['Поля по бокам', '24 px, единственное значение', 'не задаёт'], ['Зона крошек', 'высота 44 px, поля 24 px', 'только состав трейла'], ['Отступ под панель', 'по режиму панели, автоматически', 'не задаёт'], ['Вертикальный ритм', 'зазор блоков 24 px', 'может сгруппировать блоки плотнее внутри блока'], ['Ширина блоков', 'сетка 12 колонок', 'сколько колонок занимает блок'], ['Состав контента', 'не задаёт', 'блоки, порядок, наполнение']]);
+    document.getElementById('anatomyTable').innerHTML = table(['0.9fr', '1fr', '1.7fr'], ['Зона', 'Класс', 'Что задаёт'], [['Обёртка каркаса', tok('.nav-layout'), 'держит панель и рабочую область, резервирует отступ слева по режиму панели (NavPanel)'], ['Панель навигации', tok('.nav'), 'фиксирована на высоту вьюпорта, не участвует в потоке; отступа до рабочей области нет'], ['Рабочая область', tok('.screen'), 'колонка: зона крошек + контентная область; фон страницы; резиновая, перестраивается по брейкпоинтам'], ['Зона крошек', tok('.crumbs'), 'высота 44 px и поля 24 px — внутри компонента Breadcrumbs; в каркасе — залипание сверху'], ['Контентная область', tok('.screen__content'), 'поля 0 / 24 / 24, зазор блоков 24 px; семантически ' + tok('&lt;main&gt;')], ['Сетка внутри контента', tok('.grid12') + ' ' + tok('.col-N'), '12 колонок, зазор 16 px — компонент Spacing, каркас его не переопределяет']]);
+    document.getElementById('modesTable').innerHTML = table(['0.7fr', '0.8fr', '1.6fr'], ['Режим', 'Отступ слева', 'Поведение'], [['Rail', '56 px', 'только иконки, подпись — тултипом; состояние по умолчанию'], ['Drawer', '56 px', 'панель всплывает поверх контента, отступ не меняется, контент не двигается'], ['Fixed', '272 px', 'панель закреплена, контент ужимается на разницу 216 px']]);
+    document.getElementById('sizesTable').innerHTML = table(['1.3fr', '0.7fr', '1.2fr'], ['Величина', 'Значение', 'Токен / источник'], [['Отступ рабочей области слева (rail/drawer)', '56 px', 'NavPanel, ' + tok('.nav-layout')], ['Отступ рабочей области слева (fixed)', '272 px', 'NavPanel, ' + tok('.nav-layout')], ['Высота зоны крошек', m.crumbsH, tok('--layout-crumbs-h') + ' / Breadcrumbs'], ['Поля зоны крошек (top / side / bottom)', '16 / 24 / 12 px', 'Breadcrumbs, ' + tok('.crumbs')], ['Поля контентной области (top / side / bottom)', '0 / 24 / 24 px', tok('--layout-pad-x') + ', ' + tok('--layout-pad-bottom')], ['Зазор блоков контента', m.contentGap, tok('--layout-block-gap')], ['Колонок / зазор сетки', '12 / 16 px', tok('--grid-columns') + ', ' + tok('--grid-gutter')]]);
+    document.getElementById('colorsTable').innerHTML = table(['1fr', '1.1fr', '0.5fr'], ['Часть', 'Токен', 'Образец'], [['Рабочая область и зона крошек', tok('--bg-page'), '<span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid var(--border-light);background:var(--bg-page)"></span>'], ['Панель навигации', tok('--bg-mainmenu'), '<span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid var(--border-light);background:var(--bg-mainmenu)"></span>'], ['Поверхности контента (тайлы, таблицы)', tok('--bg-tile'), '<span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid var(--border-light);background:var(--bg-tile)"></span>'], ['Границы блоков и шов панели', tok('--border-light'), '<span style="display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);background:var(--border-light)"></span>']]);
+    document.getElementById('redlineTable').innerHTML = table(['1.5fr', '0.9fr'], ['Свойство', 'Значение'], [[tok('.screen') + ' отступ слева (rail)', m.screenInset || '56px'], [tok('.nav.nav--rail') + ' width', m.navW], [tok('.crumbs') + ' min-height', m.crumbsH], [tok('.crumbs') + ' padding', m.crumbsPad], [tok('.crumbs') + ' font-size / line-height', m.crumbsFont], [tok('.screen__content') + ' padding', m.contentPad], [tok('.screen__content') + ' row-gap', m.contentGap]]);
+
+    /* копирование */
+    document.querySelectorAll('.dev-copy').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = document.querySelector(btn.dataset.copy);
+        if (!src) return;
+        navigator.clipboard.writeText(src.textContent).then(() => {
+          const t = btn.textContent;
+          btn.textContent = 'Скопировано';
+          setTimeout(() => {
+            btn.textContent = t;
+          }, 1400);
+        });
+      });
+    });
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "scripts/layout.page.js", error: String((e && e.message) || e) }); }
 
 // scripts/modal.page.js
 try { (() => {

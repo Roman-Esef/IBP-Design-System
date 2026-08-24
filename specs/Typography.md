@@ -1,7 +1,7 @@
 ---
 component: Typography
 title: "Типографика"
-version: "v1.1"
+version: "1.001"
 updated: "07.08.2026"
 page: pages/foundations/Typography.html
 css: styles/typography.css

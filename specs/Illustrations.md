@@ -1,7 +1,7 @@
 ---
 component: Illustrations
 title: "Иллюстрации"
-version: "v1.3"
+version: "1.003"
 updated: "25.07.2026"
 page: pages/foundations/Illustrations.html
 css: styles/illustration.css

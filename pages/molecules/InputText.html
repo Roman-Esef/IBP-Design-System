@@ -25,7 +25,7 @@
 <main class="page" data-screen-label="InputText">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.9</b></span><span>Обновлено: <b>12.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.009</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputText</h1>
     <p class="lead">Базовое поле ввода произвольного текста. Собирается из компонентов подкачки <a class="inl" href="../atoms/LabelHelper.html">LabelHelper</a> (метка и хелпер) и Input_Content (поле с рамкой: префикс / текст / постфикс, иконки и действия). На той же базе построены <a class="inl" href="InputDate.html">InputDate</a> и <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a>, а также числовой вариант InputAmount.</p>
@@ -146,6 +146,12 @@
     <h2>Размеры</h2>
     <p class="desc">Два размера. M — основной размер поля в формах и фильтрах. S — только для вариантов, используемых в таблицах (Table Edit). Ширина поля задаётся контейнером.</p>
     <div class="panel"><div class="demo-grid" id="sizes-demo"></div></div>
+  
+<div class="subsec" data-screen-label="Radius">
+    <h3>Радиус скругления</h3>
+    <p class="desc">Радиус поля не зависит от размера — 4px в M и S. Поля ввода — единственная группа контролов на этом радиусе: у кнопок и чипов рядом 8 / 6px.</p>
+    <div class="panel" style="padding:0;overflow:hidden;"><div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Элемент</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Радиус</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Поле — M</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">4 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-field</code></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Поле — S</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">4 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-field</code></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Кнопка-действие в поле</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">4 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-xs</code></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Textarea в resizable-варианте</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">наследует радиус поля</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">inherit</code></span></span></div><div class="tc tc--separator"></div></div></div></div>
+  </div>
   </section>
 
   <!-- CONTENT -->

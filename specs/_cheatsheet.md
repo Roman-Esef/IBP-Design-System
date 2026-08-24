@@ -124,7 +124,7 @@ css: `styles/badge.css`
 ## Breadcrumbs
 css: `styles/breadcrumbs.css` · js: `scripts/ds-menu.js` (меню «…»), `scripts/ds-tooltip.js` (тултип обрезанной крошки), `scripts/ds-breadcrumbs.js` (авто-сворацивание по ширине, opt-in `data-breadcrumbs`) · deps: [link, context-menu, tooltip]
 **Оси:** длина трейла (норм / срединные звенья схлопнуты в «…» / текущая крошка усечена тултипом) · размер (единственный S).
-**Инварианты:** первое и текущее звено видимы всегда, схлопывается только середина; пересчёт по ResizeObserver на каждый ресайз, не только при первом рендере.
+**Инварианты:** компонент сам держит зону 44px над контентом — padding 16px сверху / 12px снизу / 24px по бокам (16+16+12=44), поля совпадают с полями контентной области экрана (см. Layout); первое и текущее звено видимы всегда, схлопывается только середина; пересчёт по ResizeObserver на каждый ресайз, не только при первом рендере.
 **Классы:** .crumbs · .crumbs__item · .crumbs__item--current · .link.link--muted · .crumbs__current + aria-current="page" · .crumbs__more + aria-haspopup / aria-expanded · .menu.menu--floating.crumbs__popup · .tip.tip--floating
 **Диагностика:** «При сужении трейл не схлопывается в «…»» → на контейнер не навешен ResizeObserver (рантайм `ds-menu.js`/скрипт крошек) · «Разделитель озвучивается скринридером» → он должен быть чисто CSS `::after`, а не текстовый узел в разметке
 
@@ -475,13 +475,35 @@ css: `styles/icon-button.css` · deps: [badge, spinner]
 Полная анатомия: specs/IconButton.md.
 
 ## Illustrations (Иллюстрации)
-css: styles/illustration.css · deps: — · v1.3
+css: styles/illustration.css · deps: — · 1.003
 Слот продуктовой иллюстрации; scripts/ds-illustrations.js подставляет реальный SVG из assets/illustrations/<data-illu>.svg (32 тайловых 195×140 + 4 состояния + 1 фоновая). Размер = width/height слота, object-fit:contain. Неизвестное имя → штриховая заглушка (.illu:empty). Скрипт авто-дорендерит слоты, добавленные в DOM позже (MutationObserver) — динамически пересобранные конструкторы/тайквики не остаются без иллюстрации; рендер также через window.DSIllustrations.render().dth/height слота (дефолт 96×96). Всегда aria-hidden. Имена: deals, partners, reports, tasks, admin, empty-search.
 ```
 <span class="illu" data-illu="deals" aria-hidden="true"></span>
 ```
 
 Полная анатомия: specs/Illustrations.md.
+
+## Layout (Каркас экрана)
+css: `styles/layout.css` · deps: [nav-panel, breadcrumbs, spacing] · 1.000
+**Оси:** режим навигации (rail 56 / drawer оверлей / fixed 272) · тип контента (тайлы .grid12 / таблица во всю ширину / карточка сущности).
+**Инварианты:** между панелью и рабочей областью отступа нет; между крошками и контентом отступа нет; поля контентной области — 24px слева/справа и 24px снизу, сверху 0; зона крошек 44px и её поля 24px принадлежат компоненту Breadcrumbs, экран их не задаёт; крошки и контент выровнены по одной вертикали; min-width рабочей области 1280px (ниже — горизонтальный скролл); скроллится только контент — крошки sticky, панель fixed на 100vh со своим внутренним скроллом списка; сетка не дублируется — .grid12/.col-N из Spacing.
+**Классы:** .nav-layout · .screen · .screen > .crumbs (sticky) · .screen__content · .grid12 / .col-N · токены --layout-pad-x 24 / --layout-pad-bottom 24 / --layout-crumbs-h 44 / --layout-block-gap 24.
+**Диагностика:** «крошки и заголовок на разных вертикалях» → переопределены поля, должно быть 24 и там, и там · «зазор между крошками и контентом» → у .screen__content задан padding-top · «крошки уезжают при скролле» → .crumbs не прямой ребёнок .screen · «контент прижат к панели» → потерян .nav-layout.
+
+```html
+<div class="nav-layout">
+  <nav class="nav nav--rail" aria-label="Главное меню">…</nav>
+  <div class="screen">
+    <nav class="crumbs" aria-label="Хлебные крошки" data-breadcrumbs>…</nav>
+    <main class="screen__content">
+      <header class="phead">…PageHeader…</header>
+      <div class="grid12"><section class="col-3">…</section></div>
+    </main>
+  </div>
+</div>
+```
+
+Полная анатомия: specs/Layout.md.
 
 ## InputText
 css: `styles/input.css` · deps: [label-helper, tooltip, chip]
@@ -771,7 +793,7 @@ css: `styles/nav-panel.css` · deps: [icon-button, badge, avatar]
 **Из коробки:** подключить `scripts/ds-nav-panel.js` — самоинициализация по `.nav`: бургер сворачивает/разворачивает панель (rail ↔ последний развёрнутый режим), пин переключает drawer ↔ fixed (aria-pressed и иконка pin-menu/unpin-menu меняются сами), подписи пунктов в rail позиционируются как тултипы (`position:fixed`, пересчёт по hover/focus, скроллу списка и resize). Настройки на панели: `data-nav-collapsed-mode` (drawer|fixed — куда разворачивает бургер), `data-nav-modes="no"` (только rail-тултипы, режимы не переключаются), `data-nav-auto="no"` (не подключать). API: `DSNavPanel.bind(nav, opts)`, `bindAll(root)`, `setMode(nav, mode)`, `placeRailLabels(nav)`. Событие `ds-nav-mode` на `.nav` с `detail {mode, prev}`.
 
 ## NavTile
-css: styles/nav-tile.css · deps: illustration, link · v1.7
+css: styles/nav-tile.css · deps: illustration, link · 1.007
 **Оси:** вариант (базовая-ссылка/со ссылками — div без hover) · состояния (default/hover/focus/disabled).
 **Инварианты:** плитка не сжимается меньше 400px; вариант «со ссылками» — `<div>`, не `<a>`.
 **Корнер-кейсы:** `.ntile__title` ellipsis, `.ntile__desc` clamp 2 строки.
@@ -1519,7 +1541,7 @@ css: `styles/tile.css` · js: `scripts/ds-tile.js` · deps: [icon-button, button
 **Из коробки:** подключить `scripts/ds-tile.js` — любая `.tile--accordion` с `.tile__toggle` сворачивается сама (делегированно, переживает перерисовку). Рантайм держит `.tile--collapsed`, `aria-expanded`/`aria-label`/`aria-controls` и шлёт событие `tiletoggle`. Свёрнуто по умолчанию — просто добавить класс в разметке. API: `DSTile.wire(el,{collapsed,onToggle})`, `DSTile.toggle(el,v)`.
 
 ## Spacing (Сетка и отступы)
-css: `styles/spacing.css` · deps: — · v1.1
+css: `styles/spacing.css` · deps: — · 1.004
 Модуль 4 px: все отступы/зазоры/размеры кратны 4 (основной шаг 8). Полушаги 2/6/10/14 — только микро-оптика. Шкала `--space-0…96` (0·4·8·12·16·20·24·32·40·48·64·80·96) + алиасы: `--gap-icon-text` 8 · `--gap-label-field` 4 · `--gap-inline` 8 · `--gap-stack` 16 · `--gap-group` 24 · `--gap-section` 40 · `--pad-control-s` 8 · `--pad-control` 12 · `--pad-card` 16 · `--pad-panel` 24 · `--pad-page` 32. Сетка: контентная область = 12 резиновых колонок, зазор `--grid-gutter` 16 px постоянный, поля `--grid-margin` 0 (задаёт лайаут). col = (W − 2·margin − 11·gutter)/12, дробная ширина — норма. Раскладки: 12 · 8+4 · 6+6 · 4+4+4 · 3+3+3+3. Утилиты: `.grid12` + `.col-1…12`; подмена зазора — инлайн `style="--grid-gutter:var(--space-16)"`.
 
 ```html
@@ -1529,5 +1551,7 @@ css: `styles/spacing.css` · deps: — · v1.1
 </div>
 <!-- зазор внутри блока — из шкалы: gap: var(--gap-stack) -->
 ```
+
+Ширина блока — любое число колонок 1–12; правило — привязка к колонке, исключение (редко) — кастомный фиксированный размер или ширина по контенту, помеченный `data-off-grid="причина"`. Перестроение при сужении — пара span'ов на блоке: `class="col-3 colw-6"` (основная / узкая ширина). `.colw-N` сама ничего не меняет — узкие ширины включает экран: `@container screen (max-width: …) { .grid12 > [class*="colw-"] { grid-column: span var(--colw) } }` либо класс `.grid12--narrow` на сетке. Общих брейкпоинтов в ДС нет — порог задаёт экран.
 
 Полная анатомия: specs/Spacing.md.

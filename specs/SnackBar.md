@@ -1,8 +1,8 @@
 ---
 component: SnackBar
 title: "SnackBar"
-version: "v1.4"
-updated: "12.08.2026"
+version: "1.004"
+updated: "21.08.2026"
 page: pages/organisms/SnackBar.html
 runtime: scripts/ds-notify.js
 css: styles/snackbar.css
@@ -48,6 +48,8 @@ status: auto
 - Текст: `--type-body-xs`, `--text-secondary`
 - Border-radius: `--radius-card` (→ --radius-2xl → 16px)
 - Shadow: `--elevation-2`
+
+- **Размеры · Радиус скругления** — Один размер; радиус карточный, крупнее, чем у Toast. плашка — 16px (--radius-card) · бейдж-счётчик — 999px (--radius-pill) · кнопка закрытия — 4px (--radius-xs).
 
 ## Для разработчиков (выжимка)
 
@@ -141,4 +143,4 @@ interface SnackbarController {
 | role="alert" | snack | error/warning → assertive |
 | role="status" | snack | info/success → polite |
 
-> v1.2 (17.07.2026): кнопки и ссылки внутри снека красятся штатными тоновыми классами `.btn--<tone>` / `.link--<tone>`. Переопределения `--primary`/`--link-fg` на `.snack__buttons` убраны — предупреждение компилятора о 37 токенах устранено.
+> 1.002 (17.07.2026): кнопки и ссылки внутри снека красятся штатными тоновыми классами `.btn--<tone>` / `.link--<tone>`. Переопределения `--primary`/`--link-fg` на `.snack__buttons` убраны — предупреждение компилятора о 37 токенах устранено.

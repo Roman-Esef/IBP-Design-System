@@ -108,8 +108,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.8</b></span>
-    <span>Обновлено <b>12.08.2026</b></span>
+    <span>Версия <b>1.008</b></span>
+    <span>Обновлено <b>21.08.2026</b></span>
     <span>CSS <b>styles/tile.css</b></span>
     <span>Зависимости <b>icon-button, button, link, chip, badge, alert, divider, read-only-field, table-cell</b></span>
   </div>
@@ -554,7 +554,13 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     </div>
   </div>
   <p class="ws-cap">Расстояние между колонками — 16px, между строками контента — 16 или 24px.</p>
-</section>
+
+<div class="subsec" data-screen-label="Radius">
+    <h3>Радиус скругления</h3>
+    <p class="desc">Радиус не зависит от числа колонок, которые занимает тайл, и от высоты контента.</p>
+    <div class="panel" style="padding:0;overflow:hidden;"><div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Элемент</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Радиус</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Тайл</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">8 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-m</code></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Alert внутри тайла</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">0</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">—</span></span></div><div class="tc tc--separator"></div></div></div></div>
+  </div>
+  </section>
 
 <!-- 6. КОНТЕНТ -->
 <section class="section" id="content" data-screen-label="Контент">

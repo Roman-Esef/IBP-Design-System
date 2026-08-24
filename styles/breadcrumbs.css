@@ -6,6 +6,10 @@
    звеньями — символ «/», цвет которого совпадает с цветом Breadcrumbs_1
    (все родительские звенья — muted, поэтому разделитель имеет единый цвет).
 
+   Zone:       компонент занимает всю ширину рабочей области и сам держит
+               зону 44px: padding 16px сверху / 12px снизу + 24px по бокам
+               (16 + 16 + 12 = 44). Поля совпадают с полями контентной
+               области экрана — крошки и контент выровнены по одной вертикали.
    Size:       единственный — S (Body S, 14/16); второго размера нет.
    States:     default · hover = focus (на ссылке-родителе, единое оформление) ·
                condensed (срединные звенья схлопнуты в «…») ·
@@ -16,12 +20,17 @@
    ========================================================================= */
 
 .crumbs {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
   gap: 8px;                 /* зазор между звеном и разделителем — по 8px с каждой стороны */
   margin: 0;
-  padding: 0;
+  /* зона крошек: 16px сверху + 16px строка + 12px снизу = 44px;
+     24px по бокам — те же поля, что у контентной области экрана */
+  padding: 16px 24px 12px;
+  min-height: 44px;
+  width: 100%;
   list-style: none;
   font: var(--type-body-s); /* Body S — 14/16, единственный размер компонента */
   letter-spacing: 0;
@@ -79,10 +88,11 @@
   border: none;
   background: transparent;
   font: inherit;
-  padding: 2px 5px;
+  /* высота строки зоны — ровно 16px, поэтому вертикального паддинга нет */
+  padding: 0 5px;
   border-radius: var(--radius-xs);
   flex: none;
-  line-height: 1;
+  line-height: 16px;
   transition: color .12s ease, background-color .12s ease;
 }
 /* hover = focus — единое оформление, без отдельной обводки (как у ссылок) */

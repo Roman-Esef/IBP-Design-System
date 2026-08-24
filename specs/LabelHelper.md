@@ -1,7 +1,7 @@
 ---
 component: LabelHelper
 title: "Label / Helper"
-version: "v1.4"
+version: "1.004"
 updated: "12.08.2026"
 page: pages/atoms/LabelHelper.html
 page_js: scripts/label-helper.page.js

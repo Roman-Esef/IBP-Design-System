@@ -90,8 +90,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>v1.4</b></span>
-    <span>Обновлено <b>11.08.2026</b></span>
+    <span>Версия <b>1.004</b></span>
+    <span>Обновлено <b>21.08.2026</b></span>
     <span>CSS <b>styles/table.css</b></span>
     <span>Зависимости <b>table-cell, pagination, table-filter, button, button-group, icon-button, chip, checkbox, illustration, modal, context-menu</b></span>
   </div>
@@ -226,7 +226,13 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <section class="section" id="sizes" data-screen-label="Размеры">
   <h2>Размеры</h2>
   <p class="desc">Не применимо: собственной размерной шкалы у Table нет. Высота строки (48px) и паддинги ячеек задаёт TableCell; высота ряда пагинации — Pagination. Table лишь добавляет фиксированные отступы Toolbar (16/20px) и Footer (0/20px по бокам).</p>
-</section>
+
+<div class="subsec" data-screen-label="Radius">
+    <h3>Радиус скругления</h3>
+    <p class="desc">Своей шкалы размеров у Table нет; радиус есть только у внешней обёртки — строки и ячейки прямоугольные.</p>
+    <div class="panel" style="padding:0;overflow:hidden;"><div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Элемент</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Радиус</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Обёртка таблицы</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">12 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-xl</code></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Строка и ячейка</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">0</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">—</span></span></div><div class="tc tc--separator"></div></div></div></div>
+  </div>
+  </section>
 
 <!-- 6. КОНТЕНТ -->
 <section class="section" id="content" data-screen-label="Контент">

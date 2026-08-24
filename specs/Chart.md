@@ -1,8 +1,8 @@
 ---
 component: Chart
 title: "Chart"
-version: "v1.0"
-updated: "18.08.2026"
+version: "1.000"
+updated: "21.08.2026"
 page: pages/organisms/Chart.html
 page_js: scripts/chart.page.js
 runtime: scripts/ds-chart.js
@@ -122,3 +122,5 @@ status: curated
 
 ## Рантайм
 `scripts/ds-chart.js` → `window.DSChart.make(cfg)`, `.palette` (12 токенов), `.fmt.number` / `.fmt.compact` / `.fmt.percent`. Подключается единой точкой входа `scripts/ds.js`. Ключи `cfg`: `type` `size` `title` `subtitle` `categories` `series[]` `legend` `tooltip` `crosshair` `grid` `valueLabels` `refLine` `brush` `initialRange` `toolbar` `format` `yTicks` `status` `totalIndexes` `centerLabel` `centerSub` `spark` `tone` `footNote`. Серия: `{ id, name, data[], type, color, dashed, forecastFrom, legendValue }`.
+
+- **Размеры · Радиус скругления** — Радиусы не зависят от размера — привязаны к типу элемента. столбец — 2px (--chart-bar-r = --radius-2xs) · маркер линии — 999px · маркер точки — 50% · пункт легенды, brush, Empty, «Расчёт» — 4px (--radius-xs).

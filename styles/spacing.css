@@ -43,7 +43,8 @@
   --pad-control:    var(--space-12);  /* внутренний отступ контрола M/L        */
   --pad-card:       var(--space-16);  /* карточка, тайл                        */
   --pad-panel:      var(--space-24);  /* панель, модальное окно                */
-  --pad-page:       var(--space-32);  /* поля рабочей области экрана           */
+  --pad-page:       var(--space-24);  /* поля контентной области экрана
+                                         (см. Каркас экрана: 24px слева/справа) */
 
   /* ---------- колоночная сетка ---------- */
   --grid-columns: 12; /* @kind other */
@@ -75,3 +76,30 @@
 .col-10 { grid-column: span 10; }
 .col-11 { grid-column: span 11; }
 .col-12 { grid-column: span 12; }
+
+/* ---------- перестроение: пара span'ов (широкий / узкий) ----------
+   Блок объявляет вторую, узкую ширину рядом с основной:
+       <section class="col-3 colw-6">…</section>
+   Сам класс .colw-N ширину не меняет — только объявляет значение (--colw).
+   Узкие ширины включает экран, одним из двух способов:
+     1) порогом ширины рабочей области (см. Каркас экрана):
+        @container screen (max-width: 1240px) {
+          .grid12 > [class*="colw-"] { grid-column: span var(--colw); }
+        }
+     2) классом на сетке — когда узкий режим зависит от состояния экрана
+        (открыта боковая панель), а не от ширины: class="grid12 grid12--narrow".
+   Общего для ДС набора брейкпоинтов нет: порог задаёт экран. */
+.colw-1  { --colw: 1;   /* @kind other */ }
+.colw-2  { --colw: 2;   /* @kind other */ }
+.colw-3  { --colw: 3;   /* @kind other */ }
+.colw-4  { --colw: 4;   /* @kind other */ }
+.colw-5  { --colw: 5;   /* @kind other */ }
+.colw-6  { --colw: 6;   /* @kind other */ }
+.colw-7  { --colw: 7;   /* @kind other */ }
+.colw-8  { --colw: 8;   /* @kind other */ }
+.colw-9  { --colw: 9;   /* @kind other */ }
+.colw-10 { --colw: 10;  /* @kind other */ }
+.colw-11 { --colw: 11;  /* @kind other */ }
+.colw-12 { --colw: 12;  /* @kind other */ }
+
+.grid12--narrow > [class*="colw-"] { grid-column: span var(--colw); }

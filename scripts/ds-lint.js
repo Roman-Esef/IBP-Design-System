@@ -182,25 +182,6 @@ async function globalChecks(P, out) {
     }
   }
 
-  /* M1 — матрица K1-K6 в RulesAudit.html размечена вручную; K5 (рантайм) можно
-     сверить с фактом: спека декларирует `runtime:` ⇔ матрица говорит k5:'ok'.
-     Расхождение — матрица устарела (инцидент Tab, 12.08.2026). */
-  {
-    const audit = await readFile('pages/rnd/RulesAudit.html').catch(() => '');
-    const mBlock = (audit.match(/const M = \[([\s\S]*?)\];/) || [])[1] || '';
-    const entries = [...mBlock.matchAll(/\{n:'([^']+)',k1:'(\w+)',k2:'(\w+)',k3:'(\w+)',k5:'(\w+)',k6:'(\w+)'\}/g)];
-    const specSrcs = await Promise.all(entries.map(([, name]) => readFile('specs/' + name + '.md').catch(() => '')));
-    entries.forEach(([, name, , , , k5], i) => {
-      const spec = specSrcs[i];
-      if (!spec) return;
-      const hasRuntimeField = /^runtime:\s*\S/m.test(spec);
-      const declaresOwnJs = /^js:\s*\S/m.test(spec) || /`scripts\/ds-[\w-]+\.js`/.test(spec);
-      const looksWired = hasRuntimeField || declaresOwnJs;
-      if (k5 === 'ok' && !looksWired) out.push(['WARN', 'M1', 'RulesAudit: ' + name + ' k5=ok, но specs/' + name + '.md не декларирует runtime:/js: — матрица может отставать от факта']);
-      if (k5 === 'no' && hasRuntimeField) out.push(['WARN', 'M1', 'RulesAudit: ' + name + ' k5=no, но specs/' + name + '.md уже декларирует runtime: — обновить матрицу']);
-    });
-  }
-
   /* A6 — index.html тянет styles/* поштучно: если на витрине есть разметка
      компонента, его CSS обязан быть подключён. Инцидент 07.08.2026: карточка
      ProgressBar была пустой — .pbar не имел ни одного правила. */
@@ -324,6 +305,20 @@ async function parityChecks(P, out) {
     const bad = used.filter((c) => !parityIgnore(c) && !known(c) && !local.has(c));
     for (const c of bad) out.push(['WARN', 'P2', f + ': .' + c + ' не объявлен ни в ДС, ни в <style> экрана']);
   }
+  // P5 — класс в живой разметке страницы документации, у которого нет правил ни в ДС,
+  // ни в её собственном <style>: блок рендерится без стиля и выглядит сломанным
+  // (.readout/.lbl/.pg__stage на Layout.html, 20.08.2026). Сниппеты <pre>/<code> —
+  // документация, не живая разметка, поэтому вырезаются.
+  for (const f of pagesOfSpecs.concat(['index.html'])) {
+    const h = src.get(f) || '';
+    if (!h) continue;
+    const local = new Set();
+    for (const st of all(RX.styleBlock, h, 0)) for (const c of all(/\.(-?[a-zA-Z][a-zA-Z0-9_-]*)/g, st.replace(/\{[^{}]*\}/g, '{}'))) local.add(c);
+    const live = h.replace(RX.styleBlock, '').replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<pre[\s\S]*?<\/pre>/gi, '').replace(/<code[\s\S]*?<\/code>/gi, '');
+    const used = uniq(all(RX.cls, live).filter((a) => !/['`+]|\$\{/.test(a)).flatMap((a) => a.split(/\s+/)).filter(Boolean));
+    for (const c of used.filter((c) => !parityIgnore(c) && !known(c) && !local.has(c)))
+      out.push(['WARN', 'P5', f + ': .' + c + ' в разметке страницы без правил в CSS — блок отрендерится без стиля']);
+  }
   // P3 — код-панели витрин: то, что страница предлагает скопировать, тоже документация.
   // Внутри <code>…</code> в исходнике могут быть куски JS (конкатенация,
   // cls.join('.')) — смотрим только на содержимое строковых литералов.
@@ -430,6 +425,66 @@ async function pageChecks(p, P, opts, out) {
     const abs = segs.join('/');
     if (!P.files.has(abs)) say('BLOCKER', 'A5', 'битая ссылка ' + r + ' → ' + abs);
   }
+  /* ---------- группа L — правила раскладки (решения 21.08.2026) ----------
+     L1 сумма колонок в ряду .grid12 больше 12 · L2 блок в .grid12 вне колонок
+     без пометки data-off-grid · L3 самодельная сетка на экране · L4 переопределены
+     поля контентной области или зазор сетки · L5 порог раскладки на @media. */
+  {
+    const VOID = new Set(['br', 'img', 'input', 'hr', 'meta', 'link', 'source', 'use', 'path', 'circle', 'rect', 'area', 'col', 'embed', 'track', 'wbr']);
+    const grids = [];
+    const stack = [];
+    const tagRx = /<(\/?)([a-z][a-z0-9-]*)([^>]*?)(\/?)>/gi;
+    let t;
+    while ((t = tagRx.exec(markup))) {
+      const name = t[2].toLowerCase(), attrs = t[3] || '';
+      if (t[1] === '/') {
+        for (let i = stack.length - 1; i >= 0; i--) if (stack[i].name === name) { stack.length = i; break; }
+        continue;
+      }
+      const cls = ((attrs.match(/class="([^"]*)"/i) || [, ''])[1]).split(/\s+/).filter(Boolean);
+      const parent = stack[stack.length - 1];
+      if (parent && parent.grid) parent.children.push({ cls, attrs });
+      if (VOID.has(name) || t[4] === '/') continue;
+      const node = { name, grid: cls.includes('grid12'), narrow: cls.includes('grid12--narrow'), children: [] };
+      if (node.grid) grids.push(node);
+      stack.push(node);
+    }
+    const spanOf = (cls, narrow) => {
+      const c = cls.find((x) => /^col-\d+$/.test(x)), w = cls.find((x) => /^colw-\d+$/.test(x));
+      if (narrow && w) return +w.slice(5);
+      return c ? +c.slice(4) : null;
+    };
+    for (const g of grids) {
+      for (const narrow of g.children.some((c) => c.cls.some((x) => /^colw-\d+$/.test(x))) ? [false, true] : [false]) {
+        let sum = 0;
+        for (const ch of g.children) {
+          const s = spanOf(ch.cls, narrow);
+          if (!s) continue;
+          if (sum + s > 12) {
+            say('BLOCKER', 'L1', 'ряд .grid12 переполнен: ' + (sum + s) + ' колонок при 12' + (narrow ? ' (узкий режим, .colw-*)' : '') + ' — блок .' + ch.cls.join('.'));
+            sum = s;
+          } else sum = (sum + s) % 12;
+        }
+      }
+      for (const ch of g.children) {
+        if (/data-off-grid/.test(ch.attrs)) continue;
+        const style = (ch.attrs.match(/style="([^"]*)"/i) || [, ''])[1];
+        if (!ch.cls.some((x) => /^col-\d+$/.test(x)))
+          say('BLOCKER', 'L2', 'блок в .grid12 без .col-N: ' + (ch.cls.length ? '.' + ch.cls.join('.') : '<' + ch.name + '> без класса') + ' — привязка к колонке обязательна; осознанное исключение помечается data-off-grid="причина"');
+        else if (/(?:^|;|\s)(?:width|min-width|max-width|flex-basis)\s*:\s*[^;]*\d+(?:px|rem)/i.test(style))
+          say('BLOCKER', 'L2', 'фиксированная ширина у .' + ch.cls.join('.') + ' в .grid12 — ширину задаёт колонка; исключение помечается data-off-grid="причина"');
+      }
+    }
+    if (isScreen) {
+      for (const r of all(/grid-template-columns\s*:\s*([^;}]+)/gi, styleSrc, 1))
+        if (/repeat\(\s*12\b/i.test(r) || (r.match(/fr\b/g) || []).length >= 12)
+          say('WARN', 'L3', 'самодельная 12-колоночная сетка (grid-template-columns: ' + r.trim().slice(0, 40) + ') — раскладка экрана строится на .grid12 / .col-N (внутренняя раскладка блока — свое дело)');
+      const overrides = uniq(all(/--(layout-pad-x|layout-pad-bottom|layout-crumbs-h|grid-gutter|grid-margin)\s*:/g, styleSrc, 1));
+      if (overrides.length) say('BLOCKER', 'L4', 'экран переопределяет ' + overrides.map((o) => '--' + o).join(', ') + ' — поля контентной области и зазор сетки не меняются; исключение указывается явно при проектировании макета');
+      if (/\.screen__content[^{]*\{[^}]*padding/.test(styleSrc)) say('BLOCKER', 'L4', 'экран переопределяет padding у .screen__content — поля 24px принадлежат каркасу');
+      if (/@media[^{]*(?:max|min)-width/.test(styleSrc)) say('WARN', 'L5', 'порог раскладки на @media — считать нужно от ширины рабочей области: @container screen (max-width: …), иначе закрепление панели навигации не учтётся');
+    }
+  }
   /* B1 — несуществующий токен */
   // локальными считаем переменные, объявленные где угодно на странице: <style>, inline style, JS (setProperty)
   const localVars = new Set([...all(RX.cssVarDef, html), ...all(/setProperty\(\s*['"`](--[a-zA-Z0-9-]+)/g, html)]);
@@ -477,13 +532,22 @@ async function pageChecks(p, P, opts, out) {
   if (/grid-template-columns:\s*[\d.]+px\s*;/.test(styleSrc)) {
     say('WARN', 'F4', 'grid-template-columns: <px> без minmax(0,1fr) — трек не тянется, только сжимается по max-content');
   }
+  // A8 — страница в pages без window.__DS_ROOT: ds-nav.js подставит пустой префикс,
+  // и ВСЕ ссылки левой навигации плюс логотип окажутся битыми (Layout.html, 20.08.2026):
+  // страница выглядит нормально, навигация не работает.
+  if (/^pages\//.test(p) && /ds-nav\.js/.test(html) && !/__DS_ROOT/.test(html))
+    say('BLOCKER', 'A8', "нет window.__DS_ROOT — ds-nav.js даст битые ссылки и логотип; для страниц в pages/<категория>/ нужно '../../'");
   /* F5 — «анатомия компонента взята не целиком»: реестр контрактов, а не код на каждый
      инцидент — новый компонент с обязательными «всегда обязаны присутствовать в DOM»
      узлами (не зависящими от текущего визуального режима/состояния) регистрируется ОДНОЙ
      строкой в ANATOMY_CONTRACTS ниже; проверка одна для всех компонентов. */
+  /* Документационные сниппеты (<pre>/<code>) — не живая разметка: страница может
+     показывать фрагмент чужого компонента как пример (Каркас экрана, 20.08.2026).
+     Проверяем только разметку вне них. */
+  const liveMarkup = markup.replace(/<pre[\s\S]*?<\/pre>/gi, '').replace(/<code[\s\S]*?<\/code>/gi, '');
   for (const c of ANATOMY_CONTRACTS) {
-    if (c.when.test(markup)) {
-      const missing = c.require.filter(([re]) => !re.test(markup)).map(([, label]) => label);
+    if (c.when.test(liveMarkup)) {
+      const missing = c.require.filter(([re]) => !re.test(liveMarkup)).map(([, label]) => label);
       if (missing.length) say('BLOCKER', 'F5', c.name + ' использован не целиком — анатомия урезана под текущий вид вместо взятой как есть (разметка не должна меняться между режимами/состояниями); отсутствует: ' + missing.join(', '));
     }
   }
@@ -504,6 +568,8 @@ async function pageChecks(p, P, opts, out) {
   const ver = (metaBlk.match(/Версия:?\s*<b>([^<]+)/) || [])[1];
   const upd = (metaBlk.match(/Обновлено:?\s*<b>([^<]+)/) || [])[1];
   if (!ver || !upd) say('BLOCKER', 'C2', 'в masthead нет ' + (!ver ? '«Версия»' : '') + (!ver && !upd ? ' и ' : '') + (!upd ? '«Обновлено»' : ''));
+  /* C7 — единый формат версии М.ммм без префикса v (решение 20.08.2026) */
+  if (ver && !/^\d+\.\d{3}$/.test(ver.trim())) say('BLOCKER', 'C7', 'версия «' + ver.trim() + '» не в формате М.ммм (три знака после точки, без «v»): например 1.006');
   if (changed && upd && upd.trim() !== (opts.today || today())) say('WARN', 'C3', 'страница правилась, «Обновлено» = ' + upd + ', сегодня ' + (opts.today || today()));
   /* C4/C5/C6 — разделы */
   if (inContract && P.canon.length) {

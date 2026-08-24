@@ -1,8 +1,8 @@
 ---
 component: Entity
 title: "Entity"
-version: "v1.6"
-updated: "14.08.2026"
+version: "1.006"
+updated: "21.08.2026"
 page: pages/organisms/Entity.html
 css: styles/entity.css
 deps: [avatar, chip, icon-button, button, badge]
@@ -71,6 +71,8 @@ status: manual
 - Иконка (default): фон `--c-swamp-100`, глиф `--text-primary`. Тон accent: `--primary` 14% / `--primary-dark`. Тон neutral: `--c-cgrey-100` / `--text-secondary`.
 - Интерактив: hover `--bgtable-row-hover`, selected `--primary-bg`, закладка active/фокус `--primary`.
 - Ошибка: фон иконки `--error-bg-light`, иконка/Header `--error`.
+
+- **Размеры · Радиус скругления** — Скругление относится к ведущему элементу и растёт вместе с ним. S (32px) — 10px (--radius-l) · M (40px) — 12px (--e-lead-radius = --radius-xl) · L (96px) — 28px (--radius-5xl) · фокус закладки — 4px (--radius-xs).
 
 ## Для разработчиков (выжимка)
 

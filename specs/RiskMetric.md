@@ -1,8 +1,8 @@
 ---
 component: RiskMetric
 title: "Риск-метрика"
-version: "v1.6"
-updated: "14.08.2026"
+version: "1.006"
+updated: "21.08.2026"
 page: pages/organisms/RiskMetric.html
 page_js: scripts/riskmetric.page.js
 runtime: scripts/ds-riskmetric.js
@@ -28,6 +28,7 @@ status: curated
 ## Ключевые правила; клик по информеру раскрывает даты расчёта и риск-сегмент/профиль без ухода со страницы. Один открытый Popover одновременно (как у базового Popover).
 - **Анатомия** — Chip (ReadOnly, S, pill) → label (число/«—») + `.chip__info` (button, открывает Popover) → Popover_RiskMetric: Header (заголовок + ✕) + Body `.pop__body.rm-body` (gap 16px): `.rm-blocks` (зазор 8px) с 2× `.rm-block` + 2× `.rm-field`. **Footer отсутствует.** Маржинов у блоков и полей нет — раскладка только на gap.
 - **Размеры** — фиксированный: только Chip S (24px). Ширина растёт по контенту. Popover фиксирован на `pop--w-m` (320px).
+- **Размеры · Радиус скругления** — Пропса размера нет, радиусы фиксированы. чип (Chip S) — 6px (--radius-control-s) · поповер и блок в нём — 8px (--radius-m).
 - **Контент** — рейтинг: целое 1–26 или «—». Зона: green/watchlist/red/black или нет данных. Риск-сегмент/профиль — свободный текст без лимита; при отсутствии — прочерк, поле не скрывается.
 - **Типографика** — метки строк блока Body S `--text-secondary`; значения и даты Body S `--text-primary`; выделенное значение (зона/рейтинг) Body S Strong.
 - **Состояния** — 4 зоны × (Rate+Zone / Zone / Rate) + Details + None. Rate, Details и None не зависят от зоны. Popover: default / loading (skeleton, `aria-busy`) / error (`role="alert"`). Нет зоны и рейтинга, но есть риск-сегмент/профиль (Details) → информер остаётся, зона, рейтинг и даты в поповере — прочерки. Нет вообще ничего (None) → информер отсутствует, поповер не открывается. Нет риск-сегмента/профиля при наличии зоны или рейтинга → поля остаются с прочерками.

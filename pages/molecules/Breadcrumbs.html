@@ -109,7 +109,7 @@
 <main class="page" data-screen-label="Breadcrumbs">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.4</b></span><span>Обновлено: <b>13.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.005</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Breadcrumbs</h1>
     <p class="lead">Хлебные крошки — трейл ссылок в шапке страницы, показывающий путь до текущего раздела. Состоят из ссылок <a class="link link--accent link--inline" href="../atoms/Link.html">Link</a> (Breadcrumbs_1 — родительские страницы, Breadcrumbs_2 — текущая, некликабельная) и разделителя «/». Показываются на всех страницах системы, кроме Дашборда; отступ до контента страницы — 0.</p>
@@ -169,11 +169,18 @@
   <!-- SIZES -->
   <section class="section" data-screen-label="Sizes">
     <h2>Размеры</h2>
-    <p class="desc">У компонента единственный размер — <b>S</b> (<code class="tok">--type-body-s</code>, 14/16). Второго размера нет: крошки — вспомогательная навигация над заголовком страницы и не должны конкурировать с ним по весу, поэтому размер не варьируется.</p>
+    <p class="desc">Компонент сам держит зону над контентом страницы: высота <b>44&nbsp;px</b> = 16&nbsp;px сверху + строка 16&nbsp;px + 12&nbsp;px снизу, поля по бокам — 24&nbsp;px, те же, что у контентной области экрана: крошки и заголовок страницы выровнены по одной вертикали. Отступ до контента — 0: экран ничего к зоне не добавляет (см. <a class="link link--accent" href="../foundations/Layout.html">Каркас экрана</a>).</p>
+    <p class="desc">У текста единственный размер — <b>S</b> (<code class="tok">--type-body-s</code>, 14/16). Второго размера нет: крошки — вспомогательная навигация над заголовком страницы и не должны конкурировать с ним по весу, поэтому размер не варьируется. Строка зоны ровно 16&nbsp;px, поэтому ни одно звено — включая кнопку «…» — не имеет вертикальных паддингов.</p>
     <div class="panel" style="margin-bottom:20px;"><div class="row" id="sizes-row" style="gap:40px; align-items:flex-start;"></div></div>
     <div class="panel" style="padding:0;overflow:hidden;">
       <div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.84fr 0.68fr 1.35fr 0.77fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Размер</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--right"><span class="th__label">Размер / интерлиньяж</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Образец</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div id="typo-table"></div></div>
     </div>
+  
+<div class="subsec" data-screen-label="Radius">
+    <h3>Радиус скругления</h3>
+    <p class="desc">Своей плашки у крошек нет — радиус появляется только в фокус-обводке. Размер текста (S) на него не влияет.</p>
+    <div class="panel" style="padding:0;overflow:hidden;"><div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Элемент</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Радиус</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Крошка</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">0</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">—</span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Фокус-обводка крошки</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">4 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-xs</code></span></span></div><div class="tc tc--separator"></div></div></div></div>
+  </div>
   </section>
 
   <!-- CONTENT -->

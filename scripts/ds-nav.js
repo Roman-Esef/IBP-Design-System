@@ -10,6 +10,7 @@
       items: [
         { label: 'Иконки',      href: 'pages/foundations/Icons.html' },
         { label: 'Иллюстрации', href: 'pages/foundations/Illustrations.html' },
+        { label: 'Каркас экрана', href: 'pages/foundations/Layout.html' },
         { label: 'Сетка и отступы', href: 'pages/foundations/Spacing.html' },
         { label: 'Скругления',  href: 'pages/foundations/Radius.html' },
         { label: 'Тени',        href: 'pages/foundations/Elevation.html' },
@@ -87,6 +88,7 @@
     {
       cat: 'Правила и паттерны',
       items: [
+        { label: 'Локальные компоненты',  href: 'pages/patterns/LocalComponents.html' },
         { label: 'Редполитика',           soon: true },
         { label: 'Тон оф войс',           soon: true },
         { label: 'Паттерны интерфейса',   soon: true }
@@ -101,12 +103,8 @@
     {
       cat: 'RND',
       items: [
-        { label: 'Аудит правил',            href: 'pages/rnd/RulesAudit.html' },
-        { label: 'Аудит разделов',          href: 'pages/rnd/SectionsAudit.html' },
         { label: 'Общий бэклог',            href: 'pages/rnd/Backlog.html' },
-        { label: 'План: шаблоны и прототип', href: 'pages/rnd/TemplatesPlan.html' },
-        { label: 'План 2: слой продукта',    href: 'pages/rnd/Plan2.html' },
-        { label: 'План 3: единое видение',   href: 'pages/rnd/Plan3.html' }
+        { label: 'План 4: с учётом комментариев', href: 'pages/rnd/Plan4.html' }
       ]
     }
   ];

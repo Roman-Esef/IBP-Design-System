@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- FIDELITY-GATE: PASS · ширина 1920 · 14.08.2026 -->
+<!-- FIDELITY-GATE: PASS · ширина 1920 · 21.08.2026 -->
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -12,9 +12,32 @@ html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 body{margin:0;font-family:var(--font-text),system-ui,sans-serif;color:var(--text-primary);background:var(--bg-page)}
 a{color:var(--link)}
 a:hover{color:var(--link-dark)}
-.deal-main{min-width:1780px;padding:24px 32px 64px;display:flex;flex-direction:column;gap:24px}
 .deal-section{font:var(--type-body-m-strong);color:var(--text-secondary);margin:0}
-.deal-outer{display:grid;grid-template-columns:repeat(12,1fr) 320px;gap:16px}
+.deal-outer{display:grid;grid-template-columns:repeat(12,1fr) 320px;gap:16px;align-items:stretch}
+/* Первый ряд: КНР 4 + Сроки сделки 3 = 7 колонок — ровно ширина «Описания сделки»
+   (.dc-wide, 1/8); «Команда сделки» добирает остаток 5 и встаёт по «Метрикам». */
+.dc-c4{grid-column:span 4}
+.dc-c3{grid-column:span 3}
+.dc-c5{grid-column:span 5}
+.dc-side{grid-column:13/14;grid-row:1/3}
+.dc-wide{grid-column:1/8}
+.dc-narrow{grid-column:8/13}
+.dc-half{grid-column:span 6}
+/* Перестроение по ширине рабочей области (container "screen" из каркаса):
+   закрепление панели сужает контент, не меняя окно, — поэтому шаги контейнерные. */
+@container screen (max-width:1560px){
+  .deal-outer{grid-template-columns:repeat(12,1fr)}
+  .dc-side{grid-column:1/13;grid-row:auto}
+}
+@container screen (max-width:1240px){
+  .dc-c4,.dc-c3,.dc-c5,.dc-half{grid-column:span 6}
+  .dc-wide,.dc-narrow{grid-column:1/13}
+  .deal-instrument-fields{grid-template-columns:repeat(2,1fr)}
+}
+@container screen (max-width:900px){
+  .dc-c4,.dc-c3,.dc-c5,.dc-half{grid-column:1/13}
+  .deal-rules,.deal-metrics-grid,.deal-instrument-fields,.deal-instrument-fields--3{grid-template-columns:repeat(2,1fr)}
+}
 /* КНР */
 .deal-khp-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;font:var(--type-body-xs);color:var(--text-inactive);padding-bottom:12px}
 .deal-khp-head span:last-child{text-align:right}
@@ -147,13 +170,15 @@ a:hover{color:var(--link-dark)}
   </div>
 </nav>
 
-<main class="deal-main" data-screen-label="Карточка сделки">
+<div class="screen">
 
-  <nav class="crumbs" aria-label="Хлебные крошки">
-    <li class="crumbs__item"><a class="link link--muted" href="#">Главная</a></li>
-    <li class="crumbs__item"><a class="link link--muted" href="#">Текущий портфель ДИД</a></li>
-    <li class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">1234. СамолётИнвестПродакшн</span></li>
-  </nav>
+<nav class="crumbs" aria-label="Хлебные крошки">
+  <li class="crumbs__item"><a class="link link--muted" href="../../index.html">Главная</a></li>
+  <li class="crumbs__item"><a class="link link--muted" href="#">Текущий портфель ДИД</a></li>
+  <li class="crumbs__item crumbs__item--current"><span class="crumbs__current" aria-current="page">1234. СамолётИнвестПродакшн</span></li>
+</nav>
+
+<main class="screen__content" data-screen-label="Карточка сделки">
 
   <div class="phead">
     <div class="phead__main">
@@ -187,7 +212,7 @@ a:hover{color:var(--link-dark)}
   <h2 class="deal-section">Общая информация</h2>
   <div class="deal-outer">
 
-      <section class="tile" style="grid-column:1/5">
+      <section class="tile dc-c4">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">КНР</h3></div></div>
           <div class="tile__actions"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
@@ -208,7 +233,7 @@ a:hover{color:var(--link-dark)}
         </div>
       </section>
 
-      <section class="tile" style="grid-column:5/9">
+      <section class="tile dc-c3">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Сроки сделки</h3></div></div>
           <div class="tile__actions"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
@@ -222,7 +247,7 @@ a:hover{color:var(--link-dark)}
         </div>
       </section>
 
-      <section class="tile" style="grid-column:9/13">
+      <section class="tile dc-c5">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Команда сделки</h3></div></div>
           <div class="tile__actions"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
@@ -239,7 +264,7 @@ a:hover{color:var(--link-dark)}
         </div>
       </section>
 
-      <section class="tile deal-zaved" style="grid-column:13/14;grid-row:1/3">
+      <section class="tile deal-zaved dc-side">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Заведение сделки</h3></div></div>
           <div class="tile__actions"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Действия"><i data-icon="more-dots"></i></button></div>
@@ -264,7 +289,7 @@ a:hover{color:var(--link-dark)}
         </div>
       </section>
 
-      <section class="tile" style="grid-column:1/8">
+      <section class="tile dc-wide">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Описание сделки</h3></div></div>
           <div class="tile__actions"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать"><i data-icon="edit"></i></button></div>
@@ -292,7 +317,7 @@ a:hover{color:var(--link-dark)}
         </div>
       </section>
 
-      <section class="tile" style="grid-column:8/13">
+      <section class="tile dc-narrow">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Финансовые метрики сделки</h3></div></div>
           <div class="tile__actions"><button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Развернуть"><i data-icon="maximize"></i></button></div>
@@ -337,7 +362,7 @@ a:hover{color:var(--link-dark)}
   <h2 class="deal-section">Финансовые данные</h2>
   <div class="deal-outer">
 
-      <section class="tile" style="grid-column:1/7">
+      <section class="tile dc-half">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Продукты сделки</h3></div></div>
           <div class="tile__actions"><button type="button" class="btn btn--outline btn--xs"><i data-icon="add"></i><span class="btn__label">Продукт ДИД</span></button></div>
@@ -460,7 +485,7 @@ a:hover{color:var(--link-dark)}
         </div>
       </section>
 
-      <section class="tile" style="grid-column:7/13">
+      <section class="tile dc-half">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Финансовые инструменты</h3></div></div>
           <div class="tile__actions">
@@ -563,7 +588,7 @@ a:hover{color:var(--link-dark)}
 
   <h2 class="deal-section">Расчет метрик</h2>
   <div class="deal-outer">
-      <section class="tile" style="grid-column:1/7">
+      <section class="tile dc-half">
         <header class="tile__header">
           <div class="tile__header-main"><div class="tile__title-row"><h3 class="tile__title">Финансовые метрики</h3></div></div>
         </header>
@@ -588,6 +613,7 @@ a:hover{color:var(--link-dark)}
   </div>
 
 </main>
+</div>
 </div>
 <script src="../../scripts/ds.js"></script>
 </body>

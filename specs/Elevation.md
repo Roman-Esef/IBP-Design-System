@@ -1,7 +1,7 @@
 ---
 component: Elevation
 title: "Тени (Elevation)"
-version: "v1.0"
+version: "1.000"
 updated: "07.08.2026"
 page: pages/foundations/Elevation.html
 css: styles/shadow.css

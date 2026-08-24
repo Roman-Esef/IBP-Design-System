@@ -1,7 +1,7 @@
 ---
 component: Colors
 title: "Цвета"
-version: "v1.2"
+version: "1.002"
 updated: "29.07.2026"
 page: pages/foundations/Colors.html
 css: styles/colors.css

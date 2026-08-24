@@ -122,7 +122,7 @@
 <main class="page" data-screen-label="RiskMetric">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>v1.6</b></span><span>Обновлено: <b>14.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.006</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>RiskMetric</h1>
     <p class="lead">Компонент для обозначения уровня надёжности контрагентов: рейтинг (число) и зона проблемности (цвет). Собран из <a class="inl" href="../atoms/Chip.html">Chip</a> (ReadOnly, S, pill) и <a class="inl" href="Popover.html">Popover</a>. <b>Popover_RiskMetric — неотъемлемая часть компонента</b>, а не опциональная зависимость: клик по иконке-информеру всегда открывает карточку с деталями расчёта. Собственных состояний наведения или клика по самому чипу нет.</p>
@@ -212,6 +212,12 @@
       </div>
     </div>
     <p class="dev-note">Popover_RiskMetric фиксирован на шаге <code class="tok">--pop-w-m</code> (320px) — стандартная ширина для заголовка и коротких строк данных; см. <a class="inl" href="Popover.html">шкалу размеров Popover</a>.</p>
+  
+<div class="subsec" data-screen-label="Radius">
+    <h3>Радиус скругления</h3>
+    <p class="desc">Пропса размера у компонента нет: радиусы фиксированы и совпадают с радиусами Chip S и Popover.</p>
+    <div class="panel" style="padding:0;overflow:hidden;"><div class="tbl" style="grid-template-columns:none;border:none;border-radius:0;"><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="th th--separator"></div><div class="th"><span class="th__label">Элемент</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Радиус</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th"><span class="th__label">Токен</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div><div class="th th--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Чип (Chip S)</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">6 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-control-s</code></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Поповер</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">8 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-m</code></span></span></div><div class="tc tc--separator"></div></div><div class="tbl__row" style="grid-template-columns:8px 1.7fr 0.8fr 1.1fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Блок внутри поповера</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">8 px</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text"><code class="tok">--radius-m</code></span></span></div><div class="tc tc--separator"></div></div></div></div>
+  </div>
   </section>
 
   <!-- CONTENT -->

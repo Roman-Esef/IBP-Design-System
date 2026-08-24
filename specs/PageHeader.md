@@ -1,8 +1,8 @@
 ---
 component: PageHeader
 title: "PageHeader"
-version: "v1.8"
-updated: "13.08.2026"
+version: "1.008"
+updated: "21.08.2026"
 page: pages/organisms/PageHeader.html
 runtime: scripts/ds-menu.js, scripts/ds-actions-overflow.js
 css: styles/page-header.css
@@ -92,3 +92,5 @@ PageHeader — заголовок страницы рабочей области
 
 ## Тестовая среда (не часть компонента)
 В разделе «Бэклог» страницы живёт экспериментальная раскладка `.phx` (стили в самой странице): Return над заголовком транспарентной кнопкой; подзаголовок неразрывен с заголовком и ограничен его шириной (`width:0;min-width:100%`), поэтому переносится в 2+ строки; чипы, не влезшие в строку заголовка, уходят под подзаголовок (класс `.phx--chips-below`, раскладка считается в `layoutPhx()`).
+
+- **Размеры · Радиус скругления** — У обычного заголовка фона нет; плашка только в Dashboard. заголовок — 0 · вариант Dashboard — 8px (--radius-m).

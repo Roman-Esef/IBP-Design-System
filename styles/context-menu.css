@@ -221,12 +221,18 @@
 .menu.menu--floating {
   position: absolute;
   opacity: 0;
+  /* закрытое меню выключено из раскладки полностью: visibility:hidden оставляет
+     его в потоке прокрутки, и на узком экране страница получает горизонтальный
+     скролл от невидимой панели (карточка сделки, 21.08.2026). display:none в
+     переходе — с allow-discrete, чтобы анимация появления сохранилась. */
+  display: none;
   visibility: hidden;
   transform: scale(.97);
   transform-origin: var(--menu-origin, top center);
-  transition: opacity .13s ease, transform .13s ease, visibility 0s linear .13s;
+  transition: opacity .13s ease, transform .13s ease, visibility 0s linear .13s, display .13s allow-discrete;
 }
 .menu.menu--floating.is-open {
+  display: flex;
   opacity: 1;
   visibility: visible;
   transform: scale(1);
@@ -239,6 +245,7 @@
 
 /* pinned — всегда открытое позиционированное меню (для демонстраций) */
 .menu.menu--floating.menu--pinned {
+  display: flex;
   opacity: 1;
   visibility: visible;
   transform: none;

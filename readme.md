@@ -33,7 +33,6 @@ CLAUDE.md                ← правила ведения ДС (инжекти�
 - **Атомы (12):** Avatar, Badge, Button, Checkbox, Chip, Divider, IconButton, Label + Helper, Link, ProgressBar, Radiobutton, Switch.
 - **Молекулы (18):** Alert, Breadcrumbs, ButtonGroup, ContextMenu, InputAmountRange, InputAutocomplete, InputDate, InputDateRange, InputText, NavTile, Pagination, ReadOnlyField, SegmentControl, Select, Splitter, Tab, Toast, Tooltip.
 - **Организмы (10):** Entity, Modal, NavPanel, PageHeader, Popover, RiskMetric, SnackBar, TableCell, TableFilter, Tile.
-- **Паттерны:** SectionsAudit (аудит разделов документации).
 
 ## Шрифты
 SB Sans Display / Text / Screen (`.otf` в `fonts/`, `@font-face` в `styles/typography.css`). Оригинальные файлы перенесены 1:1.
