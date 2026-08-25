@@ -52,7 +52,8 @@
     'input-kit.js',
     'ds-nav-panel.js',
     'ds-splitter.js',
-    'ds-illustrations.js'
+    'ds-illustrations.js',
+    'ds-include.js'
   ];
   var html = '';
   FILES.forEach(function (f) { html += '<script src="' + base + f + '"></script>'; });

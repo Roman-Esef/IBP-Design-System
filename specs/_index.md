@@ -27,7 +27,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | IconButton | specs/IconButton.md | styles/icon-button.css | badge, spinner | 1.009 |
 | Icons | specs/Icons.md | — | — | 1.000 |
 | Illustrations | specs/Illustrations.md | styles/illustration.css | — | 1.003 |
-| Layout | specs/Layout.md | styles/layout.css | nav-panel, breadcrumbs, spacing | 1.000 |
+| Layout | specs/Layout.md | styles/layout.css | nav-panel, breadcrumbs, spacing | 1.007 |
 | InputAmountRange | specs/InputAmountRange.md | styles/input-range.css | input, label-helper, tooltip | 1.005 |
 | InputAutocomplete | specs/InputAutocomplete.md | styles/input.css | label-helper, checkbox, chip, tooltip, dropdown-list | 1.012 |
 | InputDate | specs/InputDate.md | styles/input.css | label-helper, tooltip | 1.009 |

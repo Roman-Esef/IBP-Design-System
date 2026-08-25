@@ -42,7 +42,7 @@ ul.tight li b{font-weight:600;}
   <header class="masthead">
     <p class="eyebrow">RND</p>
     <h1>План 4: с учётом комментариев</h1>
-    <p class="meta"><span>Версия: <b>1.004</b></span><span>Обновлено: <b>21.08.2026</b></span></p>
+    <p class="meta"><span>Версия: <b>1.006</b></span><span>Обновлено: <b>25.08.2026</b></span></p>
     <p class="lead">Статус выполнения — в столбцах «Статус» таблиц «Что добавить в эту ДС» и «Порядок работ»; даты и содержание правок — в журнале CHANGELOG.md в корне проекта. План переписан по 23 комментариям к прошлой версии. Комментарии с дословными цитатами и решением по каждому — в <a href="Plan3-comments.md">журнале</a>. Главное отличие от прошлой версии: каждый раздел говорит, какие файлы появятся и кто их ведёт, а не только какой принцип принят. Прежние формулировки «исполняемый foundation», «механизмы», «свод» убраны.</p>
   </header>
 
@@ -606,7 +606,7 @@ ul.tight li b{font-weight:600;}
         <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Рантайм подключения</b><br>scripts/ds-include.js</span></span></div>
         <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Компонент подключается строкой, а не копируется в каждый экран</span></span></div>
         <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">1 файл: scripts/ds-include.js</span></span></div>
-        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Предстоит</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Сделано</b> · 25.08.2026<br>Custom element &lt;ds-include src="…"&gt;: подключает CSS компонента и вставляет его html-фрагмент на своё место, событие ds-include:loaded для заполнения данными экраном. Добавлен в scripts/ds.js</span></span></div>
         <div class="tc tc--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 1.1fr 1.4fr 0.6fr 1.1fr 8px;">
@@ -630,7 +630,7 @@ ul.tight li b{font-weight:600;}
         <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Генератор панели и реестра</b></span></span></div>
         <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">Механизм переиспользуем любым продуктом; содержимое панели конкретного продукта — нет</span></span></div>
         <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text">1 скрипт: scripts/ds-registry.js → registry.json + admin.html</span></span></div>
-        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Предстоит</b></span></span></div>
+        <div class="tc tc--wrap"><span class="tc__row"><span class="tc__text"><b>Сделано</b> · 25.08.2026<br>scripts/ds-registry.js сканирует kit/components/*/*.md и screens/*.md, строит registry.json: usedOn компонентов считается от экранов (не из паспорта), обратный индекс требований, дрейф rulesVersion, битые ссылки и незаполненные поля — в список расхождений. templates/admin/admin.html читает registry.json и рисует таблицы на .tbl. Проверено на синтетических данных — реальных паспортов/экранов в новой схеме ещё нет</span></span></div>
         <div class="tc tc--separator"></div>
       </div>
       <div class="tbl__row" style="grid-template-columns:8px 1.1fr 1.4fr 0.6fr 1.1fr 8px;">
