@@ -1,4 +1,4 @@
----
+﻿---
 purpose: Манифест спек компонентов. Читай нужную спеку вместо страницы целиком.
 ---
 
@@ -57,7 +57,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | TableCell | specs/TableCell.md | styles/table-cell.css | checkbox, chip, icon-button, button, tooltip, chart | 2.004 |
 | TableFilter | specs/TableFilter.md | styles/table-filter.css | button, icon-button, chip, badge, modal, tab, input, checkbox | 1.007 |
 | Tab | specs/Tab.md | styles/tab.css | — | 1.009 |
-| Tile | specs/Tile.md | styles/tile.css | icon-button, button, link, chip, badge, alert, divider | 1.008 |
+| Tile | specs/Tile.md | styles/tile.css | icon-button, button, link, chip, badge, alert, divider | 1.010 |
 | Toast | specs/Toast.md | styles/toast.css | button, spinner | 1.006 |
 | Tooltip | specs/Tooltip.md | styles/tooltip.css | button | 2.003 |
 | Typography | specs/Typography.md | — | — | 1.001 |

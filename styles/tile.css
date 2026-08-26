@@ -52,6 +52,21 @@
   grid-template-columns: repeat(12, 1fr);
   gap: 16px;
 }
+/* .tile-group — группа рядов одной тайловой сетки. Ряды внутри группы
+   разделяются теми же 16px, что и тайлы внутри ряда: это продолжение
+   одной сетки, а не разные зоны экрана.
+   ВАЖНО: .screen__content — flex-колонка с gap 24px (--layout-block-gap),
+   поэтому зазор между рядами НЕЛЬЗЯ задавать margin'ом на .tile-row —
+   он сложится с gap контейнера и даст 40px. Группа решает это тем, что
+   является ОДНИМ ребёнком .screen__content: 24px остаётся только между
+   крупными зонами (PageHeader ↔ группа), а внутри группы работает 16px.
+   Зафиксировано 26.08.2026 после разбора DealPipelineCard. */
+.tile-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
 .tile-stack {
   display: flex;
   flex-direction: column;
@@ -177,6 +192,12 @@
 .tile__grid--gap-24 {
   row-gap: 24px;
 }
+/* Элемент на всю ширину сетки тайла — длинное «Описание», комментарий,
+   вложенный Alert: остаётся В сетке (тот же зазор и та же левая кромка,
+   что у полей), а не выносится соседним блоком со своими паддингами.
+   Добавлено 26.08.2026: на DealPipelineCard «Описание» вынесли из
+   .tile__grid отдельным блоком — поле разъехалось с сеткой по отступам. */
+.tile__grid > .tile__grid-full { grid-column: 1 / -1; }
 .tile__rows {
   display: flex;
   flex-direction: column;

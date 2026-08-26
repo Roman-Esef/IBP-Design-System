@@ -557,8 +557,10 @@ async function pageChecks(p, P, opts, out) {
      агента и не проверяем постфактум. Дата в маркере обязана совпадать с датой правки
      (тот же принцип, что C3), иначе разметка могла измениться уже ПОСЛЕ прогона гейта. */
   if (isScreen) {
-    const gate = html.match(/<!--\s*FIDELITY-GATE:\s*PASS\s*·\s*ширина\s*[\d]+\s*·\s*([\d.]+)\s*-->/i);
-    if (!gate) say('BLOCKER', 'G1', 'нет строки <!-- FIDELITY-GATE: PASS · ширина <N> · ДД.ММ.ГГГГ --> сразу после <!DOCTYPE html> — гейт mockup-fidelity-review.md не отмечен как пройденный в самом файле');
+    const gatePass = html.match(/<!--\s*FIDELITY-GATE:\s*PASS\s*·\s*ширина\s*[\d]+\s*·\s*([\d.]+)\s*-->/i);
+    const gateNA = html.match(/<!--\s*FIDELITY-GATE:\s*N\/A\s*·\s*нет исходного макета\s*·\s*([\d.]+)\s*-->/i);
+    const gate = gatePass || gateNA;
+    if (!gate) say('BLOCKER', 'G1', 'нет строки <!-- FIDELITY-GATE: PASS · ширина <N> · ДД.ММ.ГГГГ --> (сборка по макету) или <!-- FIDELITY-GATE: N/A · нет исходного макета · ДД.ММ.ГГГГ --> (сборка по тексту) сразу после <!DOCTYPE html> — гейт не отмечен как пройденный в самом файле');
     else if (changed && gate[1] !== (opts.today || today())) say('WARN', 'G1', 'экран правился, а дата в FIDELITY-GATE = ' + gate[1] + ', сегодня ' + (opts.today || today()) + ' — гейт нужно перепрогнать после правки и обновить дату');
   }
   /* C1 — карточка @dsCard первой строкой */

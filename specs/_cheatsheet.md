@@ -408,10 +408,10 @@ css: `styles/datepicker.css` · deps: [icon-button, button]
   </div>
   <!-- опц. футер -->
   <div class="dpk__foot">
-    <div class="dpk__foot-left"><button class="btn btn--transparent btn--s"><span class="btn__label">Сегодня</span></button></div>
+    <div class="dpk__foot-left"><button class="btn btn--transparent btn--xs dpk__today"><span class="btn__label">Сегодня</span></button></div>
     <div class="dpk__foot-right">
-      <button class="btn btn--transparent btn--s"><span class="btn__label">Отменить</span></button>
-      <button class="btn btn--accent btn--s"><span class="btn__label">Применить</span></button>
+      <button class="btn btn--transparent btn--xs dpk__cancel"><span class="btn__label">Отменить</span></button>
+      <button class="btn btn--accent btn--xs dpk__ok"><span class="btn__label">Применить</span></button>
     </div>
   </div>
 </div>
@@ -766,8 +766,8 @@ css: `styles/nav-panel.css` · deps: [icon-button, badge, avatar]
 ```html
 <nav class="nav nav--drawer" aria-label="Главное меню">
   <div class="nav__top">
-    <button class="ibtn ibtn--neutral ibtn--s nav__burger" aria-label="Свернуть меню"><i data-icon="left-menu"></i></button>
-    <button class="ibtn ibtn--neutral ibtn--s nav__pin" aria-pressed="false" aria-label="Закрепить панель"><i data-icon="pin-menu"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--m nav__burger" aria-label="Свернуть меню"><i data-icon="left-menu"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--m nav__pin" aria-pressed="false" aria-label="Закрепить панель"><i data-icon="pin-menu"></i></button>
   </div>
   <div class="nav__list">
     <a class="nav__item nav__item--selected" href="#" aria-current="page"><span class="nav__ico"><i data-icon="main-page"></i></span><span class="nav__label">Главная</span></a>
@@ -782,13 +782,13 @@ css: `styles/nav-panel.css` · deps: [icon-button, badge, avatar]
       <span class="av av--circular av--m"><span class="av__text">АП</span></span>
       <span class="nav__user-text"><span class="nav__user-name">Александров Петр</span><span class="nav__user-role">Аналитик ДИД</span><span class="nav__user-org">SMB Недвижимость +2</span></span>
     </div>
-    <button class="ibtn ibtn--neutral ibtn--s nav__logout" aria-label="Выйти"><i data-icon="logout"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--m nav__logout" aria-label="Выйти"><i data-icon="logout"></i></button>
   </div>
 </nav>
 <!-- Rail: nav--rail (подписи → тултип, бейдж на угол иконки, футер = только аватар). Fixed: nav--fixed (шов справа, без тени). -->
 ```
 
-Пункт: Default текст/иконка `--text-secondary`; Hover заливка `--bgtable-row-hover`; Selected заливка `--bgtable-row-focus` + подпись Strong; Disabled `--text-inactive` + бейдж `badge--muted`. Высота пункта 44px, иконка 24, badge XS accent. Полная анатомия: specs/NavPanel.md.
+Пункт: Default текст/иконка `--text-secondary`; Hover заливка `--bgtable-row-hover`; Selected заливка `--bgtable-row-focus` + подпись Strong; Disabled `--text-inactive` + бейдж `badge--muted`. Высота пункта 44px, иконка 24, badge XS accent. **Бургер, пин и выход — строго `ibtn--m`**: вертикальная ось панели (28px от левого края во всех режимах) рассчитана в `styles/nav-panel.css` именно от него (`top 18 + 10 = 28`); `ibtn--s` ломает выравнивание бургера с иконками пунктов и аватаром. Полная анатомия: specs/NavPanel.md.
 
 **Из коробки:** подключить `scripts/ds-nav-panel.js` — самоинициализация по `.nav`: бургер сворачивает/разворачивает панель (rail ↔ последний развёрнутый режим), пин переключает drawer ↔ fixed (aria-pressed и иконка pin-menu/unpin-menu меняются сами), подписи пунктов в rail позиционируются как тултипы (`position:fixed`, пересчёт по hover/focus, скроллу списка и resize). Настройки на панели: `data-nav-collapsed-mode` (drawer|fixed — куда разворачивает бургер), `data-nav-modes="no"` (только rail-тултипы, режимы не переключаются), `data-nav-auto="no"` (не подключать). API: `DSNavPanel.bind(nav, opts)`, `bindAll(root)`, `setMode(nav, mode)`, `placeRailLabels(nav)`. Событие `ds-nav-mode` на `.nav` с `detail {mode, prev}`.
 
@@ -1149,10 +1149,23 @@ css: `styles/spinner.css`
 css: `styles/progress-bar.css` · deps: [label-helper]
 **Оси:** размер (S 4/M 6/L 8px) · состав (bare/заголовок+значение/+хелпер/плавающее значение/компактный) · тон · состояние (default/empty/complete/indeterminate).
 **Инварианты:** track всегда нейтрален, цвет несёт только Fill; sliver — только явно, не на 0% автоматически.
-**Классы:** `.pbar` · `.pbar--s / --m / --l` · `.pbar--accent/--success/--warning/--error/--info/--system` · `.pbar--indeterminate` · `.pbar--floating` · `.pbar--compact` · `.pbar__head` · `.pbar__label` / `.pbar__value` · `.pbar__track` · `.pbar__fill` · `.pbar__fill--sliver` · `.pbar__marker` · `.pbar__track--stack` / `.pbar__seg-stack` · `role="progressbar"` / `aria-valuenow/min/max/text`
+**Классы:** `.pbar` · `.pbar--s / --m / --l` · `.pbar--accent/--success/--warning/--error/--info/--system` · `.pbar--indeterminate` · `.pbar--floating` · `.pbar--compact` · `.pbar__head` · `.pbar__label` / `.pbar__value` · `.pbar__track` · `.pbar__fill` · `.pbar__fill--sliver` · `.pbar__marker` · `.pbar__helper` · `.pbar__track--stack` / `.pbar__seg-stack` · `role="progressbar"` / `aria-valuenow/min/max/text`
 **Диагностика:** «Полоска не видна при очень маленьком значении» → добавить `.pbar__fill--sliver` явно, не рассчитывать на авто-минимум · «Маркер значения обрезается сверху» → трек должен быть `overflow:visible`, родитель не должен клипать
 
 Линейный индикатор прогресса: заливка трека = доля значения от максимума. Определённый / неопределённый (Indeterminate) режимы, шесть тонов, три размера. Вариант Disabled убран (индикатор неинтерактивен). У плавающего значения хелпер опционален и по умолчанию выключен.
+
+**Какой вариант брать (не на глаз):**
+
+| Случай | Вариант | Почему |
+|---|---|---|
+| **Значение по умолчанию — любое именованное поле** (Прогресс, Вероятность сделки, Заполненность лимита), особенно когда значение качественное («Высокая») | **обычный** — `.pbar__head`: подпись слева, значение справа над треком | Читается как обычная пара «поле — значение», выравнивается с соседними полями и с соседними барами по правому краю |
+| Только когда важна **позиция числа на шкале** и подписи-заголовка нет: одиночный бар-шкала, бар в плотной строке таблицы | `.pbar--floating` (метка едет за краем заливки) | Метка привязана к точке шкалы; заголовочной строки у такого бара нет по построению |
+
+**Не ставить `--floating` только потому, что поле называется «Вероятность».** Ключ — есть ли у бара подпись: если подпись есть, она идёт в `.pbar__label` слева, значение — в `.pbar__value` справа. У `--floating` подпись уезжает в мелкий серый хелпер ПОД трек, а значение встаёт слева жирным — пара «поле → значение» читается наоборот и расходится с соседними полями блока.
+
+Тон выбирается отдельно от варианта: `--accent` — выполнение, `--system` — нейтральная шкала оценки.
+
+Обе ошибки реальны (DealPipelineCard, 26.08.2026): сначала `--floating` стоял на «Прогрессе», а «Вероятность» была голым текстом; после починки `--floating` переехал на «Вероятность» — и подпись ушла под трек, что тоже неверно. Правило переписано по результату, а не по примеру из доки.
 
 ```html
 <div class="pbar pbar--accent" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Label">
@@ -1488,7 +1501,7 @@ css: `styles/table-filter.css` · js: `scripts/ds-menu.js` (меню пресе�
 css: `styles/tile.css` · js: `scripts/ds-tile.js` · deps: [icon-button, button, link, chip, badge, alert, divider, read-only-field]
 **Оси:** вариант (обычный/Accordion/Headless) · alert-слот (warning/info/error) · ширина (3–12 колонок).
 **Инварианты:** высота тайла в ряду = высоте самого высокого (`align-self:stretch`+Grid); своих интерактивных состояний у тайла нет.
-**Классы:** `.tile` · `.tile--headless` · `.tile--accordion` · `.tile--collapsed` · `.tile__header` · `.tile__header-main` · `.tile__title-row` · `.tile__title` · `.tile__title-add` · `.tile__subtitle` · `.tile__chiplist` · `.tile__actions` · `.tile__toggle` / `.tile__chevron` · `.tile__alert` · `.tile__body` · `.tile__collapsible` · `.tile__grid` / `.tile__rows` · `.tile-row` · `.tile-stack`
+**Классы:** `.tile` · `.tile--headless` · `.tile--accordion` · `.tile--collapsed` · `.tile__header` · `.tile__header-main` · `.tile__title-row` · `.tile__title` · `.tile__title-add` · `.tile__subtitle` · `.tile__chiplist` · `.tile__actions` · `.tile__toggle` / `.tile__chevron` · `.tile__alert` · `.tile__body` · `.tile__collapsible` · `.tile__grid` / `.tile__rows` · `.tile__grid-full` (элемент на всю ширину сетки) · `.tile-row` · `.tile-group` (обёртка рядов, зазор 16px) · `.tile-stack`
 **Диагностика:** «Тайлы в одном ряду разной высоты» → ряд должен быть CSS Grid (`align-items:stretch` по умолчанию), не flex с `align-items:start` · «У тайла есть свой hover-эффект» → нарушение инварианта — тайл не должен иметь собственных интерактивных состояний
 
 Основная плашка рабочей области: TileHeader (M) + опц. Alert + контентная область (наполнение индивидуально). Ширина 3–12 колонок, отступы контента 10/20/24/20. Собственных состояний нет. Варианты: `--headless` (без хэдера, отступы 24/24/32/24), `--accordion` (+ `--collapsed`).
@@ -1499,6 +1512,39 @@ css: `styles/tile.css` · js: `scripts/ds-tile.js` · deps: [icon-button, button
   <section class="tile" style="grid-column:span 4">…</section>
   <section class="tile" style="grid-column:span 4">…</section>
   <div class="tile-stack" style="grid-column:span 4"><section class="tile">…</section><section class="tile">…</section></div>
+</div>
+```
+
+**Ширина тайла задаётся только средствами ДС**, свои классы (`.dpc-half`, `.xxx-full`) экран не заводит — из-за них ширина перестаёт читаться из разметки. Два штатных способа:
+
+| Способ | Когда | Как |
+|---|---|---|
+| Инлайн | ряд не перестраивается при сужении | `<section class="tile" style="grid-column:span 4">` |
+| Классы Spacing | нужно перестроение (**обычный случай для экрана с несколькими рядами**) | `<section class="tile col-4 colw-12">` — `col-N` широкая ширина, `colw-N` узкая |
+
+Узкие ширины включает экран порогом (`.col-N`/`.colw-N` — обычные утилиты Spacing, работают в любой 12-колоночной сетке, в том числе в `.tile-row`):
+```css
+@container screen (max-width: 1240px) {
+  .tile-row > [class*="colw-"] { grid-column: span var(--colw); }
+}
+```
+Инлайн `style="grid-column:span N"` из CSS не переопределяется без `!important` — если нужен адаптив, бери пару `col-N`/`colw-N`, а не изобретай свой класс.
+
+Число колонок подбирается под объём контента, а не «по умолчанию 6»: блок на 3–4 коротких поля — 4 колонки (три в ряд), плотный блок — 6, таблица/длинный текст — 12. Пустое место справа внутри тайла — признак, что взято слишком много колонок.
+
+**Несколько рядов — оборачиваются в `.tile-group`** (flex-колонка, зазор 16px). Зазор между рядами руками не выставляется: `.screen__content` — flex с `gap: 24px`, и `margin` на `.tile-row` сложился бы с ним в 40px. Группа решает это тем, что она — один ребёнок контентной области: 24px остаётся между крупными зонами (PageHeader ↔ группа), 16px работает внутри группы.
+```html
+<div class="tile-group">
+  <div class="tile-row">…</div>
+  <div class="tile-row">…</div>
+</div>
+```
+
+**Элемент на всю ширину сетки тайла** (длинное «Описание», комментарий, вложенный Alert) — `.tile__grid-full` внутри того же `.tile__grid`, не соседний блок со своими паддингами:
+```html
+<div class="tile__grid" style="grid-template-columns:repeat(4,1fr)">
+  <div class="rof">…поле…</div>
+  <div class="rof tile__grid-full"><span class="ds-label"><span class="ds-label__text">Описание</span></span>…</div>
 </div>
 ```
 

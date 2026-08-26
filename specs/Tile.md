@@ -1,8 +1,8 @@
----
+﻿---
 component: Tile
 title: "Tile"
-version: "1.008"
-updated: "21.08.2026"
+version: "1.010"
+updated: "26.08.2026"
 page: pages/organisms/Tile.html
 runtime: scripts/ds-tile.js
 css: styles/tile.css
@@ -111,5 +111,7 @@ onToggle():                       # AccordionTile
 | `.tile__body` | контентная область, padding 0/20/24/20 |
 | `.tile__collapsible` | сворачиваемая часть контента |
 | `.tile__grid` / `.tile__rows` | сетки контента: строки 16/24, колонки 16 |
-| `.tile-row` | ряд нескольких тайлов — grid 12 колонок, gap 16; ширина тайла — `style="grid-column:span N"` на самом `.tile` |
+| `.tile-row` | ряд нескольких тайлов — grid 12 колонок, gap 16. Ширина тайла — `style="grid-column:span N"` (ряд без перестроения) либо пара утилит Spacing `col-N` + `colw-N` (когда нужен адаптив: инлайн-стиль из CSS не переопределить). Своих классов ширины экран не заводит; узкий режим включается порогом `@container screen (max-width: …) { .tile-row > [class*="colw-"] { grid-column: span var(--colw) } }` |
+| `.tile-group` | обёртка нескольких `.tile-row` — flex-колонка, зазор 16px. Обязательна, когда рядов больше одного: `.screen__content` имеет собственный `gap: 24px`, поэтому зазор нельзя задавать `margin`'ом на `.tile-row` (сложится в 40px). Группа — один ребёнок контентной области: 24px между крупными зонами, 16px внутри группы |
+| `.tile__grid-full` | элемент на всю ширину сетки тайла (`grid-column:1/-1`) — длинное «Описание», комментарий, Alert: остаётся внутри `.tile__grid`, не выносится соседним блоком |
 | `.tile-stack` | колонка/стопка внутри `.tile-row` (канбан) — flex-column, gap 16; вложенные тайлы высоту друг с другом не равняют |
