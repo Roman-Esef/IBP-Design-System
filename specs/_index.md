@@ -53,8 +53,8 @@ purpose: Манифест спек компонентов. Читай нужну
 | Spinner | specs/Spinner.md | styles/spinner.css | — | 1.000 |
 | Splitter | specs/Splitter.md | styles/splitter.css | button | 1.003 |
 | Switch | specs/Switch.md | styles/switch.css | label-helper, spinner | 1.007 |
-| Table | specs/Table.md | styles/table.css | table-cell, pagination, table-filter, button, button-group, icon-button, chip, checkbox, illustration, modal, context-menu | 1.004 |
-| TableCell | specs/TableCell.md | styles/table-cell.css | checkbox, chip, icon-button, button, tooltip, chart | 2.004 |
+| Table | specs/Table.md | styles/table.css | table-cell, pagination, table-filter, button, button-group, icon-button, chip, checkbox, illustration, modal, context-menu | 1.005 |
+| TableCell | specs/TableCell.md | styles/table-cell.css | checkbox, chip, icon-button, button, tooltip, chart | 2.005 |
 | TableFilter | specs/TableFilter.md | styles/table-filter.css | button, icon-button, chip, badge, modal, tab, input, checkbox | 1.007 |
 | Tab | specs/Tab.md | styles/tab.css | — | 1.009 |
 | Tile | specs/Tile.md | styles/tile.css | icon-button, button, link, chip, badge, alert, divider | 1.010 |

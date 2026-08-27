@@ -202,14 +202,13 @@
       for (var i = 0; i < ROWS.length; i++) rows += dataRow(ROWS[i], i, cols);
       html += '<div class="tbl tbl--scroll">' + headerRow(cols) + rows + '</div>';
     }
-    html += '<div class="dtable__edge dtable__edge--l" aria-hidden="true"></div><div class="dtable__edge dtable__edge--r" aria-hidden="true"></div>';
     html += '</div>';
     if (opts.footer) html += '<div class="dtable__footer">' + paginationRow(interactive ? selectedCount() : opts.selected, ROWS.length) + '</div>';
     html += '</div>';
     return html;
   }
 
-  /* липкая шапка/тени скролла — общий рантайм, scripts/ds-table.js */
+  /* тень липкой шапки при вертикальном скролле — общий рантайм, scripts/ds-table.js */
   function bindScrollFx(root) {
     var body = root.querySelector('.dtable__body');
     if (body && window.DSTable) window.DSTable.bind(body);
@@ -501,8 +500,6 @@
     }
     var th = probe.querySelector('.th');
     if (th) set('rl-th-z', getComputedStyle(th).zIndex);
-    var edge = probe.querySelector('.dtable__edge');
-    if (edge) set('rl-edge-w', getComputedStyle(edge).width);
   }
 
   function copyButtons() {

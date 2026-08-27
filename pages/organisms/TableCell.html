@@ -102,8 +102,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>2.004</b></span>
-    <span>Обновлено <b>21.08.2026</b></span>
+    <span>Версия <b>2.005</b></span>
+    <span>Обновлено <b>27.08.2026</b></span>
     <span>CSS <b>styles/table-cell.css</b></span>
     <span>Зависимости <b>checkbox, chip, icon-button, button, input, dropdown-list, tooltip, chart</b></span>
   </div>
@@ -633,6 +633,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 <div class="subsec" data-screen-label="ColumnWidth">
     <h3>Изменение ширины колонки</h3>
     <p class="desc">Правая граница каждой ячейки шапки — ручка изменения ширины: зона захвата 9px без постоянной графики, по наведению проступает вертикальная линия. Во время перетаскивания через всю таблицу идёт линия-указатель в тоне <code class="tok">--primary</code>, а ширина колонки пересчитывается вживую. Ниже порога <b>96px</b> колонка не сжимается — иначе подпись шапки и инструменты перестают помещаться. Ручка доступна с клавиатуры: фокус на ней и <b>← →</b> меняют ширину шагом 16px. Свободное место справа забирает замыкающий разделитель, поэтому строка всегда занимает полную ширину таблицы.</p>
+    <p class="desc">Изменение ширины — не отключаемая опция: ручка <code class="tok">.th__resize</code> ставится последним ребёнком каждой <code class="tok">.th</code> (кроме разделителей) всегда. Поведение приходит из общего скрипта <code class="tok">scripts/tbl-resize.js</code> (делегирование на <code class="tok">document</code>, инициализация на странице не нужна); скрипт входит в <code class="tok">scripts/ds.js</code>, поэтому на собранном экране ресайз работает из коробки — подключать его отдельно не нужно.</p>
     <div class="panel" style="margin-top:14px;">
       <div class="tbl tbl--scroll" id="cols-demo"></div>
       <p class="ex-cap">Живое демо: тяните правую границу шапки — меняется ширина; тяните подпись — меняется порядок колонок.</p>

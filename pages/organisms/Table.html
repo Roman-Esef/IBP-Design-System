@@ -90,8 +90,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
     Обзор компонентов
   </a>
   <div class="meta">
-    <span>Версия <b>1.004</b></span>
-    <span>Обновлено <b>21.08.2026</b></span>
+    <span>Версия <b>1.005</b></span>
+    <span>Обновлено <b>27.08.2026</b></span>
     <span>CSS <b>styles/table.css</b></span>
     <span>Зависимости <b>table-cell, pagination, table-filter, button, button-group, icon-button, chip, checkbox, illustration, modal, context-menu</b></span>
   </div>
@@ -196,6 +196,10 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <h2>Варианты</h2>
   <p class="desc">Table — не набор визуальных тем, а набор независимо включаемых частей контейнера.</p>
 
+  <div class="subsec" data-screen-label="ColumnWidth">
+    <h3>Ширина колонки</h3>
+    <p class="desc">Не отключаемая опция и не часть «Настройки колонок»: ручка <code class="tok">.th__resize</code> стоит последним ребёнком каждой <code class="tok">.th</code> (кроме разделителей) всегда. Перетаскивание правой границы шапки и клавиши <b>← →</b> (шаг 16px, минимум 96px) меняют ширину вживую — детали см. <a class="inl" href="TableCell.html">TableCell</a>, раздел «Поведение». Поведение приходит из общего скрипта <code class="tok">scripts/tbl-resize.js</code>, который входит в <code class="tok">scripts/ds.js</code>: на собранном экране ресайз колонок работает из коробки, отдельного подключения и <code class="tok">data-</code>-атрибутов не требует.</p>
+  </div>
   <div class="subsec" data-screen-label="ColumnsSettings">
     <h3>Настройка колонок</h3>
     <p class="desc">Кнопка-шестерёнка (<code class="tok">settings</code>) в тулбаре открывает Modal <code class="tok">--w4</code> со списком колонок: чекбокс видимости, перетаскивание за иконку слева меняет порядок в таблице, IconButton закрепления справа — то же закрепление, что и у колонки (фон Pinned + sticky). «Выбрать все»/«Сбросить все» — массово переключают видимость. Select/Действие в списке не участвуют — служебные, не скрываются и не переставляются.</p>
@@ -218,7 +222,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   </div>
   <div class="subsec" data-screen-label="ScrollEdges">
     <h3>Горизонтальный скролл и закрепление колонок</h3>
-    <p class="desc">Когда колонки не помещаются по ширине, тело скроллится горизонтально; закреплённые колонки (свойство TableCell) остаются на месте. По краям тела, где есть скрытый контент, появляется тень (<code class="tok">.dtable--edge-l</code>/<code class="tok">--edge-r</code>).</p>
+    <p class="desc">Когда колонки не помещаются по ширине, тело скроллится горизонтально; закреплённые колонки (свойство TableCell) остаются на месте. Теней-градиентов по краям тела нет — скрытый контент по бокам обозначает сам скроллбар (решение 27.08.2026: прежние <code class="tok">.dtable__edge</code> позиционировались внутри скролл-контейнера и уезжали вместе с колонками).</p>
   </div>
 </section>
 
@@ -266,10 +270,6 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <div class="subsec" data-screen-label="StickyScroll">
     <h3>Липкая шапка при скролле</h3>
     <p class="desc">Тело — <code class="tok">overflow: auto</code>; шапка внутри него <code class="tok">position: sticky; top: 0</code> с непрозрачным фоном (наследует <code class="tok">--bgtable</code> из TableCell), поэтому строки не проступают сквозь неё. Когда тело реально проскроллено вниз (<code class="tok">scrollTop &gt; 0</code>), под шапкой появляется тонкая тень-разделитель — иначе липкая шапка визуально слипается со строками.</p>
-  </div>
-  <div class="subsec" data-screen-label="EdgeShadows">
-    <h3>Тени горизонтального скролла</h3>
-    <p class="desc">Если <code class="tok">scrollLeft &gt; 0</code> — тень слева (есть скрытый контент до текущей позиции); если <code class="tok">scrollWidth - scrollLeft - clientWidth &gt; 0</code> — тень справа. Проверка — на <code class="tok">scroll</code> и <code class="tok">resize</code>/<code class="tok">ResizeObserver</code> (колонки могли измениться в ширину).</p>
   </div>
   <div class="subsec" data-screen-label="BulkToggle">
     <h3>Переключение в режим массового действия</h3>
@@ -386,8 +386,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
       <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 3fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Паддинг тулбара</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-toolbar-pad">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">16px / 20px (верт./гориз.)</span></span></div><div class="tc tc--separator"></div></div>
       <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 3fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Высота тулбара</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-toolbar-h">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">по контенту (мин. ~56px)</span></span></div><div class="tc tc--separator"></div></div>
       <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 3fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Зазор шапка↔действия</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-toolbar-gap">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">16px, gap</span></span></div><div class="tc tc--separator"></div></div>
-      <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 3fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Z-index липкой шапки</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-th-z">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">3 (выше строк, ниже теней краёв — 4)</span></span></div><div class="tc tc--separator"></div></div>
-      <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 3fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Ширина тени края</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-edge-w">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">24px</span></span></div><div class="tc tc--separator"></div></div>
+      <div class="tbl__row" style="grid-template-columns:8px 2fr 1fr 3fr 8px;"><div class="tc tc--separator"></div><div class="tc"><span class="tc__row"><span class="tc__text">Z-index липкой шапки</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text" id="rl-th-z">—</span></span></div><div class="tc"><span class="tc__row"><span class="tc__text">3 (выше строк)</span></span></div><div class="tc tc--separator"></div></div>
     </div>
   </div>
 
@@ -402,21 +401,13 @@ onScroll(body): body.classList.toggle('is-scrolled', body.scrollTop &gt; 0)
 //    'is-scrolled' рисует тень-разделитель под шапкой (box-shadow), не border,
 //    чтобы не сдвигать высоту строки.
 
-// 2. Тени горизонтального скролла
-onScroll(body): {
-  edgeLeft  = body.scrollLeft &gt; 0
-  edgeRight = body.scrollWidth - body.scrollLeft - body.clientWidth &gt; 1
-}
-//    Пересчитывать и на resize/ResizeObserver — ширина колонок может
-//    измениться (ручка изменения ширины TableCell).
-
-// 3. Режим массового действия (Footer)
+// 2. Режим массового действия (Footer)
 //    Считать выбранные строки (чекбоксы TableCell). 0 → count: скрыть
 //    .pgn-bulk. count &gt; 0: показать .pgn-bulk НАД .pgn-row, не заменяя её.
 //    Снять всё (крестик/чекбокс шапки) → скрыть .pgn-bulk обратно.
 onSelectionChange(count): bulkRow.hidden = (count === 0)
 
-// 4. Loading / Empty
+// 3. Loading / Empty
 //    Оба состояния подменяют ТОЛЬКО тело (шапка+строки). Toolbar и Footer
 //    не скрываются — заголовок, счётчик, фильтр остаются доступны.
 //    Loading — N строк-скелетонов (.tc--skeleton) с тем же набором колонок,
@@ -453,6 +444,7 @@ onSelectionChange(count): bulkRow.hidden = (count === 0)
 <script src="../../scripts/ds-toc.js"></script>
 <script src="../../scripts/pg-kit.js"></script>
 <script src="../../scripts/ds-table.js"></script>
+<script src="../../scripts/tbl-resize.js"></script>
 <script src="../../scripts/table.page.js"></script>
 </body>
 </html>

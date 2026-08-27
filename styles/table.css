@@ -2,8 +2,8 @@
    Table — организм-контейнер таблицы/реестра.
    Строки и ячейки — TableCell (.tbl/.tbl__row/.th/.tc), панель массовых
    действий и постраничный переход — Pagination (.pgn-bulk/.pgn-row).
-   Table добавляет только: обёртку, Toolbar, липкую шапку при скролле,
-   тени горизонтального скролла и состояния Loading/Empty всей таблицы.
+   Table добавляет только: обёртку, Toolbar, липкую шапку при скролле
+   и состояния Loading/Empty всей таблицы.
    Requires: table-cell.css, pagination.css. Только токены ДС (var(--*)).
    ========================================================================= */
 
@@ -35,7 +35,7 @@
 .dtable__toolbar-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
 /* ------------------------------------------------------------------ */
-/*  BODY — скролл-контейнер: липкая шапка + тени горизонтального скролла */
+/*  BODY — скролл-контейнер с липкой шапкой                            */
 /* ------------------------------------------------------------------ */
 .dtable__body { position: relative; overflow: auto; }
 .dtable__body .tbl { border: none; border-radius: 0; overflow: visible; }
@@ -43,19 +43,10 @@
 /* тень под шапкой появляется, только когда тело реально проскроллено вниз */
 .dtable--scrolled .dtable__body .th { box-shadow: 0 1px 0 var(--border-primary); }
 
-.dtable__edge {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 24px;
-  pointer-events: none;
-  z-index: 4;
-  opacity: 0;
-  transition: opacity .15s ease;
-}
-.dtable__edge--l { left: 0;  background: linear-gradient(to right, color-mix(in srgb, var(--text-primary) 10%, transparent), transparent); }
-.dtable__edge--r { right: 0; background: linear-gradient(to left,  color-mix(in srgb, var(--text-primary) 10%, transparent), transparent); }
-.dtable--edge-l .dtable__edge--l,
-.dtable--edge-r .dtable__edge--r { opacity: 1; }
+/* Теней по левому/правому краю при горизонтальном скролле у Table НЕТ
+   (убраны 27.08.2026): элемент-градиент позиционировался внутри скролл-
+   контейнера и уезжал вместе с колонками. Скрытый контент по бокам
+   обозначает сам скроллбар тела. */
 
 /* ------------------------------------------------------------------ */
 /*  FOOTER — Pagination (обычный ряд и ряд массового действия)          */

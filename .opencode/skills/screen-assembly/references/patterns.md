@@ -48,6 +48,7 @@ updated: "26.08.2026"
         <div class="th th--separator"></div>
         <div class="th th--select">
           <label class="cb cb--no-content"><input type="checkbox" class="cb__input" aria-label="Выбрать все"><span class="cb__box"><span class="cb__mark"><i data-icon="check"></i></span></span></label>
+          <span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span>
         </div>
         <div class="th" aria-sort="none">
           <span class="th__label">Контрагент</span>
@@ -55,14 +56,16 @@ updated: "26.08.2026"
             <button class="ibtn ibtn--neutral ibtn--s th__pin" aria-pressed="false" aria-label="Закрепить колонку"><i data-icon="pin"></i></button>
             <button class="ibtn ibtn--neutral ibtn--s th__sort" data-sort aria-label="Сортировать"><i data-icon="arrow-up-down"></i></button>
           </span>
+          <span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span>
         </div>
-        <div class="th"><span class="th__label">Продукт</span></div>
+        <div class="th"><span class="th__label">Продукт</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
         <div class="th th--right th--sorted" aria-sort="descending">
           <span class="th__label">Сумма, ₽</span>
           <span class="th__tools"><button class="ibtn ibtn--neutral ibtn--s th__sort" data-sort><i data-icon="arrow-narrow-down"></i></button></span>
+          <span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span>
         </div>
-        <div class="th"><span class="th__label">Статус</span></div>
-        <div class="th th--center"><span class="th__label">Действия</span></div>
+        <div class="th"><span class="th__label">Статус</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
+        <div class="th th--center"><span class="th__label">Действия</span><span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span></div>
         <div class="th th--separator"></div>
       </div>
 
@@ -86,8 +89,6 @@ updated: "26.08.2026"
       </div>
       <!-- ...остальные строки: минимум 6–8 штук с правдоподобными данными -->
     </div>
-    <div class="dtable__edge dtable__edge--l" aria-hidden="true"></div>
-    <div class="dtable__edge dtable__edge--r" aria-hidden="true"></div>
   </div>
 
   <div class="dtable__footer">
@@ -124,6 +125,13 @@ updated: "26.08.2026"
 шапке — значения обязаны совпадать посимвольно. Схема: `8px` (разделитель) →
 колонки данных → `minmax(8px,1fr)` (замыкающий разделитель забирает остаток,
 чтобы строка всегда доходила до правой границы).
+
+**Ручка ресайза — обязательна в каждой `.th`.** Последним ребёнком каждой
+`.th` (кроме `.th--separator`) ставится
+`<span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span>`.
+Изменение ширины колонки — базовое поведение любой таблицы, работает из коробки:
+скрипт `tbl-resize.js` входит в `ds.js`, свой JS и `data-`-атрибуты не нужны.
+Отдельно подключать `tbl-resize.js` нельзя — линтер `A7` отклонит (рантайм только через `ds.js`).
 
 Единицы: `2fr` / `1fr` — резиновые текстовые колонки, `120px` / `96px` — колонки
 фиксированной ширины (статус, действия), `44px` — колонка чекбоксов.

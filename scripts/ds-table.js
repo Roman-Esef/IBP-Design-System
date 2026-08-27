@@ -4,13 +4,14 @@
    опционально scripts/ds-tooltip.js (тултип на усечённом тексте).
 
    Экспорт: window.DSTable = {
-     bind(bodyEl) · bindAll(root)          — тени прокрутки .dtable
+     bind(bodyEl) · bindAll(root)          — тень липкой шапки .dtable (--scrolled)
      wire(tblEl, opts) → api               — интерактив строк и ячеек
      wireAll(root)                         — обойти [data-table]
    }
 
-   Тени прокрутки: .dtable__body сам подхватывается (scroll + ResizeObserver)
-   и красит корень классами --scrolled / --edge-l / --edge-r.
+   Тень липкой шапки: .dtable__body сам подхватывается (scroll + ResizeObserver)
+   и красит корень классом --scrolled, когда тело проскроллено вниз.
+   Теней по левому/правому краю нет — убраны 27.08.2026 (уезжали с контентом).
 
    Интерактив (opt-in: data-table на .tbl) — делегированием, поэтому
    перерисовка строк ничего не ломает:
@@ -29,13 +30,11 @@
 (function () {
   'use strict';
 
-  /* ---------- тени прокрутки ---------- */
+  /* ---------- тень липкой шапки ---------- */
   function sync(body) {
     var root = body.closest('.dtable');
     if (!root) return;
     root.classList.toggle('dtable--scrolled', body.scrollTop > 0);
-    root.classList.toggle('dtable--edge-l', body.scrollLeft > 0);
-    root.classList.toggle('dtable--edge-r', body.scrollWidth - body.scrollLeft - body.clientWidth > 1);
   }
   function bind(body) {
     if (!body || body.__dsTableBound) return;
