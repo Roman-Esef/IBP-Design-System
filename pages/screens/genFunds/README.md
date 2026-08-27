@@ -32,4 +32,4 @@ updated: "26.08.2026"
 
 | Экран | Файл | Статус |
 |---|---|---|
-| Список фондов | `FundList.html` / `FundList.screen.md` | в сборке |
+| Список фондов | `FundList.html` / `FundList.screen.md` | PASS 27.08.2026, есть открытые вопросы к заказчику (см. `FundList.screen.md`, раздел 15) |

@@ -1,8 +1,8 @@
 ---
 component: Modal
 title: "Modal"
-version: "1.004"
-updated: "21.08.2026"
+version: "1.005"
+updated: "27.08.2026"
 page: pages/organisms/Modal.html
 page_js: scripts/modal.page.js
 runtime: scripts/ds-modal.js

@@ -35,7 +35,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | InputText | specs/InputText.md | styles/input.css | label-helper, tooltip, chip | 1.009 |
 | LabelHelper | specs/LabelHelper.md | styles/label-helper.css | checkbox, radio, switch | 1.004 |
 | Link | specs/Link.md | styles/link.css | breadcrumbs | 1.007 |
-| Modal | specs/Modal.md | styles/modal.css | button, icon-button, label-helper, checkbox | 1.004 |
+| Modal | specs/Modal.md | styles/modal.css | button, icon-button, label-helper, checkbox | 1.005 |
 | NavPanel | specs/NavPanel.md | styles/nav-panel.css | icon-button, badge, avatar | 1.009 |
 | NavTile | specs/NavTile.md | styles/nav-tile.css | illustration, link | 1.006 |
 | PageHeader | specs/PageHeader.md | styles/page-header.css | button, icon-button, chip, badge, context-menu, tooltip, breadcrumbs | 1.007 |
