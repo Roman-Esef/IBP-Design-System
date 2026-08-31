@@ -18,8 +18,12 @@
    ========================================================================= */
 
 .segctrl {
-  /* size tokens — overridden per size modifier */
-  --seg-h: 40px;
+  /* size tokens — overridden per size modifier.
+     --seg-h — высота ВНУТРЕННЕГО сегмента, не всего контрола. Обводка трека
+     (padding трека) — часть компонента: полная высота контрола = --seg-h +
+     2*--seg-pad и обязана совпадать с высотой Button того же размера.
+     M: 34 + 2*3 = 40 · S: 28 + 2*2 = 32 · XS: 20 + 2*2 = 24 */
+  --seg-h: 34px;
   --seg-pad: 3px;
   --seg-gap: 2px;
   --seg-px: 14px;
@@ -179,12 +183,12 @@
    поэтому seg-gap-потребители (.segctrl gap, ::before left) не переопределяются. */
 .segctrl--s { padding: 2px; border-radius: var(--radius-s); }
 .segctrl--s .segctrl__thumb { top: 2px; bottom: 2px; border-radius: calc(var(--radius-s) - 2px); }
-.segctrl--s .segctrl__item { height: 32px; padding: 0 11px; font: var(--type-button-s); border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--s .segctrl__item { height: 28px; padding: 0 11px; font: var(--type-button-s); border-radius: calc(var(--radius-s) - 2px); }
 .segctrl--s .segctrl__item--icon-only { padding: 0 calc(11px - 4px); }
 .segctrl--s .segctrl__item :is(svg,[data-icon]){ width: 18px; height: 18px; }
 
 .segctrl--xs { padding: 2px; border-radius: var(--radius-s); }
 .segctrl--xs .segctrl__thumb { top: 2px; bottom: 2px; border-radius: calc(var(--radius-s) - 2px); }
-.segctrl--xs .segctrl__item { height: 24px; padding: 0 8px; font: var(--type-button-xs); border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--xs .segctrl__item { height: 20px; padding: 0 8px; font: var(--type-button-xs); border-radius: calc(var(--radius-s) - 2px); }
 .segctrl--xs .segctrl__item--icon-only { padding: 0 calc(8px - 4px); }
 .segctrl--xs .segctrl__item :is(svg,[data-icon]){ width: 16px; height: 16px; }

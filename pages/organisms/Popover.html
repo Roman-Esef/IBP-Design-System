@@ -38,12 +38,8 @@
 
   
 
-  /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:40px 32px; display:flex; align-items:flex-start; justify-content:safe center; min-height:420px; position:relative; overflow:auto; background: var(--bg-page); }
+  /* ---------- playground: демо — в верхнюю панель, контролы — во вкладку «Конструктор» ---------- */
+  .pg__stage { flex:1; min-height:0; width:100%; padding:40px 32px; display:flex; align-items:flex-start; justify-content:safe center; position:relative; overflow:auto; background: var(--bg-page); }
 
   .ctl { display:flex; flex-direction:column; gap:8px; }
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
@@ -127,31 +123,47 @@
   .code-panel__name { color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; font-weight:600; }
 
 </style>
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-  <link rel="stylesheet" href="../../styles/pg-kit.css">
 </head>
 <body>
-<main class="page" data-screen-label="Popover">
+<main class="page ds-split" data-screen-label="Popover">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage" id="pg-stage"></div>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.006</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.006</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Popover</h1>
     <p class="lead">Popover — нон-модальный всплывающий контейнер, привязанный к триггеру. Показывает расширенный контекстный контент (текст с форматированием, интерактивные элементы, формы, легенды, списки). В отличие от <a class="inl" href="../molecules/Tooltip.html">Tooltip</a> — требует клика для открытия и не закрывается при уходе курсора; в отличие от <b>Modal</b> — не блокирует страницу, не имеет скрима и закрывается кликом вне себя.</p>
   </header>
 
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите поповер: тип триггера, ширина (5 шагов шкалы), наличие шапки, состав подвала, тип контента и стрелка-указатель.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage" id="pg-stage"></div>
-    </div>
-  </section>
+  <!-- 1. КОНСТРУКТОР: демо — в верхнюю панель сплиттера (#pg-stage),
+       контролы — во вкладку «Конструктор» нижней панели (см. в конце) -->
 
-  <!-- USAGE -->
+  <!-- 2. ИСПОЛЬЗОВАНИЕ -->
   <section class="section" data-screen-label="Usage">
     <h2>Использование</h2>
     <p class="desc tight">Поповер показывает расширенный контекстный контент, требующий клика (в отличие от Tooltip — только hover/focus, только строка текста) и не блокирующий страницу (в отличие от Modal). Используйте для легенды чарта, карточки предпросмотра сущности, быстрого inline-редактирования 1–3 полей, фильтра, подтверждения лёгкого действия. Для многошаговых сценариев, обязательных к заполнению форм и любого контента, которому не хватает ширины 560px или высоты со скроллом — Modal или отдельная страница.</p>
@@ -450,6 +462,42 @@ onBodyScroll():
     <span>Дизайн-система · Popover</span>
     <span>Trigger / Header / Body / Footer / Arrow · 5 ширин · 12 позиций · один открытый одновременно</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите поповер: тип триггера, ширина (5 шагов шкалы), наличие шапки, состав подвала, тип контента и стрелка-указатель. Демо обновляется наверху, панель настроек — две колонки.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка и исходники Popover: HTML — из спеки, CSS — styles/popover.css (полностью), JS — рантайм. Демо страницы строит <code class="tok">scripts/popover.page.js</code>.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
@@ -457,8 +505,338 @@ onBodyScroll():
 <script src="../../scripts/ds-popover.js"></script>
 <script src="../../scripts/popover.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+
+<!-- самодостаточные подписи свитчеров конструктора (общий слой docs-split.js) -->
+<script>
+window.DS_SPLIT_SWITCH_LABELS = {
+  'Стрелка': 'Показывать стрелку',
+};
+</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично, синхронизировать с ДС) ===== -->
+<script type="text/plain" id="src-code-html"><span class="pop-anchor">
+  <button type="button" data-popover="pop-1">…</button>
+  <!-- aria-haspopup/aria-expanded/aria-controls проставит ds-popover.js -->
+
+  <div id="pop-1" class="pop pop--w-m pop--bottom pop--start pop--floating" role="dialog" aria-modal="false" aria-labelledby="pop-1-title">
+    <div class="pop__head">
+      <div class="pop__head-main">
+        <h3 class="pop__title" id="pop-1-title">Изменить тег</h3>
+        <!-- опц.: chip/link, gap 8px от заголовка -->
+      </div>
+      <span class="pop__close"><button type="button" class="ibtn ibtn--neutral ibtn--s" aria-label="Закрыть"><i data-icon="close"></i></button></span>
+    </div>
+    <div class="pop__body">…форма, легенда, карточка, таблица…</div>
+    <div class="pop__foot">
+      <div class="pop__foot-left"></div>
+      <div class="pop__foot-right">
+        <button class="btn btn--transparent btn--s">Отмена</button>
+        <button class="btn btn--accent btn--s">Применить</button>
+      </div>
+    </div>
+    <span class="pop__arrow"></span>
+  </div>
+</span></script>
+
+<script type="text/plain" id="src-code-js">/* Popover — позиционирование и закрытие вынесены в рантайм scripts/ds-popover.js. */
+
+// Реестр единственного открытого поповера — новый открывающийся закрывает предыдущий.
+// Триггер: data-popover="<id>" — aria-haspopup/aria-expanded/aria-controls проставляет рантайм.
+// Позиционирование: rect триггера, gap 8px, авто-flip placement и align, отступ под стрелку.
+// Закрытие — 5 способов: ✕ / клик вне / Esc / Tab за последний элемент / кнопка-действие.
+// Тень Header/Footer по scrollTop тела — идентично Modal (.is-scrolled).
+
+/* React API (предложение): PopoverProps — trigger{button|icon|link|chip} ·
+   width{s|m|l|xl|max} · header{title|chip|link} · footLeft{info|link|button} ·
+   footRight{primary|both} · content · arrow · onOpen/onClose */</script>
+
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — Popover
+   Нон-модальный всплывающий контейнер, привязанный к триггеру. Показывает
+   расширенный контекстный контент (текст, интерактив, форму, легенду,
+   список) — в отличие от Tooltip требует клика для открытия и не исчезает
+   при уходе курсора; в отличие от Modal — не блокирует страницу и не имеет
+   скрима, привязан к триггеру и закрывается кликом вне себя.
+
+   Анатомия — 2 обязательные + 3 опциональные части:
+     Trigger (обязательно, вне .pop) → Header (опц.: 48px, заголовок Body S Strong
+     по центру + опц. чип/ссылка (gap 8px) + ✕) →
+     Body (обязательно, единственная гибкая/прокручиваемая зона — контент почти
+     любой, жёстких ограничений нет) →
+     Footer (опц.: foot-left и foot-right включаются независимо — слева
+     инфо/ссылка/кнопка, справа Secondary+Primary) →
+     Arrow (опц., по умолчанию выключена — как в Menu/DropdownList)
+
+   Container:  .pop            (+ --w-s/-m/-l/-xl/-max · --arrow · --floating)
+   Zones:      .pop__head · .pop__head-main · .pop__title · .pop__close
+               .pop__body (+ --flush)
+               .pop__foot · .pop__foot-left · .pop__foot-right
+   Arrow:      .pop__arrow (+ 4 placements × 3 aligns, как у Tooltip)
+   Anchor:     .pop-anchor (position:relative обёртка вокруг триггера)
+
+   Requires: typography.css, colors.css, radius.css, shadow.css, button.css,
+             icon-button.css, chip.css, link.css
+   ========================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------
+     Шкала ширины — 5 фиксированных шагов. Резиновой ширины нет намеренно:
+     поповер — не layout-контейнер. Свыше --pop-w-max (560px) или когда
+     контенту не хватает высоты даже со скроллом — сигнал переключиться
+     на Modal.
+     --------------------------------------------------------------------- */
+  --pop-w-s:   240px;   /* легенда, короткий список, подсказка без действий */
+  --pop-w-m:   320px;   /* стандартный поповер с заголовком и текстом — дефолт */
+  --pop-w-l:   400px;   /* форма 3–5 полей, карточка сущности */
+  --pop-w-xl:  480px;   /* сложный/многоколоночный контент */
+  --pop-w-max: 560px;   /* верхняя граница — дальше Modal */
+
+  /* max-height контентной зоны на каждом шаге ширины (см. .pop--w-* ниже) */
+  --pop-mh-s:   none; /* @kind other */
+  --pop-mh-m:   320px;
+  --pop-mh-l:   440px;
+  --pop-mh-xl:  520px;
+  --pop-mh-max: 600px;
+
+  /* геометрия */
+  --pop-pad-x:      16px;
+  --pop-body-pad-y: 16px;
+  --pop-foot-pad-y: 12px;
+  --pop-gap:        8px;    /* зазор поповера от триггера */
+  --pop-guard:      16px;   /* минимальный отступ от края viewport */
+
+  /* поверхность — компактный радиус, без обводки: единственная граница — тень верхнего уровня */
+  --pop-radius:  var(--radius-m);       /* 8px */
+  --pop-bg:      var(--bg-popup);       /* #FFFFFF */
+  --pop-shadow:  var(--elevation-5);    /* внешнего бордера нет намеренно */
+  --pop-head-h:  48px;                  /* фиксированная высота шапки, контент — по центру */
+  --pop-zone-bg: var(--bgtable-pinned); /* фон шапки и подвала — Pinned Default #F5F7F7 */
+
+  /* z-index — тот же слой, что Menu/DropdownList; ниже Toast/Nav и Modal */
+  --pop-z: 40; /* @kind other */
+}
+
+/* =========================================================================
+   ANCHOR — обёртка вокруг триггера для позиционирования (как .tip-anchor)
+   ========================================================================= */
+.pop-anchor { position: relative; display: inline-flex; }
+
+/* =========================================================================
+   КОНТЕЙНЕР
+   ========================================================================= */
+.pop {
+  box-sizing: border-box;
+  position: relative; /* контекст позиционирования для .pop__arrow */
+  display: flex;
+  flex-direction: column;
+  width: var(--pop-w-m);
+  max-width: calc(100vw - (var(--pop-guard) * 2));
+  background: var(--pop-bg);
+  border-radius: var(--pop-radius);
+  box-shadow: var(--pop-shadow);
+  z-index: var(--pop-z);
+}
+
+/* модификаторы ширины — задают и ширину контейнера, и max-height тела */
+.pop--w-s   { width: var(--pop-w-s); }
+.pop--w-s   .pop__body { max-height: var(--pop-mh-s); }
+.pop--w-m   { width: var(--pop-w-m); }
+.pop--w-m   .pop__body { max-height: var(--pop-mh-m); }
+.pop--w-l   { width: var(--pop-w-l); }
+.pop--w-l   .pop__body { max-height: var(--pop-mh-l); }
+.pop--w-xl  { width: var(--pop-w-xl); }
+.pop--w-xl  .pop__body { max-height: var(--pop-mh-xl); }
+.pop--w-max { width: var(--pop-w-max); }
+.pop--w-max .pop__body { max-height: var(--pop-mh-max); }
+
+/* =========================================================================
+   HEADER — заголовок + ✕. Ничего больше: кнопки действий сюда не кладутся,
+   для них есть Footer.
+   ========================================================================= */
+.pop__head {
+  flex: none;
+  height: var(--pop-head-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 var(--pop-pad-x);
+  background: var(--pop-zone-bg);
+  border-bottom: 1px solid var(--border-light);
+  border-radius: var(--pop-radius) var(--pop-radius) 0 0;
+  position: relative;
+  transition: box-shadow .15s ease;
+}
+.pop__head.is-scrolled { box-shadow: 0 6px 12px -8px rgba(40, 50, 55, .18); }
+
+/* заголовок + опц. чип/ссылка — примыкают друг к другу с зазором 8px */
+.pop__head-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.pop__title {
+  margin: 0;
+  font: var(--type-body-s-strong);
+  color: var(--text-primary);
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;      /* заголовок — одна строка (рекомендация: ≤25 символов) */
+}
+
+.pop__close { flex: none; } /* класс-якорь; кнопка — ibtn ibtn--neutral ibtn--s */
+
+/* =========================================================================
+   BODY — единственная обязательная и единственная прокручиваемая зона.
+   ========================================================================= */
+.pop__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--pop-body-pad-y) var(--pop-pad-x);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font: var(--type-body-m);
+  color: var(--text-primary);
+}
+.pop__body::-webkit-scrollbar { width: 8px; }
+.pop__body::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 8px; }
+
+/* тело без внутреннего паддинга — контент сам управляет отступами (таблица) */
+.pop__body--flush { padding: 0; gap: 0; }
+
+/* =========================================================================
+   FOOTER — foot-left (служебное/инфо, опционально) + foot-right
+   (Secondary + Primary). Все интерактивные действия, кроме ✕, живут здесь.
+   ========================================================================= */
+.pop__foot {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: var(--pop-foot-pad-y) var(--pop-pad-x);
+  background: var(--pop-zone-bg);
+  border-top: 1px solid var(--border-light);
+  border-radius: 0 0 var(--pop-radius) var(--pop-radius);
+  position: relative;
+  transition: box-shadow .15s ease;
+}
+.pop__foot.is-scrolled { box-shadow: 0 -6px 12px -8px rgba(40, 50, 55, .18); }
+
+.pop__foot-left,
+.pop__foot-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font: var(--type-body-s);
+  color: var(--text-secondary);
+}
+.pop__foot-right { margin-left: auto; gap: 10px; }
+.pop__foot-left:empty { display: none; }
+
+/* =========================================================================
+   ЗАГРУЗКА КОНТЕНТА — общий компонент Skeleton (.sk-line/.sk-group,
+   styles/skeleton.css), локальной реализации нет.
+   ========================================================================= */
+
+/* =========================================================================
+   ARROW — опциональна, выключена по умолчанию (как у Menu/DropdownList).
+   Включается модификатором .pop--arrow; направление задаётся тем же
+   набором классов размещения, что и позиционирование (top/bottom/left/right
+   × start/center/end) — приём идентичен Tooltip (.tip__arrow).
+   ========================================================================= */
+.pop__arrow { display: none; }
+.pop--arrow .pop__arrow {
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 8px;
+  background: var(--pop-bg);
+  pointer-events: none;
+}
+
+.pop--arrow.pop--top .pop__arrow    { bottom: -8px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.pop--arrow.pop--bottom .pop__arrow { top: -8px; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+.pop--arrow.pop--left .pop__arrow   { width: 8px; height: 16px; right: -8px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.pop--arrow.pop--right .pop__arrow  { width: 8px; height: 16px; left: -8px; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+
+.pop--arrow.pop--top.pop--start .pop__arrow,
+.pop--arrow.pop--bottom.pop--start .pop__arrow    { left: 18px; }
+.pop--arrow.pop--top.pop--center .pop__arrow,
+.pop--arrow.pop--bottom.pop--center .pop__arrow   { left: 50%; transform: translateX(-50%); }
+.pop--arrow.pop--top.pop--end .pop__arrow,
+.pop--arrow.pop--bottom.pop--end .pop__arrow      { right: 18px; }
+
+.pop--arrow.pop--left.pop--start .pop__arrow,
+.pop--arrow.pop--right.pop--start .pop__arrow     { top: 14px; }
+.pop--arrow.pop--left.pop--center .pop__arrow,
+.pop--arrow.pop--right.pop--center .pop__arrow    { top: 50%; transform: translateY(-50%); }
+.pop--arrow.pop--left.pop--end .pop__arrow,
+.pop--arrow.pop--right.pop--end .pop__arrow       { bottom: 14px; }
+
+/* стрелка красится в цвет той зоны, к которой примыкает — не всегда Body:
+   arrow сверху (placement bottom) касается Header, если он есть;
+   arrow снизу (placement top) касается Footer, если он есть */
+.pop--bottom:has(.pop__head) .pop__arrow { background: var(--pop-zone-bg); }
+.pop--top:has(.pop__foot) .pop__arrow    { background: var(--pop-zone-bg); }
+
+/* transform-origin по стороне размещения — «вырастает» от триггера */
+.pop--top    { transform-origin: bottom center; }
+.pop--bottom { transform-origin: top center; }
+.pop--left   { transform-origin: center right; }
+.pop--right  { transform-origin: center left; }
+
+/* =========================================================================
+   FLOATING — позиционируется JS-ом относительно триггера. Появление/
+   скрытие через .is-open; enter/leave — разная длительность (см. ниже).
+   ========================================================================= */
+.pop.pop--floating {
+  position: absolute;
+  opacity: 0;
+  /* закрытый поповер выключен из раскладки полностью: visibility:hidden оставляет
+     его в потоке прокрутки, и узкий экран получает горизонтальный скролл от
+     невидимой панели (карточка сделки, 21.08.2026). display в переходе —
+     с allow-discrete, чтобы анимация появления сохранилась. */
+  display: none;
+  visibility: hidden;
+  transform: translateY(-4px) scale(.98);
+  transition: opacity .1s cubic-bezier(.4,0,1,1), transform .1s cubic-bezier(.4,0,1,1), visibility 0s linear .1s, display .1s allow-discrete;
+}
+.pop.pop--floating.is-open {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .16s cubic-bezier(.16,1,.3,1), transform .16s cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pop.pop--floating { transition: opacity .01s; transform: none; }
+  .pop.pop--floating.is-open { transform: none; }
+}
+
+/* pinned — всегда открытый поповер (демонстрации в документации) */
+.pop.pop--floating.pop--pinned {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: none;
+}
+
+/* инлайн-встраивание превью в статичный контейнер документации/канваса —
+   вместо position:absolute относительно триггера (наследует position:relative от .pop) */
+.pop--inline { position: relative; }</script>
 </body>
 </html>

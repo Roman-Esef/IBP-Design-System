@@ -42,28 +42,30 @@
       sel.addEventListener('change', function () { state[key] = sel.value; render(); });
       box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
-    function ctlToggles(pairs) {
+    /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+       (label.pg-toggle) в правую колонку; подпись свитча статична
+       (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+    function ctlToggle(label, key) {
       var wrap = document.createElement('div'); wrap.className = 'ctl';
-      var l = document.createElement('div'); l.className = 'lbl'; l.textContent = 'Футер'; wrap.appendChild(l);
-      var row = document.createElement('div'); row.className = 'toggles'; row.style.display = 'flex';
-      pairs.forEach(function (p) {
-        var b = document.createElement('button'); b.type = 'button'; b.className = 'toggle'; b.dataset.key = p[1];
-        b.setAttribute('aria-pressed', String(state[p[1]]));
-        b.innerHTML = '<span class="sw-mini"></span><span>' + p[0] + '</span>';
-        b.addEventListener('click', function () { state[p[1]] = !state[p[1]]; render(); });
-        row.appendChild(b);
+      var l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+      var box = document.createElement('div'); box.className = 'pg-select';
+      var sel = document.createElement('select');
+      [['no', 'Нет'], ['yes', 'Да']].forEach(function (p) {
+        var op = document.createElement('option'); op.value = p[0]; op.textContent = p[1];
+        if ((p[0] === 'yes') === !!state[key]) op.selected = true;
+        sel.appendChild(op);
       });
-      wrap.appendChild(row); return wrap;
+      sel.addEventListener('change', function () { state[key] = sel.value === 'yes'; render(); });
+      box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
 
     controls.appendChild(ctlSelect('Режим выбора', [['single', 'Дата'], ['range', 'Диапазон'], ['month', 'Месяц']], 'mode'));
-    controls.appendChild(ctlToggles([['Кнопки Отменить / Применить', 'foot'], ['Быстрое «Сегодня»', 'quick']]));
+    var quickCtl = ctlToggle('Быстрое «Сегодня»', 'quick');
+    controls.appendChild(ctlToggle('Кнопки Отменить / Применить', 'foot'));
+    controls.appendChild(quickCtl);
 
     function render() {
-      controls.querySelectorAll('.toggle').forEach(function (b) {
-        if (b.dataset.key === 'quick') b.classList.toggle('is-off', !state.foot);
-        b.setAttribute('aria-pressed', String(state[b.dataset.key]));
-      });
+      quickCtl.classList.toggle('is-off', !state.foot);
       stage.innerHTML = '';
       var spec = { live: true, foot: state.foot, quick: state.foot && state.quick };
       if (state.mode === 'single') { spec.mode = 'single'; spec.selected = d(2025, 9, 15); }

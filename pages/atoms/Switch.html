@@ -34,11 +34,8 @@
   /* inline token chip */
 
   /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:48px 40px; display:flex; align-items:center; justify-content:center; min-height:200px;
+  @media (max-width:820px){ }
+  .pg__stage { flex:1; min-height:0; width:100%; padding:48px 40px; display:flex; align-items:center; justify-content:center; 
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
@@ -47,8 +44,6 @@
   .ctl { display:flex; flex-direction:column; gap:10px; }
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
 
-  .toggles { display:flex; flex-direction:column; gap:9px; }
-  .toggle { display:inline-flex; align-items:center; gap:11px; padding:9px 12px; border:1px solid var(--border-light); border-radius:9px; font: var(--type-body-m); color: var(--text-primary); cursor:pointer; user-select:none; background: var(--bg-tile); transition:.12s; }
 
   .pg__code { margin-top:4px; font: var(--type-body-s); color: var(--text-inactive); }
 
@@ -114,29 +109,49 @@
   .code-panel__name { color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; font-weight:600; }
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+    <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="Switch">
+<main class="page ds-split" data-screen-label="Switch">
 
-  <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.007</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
+
+<header class="masthead">
+    <div class="meta"><span>Версия: <b>1.008</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Switch</h1>
     <p class="lead">Свитч мгновенно переключает состояние — например, включает или отключает определённую опцию. Действие применяется сразу, без подтверждения. Два состояния — Off / On — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Loading.</p>
   </header>
 
+
+
+  
+
   <!-- PLAYGROUND (interactive — always first) -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите свитч: переключайте состояние, интерактивное состояние и состав — превью обновляется мгновенно.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
+  
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
@@ -422,6 +437,41 @@
     <span>Дизайн-система · Switch</span>
     <span>Off · On — Default / Hover / Focus / Pressed / Disabled / Loading</span>
   </footer>
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите свитч: переключайте состояние, интерактивное состояние и состав — превью обновляется мгновенно.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
@@ -517,12 +567,15 @@ function wireToggle(root, onChange){
     sel.addEventListener('change',()=>{ onPick(sel.value); render(); });
     box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
-  function sw(label, key){
-    const t=document.createElement('button'); t.type='button'; t.className='toggle'; t.dataset.key=key;
-    t.setAttribute('aria-pressed', String(state[key]));
-    t.innerHTML='<span class="sw-mini"></span><span>'+label+'</span>';
-    t.addEventListener('click',()=>{ state[key]=!state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-    return t;
+  /* Бинарные опции — селекты: docs-split.js конвертирует их в свитчи ДС (урок Л4) */
+  function ctlToggle(label, key){
+    const wrap=document.createElement('div'); wrap.className='ctl';
+    const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
+    const box=document.createElement('div'); box.className='pg-select';
+    const sel=document.createElement('select');
+    [['no','Нет'],['yes','Да']].forEach(([v,t])=>{ const o=document.createElement('option'); o.value=v; o.textContent=t; if((v==='yes')===!!state[key]) o.selected=true; sel.appendChild(o); });
+    sel.addEventListener('change',()=>{ state[key]=sel.value==='yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
 
   controls.appendChild(select('Состояние',
@@ -532,14 +585,10 @@ function wireToggle(root, onChange){
     [['default','Default'],['hover','Hover'],['focus','Focus'],['pressed','Pressed'],['disabled','Disabled'],['loading','Loading']],
     ()=>state.istate, v=>state.istate=v));
 
-  const compWrap=document.createElement('div'); compWrap.className='ctl';
-  const cl=document.createElement('div'); cl.className='lbl'; cl.textContent='Состав'; compWrap.appendChild(cl);
-  const toggles=document.createElement('div'); toggles.className='toggles';
-  toggles.appendChild(sw('Название','label'));
-  toggles.appendChild(sw('Хелпер','helper'));
-  toggles.appendChild(sw('Группа','group'));
-  toggles.appendChild(sw('Обязательный выбор (*)','required'));
-  compWrap.appendChild(toggles); controls.appendChild(compWrap);
+  controls.appendChild(ctlToggle('Название','label'));
+  controls.appendChild(ctlToggle('Хелпер','helper'));
+  controls.appendChild(ctlToggle('Группа','group'));
+  controls.appendChild(ctlToggle('Обязательный выбор (*)','required'));
 
   function render(){
     const o = { state: state.sel };
@@ -958,8 +1007,221 @@ function wireToggle(root, onChange){
 })();
 </script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Состояние': 'Включён', 'Название': 'Показывать название', 'Хелпер': 'Показывать хелпер', 'Группа': 'Показывать группу', 'Обязательный выбор (*)': 'Обязательный выбор' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- свитч с названием и хелпером; контрол и текст — внутри <label> -->
+<label class="sw sw--on">
+  <input type="checkbox" class="sw__input" role="switch" aria-checked="true" checked>
+  <span class="sw__control"><span class="sw__thumb"></span></span>
+  <span class="sw__content">
+    <span class="sw__label">Тёмная тема</span>
+    <span class="ds-helper ds-helper--left">Применяется ко всему интерфейсу</span>
+  </span>
+</label>
+
+<!-- loading: класс .sw--loading + спиннер внутри ползунка, ввод блокируется -->
+<label class="sw sw--loading">
+  <input type="checkbox" class="sw__input" role="switch" disabled>
+  <span class="sw__control"><span class="sw__thumb"><span class="spin"></span></span></span>
+</label>
+
+<!-- строка настроек: название слева, свитч прижат вправо -->
+<div class="sw-row">
+  <label class="sw sw--on">…</label> <!-- .sw-row разворачивает .sw в row-reverse -->
+</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — инлайн-скрипт страницы)
+function makeSw(o) {
+  // o: { state:'off'|'on', istate, label?, helper?, group?, required? }
+  // label.sw(.sw--on)(.sw--disabled)(.sw--loading)(.sw--error) → .sw__input + .sw__track > .sw__thumb + .sw__label
+  // группа: .sw-group; required — «*» в подписи (если не в группе)
+}</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — Switch
+   Control: 20px tall × 36px wide pill track · 16px thumb · 2px inset
+            · thumb travel 16px.
+   States:  off · on
+            ×  default · hover · focus · pressed · disabled · loading
+   Label: Body M (SB Sans Text) · Helper: общий компонент подкачки (Body XS),
+   рендерится классом .ds-helper — см. label-helper.css.
+   Off:  track --c-cgrey-100, white thumb (left).
+   On:   track --secondary-light (pale teal), --primary thumb (right).
+   Requires: typography.css, colors.css, label-helper.css
+   ========================================================================= */
+
+.sw {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.sw--disabled,
+.sw:has(.sw__input:disabled) { cursor: default; pointer-events: none; }
+
+/* visually-hidden native input (keeps it accessible / focusable) */
+.sw__input {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+  margin: 0;
+}
+
+/* ---------- control (track + thumb) --------------------------------------
+   The track is 20px tall, matching the Body M line-height, so the control
+   aligns to the first line of the label. */
+.sw__control {
+  flex: none;
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--c-cgrey-100);
+  transition: background-color .15s ease, box-shadow .15s ease;
+}
+
+/* 16px thumb, 2px inset, sits to the left when off */
+.sw__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-circle);
+  background: var(--c-mgrey-50);
+  box-shadow: 0 1px 2px rgba(40, 50, 55, .28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .18s cubic-bezier(.4, 0, .2, 1),
+              background-color .15s ease, width .15s ease;
+}
+
+/* ---------- on ------------------------------------------------------------
+   Класс — форс-состояние витрины; нативный .sw__input:checked даёт тот же
+   вид без класса — см. RulesAudit W1. */
+.sw--on .sw__control,
+.sw__input:checked ~ .sw__control { background: var(--secondary-light); }
+.sw--on .sw__thumb,
+.sw__input:checked ~ .sw__control .sw__thumb {
+  background: var(--primary);
+  transform: translateX(16px);
+  box-shadow: 0 1px 2px rgba(0, 99, 90, .35);
+}
+
+/* ---------- hover --------------------------------------------------------- */
+/* a faint state-layer halo around the thumb (Material-style) */
+.sw:hover .sw__thumb,
+.sw--hover .sw__thumb {
+  box-shadow: 0 1px 2px rgba(40, 50, 55, .28), 0 0 0 5px var(--primary-bg-light);
+}
+.sw:hover .sw__control,
+.sw--hover .sw__control { background: var(--c-cgrey-200); }
+.sw:hover.sw--on .sw__control,
+.sw--hover.sw--on .sw__control,
+.sw:hover:has(.sw__input:checked) .sw__control { background: var(--secondary); }
+.sw:hover.sw--on .sw__thumb,
+.sw--hover.sw--on .sw__thumb,
+.sw:hover:has(.sw__input:checked) .sw__thumb {
+  background: var(--primary-dark);
+  box-shadow: 0 1px 2px rgba(0, 99, 90, .4), 0 0 0 5px var(--primary-bg-light);
+}
+
+/* ---------- pressed -------------------------------------------------------
+   the handle expands slightly on press (Material 3) and the halo grows. */
+.sw:active .sw__thumb,
+.sw--pressed .sw__thumb {
+  width: 19px;
+  box-shadow: 0 1px 2px rgba(40, 50, 55, .28), 0 0 0 7px var(--primary-bg);
+}
+.sw:active.sw--on .sw__thumb,
+.sw--pressed.sw--on .sw__thumb,
+.sw:active:has(.sw__input:checked) .sw__thumb {
+  transform: translateX(13px);
+  box-shadow: 0 1px 2px rgba(0, 99, 90, .4), 0 0 0 7px var(--primary-bg);
+}
+
+/* ---------- focus (keyboard) ---------------------------------------------- */
+.sw__input:focus-visible + .sw__control,
+.sw--focus .sw__control {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ---------- loading -------------------------------------------------------
+   async toggle in progress: thumb shows a spinner, control is non-interactive
+   but keeps its current colour so the pending state is still readable. */
+.sw--loading { cursor: progress; pointer-events: none; }
+.sw--loading .sw__thumb { box-shadow: 0 1px 2px rgba(40, 50, 55, .28); }
+/* Индикатор — общий Spinner: <span class="spin"> внутри .sw__thumb, цвет свой (не currentColor). */
+.sw__thumb .spin {
+  width: 11px;
+  height: 11px;
+  border: 2px solid color-mix(in srgb, var(--text-secondary) 30%, transparent);
+  border-top-color: var(--text-secondary);
+}
+.sw--on .sw__thumb .spin {
+  border-color: color-mix(in srgb, #fff 45%, transparent);
+  border-top-color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sw__thumb { transition: none; }
+}
+
+/* ---------- disabled ------------------------------------------------------ */
+.sw--disabled .sw__control,
+.sw__input:disabled ~ .sw__control { background: var(--disabled-bg); box-shadow: none; }
+.sw--disabled .sw__thumb,
+.sw__input:disabled ~ .sw__control .sw__thumb {
+  background: var(--c-mgrey-50);
+  box-shadow: 0 1px 1px rgba(40, 50, 55, .12);
+}
+.sw--disabled.sw--on .sw__control,
+.sw__input:disabled:checked ~ .sw__control { background: color-mix(in srgb, var(--secondary-light) 60%, var(--disabled-bg)); }
+.sw--disabled.sw--on .sw__thumb,
+.sw__input:disabled:checked ~ .sw__control .sw__thumb { background: var(--disabled); box-shadow: none; }
+.sw--disabled .sw__label,
+.sw--disabled .ds-helper,
+.sw__input:disabled ~ .sw__content .sw__label,
+.sw__input:disabled ~ .sw__content .ds-helper { color: var(--text-inactive); }
+
+/* ---------- content (label + helper) -------------------------------------- */
+.sw__content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sw__label  { font: var(--type-body-m);  color: var(--text-primary); }
+/* звёздочка обязательного выбора — как у cb__req / rb__req */
+.sw__req { color: var(--error); margin-left: 2px; }
+/* Хелпер — общий компонент подкачки (не собственный класс), см. label-helper.css → .ds-helper */
+.sw--no-content .sw__content { display: none; }
+
+/* ---------- settings row --------------------------------------------------
+   common real-world usage: label on the left, switch pushed to the right.
+   The whole row is the hit target. */
+.sw-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 0;
+}
+.sw-row .sw { flex-direction: row-reverse; flex: 1; width: 100%; }
+.sw-row .sw__content { flex: 1; }
+
+/* ---------- group ---------------------------------------------------------
+   A list of switches. Alignment is always to the controls (left edge of the
+   track), and the active area stretches to the full row height. */
+.sw-group { display: flex; flex-direction: column; }
+.sw-group__title {
+  font: var(--type-h6-strong);
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+.sw-group__items { display: flex; flex-direction: column; }
+.sw-group .sw { padding: 6px 0; }</script>
 </body>
 </html>

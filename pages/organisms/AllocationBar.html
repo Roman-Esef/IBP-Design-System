@@ -16,6 +16,10 @@
 <link rel="stylesheet" href="../../styles/tooltip.css">
 <link rel="stylesheet" href="../../styles/allocation-bar.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
 .section > p.desc{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 28px;max-width:76ch;text-wrap:pretty}
@@ -24,11 +28,7 @@
 .subhead.mt{margin-top:34px}
 .code-panel__name{color:rgba(255,255,255,.72);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;letter-spacing:.02em;font-weight:600}
 
-/* playground */
-.panel.pg{padding:0;overflow:hidden;display:grid}
-.pg__controls{flex-direction:column}
-@media (max-width:820px){.pg__controls{border-bottom:1px solid var(--border-light)}}
-.pg__stage{padding:40px 32px 56px;display:flex;align-items:flex-start;justify-content:safe center;min-height:420px;position:relative;overflow:auto;background:var(--bg-page)}
+/* playground-контролы (конструктор нижней панели) */
 .ctl{display:flex;flex-direction:column;gap:8px}
 .ctl > .lbl{font:var(--type-body-s-strong);color:var(--text-inactive);text-transform:uppercase;letter-spacing:.05em;font-size:11px}
 
@@ -67,28 +67,38 @@ kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;col
 .sw{display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle}
 </style>
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
 </head>
 <body>
-<main class="page" data-screen-label="AllocationBar">
+<main class="page ds-split" data-screen-label="AllocationBar">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage" id="pg-stage"></div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.001</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.001</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>AllocationBar</h1>
     <p class="lead">Итоговое числовое значение и его разбивка по составляющим: заголовок с суммой, стек-бар распределения и список позиций с долями. Компонент не знает предметной области — «Кредит», «РЕПО» и «Комиссия» приходят снаружи как данные. Служебные состояния собраны из <a class="inl" href="../molecules/Alert.html">Alert</a>, кнопка раскрытия — <a class="inl" href="../atoms/Buttons.html">Button</a> Transparent XS, цвета сегментов — только токены <code class="tok">--chart-*</code> из <a class="inl" href="../foundations/Colors.html">Colors</a>.</p>
   </header>
 
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите разбивку: количество позиций, ширина контейнера, состояние и соотношение суммы позиций с итогом. Ширина контейнера — главный параметр: от неё зависит вся раскладка.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage" id="pg-stage"></div>
-    </div>
-  </section>
+  <!-- PLAYGROUND: конструктор переехал во вкладку «Конструктор» нижней панели,
+       демо — в верхнюю панель сплиттера (id="pg-stage", id="pg-controls" ниже) -->
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -405,14 +415,213 @@ collapsed = items.length &gt; maxVisibleItems (5) and not expanded
     <span>Дизайн-система · AllocationBar</span>
     <span>Итог + стек-бар + список позиций · 12 токенов палитры · контейнерные брейкпоинты 480 / 320 / 200</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите разбивку: количество позиций, ширина контейнера, состояние и соотношение суммы позиций с итогом. Ширина контейнера — главный параметр: от неё зависит вся раскладка. Демо обновляется наверху, панель настроек — две колонки.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка и исходники AllocationBar: HTML — из спеки, CSS — styles/allocation-bar.css (полностью), JS — публичное API <code class="tok">window.AllocationBar</code>. Полный исходник JS живёт в <code class="tok">scripts/allocation-bar.page.js</code>.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
 <script src="../../scripts/allocation-bar.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+
+<!-- самодостаточные подписи свитчеров конструктора (общий слой docs-split.js) -->
+<script>
+window.DS_SPLIT_SWITCH_LABELS = {
+  'Проценты':              'Показывать проценты',
+  'Прогресс-бар':          'Показывать прогресс-бар',
+  'Иконка предупреждения': 'Показывать иконку предупреждения'
+};
+</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично, синхронизировать с ДС) ===== -->
+<script type="text/plain" id="src-code-html"><div class="albar-host">
+  <div class="albar">
+    <div class="albar__head">
+      <div class="albar__titles">
+        <div class="albar__label">ВБС по сделке на 25.02.2026, руб.</div>
+        <div class="albar__sublabel">опционально</div>
+      </div>
+      <span class="albar__warn" title="Просроченная задолженность"><i data-icon="alert-triangle-filled"></i></span>
+      <div class="albar__total"><span>1 000 000 000,00</span><span class="albar__unit">руб.</span></div>
+    </div>
+    <div class="albar__bar" role="img" aria-label="Распределение: Кредит 35,00%, …">
+      <div class="albar__seg" data-id="kr" style="background:var(--chart-indigo);flex-grow:35"></div>
+      <div class="albar__seg albar__seg--rest" style="flex-grow:5"></div>
+    </div>
+    <div class="albar__list">
+      <div class="albar__row" data-id="kr">
+        <span class="albar__dot" style="background:var(--chart-indigo)"></span>
+        <span class="albar__name">Кредит</span>
+        <span class="albar__pct">35,00%</span>
+        <span class="albar__val">350 000 000,00</span>
+      </div>
+    </div>
+    <button class="btn btn--transparent btn--xs albar__more"><span class="btn__label">Показать ещё 3</span></button>
+    <div class="albar__foot"><div class="alert alert--warning alert--m">…</div></div>
+  </div>
+</div></script>
+
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   AllocationBar — итог + стек-бар распределения + список позиций.
+   Адаптив — контейнерные запросы: компонент знает ширину СВОЕГО контейнера.
+   Хост .albar-host обязан быть container-type: inline-size.
+   ========================================================================= */
+
+.albar-host{container-type:inline-size;container-name:albar}
+
+.albar{display:flex;flex-direction:column;gap:8px;max-width:var(--albar-max-w,600px);font:var(--type-body-s);color:var(--text-primary);font-variant-numeric:tabular-nums}
+
+/* ---------- шапка ---------- */
+.albar__head{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.albar__titles{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 auto}
+.albar__label{font:var(--type-body-xs);color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.albar__sublabel{font:var(--type-body-xs);color:var(--text-inactive);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.albar__total{display:flex;align-items:baseline;gap:4px;flex:0 0 auto;white-space:nowrap;font:var(--type-body-m-strong);color:var(--text-primary)}
+.albar__unit{font:var(--type-body-xs);color:var(--text-inactive)}
+.albar__total--empty{font:var(--type-body-m);color:var(--text-inactive)}
+.albar__warn{display:inline-flex;align-items:center;align-self:center;flex:0 0 auto;color:var(--warning)}
+.albar__warn :is(svg,[data-icon]){width:16px;height:16px}
+
+/* ---------- бар ---------- */
+.albar__bar{display:flex;gap:2px;height:8px;min-height:8px;border-radius:var(--radius-pill);overflow:hidden;background:var(--st-grey-light)}
+.albar__seg{height:100%;flex:0 0 0;min-width:2px;transition:opacity .15s ease}
+.albar__seg--rest{background:var(--st-grey-midlight)}
+
+/* ---------- список позиций ---------- */
+.albar__list{display:flex;flex-direction:column}
+.albar__row{display:grid;grid-template-columns:8px 1fr auto auto;align-items:center;gap:8px;min-height:24px;padding:2px 0;border-radius:var(--radius-xs)}
+.albar__dot{width:8px;height:8px;border-radius:var(--radius-round);justify-self:center}
+.albar__name{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.albar__pct{min-width:64px;text-align:right;color:var(--text-secondary)}
+.albar__val{min-width:96px;text-align:right;color:var(--text-primary)}
+.albar__row:hover{background:var(--bgtable-row-hover)}
+.albar__more{align-self:flex-start;margin-top:4px}
+
+/* двунаправленная связь строка ↔ сегмент */
+.albar[data-hover] .albar__seg,.albar[data-hover] .albar__row{opacity:.4}
+.albar[data-hover] .albar__seg.is-active,.albar[data-hover] .albar__row.is-active{opacity:1}
+
+/* ---------- служебные состояния ---------- */
+.albar__empty{font:var(--type-body-s);color:var(--text-inactive)}
+.albar__calc{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 16px;border-radius:var(--radius-control);background:var(--bg-page);text-align:center}
+.albar__calc-title{font:var(--type-body-s);color:var(--text-primary)}
+.albar__calc-sub{font:var(--type-body-xs);color:var(--text-secondary)}
+.albar__foot .alert{width:100%}
+
+/* скелетон загрузки */
+.albar__sk{background:linear-gradient(90deg,var(--c-cgrey-100) 0%,var(--c-cgrey-50) 50%,var(--c-cgrey-100) 100%);background-size:200% 100%;border-radius:var(--radius-xs);animation:albar-shimmer 1.4s linear infinite}
+@keyframes albar-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.albar__sk--total{width:96px;height:16px}
+.albar__sk--bar{height:8px;border-radius:var(--radius-pill)}
+.albar__sk--name{height:12px;width:56%}
+.albar__sk--num{height:12px;width:96px;justify-self:end}
+.albar__row--sk{grid-template-columns:8px 1fr auto;pointer-events:none}
+.albar__dot--sk{background:var(--c-cgrey-100)}
+@media (prefers-reduced-motion:reduce){.albar__sk{animation:none}.albar__seg{transition:none}}
+
+/* ---------- контейнерные запросы ---------- */
+/* Средний — 320–480px: компактнее шрифты и числовые колонки */
+@container albar (max-width:480px){
+  .albar{font:var(--type-body-xs)}
+  .albar__total{font:var(--type-body-s-strong)}
+  .albar__total--empty{font:var(--type-body-s)}
+  .albar__pct{min-width:56px}
+  .albar__val{min-width:80px}
+}
+/* Узкий — <320px: колонка процентов скрыта, строка в два ряда */
+@container albar (max-width:320px){
+  .albar__row{grid-template-columns:8px 1fr;grid-template-rows:auto auto;row-gap:2px;padding:6px 0}
+  .albar__name{grid-column:2;grid-row:1}
+  .albar__pct{display:none}
+  .albar__val{grid-column:2;grid-row:2;min-width:0;text-align:left;color:var(--text-secondary)}
+  .albar__row--sk{grid-template-columns:8px 1fr}
+  .albar__sk--num{width:72px;justify-self:start}
+}
+/* Очень узкий — <200px: только шапка + триггер разворота */
+@container albar (max-width:200px){
+  .albar__bar,.albar__list,.albar__foot{display:none}
+  .albar__head{flex-direction:column;align-items:stretch;gap:4px}
+  .albar__expand{display:inline-flex}
+}
+.albar__expand{display:none;align-self:flex-start}
+
+/* ---------- ограничение по высоте ---------- */
+.albar-host[data-height]{position:relative;overflow:hidden}
+.albar-host[data-height] .albar{height:100%}
+/* A — влезает не весь список: fade + ссылка «Ещё N» */
+.albar-host[data-height="A"] .albar__list{overflow:hidden;mask-image:linear-gradient(to bottom,#000 68%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 68%,transparent 100%)}
+/* B — влезают только шапка и бар */
+.albar-host[data-height="B"] .albar__list,.albar-host[data-height="B"] .albar__foot{display:none}
+/* C — влезает только шапка */
+.albar-host[data-height="C"] .albar__list,.albar-host[data-height="C"] .albar__bar,.albar-host[data-height="C"] .albar__foot{display:none}
+
+/* ---------- растяжение ---------- */
+.albar--stretch{max-width:none}
+.albar--stretch .albar__row{padding-right:max(0px,calc(100% - 600px))}
+
+/* ---------- печать ---------- */
+@media print{.albar__bar{display:none!important}.albar__more{display:none!important}.albar__row{break-inside:avoid}}</script>
+
+<script type="text/plain" id="src-code-js">/* AllocationBar — публичное API (полный исходник: scripts/allocation-bar.page.js) */
+window.AllocationBar = {
+  make: make,           /* (cfg) → DOM-узел .albar-host */
+  palette: PALETTE,     /* 12 токенов --chart-* в порядке назначения */
+  fmtNumber: fmtNumber, /* ru-RU, 2 знака */
+  fmtPercent: fmtPercent,
+  fmtCompact: fmtCompact
+};
+
+/* Пример использования */
+var host = AllocationBar.make({
+  label: 'ВБС по сделке на 25.02.2026, руб.',
+  total: 1000000000,
+  items: [
+    { label: 'Кредит', value: 600000000, percent: 60, color: '--chart-indigo' },
+    { label: 'Акции',  value: 400000000, percent: 40, color: '--chart-shiny-green' }
+  ],
+  showPercent: true,
+  showProgressBar: true,
+  maxVisibleItems: 5
+});
+document.body.appendChild(host);</script>
+
 </body>
 </html>

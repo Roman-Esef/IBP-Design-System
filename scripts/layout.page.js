@@ -97,7 +97,16 @@
     const selKind = document.getElementById('pgKind');
     const cbZones = document.getElementById('pgZones');
     const cbCrumbs = document.getElementById('pgCrumbs');
+    const widthCtl = document.getElementById('pgWidth');
+    const widthVal = document.getElementById('pgWVal');
     const ro = { nav: document.getElementById('roNav'), crumbs: document.getElementById('roCrumbs'), pad: document.getElementById('roPad'), gap: document.getElementById('roGap') };
+
+    /* слайдер ширины демо: 480–1800 px (1800 — широкий каркас как на большом мониторе) */
+    function applyWidth() {
+      const v = widthCtl ? Number(widthCtl.value) : 1080;
+      if (frame) frame.style.width = v + 'px';
+      if (widthVal) widthVal.textContent = v + ' px';
+    }
 
     function render() {
       const fixed = selNav.value === 'fixed';
@@ -114,8 +123,13 @@
       ro.crumbs.textContent = cbCrumbs.checked ? parseFloat(m.crumbsH) + ' px · 16/24/12' : 'нет (Дашборд)';
       ro.pad.textContent = '0 / 24 / 24';
       ro.gap.textContent = parseFloat(m.contentGap) + ' px';
+      applyWidth();
     }
     [selNav, selKind, cbZones, cbCrumbs].forEach(el => el.addEventListener('change', render));
+    if (widthCtl) {
+      widthCtl.addEventListener('input', applyWidth);
+      widthCtl.addEventListener('change', applyWidth);
+    }
     render();
 
     /* таблицы */

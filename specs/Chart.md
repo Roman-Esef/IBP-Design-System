@@ -2,7 +2,7 @@
 component: Chart
 title: "Chart"
 version: "1.000"
-updated: "21.08.2026"
+updated: "30.08.2026"
 page: pages/organisms/Chart.html
 page_js: scripts/chart.page.js
 runtime: scripts/ds-chart.js

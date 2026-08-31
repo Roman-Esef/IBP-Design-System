@@ -17,9 +17,8 @@
 <style>
   .badge-proposal { display:inline-block; font: var(--type-button-xs); letter-spacing:.06em; text-transform:uppercase; color: var(--text-secondary); background: var(--c-cgrey-100); border:1px solid var(--border-light); padding:3px 9px; border-radius:999px; margin-left:12px; vertical-align:middle; }
 
-  /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  .pg__stage { padding:32px; display:flex; align-items:center; justify-content:center; min-height:340px;
+  /* ---------- демо-стадия (docs-split) ---------- */
+  .pg__stage { flex:1; min-height:0; width:100%; padding:32px; display:flex; align-items:center; justify-content:center;
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
@@ -41,29 +40,42 @@
   .es-frame { min-width:280px; }
 </style>
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="EmptyState">
+<main class="page ds-split" data-screen-label="EmptyState">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.001</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.001</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>EmptyState</h1>
     <p class="lead">Иллюстрация, заголовок, текст и опциональные действия — для пустого списка/таблицы, отсутствия результатов поиска, первого входа без данных и полноэкранных ошибок. Показывает, что произошло, и что можно сделать дальше.</p>
   </header>
-
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите состояние: размер, поверхность, иллюстрация, текст и действия — превью обновляется мгновенно.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
@@ -256,6 +268,42 @@
     <span>Дизайн-система · EmptyState</span>
     <span>Размер M/L · Обычная/Карточка · Действий 0/1/2</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите состояние: размер, поверхность, иллюстрация, текст и действия — превью обновляется мгновенно.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/empty-state.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script>
@@ -513,7 +561,59 @@ function renderIllu() { if (window.DSIllustrations) window.DSIllustrations.rende
 </script>
 <script src="../../scripts/ds-illustrations.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Размер': 'L — полноэкранный', 'Поверхность': 'Карточка', 'Текст': { label: 'Показывать текст', on: 'on' } };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><div class="es es--m">
+  <span class="illu es__illu" data-illu="empty-folder" aria-hidden="true"></span>
+  <div class="es__body">
+    <p class="es__title">Нет сделок</p>
+    <p class="es__text">По заданным фильтрам сделки не найдены. Попробуйте изменить условия поиска.</p>
+  </div>
+  <div class="es__actions">
+    <button class="btn btn--accent btn--m"><span class="btn__label">Сбросить фильтры</span></button>
+    <button class="btn btn--transparent btn--m"><span class="btn__label">Завести сделку</span></button>
+  </div>
+</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — инлайн-скрипт страницы)
+// Сборка: esBuild({ size: 'm'|'l', card, illu, showText, actions: 0|1|2 }) → .es.es--<size>
+//  .es__illu — data-illu + aria-hidden (SVG подставляет ds-illustrations.js);
+//  .es__body → .es__title / .es__text; .es__actions — кнопки Button M.
+// Рендерить только после завершения запроса (не как промежуточное состояние);
+// во время запроса — Spinner/Skeleton, не EmptyState.</script>
+<script type="text/plain" id="src-code-css">/* EmptyState — иллюстрация + заголовок + текст + опциональные действия: пустой
+   список/таблица после фильтра, нет результатов поиска, первый вход без данных,
+   полноэкранная ошибка (404/500/недоступность). Не для короткой паузы загрузки —
+   там Spinner/Skeleton. Токены — colors.css, radius.css, typography.css.
+   Иллюстрация — .illu из illustration.css (собственная палитра, не тонируется). */
+.es { display: flex; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box; }
+.es__body { display: flex; flex-direction: column; }
+.es__title { margin: 0; color: var(--text-primary); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.es__text { margin: 0; color: var(--text-secondary); text-wrap: pretty; overflow-wrap: break-word; }
+.es__actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- размер M (по умолчанию для встроенного использования: пустая
+   таблица/тайл/страница) ---------- */
+.es--m { gap: 20px; padding: 48px 24px; }
+.es--m .es__illu { width: 96px; height: 96px; }
+.es--m .es__body { gap: 8px; max-width: 360px; }
+.es--m .es__title { font: var(--type-body-l-strong); }
+.es--m .es__text { font: var(--type-body-m); }
+.es--m .es__actions { margin-top: 4px; }
+
+/* ---------- размер L — полноэкранное состояние (404/500, отдельная страница) ---------- */
+.es--l { gap: 24px; padding: 80px 24px; }
+.es--l .es__illu { width: 160px; height: 160px; }
+.es--l .es__body { gap: 10px; max-width: 420px; }
+.es--l .es__title { font: var(--type-h4-strong); }
+.es--l .es__text { font: var(--type-body-l); }
+.es--l .es__actions { margin-top: 6px; }
+
+/* ---------- поверхность-карточка: своя рамка/фон, когда компонент стоит
+   отдельно, а не встроен в уже оформленный контейнер (Table/Tile/страница) ---------- */
+.es--card { background: var(--bg-tile); border: 1px solid var(--border-light); border-radius: var(--radius-card); }</script>
 </body>
 </html>

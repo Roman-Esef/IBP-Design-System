@@ -19,32 +19,48 @@
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
 <style>
 [data-screen-label="NavTile"] .demo-grid{grid-template-columns:repeat(auto-fill,minmax(460px,1fr))}
+/* демо-стадия (docs-split): растяжение на ширину панели демо;
+   padding/фон/min-height — из input-pages.css */
+.pg__stage { flex:1; width:100%; }
 </style>
 </head>
 <body>
-<main class="page" data-screen-label="NavTile">
+<main class="page ds-split" data-screen-label="NavTile">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage" id="pg-stage"></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.007</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.007</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>NavTile</h1>
     <p class="lead">Навигационная плитка главной страницы платформы: иллюстрация, название раздела и краткое описание. Клик по плитке — переход на страницу раздела. Вариант со ссылками добавляет быстрые переходы к подразделам. Иллюстрации — из библиотеки <a class="inl" href="../foundations/Illustrations.html">Иллюстрации</a>. Не путать с дашбордом: NavTile не показывает данные и графики — только вход в раздел.</p>
   </header>
-
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите плитку: вариант, наполнение и состояние.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage" id="pg-stage"></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -237,14 +253,201 @@
     <span>Дизайн-система · NavTile</span>
     <span>base / links · illustration 195×140 right-center · tile 442×188 default · span 3 of 12 · radius 8 · hover / focus / disabled</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите плитку: вариант, наполнение и состояние.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/nav-tile.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-illustrations.js"></script>
-<script src="../../scripts/nav-tile.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/nav-tile.page.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Вариант': 'Со ссылками' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- базовая -->
+<a class="ntile" href="/deals">
+  <span class="illu ntile__illu" data-illu="deals" aria-hidden="true"></span>
+  <h3 class="ntile__title">Сделки</h3>
+  <p class="ntile__desc">Кредитные линии, договоры и график платежей</p>
+</a>
+
+<!-- со ссылками -->
+<div class="ntile">
+  <span class="illu ntile__illu" data-illu="reports" aria-hidden="true"></span>
+  <a class="ntile__title-link" href="/reports"><h3 class="ntile__title">Отчётность</h3></a>
+  <p class="ntile__desc">Формы, выгрузки и регламентные отчёты</p>
+  <nav class="ntile__links" aria-label="Подразделы">
+    <a class="link link--accent link--s" href="/reports/reg">Регламентные</a>
+    <a class="link link--accent link--s" href="/reports/export">Выгрузки</a>
+  </nav>
+</div>
+
+<!-- сетка главной -->
+<div class="ntile-grid"> …плитки… </div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — scripts/nav-tile.page.js)
+function tile(o) {
+  // o: { variant: 'base'|'links', title, desc, illu, showIllu, showDesc, links[], state: 'default'|'hover'|'focus'|'disabled' }
+  // базовая → <a class="ntile"> (вся плитка — ссылка);
+  // со ссылками → <div class="ntile"> + .ntile__title-link + <nav class="ntile__links"> (до 4 ссылок);
+  // disabled → aria-disabled + is-disabled; hover/focus → is-hover / is-focus
+}
+// Иллюстрации — data-illu + ds-illustrations.js (SVG подставляет рантайм)</script>
+<script type="text/plain" id="src-code-css">/* ============================================================
+   NAVTILE — навигационная плитка главной страницы платформы.
+   Клик по плитке ведёт на страницу раздела. Вариант --links
+   добавляет список быстрых ссылок; кликабелен только заголовок.
+   Ширина: 3 колонки сетки из 12 (до 4 плиток в ряд).
+   Только токены ДС. Зависимости: colors, radius, shadow,
+   typography, link (вариант --links), illustration (слот).
+   ============================================================ */
+
+/* ---------- сетка плиток ----------
+   Контейнерные запросы: адаптив считается от РЕАЛЬНОЙ ширины сетки
+   (а не ширины окна) — корректно и на полноширинной главной странице,
+   и в узкой демо-панели документации. */
+.ntile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 16px;
+}
+
+/* ---------- плитка ----------
+   Горизонтальная раскладка: текст слева, иллюстрация справа —
+   фиксированного размера 195×140, прижата к правому краю и закреплена
+   от верха (не центр по вертикали) — при росте тайла остаётся на месте. */
+.ntile {
+  --ntile-pad: 32px;
+  --ntile-illu-w: 195px;
+  --ntile-illu-h: 140px;
+  min-width: 400px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 442px;
+  min-height: 188px;
+  padding: var(--ntile-pad);
+  padding-right: 160px; /* чуть меньше ширины иллюстрации — текст может чуть перекрывать картинку, это нормально */
+  background: var(--bg-tile);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-control);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+/* внутри адаптивной сетки плитка тянется на ширину колонки — 483×253 это размер по умолчанию вне сетки */
+.ntile-grid > .ntile { width: auto; }
+
+/* ---------- части ---------- */
+.ntile__illu {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--ntile-illu-w);
+  height: var(--ntile-illu-h);
+}
+.ntile__title {
+  font: var(--type-h4-strong);
+  color: var(--text-primary);
+  margin: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ntile__desc {
+  font: var(--type-body-m);
+  color: var(--text-secondary);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+.ntile__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* заголовок-ссылка в варианте --links */
+.ntile__title-link {
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-xs);
+}
+.ntile__title-link:hover .ntile__title { color: var(--primary); }
+.ntile__title-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ---------- состояния (кликабельная плитка) ---------- */
+a.ntile:hover,
+a.ntile.is-hover {
+  border-color: var(--border-primary);
+  box-shadow: var(--elevation-2);
+}
+a.ntile:focus-visible,
+a.ntile.is-focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Disabled — раздел недоступен (нет прав / не подключён) */
+.ntile.is-disabled,
+.ntile[aria-disabled="true"] {
+  pointer-events: none;
+  border-color: var(--border-light);
+  box-shadow: none;
+}
+.ntile.is-disabled .ntile__title,
+.ntile[aria-disabled="true"] .ntile__title { color: var(--text-inactive); }
+.ntile.is-disabled .ntile__desc,
+.ntile[aria-disabled="true"] .ntile__desc { color: var(--text-inactive); }
+.ntile.is-disabled .ntile__illu,
+.ntile[aria-disabled="true"] .ntile__illu { filter: grayscale(1); opacity: .4; }</script>
 </body>
 </html>

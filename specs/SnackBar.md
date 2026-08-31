@@ -2,7 +2,7 @@
 component: SnackBar
 title: "SnackBar"
 version: "1.004"
-updated: "21.08.2026"
+updated: "30.08.2026"
 page: pages/organisms/SnackBar.html
 runtime: scripts/ds-notify.js
 css: styles/snackbar.css

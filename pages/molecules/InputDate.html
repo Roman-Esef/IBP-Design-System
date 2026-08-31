@@ -21,29 +21,47 @@
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
+<style>
+  /* демо-стадия (docs-split): растяжение на ширину панели демо;
+     padding/фон/min-height — из input-pages.css */
+  .pg__stage { flex:1; width:100%; }
+</style>
 </head>
 <body>
-<main class="page" data-screen-label="InputDate">
+<main class="page ds-split" data-screen-label="InputDate">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage" id="pg-stage"></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.009</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.009</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputDate</h1>
     <p class="lead">Компонент ввода даты: поле с маской и кнопкой-календарём. При фокусе на поле или по кнопке-календарю поднимается <a class="inl" href="DatePicker.html">DatePicker</a>. Построен на той же базе Input_Content, что и <a class="inl" href="InputText.html">InputText</a> и <a class="inl" href="InputAutocomplete.html">InputAutocomplete</a>, — состояния и размеры общие.</p>
   </header>
-
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите поле даты: размер, состояние, наполнение, информер. Ввод живой — маска форматирует цифры по шаблону.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage" id="pg-stage"></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -261,15 +279,296 @@
     <span>Дизайн-система · InputDate</span>
     <span>m / s · маска ММ.ДД.ГГГГ · calendar / clear / informer · error / warning / disabled</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите поле даты: размер, состояние, наполнение, информер. Ввод живой — маска форматирует цифры по шаблону.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/input.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-datepicker.js"></script>
 <script src="../../scripts/input-kit.js"></script>
-<script src="../../scripts/input-date.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/input-date.page.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Размер': 'S (Table Edit)', 'Наполнение': 'Заполнено', 'Label': 'Показывать метку', 'Helper': 'Показывать helper', 'Информер': 'Показывать информер' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><div class="inp">
+  <label class="ds-label" for="d1"><span class="ds-label__text">Дата подписания</span></label>
+  <div class="inp__field">
+    <input class="inp__control" id="d1" placeholder="ММ.ДД.ГГГГ" inputmode="numeric">
+    <span class="inp__acts">
+      <button class="inp__act" aria-label="Очистить поле">…✕…</button>
+      <button class="inp__act" aria-label="Открыть календарь" aria-haspopup="dialog">…📅…</button>
+    </span>
+  </div>
+  <span class="ds-helper ds-helper--left">Helper</span>
+</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — scripts/input-date.page.js)
+// Поле строит общий рантайм: window.DSInputKit.makeInput({ calendar: true, … })
+const spec = {
+  label: 'Дата подписания', placeholder: 'ММ.ДД.ГГГГ', inputmode: 'numeric',
+  size: 'm',                       // 'm' | 's' (Table Edit)
+  state: 'default',                // default/hover/focus/error/warning/disabled
+  value: '12.21.2022',             // null → маска-плейсхолдер
+  calendar: true, clear: true, informer: false,
+  live: true, width: 260
+};
+// Маска: цифры + автоточки (присоединяется на странице к _control);
+// календарь — DatePicker (scripts/ds-datepicker.js).</script>
+<script type="text/plain" id="src-code-css">/* ============================================================
+   INPUT — семейство полей ввода: InputText · InputDate · InputAutocomplete
+   Общий компонент подкачки Input_Content (поле с рамкой) + слои
+   Text_MASTER (prefix / text / postfix) и Input_Action (крестик,
+   информер, календарь, шеврон).
+   Зависимости: colors.css, typography.css, radius.css,
+   label-helper.css (метка/хелпер), chip.css (чипы автокомплита).
+   Размеры: M (базовый, 40px) · S (Table Edit, 32px).
+   ============================================================ */
+
+.inp {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 280px; /* дефолт для доков; в лайауте задаётся контейнером */
+  --inp-h: 40px;
+  --inp-px: 12px;
+  --inp-gap: 8px;
+  --inp-icon: 20px;
+  --inp-font: var(--type-body-m);
+}
+/* размер S (Table Edit) — прямыми свойствами на потомках (не через --inp-* в модификаторе) */
+.inp--s .inp__field { height: 32px; padding: 0 10px; gap: 6px; font: var(--type-body-s); }
+.inp--s.inp--multiline .inp__field { min-height: 32px; }
+.inp--s .inp__lead { width: 18px; height: 18px; }
+.inp--s .inp__act  { width: 18px; height: 18px; }
+.inp--fullwidth { width: 100%; }
+
+/* метка и хелпер — компоненты подкачки LabelHelper */
+.inp > .ds-label { margin-bottom: 4px; }
+.inp > .ds-helper { margin-top: 4px; }
+
+/* ---------- поле (Input_Content) ---------- */
+.inp__field {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box; /* 2px-бордер фокуса не меняет габариты поля */
+  gap: var(--inp-gap);
+  height: var(--inp-h);
+  padding: 0 var(--inp-px);
+  background: var(--bg-tile);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-field);
+  font: var(--inp-font);
+  color: var(--text-primary);
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.inp__field:hover,
+.inp.is-hover .inp__field { border-color: var(--primary); }
+.inp__field:focus-within,
+.inp.is-focus .inp__field {
+  border-color: var(--primary);
+  border-width: 2px; /* фокус — бордер 2px (общий для всех состояний *-focus) */
+  box-shadow: 0 0 0 3px var(--primary-bg-light);
+}
+
+/* многострочный вариант (InputText) */
+.inp--multiline .inp__field {
+  height: auto;
+  min-height: var(--inp-h);
+  padding-top: 9px;
+  padding-bottom: 9px;
+  align-items: flex-start;
+}
+.inp--multiline .inp__acts { align-self: flex-start; }
+
+/* ---------- состояния ---------- */
+.inp--error .inp__field { border-color: var(--error); }
+.inp--error .inp__field:focus-within,
+.inp--error.is-focus .inp__field {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 8%, transparent);
+}
+.inp--warning .inp__field { border-color: var(--warning); }
+.inp--warning .inp__field:focus-within,
+.inp--warning.is-focus .inp__field {
+  border-color: var(--warning);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--warning) 10%, transparent);
+}
+.inp--disabled { pointer-events: none; }
+.inp--disabled .inp__field {
+  background: var(--st-disabled-light);
+  border-color: var(--border-light);
+  color: var(--text-inactive);
+}
+.inp--disabled .inp__lead,
+.inp--disabled .inp__prefix,
+.inp--disabled .inp__postfix,
+.inp--disabled .inp__summary,
+.inp--disabled .inp__act { color: var(--text-inactive); }
+.inp--disabled .inp__control { color: var(--text-inactive); }
+/* очистка недоступна и не показывается в Disabled — сброса значения быть не может */
+.inp--disabled .inp__act[aria-label="Очистить поле"],
+.inp--disabled .inp__act[aria-label="Очистить"] { display: none; }
+
+/* ---------- контейнер поля + оверлей тултипа ---------- */
+/* .inp__box оборачивает поле и служит якорем для тултипа ошибки/предупреждения. */
+.inp__box { position: relative; width: 100%; }
+/* ПРАВИЛО: тултип (*-focus) не смещает хелпер — лежит поверх потока,
+   z-index всегда выше поля и его компонентов. */
+.inp__box > .tip {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 60;
+}
+
+/* ---------- текстовый слой (Text_MASTER) ---------- */
+.inp__lead {
+  flex: none;
+  width: var(--inp-icon);
+  height: var(--inp-icon);
+  color: var(--secondary); /* иконки в полях — Active · secondary */
+  display: inline-flex;
+}
+.inp__lead :is(svg,[data-icon]){ width: 100%; height: 100%; }
+
+.inp__prefix,
+.inp__postfix {
+  flex: none;
+  color: var(--text-inactive);
+  white-space: nowrap;
+}
+
+.inp__control {
+  flex: 1 1 60px;
+  min-width: 40px;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--text-primary);
+  outline: none;
+}
+.inp__control::placeholder { color: var(--text-inactive); opacity: 1; }
+textarea.inp__control { resize: none; line-height: 20px; }
+/* растягивание по вертикали — за угол в правом нижнем углу поля (стандартный resize-хват браузера) */
+.inp--resizable .inp__field { padding: 0; align-items: stretch; }
+.inp--resizable textarea.inp__control {
+  resize: vertical;
+  min-height: var(--inp-h);
+  padding: 9px var(--inp-px);
+  border-radius: inherit;
+}
+.inp--resizable .inp__field:has(.inp__acts) textarea.inp__control {
+  padding-right: calc(var(--inp-px) + var(--inp-icon) + var(--inp-gap));
+}
+.inp--resizable .inp__acts { position: absolute; top: 9px; right: var(--inp-px); }
+.inp--resizable .inp__box { position: relative; }
+
+/* ---------- хелпер + счётчик символов в одной строке (maxLength) ---------- */
+.inp__foot { display: flex; align-items: flex-start; gap: 12px; margin-top: 4px; }
+.inp__foot .ds-helper { flex: 1 1 auto; margin-top: 0; min-width: 0; }
+.inp__counter {
+  flex: none;
+  margin-left: auto;
+  font: var(--type-body-xs);
+  color: var(--text-inactive);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.inp__counter--limit { color: var(--error); }
+.inp--disabled .inp__counter { color: var(--text-inactive); }
+
+/* сводка выбранного (InputAutocomplete): «Value 1, +4» */
+.inp__summary { flex: none; white-space: nowrap; color: var(--text-primary); }
+
+/* стек чипов внутри поля (InputAutocomplete · Chips) */
+.inp__chips {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+}
+.inp__chips .chip { flex: none; }
+.inp__chips .chip:last-child { flex: 0 1 auto; min-width: 48px; }
+
+/* ---------- действия (Input_Action) ---------- */
+.inp__acts {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+.inp__act {
+  flex: none;
+  width: var(--inp-icon);
+  height: var(--inp-icon);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--secondary); /* иконки-действия в полях — Active · secondary */
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  transition: color .15s ease;
+}
+.inp__act :is(svg,[data-icon]){ width: 100%; height: 100%; }.inp__act:hover { color: var(--secondary-dark); }
+.inp__act:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.inp__act--static { cursor: default; color: var(--secondary); }
+.inp__act--static:hover { color: var(--secondary); }
+.inp__act--chev { transition: color .15s ease, transform .15s ease; }
+.inp.is-open .inp__act--chev { transform: rotate(180deg); }
+
+/* ---------- внешний стек чипов (InputAutocomplete · Chips Ext) ---------- */
+.inp-ext {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}</script>
 </body>
 </html>

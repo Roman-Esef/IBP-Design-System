@@ -88,11 +88,10 @@
     var layout = document.getElementById('c-layout');
     if (!tone) return;
 
-    [iconT, titleT, textT].forEach(function (t) {
-      t.addEventListener('click', function () {
-        t.setAttribute('aria-pressed', t.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
-        render();
-      });
+    /* состав (иконка/заголовок/текст) — бинарные селекты, docs-split.js
+       конвертирует их в свитчи ДС; значение читаем напрямую (yes/no) */
+    [iconT, titleT, textT].forEach(function (s) {
+      s.addEventListener('change', render);
     });
 
     function render() {
@@ -104,9 +103,9 @@
         buttons: btns.value,
         actions: isRow ? 'none' : acts.value,
         layout: layout ? layout.value : 'stack',
-        title: titleT.getAttribute('aria-pressed') === 'true' ? title.value.trim() : '',
-        text: textT.getAttribute('aria-pressed') === 'true' ? text.value.trim() : '',
-        icon: iconT.getAttribute('aria-pressed') === 'true'
+        title: titleT.value === 'yes' ? title.value.trim() : '',
+        text: textT.value === 'yes' ? text.value.trim() : '',
+        icon: iconT.value === 'yes'
       };
       setHTML('pg-preview', alertHTML(o));
 

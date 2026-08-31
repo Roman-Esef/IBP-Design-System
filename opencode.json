@@ -7,31 +7,29 @@
     "read": "allow",
     "glob": "allow",
     "grep": "allow",
-    "webfetch": "deny",
+    "webfetch": "allow",
+    "websearch": "allow",
     "task": "allow",
     "external_directory": {},
     "skill": { "*": "allow" },
-    "edit": {
-      "*": "ask",
-      "pages/screens/genOD/*": "allow"
-    },
+    "edit": { "*": "allow" },
     "bash": {
-      "*": "ask",
-      "ls *": "allow",
-      "cat *": "allow",
-      "head *": "allow",
-      "tail *": "allow",
-      "sed -n *": "allow",
-      "grep *": "allow",
-      "find *": "allow",
-      "wc *": "allow",
-      "mkdir *": "allow",
-      "cp *": "allow",
+      "*": "allow",
       "rm *": "deny",
-      "git push*": "deny"
+      "git push*": "deny",
+      "git reset*": "deny"
     }
   },
 
   "share": "disabled",
-  "autoupdate": false
+  "autoupdate": false,
+
+  "agent": {
+    "plan": {
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "build": {
+      "model": "deepseek/deepseek-v4-flash"
+    }
+  }
 }

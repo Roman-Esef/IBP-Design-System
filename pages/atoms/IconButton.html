@@ -34,11 +34,8 @@
   
 
   /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:48px 40px; display:flex; align-items:center; justify-content:center; min-height:220px;
+  @media (max-width:820px){ }
+  .pg__stage { flex:1; min-height:0; width:100%; padding:48px 40px; display:flex; align-items:center; justify-content:center; 
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
@@ -48,11 +45,6 @@
   .ctl { display:flex; flex-direction:column; gap:10px; }
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
 
-  .seg { display:inline-flex; background: var(--tertiary); border-radius:9px; padding:3px; gap:3px; }
-  .seg button { border:none; background:transparent; padding:7px 14px; border-radius:6px; font: var(--type-button-s); color: var(--text-secondary); cursor:pointer; transition:.12s; }
-
-  .toggles { display:flex; flex-direction:column; gap:9px; }
-  .toggle { display:inline-flex; align-items:center; gap:11px; padding:9px 12px; border:1px solid var(--border-light); border-radius:9px; font: var(--type-body-m); color: var(--text-primary); cursor:pointer; user-select:none; background: var(--bg-tile); transition:.12s; }
 
   .pg__code { margin-top:4px; font: var(--type-body-s); color: var(--text-inactive); }
 
@@ -122,29 +114,49 @@
 
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+    <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="IconButton">
+<main class="page ds-split" data-screen-label="IconButton">
 
-  <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.010</b></span><span>Обновлено <b>21.08.2026</b></span></div>
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
+
+<header class="masthead">
+    <div class="meta"><span>Версия: <b>1.010</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>IconButton</h1>
     <p class="lead">Безрамочная кнопка с одной иконкой и круглым стейт-слоем (риплом). Цвет рипла соответствует цвету иконки. Тоны Neutral / Primary / Danger / Contrast, размеры L / M / S, состояния Default / Hover / Pressed / Focus / Disabled / Loading, режим-переключатель и встроенный вариант для полей ввода.</p>
   </header>
 
+
+
+  
+
   <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите IconButton: переключайте тон, размер, иконку, состояние, форму и модификаторы — превью обновляется мгновенно.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
+  
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
@@ -406,6 +418,41 @@ glyph = selected ? iconSelected : icon
     <span>Дизайн-система · IconButton</span>
     <span>Neutral · Primary · Danger · Contrast — L / M / S</span>
   </footer>
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите IconButton: переключайте тон, размер, иконку, состояние, форму и модификаторы — превью обновляется мгновенно.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
@@ -693,19 +740,7 @@ document.getElementById('ic-good').innerHTML = UI.good;
   const preview  = document.getElementById('pg-preview');
   const codeEl   = document.getElementById('pg-code');
 
-  function seg(label, options, getCur, onPick){
-    const wrap=document.createElement('div'); wrap.className='ctl';
-    const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
-    const s=document.createElement('div'); s.className='seg';
-    options.forEach(([val,txt])=>{
-      const b=document.createElement('button'); b.type='button'; b.textContent=txt;
-      b.setAttribute('aria-selected', String(val===getCur()));
-      b.addEventListener('click',()=>{ onPick(val); [...s.children].forEach(c=>c.setAttribute('aria-selected', String(c===b))); render(); });
-      s.appendChild(b);
-    });
-    wrap.appendChild(s); return wrap;
-  }
-  function select(label, options, getCur, onPick){
+    function select(label, options, getCur, onPick){
     const wrap=document.createElement('div'); wrap.className='ctl';
     const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
     const box=document.createElement('div'); box.className='pg-select';
@@ -714,33 +749,32 @@ document.getElementById('ic-good').innerHTML = UI.good;
     sel.addEventListener('change',()=>{ onPick(sel.value); render(); });
     box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
-  function sw(label, key){
-    const t=document.createElement('button'); t.type='button'; t.className='toggle'; t.dataset.key=key;
-    t.setAttribute('aria-pressed', String(state[key]));
-    t.innerHTML='<span class="sw-mini"></span><span>'+label+'</span>';
-    t.addEventListener('click',()=>{ state[key]=!state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-    return t;
+    /* Бинарные опции — селекты: docs-split.js конвертирует их в свитчи ДС (урок Л4) */
+  function ctlToggle(label, key){
+    const wrap=document.createElement('div'); wrap.className='ctl';
+    const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
+    const box=document.createElement('div'); box.className='pg-select';
+    const sel=document.createElement('select');
+    [['no','Нет'],['yes','Да']].forEach(([v,t])=>{ const o=document.createElement('option'); o.value=v; o.textContent=t; if((v==='yes')===!!state[key]) o.selected=true; sel.appendChild(o); });
+    sel.addEventListener('change',()=>{ state[key]=sel.value==='yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
 
   controls.appendChild(select('Тон',
     [['neutral','Neutral'],['primary','Primary'],['danger','Danger'],['contrast','Contrast']],
     ()=>state.tone, v=>state.tone=v));
-  controls.appendChild(seg('Размер', [['l','L'],['m','M'],['s','S']], ()=>state.size, v=>state.size=v));
+  controls.appendChild(select('Размер', [['l','L'],['m','M'],['s','S']], ()=>state.size, v=>state.size=v));
   controls.appendChild(select('Иконка',
     [['edit','Edit'],['more-dots','More'],['search','Search'],['close','Close'],['trash','Trash'],['settings','Settings'],['download','Download'],['star','Star']],
     ()=>state.icon, v=>state.icon=v));
   controls.appendChild(select('Состояние',
     [['default','Default'],['hover','Hover'],['pressed','Pressed'],['focus','Focus'],['disabled','Disabled'],['loading','Loading']],
     ()=>state.state, v=>state.state=v));
-  controls.appendChild(seg('Форма', [['circle','Круг'],['square','Квадрат']], ()=>state.shape, v=>state.shape=v));
+  controls.appendChild(select('Форма', [['circle','Круг'],['square','Квадрат']], ()=>state.shape, v=>state.shape=v));
 
-  const compWrap=document.createElement('div'); compWrap.className='ctl';
-  const cl=document.createElement('div'); cl.className='lbl'; cl.textContent='Модификаторы'; compWrap.appendChild(cl);
-  const toggles=document.createElement('div'); toggles.className='toggles';
-  toggles.appendChild(sw('Встроенный (input)','embedded'));
-  toggles.appendChild(sw('Выбран (toggle)','selected'));
-  toggles.appendChild(sw('Бейдж','badge'));
-  compWrap.appendChild(toggles); controls.appendChild(compWrap);
+  controls.appendChild(ctlToggle('Встроенный (input)','embedded'));
+  controls.appendChild(ctlToggle('Выбран (toggle)','selected'));
+  controls.appendChild(ctlToggle('Бейдж','badge'));
 
   function render(){
     const onDark = state.tone==='contrast';
@@ -836,8 +870,170 @@ document.getElementById('ic-good').innerHTML = UI.good;
 })();
 </script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Форма': 'Квадрат', 'Встроенный (input)': 'Встроенный (input)', 'Выбран (toggle)': 'Выбран', 'Бейдж': 'Показывать бейдж' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- базовый вариант: одна иконка, aria-label обязателен -->
+<button type="button" class="ibtn ibtn--neutral ibtn--m" aria-label="Редактировать">
+  <i data-icon="edit"></i>          <!-- 24/20/16 px по размеру кнопки -->
+</button>
+
+<!-- toggle: aria-pressed + залитая иконка в selected -->
+<button type="button" class="ibtn ibtn--primary ibtn--l ibtn--selected" aria-pressed="true" aria-label="В избранном">
+  <i data-icon="star-filled"></i>
+</button>
+
+<!-- loading: спиннер вместо иконки, клики заблокированы -->
+<button type="button" class="ibtn ibtn--neutral ibtn--m ibtn--loading" aria-busy="true" aria-label="Ещё">
+  <span class="spin spin--current"></span>
+</button>
+
+<!-- с бейджем: Badge не перехватывает клики (pointer-events: none) -->
+<button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Сделки">
+  <i data-icon="folder"></i>
+  <span class="ibtn__badge"><span class="badge badge--xs badge--accent">3</span></span>
+</button></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — инлайн-скрипт страницы)
+function makeIB(o) {
+  // o: { tone:'neutral'|'primary'|'danger'|'contrast', size:'l'|'m'|'s', icon, shape:'circle'|'square', state, embedded?, selected?, badge? }
+  // button.ibtn.ibtn--<tone>.ibtn--<size>(.ibtn--square)(.ibtn--embedded)(.ibtn--selected) → <i data-icon> / спиннер при loading
+  // embedded — для ячеек таблиц/полей; selected — состояние «выбрано» (toggle)
+}</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — IconButton
+   Безрамочная кнопка-иконка. РАЗМЕР КОМПОНЕНТА В ЛЕЙАУТЕ = РАЗМЕР ИКОНКИ
+   (L 24 · M 20 · S 16). Круглый стейт-слой — это отдельный слой (::before),
+   который появляется на hover/pressed и ВЫХОДИТ ЗА ГРАНИЦЫ кнопки, никак не
+   влияя на её размер в потоке. Он же расширяет зону клика (pointer-events).
+   Tones:  neutral (--secondary) · primary · danger · contrast
+   States: default · hover · pressed · focus · selected · disabled · loading
+   Shape:  circle (default) · square
+   Variant: embedded (без стейт-слоя — для полей ввода/плотных тулбаров)
+   Requires: typography.css, colors.css
+   ========================================================================= */
+
+.ibtn {
+  /* layout box = размер иконки */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ibtn-size, 20px);
+  height: var(--ibtn-size, 20px);
+  padding: 0;
+  flex: none;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .15s ease;
+}
+
+/* иконка — поверх стейт-слоя; правило покрывает обе формы разметки:
+   вставленный <svg> и <i data-icon> (ds-icons.js) */
+.ibtn :is(svg,[data-icon]){ position: relative; z-index: 1; width: var(--ibtn-icon, 20px); height: var(--ibtn-icon, 20px); display: block; flex: none; }
+/* ---------- стейт-слой (::before) — больше кнопки, hover-only, оверфлоу ---- *
+   Размер слоя повторяет прежние габариты кнопки (L 40 · M 32 · S 24): визуально
+   рипл и зона клика те же, а в лейауте кнопка занимает ровно размер иконки. */
+.ibtn::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--ibtn-layer-w, 32px);
+  height: var(--ibtn-layer-w, 32px);
+  border-radius: var(--radius-circle);
+  background: transparent;
+  transition: background-color .15s ease;
+  pointer-events: auto;   /* стейт-слой ловит клики → зона клика больше иконки */
+  z-index: 0;
+}
+
+.ibtn:focus { outline: none; }
+.ibtn:focus-visible,
+.ibtn.is-focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- sizes: box = иконка; слой = прежний габарит ------------------- */
+.ibtn--l { width: 24px; height: 24px; }
+.ibtn--m { width: 20px; height: 20px; }
+.ibtn--s { width: 16px; height: 16px; }
+.ibtn--l::before { width: 40px; height: 40px; }
+.ibtn--m::before { width: 32px; height: 32px; }
+.ibtn--s::before { width: 24px; height: 24px; }
+.ibtn--l :is(svg,[data-icon]), .ibtn--l .spin{ width: 24px; height: 24px; }
+.ibtn--m :is(svg,[data-icon]), .ibtn--m .spin{ width: 20px; height: 20px; }
+.ibtn--s :is(svg,[data-icon]), .ibtn--s .spin{ width: 16px; height: 16px; }
+/* square / embedded — стейт-слой со скруглением control вместо круга */
+.ibtn--l.ibtn--square::before, .ibtn--l.ibtn--embedded::before { border-radius: var(--radius-control); }
+.ibtn--m.ibtn--square::before, .ibtn--m.ibtn--embedded::before { border-radius: var(--radius-control); }
+.ibtn--s.ibtn--square::before, .ibtn--s.ibtn--embedded::before { border-radius: var(--radius-control-s); }
+
+/* ---------- tones (цвет иконки; стейт-слой миксуется из currentColor) ----- */
+.ibtn--neutral  { color: var(--secondary); }
+.ibtn--primary  { color: var(--primary); }
+.ibtn--danger   { color: var(--error); }
+.ibtn--contrast { color: var(--text-on-dark); }
+.ibtn:not([class*="ibtn--neutral"]):not([class*="ibtn--primary"]):not([class*="ibtn--danger"]):not([class*="ibtn--contrast"]) {
+  color: var(--secondary);
+}
+
+/* ---------- интерактивные состояния — фон на стейт-слое (::before) --------- */
+.ibtn:hover::before,
+.ibtn.is-hover::before   { background: color-mix(in srgb, currentColor 12%, transparent); }
+.ibtn:active::before,
+.ibtn.is-pressed::before { background: color-mix(in srgb, currentColor 22%, transparent); }
+.ibtn--contrast:hover::before,   .ibtn--contrast.is-hover::before   { background: color-mix(in srgb, #fff 18%, transparent); }
+.ibtn--contrast:active::before,  .ibtn--contrast.is-pressed::before { background: color-mix(in srgb, #fff 30%, transparent); }
+
+/* ---------- selected (toggle on) ------------------------------------------
+   Класс .ibtn--selected — форс-состояние витрины; реальный toggle несёт
+   aria-pressed="true" на самой кнопке (RulesAudit W1). */
+.ibtn:is(.ibtn--selected,[aria-pressed="true"]) { color: var(--primary); }
+.ibtn:is(.ibtn--selected,[aria-pressed="true"])::before { background: color-mix(in srgb, var(--primary) 12%, transparent); }
+.ibtn:is(.ibtn--selected,[aria-pressed="true"]):hover::before,
+.ibtn:is(.ibtn--selected,[aria-pressed="true"]).is-hover::before { background: color-mix(in srgb, var(--primary) 20%, transparent); }
+
+/* ---------- variant: embedded (поля ввода / плотные тулбары) -------------- */
+/* Стейт-слоя нет; на hover иконка перекрашивается в primary. */
+.ibtn--embedded { color: var(--text-inactive); }
+.ibtn--embedded::before { display: none; }
+.ibtn--embedded:hover,
+.ibtn--embedded.is-hover { color: var(--primary); }
+.ibtn--embedded:active,
+.ibtn--embedded.is-pressed { color: var(--primary-dark); }
+
+/* ---------- disabled ------------------------------------------------------- */
+.ibtn:disabled,
+.ibtn--disabled {
+  color: var(--text-inactive);
+  cursor: default;
+  pointer-events: none;
+}
+.ibtn:disabled::before,
+.ibtn--disabled::before { background: transparent; }
+
+/* ---------- loading -------------------------------------------------------- */
+/* Индикатор — общий Spinner: <span class="spin spin--current">, размер — правила выше. */
+.ibtn--loading { pointer-events: none; }
+.ibtn .spin { position: relative; z-index: 1; }
+
+/* ---------- badge slot ----------------------------------------------------- */
+/* Бейдж прижат к правому верхнему углу иконки (= габарит кнопки), не выходит
+   за него; счётчик ≤ 2 символов, при значении >99 — «9+». */
+.ibtn__badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}</script>
 </body>
 </html>

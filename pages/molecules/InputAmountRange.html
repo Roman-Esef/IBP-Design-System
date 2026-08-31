@@ -19,29 +19,47 @@
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
+<style>
+  /* демо-стадия (docs-split): растяжение на ширину панели демо;
+     padding/фон/min-height — из input-pages.css */
+  .pg__stage { flex:1; width:100%; }
+</style>
 </head>
 <body>
-<main class="page" data-screen-label="InputAmountRange">
+<main class="page ds-split" data-screen-label="InputAmountRange">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage" id="pg-stage"></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.005</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.005</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>InputAmountRange</h1>
     <p class="lead">Поле ввода числового диапазона: два <a class="inl" href="InputText.html">InputAmount</a> с префиксами «От» / «До», размещённых горизонтально и соединённых линией Range_Line. Общая метка сверху и общий хелпер снизу. Каждое поле — самостоятельный экземпляр со своими состояниями. Стандартная высота поля 40px; размера S у InputAmountRange нет.</p>
   </header>
-
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите диапазон: состояние левого и правого поля независимо, наполнение, метка и хелпер. Ввод живой — крестик очищает поле.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage" id="pg-stage"></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -242,14 +260,140 @@
     <span>Дизайн-система · InputAmountRange</span>
     <span>только M · префикс От / До · Range_Line · clear · error / warning / disabled (на поле)</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите диапазон: состояние левого и правого поля независимо, наполнение, метка и хелпер. Ввод живой — крестик очищает поле.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/input-range.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/input-kit.js"></script>
-<script src="../../scripts/input-amount-range.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/input-amount-range.page.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Наполнение': { label: 'Заполнено', on: 'value' }, 'Label': 'Показывать метку', 'Helper': 'Показывать helper' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><div class="inp-range">
+  <label class="ds-label"><span class="ds-label__text">Сумма, ₽</span></label>
+  <div class="inp-range__row">
+    <div class="inp inp-range__field">
+      <div class="inp__field">
+        <span class="inp__prefix">От</span>
+        <input class="inp__control" inputmode="decimal">
+        <span class="inp__acts"><button class="inp__act" aria-label="Очистить поле">…✕…</button></span>
+      </div>
+    </div>
+    <span class="inp-range__line" aria-hidden="true"></span>
+    <div class="inp inp-range__field">…префикс «До»…</div>
+  </div>
+  <span class="ds-helper ds-helper--left">Helper</span>
+</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — scripts/input-amount-range.page.js)
+// Диапазон строит общий рантайм: window.DSInputKit.makeRange({ kind: 'amount', … })
+const spec = {
+  label: 'Сумма, ₽', helper: 'Диапазон «от» и «до»',
+  from: { value: '100 000', live: true, state: 'default' },   // .inp (InputAmount)
+  to:   { value: '5 000 000', live: true, state: 'default' },
+  disabled: false, width: 380
+};
+// Состояния — на каждом .inp отдельно (default/hover/focus/error/warning/disabled);
+// .inp-range--disabled — на весь диапазон (красит Range_Line).</script>
+<script type="text/plain" id="src-code-css">/* ============================================================
+   INPUT RANGE — диапазон из двух полей (InputAmount / InputDate),
+   размещённых горизонтально, с компонентом Range_Line между ними.
+   Общая метка (Label) сверху и общий хелпер (Helper) снизу.
+   Каждое поле — самостоятельный экземпляр .inp (styles/input.css)
+   со своими состояниями (Hover/Focus/Error/Warning/Disabled).
+   Зависимости: input.css, label-helper.css, colors.css.
+   Размер только M (40px) — размера S нет.
+   ============================================================ */
+
+.inp-range {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  --inp-h: 40px;
+  --range-line-w: 14px;
+  --range-line-bar: 8px;
+}
+
+/* метка и хелпер — общие для всего диапазона (LabelHelper) */
+.inp-range > .ds-label { margin-bottom: 4px; }
+.inp-range > .ds-helper { margin-top: 4px; }
+
+/* строка с двумя полями и линией */
+.inp-range__row {
+  display: flex;
+  align-items: flex-start; /* тултипы *-focus свисают под своим полем */
+  gap: 0;
+}
+
+/* поле диапазона — гибкое, ширину задаёт контейнер */
+.inp-range__field {
+  flex: 1 1 0;
+  min-width: 120px;
+  width: auto !important;
+}
+/* у InputDateRange минимальная ширина поля — 186px
+   (ширина контента: дата + иконки крестика и календаря) */
+.inp-range--date .inp-range__field { min-width: 186px; }
+
+/* Range_Line — толщина и цвет аналогичны бордеру инпута */
+.inp-range__line {
+  flex: none;
+  align-self: flex-start;
+  width: var(--range-line-w);
+  height: var(--inp-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inp-range__line::before {
+  content: "";
+  display: block;
+  width: var(--range-line-bar);
+  height: 1px;
+  background: var(--border-primary);
+}
+
+/* диапазон целиком в Disabled — линия светлее (как бордер disabled-поля) */
+.inp-range--disabled .inp-range__line::before { background: var(--border-light); }</script>
 </body>
 </html>

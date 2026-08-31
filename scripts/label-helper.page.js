@@ -86,12 +86,15 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
     wrap._select = sel;
     return wrap;
   }
-  function toggleBtn(label, key){
-    const t=document.createElement('button'); t.type='button'; t.className='toggle'; t.dataset.key=key;
-    t.setAttribute('aria-pressed', String(state[key]));
-    t.innerHTML='<span class="sw-mini"></span><span>'+label+'</span>';
-    t.addEventListener('click',()=>{ state[key]=!state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-    return t;
+  /* Бинарные опции — селекты: docs-split.js конвертирует их в свитчи ДС (урок Л4) */
+  function ctlToggle(label, key){
+    const wrap=document.createElement('div'); wrap.className='ctl';
+    const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
+    const box=document.createElement('div'); box.className='pg-select';
+    const sel=document.createElement('select');
+    [['no','Нет'],['yes','Да']].forEach(([v,t])=>{ const op=document.createElement('option'); op.value=v; op.textContent=t; if((v==='yes')===!!state[key]) op.selected=true; sel.appendChild(op); });
+    sel.addEventListener('change',()=>{ state[key]=sel.value==='yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
 
   const cHost = select('Родительский компонент',
@@ -99,49 +102,37 @@ function classListHelper(o){ return 'ds-helper ds-helper--' + o.align + (o.statu
      ['checkbox','Checkbox'],['radiobutton','Radiobutton'],['switch','Switch']],
     ()=>state.host, v=>{ state.host=v; state.status='default'; });
 
-  const labelWrap=document.createElement('div'); labelWrap.className='ctl';
-  const ll=document.createElement('div'); ll.className='lbl'; ll.textContent='Label (только для полей)'; labelWrap.appendChild(ll);
-  const labelToggles=document.createElement('div'); labelToggles.className='toggles';
-  const tLabel = toggleBtn('Показать Label','label');
-  labelToggles.appendChild(tLabel); labelWrap.appendChild(labelToggles);
+  const tLabel = ctlToggle('Показывать Label','label');
 
   const cIcon = select('Иконки в Label',
     [['0','Нет'],['1','Одна'],['2','Две']],
     ()=>String(state.icons), v=>state.icons=Number(v));
 
-  const helperWrap=document.createElement('div'); helperWrap.className='ctl';
-  const hl=document.createElement('div'); hl.className='lbl'; hl.textContent='Helper'; helperWrap.appendChild(hl);
-  const helperToggles=document.createElement('div'); helperToggles.className='toggles';
-  const tHelper = toggleBtn('Показать Helper','helper');
-  helperToggles.appendChild(tHelper); helperWrap.appendChild(helperToggles);
+  const tHelper = ctlToggle('Показывать Helper','helper');
 
   const cAlign = select('Выравнивание (Label + Helper, только для полей)',
     [['left','Слева'],['right','Справа']],
     ()=>state.align, v=>state.align=v);
 
-  const helperIconWrap=document.createElement('div'); helperIconWrap.className='ctl';
-  const hil=document.createElement('div'); hil.className='lbl'; hil.textContent='Иконка в Helper (состояние Error)'; helperIconWrap.appendChild(hil);
-  const helperIconToggles=document.createElement('div'); helperIconToggles.className='toggles';
-  const tHelperIcon = toggleBtn('Показать иконку','helperIcon');
-  helperIconToggles.appendChild(tHelperIcon); helperIconWrap.appendChild(helperIconToggles);
+  const tHelperIcon = ctlToggle('Показывать иконку (Helper, Error)','helperIcon');
 
   const cStatus = select('Состояние', [['default','Default'],['disabled','Disabled'],['error','Error']],
     ()=>state.status, v=>state.status=v);
 
   controls.appendChild(cHost);
-  controls.appendChild(labelWrap);
+  controls.appendChild(tLabel);
   controls.appendChild(cIcon);
-  controls.appendChild(helperWrap);
+  controls.appendChild(tHelper);
   controls.appendChild(cAlign);
   controls.appendChild(cStatus);
-  controls.appendChild(helperIconWrap);
+  controls.appendChild(tHelperIcon);
 
   function refreshAvailability(){
     const isField = state.host === 'field';
-    labelWrap.classList.toggle('is-off', !isField);
+    tLabel.classList.toggle('is-off', !isField);
     cIcon.classList.toggle('is-off', !isField || !state.label);
     cAlign.classList.toggle('is-off', !isField);
-    helperIconWrap.classList.toggle('is-off', !state.helper || state.status !== 'error');
+    tHelperIcon.classList.toggle('is-off', !state.helper || state.status !== 'error');
     // switch has no error state in this DS
     const statusSel = cStatus._select;
     [...statusSel.options].forEach(op=>{ op.disabled = (op.value==='error' && state.host==='switch'); });

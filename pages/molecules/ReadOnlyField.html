@@ -38,13 +38,8 @@
 
   
 
-  /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls--wide { grid-template-columns:1fr 1fr; }
-  @media (max-width:920px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  @media (max-width:920px){ .panel.pg > .spl { display:none; } }
-  .pg__stage { padding:40px 32px; display:flex; align-items:center; justify-content:center; min-height:280px;
+  /* ---------- демо-стадия (docs-split) ---------- */
+  .pg__stage { flex:1; min-height:0; width:100%; padding:40px 32px; display:flex; align-items:center; justify-content:center;
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
@@ -156,29 +151,40 @@
   .code-panel__name { color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; font-weight:600; }
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="ReadOnlyField">
+<main class="page ds-split" data-screen-label="ReadOnlyField">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.006</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.006</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ReadOnlyField</h1>
     <p class="lead">Поле для отображения данных без возможности редактирования. Показывает значение — <b>текст</b>, <b>чипы</b> или <b>ссылку</b> — с опциональными лейблом и хэлпером (см. <code class="tok">Label / Helper</code>), иконками слева/справа и префиксом/постфиксом. Не имеет собственного контейнера: без рамки и фона, это пара «подпись → значение» для карточек сущностей и детальных панелей.</p>
   </header>
-
-  <!-- PLAYGROUND (interactive — always first) -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите поле: тип значения, цвет, слоты и обрезание текста включаются независимо друг от друга и сочетаются в любой комбинации.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -491,10 +497,50 @@
     <span>Дизайн-система · ReadOnlyField</span>
     <span>Text · Chips · Link — Default / Empty / Loading</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите поле: тип значения, цвет, слоты и обрезание текста включаются независимо друг от друга и сочетаются в любой комбинации.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/read-only-field.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-copy.js"></script>
+<script src="../../scripts/ds-nav.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
+<script src="../../scripts/tbl-resize.js"></script>
 <script src="../../scripts/read-only-field.page.js"></script>
 <script>
   document.getElementById('uc-a-action').innerHTML = (window.DS_ICONS && window.DS_ICONS['edit']) || '';
@@ -526,9 +572,191 @@
   });
 })();
 </script>
-<script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
-<script src="../../scripts/tbl-resize.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Label': 'Показывать метку', 'Helper': 'Показывать helper' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- значение-текст, с иконкой слева и копированием справа -->
+<div class="rof">
+  <span class="ds-label"><span class="ds-label__text">ID во внешней АС</span></span>
+  <div class="rof__row">
+    <span class="rof__icon"><i data-icon="info-circle"></i></span>
+    <span class="rof__value">123456789012</span>
+    <span class="rof__icon rof__icon--interactive" role="button" tabindex="0" aria-label="Скопировать значение"><i data-icon="copy"></i></span>
+  </div>
+</div>
+
+<!-- значение-чипы -->
+<div class="rof">
+  <span class="ds-label"><span class="ds-label__text">Регионы присутствия</span></span>
+  <div class="rof__row"><div class="rof__value rof__value--chips"><div class="chiplist chiplist--s">…</div></div></div>
+</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — scripts/read-only-field.page.js)
+// Поле: .rof → .ds-label + .rof__row (иконка/префикс/значение/постфикс/иконка) + .ds-helper
+const spec = {
+  type: 'text',                    // 'text' | 'chips' | 'link'
+  value: 'Значение атрибута',
+  chips: ['Договор', 'Поставка'], chipsMaxRows: null,
+  showLabel: true, label: 'Название поля',
+  helper: 'Пояснение к значению',
+  iconLeft: null, iconRight: null, // иконки (data-icon)
+  iconRightAction: 'none',         // 'none' | 'copy' | 'tooltip' (ds-copy.js)
+  prefix: null, postfix: null,     // аффиксы, обрезаются многоточием
+  tone: 'default',                 // 'default' | 'positive' | 'negative' | 'empty'
+  clampMode: 'none', align: 'left', state: 'default' | 'loading'
+};
+// Без рамки и фона — пара «подпись → значение» для карточек/детальных панелей.</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — ReadOnlyField
+   Поле для отображения данных без возможности редактирования. Показывает
+   значение — текст, чипы или ссылку — с опциональными лейблом, хэлпером,
+   префиксом/постфиксом и иконками слева/справа. Не имеет собственного
+   контейнера (без рамки и фона) — это чистая пара «подпись → значение».
+
+   Types:    text · chips · link
+   Slots:    label ← .ds-label · icon-left (any icon, decorative) · prefix · value ·
+             postfix · icon-right (any icon; action: none/copy/tooltip) ·
+             helper ← .ds-helper
+   Options:  каждый слот включается независимо и сочетается в любой
+             комбинации (label/helper можно скрыть, иконки/аффиксы —
+             показать по одному или все сразу)
+   Value:    default · positive · negative · muted (Empty) ← proposed
+   Overflow: одна строка (ellipsis) · N строк (line-clamp) — обе с тултипом
+             на переполнении
+   Align:    left (по умолчанию) · right — для числовых/денежных значений
+   States:   default · empty ← proposed · loading (skeleton) ← proposed
+   Requires: typography.css, colors.css, radius.css, label-helper.css,
+             chip.css (type=chips), link.css (type=link),
+             tooltip.css (тултип переполнения / предупреждения / копирования)
+   ========================================================================= */
+
+.rof {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.rof--align-right { align-items: flex-end; }
+.rof--align-right .rof__row { justify-content: flex-end; }
+
+/* ---------- content row --------------------------------------------------- */
+.rof__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  width: 100%;
+}
+/* when value can wrap to several lines, icons/affixes pin to the first line */
+.rof__row--top { align-items: flex-start; }
+.rof__row--top .rof__icon { margin-top: 1px; }
+
+/* ---------- icons ---------------------------------------------------------- */
+.rof__icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-inactive);
+}
+.rof__icon :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
+
+/* copy / actionable icon — gets its own hit + hover state */
+.rof__icon--interactive {
+  cursor: pointer;
+  border-radius: var(--radius-circle);
+  transition: background-color .12s ease, color .12s ease;
+}
+.rof__icon--interactive:hover,
+.rof__icon--interactive:focus-visible {
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+  color: var(--text-secondary);
+}
+.rof__icon--interactive:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.rof__icon--interactive.is-done { color: var(--success-dark); }
+
+/* informational icon (e.g. overdue / anomaly) — not clickable, shows tooltip */
+.rof__icon--warning { color: var(--warning); cursor: default; }
+
+/* ---------- prefix / postfix --------------------------------------------- */
+/* Kept short by design (~10-12 characters): a symbol or abbreviation, never
+   a full word/phrase. If misconfigured with a long string it truncates
+   instead of stretching the row — full text is available via hover tooltip
+   (wired in JS), same treatment as an overflowing value. */
+.rof__affix {
+  flex: none;
+  max-width: 12ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: var(--type-body-m);
+  color: var(--text-inactive);
+}
+
+/* ---------- value ------------------------------------------------------------ */
+.rof__value {
+  min-width: 0;
+  font: var(--type-body-m);
+}
+/* text/chips values (span/div) get the default body colour; an anchor value
+   (type=link) must keep the Link component's own accent/hover colours
+   instead — scoped by tag so specificity doesn't depend on stylesheet load
+   order, and left alone here so .link / .link:hover keep control. */
+span.rof__value,
+div.rof__value {
+  color: var(--text-primary);
+}
+a.rof__value.link { font: var(--type-body-m); }
+
+/* semantic colour — for signed deltas / rates (text values only) */
+span.rof__value.rof__value--positive,
+div.rof__value.rof__value--positive { color: var(--success-dark); }
+span.rof__value.rof__value--negative,
+div.rof__value.rof__value--negative { color: var(--error-dark); }
+/* Empty placeholder — PROPOSED */
+span.rof__value.rof__value--muted,
+div.rof__value.rof__value--muted { color: var(--text-inactive); }
+
+/* overflow: single line → ellipsis */
+.rof__value--clamp-1 {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* overflow: N lines → line-clamp (N supplied inline via --rof-clamp; default 2) */
+.rof__value--clamp-n {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--rof-clamp, 2);
+  overflow: hidden;
+  text-wrap: pretty;
+}
+
+/* chips value — reuses Chip (readonly, xs) inside a wrapping chiplist */
+.rof__value--chips { display: flex; min-width: 0; }
+.rof__value--chips .chiplist { row-gap: 6px; }
+
+/* ---------- helper alignment ------------------------------------------------- */
+.rof .ds-helper--right { text-align: right; }
+
+/* ---------- Empty state — PROPOSED -------------------------------------------- */
+.rof--empty .rof__value { color: var(--text-inactive); }
+
+/* ---------- Loading skeleton — PROPOSED ---------------------------------------- */
+/* Общий компонент Skeleton (.sk-line, styles/skeleton.css), локальной реализации нет. */
+
+/* =========================================================================
+   ROF-GRID — usage pattern for laying out several fields inside a card
+   (documentation-only helper class, ships alongside real product cards)
+   ========================================================================= */
+.rof-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 24px;
+}</script>
 </body>
 </html>

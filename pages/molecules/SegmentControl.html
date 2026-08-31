@@ -42,12 +42,8 @@
   .subhead.mt { margin-top: 30px; }
   .demo-rowlabel { font: var(--type-body-xs); color: var(--text-inactive); margin-bottom:10px; }
 
-  /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:48px 40px; display:flex; align-items:center; justify-content:center; min-height:220px;
+  /* ---------- демо-стадия (docs-split) ---------- */
+  .pg__stage { flex:1; min-height:0; width:100%; padding:48px 40px; display:flex; align-items:center; justify-content:center;
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
@@ -136,30 +132,41 @@
   .code-panel__name { font: var(--type-body-s-strong); color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; }
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+  <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="SegmentControl">
+<main class="page ds-split" data-screen-label="SegmentControl">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>1.004</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.005</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>SegmentControl</h1>
     <p class="lead">Компактный контрол для переключения одного значения параметра — периода, единиц, режима отображения — из 2–6 взаимоисключающих опций. Сегменты лежат в общем треке (rail); выбранный сегмент отмечен плавающим индикатором (thumb), который анимированно переезжает при переключении. Размеры <b>M</b>, <b>S</b>, <b>XS</b>, опциональная ведущая иконка и вариант «только иконки».</p>
   </header>
-
-  <!-- PLAYGROUND (сразу после шапки) -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите контрол: размер, количество сегментов, контент, состояние и Fullwidth — превью и код обновляются мгновенно. Кликните по сегменту в превью, чтобы увидеть анимацию индикатора.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -463,14 +470,273 @@ useEffect(() => {
     <span>Дизайн-система · SegmentControl</span>
     <span>M / S / XS — Default / Hover / Selected / Disabled — Fullwidth</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите контрол: размер, количество сегментов, контент, состояние и Fullwidth — превью и код обновляются мгновенно. Кликните по сегменту в превью, чтобы увидеть анимацию индикатора.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/segment-control.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-tabs.js"></script>
-<script src="../../scripts/segment-control.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/segment-control.page.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Состояние': 'Показывать Disabled', 'Fullwidth': 'На всю ширину', 'Счётчик (badge)': 'Показывать счётчик' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- thumb идёт первым ребёнком — сегменты .segctrl__item начинаются со второго -->
+<div class="segctrl" role="radiogroup" aria-label="Период">
+  <div class="segctrl__thumb"></div>
+
+  <button type="button" class="segctrl__item" role="radio" aria-checked="false" tabindex="-1">
+    <span class="segctrl__label">Неделя</span>
+  </button>
+
+  <button type="button" class="segctrl__item" role="radio" aria-checked="true" tabindex="0">
+    <span class="segctrl__label">Месяц</span>
+    <!-- опциональный счётчик — реальный Badge, вариант --text (без заливки) -->
+    <span class="badge badge--text badge--s">12</span>
+  </button>
+
+  <button type="button" class="segctrl__item" role="radio" aria-checked="false" tabindex="-1">
+    <span class="segctrl__label">Год</span>
+  </button>
+</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — scripts/segment-control.page.js)
+function makeSegControl(o) {
+  // o: { size:'m'|'s'|'xs', items:[{label, icon, disabled, badge}], selected, fullwidth, disabled, label }
+  // .segctrl(.segctrl--<size>)(.segctrl--fullwidth)(.segctrl--disabled) → role="radiogroup"
+  // .segctrl__thumb — первый ребёнок (позицию задаёт рантайм), затем .segctrl__item (role="radio")
+}
+// Поведение — рантайм ДС: window.DSTabs.segment(host, { onChange }) — клик,
+// клавиатура (roving tabindex), пересчёт индикатора по выбранному сегменту.</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — SegmentControl
+   Компактный контрол переключения одного значения из 2–6 взаимоисключающих
+   опций внутри общего трека (rail) с плавающим индикатором (thumb).
+
+   В отличие от Tab (навигация между вьюхами страницы, role=tablist) и
+   ButtonGroup--toggle (сегментированный выбор из отдельных Button),
+   SegmentControl — единый трек с общим фоном и одним "плавающим" индикатором
+   выбора; семантика — role="radiogroup" / role="radio" (взаимоисключающий
+   выбор значения параметра, а не переключение контента страницы).
+
+   Sizes:   m (40) · s (32) · xs (24)
+   States:  default · hover · selected · selected+hover · disabled (группа)
+   Slots:   leading icon (опционально) · label — либо icon-only ·
+            счётчик содержимого (Badge, вариант --text, без заливки)
+   Extras:  fullwidth (равная ширина сегментов), анимированный индикатор
+   Requires: typography.css, colors.css, radius.css
+   ========================================================================= */
+
+.segctrl {
+  /* size tokens — overridden per size modifier.
+     --seg-h — высота ВНУТРЕННЕГО сегмента, не всего контрола. Обводка трека
+     (padding трека) — часть компонента: полная высота контрола = --seg-h +
+     2*--seg-pad и обязана совпадать с высотой Button того же размера.
+     M: 34 + 2*3 = 40 · S: 28 + 2*2 = 32 · XS: 20 + 2*2 = 24 */
+  --seg-h: 34px;
+  --seg-pad: 3px;
+  --seg-gap: 2px;
+  --seg-px: 14px;
+  --seg-icon: 20px;
+  --seg-font: var(--type-button-m);
+  --seg-radius: var(--radius-m);
+  --seg-item-radius: calc(var(--radius-m) - 3px);
+
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--seg-gap);
+  /* translucent neutral fill (rather than a flat near-white tone) so the
+     track stays legible whether it sits on the page's off-white background,
+     a white card, or any other surface */
+  background: color-mix(in srgb, var(--c-swamp-400) 16%, transparent);
+  border-radius: var(--seg-radius);
+  padding: var(--seg-pad);
+  isolation: isolate;
+  box-sizing: border-box;
+}
+
+/* ---------- fullwidth / equal-width segments ------------------------------- */
+.segctrl--fullwidth { display: flex; width: 100%; }
+.segctrl--fullwidth .segctrl__item { flex: 1 1 0; }
+
+/* ---------- floating indicator (thumb) ------------------------------------- */
+.segctrl__thumb {
+  position: absolute;
+  top: var(--seg-pad);
+  bottom: var(--seg-pad);
+  left: 0;
+  width: 0;
+  background: var(--bg-tile);
+  border-radius: var(--seg-item-radius);
+  box-shadow: 0 1px 2px rgba(40, 50, 55, .10);
+  transform: translateX(0);
+  transition: transform .18s cubic-bezier(.4, 0, .2, 1), width .18s cubic-bezier(.4, 0, .2, 1), opacity .15s ease;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.segctrl__thumb.is-visible { opacity: 1; }
+.segctrl--no-anim .segctrl__thumb { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .segctrl__thumb { transition: opacity .15s ease; }
+}
+
+/* ---------- segment item ---------------------------------------------------- */
+.segctrl__item {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--seg-h);
+  padding: 0 var(--seg-px);
+  border: 0;
+  margin: 0;
+  background: transparent;
+  border-radius: var(--seg-item-radius);
+  font: var(--seg-font);
+  letter-spacing: 0;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: color .15s ease, background-color .15s ease;
+}
+.segctrl__item :is(svg,[data-icon]){ flex: none; width: var(--seg-icon); height: var(--seg-icon); display: block; }
+
+/* icon-only segment — square-ish, needs an aria-label */
+.segctrl__item--icon-only { padding: 0 calc(var(--seg-px) - 4px); gap: 0; }
+/* …но если рядом с иконкой стоит счётчик — зазор тот же 6px, что и в варианте
+   с текстом, иначе цифра прилипает к глифу */
+.segctrl__item--icon-only:has(.badge) { gap: 6px; }
+
+/* text label — truncates with ellipsis when constrained (fullwidth narrow) */
+.segctrl__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+/* ---------- optional count slot ---------------------------------------------
+   Reuses the Badge component in its borderless `.badge--text` variant — a
+   filled badge would double up on the track's own fill and read as noisy;
+   the borderless counter stays legible while keeping the segment quiet. */
+.segctrl__item .badge--text { flex: none; }
+.segctrl--disabled .badge--text,
+.segctrl[aria-disabled="true"] .badge--text,
+.segctrl__item:disabled .badge--text,
+.segctrl__item[aria-disabled="true"] .badge--text { color: var(--st-disabled-dark); }
+
+/* thin divider between adjacent unselected, non-hovered segments —
+   hidden next to the selected segment or a hovered neighbour so it never
+   cuts across the floating thumb */
+.segctrl__item::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--seg-gap) / 2 - .5px);
+  top: 22%;
+  bottom: 22%;
+  width: 1px;
+  background: var(--border-primary);
+}
+/* the thumb is inserted as the track's first DOM child (so it can sit behind
+   every segment), which pushes the actual first segment to be the SECOND
+   child — :first-of-type (first .segctrl__item among sibling buttons,
+   ignoring the thumb div) is what correctly targets it, not :first-child */
+.segctrl__item:first-of-type::before { display: none; }
+.segctrl__item[aria-checked="true"]::before,
+.segctrl__item[aria-checked="true"] + .segctrl__item::before,
+.segctrl__item:hover::before,
+.segctrl__item.is-hover::before,
+.segctrl__item:hover + .segctrl__item::before,
+.segctrl__item.is-hover + .segctrl__item::before { opacity: 0; }
+
+/* ---------- states: hover (unselected only — selected is already marked) --- */
+.segctrl__item:not([aria-checked="true"]):hover,
+.segctrl__item:not([aria-checked="true"]).is-hover {
+  background: var(--primary-bg);
+  color: var(--text-primary);
+}
+
+/* ---------- states: selected ------------------------------------------------ */
+.segctrl__item[aria-checked="true"] { color: var(--primary); }
+
+.segctrl__item:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- states: disabled ------------------------------------------------ */
+/* default rule — Disabled применяется на весь контрол целиком */
+.segctrl--disabled,
+.segctrl[aria-disabled="true"] {
+  background: var(--disabled-bg);
+  pointer-events: none;
+}
+.segctrl--disabled .segctrl__thumb,
+.segctrl[aria-disabled="true"] .segctrl__thumb { box-shadow: none; }
+.segctrl--disabled .segctrl__item,
+.segctrl[aria-disabled="true"] .segctrl__item { color: var(--st-disabled-dark); cursor: not-allowed; }
+
+/* edge case — точечное отключение одного сегмента, остальной контрол активен */
+.segctrl__item:disabled,
+.segctrl__item[aria-disabled="true"]:not([aria-checked="true"]) {
+  color: var(--st-disabled-dark);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.segctrl__item:disabled::before,
+.segctrl__item[aria-disabled="true"]::before { opacity: 0; }
+
+/* ---------- sizes ------------------------------------------------------------ *
+   Размеры — прямыми свойствами на конкретных потомках (не через --seg-* в
+   модификаторе), чтобы компилятор чисто регистрировал токены. Размер m =
+   дефолты .segctrl (отдельных правил не требует); gap = 2px для всех размеров,
+   поэтому seg-gap-потребители (.segctrl gap, ::before left) не переопределяются. */
+.segctrl--s { padding: 2px; border-radius: var(--radius-s); }
+.segctrl--s .segctrl__thumb { top: 2px; bottom: 2px; border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--s .segctrl__item { height: 28px; padding: 0 11px; font: var(--type-button-s); border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--s .segctrl__item--icon-only { padding: 0 calc(11px - 4px); }
+.segctrl--s .segctrl__item :is(svg,[data-icon]){ width: 18px; height: 18px; }
+
+.segctrl--xs { padding: 2px; border-radius: var(--radius-s); }
+.segctrl--xs .segctrl__thumb { top: 2px; bottom: 2px; border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--xs .segctrl__item { height: 20px; padding: 0 8px; font: var(--type-button-xs); border-radius: calc(var(--radius-s) - 2px); }
+.segctrl--xs .segctrl__item--icon-only { padding: 0 calc(8px - 4px); }
+.segctrl--xs .segctrl__item :is(svg,[data-icon]){ width: 16px; height: 16px; }</script>
 </body>
 </html>

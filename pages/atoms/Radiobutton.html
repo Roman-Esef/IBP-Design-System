@@ -38,11 +38,8 @@
   /* inline token chip */
 
   /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:48px 40px; display:flex; align-items:center; justify-content:center; min-height:200px;
+  @media (max-width:820px){ }
+  .pg__stage { flex:1; min-height:0; width:100%; padding:48px 40px; display:flex; align-items:center; justify-content:center; 
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
@@ -51,8 +48,6 @@
   .ctl { display:flex; flex-direction:column; gap:10px; }
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
 
-  .toggles { display:flex; flex-direction:column; gap:9px; }
-  .toggle { display:inline-flex; align-items:center; gap:11px; padding:9px 12px; border:1px solid var(--border-light); border-radius:9px; font: var(--type-body-m); color: var(--text-primary); cursor:pointer; user-select:none; background: var(--bg-tile); transition:.12s; }
 
   .pg__code { margin-top:4px; font: var(--type-body-s); color: var(--text-inactive); }
 
@@ -107,29 +102,49 @@
   .code-panel__name { color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; font-weight:600; }
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+    <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="Radiobutton">
+<main class="page ds-split" data-screen-label="Radiobutton">
 
-  <header class="masthead">
-    <div class="meta"><span>Версия: <b>2.007</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
+
+<header class="masthead">
+    <div class="meta"><span>Версия: <b>2.007</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Radiobutton</h1>
     <p class="lead">Радиокнопка позволяет выбрать всего один пункт из списка взаимоисключающих вариантов. Используется только в составе группы. Два состояния выбора — Unselected / Selected — и интерактивные состояния Default / Hover / Focus / Pressed / Disabled / Error.</p>
   </header>
 
+
+
+  
+
   <!-- PLAYGROUND (interactive — always first) -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите радиокнопку: переключайте состояние выбора, интерактивное состояние и состав — превью обновляется мгновенно.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
+  
 
   <!-- WHEN TO USE -->
   <section class="section" data-screen-label="WhenToUse">
@@ -424,6 +439,41 @@
     <span>Дизайн-система · Radiobutton</span>
     <span>Unselected · Selected — Default / Hover / Focus / Pressed / Disabled / Error</span>
   </footer>
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите радиокнопку: переключайте состояние выбора, интерактивное состояние и состав — превью обновляется мгновенно.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
@@ -520,12 +570,15 @@ function wireGroup(items, onChange){
     sel.addEventListener('change',()=>{ onPick(sel.value); render(); });
     box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
-  function sw(label, key){
-    const t=document.createElement('button'); t.type='button'; t.className='toggle'; t.dataset.key=key;
-    t.setAttribute('aria-pressed', String(state[key]));
-    t.innerHTML='<span class="sw"></span><span>'+label+'</span>';
-    t.addEventListener('click',()=>{ state[key]=!state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-    return t;
+  /* Бинарные опции — селекты: docs-split.js конвертирует их в свитчи ДС (урок Л4) */
+  function ctlToggle(label, key){
+    const wrap=document.createElement('div'); wrap.className='ctl';
+    const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
+    const box=document.createElement('div'); box.className='pg-select';
+    const sel=document.createElement('select');
+    [['no','Нет'],['yes','Да']].forEach(([v,t])=>{ const o=document.createElement('option'); o.value=v; o.textContent=t; if((v==='yes')===!!state[key]) o.selected=true; sel.appendChild(o); });
+    sel.addEventListener('change',()=>{ state[key]=sel.value==='yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
 
   controls.appendChild(select('Состояние выбора',
@@ -535,15 +588,11 @@ function wireGroup(items, onChange){
     [['default','Default'],['hover','Hover'],['focus','Focus'],['pressed','Pressed'],['disabled','Disabled']],
     ()=>state.istate, v=>state.istate=v));
 
-  const compWrap=document.createElement('div'); compWrap.className='ctl';
-  const cl=document.createElement('div'); cl.className='lbl'; cl.textContent='Состав'; compWrap.appendChild(cl);
-  const toggles=document.createElement('div'); toggles.className='toggles';
-  toggles.appendChild(sw('Название','label'));
-  toggles.appendChild(sw('Хелпер','helper'));
-  toggles.appendChild(sw('Группа','group'));
-  toggles.appendChild(sw('Обязательный выбор (*)','required'));
-  toggles.appendChild(sw('Ошибка','error'));
-  compWrap.appendChild(toggles); controls.appendChild(compWrap);
+  controls.appendChild(ctlToggle('Название','label'));
+  controls.appendChild(ctlToggle('Хелпер','helper'));
+  controls.appendChild(ctlToggle('Группа','group'));
+  controls.appendChild(ctlToggle('Обязательный выбор (*)','required'));
+  controls.appendChild(ctlToggle('Ошибка','error'));
 
   function render(){
     const o = { state: state.sel };
@@ -946,8 +995,193 @@ function wireGroup(items, onChange){
 })();
 </script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Состояние выбора': 'Выбран', 'Название': 'Показывать название', 'Хелпер': 'Показывать хелпер', 'Группа': 'Показывать группу', 'Обязательный выбор (*)': 'Обязательный выбор', 'Ошибка': 'Показывать ошибку' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- группа радиокнопок: заголовок + пункты с общим name -->
+<div class="rb-group" role="radiogroup" aria-labelledby="grp-t">
+  <p class="rb-group__title" id="grp-t">Обновлять список</p>
+  <div class="rb-group__items">
+    <label class="rb rb--selected">
+      <input type="radio" class="rb__input" name="refresh" checked>
+      <span class="rb__box"><i class="rb__mark" data-icon="radio-button-checked"></i></span>
+      <span class="rb__content"><span class="rb__label">Ежеминутно</span></span>
+    </label>
+    <label class="rb">
+      <input type="radio" class="rb__input" name="refresh">
+      <span class="rb__box"><i class="rb__mark" data-icon="radio-button-unchecked"></i></span>
+      <span class="rb__content"><span class="rb__label">Ежечасно</span></span>
+    </label>
+  </div>
+</div>
+
+<!-- обязательная группа без выбора — ошибка -->
+<div class="rb-group" role="radiogroup" aria-labelledby="grp-t2" aria-describedby="grp-e2">
+  <p class="rb-group__title" id="grp-t2">Способ доставки<span class="rb__req">*</span></p>
+  <div class="rb-group__items">…</div>
+  <p class="rb-group__error" id="grp-e2"><i data-icon="alert-triangle"></i><span>Выберите один из вариантов</span></p>
+</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — инлайн-скрипт страницы)
+function makeRb(o) {
+  // o: { state:'unselected'|'selected', istate, label?, helper?, group?, required?, error? }
+  // label.rb(.rb--selected)(.rb--disabled)(.rb--error) → .rb__input + .rb__mark + .rb__content
+  // группа: .rb-group(+ .rb-group__error); required — «*» в подписи
+}</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — Radiobutton
+   Shape: 20px alignment area (matches Body M line-height) · круглый шейп 16px —
+          готовые SVG-иконки пака System (radio-button-unchecked/checked),
+          currentColor задаёт цвет всей формы.
+   States: unselected · selected
+           ×  default · hover · focus · pressed · disabled · error
+   Label: Body M (SB Sans Text) · Helper: общий компонент подкачки (Body XS),
+   рендерится классом .ds-helper — см. label-helper.css.
+   Requires: typography.css, colors.css, label-helper.css
+   ========================================================================= */
+
+.rb {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.rb--disabled,
+.rb:has(.rb__input:disabled) { cursor: default; pointer-events: none; }
+
+/* visually-hidden native input (keeps it accessible / focusable) */
+.rb__input {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+  margin: 0;
+}
+
+/* 20px alignment box — matches Body M line-height (20px),
+   centers the 16px round mark, leaving the 2px empty area all round. */
+.rb__box {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 16px круглый шейп — готовая иконка пака System (radio-button-unchecked/checked),
+   currentColor управляет цветом всей формы (рамка + точка — единый SVG-путь) */
+.rb__mark {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-circle);
+  box-sizing: border-box;
+  display: flex;
+  overflow: hidden;
+  color: var(--border-dark);
+  transition: color .15s ease, box-shadow .15s ease, outline-color .15s ease;
+}
+.rb__mark :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; transform: scale(1.2); }
+
+/* ---------- selected (иконка radio-button-checked: рамка + точка) ---------
+   Класс — форс-состояние витрины; нативный .rb__input:checked даёт тот же
+   цвет без класса — см. RulesAudit W1. */
+.rb--selected .rb__mark,
+.rb__input:checked ~ .rb__box .rb__mark { color: var(--primary); }
+
+/* ---------- hover --------------------------------------------------------- */
+.rb:hover .rb__mark,
+.rb--hover .rb__mark {
+  color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-bg-light);
+}
+.rb:hover.rb--selected .rb__mark,
+.rb--hover.rb--selected .rb__mark,
+.rb:hover:has(.rb__input:checked) .rb__mark {
+  color: var(--primary-dark);
+}
+
+/* ---------- pressed ------------------------------------------------------- */
+/* a larger state layer halo (Material-style) on press */
+.rb:active .rb__mark,
+.rb--pressed .rb__mark {
+  box-shadow: 0 0 0 6px var(--primary-bg);
+}
+
+/* ---------- focus (keyboard) ---------------------------------------------- */
+.rb__input:focus-visible + .rb__box .rb__mark,
+.rb--focus .rb__mark {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ---------- error / invalid ----------------------------------------------- */
+/* a required group left unselected, or a group that failed validation */
+.rb--error .rb__mark {
+  color: var(--error);
+  box-shadow: none;
+}
+.rb:hover.rb--error .rb__mark,
+.rb--hover.rb--error .rb__mark {
+  color: var(--error-dark);
+  box-shadow: 0 0 0 4px var(--error-bg);
+}
+.rb--error .ds-helper { color: var(--error); }
+
+/* ---------- content (label + helper) -------------------------------------- */
+.rb__content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rb__label  { font: var(--type-body-m);  color: var(--text-primary); }
+/* Хелпер — общий компонент подкачки (не собственный класс), см. label-helper.css → .ds-helper */
+.rb--no-content .rb__content { display: none; }
+
+/* required marker — asterisk after the label */
+.rb__req { color: var(--error); margin-left: 2px; }
+
+/* ---------- disabled ------------------------------------------------------- */
+.rb--disabled .rb__mark,
+.rb__input:disabled ~ .rb__box .rb__mark { color: var(--disabled); box-shadow: none; }
+.rb--disabled .rb__label,
+.rb--disabled .ds-helper,
+.rb__input:disabled ~ .rb__content .rb__label,
+.rb__input:disabled ~ .rb__content .ds-helper { color: var(--text-inactive); }
+
+/* ---------- group ---------------------------------------------------------
+   Radiobuttons всегда образуют группы. Внутри группы активная (кликабельная)
+   область вытягивается на всю высоту строки; выравнивание всегда по левому краю. */
+.rb-group { display: flex; flex-direction: column; }
+.rb-group__title {
+  font: var(--type-h6-strong);
+  color: var(--text-primary);
+  margin: 0 0 4px;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.rb-group__items { display: flex; flex-direction: column; }
+.rb-group .rb { padding: 6px 0; }
+.rb-group--indent .rb-group__items { padding-left: 28px; }
+
+/* horizontal layout — используйте, когда пространство по вертикали ограничено */
+.rb-group--horizontal .rb-group__items {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 24px;
+}
+
+/* group-level error message (Body XS, error color) */
+.rb-group__error {
+  font: var(--type-body-xs);
+  color: var(--error);
+  margin: 6px 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.rb-group__error :is(svg,[data-icon]){ width: 14px; height: 14px; flex: none; }</script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 component: AllocationBar
 title: "AllocationBar"
 version: "1.001"
-updated: "21.08.2026"
+updated: "30.08.2026"
 page: pages/organisms/AllocationBar.html
 runtime: scripts/ds-allocationbar.js
 css: styles/allocation-bar.css

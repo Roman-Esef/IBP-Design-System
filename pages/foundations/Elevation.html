@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/shadow.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -29,12 +28,8 @@
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:76ch; text-wrap:pretty; }
 
   /* ---------- playground ---------- */
-  
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:860px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:44px 40px; display:flex; align-items:center; justify-content:center; min-height:280px; transition: background-color .15s ease; }
+  @media (max-width:860px){ }
+  .pg__stage { flex:1; min-height:0; width:100%; padding:44px 40px; display:flex; align-items:center; justify-content:center;  transition: background-color .15s ease; }
   .pg__stage.ctx-page { background: var(--bg-page); }
   .pg__stage.ctx-tile { background: #fff; }
   .pg__stage.ctx-dark { background: var(--c-cgrey-800); }
@@ -88,47 +83,50 @@
   .ring-demo.ring2 { box-shadow: 0 0 0 4px var(--primary-bg-light); }
   .ring-demo.ring3 { box-shadow: inset 0 0 0 2px rgba(255,255,255,.5); background: var(--c-swamp-400); }
 </style>
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+  <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
 </head>
 <body>
-<main class="page" data-screen-label="Elevation">
+<main class="page ds-split" data-screen-label="Elevation">
 
-  <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.000</b></span><span>Обновлено: <b>07.08.2026</b></span></div>
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage ctx-page" id="pgStage">
+        <div class="stagebox" id="pgBox">Surface</div>
+      </div>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
+
+<header class="masthead">
+    <div class="meta"><span>Версия: <b>1.000</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Основы</p>
     <h1>Тени (Elevation)</h1>
     <p class="lead">Шкала теней ровно та, что уже используется в основном продукте: <strong>Elevation_1…5</strong> и отдельно именованная <strong>Shadow4.0_modalform</strong>. Значения не изобретены здесь и не меняются этой страницей — она каталогизирует то, что уже есть, и фиксирует, какой компонент какой уровень использует.</p>
   </header>
 
+
+
+  
+
   <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Выберите токен и поверхность-контекст — превью и значение обновляются мгновенно.</p>
-    <div class="panel pg">
-      <div class="pg__controls">
-        <div class="ctl">
-          <span class="lbl">Токен тени</span>
-          <div class="pg-select"><select id="pgToken"></select></div>
-        </div>
-        <div class="ctl">
-          <span class="lbl">Поверхность-контекст</span>
-          <div class="pg-select"><select id="pgCtx">
-            <option value="ctx-page">Фон страницы</option>
-            <option value="ctx-tile">Белая плитка</option>
-            <option value="ctx-dark">Тёмная подложка</option>
-          </select></div>
-        </div>
-        <div class="readout">
-          <div class="r"><span class="k">Токен</span><span class="v tokv" id="roToken">--elevation-2</span></div>
-          <div class="r"><span class="k">Значение</span><span class="v" id="roVal">0 10px 30px rgba(40,50,55,.16)</span></div>
-          <div class="r"><span class="k">Где используется</span><span class="v" id="roUse">Тултипы, контекстное меню, выпадающий список</span></div>
-        </div>
-      </div>
-      <div class="pg__stage ctx-page" id="pgStage">
-        <div class="stagebox" id="pgBox">Surface</div>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- SCALE -->
   <section class="section" data-screen-label="Scale">
@@ -244,7 +242,63 @@
     </div>
   </section>
 
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Выберите токен и поверхность-контекст — превью и значение обновляются мгновенно.</p>
+              <div class="pg__controls">
+        <div class="ctl">
+          <span class="lbl">Токен тени</span>
+          <div class="pg-select"><select id="pgToken"></select></div>
+        </div>
+        <div class="ctl">
+          <span class="lbl">Поверхность-контекст</span>
+          <div class="pg-select"><select id="pgCtx">
+            <option value="ctx-page">Фон страницы</option>
+            <option value="ctx-tile">Белая плитка</option>
+            <option value="ctx-dark">Тёмная подложка</option>
+          </select></div>
+        </div>
+        <div class="readout">
+          <div class="r"><span class="k">Токен</span><span class="v tokv" id="roToken">--elevation-2</span></div>
+          <div class="r"><span class="k">Значение</span><span class="v" id="roVal">0 10px 30px rgba(40,50,55,.16)</span></div>
+          <div class="r"><span class="k">Где используется</span><span class="v" id="roUse">Тултипы, контекстное меню, выпадающий список</span></div>
+        </div>
+      </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
+
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 
 <script>
   var SCALE = [
@@ -335,7 +389,42 @@
   })();
 </script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = {};</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- токен тени: тень из шкалы Elevation -->
+<div class="demo-panel" style="box-shadow: var(--elevation-2);">
+  Surface
+</div>
+<!-- контексты: ctx-page / ctx-tile / ctx-dark меняют подложку -->
+<div class="demo-stage ctx-tile">…</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — инлайн-скрипт страницы)
+// Шкала теней: --elevation-0 … --elevation-6 (styles/shadow.css)
+// Конструктор: select#pgToken (токен) + select#pgCtx (поверхность) →
+//   превью .pg__stage получает класс ctx-* и box-shadow токена;
+//   сводка .readout (roToken/roVal/roUse) пересчитывается getComputedStyle.
+// Применение: stage.style.boxShadow = getComputedStyle(probe).boxShadow</script>
+<script type="text/plain" id="src-code-css">/* ============================================================
+   SHADOW / ELEVATION — токены теней
+   Часть основ дизайн-системы. Подключается как styles/shadow.css
+
+   Названия и число уровней — как в основном продукте: Elevation_1…5
+   + отдельный именованный Shadow4.0_modalform. Это НЕ придуманная здесь
+   шкала — сами значения этим файлом не меняются, только каталогизируются
+   для документации. Elevation_3–5 в проде пока не привязаны ни к одному
+   компоненту (зарезервированы «на будущее», как и часть шкалы --radius-*).
+   ============================================================ */
+
+:root {
+  --elevation-1: 0 1px 2px rgba(40, 50, 55, .28);     /* точка на свитчере (Switch — thumb) */
+  --elevation-2: 0 10px 30px rgba(40, 50, 55, .16);   /* тултипы, контекстное меню, выпадашка на селекте */
+  --elevation-3: 0 14px 38px rgba(40, 50, 55, .18);   /* резерв — пока не назначено компоненту */
+  --elevation-4: 0 18px 48px rgba(40, 50, 55, .20);   /* резерв — пока не назначено компоненту */
+  --elevation-5: 0 22px 58px rgba(40, 50, 55, .22);   /* резерв — пока не назначено компоненту */
+
+  /* именован отдельно от лестницы Elevation_* — под модальные окна/шиты */
+  --shadow-modal-form: 0 24px 64px rgba(40, 50, 55, .28); /* тень под модалкой (Shadow4.0_modalform) */
+}</script>
 </body>
 </html>

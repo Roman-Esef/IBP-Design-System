@@ -75,7 +75,7 @@
       ctl('Состояние', 'pgState', [['default', 'Default'], ['hover', 'Hover'], ['focus', 'Focus'], ['disabled', 'Disabled']], pg.state) +
       chk('Иллюстрация', 'pgIllu', pg.showIllu) +
       chk('Описание', 'pgDesc', pg.showDesc) +
-      '<div class="ctl" id="ctlLinks"><label class="ds-label" for="pgLinks"><span class="ds-label__text">Ссылок</span></label>' +
+      '<div class="ctl" id="ctlLinks"><span class="lbl">Ссылок</span>' +
       '<div class="pg-select"><select id="pgLinks">' + [1, 2, 3, 4].map(function (n) {
         return '<option value="' + n + '"' + (n === pg.nLinks ? ' selected' : '') + '>' + n + '</option>';
       }).join('') + '</select></div></div>';
@@ -107,7 +107,7 @@
   }
 
   function ctl(label, id, opts, cur) {
-    return '<div class="ctl"><label class="ds-label" for="' + id + '"><span class="ds-label__text">' + label + '</span></label>' +
+    return '<div class="ctl"><span class="lbl">' + label + '</span>' +
       '<div class="pg-select"><select id="' + id + '">' + opts.map(function (o) {
         return '<option value="' + o[0] + '"' + (o[0] === cur ? ' selected' : '') + '>' + o[1] + '</option>';
       }).join('') + '</select></div></div>';

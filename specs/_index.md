@@ -46,7 +46,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | Radius | specs/Radius.md | — | — | 1.000 |
 | ReadOnlyField | specs/ReadOnlyField.md | styles/read-only-field.css | label-helper, chip, link, tooltip, segment-control, splitter | 1.005 |
 | RiskMetric | specs/RiskMetric.md | styles/riskmetric.css | chip, popover, icon-button, divider, skeleton | 1.006 |
-| SegmentControl | specs/SegmentControl.md | styles/segment-control.css | tab, button, button-group, badge | 1.004 |
+| SegmentControl | specs/SegmentControl.md | styles/segment-control.css | tab, button, button-group, badge | 1.005 |
 | Skeleton | specs/Skeleton.md | styles/skeleton.css | — | 1.001 |
 | SnackBar | specs/SnackBar.md | styles/snackbar.css | button, link | 1.004 |
 | Spacing | specs/Spacing.md | styles/spacing.css | — | 1.004 |

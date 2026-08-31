@@ -23,9 +23,11 @@
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/chart.css">
 <link rel="stylesheet" href="../../styles/skeleton.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <style>
 
@@ -35,14 +37,12 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
 .subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:32px 0 14px;}
 
-/* playground */
-.panel.pg{padding:0;overflow:hidden;display:grid; }
-.pg__stage{display:flex;align-items:stretch;min-height:320px;padding:24px 26px;min-width:0;}
+/* playground: демо — в верхнюю панель сплиттера, контролы — во вкладку «Конструктор» */
+.pg__stage{flex:1;min-height:0;width:100%;display:flex;align-items:stretch;padding:24px 26px;min-width:0;}
 .pg__stagebox{width:100%;display:flex;flex-direction:column;min-width:0;}
 .ctl{display:flex;flex-direction:column;gap:10px;}
 .ctl.is-off{display:none;}
-.pg__grouphead{grid-column:1 / -1;font:var(--type-body-s-strong);font-size:11px;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;padding-top:16px;margin-top:4px;border-top:1px solid var(--border-light);}
-.pg__grouphead:first-child{padding-top:0;margin-top:0;border-top:none;}
+.toggles>.is-off{display:none;}
 .ctl>.lbl{font:600 11px/1 var(--font-text),sans-serif;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;}
 /* preview stage */
 .tc-stage{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:28px;min-height:240px;}
@@ -94,7 +94,35 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 </style>
 </head>
 <body>
-<main class="page" data-screen-label="TableCell">
+<main class="page ds-split" data-screen-label="TableCell">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage">
+          <div class="pg__stagebox">
+            <div class="tc-stage">
+              <div class="tbl" id="demo-tbl"></div>
+            </div>
+            <p class="ws-cap">Каждая строка начинается и заканчивается ячейкой-разделителем 8px. Первая строка — TableHeader: наведите на неё курсор, чтобы увидеть иконку закрепления, кликните по стрелке — сортировка циклится «не выбрана → по возрастанию → по убыванию». Наведение и клик по строке подсвечивают всю строку целиком, включая разделители; в фокусе строки доступны редактируемые ячейки и скрытые действия.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
 <header class="masthead">
   <a class="crumb" href="../../index.html">
@@ -103,7 +131,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   </a>
   <div class="meta">
     <span>Версия <b>2.005</b></span>
-    <span>Обновлено <b>27.08.2026</b></span>
+    <span>Обновлено <b>30.08.2026</b></span>
     <span>CSS <b>styles/table-cell.css</b></span>
     <span>Зависимости <b>checkbox, chip, icon-button, button, input, dropdown-list, tooltip, chart</b></span>
   </div>
@@ -112,176 +140,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <p class="lead">Ячейка таблицы и ячейка шапки (TableHeader). Универсальный контейнер для любого типа контента строки: текст, дерево, чипы, контролы и редактируемые поля. Высота строки фиксирована и растёт только там, где ячейка сама разрешает перенос текста — плотностей строки нет.</p>
 </header>
 
-<!-- 1. КОНСТРУКТОР -->
-<section class="section" id="constructor" data-screen-label="Конструктор">
-  <h2>Конструктор</h2>
-  <div class="panel pg">
-    <div class="pg__controls">
-      <div class="pg__grouphead">Шапка колонки · TableHeader</div>
-      <div class="ctl">
-        <div class="lbl">Сортировка</div>
-        <label class="pg-toggle"><input id="ctl-sort-on" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Опция доступна</span></label>
-      </div>
-      <div class="ctl" id="ctl-sort-dir-wrap">
-        <div class="lbl">Состояние сортировки</div>
-        <div class="pg-select"><select id="ctl-sort-dir">
-          <option value="none" selected>Не выбрана</option>
-          <option value="asc">По возрастанию</option>
-          <option value="desc">По убыванию</option>
-        </select></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Закрепление колонки</div>
-        <label class="pg-toggle"><input id="ctl-pin-on" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Опция доступна</span></label>
-      </div>
-      <div class="ctl" id="ctl-pinned-wrap">
-        <div class="lbl">Колонка закреплена</div>
-        <label class="pg-toggle"><input id="ctl-pinned" type="checkbox"><span class="pg-toggle__sw"></span><span>Фон Pinned у шапки и всей колонки</span></label>
-      </div>
-
-      <div class="pg__grouphead">Ячейка · TableCell</div>
-      <div class="ctl">
-        <div class="lbl">Тип контента</div>
-        <div class="pg-select"><select id="ctl-type">
-          <option value="text" selected>Текст</option>
-          <option value="tree">TreeNode</option>
-          <option value="chips">Chips</option>
-          <option value="button">Кнопка</option>
-          <option value="iconbuttons">IconButtons</option>
-          <option value="checkbox">Checkbox</option>
-          <option value="input-text">Input · Text</option>
-          <option value="input-date">Input · Date</option>
-          <option value="input-autocomplete">Input · Autocomplete</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="ctl-align-wrap">
-        <div class="lbl">Выравнивание</div>
-        <div class="pg-select"><select id="ctl-align">
-          <option value="left" selected>Слева</option>
-          <option value="right">Справа</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="ctl-numeric-wrap">
-        <div class="lbl">Числовое значение</div>
-        <label class="pg-toggle"><input id="ctl-numeric" type="checkbox"><span class="pg-toggle__sw"></span><span>Справа, табулярные цифры, разряды</span></label>
-      </div>
-      <div class="ctl" id="ctl-text-wrap">
-        <div class="lbl">Текст ячейки</div>
-        <div class="pg-text"><input id="ctl-text" type="text" placeholder="Значение ячейки" maxlength="64"></div>
-      </div>
-      <div class="ctl" id="ctl-level-wrap">
-        <div class="lbl">Уровень дерева</div>
-        <div class="pg-select"><select id="ctl-level">
-          <option value="0" selected>0 — корень</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="ctl-lead-wrap">
-        <div class="lbl">Иконка слева</div>
-        <label class="pg-toggle"><input id="ctl-lead-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
-        <div class="pg-select"><select id="ctl-lead-glyph">
-          <option value="check-circle" selected>check-circle</option>
-          <option value="bank">bank</option>
-          <option value="document-check">document-check</option>
-          <option value="star">star</option>
-          <option value="alert-triangle">alert-triangle</option>
-          <option value="clock-timer">clock-timer</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="ctl-prefix-wrap">
-        <div class="lbl">Prefix</div>
-        <label class="pg-toggle"><input id="ctl-prefix-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
-        <div class="pg-text"><input id="ctl-prefix-text" type="text" placeholder="от" maxlength="16"></div>
-      </div>
-      <div class="ctl" id="ctl-postfix-wrap">
-        <div class="lbl">Postfix</div>
-        <label class="pg-toggle"><input id="ctl-postfix-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
-        <div class="pg-text"><input id="ctl-postfix-text" type="text" placeholder="₽" maxlength="16"></div>
-      </div>
-      <div class="ctl" id="ctl-icon-wrap">
-        <div class="lbl">Иконка справа</div>
-        <label class="pg-toggle"><input id="ctl-icon-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
-        <div class="pg-select"><select id="ctl-icon-glyph">
-          <option value="alert-triangle" selected>alert-triangle</option>
-          <option value="check-circle">check-circle</option>
-          <option value="info-circle">info-circle</option>
-          <option value="star">star</option>
-          <option value="bookmark-add">bookmark-add</option>
-          <option value="link">link</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="ctl-subtext-wrap">
-        <div class="lbl">Вторая строка</div>
-        <label class="pg-toggle"><input id="ctl-subtext-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Дополнительная строка мельче</span></label>
-        <div class="pg-text"><input id="ctl-subtext-text" type="text" placeholder="ИНН 7701234567" maxlength="48"></div>
-      </div>
-      <div class="ctl" id="ctl-truncate-wrap">
-        <div class="lbl">Усечение</div>
-        <label class="pg-toggle"><input id="ctl-truncate" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Три точки + Tooltip (иначе перенос строк)</span></label>
-      </div>
-      <div class="ctl" id="ctl-chips-count-wrap">
-        <div class="lbl">Количество чипов</div>
-        <div class="pg-select"><select id="ctl-chips-count">
-          <option value="1">1</option>
-          <option value="2" selected>2</option>
-          <option value="3">3</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="ctl-chips-tone-wrap">
-        <div class="lbl">Тип чипа</div>
-        <div class="pg-select"><select id="ctl-chips-tone">
-          <option value="" selected>System</option>
-          <option value="success">Success</option>
-          <option value="warning">Warning</option>
-          <option value="error">Error</option>
-          <option value="info">Info</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="ctl-chips-rounded-wrap">
-        <div class="lbl">Скругление</div>
-        <label class="pg-toggle"><input id="ctl-chips-rounded" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Rounded (pill)</span></label>
-      </div>
-      <div class="ctl" id="ctl-hidden-wrap">
-        <div class="lbl">Скрытые действия</div>
-        <label class="pg-toggle"><input id="ctl-hidden" type="checkbox"><span class="pg-toggle__sw"></span><span>Появляются по наведению на строку</span></label>
-      </div>
-      <div class="ctl" id="ctl-edited-wrap">
-        <div class="lbl">EditMark</div>
-        <label class="pg-toggle"><input id="ctl-edited" type="checkbox"><span class="pg-toggle__sw"></span><span>Признак правки (правый верхний угол)</span></label>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Фон ячейки (колонка)</div>
-        <div class="pg-select"><select id="ctl-bg">
-          <option value="none" selected>Обычный</option>
-          <option value="accent">Accent</option>
-        </select></div>
-      </div>
-
-      <div class="pg__grouphead">Строка</div>
-      <div class="ctl">
-        <div class="lbl">Состояние</div>
-        <div class="pg-select"><select id="ctl-state">
-          <option value="default" selected>Обычное</option>
-          <option value="hover">Hover</option>
-          <option value="focus">Focus / выбор</option>
-          <option value="selected">Selected</option>
-          <option value="error">Error</option>
-          <option value="empty">Нет данных (—)</option>
-          <option value="skeleton">Skeleton / загрузка</option>
-        </select></div>
-      </div>
-    </div>
-    <div class="pg__stage">
-      <div class="pg__stagebox">
-        <div class="tc-stage">
-          <div class="tbl" id="demo-tbl"></div>
-        </div>
-        <p class="ws-cap">Каждая строка начинается и заканчивается ячейкой-разделителем 8px. Первая строка — TableHeader: наведите на неё курсор, чтобы увидеть иконку закрепления, кликните по стрелке — сортировка циклится «не выбрана → по возрастанию → по убыванию». Наведение и клик по строке подсвечивают всю строку целиком, включая разделители; в фокусе строки доступны редактируемые ячейки и скрытые действия.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- 1. КОНСТРУКТОР: демо — в верхнюю панель сплиттера (#demo-tbl),
+     контролы — во вкладку «Конструктор» нижней панели (см. в конце) -->
 
   <!-- 2. ИСПОЛЬЗОВАНИЕ -->
 <section class="section" id="usage" data-screen-label="Использование">
@@ -902,17 +762,710 @@ if (truncateEnabled &amp;&amp; cellText.scrollWidth &gt; cellText.clientWidth) a
   <span>v1.7 · 04.08.2026</span>
 </footer>
 
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите ячейку: шапка (сортировка и закрепление), тип контента с его опциями и состояние строки. Демо обновляется наверху, панель настроек — три группы по две колонки: слева селекты и инпуты, справа свитчеры.</p>
+              <div class="pg__controls">
+                <div class="ctl-group">
+                  <h3 class="ctl-group__head">Шапка колонки · TableHeader</h3>
+                  <div class="ctl-col">
+                    <div class="ctl" id="ctl-sort-dir-wrap">
+                      <div class="lbl">Состояние сортировки</div>
+                      <div class="pg-select"><select id="ctl-sort-dir">
+                        <option value="none" selected>Не выбрана</option>
+                        <option value="asc">По возрастанию</option>
+                        <option value="desc">По убыванию</option>
+                      </select></div>
+                    </div>
+                  </div>
+                  <div class="toggles">
+                    <label class="pg-toggle"><input id="ctl-sort-on" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Сортировка доступна</span></label>
+                    <label class="pg-toggle"><input id="ctl-pin-on" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Закрепление доступно</span></label>
+                    <label class="pg-toggle" id="ctl-pinned-wrap"><input id="ctl-pinned" type="checkbox"><span class="pg-toggle__sw"></span><span>Фон Pinned у шапки и всей колонки</span></label>
+                  </div>
+                </div>
+
+                <div class="ctl-group">
+                  <h3 class="ctl-group__head">Ячейка · TableCell</h3>
+                  <div class="ctl-col">
+                    <div class="ctl">
+                      <div class="lbl">Тип контента</div>
+                      <div class="pg-select"><select id="ctl-type">
+                        <option value="text" selected>Текст</option>
+                        <option value="tree">TreeNode</option>
+                        <option value="chips">Chips</option>
+                        <option value="button">Кнопка</option>
+                        <option value="iconbuttons">IconButtons</option>
+                        <option value="checkbox">Checkbox</option>
+                        <option value="input-text">Input · Text</option>
+                        <option value="input-date">Input · Date</option>
+                        <option value="input-autocomplete">Input · Autocomplete</option>
+                      </select></div>
+                    </div>
+                    <div class="ctl" id="ctl-align-wrap">
+                      <div class="lbl">Выравнивание</div>
+                      <div class="pg-select"><select id="ctl-align">
+                        <option value="left" selected>Слева</option>
+                        <option value="right">Справа</option>
+                      </select></div>
+                    </div>
+                    <div class="ctl" id="ctl-text-wrap">
+                      <div class="lbl">Текст ячейки</div>
+                      <div class="pg-text"><input id="ctl-text" type="text" placeholder="Значение ячейки" maxlength="64"></div>
+                    </div>
+                    <div class="ctl" id="ctl-level-wrap">
+                      <div class="lbl">Уровень дерева</div>
+                      <div class="pg-select"><select id="ctl-level">
+                        <option value="0" selected>0 — корень</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                      </select></div>
+                    </div>
+                    <div class="ctl" id="ctl-lead-wrap">
+                      <div class="lbl">Иконка слева</div>
+                      <label class="pg-toggle"><input id="ctl-lead-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
+                      <div class="pg-select"><select id="ctl-lead-glyph">
+                        <option value="check-circle" selected>check-circle</option>
+                        <option value="bank">bank</option>
+                        <option value="document-check">document-check</option>
+                        <option value="star">star</option>
+                        <option value="alert-triangle">alert-triangle</option>
+                        <option value="clock-timer">clock-timer</option>
+                      </select></div>
+                    </div>
+                    <div class="ctl" id="ctl-prefix-wrap">
+                      <div class="lbl">Prefix</div>
+                      <label class="pg-toggle"><input id="ctl-prefix-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
+                      <div class="pg-text"><input id="ctl-prefix-text" type="text" placeholder="от" maxlength="16"></div>
+                    </div>
+                    <div class="ctl" id="ctl-postfix-wrap">
+                      <div class="lbl">Postfix</div>
+                      <label class="pg-toggle"><input id="ctl-postfix-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
+                      <div class="pg-text"><input id="ctl-postfix-text" type="text" placeholder="₽" maxlength="16"></div>
+                    </div>
+                    <div class="ctl" id="ctl-icon-wrap">
+                      <div class="lbl">Иконка справа</div>
+                      <label class="pg-toggle"><input id="ctl-icon-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать</span></label>
+                      <div class="pg-select"><select id="ctl-icon-glyph">
+                        <option value="alert-triangle" selected>alert-triangle</option>
+                        <option value="check-circle">check-circle</option>
+                        <option value="info-circle">info-circle</option>
+                        <option value="star">star</option>
+                        <option value="bookmark-add">bookmark-add</option>
+                        <option value="link">link</option>
+                      </select></div>
+                    </div>
+                    <div class="ctl" id="ctl-subtext-wrap">
+                      <div class="lbl">Вторая строка</div>
+                      <label class="pg-toggle"><input id="ctl-subtext-on" type="checkbox"><span class="pg-toggle__sw"></span><span>Дополнительная строка мельче</span></label>
+                      <div class="pg-text"><input id="ctl-subtext-text" type="text" placeholder="ИНН 7701234567" maxlength="48"></div>
+                    </div>
+                    <div class="ctl" id="ctl-chips-count-wrap">
+                      <div class="lbl">Количество чипов</div>
+                      <div class="pg-select"><select id="ctl-chips-count">
+                        <option value="1">1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                      </select></div>
+                    </div>
+                    <div class="ctl" id="ctl-chips-tone-wrap">
+                      <div class="lbl">Тип чипа</div>
+                      <div class="pg-select"><select id="ctl-chips-tone">
+                        <option value="" selected>System</option>
+                        <option value="success">Success</option>
+                        <option value="warning">Warning</option>
+                        <option value="error">Error</option>
+                        <option value="info">Info</option>
+                      </select></div>
+                    </div>
+                    <div class="ctl">
+                      <div class="lbl">Фон ячейки (колонка)</div>
+                      <div class="pg-select"><select id="ctl-bg">
+                        <option value="none" selected>Обычный</option>
+                        <option value="accent">Accent</option>
+                      </select></div>
+                    </div>
+                  </div>
+                  <div class="toggles">
+                    <label class="pg-toggle" id="ctl-numeric-wrap"><input id="ctl-numeric" type="checkbox"><span class="pg-toggle__sw"></span><span>Справа, табулярные цифры, разряды</span></label>
+                    <label class="pg-toggle" id="ctl-truncate-wrap"><input id="ctl-truncate" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Три точки + Tooltip (иначе перенос строк)</span></label>
+                    <label class="pg-toggle" id="ctl-chips-rounded-wrap"><input id="ctl-chips-rounded" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Rounded (pill)</span></label>
+                    <label class="pg-toggle" id="ctl-hidden-wrap"><input id="ctl-hidden" type="checkbox"><span class="pg-toggle__sw"></span><span>Появляются по наведению на строку</span></label>
+                    <label class="pg-toggle" id="ctl-edited-wrap"><input id="ctl-edited" type="checkbox"><span class="pg-toggle__sw"></span><span>Признак правки (правый верхний угол)</span></label>
+                  </div>
+                </div>
+
+                <div class="ctl-group">
+                  <h3 class="ctl-group__head">Строка</h3>
+                  <div class="ctl-col">
+                    <div class="ctl">
+                      <div class="lbl">Состояние</div>
+                      <div class="pg-select"><select id="ctl-state">
+                        <option value="default" selected>Обычное</option>
+                        <option value="hover">Hover</option>
+                        <option value="focus">Focus / выбор</option>
+                        <option value="selected">Selected</option>
+                        <option value="error">Error</option>
+                        <option value="empty">Нет данных (—)</option>
+                        <option value="skeleton">Skeleton / загрузка</option>
+                      </select></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка и исходники TableCell: HTML — из спеки, CSS — styles/table-cell.css (полностью), JS — рантайм интерактива. Полный исходник демо — в <code class="tok">scripts/table-cell.page.js</code>.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
 <script src="../../scripts/ds-tooltip.js"></script>
 <script src="../../scripts/ds-table.js"></script>
 <script src="../../scripts/ds-chart.js"></script>
 <script src="../../scripts/table-cell.page.js"></script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично, синхронизировать с ДС) ===== -->
+<script type="text/plain" id="src-code-html"><!-- фон колонки: .tc--accent | .tc--pinned ; состояние строки — на .tbl__row/<tr> -->
+<div class="tbl__row tbl__row--selected" style="grid-template-columns:8px 2fr 1fr 8px;">
+  <div class="tc tc--separator"></div>
+  <div class="tc">
+    <span class="tc__row">
+      <span class="tc__icon tc__icon--lead"><i data-icon="info-circle"></i></span>
+      <span class="tc__prefix">от</span>
+      <span class="tc__text tc__text--truncate">Значение</span>
+      <span class="tc__postfix">₽</span>
+      <span class="tc__icon tc__icon--warning"><i data-icon="alert-triangle"></i></span>
+    </span>
+  </div>
+  <div class="tc tc--separator"></div>
+</div>
+
+<div class="tc tc--numbers"><span class="tc__row"><span class="tc__text">1 240 500,00</span></span></div>
+<div class="tc"><span class="tc__body"><span class="tc__row"><span class="tc__text">ООО «Восток»</span></span><span class="tc__subtext">ИНН 7701234567</span></span></div>
+<div class="tc tc--tree" style="--tc-level:1"><button class="tc__twisty" aria-expanded="true"><i data-icon="chevron-down"></i></button><span class="tc__row"><span class="tc__text">Дочернее ООО</span></span></div>
+<div class="tc tc--center"><label class="cb cb--no-content cb--selected"><input type="checkbox" class="cb__input" checked><span class="cb__box"><span class="cb__mark"><i data-icon="check"></i></span></span></label></div>
+<div class="tc"><div class="tc__hidden"><button class="ibtn ibtn--neutral ibtn--s" aria-label="Изменить"><i data-icon="edit"></i></button></div></div>
+<div class="tc tc--input tc--edited"><div class="inp inp--s inp--fullwidth"><div class="inp__field"><input class="inp__control" value="12.05.2026"><span class="inp__acts"><button class="inp__act" aria-label="Открыть календарь"><i data-icon="calendar"></i></button></span></div></div></div>
+<div class="tc"><span class="tc__empty">—</span></div>
+<div class="tc tc--skeleton" aria-busy="true"><span class="sk-line sk-line--caption" style="--sk-w:60%"></span></div>
+
+<div class="th th--sorted th--pinned" aria-sort="descending">
+  <span class="th__label">Сумма, ₽</span>
+  <span class="th__tools">
+    <button class="ibtn ibtn--neutral ibtn--s th__pin" aria-pressed="true" aria-label="Открепить колонку"><i data-icon="pin-filled"></i></button>
+    <button class="ibtn ibtn--neutral ibtn--s th__sort" aria-label="Сортировка от большего к меньшему"><i data-icon="arrow-narrow-down"></i></button>
+  </span>
+  <span class="th__resize" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Изменить ширину колонки"></span>
+</div></script>
+
+<script type="text/plain" id="src-code-js">/* TableCell — статичная разметка; интерактив строк и ячеек — рантайм ДС
+   (scripts/ds-table.js, хук data-table на контейнере .tbl). Всё работает
+   делегированием — перерисовка строк ничего не ломает. */
+
+DSTable.wireAll(document);
+
+// Сортировка: клик по [data-sort] в шапке — none → asc → desc → none,
+// глиф и aria-sort синхронны; событие 'sort' с { column, dir }.
+// Дерево: .tc__twisty переключает aria-expanded и показ дочерних строк ([data-parent] = id узла).
+// Выбор строк: чекбокс строки красит .tbl__row--selected, чекбокс шапки держит промежуточное состояние.
+// Фокус строки: клик по строке ставит .tbl__row--focus.
+// Усечение: .tc__text--truncate получает тултип с полным текстом (нужен ds-tooltip.js).
+
+// API: DSTable.wire(tblEl, opts) → { el, selected(), sort(column, dir), refresh() } · wireAll(root).
+// Демо страницы строит и перерисовывает ячейку инлайн-логикой из scripts/table-cell.page.js.
+
+/* React API (предложение): CellProps — type(text|tree|chips|button|iconbuttons|checkbox|
+   input-text|input-date|input-autocomplete) · align · numeric · text · level · lead{glyph} ·
+   prefix · postfix · icon{glyph} · subtext · truncate · chips{count,tone,rounded} ·
+   hiddenActions · edited · bg{accent} · state(row) */</script>
+
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   TableCell + TableHeader — ячейка таблицы и ячейка шапки.
+   Организм-компонент подкачки таблицы. Только токены ДС (var(--*)).
+   Высота строки фиксирована (48px) и растёт только если ячейка явно
+   разрешает перенос текста (см. .tc--wrap) — плотностей строки нет.
+   ========================================================================= */
+
+/* ------------------------------------------------------------------ */
+/*  БАЗА                                                                */
+/* ------------------------------------------------------------------ */
+.tc,
+.th {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  min-height: 48px;
+  min-width: 0;
+  padding: 6px 16px;
+  font: var(--type-body-s);
+  color: var(--text-primary);
+  background: var(--bgtable);
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color .12s ease;
+}
+
+/* --- выравнивание --- */
+.tc--right  { justify-content: flex-end;  text-align: right;  }
+.tc--center { justify-content: center;    text-align: center; } /* служебное: checkbox/iconbuttons/кнопки; не выбирается для текста в конструкторе */
+
+/* --- фоновые тона (колонки) --- */
+.tc--accent { background: var(--bgtable-accent); }
+.tc--pinned { background: var(--bgtable-pinned); }
+
+/* --- интерактивные состояния — свойство СТРОКИ, не ячейки ---------------- */
+/* Hover/focus/selected красят ВСЕ ячейки строки, включая ячейки-разделители:
+   состояние живёт на строке (.tbl__row / <tr>), ячейка его лишь наследует.
+   Классы .tc--hover/--focus/--selected сохранены для одиночных примеров;
+   реальная строка несёт aria-selected="true" (RulesAudit W1). */
+.tbl__row:hover > .tc,
+.tbl__row--hover > .tc,
+.tc--hover                    { background: var(--bgtable-row-hover); }
+.tbl__row:hover > .tc--accent,
+.tbl__row--hover > .tc--accent,
+.tc--accent.tc--hover         { background: var(--bgtable-accent-hover); }
+.tbl__row:hover > .tc--pinned,
+.tbl__row--hover > .tc--pinned,
+.tc--pinned.tc--hover         { background: var(--bgtable-pinned-hover); }
+
+.tbl__row:focus-within > .tc,
+.tbl__row--focus > .tc,
+.tc--focus,
+.tc:focus-within              { background: var(--bgtable-row-focus); }
+.tbl__row:focus-within > .tc--accent,
+.tbl__row--focus > .tc--accent,
+.tc--accent.tc--focus         { background: var(--bgtable-accent-focus); }
+.tbl__row:focus-within > .tc--pinned,
+.tbl__row--focus > .tc--pinned,
+.tc--pinned.tc--focus         { background: var(--bgtable-pinned-focus); }
+
+/* фокус клавиатурой на самой ячейке — обводка-инсет */
+.tc:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--primary);
+}
+
+.tbl__row--selected > .tc,
+.tbl__row[aria-selected="true"] > .tc,
+.tc--selected                 { background: var(--primary-bg); }
+/* форс-состояние строки сильнее наведения: строка в фокусе остаётся в фокусе */
+.tbl__row--focus:hover > .tc  { background: var(--bgtable-row-focus); }
+.tbl__row--selected:hover > .tc,
+.tbl__row--selected.tbl__row--hover > .tc,
+.tbl__row[aria-selected="true"]:hover > .tc,
+.tc--selected.tc--hover       { background: color-mix(in srgb, var(--c-emerald-500) 10%, transparent); }
+
+/* --- error --- */
+/* Состояния disabled у таблицы нет: строку/ячейку недоступной не делаем. */
+.tc--error       { color: var(--error); }
+.tc--error-bg    { background: var(--error-bg-light); }
+.tc--error .tc__prefix,
+.tc--error .tc__postfix { color: var(--error); }
+
+/* ------------------------------------------------------------------ */
+/*  ЗНАЧЕНИЕ ЯЧЕЙКИ                                                     */
+/* ------------------------------------------------------------------ */
+/* строка "префикс · значение · постфикс · иконка", может быть внутри .tc__body */
+.tc__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.tc--right .tc__row  { justify-content: flex-end; }
+
+.tc__text {
+  font: var(--type-body-s);
+  color: var(--text-primary);
+  min-width: 0;
+}
+
+.tc__prefix,
+.tc__postfix {
+  font: var(--type-body-s);
+  color: var(--text-inactive);
+  flex: none;
+  white-space: nowrap;
+}
+
+/* усечение в одну строку + троеточие (полное значение — в Tooltip).
+   flex: 0 1 auto — текст занимает ровно свою ширину и сжимается только при
+   недостатке места, поэтому постфикс и иконка идут СРАЗУ после текста,
+   а не прижимаются к правому краю ячейки. */
+.tc__text--truncate {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+/* режим переноса — усечение выключено, ячейка растёт по высоте */
+.tc--wrap { align-items: flex-start; padding-top: 8px; padding-bottom: 8px; }
+.tc--wrap .tc__text { white-space: normal; overflow: visible; text-overflow: clip; }
+.tc--wrap .tc__row   { align-items: flex-start; }
+
+/* числа: правое выравнивание + табулярные (моноширинные) цифры.
+   Одного класса достаточно — .tc--right добавлять не нужно. */
+.tc--numbers { justify-content: flex-end; text-align: right; }
+.tc--numbers .tc__row,
+.tc--numbers .tc__body  { justify-content: flex-end; align-items: flex-end; }
+.tc--numbers .tc__row,
+.tc--numbers .tc__text { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+/* пустое значение «—» */
+.tc__empty { color: var(--text-inactive); font: var(--type-body-s); }
+
+/* вторая строка (subtext) — опциональна для любого типа контента */
+.tc__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.tc__subtext {
+  font: var(--type-body-xs);
+  color: var(--text-secondary);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* иконка рядом со значением (любой глиф, не только предупреждение):
+   .tc__icon — после значения, .tc__icon--lead — перед префиксом */
+.tc__icon {
+  flex: none;
+  display: inline-flex;
+  color: var(--text-secondary);
+}
+.tc__icon :is(svg,[data-icon]){ display: block; width: 16px; height: 16px; }.tc__icon--lead { order: -1; }
+.tc__icon--warning { color: var(--warning); }
+.tc__icon--error   { color: var(--error); }
+.tc__icon--success { color: var(--success); }
+
+/* ------------------------------------------------------------------ */
+/*  TREE NODE — раскрытие вложенности                                  */
+/* ------------------------------------------------------------------ */
+.tc--tree { padding-left: calc(16px + 20px * var(--tc-level, 0)); }
+.tc__twisty {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-s);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color .12s ease, transform .15s ease;
+}
+.tc__twisty:hover { background: var(--c-swamp-100); color: var(--text-primary); }
+.tc__twisty:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.tc__twisty :is(svg,[data-icon]){ display: block; width: 16px; height: 16px; }.tc__twisty[aria-expanded="true"] { transform: rotate(90deg); }
+/* лист дерева без раскрытия — резервируем место под твисти */
+.tc__twisty--leaf { visibility: hidden; }
+
+/* ------------------------------------------------------------------ */
+/*  КОНТРОЛЫ ВНУТРИ ЯЧЕЙКИ                                              */
+/* ------------------------------------------------------------------ */
+/* группы кнопок / чипов */
+.tc__controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tc--center .tc__controls { justify-content: center; width: 100%; }
+
+/* HiddenActions — действия появляются по наведению/фокусу на строку */
+.tc__hidden {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .12s ease;
+}
+.tbl__row:hover .tc__hidden,
+.tbl__row--hover .tc__hidden,
+.tbl__row--focus .tc__hidden,
+.tbl__row:focus-within .tc__hidden,
+.tc--hover .tc__hidden,
+.tc--focus .tc__hidden,
+.tc:hover .tc__hidden,
+.tc:focus-within .tc__hidden { opacity: 1; visibility: visible; }
+
+/* разделитель начала/конца строки — фиксированный отступ 8px, всегда первая
+   и последняя ячейка строки, никогда не выбирается как тип контента.
+   Это обычная ячейка без содержимого: фон, бордер и все состояния (hover /
+   selected / accent / pinned / disabled / error) наследуются как у .tc/.th —
+   переопределяется только ширина и паддинг. */
+.tc--separator,
+.th--separator {
+  padding: 0;
+  gap: 0;
+}
+/* разделителю доступны ТОЛЬКО состояния строки (hover/focus/selected/фон
+   колонки) — контентных признаков у него быть не может */
+.tc--separator::before { content: none; }
+.tc--separator .tc__skeleton { display: none; }
+
+/* ------------------------------------------------------------------ */
+/*  РЕДАКТИРУЕМЫЕ ЯЧЕЙКИ (Input Text / Date / Autocomplete)            */
+/*  Собственного поля у ячейки НЕТ — используется компонент Input       */
+/*  размера S (.inp.inp--s, «Table Edit»): те же рамки, радиусы,        */
+/*  состояния и действия. Ячейка лишь снимает заливку и рамку в покое.  */
+/* ------------------------------------------------------------------ */
+.tc--input { padding: 4px 8px; }
+.tc--input .inp { width: 100%; min-width: 0; }
+.tc--input .inp:not(.inp--error):not(.inp--warning) .inp__field {
+  background: transparent;
+  border-color: transparent;
+}
+.tc--input .inp__field { transition: border-color .12s ease, background-color .12s ease; }
+/* в покое поле сливается со строкой, по наведению — проявляется как поле */
+.tbl__row:hover .tc--input .inp:not(.inp--error):not(.inp--warning) .inp__field,
+.tbl__row--hover .tc--input .inp:not(.inp--error):not(.inp--warning) .inp__field,
+.tc--hover .inp:not(.inp--error):not(.inp--warning) .inp__field,
+.tc--input:hover .inp:not(.inp--error):not(.inp--warning) .inp__field { background: var(--bg-tile); border-color: var(--border-primary); }
+/* рамку и фон фокуса даёт сам Input (--primary, 2px) */
+
+/* действия поля (календарь, шеврон, очистка) видны только когда строка/ячейка
+   в фокусе — в покое ячейка показывает одно значение */
+.tc--input .inp__acts { opacity: 0; transition: opacity .12s ease; }
+.tbl__row--focus .tc--input .inp__acts,
+.tbl__row:focus-within .tc--input .inp__acts,
+.tc--focus .inp__acts,
+.tc--input .inp__field:focus-within .inp__acts { opacity: 1; }
+/* в таблице иконки действий 16px (в обычном Input S — 18px) */
+.tc--input .inp__act { width: 16px; height: 16px; }
+
+/* выпадающий список Autocomplete позиционируется от поля ячейки */
+.tc--input .inp { position: relative; }
+.tc--input .ddl--floating { top: calc(100% + 4px); left: 0; min-width: 100%; }
+
+/* чекбокс/радио внутри ячейки — компонент ДС без текстового слота */
+.tc .cb, .th .cb { gap: 0; }
+
+/* ------------------------------------------------------------------ */
+/*  ПРИЗНАК ОТРЕДАКТИРОВАННОЙ ЯЧЕЙКИ (EditMark) — верхний правый угол   */
+/* ------------------------------------------------------------------ */
+.tc--edited::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 7px 7px 0;
+  border-color: transparent var(--chart-orange) transparent transparent;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  SKELETON (загрузка)                                                */
+/* ------------------------------------------------------------------ */
+.tc--skeleton .tc__text,
+.tc--skeleton .tc__prefix,
+.tc--skeleton .tc__postfix { visibility: hidden; }
+/* плейсхолдер — общий компонент Skeleton, .sk-line--caption (styles/skeleton.css) */
+.tc--numbers .sk-line { margin-left: auto; }
+
+/* ================================================================== */
+/*  ШАПКА  .th                                                         */
+/* ================================================================== */
+.th {
+  gap: 6px;
+  font: var(--type-body-s);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-primary);
+  user-select: none;
+}
+.th--right  { justify-content: flex-end;  text-align: right;  }
+/* закреплённая колонка — фон Pinned и у шапки */
+.th--pinned { background: var(--bgtable-pinned); }
+.th--pinned:hover { background: var(--bgtable-pinned-hover); }
+.th--center { justify-content: center; }
+.th__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.th__icon { flex: none; display: inline-flex; color: var(--text-secondary); }
+.th__icon :is(svg,[data-icon]){ display: block; width: 18px; height: 18px; }
+/* --- инструменты шапки: сортировка и закрепление колонки ---------------- */
+/* Обе кнопки — IconButton ДС, тон neutral, размер S (.ibtn.ibtn--neutral.ibtn--s).
+   Глифы сортировки: arrow-up-down (не выбрана) · arrow-narrow-down (от большего
+   к меньшему) · arrow-narrow-up (от меньшего к большему).
+   Глифы закрепления: pin (не закреплено) · pin-filled (закреплено). */
+.th__tools { display: flex; align-items: center; gap: 6px; flex: none; }
+/* колонка выбора: чекбокс шапки стоит ровно по центру колонки — над чекбоксами
+   строк. Инструменты шапки (закрепление, сортировка) выводятся из потока и
+   прижимаются к правому краю, а колонка не сужается ниже порога, на котором
+   помещаются и чекбокс, и обе иконки. */
+.th--center:has(.th__tools) .th__tools { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); margin-left: 0; }
+/* Порог ширины колонки выбора: 8 (край) + 38 (иконки) + 6 + 20 (чекбокс) + 6 + 38 + 8,
+   зеркально — бокс стоит по центру, инструменты его не перекрывают.
+   Класс ставится на ВСЕ ячейки колонки (и шапку, и строки), иначе строки
+   окажутся уже шапки и чекбоксы разъедутся по горизонтали. */
+.th--select, .tc--select { min-width: 124px; }
+.th:not(.th--right):not(.th--center) .th__tools { margin-left: auto; }
+
+/* активная сортировка и закрепление — Active · secondary-dark */
+.th--sorted .th__sort,
+.th--pinned .th__pin { color: var(--secondary-dark); }
+/* по наведению на шапку сортировка темнеет */
+.th:hover .th__sort,
+.th--hover .th__sort { color: var(--secondary-dark); }
+
+/* иконка закрепления появляется по наведению на шапку; закреплённая — видна
+   всегда. Если сортировки у колонки нет, закрепление занимает её место. */
+.th__pin { opacity: 0; transition: opacity .12s ease, color .12s ease; }
+.th:hover .th__pin,
+.th--hover .th__pin,
+.th:focus-within .th__pin,
+.th--pinned .th__pin { opacity: 1; }
+
+/* --- изменение ширины колонки ------------------------------------------ */
+/* Ручка на правой границе шапки: зона захвата 9px без видимой графики,
+   по наведению и во время перетаскивания — вертикальная линия.
+   Ширина колонки не опускается ниже порога --tbl-col-min (по умолчанию 96px). */
+.th__resize {
+  position: absolute;
+  top: 0; right: -4px;
+  width: 9px; height: 100%;
+  z-index: 4;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; border: none; background: transparent;
+  cursor: col-resize;
+  touch-action: none;
+}
+.th__resize::after {
+  content: "";
+  width: 2px; height: 20px;
+  border-radius: 1px;
+  background: transparent;
+  transition: background .12s ease;
+}
+.th__resize:hover::after,
+.th__resize:focus-visible::after,
+.th--resizing .th__resize::after { background: var(--secondary-dark); }
+.th__resize:focus-visible { outline: none; }
+
+/* --- порядок колонок: перетаскивание шапки ------------------------------ */
+/* Колонку берут за подпись шапки. Пока идёт перенос, вся колонка приглушена,
+   а место вставки показывает вертикальная линия через всю таблицу. */
+.th--movable .th__label { cursor: grab; }
+.tbl--reordering .th--movable .th__label { cursor: grabbing; }
+.th--dragging,
+.tc--dragging { opacity: .4; }
+.tbl--resizing,
+.tbl--reordering { user-select: none; }
+.tbl--resizing .th__label { cursor: col-resize; }
+
+/* линия-указатель (граница при изменении ширины, место вставки при переносе) */
+.tbl__guide {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--primary);
+  pointer-events: none;
+  z-index: 6;
+  display: none;
+}
+.tbl--resizing .tbl__guide,
+.tbl--reordering .tbl__guide { display: block; }
+
+/* действие в шапке (кебаб) — по наведению */
+.th__action {
+  flex: none;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity .12s ease;
+}
+.th:hover .th__action,
+.th:focus-within .th__action { opacity: 1; }
+
+/* ================================================================== */
+/*  РАЗМЕТКА ТАБЛИЦЫ (утилита для демо/экранов)                        */
+/*  Сетка на CSS grid: строки = ячейки, колонки = столбцы             */
+/*  Первая и последняя колонка каждой строки — Separator 8px          */
+/* ================================================================== */
+.tbl {
+  position: relative;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-tile);
+}
+.tbl__row { display: grid; }
+.tbl__row:last-child .tc { border-bottom: none; }
+
+/* закреплённая колонка не уезжает при горизонтальном скролле таблицы:
+   .tbl--scroll — прокручиваемый контейнер, .tc--pinned/.th--pinned — sticky */
+.tbl--scroll { overflow-x: auto; }
+.tbl--scroll .tc--pinned,
+.tbl--scroll .th--pinned {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  box-shadow: 1px 0 0 var(--border-light);
+}
+
+/* ================================================================== */
+/* динамика: спарклайн в ячейке — компонент Chart (type:'spark'),      */
+/* геометрию слота задаёт таблица, а не график                        */
+/* ================================================================== */
+.tc__spark {
+  display: block;
+  flex: none;
+  width: var(--tc-spark-w, 72px);
+  height: 24px;
+}
+.tc--numbers .tc__spark { margin-left: auto; }</script>
 </body>
 </html>

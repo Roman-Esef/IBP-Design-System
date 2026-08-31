@@ -19,9 +19,11 @@
 <link rel="stylesheet" href="../../styles/context-menu.css">
 <link rel="stylesheet" href="../../styles/tooltip.css">
 <link rel="stylesheet" href="../../styles/page-header.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -32,17 +34,14 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
 .subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:32px 0 14px;}
 
-/* playground */
-.panel.pg{padding:0;overflow:hidden;display:flex;flex-direction:column;}
-.panel.pg>.pg__controls{border-top:1px solid var(--border-light);grid-template-columns:repeat(auto-fit,minmax(190px,1fr));}
+/* контролы конструктора (вкладка «Конструктор») */
 .ctl--span{grid-column:1/-1;}
 .pg-range{width:100%;accent-color:var(--primary);}
-.pg__stage{display:flex;align-items:stretch;min-height:340px;padding:24px 26px;min-width:0;}
-.pg__stagebox{width:100%;display:flex;flex-direction:column;min-width:0;}
 .ctl{display:flex;flex-direction:column;gap:10px;}
 .ctl.is-off{display:none;}
 .ctl>.lbl{font:600 11px/1 var(--font-text),sans-serif;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;}
-.pg-stage-frame{flex:1;display:flex;align-items:flex-start;justify-content:flex-start;background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:28px;min-height:260px;overflow:hidden;}
+/* preview stage (демо в верхней панели) */
+.pg-stage-frame{flex:1;display:flex;align-items:flex-start;justify-content:flex-start;background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:28px;min-height:260px;overflow:hidden;width:100%;}
 .pg-scale{flex:none;transform-origin:top left;}
 .pg-viewport{padding:0;flex:none;}
 .ws-cap{font:var(--type-body-xs);color:var(--text-inactive);margin:12px 0 0;text-wrap:pretty;}
@@ -96,7 +95,35 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 </style>
 </head>
 <body>
-<main class="page" data-screen-label="PageHeader">
+<main class="page ds-split" data-screen-label="PageHeader">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg-stage-frame">
+          <div class="pg-scale" id="demo-scale">
+            <div class="pg-viewport" id="demo-viewport" style="width:1100px;">
+              <div id="demo-phead"></div>
+            </div>
+          </div>
+        </div>
+        <p class="ws-cap">Ползунок ширины меняет ширину контейнера заголовка. Ниже 1024px чипы и кнопка возврата переносятся отдельной строкой под подзаголовок (<code class="tok">.phead__extras</code>); ниже 720px компонент переключается в раскладку <code class="tok">.phead--stack</code>: actions переносятся вниз на всю ширину. Заголовок никогда не усекается — он становится многострочным.</p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
 <header class="masthead">
   <a class="crumb" href="../../index.html">
@@ -114,80 +141,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <p class="lead">Заголовок страницы рабочей области: идентифицирует открытую сущность и несёт основные действия страницы. Состоит из независимых частей — Title, Chips, кнопка возврата, Subtitle, Actions — и адаптируется вплоть до мобильной версии.</p>
 </header>
 
-<!-- 1. КОНСТРУКТОР -->
-<section class="section" id="constructor" data-screen-label="Конструктор">
-  <h2>Конструктор</h2>
-  <div class="panel pg" data-pg-no-split>
-    <div class="pg__stage">
-      <div class="pg__stagebox">
-        <div class="pg-stage-frame">
-          <div class="pg-scale" id="demo-scale">
-            <div class="pg-viewport" id="demo-viewport" style="width:1100px;">
-              <div id="demo-phead"></div>
-            </div>
-          </div>
-        </div>
-        <p class="ws-cap">Ползунок ширины меняет ширину контейнера заголовка. Ниже 1024px чипы и кнопка возврата переносятся отдельной строкой под подзаголовок (<code class="tok">.phead__extras</code>); ниже 720px компонент переключается в раскладку <code class="tok">.phead--stack</code>: actions переносятся вниз на всю ширину. Заголовок никогда не усекается — он становится многострочным.</p>
-      </div>
-    </div>
-    <div class="pg__controls">
-      <div class="ctl">
-        <div class="lbl">Заголовок</div>
-        <div class="pg-text"><input id="ctl-title" type="text" placeholder="D-007. ПАО «Газпром»" maxlength="80"></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Иконка слева</div>
-        <label class="pg-toggle"><input id="ctl-ico" type="checkbox"><span class="pg-toggle__sw"></span><span>IconLeft</span></label>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Кнопка редактирования</div>
-        <label class="pg-toggle"><input id="ctl-edit" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Edit (IconButton)</span></label>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Чипы</div>
-        <div class="pg-select"><select id="ctl-chips">
-          <option value="none">Нет</option>
-          <option value="one" selected>Один чип</option>
-          <option value="list">Список чипов</option>
-        </select></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Кнопка возврата</div>
-        <label class="pg-toggle"><input id="ctl-return" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Return</span></label>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Подзаголовок</div>
-        <div class="pg-select"><select id="ctl-sub">
-          <option value="none">Нет</option>
-          <option value="text">Просто текст</option>
-          <option value="std">Текст с иконкой</option>
-          <option value="custom" selected>Кастомный (мета-элементы)</option>
-        </select></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Actions, кнопок</div>
-        <div class="pg-select"><select id="ctl-actions">
-          <option value="0">Нет</option>
-          <option value="1">1 кнопка</option>
-          <option value="2" selected>2 кнопки</option>
-          <option value="3">3 кнопки</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-menu">
-        <div class="lbl">MenuButton</div>
-        <label class="pg-toggle"><input id="ctl-menu" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Кнопка-меню «⋮»</span></label>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Dashboard (подложка)</div>
-        <label class="pg-toggle"><input id="ctl-dash" type="checkbox"><span class="pg-toggle__sw"></span><span>На подложке</span></label>
-      </div>
-      <div class="ctl ctl--span">
-        <div class="lbl">Ширина контейнера · <span id="ctl-width-val">1100</span> px</div>
-        <input class="pg-range" id="ctl-width" type="range" min="320" max="1440" step="10" value="1100" aria-label="Ширина контейнера заголовка">
-      </div>
-    </div>
-  </div>
-</section>
+<!-- 1. КОНСТРУКТОР: демо — в верхнюю панель сплиттера (#demo-phead),
+     контролы — во вкладку «Конструктор» нижней панели (см. в конце) -->
 
 <!-- 2. ИСПОЛЬЗОВАНИЕ -->
 <section class="section" id="usage" data-screen-label="Использование">
@@ -494,20 +449,277 @@ onEditClick():
   </div>
 </section>
 
-<footer class="page-foot">
-  <span>Дизайн-система · PageHeader</span>
-  <span>Заголовок страницы — Title · Chips · Return · Subtitle · Actions</span>
-</footer>
+  <footer class="page-foot">
+    <span>Дизайн-система · PageHeader</span>
+    <span>Заголовок страницы — Title · Chips · Return · Subtitle · Actions</span>
+  </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите заголовок: текст, иконка слева, кнопка редактирования, чипы, кнопка возврата, подзаголовок, действия и подложка. Ползунок меняет ширину контейнера — демо перестраивается вживую.</p>
+              <div class="pg__controls">
+                <div class="ctl-col">
+                  <div class="ctl">
+                    <div class="lbl">Заголовок</div>
+                    <div class="pg-text"><input id="ctl-title" type="text" placeholder="D-007. ПАО «Газпром»" maxlength="80"></div>
+                  </div>
+                  <div class="ctl">
+                    <div class="lbl">Чипы</div>
+                    <div class="pg-select"><select id="ctl-chips">
+                      <option value="none">Нет</option>
+                      <option value="one" selected>Один чип</option>
+                      <option value="list">Список чипов</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl">
+                    <div class="lbl">Подзаголовок</div>
+                    <div class="pg-select"><select id="ctl-sub">
+                      <option value="none">Нет</option>
+                      <option value="text">Просто текст</option>
+                      <option value="std">Текст с иконкой</option>
+                      <option value="custom" selected>Кастомный (мета-элементы)</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl">
+                    <div class="lbl">Actions, кнопок</div>
+                    <div class="pg-select"><select id="ctl-actions">
+                      <option value="0">Нет</option>
+                      <option value="1">1 кнопка</option>
+                      <option value="2" selected>2 кнопки</option>
+                      <option value="3">3 кнопки</option>
+                    </select></div>
+                  </div>
+                </div>
+                <div class="toggles">
+                  <label class="pg-toggle"><input id="ctl-ico" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать иконку слева</span></label>
+                  <label class="pg-toggle"><input id="ctl-edit" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Показывать кнопку редактирования</span></label>
+                  <label class="pg-toggle"><input id="ctl-return" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Показывать кнопку возврата</span></label>
+                  <label class="pg-toggle"><input id="ctl-menu" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Показывать кнопку-меню «⋮»</span></label>
+                  <label class="pg-toggle"><input id="ctl-dash" type="checkbox"><span class="pg-toggle__sw"></span><span>Показывать подложку dashboard</span></label>
+                  <div class="ctl">
+                    <div class="lbl">Ширина контейнера · <span id="ctl-width-val">1100</span> px</div>
+                    <input class="pg-range" id="ctl-width" type="range" min="320" max="1440" step="10" value="1100" aria-label="Ширина контейнера заголовка">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка и исходники PageHeader: HTML — из спеки, CSS — styles/page-header.css (полностью), JS — рантаймы оживления. Полный исходник рендера демо — в <code class="tok">scripts/page-header.page.js</code>.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main><!-- .page -->
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
 <script src="../../scripts/ds-menu.js"></script>
 <script src="../../scripts/ds-actions-overflow.js"></script>
 <script src="../../scripts/page-header.page.js"></script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично, синхронизировать с ДС) ===== -->
+<script type="text/plain" id="src-code-html"><div class="phead">
+  <div class="phead__main">
+    <div class="phead__title-row">
+      <div class="phead__title-group"><!-- неразрывная группа: IconLeft + Title + Edit -->
+        <span class="phead__title-ico" aria-hidden="true"><i data-icon="drag-dots"></i></span>  <!-- опц. -->
+        <h1 class="phead__title">D-007. ПАО «Газпром»</h1>
+        <button class="ibtn ibtn--neutral ibtn--s phead__edit" aria-label="Переименовать"><i data-icon="edit"></i></button>  <!-- опц. -->
+      </div>
+      <div class="phead__chips"><span class="chip chip--rounded chip--s"><span class="chip__label">Черновик</span></span></div>  <!-- опц. -->
+      <span class="phead__return"><button class="btn btn--outline btn--xs"><i data-icon="flip-backward"></i><span class="btn__label">В сделку</span></button></span>  <!-- опц. -->
+    </div>
+    <div class="phead__subtitle">  <!-- опц.; стандартный ИЛИ кастомный -->
+      <span class="phead__subtitle-ico" aria-hidden="true"><i data-icon="check-circle-filled"></i></span>
+      Дата фактического погашения 12.01.2021
+      <!-- кастомный: <span class="phead__meta"><span class="phead__meta-ico"><i data-icon="copy"></i></span>7</span>
+                      <span class="phead__meta"><span class="phead__meta-ico phead__meta-ico--ok"><i data-icon="check-circle"></i></span>Версия 12 (07.02.2021)</span> -->
+    </div>
+  </div>
+  <div class="phead__actions">  <!-- опц.; max 3 кнопки + MenuButton -->
+    <button class="btn btn--outline btn--m"><i data-icon="star"></i><span class="btn__label">В избранное</span></button>
+    <button class="btn btn--accent btn--m"><i data-icon="download"></i><span class="btn__label">Выгрузить</span></button>
+    <button class="btn btn--outline btn--m btn--icon-only" aria-label="Ещё действия" aria-haspopup="menu" aria-expanded="false"><i data-icon="more-dots"></i></button>
+  </div>
+</div>
+<!-- Dashboard: .phead--dashboard · Мобильная раскладка: .phead--stack --></script>
+
+<script type="text/plain" id="src-code-css">/* ============================================================
+   PageHeader — заголовок страницы
+   Части: Title (+IconLeft, +Edit) · Chips · Return · Subtitle · Actions (+MenuButton)
+   Зависимости: button, icon-button, chip, badge, context-menu, tooltip
+   ============================================================ */
+
+.phead{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  width:100%;
+  min-width:0;
+}
+
+/* левая колонка: title-row + subtitle */
+.phead__main{
+  flex:1 1 auto;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+/* ---- Title row ---- */
+.phead__title-row{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  min-width:0;
+  min-height:32px;
+}
+.phead__title-ico{
+  flex:none;
+  width:24px;height:24px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--text-inactive);
+}
+.phead__title-ico :is(svg,[data-icon]){width:24px;height:24px;}
+/* IconLeft + Title + Edit — неразрывная группа: не переносятся отдельно от заголовка */
+.phead__title-group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  flex:0 1 auto;
+}
+/* Title многострочный: заголовок страницы всегда виден целиком, усечения нет */
+.phead__title{
+  font:var(--type-h3-strong);
+  letter-spacing:0;
+  color:var(--text-primary);
+  margin:0;
+  min-width:120px;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  text-wrap:pretty;
+}
+/* Edit (IconButton S) — слот, стили из icon-button.css */
+.phead__edit{flex:none;}
+
+/* Chips — слот, чипы из chip.css */
+.phead__chips{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex:none;
+  margin-left:4px;
+  min-width:0;
+}
+
+/* Return — кнопка возврата (Button Outline XS), слот */
+.phead__return{flex:none;margin-left:4px;}
+
+/* ---- Subtitle ---- */
+.phead__subtitle{
+  display:flex;
+  align-items:center;
+  gap:8px 12px;
+  flex-wrap:wrap;
+  min-width:0;
+  font:var(--type-body-s);
+  color:var(--text-secondary);
+}
+.phead__subtitle-ico{
+  flex:none;
+  width:16px;height:16px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--success);
+}
+.phead__subtitle-ico :is(svg,[data-icon]){width:16px;height:16px;}
+
+/* мета-элементы кастомного сабтайтла */
+.phead__meta{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font:var(--type-body-xs);
+  color:var(--text-inactive);
+  white-space:nowrap;
+}
+.phead__meta :is(svg,[data-icon]){width:16px;height:16px;}
+.phead__meta-ico{flex:none;display:inline-flex;color:var(--text-inactive);}
+.phead__meta-ico--ok{color:var(--success);}
+
+/* ---- Actions ---- */
+.phead__actions{
+  flex:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-left:auto;
+}
+
+/* ---- Extras: чипы и Return отдельной строкой (tablet/mobile) ---- */
+.phead__extras{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:2px;
+}
+.phead__extras .phead__chips,
+.phead__extras .phead__return{margin-left:0;}
+
+/* ---- Вариант: Dashboard (на белой подложке) ---- */
+.phead--dashboard{
+  background:var(--bg-tile);
+  border-radius:var(--radius-m);
+  padding:12px 16px;
+}
+
+/* ---- Адаптивная раскладка (мобильная): actions переносятся вниз ---- */
+.phead--stack{flex-direction:column;gap:12px;}
+.phead--stack .phead__actions{margin-left:0;width:100%;}
+.phead--stack .phead__actions .btn:not(.btn--icon-only){flex:1 1 auto;}</script>
+
+<script type="text/plain" id="src-code-js">/* PageHeader — статичная разметка; оживление — рантаймами ДС.
+   (page-header.page.js рендерит демо страницы; полный исходник — там же) */
+
+/* Переполнение действий: лишние кнопки уходят в меню «⋮» */
+var actions = document.querySelector('.phead__actions');
+window.DSActionsOverflow.bind(actions);
+
+/* Кнопка-меню «⋮» — DSMenu (меню открывается по клику, Esc/клик вне — закрытие) */
+/* Адаптив — CSS-брейкпоинты компонента: до 1024px чипы и Return уходят в
+   .phead__extras; до 720px — .phead--stack (actions на всю ширину). */</script>
+
 </body>
 </html>

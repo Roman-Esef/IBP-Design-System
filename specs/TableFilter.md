@@ -2,7 +2,7 @@
 component: TableFilter
 title: "TableFilter"
 version: "1.008"
-updated: "21.08.2026"
+updated: "30.08.2026"
 page: pages/organisms/TableFilter.html
 page_js: scripts/table-filter.page.js
 runtime: scripts/ds-menu.js, scripts/ds-modal.js, scripts/ds-table-filter.js

@@ -1247,7 +1247,7 @@ css: `styles/read-only-field.css` · js: `scripts/ds-copy.js` (`DSCopy.write`/`.
 ## SegmentControl
 css: `styles/segment-control.css` · js: `scripts/ds-tabs.js` · deps: [tab, button, button-group, badge]
 **Оси:** размер (M/S/XS) · состав сегмента (текст/иконка+текст/иконка/+счётчик) · fullwidth.
-**Инварианты:** 2–6 сегментов — больше замена на Select.
+**Инварианты:** 2–6 сегментов — больше замена на Select. · Полная высота контрола = высота сегмента + обводка трека (padding) сверху и снизу, совпадает с Button того же размера. M: 34+2×3=40 · S: 28+2×2=32 · XS: 20+2×2=24. `--seg-h` — высота внутреннего сегмента, не контрола.
 **Классы:** .segctrl · .segctrl--s / --xs · .segctrl--fullwidth · .segctrl--disabled / [aria-disabled="true"] · .segctrl__thumb · .segctrl__item · .segctrl__item--icon-only · .segctrl__label · [aria-checked="true"] · [aria-disabled="true"] · .badge.badge--text.badge--{s\
 **Диагностика:** «Разделитель между сегментами виден рядом с выбранным» → должен гаснуть у выбранного сегмента и его соседей (правило `::before`) · «CSS для первого сегмента не применяется» → искать через `:first-of-type`, не `:first-child` (thumb — реальный первый child)
 

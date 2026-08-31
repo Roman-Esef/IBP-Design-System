@@ -13,9 +13,11 @@
 <link rel="stylesheet" href="../../styles/button.css">
 <link rel="stylesheet" href="../../styles/link.css">
 <link rel="stylesheet" href="../../styles/snackbar.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -26,12 +28,12 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
 .subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:32px 0 14px;}
 
-/* playground */
-.panel.pg{padding:0;overflow:hidden;display:grid; }
-.pg__stage{display:flex;align-items:stretch;min-height:300px;padding:24px 26px;min-width:0;}
+/* playground: демо — в верхнюю панель сплиттера, контролы — во вкладку «Конструктор» */
+.pg__stage{flex:1;min-height:0;width:100%;display:flex;align-items:stretch;padding:24px 26px;min-width:0;}
 .pg__stagebox{width:100%;display:flex;flex-direction:column;min-width:0;}
 .ctl{display:flex;flex-direction:column;gap:10px;}
 .ctl.is-off{display:none;}
+.toggles>.is-off{display:none;}
 .ctl>.lbl{font:600 11px/1 var(--font-text),sans-serif;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;}
 /* mock screen */
 .mock-screen{position:relative;border-radius:12px;border:1px solid var(--border-light);background:var(--bg-page);overflow:hidden;min-height:380px;display:flex;flex-direction:column;}
@@ -82,7 +84,49 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 </style>
 </head>
 <body>
-<main class="page" data-screen-label="SnackBar">
+<main class="page ds-split" data-screen-label="SnackBar">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage">
+          <div class="pg__stagebox">
+            <div class="mock-screen" id="mock-screen">
+              <div class="mock-topbar">
+                <span class="mock-title">IBP — Сделки</span>
+                <span class="mock-time">10:34</span>
+              </div>
+              <div class="mock-body">
+                <div class="mock-rows">
+                  <div class="mock-row"></div>
+                  <div class="mock-row"></div>
+                  <div class="mock-row"></div>
+                  <div class="mock-row"></div>
+                  <div class="mock-row"></div>
+                  <div class="mock-row"></div>
+                </div>
+              </div>
+              <div class="snack-demo-layer" id="demo-layer" data-ds-snackbar aria-live="polite" aria-atomic="false"></div>
+            </div>
+            <p class="ws-cap">Нажмите «Показать снек» несколько раз — снеки укладываются в стек (до 5, затем «+N»). Hover — пауза авто-скрытия. Esc — закрыть верхний.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
 <header class="masthead">
   <a class="crumb" href="../../index.html">
@@ -91,7 +135,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   </a>
   <div class="meta">
     <span>Версия <b>1.004</b></span>
-    <span>Обновлено <b>21.08.2026</b></span>
+    <span>Обновлено <b>30.08.2026</b></span>
     <span>CSS <b>styles/snackbar.css</b></span>
     <span>Зависимости <b>button, link</b></span>
   </div>
@@ -100,71 +144,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <p class="lead">Стек всплывающих уведомлений в правом верхнем углу экрана. Четыре тона: Info · Warning · Error · Success. Живёт поверх всех слоёв — модалок, тостбара и поповеров.</p>
 </header>
 
-<!-- 1. КОНСТРУКТОР -->
-<section class="section" id="constructor" data-screen-label="Конструктор">
-  <h2>Конструктор</h2>
-  <div class="panel pg">
-    <div class="pg__controls">
-      <div class="ctl">
-        <div class="lbl">Тон</div>
-        <div class="pg-select"><select id="ctl-tone">
-          <option value="error">Error</option>
-          <option value="info">Info</option>
-          <option value="warning">Warning</option>
-          <option value="success">Success</option>
-        </select></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Кнопки</div>
-        <div class="pg-select"><select id="ctl-btns">
-          <option value="none">Нет</option>
-          <option value="one">Одна</option>
-          <option value="two">Две</option>
-          <option value="link">Ссылка</option>
-        </select></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Заголовок</div>
-        <div class="pg-text"><input id="ctl-title" type="text" placeholder="По тону" maxlength="60"></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Текст</div>
-        <div class="pg-text"><input id="ctl-text" type="text" placeholder="Описание события" maxlength="120"></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Дедупликация</div>
-        <label class="pg-toggle">
-          <input id="ctl-dedup" type="checkbox" checked>
-          <span class="pg-toggle__sw"></span>
-          <span>Схлопывать дубли ×N</span>
-        </label>
-      </div>
-      <button class="btn btn--accent btn--s" id="btn-show" style="margin-top:8px;">Показать снек</button>
-    </div>
-    <div class="pg__stage">
-      <div class="pg__stagebox">
-        <div class="mock-screen" id="mock-screen">
-          <div class="mock-topbar">
-            <span class="mock-title">IBP — Сделки</span>
-            <span class="mock-time">10:34</span>
-          </div>
-          <div class="mock-body">
-            <div class="mock-rows">
-              <div class="mock-row"></div>
-              <div class="mock-row"></div>
-              <div class="mock-row"></div>
-              <div class="mock-row"></div>
-              <div class="mock-row"></div>
-              <div class="mock-row"></div>
-            </div>
-          </div>
-          <div class="snack-demo-layer" id="demo-layer" data-ds-snackbar aria-live="polite" aria-atomic="false"></div>
-        </div>
-        <p class="ws-cap">Нажмите «Показать снек» несколько раз — снеки укладываются в стек (до 5, затем «+N»). Hover — пауза авто-скрытия. Esc — закрыть верхний.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- 1. КОНСТРУКТОР: демо — в верхнюю панель сплиттера (#demo-layer),
+     контролы — во вкладку «Конструктор» нижней панели (см. в конце) -->
 
   <!-- 2. ИСПОЛЬЗОВАНИЕ -->
 <section class="section" id="usage" data-screen-label="Использование">
@@ -310,7 +291,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 
 <div class="subsec" data-screen-label="Layering">
     <h3>Слои и совмещение с Toast</h3>
-    <p class="desc">SnackBar живёt поверх ToastBar/ToastLoader (правый верхний угол против верхнего центра) и не конкурирует с ними за место — оба стека могут быть на экране одновременно. Закрытие — фейд + сдвиг вправо (<code class="tok">translateX</code>), при <code class="tok">prefers-reduced-motion: reduce</code> заменяется на чистый фейд без сдвига.</p>
+    <p class="desc">SnackBar живёт поверх ToastBar/ToastLoader (правый верхний угол против верхнего центра) и не конкурирует с ними за место — оба стека могут быть на экране одновременно. Закрытие — фейд + сдвиг вправо (<code class="tok">translateX</code>), при <code class="tok">prefers-reduced-motion: reduce</code> заменяется на чистый фейд без сдвига.</p>
   </div>
   </section>
 
@@ -493,15 +474,257 @@ function dismiss(id):
     <span>Дизайн-система · SnackBar</span>
     <span>Info · Warning · Error · Success — стек, дедупликация, авто-скрытие</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите снек: тон, кнопки, заголовок, текст и дедупликацию. Кнопка «Показать снек» пускает уведомление в демо-стек наверху — снеки укладываются в стек (до 5, затем «+N»), hover ставит авто-скрытие на паузу, Esc закрывает верхний.</p>
+              <div class="pg__controls">
+                <div class="ctl-col">
+                  <div class="ctl">
+                    <div class="lbl">Тон</div>
+                    <div class="pg-select"><select id="ctl-tone">
+                      <option value="error">Error</option>
+                      <option value="info">Info</option>
+                      <option value="warning">Warning</option>
+                      <option value="success">Success</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl">
+                    <div class="lbl">Кнопки</div>
+                    <div class="pg-select"><select id="ctl-btns">
+                      <option value="none">Нет</option>
+                      <option value="one">Одна</option>
+                      <option value="two">Две</option>
+                      <option value="link">Ссылка</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl">
+                    <div class="lbl">Заголовок</div>
+                    <div class="pg-text"><input id="ctl-title" type="text" placeholder="По тону" maxlength="60"></div>
+                  </div>
+                  <div class="ctl">
+                    <div class="lbl">Текст</div>
+                    <div class="pg-text"><input id="ctl-text" type="text" placeholder="Описание события" maxlength="120"></div>
+                  </div>
+                  <button class="btn btn--accent btn--s" id="btn-show" style="margin-top:4px;">Показать снек</button>
+                </div>
+                <div class="toggles">
+                  <label class="pg-toggle"><input id="ctl-dedup" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Схлопывать дубли ×N</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка и исходники SnackBar: HTML — из спеки, CSS — styles/snackbar.css (полностью), JS — рантайм стека. Демо страницы читает настройки конструктора и вызывает <code class="tok">DSSnack.show()</code>.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main><!-- .page -->
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
 <script src="../../scripts/ds-notify.js"></script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично, синхронизировать с ДС) ===== -->
+<script type="text/plain" id="src-code-html"><div class="snackbar-layer" aria-label="Уведомления">
+  <div class="snack snack--error" role="alert" aria-live="assertive">
+    <span class="snack__icon" aria-hidden="true"><svg…></svg></span>
+    <div class="snack__body">
+      <div class="snack__title">Ошибка <span class="snack__dupe">×2</span></div>
+      <div class="snack__text">Плановая дата просрочена.</div>
+      <div class="snack__buttons">
+        <button type="button" class="btn btn--outline btn--xs btn--error">
+          <span class="btn__label">Изменить сроки</span>
+        </button>
+      </div>
+    </div>
+    <button type="button" class="snack__close" aria-label="Закрыть"><svg…></svg></button>
+  </div>
+  <!-- overflow при > 5 -->
+  <div class="snack-more">
+    Ещё <span class="snack-more__count">3</span> уведомл.
+    <div class="snack-more__actions">
+      <button class="snack-more__btn" aria-label="Развернуть"><svg…></svg></button>
+      <button class="snack-more__btn" aria-label="Закрыть все"><svg…></svg></button>
+    </div>
+  </div>
+</div></script>
+
+<script type="text/plain" id="src-code-js">/* SnackBar — слой создаёт сам рантайм (или берёт элемент с data-ds-snackbar).
+   Демо страницы читает настройки конструктора и вызывает DSSnack.show(). */
+
+DSSnack.show({ tone: 'error', title: 'Ошибка', text: 'Плановая дата просрочена.',
+               buttons: [{ label: 'Изменить сроки', onClick: () => … }] });
+
+// Стек: новый сверху, видимых ≤ 5, остальные — под плашкой «+N уведомл.».
+// Авто-скрытие 5с у снека без кнопок; hover и фокус ставят таймер на паузу.
+// Дедупликация: одинаковые тон+заголовок+текст схлопываются в ×N (dedup: false — отключить).
+// Esc закрывает верхний снек стека.
+// Live-region: error и warning — alert/assertive, info и success — status/polite.
+// API: DSSnack.show(opts) → id · dismiss(id) · dismissAll() · expand() · layer() · stack().
+
+/* React API (предложение): SnackProps — tone · title · text · buttons
+   [{label, variant, href, onClick}] · dedup · duration */</script>
+
+<script type="text/plain" id="src-code-css">/* ============================================================
+   SNACKBAR — стек уведомлений в правом верхнем углу экрана.
+   z-index 9900 — поверх Modal (900) и ToastBar (800),
+   ниже ToastLoader (9999).
+   Requires: typography.css, colors.css, radius.css, shadow.css, button.css
+   ============================================================ */
+
+/* --- фиксированный слой ----------------------------------------- */
+.snackbar-layer {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 9900;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+/* --- карточка ---------------------------------------------------- */
+.snack {
+  width: 100%;
+  background: var(--bg-tile);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-2);
+  padding: 14px 12px 14px 16px;
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  column-gap: 10px;
+  align-items: start;
+  pointer-events: all;
+  animation: snack-in .2s ease both;
+}
+
+.snack--leave { animation: snack-out .2s ease forwards; }
+
+@keyframes snack-in  { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@keyframes snack-out { to   { opacity: 0; transform: translateX(14px); } }
+
+/* --- тона -------------------------------------------------------- */
+.snack--info    { background: var(--info-bg); }
+.snack--warning { background: var(--warning-bg); }
+.snack--error   { background: var(--error-bg-light); }
+.snack--success { background: var(--success-bg); }
+
+/* --- иконка тона ------------------------------------------------- */
+.snack__icon {
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px; flex: none;
+}
+.snack__icon :is(svg,[data-icon]){ width: 20px; height: 20px; display: block; }
+.snack--info    .snack__icon { color: var(--info); }
+.snack--warning .snack__icon { color: var(--warning); }
+.snack--error   .snack__icon { color: var(--error); }
+.snack--success .snack__icon { color: var(--success); }
+
+/* --- тело -------------------------------------------------------- */
+.snack__body { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding-top: 1px; }
+
+/* заголовок: Body S, --text-primary */
+.snack__title { font: var(--type-body-s); color: var(--text-primary); line-height: 1.4; }
+
+/* счётчик дублей ×N */
+.snack__dupe {
+  display: inline-flex; align-items: center; justify-content: center;
+  font: var(--type-body-xs); font-weight: 600; line-height: 1;
+  padding: 2px 6px; border-radius: var(--radius-pill); margin-left: 6px; vertical-align: middle;
+}
+.snack--info    .snack__dupe { color: var(--info-dark);    background: color-mix(in srgb, var(--info)    20%, transparent); }
+.snack--warning .snack__dupe { color: var(--warning-dark); background: color-mix(in srgb, var(--warning) 20%, transparent); }
+.snack--error   .snack__dupe { color: var(--error-dark);   background: color-mix(in srgb, var(--error)   20%, transparent); }
+.snack--success .snack__dupe { color: var(--success-dark); background: color-mix(in srgb, var(--success) 20%, transparent); }
+
+/* текст: Body XS, --text-secondary */
+.snack__text { font: var(--type-body-xs); color: var(--text-secondary); line-height: 1.5; text-wrap: pretty; }
+
+/* кнопки действий */
+.snack__buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+/* Кнопки и ссылки внутри снека красятся штатными тоновыми классами ДС:
+   .btn--<tone> и .link--<tone> (совпадают с тоном снека). Локальная подмена
+   --primary / --link-fg убрана — ре-скоупа переменных больше нет. */
+
+/* --- кнопка закрытия --------------------------------------------- */
+.snack__close {
+  appearance: none; border: none; background: none; padding: 2px;
+  cursor: pointer; border-radius: var(--radius-xs);
+  display: flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; flex: none; margin-top: 1px;
+  opacity: .65; transition: opacity .15s;
+}
+.snack__close :is(svg,[data-icon]){ width: 16px; height: 16px; display: block; }
+.snack__close:hover { opacity: 1; }
+.snack__close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; opacity: 1; }
+.snack--info    .snack__close { color: var(--info); }
+.snack--warning .snack__close { color: var(--warning); }
+.snack--error   .snack__close { color: var(--error); }
+.snack--success .snack__close { color: var(--success); }
+
+/* --- overflow pill «+N» ------------------------------------------ */
+.snack-more {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 10px 10px 10px 16px;
+  background: var(--bg-tile); border: 1px solid var(--border-light);
+  border-radius: var(--radius-card); box-shadow: var(--elevation-2);
+  font: var(--type-body-s); color: var(--text-secondary);
+  pointer-events: all; animation: snack-in .2s ease both;
+}
+.snack-more__count { font-weight: 600; color: var(--text-primary); }
+.snack-more__actions { display: flex; align-items: center; gap: 2px; }
+.snack-more__btn {
+  appearance: none; border: none; background: none; padding: 4px; cursor: pointer;
+  border-radius: var(--radius-xs); color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center; transition: color .12s;
+}
+.snack-more__btn :is(svg,[data-icon]){ width: 16px; height: 16px; }
+.snack-more__btn:hover { color: var(--text-primary); }
+.snack-more__btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* --- reduced motion ---------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .snack              { animation: snk-fi .15s ease both; }
+  .snack--leave       { animation: snk-fo .15s ease forwards; }
+  .snack-more         { animation: snk-fi .15s ease both; }
+}
+@keyframes snk-fi { from { opacity: 0; } to { opacity: 1; } }
+@keyframes snk-fo { to   { opacity: 0; } }</script>
+
 <script>
 /* ---- icon helper ---- */
 function getIcon(name, size) {

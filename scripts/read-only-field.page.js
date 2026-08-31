@@ -349,12 +349,21 @@
     function groupHead(text) {
       const h = document.createElement('div'); h.className = 'pg__grouphead'; h.textContent = text; return h;
     }
-    function sw(label, key) {
-      const t = document.createElement('button'); t.type = 'button'; t.className = 'toggle'; t.dataset.key = key;
-      t.setAttribute('aria-pressed', String(state[key]));
-      t.innerHTML = '<span class="sw"></span><span>' + label + '</span>';
-      t.addEventListener('click', () => { state[key] = !state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-      return t;
+    /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+       (label.pg-toggle) в правую колонку; подпись свитча статична
+       (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+    function ctlToggle(label, key) {
+      const wrap = document.createElement('div'); wrap.className = 'ctl';
+      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+      const box = document.createElement('div'); box.className = 'pg-select';
+      const sel = document.createElement('select');
+      [['no', 'Нет'], ['yes', 'Да']].forEach(([v, t]) => {
+        const op = document.createElement('option'); op.value = v; op.textContent = t;
+        if ((v === 'yes') === !!state[key]) op.selected = true;
+        sel.appendChild(op);
+      });
+      sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+      box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
 
     /* --- Состояние --- */
@@ -374,12 +383,8 @@
     const chipRowsCtl = seg('Ряды чипов', [['none', 'Перенос'], ['1', '1 ряд'], ['2', '2 ряда']], () => state.chipRows, v => state.chipRows = v);
     controls.appendChild(chipRowsCtl);
 
-    const optWrap = document.createElement('div'); optWrap.className = 'ctl';
-    const ol = document.createElement('div'); ol.className = 'lbl'; ol.textContent = 'Слоты'; optWrap.appendChild(ol);
-    const toggles = document.createElement('div'); toggles.className = 'toggles';
-    toggles.appendChild(sw('Label', 'label'));
-    toggles.appendChild(sw('Helper', 'helper'));
-    optWrap.appendChild(toggles); controls.appendChild(optWrap);
+    controls.appendChild(ctlToggle('Label', 'label'));
+    controls.appendChild(ctlToggle('Helper', 'helper'));
 
     /* --- Обрамление слева --- */
     controls.appendChild(groupHead('Обрамление'));

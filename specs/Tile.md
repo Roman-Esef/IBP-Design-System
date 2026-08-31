@@ -2,7 +2,7 @@
 component: Tile
 title: "Tile"
 version: "1.010"
-updated: "26.08.2026"
+updated: "30.08.2026"
 page: pages/organisms/Tile.html
 runtime: scripts/ds-tile.js
 css: styles/tile.css

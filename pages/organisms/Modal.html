@@ -38,23 +38,12 @@
 
   
 
-  /* ---------- playground: панель настроек снизу, без сплиттера (как в Pagination) ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:flex; flex-direction:column; }
-  .pg__stage { padding:40px 32px; display:flex; align-items:flex-start; justify-content:safe center; position:relative; overflow:auto;
+  /* ---------- playground: демо — в верхнюю панель сплиттера (#pg-stage), настройки — во вкладку «Конструктор» (#pg-controls) ---------- */
+  .pg__stage { flex:1; min-height:0; width:100%; padding:40px 32px; display:flex; align-items:flex-start; justify-content:safe center; position:relative; overflow:auto;
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
   .pg__stage .modal-scrim--inline { position:static; flex:none; }
-  .panel.pg > .pg__controls#pg-controls { border-top:1px solid var(--border-light); grid-template-columns:repeat(12,minmax(0,1fr)); align-items:start; }
-  /* ширины настроек подобраны под содержимое: сегменты не жмутся и не растягиваются на всю строку */
-  #pg-controls .ctl.ctl--span { grid-column:auto; }
-  #pg-controls .ctl:nth-child(1) { grid-column:span 3; }
-  #pg-controls .ctl:nth-child(2) { grid-column:span 4; }
-  #pg-controls .ctl:nth-child(3) { grid-column:span 5; }
-  #pg-controls .ctl:nth-child(4) { grid-column:span 4; }
-  #pg-controls .ctl:nth-child(5) { grid-column:span 4; }
-  #pg-controls .ctl:nth-child(6) { grid-column:span 4; }
-  @media (max-width:900px){ #pg-controls .ctl, #pg-controls .ctl.ctl--span { grid-column:1 / -1; } }
 
   .ctl { display:flex; flex-direction:column; gap:8px; }
   .ctl > .lbl { font: var(--type-body-s-strong); color: var(--text-inactive); text-transform:uppercase; letter-spacing:.05em; font-size:11px; }
@@ -117,31 +106,47 @@
   .code-panel__name { color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; font-weight:600; }
 
 </style>
+  <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-  <link rel="stylesheet" href="../../styles/pg-kit.css">
 </head>
 <body>
-<main class="page" data-screen-label="Modal">
+<main class="page ds-split" data-screen-label="Modal">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage" id="pg-stage"></div>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.005</b></span><span>Обновлено: <b>27.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.005</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Modal</h1>
     <p class="lead">Modal — не отдельный компонент, а свод правил построения модальных форм. Обязательны две части с фиксированной анатомией — шапка (<b>Modal_Top</b>: заголовок + крестик) и подвал (<b>Modal_Bottom</b>: опциональные кнопки слева, кнопки действий справа). Между ними — контентная область, которая может содержать что угодно: форму, таблицу, пустое состояние.</p>
   </header>
 
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите модалку: ширина (шаги шкалы колонок 2–12), состав подвала слева и справа, тип контента, алерт над контентом и состояние. Область демо тянется по высоте модалки: невысокая модалка — невысокая область.</p>
-    <div class="panel pg" data-pg-no-split>
-      <div class="pg__stage" id="pg-stage"></div>
-      <div class="pg__controls" id="pg-controls"></div>
-    </div>
-  </section>
+  <!-- 1. КОНСТРУКТОР: демо — в верхнюю панель сплиттера (#pg-stage),
+       контролы — во вкладку «Конструктор» нижней панели (см. в конце) -->
 
-  <!-- USAGE -->
+  <!-- 2. ИСПОЛЬЗОВАНИЕ -->
   <section class="section" data-screen-label="Usage">
     <h2>Использование</h2>
     <p class="desc tight">Модалка прерывает основной сценарий, чтобы получить решение или ввод данных, не уводя пользователя со страницы. Используйте для создания/редактирования сущности, короткой формы, подтверждения действия. Для навигации между разделами или длинных самостоятельных сценариев подходит отдельная страница, а не модалка.</p>
@@ -192,7 +197,6 @@
       <div id="alert-demo"></div>
     </div>
   </div>
-  </section>
   </section>
 
   <!-- SIZES -->
@@ -418,6 +422,42 @@ onBodyScroll():
     <span>Дизайн-система · Modal</span>
     <span>Modal_Top / Modal_Body / Modal_Bottom · guarded-закрытие · confirm-диалог</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите модалку: ширина (шаги шкалы колонок 2–12), состав подвала слева и справа, тип контента, алерт над контентом и состояние. Демо обновляется наверху, панель настроек — две колонки.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка и исходники Modal: HTML — из спеки, CSS — styles/modal.css (полностью), JS — выжимка API. Полный исходник демо — в <code class="tok">scripts/modal.page.js</code>.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
@@ -425,8 +465,331 @@ onBodyScroll():
 <script src="../../scripts/ds-modal.js"></script>
 <script src="../../scripts/modal.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+
+<!-- самодостаточные подписи свитчеров конструктора (общий слой docs-split.js) -->
+<script>
+window.DS_SPLIT_SWITCH_LABELS = {
+  'Подвал · справа': 'Secondary + Primary',
+};
+</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично, синхронизировать с ДС) ===== -->
+<script type="text/plain" id="src-code-html"><div class="modal-scrim">
+  <div class="modal modal--w6" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <header class="modal__head">
+      <h2 class="modal__title" id="modal-title">Новая сделка</h2>
+      <span class="modal__close"><button type="button" class="ibtn ibtn--neutral ibtn--l" aria-label="Закрыть"><i data-icon="close"></i></button></span>
+    </header>
+    <!-- опционально: ошибка/предупреждение уровня всей модалки -->
+    <div class="modal__alert"><div class="alert alert--error alert--m alert--flush" data-alert-tone="error" role="alert">…</div></div>
+    <div class="modal__body">…любой контент…</div>
+    <footer class="modal__foot">
+      <div class="modal__foot-left">
+        <button class="btn btn--transparent btn--s"><i data-icon="edit"></i>Изменить</button>
+      </div>
+      <div class="modal__foot-right">
+        <button class="btn btn--transparent btn--m">Очистить фильтр</button>
+        <button class="btn btn--accent btn--m">Сохранить</button>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- диалог подтверждения — вложенный поверх открытой модалки -->
+<div class="modal-scrim modal-scrim--nested" role="alertdialog" aria-modal="true">
+  …заголовок + сообщение + <button class="btn btn--accent btn--m btn--danger">Удалить</button>
+</div></script>
+
+<script type="text/plain" id="src-code-js">/* Modal — разметка статична; поведение вынесено в рантайм scripts/ds-modal.js (DSModal).
+   Демо страницы строит инлайн-функция buildModal() из scripts/modal.page.js. */
+
+// Открытие: триггер с data-modal="<id скрима>", слой .modal-scrim с этим id (hidden).
+// После закрытия рантайм возвращает hidden — состояние формы сохраняется.
+DSModal.bindAll(document);
+DSModal.open(scrim, { guarded: true, nested: true, onClose(ok) {} });
+
+// Подвал: Modal_Bottom_Left (опц.: Изменить/Удалить) + Modal_Bottom_Right (Secondary + Primary).
+// Primary обязателен; подвал всегда один ряд — если кнопки не влезают, модалку делают шире.
+
+// Guarded-форма: клик по скриму игнорируется, закрывают только крестик и Esc.
+// Вложенный confirm-диалог: .modal-scrim--nested, Primary в тоне .btn--danger.
+
+// Сохранение: Primary → .btn--loading + aria-busy, поля — в <fieldset disabled>.
+// Удаление — не прямое действие: клик по «Удалить» открывает вложенный диалог подтверждения.
+
+/* React API (предложение): ModalProps — width(2–12) · footLeft{edit|delete|both} ·
+   footRight{primary|both} · alert{tone} · guarded · nested · saving · onClose(ok) */</script>
+
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — Modal
+   Modal — не «компонент» в привычном смысле, а свод правил построения
+   модальных форм: обязательные шапка (Modal_Top) и подвал (Modal_Bottom),
+   между ними — произвольная контентная область (Modal_Body), которая может
+   содержать что угодно (форму, таблицу, пустое состояние, другую разметку).
+
+   Источник пропорций — референс "Основной компонент (варианты)":
+   Modal_Top (шапка: заголовок + крестик, 12 шагов ширины) и Modal_Bottom
+   (подвал: Modal_Bottom_Left — Изменить/Удалить, Modal_Bottom_Right —
+   Очистить фильтр/Сохранить).
+
+   Requires: typography.css, colors.css, radius.css, shadow.css, button.css,
+             icon-button.css
+   ========================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------
+     Шкала ширины — по колонкам сетки экрана. Шаг = число колонок, которые
+     накрывает модалка: ширина = N колонок + (N−1) межколоночных отступов
+     (на 1920×1080 колонка ≈136,7px, отступ 16px). Практический диапазон
+     для форм — 3–9; 2 — только короткий подтверждающий диалог, 10–12 —
+     широкие формы с таблицами внутри.
+     Варианта в одну колонку нет и не может быть — минимум 2 колонки.
+     --------------------------------------------------------------------- */
+  --modal-w-2:  289px;
+  --modal-w-3:  442px;
+  --modal-w-4:  595px;
+  --modal-w-5:  747px;
+  --modal-w-6:  900px;
+  --modal-w-7:  1053px;
+  --modal-w-8:  1205px;
+  --modal-w-9:  1358px;
+  --modal-w-10: 1511px;
+  --modal-w-11: 1663px;
+  --modal-w-12: 1816px;
+
+  /* ---------------------------------------------------------------------
+     Геометрия. Левая линия 24px общая для заголовка, контента и подвала;
+     справа в шапке 20px — крестик оптически компенсирует разницу.
+     --------------------------------------------------------------------- */
+  --modal-pad-x:           24px;
+  --modal-head-pad-y:      20px;
+  --modal-head-pad-right:  20px;
+  --modal-head-row-h:      24px;  /* строка «заголовок + крестик» */
+  --modal-head-gap:        24px;  /* зазор заголовок ↔ крестик */
+  --modal-body-pad-top:    16px;
+  --modal-body-pad-bottom: 24px;  /* 32px, когда контенту нужен воздух — .modal__body--roomy */
+  --modal-body-gap:        16px;  /* зазор между вложенными компонентами */
+  --modal-foot-pad-y:      16px;
+  --modal-foot-gap:        16px;  /* зазор между левой и правой группами кнопок */
+  --modal-max-h:           80vh;  /* выше не растёт — прокручивается тело */
+  --modal-viewport-guard: 24px; /* охранное поле от края вьюпорта */
+
+  /* поверхность */
+  --modal-radius: var(--radius-modal);      /* 8px — общая шкала радиусов */
+  --modal-shadow: var(--shadow-modal-form); /* именованная тень под модалки */
+  --modal-bg:     var(--bg-popup);
+
+  /* скрим — тёмная подложка, гасит фон под модалкой. Конвенция как у
+     --toast-scrim (color-mix поверх --st-grey), процент выше — модалка
+     блокирует весь экран, а не просто подсвечивает тост */
+  --modal-scrim: color-mix(in srgb, var(--st-grey) 48%, transparent);
+
+  /* z-index — выше остальных слоёв ДС (nav 50/60, toast 40/55/60, меню 30/40) */
+  --modal-z: 1000; /* @kind other */
+  /* вложенный (confirm) диалог поверх открытой модалки */
+  --modal-z-nested: 1010; /* @kind other */
+}
+
+/* =========================================================================
+   СКРИМ + ПОЗИЦИОНИРОВАНИЕ
+   ========================================================================= */
+
+.modal-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--modal-z);
+  background: var(--modal-scrim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--modal-viewport-guard);
+  overflow-y: auto; /* если модалка выше вьюпорта — скроллится весь скрим, а не только тело */
+  box-sizing: border-box;
+}
+.modal-scrim--nested { z-index: var(--modal-z-nested); }
+
+/* `[hidden]` браузера и класс `.modal-scrim` — одинаковая специфичность
+   (0,1,0); без этого правила класс перебивает атрибут по порядку каскада,
+   и скрытая разметкой модалка всё равно рендерится открытой */
+.modal-scrim[hidden] { display: none; }
+
+/* встраивание превью в статичный контейнер документации/канваса —
+   вместо фиксированного оверлея на весь вьюпорт */
+.modal-scrim--inline { position: absolute; animation: none; }
+
+/* вход/выход — уважает reduced-motion */
+.modal-scrim {
+  animation: modal-scrim-in .18s ease;
+}
+.modal-scrim .modal { animation: modal-pop-in .18s cubic-bezier(.2,.8,.3,1); }
+@keyframes modal-scrim-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-pop-in { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .modal-scrim, .modal-scrim .modal { animation: none; }
+}
+
+/* =========================================================================
+   КОНТЕЙНЕР
+   ========================================================================= */
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0; /* внутри flex-скрима модалка никогда не сжимается молча —
+                     если места не хватает, скрим должен скроллиться, а не врать про ширину */
+  background: var(--modal-bg);
+  border-radius: var(--modal-radius);
+  box-shadow: var(--modal-shadow);
+  width: var(--modal-w-6); /* дефолт — шаг 6, переопределяется модификатором */
+  max-width: calc(100vw - (var(--modal-viewport-guard) * 2));
+  max-height: var(--modal-max-h); /* 80% экрана — дальше скроллится только тело */
+  box-sizing: border-box;
+  overflow: hidden; /* скругление реза́лось бы содержимым без этого */
+}
+
+/* модификаторы ширины — шаги шкалы колонок (2–12) */
+.modal--w2  { width: var(--modal-w-2); }
+.modal--w3  { width: var(--modal-w-3); }
+.modal--w4  { width: var(--modal-w-4); }
+.modal--w5  { width: var(--modal-w-5); }
+.modal--w6  { width: var(--modal-w-6); }
+.modal--w7  { width: var(--modal-w-7); }
+.modal--w8  { width: var(--modal-w-8); }
+.modal--w9  { width: var(--modal-w-9); }
+.modal--w10 { width: var(--modal-w-10); }
+.modal--w11 { width: var(--modal-w-11); }
+.modal--w12 { width: var(--modal-w-12); }
+
+/* =========================================================================
+   ШАПКА — Modal_Top: заголовок + крестик. Ничего лишнего.
+   ========================================================================= */
+
+.modal__head {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--modal-head-gap);
+  /* строка «заголовок + крестик» — ровно 24px (интерлиньяж H4 Strong = габарит
+     IconButton L), паддинги считаются от неё: content-box не даёт им «съесть» высоту */
+  box-sizing: content-box;
+  min-height: var(--modal-head-row-h);
+  padding: var(--modal-head-pad-y) var(--modal-head-pad-right) var(--modal-head-pad-y) var(--modal-pad-x);
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+  transition: box-shadow .15s ease;
+}
+/* тень появляется, когда тело прокручено от верхнего края — усиливает
+   разделительную линию, которая присутствует всегда */
+.modal__head.is-scrolled { box-shadow: 0 6px 12px -8px rgba(40, 50, 55, .18); }
+
+.modal__title {
+  margin: 0;
+  font: var(--type-h4-strong);
+  color: var(--text-primary);
+  flex: 1 1 auto;
+  min-width: 0;
+  text-wrap: pretty; /* заголовок переносится на 2 строки, а не обрезается */
+  /* оптическая компенсация: у SB Sans Display ink-бокс в строке 24px сидит выше
+     геометрического центра, поэтому заголовок опускаем на 2px, не меняя высоту строки */
+  padding-top: 2px;
+  margin-top: -2px;
+}
+
+.modal__close { flex: none; display: flex; } /* класс-якорь; сама кнопка — ibtn ibtn--neutral ibtn--l */
+
+/* =========================================================================
+   АЛЕРТ МЕЖДУ ШАПКОЙ И ТЕЛОМ — необязательная зона: ошибка отправки формы
+   или предупреждение, которое относится ко всей модалке, а не к полю.
+   Alert берётся as is (.alert--flush — без скруглений, во всю ширину).
+   ========================================================================= */
+
+.modal__alert { flex: none; }
+.modal > .alert,
+.modal__alert > .alert { flex: none; border-radius: 0; }
+
+/* =========================================================================
+   КОНТЕНТ — Modal_Body: единственная зона, которая варьируется. Здесь
+   не задаётся ничего, кроме паддинга, скролла и охранных отступов —
+   содержимое (форма, таблица, пустое состояние) приходит снаружи.
+   ========================================================================= */
+
+.modal__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--modal-body-pad-top) var(--modal-pad-x) var(--modal-body-pad-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: var(--modal-body-gap);
+  font: var(--type-body-m);
+  color: var(--text-primary);
+}
+.modal__body::-webkit-scrollbar { width: 8px; }
+.modal__body::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 8px; }
+
+/* тело без внутреннего паддинга — когда контент сам управляет отступами
+   (например таблица на всю ширину модалки) */
+.modal__body--flush { padding: 0; gap: 0; }
+
+/* тело с увеличенным нижним отступом — когда контенту нужен воздух перед подвалом */
+.modal__body--roomy { padding-bottom: 32px; }
+
+/* =========================================================================
+   ПОДВАЛ — Modal_Bottom: Modal_Bottom_Left (Изменить/Удалить, опционально)
+   + Modal_Bottom_Right (Secondary + Primary). Все вместе на Bottom_Left
+   не используются — Изменить и Удалить принадлежат разным режимам формы
+   (просмотр → Изменить, редактирование существующей сущности → Удалить).
+   ========================================================================= */
+
+.modal__foot {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--modal-foot-gap);
+  /* подвал — всегда один ряд. Кнопки не переносятся на второй этаж: если
+     четыре кнопки не влезают, модалку делают шире, а не подвал двухрядным */
+  flex-wrap: nowrap;
+  padding: var(--modal-foot-pad-y) var(--modal-pad-x);
+  border-top: 1px solid var(--border-light);
+  position: relative;
+  transition: box-shadow .15s ease;
+}
+.modal__foot.is-scrolled { box-shadow: 0 -6px 12px -8px rgba(40, 50, 55, .18); }
+
+.modal__foot-left,
+.modal__foot-right {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+.modal__foot-right { margin-left: auto; gap: 12px; }
+.modal__foot-left:empty { display: none; }
+
+/* =========================================================================
+   ЗАГРУЗКА КОНТЕНТА (скелетон при открытии) — общий компонент Skeleton
+   (.sk-line/.sk-group, styles/skeleton.css), локальной реализации нет.
+   ========================================================================= */
+
+/* =========================================================================
+   СОХРАНЕНИЕ В ПРОЦЕССЕ — форма заблокирована, Primary уходит в Loading
+   (готовый .btn--loading из button.css). Оборачивайте поля в <fieldset
+   disabled> — здесь только визуальное приглушение контейнера.
+   ========================================================================= */
+
+.modal--saving .modal__body { opacity: .55; pointer-events: none; }
+
+/* =========================================================================
+   ПУСТОЕ/ОШИБКА ВАЛИДАЦИИ — модалка остаётся открытой, футер закреплён;
+   сама ошибка — забота компонента LabelHelper внутри контента (role="alert").
+   Здесь фиксируется только то, что модалка НЕ закрывается и НЕ схлопывается.
+   ========================================================================= */</script>
 </body>
 </html>

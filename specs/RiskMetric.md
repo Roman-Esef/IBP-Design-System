@@ -2,7 +2,7 @@
 component: RiskMetric
 title: "Риск-метрика"
 version: "1.006"
-updated: "21.08.2026"
+updated: "30.08.2026"
 page: pages/organisms/RiskMetric.html
 page_js: scripts/riskmetric.page.js
 runtime: scripts/ds-riskmetric.js

@@ -51,19 +51,21 @@
       sel.addEventListener('change', () => { state[key] = sel.value; render(); });
       box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
-    function ctlToggles(pairs) {
+    /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+       (label.pg-toggle) в правую колонку; подпись свитча статична
+       (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+    function ctlToggle(label, key) {
       const wrap = document.createElement('div'); wrap.className = 'ctl';
-      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = 'Опции'; wrap.appendChild(l);
-      const row = document.createElement('div'); row.className = 'toggles'; row.style.display = 'flex';
-      pairs.forEach(([label, key]) => {
-        const b = document.createElement('button'); b.type = 'button'; b.className = 'toggle';
-        b.dataset.key = key;
-        b.setAttribute('aria-pressed', String(state[key]));
-        b.innerHTML = '<span class="sw-mini"></span><span>' + label + '</span>';
-        b.addEventListener('click', () => { state[key] = !state[key]; render(); });
-        row.appendChild(b);
+      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+      const box = document.createElement('div'); box.className = 'pg-select';
+      const sel = document.createElement('select');
+      [['no', 'Нет'], ['yes', 'Да']].forEach(([v, t]) => {
+        const op = document.createElement('option'); op.value = v; op.textContent = t;
+        if ((v === 'yes') === !!state[key]) op.selected = true;
+        sel.appendChild(op);
       });
-      wrap.appendChild(row); return wrap;
+      sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+      box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
 
     controls.appendChild(ctlSelect('Размер', [['m', 'M'], ['s', 'S (Table Edit)']], 'size'));
@@ -74,15 +76,15 @@
       ['disabled', 'Disabled'],
     ], 'state', true));
     controls.appendChild(ctlSelect('Наполнение', [['empty', 'Маска'], ['value', 'Заполнено']], 'fill'));
-    controls.appendChild(ctlToggles([['Label', 'label'], ['Helper', 'helper'], ['Информер', 'informer']]));
+    const labelCtl = ctlToggle('Label', 'label');
+    const helperCtl = ctlToggle('Helper', 'helper');
+    controls.appendChild(labelCtl);
+    controls.appendChild(ctlToggle('Информер', 'informer'));
+    controls.appendChild(helperCtl);
 
     function render() {
       const table = state.size === 's';
-      controls.querySelectorAll('.toggle').forEach(b => {
-        const k = b.dataset.key;
-        if (k === 'label' || k === 'helper') b.classList.toggle('is-off', table);
-        b.setAttribute('aria-pressed', String(state[k]));
-      });
+      [labelCtl, helperCtl].forEach(c => c.classList.toggle('is-off', table));
       stage.innerHTML = '';
       stage.appendChild(mkDate({
         size: state.size,

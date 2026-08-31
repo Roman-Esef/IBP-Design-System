@@ -2,7 +2,7 @@
 component: NavPanel
 title: "Панель навигации"
 version: "1.009"
-updated: "26.08.2026"
+updated: "30.08.2026"
 page: pages/organisms/NavPanel.html
 page_js: scripts/nav-panel.page.js
 runtime: scripts/ds-nav-panel.js

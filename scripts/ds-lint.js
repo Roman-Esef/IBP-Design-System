@@ -24,7 +24,7 @@ const REGISTRY_DIRS = ['pages/foundations/', 'pages/atoms/', 'pages/molecules/',
 // у страниц-экранов и rnd свои разделы и своя роль
 const SKIP_ALL = [/^index\.html$/, /^thumbnail\.html$/, /^templates\//];
 // CSS документации и экранов — намеренно вне ds.css/styles.css (не компоненты ДС)
-const CSS_NOT_IN_BUNDLE = ['ds-docs.css', 'ds-nav.css', 'ds-toc.css', 'pg-kit.css', 'input-pages.css', 'screens.css'];
+const CSS_NOT_IN_BUNDLE = ['ds-docs.css', 'ds-nav.css', 'ds-toc.css', 'pg-kit.css', 'docs-split.css', 'input-pages.css', 'screens.css'];
 // hex, которые легальны: демо-тени и шахматная подложка прозрачности
 const HEX_OK = /(chess|checker|shadow-demo|elevation-demo)/i;
 // значения, легальные в разметке документации (не выдуманные цвета продукта):
@@ -400,7 +400,7 @@ async function pageChecks(p, P, opts, out) {
     }
   }
   /* A6 — контейнер страницы: ds-nav/ds-toc монтируются только в <main class="page"> */
-  if (!isScreen && !/<main class="page"/.test(markup) && scripts.some((s) => /ds-(nav|toc)\.js$/.test(s))) say('BLOCKER', 'A6', 'нет <main class="page"> — ds-nav/ds-toc молча не смонтируются');
+  if (!isScreen && !/<main class="page(?:\s|")/.test(markup) && scripts.some((s) => /ds-(nav|toc)\.js$/.test(s))) say('BLOCKER', 'A6', 'нет <main class="page"> — ds-nav/ds-toc молча не смонтируются');
   /* A4 — иконки без своих скриптов (ds.js на экранах закрывает оба) */
   if (/data-icon="[^"…\s]/.test(markup) && !scripts.some((x) => base(x) === 'ds.js')) {
     const need = ['icons-data.js', 'ds-icons.js'].filter((s) => !scripts.some((x) => base(x) === s));
@@ -488,7 +488,9 @@ async function pageChecks(p, P, opts, out) {
   /* B1 — несуществующий токен */
   // локальными считаем переменные, объявленные где угодно на странице: <style>, inline style, JS (setProperty)
   const localVars = new Set([...all(RX.cssVarDef, html), ...all(/setProperty\(\s*['"`](--[a-zA-Z0-9-]+)/g, html)]);
-  const badTokens = uniq(all(RX.cssVarUse, html)).filter((t) => !P.tokens.has(t) && !localVars.has(t));
+  // флагаем только «голый» var(--x) БЕЗ fallback: var(--x, дефолт) — хук переопределения,
+  // дефолт и есть определение (та же логика, что в B2 «fallback внутри var() легален»)
+  const badTokens = uniq(all(/var\(\s*(--[a-zA-Z0-9-]+)\s*\)/g, html)).filter((t) => !P.tokens.has(t) && !localVars.has(t));
   for (const t of badTokens) say('BLOCKER', 'B1', 'var(' + t + ') — токена нет в styles/*.css');
   /* B2 — хардкод цвета в <style> страницы (fallback внутри var() легален) */
   const hexes = uniq(all(/(#[0-9a-f]{3,8}\b|rgba?\([^)]*\))/gi, styleSrc.replace(/var\([^)]*\)/g, ''), 1))
@@ -585,23 +587,28 @@ async function pageChecks(p, P, opts, out) {
   if (changed && upd && upd.trim() !== (opts.today || today())) say('WARN', 'C3', 'страница правилась, «Обновлено» = ' + upd + ', сегодня ' + (opts.today || today()));
   /* C4/C5/C6 — разделы */
   if (inContract && P.canon.length) {
+    // docs-split: «Конструктор» и «Код компонента» — заголовки табов нижней панели,
+    // не разделы документации; «Конструктор» исключается и из канона
+    const isDs = /class="page ds-split"/.test(markup);
+    const canon = isDs ? P.canon.filter((c) => c !== 'Конструктор') : P.canon;
     // разделы документации пишутся как <h2>Название</h2>; <h2 class=…> — часть демо-компонента
     const h2s = all(/<h2>([\s\S]*?)<\/h2>/g, html).map((h) => strip(h).replace(/\s*(Новое|Расширение|Обновлено)\s*$/, '').trim());
+    const docs = isDs ? h2s.filter((h) => h !== 'Конструктор' && h !== 'Код компонента') : h2s;
     const idx = [];
     const unknown = [];
-    for (const h of h2s) {
-      const i = P.canon.findIndex((c) => h === c || h.startsWith(c));
+    for (const h of docs) {
+      const i = canon.findIndex((c) => h === c || h.startsWith(c));
       if (i >= 0) idx.push(i);
       else if (!/бэклог|что предлагаем/i.test(h)) unknown.push(h);
       else if (/что предлагаем/i.test(h)) say('WARN', 'C5', 'раздел бэклога должен называться «Бэклог» (найдено: «' + h + '») — имя h2 контракт для агентов');
     }
-    const missing = P.canon.filter((c) => !h2s.some((h) => h === c || h.startsWith(c)));
+    const missing = canon.filter((c) => !docs.some((h) => h === c || h.startsWith(c)));
     if (missing.length) say('WARN', 'C4', 'нет h2: ' + missing.join(', '));
-    if (!h2s.some((h) => /бэклог|что предлагаем/i.test(h))) say('BLOCKER', 'C4', 'нет обязательного раздела «Что предлагаем добавить» / «Бэклог»');
+    if (!docs.some((h) => /бэклог|что предлагаем/i.test(h))) say('BLOCKER', 'C4', 'нет обязательного раздела «Что предлагаем добавить» / «Бэклог»');
     const ordered = idx.every((v, i) => i === 0 || v >= idx[i - 1]);
-    if (!ordered) say('WARN', 'C4', 'порядок h2 расходится с каноном: ' + idx.map((i) => P.canon[i]).join(' → '));
+    if (!ordered) say('WARN', 'C4', 'порядок h2 расходится с каноном: ' + idx.map((i) => canon[i]).join(' → '));
     if (unknown.length) say('WARN', 'C5', 'неканонические h2: ' + unknown.join(', '));
-    if (h2s.includes('Конструктор') && h2s[0] !== 'Конструктор') say('WARN', 'C6', '«Конструктор» не первым после шапки (первый — «' + h2s[0] + '»)');
+    if (docs.includes('Конструктор') && docs[0] !== 'Конструктор') say('WARN', 'C6', '«Конструктор» не первым после шапки (первый — «' + docs[0] + '»)');
   }
   /* D1/D2 — реестры */
   if (inRegistry) {

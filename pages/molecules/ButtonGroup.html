@@ -70,12 +70,8 @@
   .guide .g .demo { display:flex; align-items:center; gap:16px; flex-wrap:wrap; min-height:52px; padding-bottom:18px; border-bottom:1px solid var(--border-light); margin-bottom:18px; }
   .guide .g p { font: var(--type-body-s); color: var(--text-secondary); margin:0; text-wrap:pretty; }
 
-  /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:48px 40px; display:flex; align-items:center; justify-content:center; min-height:220px;
+  /* ---------- демо-стадия (docs-split) ---------- */
+  .pg__stage { flex:1; min-height:0; width:100%; padding:48px 40px; display:flex; align-items:center; justify-content:center;
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
@@ -104,30 +100,43 @@
   .code-panel__name { color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; font-weight:600; }
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+  <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="ButtonGroup">
+<main class="page ds-split" data-screen-label="ButtonGroup">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>1.004</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.004</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>ButtonGroup</h1>
     <p class="lead">Объединяет связанные кнопки в единый визуальный блок с общим фоном или обводкой. Поддерживает 2–5 кнопок, типы Accent / Outline, все три размера, вариант Split&nbsp;Button и сегментированный выбор. Собирается из компонентов <b>Button</b> — кнопки наследуют свои свойства.</p>
   </header>
-
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите группу: переключайте вариант, тип, размер, количество кнопок, ориентацию и состояние — превью обновляется мгновенно.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -369,6 +378,42 @@
     <span>Дизайн-система · ButtonGroup</span>
     <span>Accent · Outline — Split · Toggle · Vertical · Fullwidth</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите группу: переключайте вариант, тип, размер, количество кнопок, ориентацию и состояние — превью обновляется мгновенно.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/button-group.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
@@ -720,27 +765,27 @@ mount('do-demo', makeGroup({ type:'outline', items:[{text:'День'},{text:'Н�
     sel.addEventListener('change',()=>{ onPick(sel.value); render(); });
     box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
-  function sw(label, key){
-    const t=document.createElement('button'); t.type='button'; t.className='toggle'; t.dataset.key=key;
-    t.setAttribute('aria-pressed', String(state[key]));
-    t.innerHTML='<span class="sw"></span><span>'+label+'</span>';
-    t.addEventListener('click',()=>{ state[key]=!state[key]; t.setAttribute('aria-pressed',String(state[key])); render(); });
-    return t;
+  /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+     (label.pg-toggle) в правую колонку; подпись свитча статична
+     (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+  function ctlToggle(label, key){
+    const wrap=document.createElement('div'); wrap.className='ctl';
+    const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
+    const box=document.createElement('div'); box.className='pg-select';
+    const sel=document.createElement('select');
+    [['no','Нет'],['yes','Да']].forEach(([v,t])=>{ const o=document.createElement('option'); o.value=v; o.textContent=t; if((v==='yes')===!!state[key]) o.selected=true; sel.appendChild(o); });
+    sel.addEventListener('change',()=>{ state[key]=sel.value==='yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
 
   controls.appendChild(select('Вариант', [['standard','Standard'],['split','Split Button'],['toggle','Toggle / Segmented']], ()=>state.variant, v=>state.variant=v));
   controls.appendChild(select('Тип', [['accent','Accent'],['outline','Outline'],['transparent','Transparent']], ()=>state.type, v=>state.type=v));
-  controls.appendChild(seg('Размер', [['m','M'],['s','S'],['xs','XS']], ()=>state.size, v=>state.size=v));
+  controls.appendChild(select('Размер', [['m','M'],['s','S'],['xs','XS']], ()=>state.size, v=>state.size=v));
   controls.appendChild(select('Кол-во кнопок', [['2','2'],['3','3'],['4','4'],['5','5']], ()=>state.count, v=>state.count=+v));
-  controls.appendChild(seg('Ориентация', [['horizontal','Гориз.'],['vertical','Верт.']], ()=>state.orientation, v=>state.orientation=v));
+  controls.appendChild(select('Ориентация', [['horizontal','Гориз.'],['vertical','Верт.']], ()=>state.orientation, v=>state.orientation=v));
   controls.appendChild(select('Контент', [['text','Текст'],['icon-text','Иконка + текст'],['icon','Только иконки']], ()=>state.content, v=>state.content=v));
   controls.appendChild(select('Состояние', [['default','Default'],['disabled','Disabled']], ()=>state.state, v=>state.state=v));
-
-  const compWrap=document.createElement('div'); compWrap.className='ctl';
-  const cl=document.createElement('div'); cl.className='lbl'; cl.textContent='Опции'; compWrap.appendChild(cl);
-  const toggles=document.createElement('div'); toggles.className='toggles';
-  toggles.appendChild(sw('Fullwidth','fullwidth'));
-  compWrap.appendChild(toggles); controls.appendChild(compWrap);
+  controls.appendChild(ctlToggle('Fullwidth','fullwidth'));
 
   function buildItems(){
     const n = state.count;
@@ -778,8 +823,213 @@ mount('do-demo', makeGroup({ type:'outline', items:[{text:'День'},{text:'Н�
 })();
 </script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Ориентация': 'Вертикально', 'Состояние': 'Показывать Disabled', 'Fullwidth': 'На всю ширину' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- горизонтальная группа Accent из кнопок Button -->
+<div class="btn-group btn-group--accent" role="group" aria-label="Режим отображения">
+  <button class="btn btn--accent btn--m">Список</button>
+  <button class="btn btn--accent btn--m">Плитка</button>
+</div>
+
+<!-- Split Button: основное действие + стрелка — реальный ContextMenu (DSMenu.bind) -->
+<div class="btn-group btn-group--accent btn-group--split menu-anchor" role="group">
+  <button class="btn btn--accent btn--m">Сохранить</button>
+  <button class="btn btn--accent btn--m btn--icon-only" aria-haspopup="menu" aria-expanded="false">…</button>
+  <div class="menu menu--floating" role="menu">
+    <button type="button" class="menu__item" role="menuitem"><span class="menu__item-icon">…</span><span class="menu__item-label">Сохранить как…</span></button>
+  </div>
+</div>
+
+<!-- Сегментированный выбор (toggle): aria-pressed на каждой кнопке -->
+<div class="btn-group btn-group--outline btn-group--toggle" role="group" aria-label="Форматирование">
+  <button class="btn btn--outline btn--m" aria-pressed="true">…</button>
+  <button class="btn btn--outline btn--m" aria-pressed="false">…</button>
+</div>
+
+<!-- вертикальная + заблокированная -->
+<div class="btn-group btn-group--outline btn-group--vertical btn-group--disabled" role="group" aria-disabled="true">…</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — инлайн-скрипт страницы)
+// Состояние конструктора
+const state = { variant:'standard', type:'accent', size:'m', count:3,
+                orientation:'horizontal', content:'text', state:'default', fullwidth:false };
+
+// Сборка группы из кнопок Button:
+//  makeGroup({ type, size, vertical, fullwidth, disabled, toggle, single, items })
+//  makeSplit({ type, size, lead, disabled })  — Split Button (меню — DSMenu.bind)
+// Классы контейнера: .btn-group--<type> / --vertical / --fullwidth / --disabled / --toggle / --split
+// Disabled — только на всю группу: .btn-group--disabled + aria-disabled (pointer-events:none)</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — ButtonGroup
+   Joins related Button components into a single, visually unified control.
+   Types:        accent · outline · transparent
+   Sizes:        inherited from Button — m (40) · s (32) · xs (24)
+   Orientation:  horizontal (default) · vertical
+   Variants:     standard · split (text + chevron) · toggle (segmented select)
+   States:       buttons inherit their own states; Disabled applies to the
+                 WHOLE group; the outline type keeps its border color across
+                 hover / active.
+   Requires: typography.css, colors.css, button.css
+   ========================================================================= */
+
+:root {
+  /* seam between joined buttons */
+  --btng-divider-accent:   color-mix(in srgb, var(--primary-dark) 45%, transparent);
+  --btng-divider-disabled: color-mix(in srgb, #fff 38%, transparent);
+  /* outer corner radius — matches Button per size (M/S 8px, XS 6px) */
+  --btn-radius: var(--radius-control);
+}
+
+/* ---------- shell --------------------------------------------------------- */
+.btn-group {
+  display: inline-flex;
+  align-items: stretch;
+  vertical-align: middle;
+}
+
+/* every joined button is its own stacking context so hover / focus rings sit
+   above the neighbours instead of being clipped by them */
+.btn-group > .btn { position: relative; }
+.btn-group > .btn:hover,
+.btn-group > .btn:active,
+.btn-group > .btn.is-hover,
+.btn-group > .btn.is-active { z-index: 1; }
+.btn-group > .btn:focus-visible { z-index: 2; }
+
+/* ---------- HORIZONTAL joining (default) ---------------------------------- */
+.btn-group > .btn { border-radius: 0; }
+.btn-group > .btn:first-child {
+  border-top-left-radius: var(--btn-radius);
+  border-bottom-left-radius: var(--btn-radius);
+}
+.btn-group > .btn:last-child {
+  border-top-right-radius: var(--btn-radius);
+  border-bottom-right-radius: var(--btn-radius);
+}
+/* collapse the 1px borders of adjacent buttons into one shared line */
+.btn-group > .btn + .btn { margin-left: -1px; }
+
+/* a single child keeps the full radius (group of one — edge case) */
+.btn-group > .btn:only-child { border-radius: var(--btn-radius); }
+
+/* XS buttons use the smaller control radius (6px) — direct token, no scoped custom property */
+.btn-group:has(> .btn--xs) > .btn:first-child {
+  border-top-left-radius: var(--radius-control-s);
+  border-bottom-left-radius: var(--radius-control-s);
+}
+.btn-group:has(> .btn--xs) > .btn:last-child {
+  border-top-right-radius: var(--radius-control-s);
+  border-bottom-right-radius: var(--radius-control-s);
+}
+.btn-group:has(> .btn--xs) > .btn:only-child { border-radius: var(--radius-control-s); }
+
+/* ---------- accent: painted divider --------------------------------------- */
+/* accent borders match the fill, so the seam is drawn explicitly */
+.btn-group--accent > .btn + .btn {
+  box-shadow: inset 1px 0 0 0 var(--btng-divider-accent);
+}
+
+/* ---------- outline / transparent: keep the border line ------------------- */
+/* the collapsed 1px primary borders already form the divider — no override
+   needed for outline. The outline type must NOT change its border color on
+   hover / active inside a group (unlike a standalone button). */
+.btn-group--outline > .btn:hover,
+.btn-group--outline > .btn:active,
+.btn-group--outline > .btn.is-hover,
+.btn-group--outline > .btn.is-active { border-color: var(--primary); }
+
+/* transparent group needs a visible seam — borrow a light divider */
+.btn-group--transparent > .btn + .btn {
+  box-shadow: inset 1px 0 0 0 var(--border-light);
+}
+
+/* ---------- VERTICAL orientation ------------------------------------------ */
+.btn-group--vertical { flex-direction: column; align-items: stretch; }
+.btn-group--vertical > .btn { width: 100%; }
+.btn-group--vertical > .btn:first-child {
+  border-radius: var(--btn-radius) var(--btn-radius) 0 0;
+}
+.btn-group--vertical > .btn:last-child {
+  border-radius: 0 0 var(--btn-radius) var(--btn-radius);
+}
+.btn-group--vertical:has(> .btn--xs) > .btn:first-child {
+  border-radius: var(--radius-control-s) var(--radius-control-s) 0 0;
+}
+.btn-group--vertical:has(> .btn--xs) > .btn:last-child {
+  border-radius: 0 0 var(--radius-control-s) var(--radius-control-s);
+}
+.btn-group--vertical > .btn + .btn { margin-left: 0; margin-top: -1px; }
+.btn-group--vertical.btn-group--accent > .btn + .btn {
+  box-shadow: inset 0 1px 0 0 var(--btng-divider-accent);
+}
+.btn-group--vertical.btn-group--transparent > .btn + .btn {
+  box-shadow: inset 0 1px 0 0 var(--border-light);
+}
+
+/* ---------- FULLWIDTH / equal width --------------------------------------- */
+.btn-group--fullwidth { display: flex; width: 100%; }
+.btn-group--fullwidth > .btn { flex: 1 1 0; }
+/* split button: the text button grows, the chevron stays square */
+.btn-group--split.btn-group--fullwidth > .btn:not(.btn--icon-only) { flex: 1 1 auto; }
+.btn-group--split.btn-group--fullwidth > .btn--icon-only { flex: 0 0 auto; }
+
+/* ---------- DISABLED — applies to the whole group ------------------------- */
+.btn-group--disabled { pointer-events: none; cursor: default; }
+
+.btn-group--accent.btn-group--disabled > .btn {
+  background: var(--disabled); border-color: var(--disabled); color: var(--text-on-dark);
+}
+.btn-group--accent.btn-group--disabled > .btn svg { color: var(--text-on-dark); }
+.btn-group--accent.btn-group--disabled > .btn + .btn {
+  box-shadow: inset 1px 0 0 0 var(--btng-divider-disabled);
+}
+.btn-group--accent.btn-group--vertical.btn-group--disabled > .btn + .btn {
+  box-shadow: inset 0 1px 0 0 var(--btng-divider-disabled);
+}
+
+.btn-group--outline.btn-group--disabled > .btn {
+  background: var(--bg-tile); border-color: var(--disabled); color: var(--text-inactive);
+}
+.btn-group--outline.btn-group--disabled > .btn svg { color: var(--text-inactive); }
+
+.btn-group--transparent.btn-group--disabled > .btn {
+  background: transparent; color: var(--text-inactive);
+}
+.btn-group--transparent.btn-group--disabled > .btn svg { color: var(--text-inactive); }
+
+/* ---------- TOGGLE / segmented select ------------------------------------- */
+/* An outline group whose items behave like a single- or multi-select control.
+   The pressed item is filled with the accent color. Drives off aria-pressed. */
+.btn-group--toggle > .btn[aria-pressed="true"] {
+  background: var(--primary);
+  color: var(--text-on-dark);
+  border-color: var(--primary);
+  z-index: 1;
+}
+.btn-group--toggle > .btn[aria-pressed="true"] svg { color: var(--text-on-dark); }
+.btn-group--toggle > .btn[aria-pressed="true"]:hover { background: var(--primary-dark); }
+.btn-group--toggle.btn-group--disabled > .btn[aria-pressed="true"] {
+  background: var(--disabled); border-color: var(--disabled);
+}
+
+/* ---------- SPLIT button -------------------------------------------------- */
+/* the dropdown menu node is appended after the chevron, so the chevron is no
+   longer :last-child — radius the trailing button by type instead */
+.btn-group--split > .btn:last-of-type {
+  border-top-right-radius: var(--btn-radius);
+  border-bottom-right-radius: var(--btn-radius);
+}
+.btn-group--split:has(> .btn--xs) > .btn:last-of-type {
+  border-top-right-radius: var(--radius-control-s);
+  border-bottom-right-radius: var(--radius-control-s);
+}
+/* chevron half rotates when its menu is open (managed by .is-open on a parent) */
+.btn-group--split .btn__chevron { transition: transform .15s ease; }
+.btn-group--split.is-open .btn__chevron,
+.btn-group--split .dropdown.is-open .btn__chevron { transform: rotate(180deg); }</script>
 </body>
 </html>

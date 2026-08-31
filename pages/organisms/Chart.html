@@ -27,10 +27,8 @@
 .subhead{font:var(--type-body-m-strong);color:var(--text-primary);margin:0 0 16px}
 .subhead.mt{margin-top:34px}
 .code-panel__name{color:rgba(255,255,255,.72);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;letter-spacing:.02em;font-weight:600}
-.panel.pg{padding:0;overflow:hidden;display:grid}
-.pg__controls{flex-direction:column}
-@media (max-width:820px){.pg__controls{border-bottom:1px solid var(--border-light)}}
-.pg__stage{padding:40px 32px 56px;display:flex;align-items:flex-start;justify-content:safe center;min-height:460px;position:relative;overflow:auto;background:var(--bg-page)}
+/* playground: демо — в верхнюю панель сплиттера, контролы — во вкладку «Конструктор» */
+.pg__stage{flex:1;min-height:0;width:100%;padding:40px 32px 56px;display:flex;align-items:flex-start;justify-content:safe center;position:relative;overflow:auto;background:var(--bg-page)}
 .ctl{display:flex;flex-direction:column;gap:8px}
 .ctl > .lbl{font:var(--type-body-s-strong);color:var(--text-inactive);text-transform:uppercase;letter-spacing:.05em;font-size:11px}
 .demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
@@ -53,31 +51,45 @@
 kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--text-primary);background:var(--bgtable-row-focus);border:1px solid var(--border-primary);border-radius:var(--radius-xs);padding:1px 7px}
 .sw{display:inline-block;width:22px;height:22px;border-radius:var(--radius-xs);border:1px solid rgba(40,50,55,.12);vertical-align:middle}
 </style>
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
 </head>
 <body>
-<main class="page" data-screen-label="Chart">
+<main class="page ds-split" data-screen-label="Chart">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage" id="pg-stage"></div>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.000</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.000</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Организмы</p>
     <h1>Chart</h1>
     <p class="lead">Графики данных: столбчатые, линейные, области, круговые, точечные, водопад и спарклайн — одна анатомия на все типы. Предметной области компонент не знает: подписи серий, категории и числа приходят данными. Цвета серий — палитра <code class="tok">--chart-*</code> из <a class="inl" href="../foundations/Colors.html">Colors</a>, тултип — <a class="inl" href="../molecules/Tooltip.html">Tooltip</a>, служебные состояния — <a class="inl" href="../molecules/Alert.html">Alert</a> и <a class="inl" href="../atoms/Skeleton.html">Skeleton</a>, переключатель периода — <a class="inl" href="../molecules/SegmentControl.html">SegmentControl</a>.</p>
   </header>
 
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите график: тип, размер, ширина контейнера, число серий, служебные слои и состояние. Ширина контейнера и размер — главные параметры: от них зависит, что помещается в поле построения.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage" id="pg-stage"></div>
-    </div>
-  </section>
+  <!-- 1. КОНСТРУКТОР: демо — в верхнюю панель сплиттера (#pg-stage),
+       контролы — во вкладку «Конструктор» нижней панели (см. в конце) -->
 
-  <!-- USAGE -->
+  <!-- 2. ИСПОЛЬЗОВАНИЕ -->
   <section class="section" data-screen-label="Usage">
     <h2>Использование</h2>
     <p class="desc tight">Chart отвечает на вопрос «как величина ведёт себя по шкале» — по времени, по категориям или относительно другой величины. Компонент read-only: он не редактирует данные и не управляет фильтрами, а переключатель периода в тулбаре только сообщает выбор наружу.</p>
@@ -431,6 +443,42 @@ ResizeObserver на поле построения -> дебаунс один к�
     <span>Дизайн-система · Chart</span>
     <span>14 типов графиков · размеры S / M / L · палитра 12 токенов · спарклайн — вариант ячейки TableCell</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите график: тип, размер, ширина контейнера, число серий, служебные слои и состояние. Ширина контейнера и размер — главные параметры: от них зависит, что помещается в поле построения. Демо обновляется наверху, панель настроек — две колонки.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка и исходники Chart: HTML — из спеки, CSS — styles/chart.css (полностью), JS — рантайм. Демо страницы строит <code class="tok">DSChart.make()</code> из <code class="tok">scripts/chart.page.js</code>.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
@@ -439,8 +487,201 @@ ResizeObserver на поле построения -> дебаунс один к�
 <script src="../../scripts/ds-chart.js"></script>
 <script src="../../scripts/chart.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+
+<!-- самодостаточные подписи свитчеров конструктора (общий слой docs-split.js) -->
+<script>
+window.DS_SPLIT_SWITCH_LABELS = {
+  'Тултип':               'Показывать тултип',
+  'Кросс-хэйр':           'Показывать кросс-хэйр',
+  'Сетка':                { label: 'Показывать сетку', on: 'y' },
+  'Подписи значений':     'Показывать подписи значений',
+  'Опорная линия':        'Показывать опорную линию',
+  'Выделение диапазона':  'Включать выделение диапазона',
+  'Тулбар':               'Показывать тулбар',
+  'Формат чисел':         'Полный формат',
+};
+</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично, синхронизировать с ДС) ===== -->
+<script type="text/plain" id="src-code-html"><div class="chart-host" data-size="m" data-type="bar">
+  <div class="chart">
+    <div class="chart__head">
+      <div class="chart__titles">
+        <div class="chart__title">Движение средств по месяцам</div>
+        <div class="chart__subtitle">руб.</div>
+      </div>
+      <div class="chart__toolbar">
+        <div class="segctrl segctrl--xs" role="radiogroup" aria-label="Период">…</div>
+        <button class="ibtn ibtn--neutral ibtn--s" aria-label="Скачать график"><i data-icon="download"></i></button>
+      </div>
+    </div>
+    <div class="chart__legend">
+      <button class="chart__legend-item" aria-pressed="true">
+        <span class="chart__marker" style="--chart-c:var(--chart-blue)"></span>
+        <span class="chart__legend-name">Поступления</span>
+        <span class="chart__legend-val">810 млн</span>
+      </button>
+    </div>
+    <div class="chart__plot">
+      <svg class="chart__svg" role="img" aria-label="Столбчатый график: Поступления от 420 млн (Янв) до 760 млн (Дек)">
+        <g class="chart__grid"><line/></g>
+        <g class="chart__ser" data-id="in" style="--chart-c:var(--chart-blue)"><rect class="chart__bar"/></g>
+        <g class="chart__axis"><text/><line/></g>
+        <g><line class="chart__ref"/><text class="chart__ref-label"/><text class="chart__vlabel"/></g>
+        <g><rect class="chart__band" data-i="0"/></g>
+        <g><rect class="chart__hit" data-i="0"/></g>
+      </svg>
+      <div class="chart__cursor"></div>
+      <div class="tip tip--main tip--multiline tip--no-arrow chart__tip" role="tooltip">
+        <span class="chart__tip-title">Июл</span>
+        <div class="chart__tip-row"><span class="chart__marker"></span><span class="chart__tip-name">Поступления</span><span class="chart__tip-val">700 млн</span></div>
+      </div>
+    </div>
+    <div class="chart__brush"><svg class="chart__brush-svg"><rect class="chart__brush-spark"/></svg><div class="chart__brush-window"><span class="chart__brush-handle chart__brush-handle--l"></span><span class="chart__brush-handle chart__brush-handle--r"></span></div></div>
+    <div class="chart__foot"><div class="alert alert--info alert--m">…</div></div>
+  </div>
+</div></script>
+
+<script type="text/plain" id="src-code-js">/* Chart — разметку строит рантайм scripts/ds-chart.js (window.DSChart). */
+
+const c = DSChart.make({
+  type: 'bar', size: 'm', title: 'Движение средств по месяцам', subtitle: 'руб.',
+  categories: [...], series: [{ id: 'in', name: 'Поступления', data: [...] }],
+  legend: 'top', tooltip: true, crosshair: false, grid: 'y', valueLabels: false,
+  refLine: null, brush: false, toolbar: false, format: 'compact',
+  status: 'loaded', yTicks: 5,
+});
+// Опции status: loaded · loading · error · empty · gaps · forecast
+// Типы: bar hbar grouped stacked stacked100 line area stackedArea combo pie donut
+//       scatter waterfall spark
+// API: DSChart.make(cfg) → el · DSChart.palette (12 токенов --chart-*) ·
+//      DSChart.fmt.number / .fmt.compact / .fmt.percent
+// Серия: { id, name, data[], type, color, dashed, forecastFrom, legendValue }</script>
+
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Chart — графики данных: столбчатые, линейные, области, круговые,
+   точечные, водопад, спарклайн. Геометрию считает scripts/ds-chart.js,
+   этот файл задаёт токены, анатомию и цвет. Все значения — токены ДС.
+   Зависимости: colors.css, typography.css, radius.css, tooltip.css,
+   skeleton.css, alert.css, button.css, icon-button.css, segment-control.css.
+   ========================================================================= */
+
+.chart-host{--chart-h:220px;--chart-gap:12px;--chart-tick-fg:var(--text-inactive);--chart-grid:var(--border-light);--chart-axis:var(--border-primary);--chart-label-fg:var(--text-secondary);--chart-bar-r:var(--radius-2xs);--chart-line-w:2px;display:block;min-width:0;container-type:inline-size;container-name:chart}
+.chart-host[data-size="s"]{--chart-h:132px;--chart-gap:8px}
+.chart-host[data-size="l"]{--chart-h:320px;--chart-gap:16px}
+
+.chart{display:flex;flex-direction:column;gap:var(--chart-gap);min-width:0;font:var(--type-body-xs);color:var(--text-primary)}
+.chart--stretch{width:100%}
+
+/* ---------- шапка ---------- */
+.chart__head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;min-width:0}
+.chart__titles{display:flex;flex-direction:column;gap:2px;min-width:0}
+.chart__title{font:var(--type-body-m-strong);color:var(--text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart__subtitle{font:var(--type-body-xs);color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart__toolbar{display:flex;align-items:center;gap:8px;flex:none}
+.chart-host[data-size="s"] .chart__title{font:var(--type-body-s-strong)}
+.chart-host[data-size="l"] .chart__title{font:var(--type-body-l-strong)}
+
+/* ---------- легенда ---------- */
+.chart__legend{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;min-width:0}
+.chart__legend--bottom{order:9}
+.chart__legend-item{display:inline-flex;flex:0 0 auto;align-items:center;gap:6px;min-height:20px;padding:2px 4px;border:0;border-radius:var(--radius-xs);background:none;cursor:pointer;font:var(--type-body-xs);color:var(--text-secondary);max-width:100%}
+.chart__legend-item:hover{background:var(--bgtable-row-hover);color:var(--text-primary)}
+.chart__legend-item:focus-visible{outline:2px solid var(--primary);outline-offset:1px}
+.chart__legend-item[aria-pressed="false"]{color:var(--text-inactive)}
+.chart__legend-item[aria-pressed="false"] .chart__marker{background:var(--disabled)}
+.chart__legend-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart__legend-val{font:var(--type-body-xs);color:var(--text-primary);font-variant-numeric:tabular-nums}
+.chart__marker{flex:none;width:10px;height:10px;border-radius:var(--radius-2xs);background:var(--chart-c,var(--primary))}
+.chart__marker--line{width:14px;height:3px;border-radius:var(--radius-full)}
+.chart__marker--dot{width:8px;height:8px;border-radius:var(--radius-circle)}
+.chart__marker--dashed{background:repeating-linear-gradient(90deg,var(--chart-c,var(--primary)) 0 4px,transparent 4px 7px)}
+
+/* ---------- поле построения ---------- */
+.chart__plot{position:relative;min-width:0}
+.chart__svg{display:block;width:100%;height:var(--chart-h);touch-action:none}
+.chart__grid line{stroke:var(--chart-grid);stroke-width:1;shape-rendering:crispEdges}
+.chart__grid line.chart__zero{stroke:var(--chart-axis)}
+.chart__axis line{stroke:var(--chart-axis);stroke-width:1;shape-rendering:crispEdges}
+.chart__axis text,.chart__tick{font:var(--type-body-xs);fill:var(--chart-tick-fg)}
+.chart-host[data-size="l"] .chart__axis text{font:var(--type-body-s)}
+.chart__axis-title{font:var(--type-body-xs);fill:var(--text-secondary)}
+.chart__vlabel{font:var(--type-body-xs);fill:var(--chart-label-fg);font-variant-numeric:tabular-nums}
+
+/* серии */
+.chart__ser{transition:opacity .12s ease}
+.chart[data-hover] .chart__ser:not(.is-active){opacity:.28}
+.chart__bar{fill:var(--chart-c,var(--primary));rx:var(--chart-bar-r)}
+.chart__bar--forecast{fill:var(--chart-forecast,url(#chartHatch))}
+.chart__line{fill:none;stroke:var(--chart-c,var(--primary));stroke-width:var(--chart-line-w);stroke-linejoin:round;stroke-linecap:round}
+.chart__line--dashed{stroke-dasharray:6 4}
+.chart__area{fill:var(--chart-c,var(--primary));opacity:.16}
+.chart__dot{fill:var(--bg-tile);stroke:var(--chart-c,var(--primary));stroke-width:2}
+.chart__dot--solid{fill:var(--chart-c,var(--primary));stroke:none}
+.chart__dot.is-active{r:5}
+.chart__slice{stroke:var(--bg-tile);stroke-width:2}
+.chart__ref{stroke:var(--text-secondary);stroke-width:1;stroke-dasharray:4 4}
+.chart__ref-label{font:var(--type-body-xs);fill:var(--text-secondary)}
+.chart__gap-note{font:var(--type-body-xs);fill:var(--text-inactive)}
+.chart__hit{fill:transparent}
+.chart__band{fill:transparent}
+.chart__band.is-active{fill:var(--bgtable-row-hover)}
+
+/* курсор */
+.chart__cursor{position:absolute;top:0;width:1px;background:var(--border-dark);opacity:0;pointer-events:none;transition:opacity .1s ease}
+.chart__cursor.is-visible{opacity:1}
+
+/* тултип: контейнер — компонент Tooltip, строки — Chart */
+.chart__tip{position:absolute;z-index:5;pointer-events:none;max-width:280px}
+.chart__tip-title{display:block;font:var(--type-body-s-strong);margin-bottom:6px}
+.chart__tip-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto;align-items:center;gap:8px;padding:1px 0}
+.chart__tip-row .chart__marker{width:10px;height:10px}
+.chart__tip-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:var(--type-body-s);opacity:.82}
+.chart__tip-val{font:var(--type-body-s-strong);font-variant-numeric:tabular-nums;text-align:right}
+.chart__tip-total{margin-top:6px;padding-top:6px;border-top:1px solid color-mix(in srgb,var(--text-on-dark) 24%,transparent)}
+
+/* ---------- brush ---------- */
+.chart__brush{position:relative;height:36px;border-radius:var(--radius-xs);background:var(--bg-page);overflow:hidden;touch-action:none}
+.chart__brush-svg{display:block;width:100%;height:36px}
+.chart__brush-spark{fill:var(--st-grey-midlight);stroke:none}
+.chart__brush-spark.is-active{fill:var(--st-primary-mid)}
+.chart__brush-window{position:absolute;top:0;bottom:0;background:var(--primary-bg-semitransparent);border-left:2px solid var(--primary);border-right:2px solid var(--primary);cursor:grab}
+.chart__brush-window:active{cursor:grabbing}
+.chart__brush-handle{position:absolute;top:0;bottom:0;width:10px;cursor:ew-resize}
+.chart__brush-handle--l{left:-6px}
+.chart__brush-handle--r{right:-6px}
+
+/* ---------- служебные состояния ---------- */
+.chart__foot{display:flex;flex-direction:column;gap:8px}
+.chart__empty{display:flex;align-items:center;justify-content:center;height:var(--chart-h);border-radius:var(--radius-xs);background:var(--bg-page);font:var(--type-body-s);color:var(--text-inactive);text-align:center;padding:0 16px}
+.chart__calc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:var(--chart-h);border-radius:var(--radius-xs);background:var(--bg-page);text-align:center;padding:0 16px}
+.chart__calc-title{font:var(--type-body-s-strong);color:var(--text-primary)}
+.chart__calc-sub{font:var(--type-body-xs);color:var(--text-secondary)}
+.chart__sk{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;height:var(--chart-h)}
+.chart__sk-bars{display:flex;align-items:flex-end;gap:8px;height:100%}
+.chart__sk-bars .sk-block{flex:1 1 0;min-width:0}
+
+/* ---------- спарклайн ---------- */
+.chart-host--spark{container-type:normal}
+.chart-host--spark .chart{gap:0}
+.chart--spark .chart__svg{height:24px}
+.chart__spark-dot{fill:var(--chart-c,var(--primary))}
+
+/* ---------- контейнерные брейкпоинты ---------- */
+@container chart (max-width: 420px){
+  .chart__legend{gap:2px 8px}
+  .chart__legend-val{display:none}
+}
+@container chart (max-width: 280px){
+  .chart__subtitle{display:none}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .chart__ser,.chart__cursor{transition:none}
+}</script>
 </body>
 </html>

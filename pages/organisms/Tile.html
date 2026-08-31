@@ -1,4 +1,4 @@
-﻿<!-- @dsCard group="Components" name="Tile" viewport="1440x900" -->
+<!-- @dsCard group="Components" name="Tile" viewport="1440x900" -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -21,9 +21,11 @@
 <link rel="stylesheet" href="../../styles/alert.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/tile.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <style>
 
@@ -37,12 +39,12 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 .disclaimer p.disclaimer__title{font:var(--type-h4-strong);color:var(--warning-dark,var(--text-primary));margin:0 0 10px;}
 .disclaimer p{font:var(--type-body-m);color:var(--text-secondary);margin:0 0 6px;max-width:88ch;text-wrap:pretty;}
 .disclaimer p:last-child{margin-bottom:0;}
-/* playground */
-.panel.pg{padding:0;overflow:hidden;display:grid; }
-.pg__stage{display:flex;align-items:stretch;min-height:340px;padding:24px 26px;min-width:0;}
+/* playground: демо — в верхнюю панель сплиттера, контролы — во вкладку «Конструктор» */
+.pg__stage{flex:1;min-height:0;width:100%;display:flex;align-items:stretch;padding:24px 26px;min-width:0;}
 .pg__stagebox{width:100%;display:flex;flex-direction:column;min-width:0;}
 .ctl{display:flex;flex-direction:column;gap:10px;}
 .ctl.is-off{display:none;}
+.toggles>.is-off{display:none;}
 .ctl>.lbl{font:600 11px/1 var(--font-text),sans-serif;color:var(--text-inactive);text-transform:uppercase;letter-spacing:.06em;}
 .pg-stage-grid{flex:1;display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-content:center;background:var(--bg-page);border:1px solid var(--border-light);border-radius:12px;padding:28px;min-height:260px;}
 .ws-cap{font:var(--type-body-xs);color:var(--text-inactive);margin:12px 0 0;text-wrap:pretty;}
@@ -100,7 +102,37 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
 </style>
 </head>
 <body>
-<main class="page" data-screen-label="Tile">
+<main class="page ds-split" data-screen-label="Tile">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage">
+          <div class="pg__stagebox">
+            <div class="pg-stage-grid">
+              <div id="demo-tile-wrap" style="grid-column:span 6;">
+                <div id="demo-tile"></div>
+              </div>
+            </div>
+            <p class="ws-cap">Ширина тайла привязана к колонкам контентной области (3–12). Контент здесь — типовой пример: наполнение всегда индивидуально под задачу тайла.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
 <header class="masthead">
   <a class="crumb" href="../../index.html">
@@ -109,7 +141,7 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   </a>
   <div class="meta">
     <span>Версия <b>1.010</b></span>
-    <span>Обновлено <b>26.08.2026</b></span>
+    <span>Обновлено <b>30.08.2026</b></span>
     <span>CSS <b>styles/tile.css</b></span>
     <span>Зависимости <b>icon-button, button, link, chip, badge, alert, divider, read-only-field, table-cell</b></span>
   </div>
@@ -118,155 +150,8 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
   <p class="lead">Один из основных компонентов интерфейса — тайл на рабочей области страницы. Состоит из TileHeader и контентной области; наполнение контента индивидуально под задачу и тип тайла.</p>
 </header>
 
-<!-- 1. КОНСТРУКТОР -->
-<section class="section" id="constructor" data-screen-label="Конструктор">
-  <h2>Конструктор</h2>
-  <div class="panel pg">
-    <div class="pg__controls">
-      <div class="ctl">
-        <div class="lbl">Тип тайла</div>
-        <div class="pg-select"><select id="ctl-type">
-          <option value="normal" selected>Обычный</option>
-          <option value="accordion">Аккордеон</option>
-          <option value="headless">Без хэдера</option>
-        </select></div>
-      </div>
-      <div class="ctl">
-        <div class="lbl">Ширина, колонок</div>
-        <div class="pg-select"><select id="ctl-cols">
-          <option value="3">3 колонки</option>
-          <option value="4">4 колонки</option>
-          <option value="6" selected>6 колонок</option>
-          <option value="8">8 колонок</option>
-          <option value="9">9 колонок</option>
-          <option value="12">12 колонок</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-title">
-        <div class="lbl">Заголовок</div>
-        <div class="pg-text"><input id="ctl-title" type="text" placeholder="Проектное финансирование" maxlength="48"></div>
-      </div>
-      <div class="ctl" id="wrap-add">
-        <div class="lbl">Addition к заголовку</div>
-        <div class="pg-select"><select id="ctl-add">
-          <option value="none" selected>Нет</option>
-          <option value="link">Ссылка</option>
-          <option value="icon">Иконка</option>
-          <option value="chip">Чип</option>
-          <option value="badge">Бейдж</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-sub">
-        <div class="lbl">Подзаголовок</div>
-        <label class="pg-toggle"><input id="ctl-sub" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Subtitle с иконкой</span></label>
-      </div>
-      <div class="ctl" id="wrap-chips">
-        <div class="lbl">Chiplist в хэдере</div>
-        <label class="pg-toggle"><input id="ctl-chips" type="checkbox"><span class="pg-toggle__sw"></span><span>Ряд чипов</span></label>
-      </div>
-      <div class="ctl" id="wrap-actions" data-pg-keep-select>
-        <div class="lbl">Actions (трейлинг)</div>
-        <div class="pg-select"><select id="ctl-actions">
-          <option value="none">Нет действий</option>
-          <option value="one" selected>Одно действие</option>
-          <option value="two">Два действия</option>
-          <option value="three">Три действия</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-act1">
-        <div class="lbl">Действие 1</div>
-        <div class="pg-select"><select id="ctl-act1-kind">
-          <option value="ibtn" selected>IconButton</option>
-          <option value="btn">Кнопка</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-act1-icon">
-        <div class="lbl">Иконка действия 1</div>
-        <div class="pg-select"><select id="ctl-act1-icon">
-          <option value="edit" selected>edit</option>
-          <option value="document-check">document-check</option>
-          <option value="copy">copy</option>
-          <option value="download">download</option>
-          <option value="attach">attach</option>
-          <option value="calendar">calendar</option>
-          <option value="archive">archive</option>
-          <option value="bar-chart">bar-chart</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-act1-label">
-        <div class="lbl">Название кнопки 1</div>
-        <div class="pg-text"><input id="ctl-act1-label" type="text" placeholder="Применить" maxlength="24"></div>
-      </div>
-      <div class="ctl" id="wrap-act2">
-        <div class="lbl">Действие 2</div>
-        <div class="pg-select"><select id="ctl-act2-kind">
-          <option value="ibtn" selected>IconButton</option>
-          <option value="btn">Кнопка</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-act2-icon">
-        <div class="lbl">Иконка действия 2</div>
-        <div class="pg-select"><select id="ctl-act2-icon">
-          <option value="edit">edit</option>
-          <option value="document-check" selected>document-check</option>
-          <option value="copy">copy</option>
-          <option value="download">download</option>
-          <option value="attach">attach</option>
-          <option value="calendar">calendar</option>
-          <option value="archive">archive</option>
-          <option value="bar-chart">bar-chart</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-act2-label">
-        <div class="lbl">Название кнопки 2</div>
-        <div class="pg-text"><input id="ctl-act2-label" type="text" placeholder="Применить" maxlength="24"></div>
-      </div>
-      <div class="ctl" id="wrap-act3">
-        <div class="lbl">Действие 3</div>
-        <div class="pg-select"><select id="ctl-act3-kind">
-          <option value="ibtn" selected>IconButton</option>
-          <option value="btn">Кнопка</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-act3-icon">
-        <div class="lbl">Иконка действия 3</div>
-        <div class="pg-select"><select id="ctl-act3-icon">
-          <option value="edit">edit</option>
-          <option value="document-check">document-check</option>
-          <option value="copy" selected>copy</option>
-          <option value="download">download</option>
-          <option value="attach">attach</option>
-          <option value="calendar">calendar</option>
-          <option value="archive">archive</option>
-          <option value="bar-chart">bar-chart</option>
-        </select></div>
-      </div>
-      <div class="ctl" id="wrap-act3-label">
-        <div class="lbl">Название кнопки 3</div>
-        <div class="pg-text"><input id="ctl-act3-label" type="text" placeholder="Применить" maxlength="24"></div>
-      </div>
-      <div class="ctl" id="wrap-alert">
-        <div class="lbl">Alert-слот</div>
-        <div class="pg-select"><select id="ctl-alert">
-          <option value="none" selected>Нет</option>
-          <option value="warning">Warning</option>
-          <option value="info">Info</option>
-          <option value="error">Error</option>
-        </select></div>
-      </div>
-    </div>
-    <div class="pg__stage">
-      <div class="pg__stagebox">
-        <div class="pg-stage-grid">
-          <div id="demo-tile-wrap" style="grid-column:span 6;">
-            <div id="demo-tile"></div>
-          </div>
-        </div>
-        <p class="ws-cap">Ширина тайла привязана к колонкам контентной области (3–12). Контент здесь — типовой пример: наполнение всегда индивидуально под задачу тайла.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- 1. КОНСТРУКТОР: демо — в верхнюю панель сплиттера (#demo-tile),
+     контролы — во вкладку «Конструктор» нижней панели (см. в конце) -->
 
 <!-- 2. ИСПОЛЬЗОВАНИЕ -->
 <section class="section" id="usage" data-screen-label="Использование">
@@ -865,8 +750,6 @@ a{color:var(--link);} a:hover{color:var(--link-dark);}
         <div class="tc"><span class="tc__row"><span class="tc__text">на <code class="tok">.tile__title</code>: <code class="tok">display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden; text-overflow:ellipsis</code> (вместо однострочного <code class="tok">white-space:nowrap</code>); <code class="tok">.tile__title-row</code> — <code class="tok">align-items:flex-start</code>, чтобы Addition-слот вставал по верхней строке</span></span></div>
         <div class="tc tc--separator"></div>
       </div>
-        <div class="tc tc--separator"></div>
-      </div>
       <div class="tbl__row" style="grid-template-columns:8px 1.5fr .8fr 1.4fr 8px;">
         <div class="tc tc--separator"></div>
         <div class="tc"><span class="tc__row"><span class="tc__text">Паддинг контента</span></span></div>
@@ -957,15 +840,475 @@ onToggle():
   <span>Дизайн-система · Tile</span>
   <span>Основной тайл рабочей области — TileHeader + контентная область</span>
 </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите тайл: тип (обычный / аккордеон / без хэдера), ширина по колонкам сетки, заголовок с дополнением, подзаголовок, чипы, трейлинг-действия (до 3) и алерт-слот. Демо обновляется наверху, панель настроек — две колонки.</p>
+              <div class="pg__controls">
+                <div class="ctl-col">
+                  <div class="ctl">
+                    <div class="lbl">Тип тайла</div>
+                    <div class="pg-select"><select id="ctl-type">
+                      <option value="normal" selected>Обычный</option>
+                      <option value="accordion">Аккордеон</option>
+                      <option value="headless">Без хэдера</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl">
+                    <div class="lbl">Ширина, колонок</div>
+                    <div class="pg-select"><select id="ctl-cols">
+                      <option value="3">3 колонки</option>
+                      <option value="4">4 колонки</option>
+                      <option value="6" selected>6 колонок</option>
+                      <option value="8">8 колонок</option>
+                      <option value="9">9 колонок</option>
+                      <option value="12">12 колонок</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-title">
+                    <div class="lbl">Заголовок</div>
+                    <div class="pg-text"><input id="ctl-title" type="text" placeholder="Проектное финансирование" maxlength="48"></div>
+                  </div>
+                  <div class="ctl" id="wrap-add">
+                    <div class="lbl">Addition к заголовку</div>
+                    <div class="pg-select"><select id="ctl-add">
+                      <option value="none" selected>Нет</option>
+                      <option value="link">Ссылка</option>
+                      <option value="icon">Иконка</option>
+                      <option value="chip">Чип</option>
+                      <option value="badge">Бейдж</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-actions">
+                    <div class="lbl">Actions (трейлинг)</div>
+                    <div class="pg-select"><select id="ctl-actions">
+                      <option value="none">Нет действий</option>
+                      <option value="one" selected>Одно действие</option>
+                      <option value="two">Два действия</option>
+                      <option value="three">Три действия</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-act1">
+                    <div class="lbl">Действие 1</div>
+                    <div class="pg-select"><select id="ctl-act1-kind">
+                      <option value="ibtn" selected>IconButton</option>
+                      <option value="btn">Кнопка</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-act1-icon">
+                    <div class="lbl">Иконка действия 1</div>
+                    <div class="pg-select"><select id="ctl-act1-icon">
+                      <option value="edit" selected>edit</option>
+                      <option value="document-check">document-check</option>
+                      <option value="copy">copy</option>
+                      <option value="download">download</option>
+                      <option value="attach">attach</option>
+                      <option value="calendar">calendar</option>
+                      <option value="archive">archive</option>
+                      <option value="bar-chart">bar-chart</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-act1-label">
+                    <div class="lbl">Название кнопки 1</div>
+                    <div class="pg-text"><input id="ctl-act1-label" type="text" placeholder="Применить" maxlength="24"></div>
+                  </div>
+                  <div class="ctl" id="wrap-act2">
+                    <div class="lbl">Действие 2</div>
+                    <div class="pg-select"><select id="ctl-act2-kind">
+                      <option value="ibtn" selected>IconButton</option>
+                      <option value="btn">Кнопка</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-act2-icon">
+                    <div class="lbl">Иконка действия 2</div>
+                    <div class="pg-select"><select id="ctl-act2-icon">
+                      <option value="edit">edit</option>
+                      <option value="document-check" selected>document-check</option>
+                      <option value="copy">copy</option>
+                      <option value="download">download</option>
+                      <option value="attach">attach</option>
+                      <option value="calendar">calendar</option>
+                      <option value="archive">archive</option>
+                      <option value="bar-chart">bar-chart</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-act2-label">
+                    <div class="lbl">Название кнопки 2</div>
+                    <div class="pg-text"><input id="ctl-act2-label" type="text" placeholder="Применить" maxlength="24"></div>
+                  </div>
+                  <div class="ctl" id="wrap-act3">
+                    <div class="lbl">Действие 3</div>
+                    <div class="pg-select"><select id="ctl-act3-kind">
+                      <option value="ibtn" selected>IconButton</option>
+                      <option value="btn">Кнопка</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-act3-icon">
+                    <div class="lbl">Иконка действия 3</div>
+                    <div class="pg-select"><select id="ctl-act3-icon">
+                      <option value="edit">edit</option>
+                      <option value="document-check">document-check</option>
+                      <option value="copy" selected>copy</option>
+                      <option value="download">download</option>
+                      <option value="attach">attach</option>
+                      <option value="calendar">calendar</option>
+                      <option value="archive">archive</option>
+                      <option value="bar-chart">bar-chart</option>
+                    </select></div>
+                  </div>
+                  <div class="ctl" id="wrap-act3-label">
+                    <div class="lbl">Название кнопки 3</div>
+                    <div class="pg-text"><input id="ctl-act3-label" type="text" placeholder="Применить" maxlength="24"></div>
+                  </div>
+                  <div class="ctl" id="wrap-alert">
+                    <div class="lbl">Alert-слот</div>
+                    <div class="pg-select"><select id="ctl-alert">
+                      <option value="none" selected>Нет</option>
+                      <option value="warning">Warning</option>
+                      <option value="info">Info</option>
+                      <option value="error">Error</option>
+                    </select></div>
+                  </div>
+                </div>
+                <div class="toggles">
+                  <label class="pg-toggle" id="wrap-sub"><input id="ctl-sub" type="checkbox" checked><span class="pg-toggle__sw"></span><span>Subtitle с иконкой</span></label>
+                  <label class="pg-toggle" id="wrap-chips"><input id="ctl-chips" type="checkbox"><span class="pg-toggle__sw"></span><span>Ряд чипов</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка и исходники Tile: HTML — из спеки, CSS — styles/tile.css (полностью), JS — рантайм оживления аккордеона. Полный исходник демо — в инлайн-скрипте Tile.html.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main><!-- .page -->
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
 <script src="../../scripts/ds-tile.js"></script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично, синхронизировать с ДС) ===== -->
+<script type="text/plain" id="src-code-html"><section class="tile">
+  <header class="tile__header">
+    <div class="tile__header-main">
+      <div class="tile__title-row"><h3 class="tile__title">Заголовок</h3><!-- Addition --></div>
+      <p class="tile__subtitle"><span class="tile__subtitle-icon">…</span>Нерезидент</p>
+      <div class="tile__chiplist">…Chip readonly XS…</div>
+    </div>
+    <div class="tile__actions"><button class="ibtn ibtn--neutral ibtn--m" aria-label="…">…</button></div>
+  </header>
+  <div class="tile__alert"><div class="alert alert--warning alert--m" role="status">…</div></div>  <!-- warning | info | error -->
+  <div class="tile__body">…контент индивидуальный; поля значений — ReadOnlyField (.rof)…</div>
+</section>
+<!-- headless: .tile.tile--headless > .tile__body (без хэдера) -->
+<!-- accordion: .tile.tile--accordion; toggle .tile__toggle (aria-expanded) над .tile__collapsible; свёрнуто — .tile--collapsed --></script>
+
+<script type="text/plain" id="src-code-js">/* Tile — статичная разметка; сворачивание аккордеона — рантайм ДС (scripts/ds-tile.js).
+   Демо страницы строит инлайн-функция buildTile() в Tile.html. */
+
+DSTile.wireAll(document);           // делегированно оживляет все .tile--accordion
+DSTile.toggle(tileEl, true);        // свернуть / развернуть программно
+
+// Рантайм переключает .tile--collapsed на корне, синхронизирует
+// aria-expanded и aria-label кнопки .tile__toggle, связывает её с
+// .tile__collapsible через aria-controls и шлёт событие 'tiletoggle' с { collapsed }.
+// Свёрнутое по умолчанию состояние — класс .tile--collapsed прямо в разметке.
+
+/* React API (предложение): TileProps — headless · accordion · collapsed ·
+   title · addition{link|icon|chip|badge} · subtitle · chips · actions[] ·
+   alert{tone} · children */</script>
+
+<script type="text/plain" id="src-code-css">/* ============================================================
+   Tile — основной компонент-плашка интерфейса.
+   Состав: TileHeader (размер M) + опц. Alert + Контентная область.
+   Радиус 8 (--radius-m) · бордер 1px solid --border-light.
+   Внутренние отступы контента: 0 / 20 / 24 / 20 (top/right/bottom/left);
+   зазор 10 от хэдера даёт паддинг TileHeader снизу.
+   Зазор строк 16 (или 24) · зазор колонок 16.
+   Собственных состояний нет — активны только вложенные IconButton /
+   Button / Link. Только токены ДС (var(--*)).
+   ============================================================ */
+
+.tile {
+  --tile-pad-x: 20px;
+  --tile-pad-bottom: 24px;
+  --tile-gap-row: 16px;
+  --tile-gap-col: 16px;
+
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  align-self: stretch;              /* высота = высоте ряда grid/flex-контейнера (RulesAudit W2) */
+  background: var(--bg-tile);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-m);   /* 8 */
+}
+
+/* ------------------------------------------------------------
+   Раскладка нескольких тайлов — общие утилиты, чтобы экрану не
+   изобретать свою сетку заново (RulesAudit W2).
+
+   .tile-row — ряд: CSS Grid растягивает элементы ряда по высоте
+   САМ (align-items:stretch — поведение Grid по умолчанию, ничего
+   специально включать не нужно); align-self:stretch у .tile выше
+   даёт то же самое, даже если контейнер экрана переопределил
+   align-items:start — так поймали дефект на 02-Deal-v3 (высоты
+   214/186/242 в одном ряду). Колонки — свои под контент экрана:
+   ширина каждого тайла — style="grid-column:span N" (3–12 из 12).
+   Тайл один на весь ряд (span 12) высоту берёт по контенту —
+   это не особый случай, а естественное поведение Grid (тайл —
+   единственный элемент своего ряда, "тянуться к самому высокому
+   в ряду" равно "остаться собой").
+
+   .tile-stack — колонка/стопка тайлов (канбан: несколько .tile-stack
+   рядом, каждый — набор тайлов разной суммарной высоты). Сама
+   стопка — обычный grid-item (span N, align-self:stretch тянет её
+   по высоте ряда), но ВНУТРИ — flex-column: у flex-column ось
+   растяжения (align-self:stretch) — это ширина, не высота, поэтому
+   тайлы внутри стопки остаются каждый со своей высотой по контенту,
+   а не делят высоту стопки поровну. */
+.tile-row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+/* .tile-group — группа рядов одной тайловой сетки. Ряды внутри группы
+   разделяются теми же 16px, что и тайлы внутри ряда: это продолжение
+   одной сетки, а не разные зоны экрана.
+   ВАЖНО: .screen__content — flex-колонка с gap 24px (--layout-block-gap),
+   поэтому зазор между рядами НЕЛЬЗЯ задавать margin'ом на .tile-row —
+   он сложится с gap контейнера и даст 40px. Группа решает это тем, что
+   является ОДНИМ ребёнком .screen__content: 24px остаётся только между
+   крупными зонами (PageHeader ↔ группа), а внутри группы работает 16px.
+   Зафиксировано 26.08.2026 после разбора DealPipelineCard. */
+.tile-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.tile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  align-self: stretch;
+}
+
+/* ------------------------------------------------------------
+   TileHeader (размер M) — размещается над контентом.
+   Title: H5 Strong · Subtitle: Body XS · gap title↔subtitle↔chiplist 8px.
+   Паддинги хэдера: 20 сверху / 20 по бокам / 10 снизу.
+   ------------------------------------------------------------ */
+.tile__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px var(--tile-pad-x) 10px;
+}
+/* зазор хэдер↔контент (10) живёт в паддинге хэдера — контент сверху без паддинга */
+.tile__header-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tile__title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+.tile__title {
+  margin: 0;
+  min-width: 0;
+  font: var(--type-h5-strong);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+/* Addition к тайтлу: Link / Icon / Chip / Badge — все inline после тайтла */
+.tile__title-add {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+.tile__title-add--icon {
+  width: 20px;
+  height: 20px;
+  color: var(--warning);
+}
+.tile__title-add--icon > :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
+.tile__title-link {
+  flex: none;
+}
+
+/* Subtitle — Body XS, вторичный текст, опц. ведущая иконка */
+.tile__subtitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  font: var(--type-body-xs);
+  color: var(--text-secondary);
+}
+.tile__subtitle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--success);
+}
+
+/* Chiplist в хэдере — ряд чипов XS под тайтлом/сабтайтлом, зазор 4 */
+.tile__chiplist {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+/* Actions — трейлинг-группа: 1..3 действия (IconButton и/или Button), зазор 8 */
+.tile__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+/* ------------------------------------------------------------
+   Alert-слот — опц., полноширинный, между хэдером и контентом.
+   Растягивается по ширине тайла (углы прямые, чтобы касаться бордера).
+   ------------------------------------------------------------ */
+.tile__alert {
+  margin-top: 0;
+}
+.tile__alert .alert {
+  border-radius: 0;
+}
+
+/* ------------------------------------------------------------
+   Контентная область. Контент индивидуален под задачу тайла:
+   текст, дивайдеры, ReadOnly-поля, кнопки, ссылки, аккордеоны.
+   Отступы 10/20/24/20.
+   ------------------------------------------------------------ */
+.tile__body {
+  padding: 10px var(--tile-pad-x) var(--tile-pad-bottom);
+}
+
+/* сетки контента */
+.tile__grid {
+  display: grid;
+  gap: var(--tile-gap-row) var(--tile-gap-col);
+}
+.tile__grid--gap-24 {
+  row-gap: 24px;
+}
+/* Элемент на всю ширину сетки тайла — длинное «Описание», комментарий,
+   вложенный Alert: остаётся В сетке (тот же зазор и та же левая кромка,
+   что у полей), а не выносится соседним блоком со своими паддингами.
+   Добавлено 26.08.2026: на DealPipelineCard «Описание» вынесли из
+   .tile__grid отдельным блоком — поле разъехалось с сеткой по отступам. */
+.tile__grid > .tile__grid-full { grid-column: 1 / -1; }
+.tile__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tile-gap-row);
+}
+.tile__rows--gap-24 {
+  gap: 24px;
+}
+
+/* ------------------------------------------------------------
+   TileHeadless — тайл без заголовка.
+   Хэдера нет, состояний нет, отступы 20/20/32/20.
+   ------------------------------------------------------------ */
+.tile--headless > .tile__body {
+  padding: 20px 20px 32px;
+}
+
+/* ------------------------------------------------------------
+   AccordionTile — разворачивается/сворачивается.
+   Полный коллапс: весь контент в .tile__collapsible.
+   Частичный коллапс: часть контента видна всегда, сворачивается
+   только .tile__collapsible.
+   ------------------------------------------------------------ */
+.tile__chevron {
+  display: inline-flex;
+  transition: transform .18s ease;
+}
+.tile--collapsed .tile__chevron,
+.tile__toggle[aria-expanded="false"] .tile__chevron {
+  transform: rotate(-180deg);
+}
+/* .tile__collapsible — сворачивание чисто через display:none (см. .tile--collapsed
+   ниже), без анимации высоты (ds-tile.js её не делает) — поэтому здесь НЕТ
+   overflow:hidden: он не нужен для коллапса и лишь обрезал бы floating-контент
+   (Popover/RiskMetric) любого компонента, вложенного в аккордеон-тайл. */
+.tile--collapsed .tile__collapsible {
+  display: none;
+}
+/* частичный коллапс: сводка (.tile__body прямым потомком .tile, до
+   .tile__collapsible) держит малый зазор перед скрываемым контентом;
+   свёрнутый — сама становится нижним краем тайла, паддинг контентный (20) */
+.tile--accordion > .tile__body {
+  padding-bottom: 8px;
+}
+.tile--accordion.tile--collapsed > .tile__body {
+  padding-bottom: 20px;
+}
+/* полный коллапс: контента после хэдера нет вовсе (весь тайл__body внутри
+   .tile__collapsible) — нижним краем становится хэдер, паддинг тот же (20) */
+.tile--accordion.tile--collapsed > .tile__header:has(+ .tile__collapsible) {
+  padding-bottom: 20px;
+}
+/* свёрнутый аккордеон (полный и частичный коллапс — то же .tile--collapsed)
+   не должен нести нижний паддинг под скрытый контент */
+.tile--accordion.tile--collapsed > .tile__body {
+  padding-bottom: 20px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile__chevron { transition: none; }
+}</script>
+
 <script>
 /* ---- icon helper ---- */
 function getIcon(name, size){

@@ -190,18 +190,26 @@ whenReady(function () {
     inp.addEventListener('input', () => { onPick(+inp.value); labelText(); render(); });
     wrap.appendChild(inp); return wrap;
   }
-  function toggle(label, key) {
+  /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+     (label.pg-toggle) в правую колонку; подпись свитча статична
+     (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+  function ctlToggle(label, key) {
     const wrap = document.createElement('div'); wrap.className = 'ctl';
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'toggle';
-    b.setAttribute('aria-pressed', String(state[key]));
-    b.innerHTML = '<span class="sw-mini"></span><span>' + label + '</span>';
-    b.addEventListener('click', () => { state[key] = !state[key]; b.setAttribute('aria-pressed', String(state[key])); render(); });
-    wrap.appendChild(b); return wrap;
+    const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+    const box = document.createElement('div'); box.className = 'pg-select';
+    const sel = document.createElement('select');
+    [['no', 'Нет'], ['yes', 'Да']].forEach(([v, t]) => {
+      const op = document.createElement('option'); op.value = v; op.textContent = t;
+      if ((v === 'yes') === !!state[key]) op.selected = true;
+      sel.appendChild(op);
+    });
+    sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
 
   controls.appendChild(slider('Уровней', 2, 7, 1, () => state.levels, v => state.levels = v));
   controls.appendChild(slider('Ширина контейнера', 240, 900, 10, () => state.width, v => state.width = v, v => v + ' px'));
-  controls.appendChild(toggle('Длинное название текущей страницы', 'longCurrent'));
+  controls.appendChild(ctlToggle('Длинное название текущей страницы', 'longCurrent'));
 
   function render() {
     /* контейнер конструктора имеет фиксированную ширину (колонка сплиттера) —

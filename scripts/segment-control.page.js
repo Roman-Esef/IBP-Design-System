@@ -88,25 +88,29 @@
       sel.addEventListener('change', () => { onPick(sel.value); render(); });
       box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
-    function sw(label, key) {
-      const t = document.createElement('button'); t.type = 'button'; t.className = 'toggle'; t.dataset.key = key;
-      t.setAttribute('aria-pressed', String(state[key]));
-      t.innerHTML = '<span class="sw"></span><span>' + label + '</span>';
-      t.addEventListener('click', () => { state[key] = !state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-      return t;
+    /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+       (label.pg-toggle) в правую колонку; подпись свитча статична
+       (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+    function ctlToggle(label, key) {
+      const wrap = document.createElement('div'); wrap.className = 'ctl';
+      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+      const box = document.createElement('div'); box.className = 'pg-select';
+      const sel = document.createElement('select');
+      [['no', 'Нет'], ['yes', 'Да']].forEach(([v, t]) => {
+        const op = document.createElement('option'); op.value = v; op.textContent = t;
+        if ((v === 'yes') === !!state[key]) op.selected = true;
+        sel.appendChild(op);
+      });
+      sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+      box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
 
     controls.appendChild(select('Размер', [['m', 'M'], ['s', 'S'], ['xs', 'XS']], () => state.size, v => state.size = v));
     controls.appendChild(select('Кол-во сегментов', [['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['6', '6']], () => state.count, v => { state.count = +v; if (state.selected >= state.count) state.selected = 0; }));
     controls.appendChild(select('Контент', [['text', 'Текст'], ['icon-text', 'Иконка + текст'], ['icon', 'Только иконки']], () => state.content, v => state.content = v));
     controls.appendChild(select('Состояние', [['default', 'Default'], ['disabled', 'Disabled']], () => state.tabState, v => state.tabState = v));
-
-    const optWrap = document.createElement('div'); optWrap.className = 'ctl';
-    const ol = document.createElement('div'); ol.className = 'lbl'; ol.textContent = 'Опции'; optWrap.appendChild(ol);
-    const toggles = document.createElement('div'); toggles.className = 'toggles';
-    toggles.appendChild(sw('Fullwidth', 'fullwidth'));
-    toggles.appendChild(sw('Счётчик (badge)', 'withBadge'));
-    optWrap.appendChild(toggles); controls.appendChild(optWrap);
+    controls.appendChild(ctlToggle('Fullwidth', 'fullwidth'));
+    controls.appendChild(ctlToggle('Счётчик (badge)', 'withBadge'));
 
     function buildItems() {
       const n = state.count;
@@ -451,10 +455,14 @@
       const csItem = getComputedStyle(item);
       const csBadge = badge ? getComputedStyle(badge) : null;
 
+      const itemH = Math.round(parseFloat(csItem.height));
+      const trackPad = Math.round(parseFloat(cs.paddingTop));
       const data = {
-        itemH: Math.round(parseFloat(csItem.height)),
-        trackPad: Math.round(parseFloat(cs.paddingTop)),
-        trackH: Math.round(parseFloat(cs.height)),
+        itemH: itemH,
+        trackPad: trackPad,
+        // полная высота контрола = сегмент + обводка трека сверху и снизу;
+        // именно она обязана совпадать с высотой Button того же размера
+        trackH: itemH + trackPad * 2,
         trackRadius: Math.round(parseFloat(cs.borderTopLeftRadius)),
         itemRadius: Math.round(parseFloat(csItem.borderTopLeftRadius)),
         itemPadX: Math.round(parseFloat(csItem.paddingLeft)),

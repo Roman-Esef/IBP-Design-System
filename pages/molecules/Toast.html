@@ -39,12 +39,8 @@
   .subhead.mt { margin-top: 30px; }
   .demo-rowlabel { font: var(--type-body-xs); color: var(--text-inactive); margin-bottom:10px; }
 
-  /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:820px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:0; display:flex; align-items:stretch; justify-content:stretch; min-height:300px; }
+  /* ---------- демо-стадия (docs-split) ---------- */
+  .pg__stage { flex:1; min-height:0; width:100%; padding:0; display:flex; align-items:stretch; justify-content:stretch; }
   .pg__stagebox { width:100%; display:flex; align-items:stretch; justify-content:stretch; }
 
   .ctl { display:flex; flex-direction:column; gap:10px; }
@@ -131,30 +127,43 @@
   .callout p + p { margin-top:8px; }
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-  <link rel="stylesheet" href="../../styles/pg-kit.css">
+  <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="Toast">
+<main class="page ds-split" data-screen-label="Toast">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>1.006</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.006</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Toast</h1>
     <p class="lead">Тёмная пилюля-уведомление, всплывающая у верхней границы рабочей области по центру, — индикатор запуска <b>фонового</b> или <b>блокирующего</b> процесса. Два режима: <b>ToastBar</b> (фоновый, авто-скрытие, стек до трёх) и <b>ToastLoader</b> (блокирующий, со спиннером и затемнением). Ведущий слот — спиннер или статус-иконка (взаимоисключающие); тоны Neutral · Success · Error · Info.</p>
   </header>
-
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите тост: режим, тон, ведущий слот, текст и показ (single / stack). Превью и код обновляются мгновенно. Кнопка <b>«Проиграть»</b> в превью показывает анимацию появления и скрытия.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage"><div class="pg__stagebox" id="pg-preview"></div></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -494,15 +503,229 @@ MAX = 3
     <span>Дизайн-система · Toast</span>
     <span>ToastBar / ToastLoader — Neutral / Loading / Success / Error — Single / Stack</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите тост: режим, тон, ведущий слот, текст и показ (single / stack). Превью и код обновляются мгновенно. Кнопка <b>«Проиграть»</b> в превью показывает анимацию появления и скрытия.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/toast.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
 <script src="../../scripts/ds-notify.js"></script>
-<script src="../../scripts/toast.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/toast.page.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Режим': 'ToastLoader (блокирующий)', 'Показ': 'Стек (3)' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- Слой: позиционирует стек по центру у верхней границы рабочей области -->
+<div class="toast-layer toast-layer--bar">
+  <div class="toast-stack">
+
+    <!-- Тост с лоадером: role="alert" — процесс, о котором важно узнать сразу -->
+    <div class="toast toast--enter" role="status" aria-live="polite">
+      <span class="toast__lead">
+        <span class="spin spin--current" aria-hidden="true"></span>
+      </span>
+      <span class="toast__msg">Выполняется маршрутизация</span>
+    </div>
+
+    <!-- Success: статус-иконка вместо / после спиннера, тон --success -->
+    <div class="toast toast--success" role="status" aria-live="polite">
+      <span class="toast__lead">
+        <span class="toast__icon" aria-hidden="true"><i data-icon="check-circle"></i></span>
+      </span>
+      <span class="toast__msg">Маршрутизация завершена</span>
+    </div>
+  </div>
+</div>
+
+<!-- ToastLoader — затемняющий слой + слой над снэкбаром -->
+<div class="toast-scrim"></div>
+<div class="toast-layer toast-layer--loader">…</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — scripts/toast.page.js)
+// Тост строит общий рантайм: window.DSToast.make({ … }) — стек ≤3, авто-скрытие,
+// loader со скримом, переход loading → success (спиннер → статус-иконка)
+const spec = {
+  kind: 'bar',                       // 'bar' (фоновый) | 'loader' (блокирующий, .toast-scrim)
+  tone: 'neutral',                   // neutral/success/error/info (статус-иконка по тону)
+  lead: 'auto',                      // 'auto' | 'none' | 'spinner' | 'icon'
+  message: 'Процесс запущен',
+  show: 'single'                     // 'single' | 'stack' (до 3)
+};
+// .toast-layer(.--bar|.--loader) > .toast-stack > .toast(.--success/--error/--info)(.--enter/--leave)</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — Toast
+   Индикатор запуска фонового / блокирующего процесса. Тёмная «пилюля»,
+   всплывающая по верхней границе рабочей области по центру.
+
+   Роли:      bar (фоновый, авто-скрытие) · loader (блокирующий, затемнение)
+   Ведущий слот: none · spinner (loader) · status icon  (взаимоисключающие)
+   Тоны:      neutral · success · error · info
+   Показ:     single · stack (≤ 3) с переполнением
+
+   Requires: typography.css, colors.css, radius.css
+   (опц. shadow.css для --elevation-2, icons — currentColor SVG)
+   ========================================================================= */
+
+:root {
+  /* геометрия пилюли — токены, а не хардкод */
+  --toast-bg:      var(--st-grey);              /* StGrey · CGrey_700 #333F48         */
+  --toast-fg:      var(--text-on-dark);         /* текст — белый                      */
+  --toast-radius:  var(--radius-control);       /* 8px                                */
+  --toast-pad-y:   11px;
+  --toast-pad-x:   16px;
+  --toast-gap:     8px;                          /* зазор ведущий-слот ↔ текст         */
+  --toast-icon:    16px;                         /* размер иконки / спиннера           */
+  --toast-shadow:  var(--elevation-2);           /* 0 10px 30px rgba(40,50,55,.16)     */
+  --toast-maxw:    60%;                           /* макс. ширина = 60% рабочей области */
+  --toast-guard:   24px;                          /* охранное поле вокруг компонента    */
+
+  --toast-stack-gap: 8px;                         /* зазор между тостами в стеке        */
+  --toast-scrim:  color-mix(in srgb, var(--st-grey) 25%, transparent); /* затемнение 25% */
+
+  /* акцентные тона иконок — семантические токены Situative (светлые рампы) */
+  --toast-icon-success: var(--success-light);    /* LightGreen_400 #9CCC65 */
+  --toast-icon-error:   var(--error-light);      /* Red_200 #E57373        */
+  --toast-icon-info:    var(--info-light);       /* LightBlue_400 #29B6F6  */
+}
+
+/* ---------- базовая пилюля ------------------------------------------------- */
+.toast {
+  display: inline-flex;
+  align-items: flex-start;               /* иконка выравнивается по верхней строке текста */
+  gap: var(--toast-gap);
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: var(--toast-pad-y) var(--toast-pad-x);
+  border-radius: var(--toast-radius);
+  background: var(--toast-bg);
+  color: var(--toast-fg);
+  box-shadow: var(--toast-shadow);
+  font: var(--type-body-s);
+  letter-spacing: 0;
+  text-align: left;
+}
+
+/* ведущий слот — спиннер и/или статус-иконка; выше текста при переносе */
+.toast__lead {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  /* центрируем слот по высоте первой строки текста.
+     Фолбэк для браузеров без единицы lh: 16/14 — line-height/font-size --type-body-s. */
+  height: calc(1em * 16 / 14);
+  height: 1lh;
+}
+.toast__lead:empty { display: none; }
+
+/* статус-иконка */
+.toast__icon { flex: none; width: var(--toast-icon); height: var(--toast-icon); display: block; color: var(--toast-fg); }
+.toast__icon :is(svg,[data-icon]){ width: 100%; height: 100%; display: block; }
+
+/* сообщение */
+.toast__msg {
+  min-width: 0;
+  color: var(--toast-fg);
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- спиннер — общий Spinner: <span class="spin spin--current"> в .toast__lead ------ */
+.toast__lead .spin { width: var(--toast-icon); height: var(--toast-icon); }
+
+/* ---------- тоны статус-иконки --------------------------------------------- */
+.toast--success .toast__icon { color: var(--toast-icon-success); }
+.toast--error   .toast__icon { color: var(--toast-icon-error); }
+.toast--info    .toast__icon { color: var(--toast-icon-info); }
+
+/* ---------- стек тостов ---------------------------------------------------- */
+.toast-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--toast-stack-gap);
+  max-width: var(--toast-maxw);
+}
+.toast-stack > .toast { max-width: 100%; }
+
+/* ---------- анимации ------------------------------------------------------- */
+/* добавляется линейной анимацией сверху */
+@keyframes toast-in  { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+/* удаляется фейдом вниз */
+@keyframes toast-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(12px); } }
+
+.toast--enter { animation: toast-in .18s linear both; }
+.toast--leave { animation: toast-out .2s ease-in both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .toast--enter { animation: toast-in .18s linear both; }
+  .toast--leave { animation: toast-out .2s ease-in both; }
+  @keyframes toast-in  { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes toast-out { from { opacity: 1; } to { opacity: 0; } }
+}
+
+/* =========================================================================
+   Раскладка слоя: тост позиционируется по верхней границе рабочей области,
+   горизонтально — по центру. Используется внутри position:relative контейнера.
+   ========================================================================= */
+.toast-layer {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  /* охранное поле 24px вокруг всего компонента (сверху и по бокам) */
+  padding: var(--toast-guard);
+  pointer-events: none;              /* тост не перехватывает клики */
+  z-index: 40;
+}
+/* ToastBar — слой ПОД снэкбаром; ToastLoader — слой НАД снэкбаром */
+.toast-layer--bar    { z-index: 40; }
+.toast-layer--loader { z-index: 60; }
+
+/* затемняющий слой для ToastLoader (25%) */
+.toast-scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--toast-scrim);
+  z-index: 55;
+  pointer-events: none;
+}</script>
 </body>
 </html>

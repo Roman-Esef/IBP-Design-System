@@ -154,7 +154,11 @@
 
   function wireAll(root) {
     (root || document).querySelectorAll('[data-splitter]').forEach(function (host) {
-      var spl = host.classList.contains('spl') ? host : host.querySelector('.spl');
+      /* :scope > .spl — ТОЛЬКО прямой ребёнок хоста. Наивный host.querySelector('.spl')
+         брал первый .spl-потомок вообще: на странице Splitter демо-сплиттер
+         (page.js рисует его в #pg-stage внутри панели A, до фреймового разделителя)
+         перехватывал выбор, и фреймовый .spl оставался незаведённым (30.08.2026). */
+      var spl = host.classList.contains('spl') ? host : host.querySelector(':scope > .spl');
       if (!spl) return;
       var d = host.dataset;
       wire(spl, {

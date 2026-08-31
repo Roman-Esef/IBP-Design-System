@@ -67,29 +67,31 @@
       sel.addEventListener('change', () => { state[key] = sel.value; render(); });
       box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
-    function ctlToggles(pairs) {
+    /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+       (label.pg-toggle) в правую колонку; подпись свитча статична
+       (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+    function ctlToggle(label, key) {
       const wrap = document.createElement('div'); wrap.className = 'ctl';
-      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = 'Опции'; wrap.appendChild(l);
-      const row = document.createElement('div'); row.className = 'toggles'; row.style.display = 'flex';
-      pairs.forEach(([label, key]) => {
-        const b = document.createElement('button'); b.type = 'button'; b.className = 'toggle';
-        b.dataset.key = key;
-        b.setAttribute('aria-pressed', String(state[key]));
-        b.innerHTML = '<span class="sw-mini"></span><span>' + label + '</span>';
-        b.addEventListener('click', () => { state[key] = !state[key]; render(); });
-        row.appendChild(b);
+      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+      const box = document.createElement('div'); box.className = 'pg-select';
+      const sel = document.createElement('select');
+      [['no', 'Нет'], ['yes', 'Да']].forEach(([v, t]) => {
+        const op = document.createElement('option'); op.value = v; op.textContent = t;
+        if ((v === 'yes') === !!state[key]) op.selected = true;
+        sel.appendChild(op);
       });
-      wrap.appendChild(row); return wrap;
+      sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+      box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
 
     const stOpts = STATES.map(([t, v]) => [v, t]);
     controls.appendChild(ctlSelect('Поле «От» (левое)', stOpts, 'left', true));
     controls.appendChild(ctlSelect('Поле «До» (правое)', stOpts, 'right', true));
     controls.appendChild(ctlSelect('Наполнение', [['value', 'Заполнено'], ['empty', 'Пусто']], 'fill'));
-    controls.appendChild(ctlToggles([['Label', 'label'], ['Helper', 'helper']]));
+    controls.appendChild(ctlToggle('Label', 'label'));
+    controls.appendChild(ctlToggle('Helper', 'helper'));
 
     function render() {
-      controls.querySelectorAll('.toggle').forEach(b => b.setAttribute('aria-pressed', String(state[b.dataset.key])));
       const disabled = state.left === 'disabled' && state.right === 'disabled';
       const val = state.fill === 'value' ? '01.01.2021' : null;
       stage.innerHTML = '';

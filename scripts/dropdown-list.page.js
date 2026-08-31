@@ -149,13 +149,21 @@ function setSummary(field, n) {
     sel.addEventListener('change', () => { state[key] = sel.value; render(); });
     box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
+  /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+     (label.pg-toggle) в правую колонку; подпись свитча статична
+     (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
   function ctlToggle(label, key) {
     const wrap = document.createElement('div'); wrap.className = 'ctl';
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'toggle';
-    b.setAttribute('aria-pressed', String(state[key]));
-    b.innerHTML = '<span class="sw-mini"></span><span>' + label + '</span>';
-    b.addEventListener('click', () => { state[key] = !state[key]; b.setAttribute('aria-pressed', String(state[key])); render(); });
-    wrap.appendChild(b); wrap._btn = b; return wrap;
+    const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+    const box = document.createElement('div'); box.className = 'pg-select';
+    const sel = document.createElement('select');
+    [['no', 'Нет'], ['yes', 'Да']].forEach(([v, t]) => {
+      const op = document.createElement('option'); op.value = v; op.textContent = t;
+      if ((v === 'yes') === !!state[key]) op.selected = true;
+      sel.appendChild(op);
+    });
+    sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
 
   const cVariant = ctlSelect('Вариант', [['text', 'Текст'], ['checkbox', 'Чекбокс']], 'variant');

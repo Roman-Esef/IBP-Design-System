@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="../../styles/colors.css">
 <link rel="stylesheet" href="../../styles/radius.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
 <link rel="stylesheet" href="../../styles/ds-docs.css">
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <style>
@@ -28,12 +27,8 @@
   .section > p.desc { font: var(--type-body-m); color: var(--text-secondary); margin:0 0 28px; max-width:72ch; text-wrap:pretty; }
 
   /* ---------- playground ---------- */
-  
-  .panel.pg { padding:0; overflow:hidden; display:grid; }
-  
-  .pg__controls { flex-direction:column; }
-  @media (max-width:860px){ .pg__controls { border-bottom:1px solid var(--border-light); } }
-  .pg__stage { padding:44px 40px; display:flex; align-items:center; justify-content:center; min-height:280px;
+  @media (max-width:860px){ }
+  .pg__stage { flex:1; min-height:0; width:100%; padding:44px 40px; display:flex; align-items:center; justify-content:center; 
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
@@ -103,43 +98,50 @@
   .nest-card.bad .nest-inner { border-radius: var(--radius-2xl); }
   .nest-label { font: var(--type-body-xs); color: var(--text-inactive); margin:10px 0 0; text-align:center; }
 </style>
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+  <link rel="stylesheet" href="../../styles/splitter.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="Radius">
+<main class="page ds-split" data-screen-label="Radius">
 
-  <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.000</b></span><span>Обновлено: <b>07.08.2026</b></span></div>
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage">
+        <div class="stagebox" id="pgBox"></div>
+      </div>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
+
+<header class="masthead">
+    <div class="meta"><span>Версия: <b>1.000</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Основы</p>
     <h1>Скругления</h1>
     <p class="lead">Единая шкала радиусов скругления. Компоненты и лайауты ссылаются на семантические токены <code class="tok">--radius-*</code>, а не на «магические» пиксели — так скругления остаются согласованными и управляются из одной точки.</p>
   </header>
 
+
+
+  
+
   <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Выберите токен и размер элемента — превью и значения обновляются мгновенно.</p>
-    <div class="panel pg">
-      <div class="pg__controls">
-        <div class="ctl">
-          <span class="lbl">Токен радиуса</span>
-          <div class="pg-select"><select id="pgToken"></select></div>
-        </div>
-        <div class="ctl">
-          <div class="rng-row"><span class="lbl">Размер элемента</span><span class="val" id="pgSizeVal">200&nbsp;px</span></div>
-          <input type="range" id="pgSize" min="48" max="280" step="4" value="200">
-        </div>
-        <div class="readout">
-          <div class="r"><span class="k">Токен</span><span class="v tokv" id="roToken">--radius-2xl</span></div>
-          <div class="r"><span class="k">Значение</span><span class="v" id="roVal">16px</span></div>
-          <div class="r"><span class="k">CSS</span><span class="v" id="roCss">border-radius</span></div>
-        </div>
-      </div>
-      <div class="pg__stage">
-        <div class="stagebox" id="pgBox"></div>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- SCALE -->
   <section class="section" data-screen-label="Scale">
@@ -220,7 +222,59 @@
     </div>
   </section>
 
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Выберите токен и размер элемента — превью и значения обновляются мгновенно.</p>
+              <div class="pg__controls">
+        <div class="ctl">
+          <span class="lbl">Токен радиуса</span>
+          <div class="pg-select"><select id="pgToken"></select></div>
+        </div>
+        <div class="ctl">
+          <div class="rng-row"><span class="lbl">Размер элемента</span><span class="val" id="pgSizeVal">200&nbsp;px</span></div>
+          <input type="range" id="pgSize" min="48" max="280" step="4" value="200">
+        </div>
+        <div class="readout">
+          <div class="r"><span class="k">Токен</span><span class="v tokv" id="roToken">--radius-2xl</span></div>
+          <div class="r"><span class="k">Значение</span><span class="v" id="roVal">16px</span></div>
+          <div class="r"><span class="k">CSS</span><span class="v" id="roCss">border-radius</span></div>
+        </div>
+      </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
+
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 
 <script>
   // ---------- данные шкалы ----------
@@ -354,7 +408,56 @@
   })();
 </script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = {};</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><!-- токен радиуса на элементе -->
+<div class="card" style="border-radius: var(--radius-2xl);">16px</div>
+<!-- шкала: --radius-xs 4 · --radius-s 6 · --radius-m 8 · --radius-l 12 ·
+     --radius-xl 14 · --radius-2xl 16 · --radius-3xl 20 -->
+<div style="border-radius: var(--radius-m);">8px</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — инлайн-скрипт страницы)
+// Шкала радиусов: --radius-xs … --radius-3xl (styles/radius.css)
+// Конструктор: select#pgToken + range#pgSize (размер элемента) →
+//   превью меняет border-radius по токену, сводка roToken/roVal читается
+//   из getComputedStyle (реальные px).</script>
+<script type="text/plain" id="src-code-css">/* ============================================================
+   RADIUS — токены радиусов скругления
+   Часть основ дизайн-системы. Подключается как styles/radius.css
+   Шкала намеренно расширена «на будущее» — компоненты ссылаются
+   на семантические алиасы, а не на числовые примитивы.
+   ============================================================ */
+
+:root {
+  /* ---------- примитивы шкалы (ramp) ---------- */
+  --radius-none: 0px;
+  --radius-2xs:  2px;   /* микроэлементы: чекбокс, мелкие индикаторы            */
+  --radius-xs:   4px;   /* инпуты-компакт, мелкие плашки, фокус-ссылка    */
+  --radius-s:    6px;   /* мелкие контролы: кнопка XS, чип S/XS               */
+  --radius-m:    8px;   /* базовый контрол: кнопка, чип, тултип, инпут          */
+  --radius-l:    10px;  /* аватар-rounded M, средние плашки                     */
+  --radius-xl:   12px;  /* поповеры, меню, аватар-rounded L                     */
+  --radius-2xl:  16px;  /* карточки, панели, группы                             */
+  --radius-3xl:  20px;  /* крупные карточки, секции                             */
+  --radius-4xl:  24px;  /* модальные окна, листы                                */
+  --radius-5xl:  28px;  /* аватар XL-rounded, крупные поверхности               */
+  --radius-6xl:  32px;  /* геро-блоки, баннеры                                  */
+  --radius-7xl:  40px;  /* очень крупные поверхности (резерв)                   */
+
+  --radius-full:   999px; /* пилюли: чип-rounded, бейдж, свитч, таб-маркер      */
+  --radius-circle: 50%;   /* круг: аватар, радио, иконочная кнопка              */
+
+  /* ---------- семантические алиасы ----------
+     Компоненты и лайауты ссылаются на них, а не на примитивы. */
+  --radius-control-s: var(--radius-s);    /* кнопка XS, чип S/XS, icon-button S */
+  --radius-control:   var(--radius-m);    /* кнопка M/S, чип L/M, тултип, инпут */
+  --radius-field:     var(--radius-xs);   /* поля ввода, селекты               */
+  --radius-popup:     var(--radius-xl);   /* меню, поповеры, дропдауны          */
+  --radius-card:      var(--radius-2xl);  /* карточки, панели, группы          */
+  --radius-modal:     var(--radius-m);    /* модальные окна, шиты (8px)        */
+  --radius-pill:      var(--radius-full); /* пилюли                            */
+  --radius-round:     var(--radius-circle); /* круглые элементы                */
+}</script>
 </body>
 </html>

@@ -5,6 +5,7 @@ temperature: 0.1
 permission:
   edit: deny
   webfetch: deny
+  websearch: deny
   skill:
     "*": allow
 ---

@@ -93,18 +93,23 @@ function textBlock(t, dim){
     wrap._update = ()=>{ if(disabledFn){ const d=disabledFn(); sel.disabled=d; wrap.style.opacity=d?'.4':'1'; wrap.style.pointerEvents=d?'none':'auto'; } };
     return wrap;
   }
-  function toggleBtn(label, key, disabledFn){
-    const t=document.createElement('button'); t.type='button'; t.className='toggle'; t.dataset.key=key;
-    t.setAttribute('aria-pressed', String(state[key]));
-    t.innerHTML='<span class="sw-mini"></span><span>'+label+'</span>';
-    t.addEventListener('click',()=>{ state[key]=!state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-    t._update = ()=>{ if(disabledFn){ const d=disabledFn(); t.disabled=d; t.style.opacity=d?'.4':'1'; t.style.pointerEvents=d?'none':'auto'; } };
-    return t;
+  /* Бинарные опции — селекты: docs-split.js конвертирует их в свитчи ДС (урок Л4);
+     disabledFn — как у селектов: блокирует контрол, когда условие не выполнено */
+  function ctlToggle(label, key, disabledFn){
+    const wrap=document.createElement('div'); wrap.className='ctl';
+    const l=document.createElement('div'); l.className='lbl'; l.textContent=label; wrap.appendChild(l);
+    const box=document.createElement('div'); box.className='pg-select';
+    const sel=document.createElement('select');
+    [['no','Нет'],['yes','Да']].forEach(([v,t])=>{ const op=document.createElement('option'); op.value=v; op.textContent=t; if((v==='yes')===!!state[key]) op.selected=true; sel.appendChild(op); });
+    sel.addEventListener('change',()=>{ state[key]=sel.value==='yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box);
+    wrap._update = ()=>{ if(disabledFn){ const d=disabledFn(); sel.disabled=d; wrap.style.opacity=d?'.4':'1'; wrap.style.pointerEvents=d?'none':'auto'; } };
+    return wrap;
   }
 
   const cOrient = select('Ориентация',
     [['h','Горизонтальный'],['v','Вертикальный']],
-    ()=>state.orientation, v=>{ state.orientation=v; if(v==='v'){ state.withText=false; } });
+    ()=>state.orientation, v=>{ state.orientation=v; if(v==='v'){ state.withText=false; tText.querySelector('select').value='no'; } });
   const cVariant = select('Вариант',
     [['full','Full — на всю длину'],['inset','Inset — отступ слева'],['middle','Middle — отступ с двух сторон'],['section','Section — блок 8px']],
     ()=>state.variant, v=>state.variant=v,
@@ -117,14 +122,12 @@ function textBlock(t, dim){
   controls.appendChild(cOrient);
   controls.appendChild(cVariant);
 
-  const compWrap=document.createElement('div'); compWrap.className='ctl';
-  const cl=document.createElement('div'); cl.className='lbl'; cl.textContent='Стиль'; compWrap.appendChild(cl);
-  const toggles=document.createElement('div'); toggles.className='toggles';
-  const tStrong = toggleBtn('Контрастная линия','strong');
-  const tDashed = toggleBtn('Пунктир','dashed');
-  const tText   = toggleBtn('С подписью','withText', ()=>state.orientation==='v');
-  toggles.appendChild(tStrong); toggles.appendChild(tDashed); toggles.appendChild(tText);
-  compWrap.appendChild(toggles); controls.appendChild(compWrap);
+  const tStrong = ctlToggle('Контрастная линия','strong');
+  const tDashed = ctlToggle('Пунктир','dashed');
+  const tText   = ctlToggle('С подписью','withText', ()=>state.orientation==='v');
+  controls.appendChild(tStrong);
+  controls.appendChild(tDashed);
+  controls.appendChild(tText);
   controls.appendChild(cAlign);
 
   const updaters=[cVariant, cAlign, tText];

@@ -44,18 +44,16 @@
   .subhead.mt { margin-top: 30px; }
   .demo-rowlabel { font: var(--type-body-xs); color: var(--text-inactive); margin-bottom:10px; }
 
-  /* ---------- playground ---------- */
-  .panel.pg { padding:0; overflow:visible; display:flex; flex-direction:column; }
-  .pg__stage { padding:44px 30px; display:flex; align-items:flex-start; justify-content:center; min-height:120px; border-radius:16px 16px 0 0;
+  /* ---------- демо-стадия (docs-split) ---------- */
+  .pg__stage { flex:1; min-height:0; width:100%; padding:44px 30px; display:flex; align-items:flex-start; justify-content:center; border-radius:16px 16px 0 0;
     background:
       linear-gradient(var(--bg-tile),var(--bg-tile)) padding-box,
       repeating-conic-gradient(#f2f5f5 0% 25%, #fbfcfc 0% 50%) 0 / 22px 22px; }
   #pg-preview { width:680px; max-width:100%; }
   #pg-preview .pgn-row { border-top:none; border-radius:14px; border:1px solid var(--border-primary); background: var(--bg-popup); box-shadow: 0 1px 2px rgba(40,50,55,.06); }
 
-  .pg__controls { flex-wrap:wrap; align-items:flex-end; border-top:1px solid var(--border-light); }
-  .pg__controls .ctl { flex:1 1 180px; min-width:160px; }
-  .pg__widthctl { flex:1 1 260px; min-width:220px; }
+  /* раскладка конструктора — docs-split.css (.ctl-col / .toggles);
+     остатки старой flex-раскладки .pg__controls удалены (урок Pagination 30.08.2026) */
   .pg__widthctl input[type=range] { width:100%; accent-color: var(--primary); }
   .pg__widthctl .lbl b { color: var(--text-secondary); font-variant-numeric:tabular-nums; }
 
@@ -157,30 +155,42 @@
   .code-panel__name { font: var(--type-body-s-strong); color: rgba(255,255,255,.72); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12.5px; letter-spacing:.02em; }
 </style>
   <link rel="stylesheet" href="../../styles/ds-nav.css">
-  <link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+  <link rel="stylesheet" href="../../styles/segment-control.css">
+  <link rel="stylesheet" href="../../styles/tab.css">
+  <link rel="stylesheet" href="../../styles/docs-split.css">
 </head>
 <body>
-<main class="page" data-screen-label="Pagination">
+<main class="page ds-split" data-screen-label="Pagination">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage"><div id="pg-preview"></div></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
     <a class="crumb" href="../../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Дизайн-система</a>
-    <div class="meta"><span>Версия: <b>1.008</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.008</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>Pagination</h1>
     <p class="lead">Нижняя строка многостраничной таблицы: переключение страниц, выбор количества строк на странице и счётчик диапазона. Та же строка может нести панель массового действия над выбранными строками (Action panel) или информационную сводку (Pagi counters) — но сам пагинатор всегда справа. Один фиксированный размер, совпадающий с высотой строки таблицы.</p>
   </header>
-
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите строку колонтитула: общее число строк, размер страницы, левый слот (пусто / инфо-сводка / массовый выбор), состояние. Кликайте по номерам страниц в превью — как в реальном пагинаторе. Сузьте превью сплиттером, чтобы увидеть компактный режим.</p>
-    <div class="panel pg" data-pg-no-split>
-      <div class="pg__stage"><div id="pg-preview"></div></div>
-      <div class="pg__controls" id="pg-controls"></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -447,16 +457,384 @@ renderFooter({
 
 <footer class="page-foot">
     <span>Дизайн-система · Pagination</span>
-    <span>Pager · Action panel · Pagi counters — Default / Hover / Current — Адаптив l/m/s/xs</span>
+    <span>Pager · Action panel · Pagi counters — Default / Hover / Current — Адаптив l/m/sm/c/xs</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите строку колонтитула: общее число строк, размер страницы, левый слот (пусто / инфо-сводка / массовый выбор), состояние. Кликайте по номерам страниц в превью — как в реальном пагинаторе. Сузьте превью сплиттером, чтобы увидеть компактный режим.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/pagination.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-pagination.js"></script>
-<script src="../../scripts/pagination.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/pagination.page.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Левый слот': 'Инфо-сводка', 'Выбор размера страницы': 'Показывать выбор размера страницы' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><div class="pgn-row">
+  <!-- левый слот — опционален, пуст по умолчанию -->
+  <div class="pgn-row__left">
+    <div class="pgn-info">…</div>
+  </div>
+
+  <div class="pgn-row__right">
+    <div class="pgn">
+      <span class="pgn__pagesize"><span class="pgn__pagesize-label">Показывать строк: <b>50</b></span><button class="pgn__pagesize-btn" aria-haspopup="listbox"><i data-icon="chevron-down"></i></button></span>
+      <span class="pgn__range">3 из 16</span>
+
+      <nav class="pgn__nav" aria-label="Страницы">
+        <button class="pgn__arrow" aria-label="Предыдущая страница">‹</button>
+        <button class="pgn__num">1</button>
+        <button class="pgn__num" aria-current="page">3</button>
+        <span class="pgn__ellipsis" aria-hidden="true">…</span>
+        <button class="pgn__num">16</button>
+        <button class="pgn__arrow" aria-label="Следующая страница">›</button>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- есть выбранные строки таблицы — Action panel добавляется НАД строкой пагинатора, -->
+<!-- сама строка пагинатора (см. разметку выше) никуда не девается -->
+<div class="pgn-footer">
+  <div class="pgn-row pgn-row--bulk">
+    <div class="pgn-bulk">
+      <span class="pgn-bulk__count">Выбрано строк: <b>4</b></span>
+      <div class="pgn-bulk__actions">…</div>
+    </div>
+  </div>
+  <hr class="dvd dvd--h"><!-- разделитель Action panel / пагинатор -->
+  <div class="pgn-row">…<!-- обычная строка pagesize/range/nav --></div>
+</div></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — scripts/pagination.page.js)
+// Пагинатор строит общий рантайм: window.DSPagination (pager/row/footer/bulk/info)
+DSPagination.footer({
+  selectionCount: 0,                // >0 → Action panel (.pgn-bulk) над строкой
+  info: null,                       // {…} → инфо-сводка (.pgn-info) в левом слоте
+  pager: { total: 800, pageSize: 50, page: 3, showPageSize: true, onChange, onPageSizeChange }
+});
+// data-tier (l/m/sm/c/xs) и data-layout (row/stack) выставляет скрипт по доступной
+// ширине (ResizeObserver); инфо-сводка не обрезается никогда.</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   Design System — Pagination
+   Панель переключения страниц многостраничной таблицы: селектор размера
+   страницы, счётчик диапазона, стрелки и номера страниц. Всегда занимает
+   всю ширину нижней строки таблицы; в скролле таблицы не участвует
+   (см. styles.md компонента и раздел «Использование» на странице).
+
+   Части:
+     .pgn-row          — строка-контейнер (левый + правый слот)
+     .pgn-info         — левый слот: информационная сводка (Pagi_counters)
+     .pgn-bulk         — альтернативное состояние строки: массовое действие
+                         над выбранными строками (Action_panel)
+     .pgn              — собственно пагинатор (правый слот)
+       .pgn__pagesize    — селектор «Показывать строк»
+       .pgn__range       — счётчик «N из M»
+       .pgn__nav         — стрелки + номера страниц
+       .pgn__arrow       — стрелка prev/next
+       .pgn__num         — кнопка номера страницы
+       .pgn__ellipsis    — «…» свёрнутый диапазон
+
+   Requires: typography.css, colors.css, radius.css, dropdown-list.css
+   ========================================================================= */
+
+:root {
+  --pgn-h:            56px;   /* высота строки — совпадает с высотой строки таблицы */
+  --pgn-pad-x:         20px;
+  --pgn-gap-section:   28px;  /* зазор между pagesize / range / nav */
+  --pgn-num-size:      32px;  /* сторона кнопки номера страницы / стрелки */
+  --pgn-num-gap:        2px;  /* зазор между кнопками номеров */
+  --pgn-radius:        var(--radius-control-s);
+}
+
+/* =========================================================================
+   ROW — строка нижнего колонтитула таблицы
+   ========================================================================= */
+.pgn-row {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  min-height: var(--pgn-h);
+  padding: 0 var(--pgn-pad-x);
+  background: var(--bg-tile);
+  border-top: 1px solid var(--border-light);
+}
+.pgn-row__left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: visible;   /* сводка не обрезается никогда: не влезает — строка складывается в вертикаль */
+}
+.pgn-row__right { flex: none; }
+
+/* строка целиком не участвует в горизонтальном скролле таблицы —
+   демонстрируется через position:sticky в мок-примерах на странице */
+.pgn-row--sticky { position: sticky; left: 0; }
+
+/* =========================================================================
+   PAGESIZE — «Показывать строк»: неинтерактивный текст + IconButton-чеврон.
+   Единственный интерактивный элемент селектора — чеврон-кнопка (IconButton,
+   размер M, тон нейтральный). Клик по чеврону открывает DropdownList.
+   ========================================================================= */
+.pgn__pagesize.ddl-anchor {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.pgn__pagesize-label { font: var(--type-body-s); color: var(--text-secondary); }
+.pgn__pagesize-label b { color: var(--text-primary); font-weight: 600; }
+/* чеврон — IconButton M: круглый стейт-слой 32px, translucent-рипл currentColor */
+.pgn__pagesize-btn {
+  flex: none;
+  width: var(--pgn-num-size);
+  height: var(--pgn-num-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color .12s ease, color .12s ease;
+}
+.pgn__pagesize-btn :is(svg,[data-icon]){ width: 20px; height: 20px; display: block; transition: transform .15s ease; }
+.pgn__pagesize-btn:hover  { background: color-mix(in srgb, currentColor 12%, transparent); }
+.pgn__pagesize-btn:active { background: color-mix(in srgb, currentColor 22%, transparent); }
+.pgn__pagesize-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.pgn__pagesize-btn.is-open svg { transform: rotate(180deg); }
+
+/* =========================================================================
+   PAGER — сам пагинатор: pagesize + range + nav в один ряд
+   ========================================================================= */
+.pgn {
+  display: flex;
+  align-items: center;
+  gap: var(--pgn-gap-section);
+  flex-wrap: nowrap;
+}
+
+/* =========================================================================
+   RANGE — счётчик «N из M»
+   ========================================================================= */
+.pgn__range {
+  font: var(--type-body-s);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* =========================================================================
+   NAV — стрелки + номера
+   ========================================================================= */
+.pgn__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--pgn-num-gap);
+}
+
+/* стрелки и номера — IconButton M, тон нейтральный: круглый стейт-слой 32px,
+   translucent-рипл currentColor (12% hover / 22% active), цвет Text_Secondary */
+.pgn__arrow {
+  flex: none;
+  width: var(--pgn-num-size);
+  height: var(--pgn-num-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color .12s ease, color .12s ease;
+}
+.pgn__arrow :is(svg,[data-icon]){ width: 20px; height: 20px; display: block; }
+.pgn__arrow:hover  { background: color-mix(in srgb, currentColor 12%, transparent); }
+.pgn__arrow:active { background: color-mix(in srgb, currentColor 22%, transparent); }
+.pgn__arrow:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.pgn__arrow:disabled,
+.pgn__arrow[aria-disabled="true"] { color: var(--text-inactive); cursor: default; pointer-events: none; background: transparent; }
+
+.pgn__num {
+  flex: none;
+  width: var(--pgn-num-size);
+  height: var(--pgn-num-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--text-secondary);
+  font: var(--type-body-s);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background-color .12s ease, color .12s ease;
+}
+.pgn__num:hover  { background: color-mix(in srgb, currentColor 12%, transparent); }
+.pgn__num:active { background: color-mix(in srgb, currentColor 22%, transparent); }
+.pgn__num:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* текущая страница */
+.pgn__num[aria-current="page"] {
+  background: var(--bgtable-row-focus);
+  color: var(--text-primary);
+  font: var(--type-body-s-strong);
+  cursor: default;
+}
+.pgn__num[aria-current="page"]:hover { background: var(--bgtable-row-focus); }
+
+.pgn__ellipsis {
+  flex: none;
+  width: var(--pgn-num-size);
+  height: var(--pgn-num-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-inactive);
+  font: var(--type-body-s);
+  user-select: none;
+}
+
+/* =========================================================================
+   MODIFIER — compact (узкий контейнер): скрыть номера страниц;
+   счётчик «N из M» переезжает внутрь nav — между стрелками
+   (рендерится там скриптом, см. renderNav), а внешний скрывается.
+   ========================================================================= */
+.pgn--compact .pgn__num,
+.pgn--compact .pgn__ellipsis { display: none; }
+.pgn--compact > .pgn__range { display: none; }
+.pgn__nav .pgn__range { padding: 0 8px; }
+
+/* =========================================================================
+   RESPONSIVE — адаптив по фактически доступному месту (не по порогам вьюпорта).
+   Скрипт (ds-pagination.js → fit) измеряет ширину строки и натуральную
+   ширину инфо-сводки, после чего выставляет две независимые оси:
+     data-tier на .pgn      — уровень навигации: l | m | sm | c | xs
+     data-layout на .pgn-row — раскладка строки: row | stack
+
+     l   — полный набор номеров (до 7)
+     m   — сокращённый набор (до 5): 1 … N … Last
+     sm  — между стрелок только текущая страница
+     c   — номера скрыты, между стрелок счётчик «N из M» (compact),
+           строка при этом ещё горизонтальная
+     xs  — compact + сам пагинатор переносится в две строки
+
+   Инфо-сводка никогда не обрезается: пока она с пагинатором не влезает
+   в одну строку — сокращается пагинатор; дальше строка идёт в stack.
+   ========================================================================= */
+
+/* stack — строка колонтитула перестраивается в вертикаль */
+.pgn-row[data-layout="stack"] {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.pgn-row[data-layout="stack"] .pgn-row__left { flex: none; width: 100%; overflow: visible; }
+.pgn-row[data-layout="stack"] .pgn-row__right { width: 100%; }
+.pgn-row[data-layout="stack"] .pgn { width: 100%; justify-content: space-between; }
+
+/* xs — сам пагинатор переносится в две строки */
+.pgn[data-tier="xs"] {
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+.pgn[data-tier="xs"] .pgn__nav {
+  flex: 1 0 100%;
+  justify-content: space-between;
+}
+
+/* =========================================================================
+   FOOTER — обёртка колонтитула: опциональная строка Action_panel НАД
+   обычной строкой пагинации (обе видны одновременно, не взаимоисключающие)
+   ========================================================================= */
+.pgn-footer { width: 100%; }
+
+/* =========================================================================
+   BULK — Action_panel: панель массового действия над выбранными строками.
+   Отдельная строка НАД строкой пагинатора — появляется, когда выбрана
+   хотя бы одна строка таблицы; пагинатор при этом остаётся видимым.
+   ========================================================================= */
+.pgn-bulk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.pgn-row--bulk { background: var(--bg-tile); }
+.pgn-bulk__count { font: var(--type-body-m); color: var(--text-secondary); white-space: nowrap; }
+.pgn-bulk__count b { color: var(--text-primary); font-weight: 600; }
+.pgn-bulk__actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* =========================================================================
+   INFO — Pagi_counters: информационная сводка в левом слоте строки
+   ========================================================================= */
+.pgn-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  min-width: 0;
+  font: var(--type-body-s);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.pgn-info__item b { color: var(--text-primary); font-weight: 600; }
+.pgn-info__warn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--warning-dark);
+}
+.pgn-info__warn :is(svg,[data-icon]){ width: 16px; height: 16px; flex: none; color: var(--warning); }</script>
 </body>
 </html>

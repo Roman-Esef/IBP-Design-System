@@ -102,12 +102,19 @@
       sel.addEventListener('change', () => { onPick(sel.value); render(); });
       box.appendChild(sel); wrap.appendChild(box); wrap._sel = sel; return wrap;
     }
-    function sw(label, key) {
-      const t = document.createElement('button'); t.type = 'button'; t.className = 'toggle'; t.dataset.key = key;
-      t.setAttribute('aria-pressed', String(state[key]));
-      t.innerHTML = '<span class="sw"></span><span>' + label + '</span>';
-      t.addEventListener('click', () => { state[key] = !state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-      return t;
+    /* Бинарные опции — селекты: docs-split.js конвертирует их в свитчи ДС (урок Л4) */
+    function ctlToggle(label, key) {
+      const wrap = document.createElement('div'); wrap.className = 'ctl';
+      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+      const box = document.createElement('div'); box.className = 'pg-select';
+      const sel = document.createElement('select');
+      [['no', 'Нет'], ['yes', 'Да']].forEach(([v, t]) => {
+        const op = document.createElement('option'); op.value = v; op.textContent = t;
+        if ((v === 'yes') === !!state[key]) op.selected = true;
+        sel.appendChild(op);
+      });
+      sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+      box.appendChild(sel); wrap.appendChild(box); wrap._sel = sel; return wrap;
     }
 
     controls.appendChild(select('Тип', [['edit', 'Edit'], ['readonly', 'ReadOnly']], () => state.type, v => state.type = v));
@@ -119,19 +126,15 @@
     controls.appendChild(avatarCtl);
     controls.appendChild(select('Состояние', [['default', 'Default'], ['selected', 'Selected'], ['focus', 'Focus'], ['loading', 'Loading'], ['invalid', 'Invalid'], ['disabled', 'Disabled']], () => state.chipState, v => state.chipState = v));
 
-    const optWrap = document.createElement('div'); optWrap.className = 'ctl';
-    const ol = document.createElement('div'); ol.className = 'lbl'; ol.textContent = 'Опции'; optWrap.appendChild(ol);
-    const toggles = document.createElement('div'); toggles.className = 'toggles';
-    const rmToggle = sw('Крестик удаления', 'removable');
-    const ddToggle = sw('Выпадающий список', 'dropdown');
+    const rmToggle = ctlToggle('Крестик удаления', 'removable');
+    const ddToggle = ctlToggle('Выпадающий список', 'dropdown');
     // крестик и выпадающий список — взаимоисключаются
-    rmToggle.addEventListener('click', () => { if (state.removable && state.dropdown) { state.dropdown = false; ddToggle.setAttribute('aria-pressed', 'false'); render(); } });
-    ddToggle.addEventListener('click', () => { if (state.dropdown && state.removable) { state.removable = false; rmToggle.setAttribute('aria-pressed', 'false'); render(); } });
-    toggles.appendChild(rmToggle);
-    toggles.appendChild(ddToggle);
-    toggles.appendChild(sw('Счётчик', 'count'));
-    toggles.appendChild(sw('Rounded', 'rounded'));
-    optWrap.appendChild(toggles); controls.appendChild(optWrap);
+    rmToggle._sel.addEventListener('change', () => { if (state.removable && state.dropdown) { state.dropdown = false; ddToggle._sel.value = 'no'; render(); } });
+    ddToggle._sel.addEventListener('change', () => { if (state.dropdown && state.removable) { state.removable = false; rmToggle._sel.value = 'no'; render(); } });
+    controls.appendChild(rmToggle);
+    controls.appendChild(ddToggle);
+    controls.appendChild(ctlToggle('Счётчик', 'count'));
+    controls.appendChild(ctlToggle('Rounded', 'rounded'));
 
     function render() {
       const disabled = state.chipState === 'disabled';

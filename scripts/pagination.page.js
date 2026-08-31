@@ -44,12 +44,21 @@
       sel.addEventListener('change', () => { onPick(sel.value); render(); });
       box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
-    function sw(label, key) {
-      const t = document.createElement('button'); t.type = 'button'; t.className = 'toggle'; t.dataset.key = key;
-      t.setAttribute('aria-pressed', String(state[key]));
-      t.innerHTML = '<span class="sw"></span><span>' + label + '</span>';
-      t.addEventListener('click', () => { state[key] = !state[key]; t.setAttribute('aria-pressed', String(state[key])); render(); });
-      return t;
+    /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+       (label.pg-toggle) в правую колонку; подпись свитча статична
+       (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+    function ctlToggle(label, key) {
+      const wrap = document.createElement('div'); wrap.className = 'ctl';
+      const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+      const box = document.createElement('div'); box.className = 'pg-select';
+      const sel = document.createElement('select');
+      [['no', 'Нет'], ['yes', 'Да']].forEach(([val, txt]) => {
+        const op = document.createElement('option'); op.value = val; op.textContent = txt;
+        if ((val === 'yes') === !!state[key]) op.selected = true;
+        sel.appendChild(op);
+      });
+      sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+      box.appendChild(sel); wrap.appendChild(box); return wrap;
     }
 
     controls.appendChild(widthSlider());
@@ -57,12 +66,7 @@
     controls.appendChild(select('Размер страницы', DEFAULT_SIZES.map(v => [String(v), sizeLabel(v)]), () => state.pageSize, v => { state.pageSize = v === 'all' ? 'all' : +v; const tp = totalPages(state.total, state.pageSize); if (state.page > tp) state.page = tp; }));
     controls.appendChild(select('Левый слот', [['none', 'Нет'], ['info', 'Инфо-сводка']], () => state.left, v => state.left = v));
     controls.appendChild(select('Выбрано строк (Action panel)', [['0', 'Нет'], ['2', '2'], ['4', '4'], ['12', '12']], () => state.selection, v => state.selection = +v));
-
-    const optWrap = document.createElement('div'); optWrap.className = 'ctl';
-    const ol = document.createElement('div'); ol.className = 'lbl'; ol.textContent = 'Опции'; optWrap.appendChild(ol);
-    const toggles = document.createElement('div'); toggles.className = 'toggles';
-    toggles.appendChild(sw('Выбор размера страницы', 'showPageSize'));
-    optWrap.appendChild(toggles); controls.appendChild(optWrap);
+    controls.appendChild(ctlToggle('Выбор размера страницы', 'showPageSize'));
 
     function render() {
       preview.innerHTML = '';

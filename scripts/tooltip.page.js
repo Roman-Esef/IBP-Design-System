@@ -42,13 +42,21 @@ function placeTip(stage, tip, target, placement, align, gap) {
     sel.addEventListener('change', () => { onPick(sel.value); render(); });
     box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
-  function toggle(label, key) {
+  /* Бинарная опция — селект: docs-split.js конвертирует его в свитч ДС
+     (label.pg-toggle) в правую колонку; подпись свитча статична
+     (DS_SPLIT_SWITCH_LABELS, правило Switch). state[key] остаётся boolean. */
+  function ctlToggle(label, key) {
     const wrap = document.createElement('div'); wrap.className = 'ctl';
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'toggle';
-    b.setAttribute('aria-pressed', String(state[key]));
-    b.innerHTML = '<span class="sw-mini"></span><span>' + label + '</span>';
-    b.addEventListener('click', () => { state[key] = !state[key]; b.setAttribute('aria-pressed', String(state[key])); render(); });
-    wrap.appendChild(b); return wrap;
+    const l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; wrap.appendChild(l);
+    const box = document.createElement('div'); box.className = 'pg-select';
+    const sel = document.createElement('select');
+    [['no', 'Нет'], ['yes', 'Да']].forEach(([v, t]) => {
+      const op = document.createElement('option'); op.value = v; op.textContent = t;
+      if ((v === 'yes') === !!state[key]) op.selected = true;
+      sel.appendChild(op);
+    });
+    sel.addEventListener('change', () => { state[key] = sel.value === 'yes'; render(); });
+    box.appendChild(sel); wrap.appendChild(box); return wrap;
   }
   function textInput() {
     const wrap = document.createElement('div'); wrap.className = 'ctl';
@@ -62,9 +70,9 @@ function placeTip(stage, tip, target, placement, align, gap) {
   controls.appendChild(select('Тип', [['main','Main'],['error','Error']], () => state.type, v => state.type = v));
   controls.appendChild(select('Размещение', [['top','Top'],['bottom','Bottom'],['left','Left'],['right','Right']], () => state.placement, v => state.placement = v));
   controls.appendChild(select('Стрелка (выравнивание)', [['start','Start'],['center','Center'],['end','End']], () => state.align, v => state.align = v));
-  controls.appendChild(toggle('Стрелка', 'arrow'));
-  controls.appendChild(toggle('Богатый контент', 'rich'));
-  const multilineCtl = toggle('Перенос (multiline)', 'multiline');
+  controls.appendChild(ctlToggle('Стрелка', 'arrow'));
+  controls.appendChild(ctlToggle('Богатый контент', 'rich'));
+  const multilineCtl = ctlToggle('Перенос (multiline)', 'multiline');
   controls.appendChild(multilineCtl);
 
   function render() {

@@ -2,7 +2,7 @@
 component: TableCell
 title: "TableCell"
 version: "2.005"
-updated: "27.08.2026"
+updated: "30.08.2026"
 page: pages/organisms/TableCell.html
 runtime: scripts/ds-table.js, scripts/tbl-resize.js
 css: styles/table-cell.css

@@ -17,29 +17,47 @@
 <link rel="stylesheet" href="../../styles/table-cell.css">
 <link rel="stylesheet" href="../../styles/input-pages.css">
 <link rel="stylesheet" href="../../styles/ds-nav.css">
-<link rel="stylesheet" href="../../styles/ds-toc.css">
-<link rel="stylesheet" href="../../styles/pg-kit.css">
+<link rel="stylesheet" href="../../styles/splitter.css">
+<link rel="stylesheet" href="../../styles/segment-control.css">
+<link rel="stylesheet" href="../../styles/tab.css">
+<link rel="stylesheet" href="../../styles/docs-split.css">
+<style>
+  /* демо-стадия (docs-split): растяжение на ширину панели демо;
+     padding/фон/min-height — из input-pages.css */
+  .pg__stage { flex:1; width:100%; }
+</style>
 </head>
 <body>
-<main class="page" data-screen-label="DatePicker">
+<main class="page ds-split" data-screen-label="DatePicker">
+
+  <div class="splitpane splitpane--h" data-splitter data-min="25" data-max="75" data-initial="42">
+    <div class="splitpane__panel splitpane__a app-pane-demo">
+      <div class="demo-stage">
+        <div class="pg__stage" id="pg-stage"></div>
+        <p class="pg__code" id="pg-code"></p>
+      </div>
+    </div>
+
+    <div class="spl spl--h" role="separator" aria-orientation="horizontal" aria-label="Изменить высоту демо" tabindex="0"><span class="spl__grip"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+
+    <div class="splitpane__panel splitpane__b app-pane-docs">
+      <div class="tabs tabs--horiz" role="tablist" data-tabs aria-label="Разделы страницы">
+        <button type="button" class="tab tab--m" id="tab-constructor" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-constructor" aria-controls="pane-constructor"><span class="tab__label">Конструктор</span></button>
+        <button type="button" class="tab tab--m tab--selected" id="tab-docs" role="tab" aria-selected="true" tabindex="0" data-pane="pane-docs" aria-controls="pane-docs"><span class="tab__label">Документация</span></button>
+        <button type="button" class="tab tab--m" id="tab-code" role="tab" aria-selected="false" tabindex="-1" data-pane="pane-code" aria-controls="pane-code"><span class="tab__label">Код</span></button>
+      </div>
+
+      <div class="tabs-body">
+        <div class="tabpane" id="pane-docs" role="tabpanel" aria-labelledby="tab-docs">
+          <div class="docs-layout">
+            <div class="docs-main">
 
   <header class="masthead">
-    <div class="meta"><span>Версия: <b>1.005</b></span><span>Обновлено: <b>21.08.2026</b></span></div>
+    <div class="meta"><span>Версия: <b>1.005</b></span><span>Обновлено: <b>30.08.2026</b></span></div>
     <p class="eyebrow">Дизайн-система · Компоненты</p>
     <h1>DatePicker</h1>
     <p class="lead">Календарь — всплывающая поверхность выбора даты или диапазона дат. Поднимается полями <a class="inl" href="InputDate.html">InputDate</a> и <a class="inl" href="InputDateRange.html">InputDateRange</a> при фокусе или по кнопке-календарю. Material-подход, собранный на токенах и шрифтах ДС. Неделя начинается с понедельника, локаль — русская.</p>
   </header>
-
-  <!-- PLAYGROUND -->
-  <section class="section" data-screen-label="Playground">
-    <h2>Конструктор</h2>
-    <p class="desc">Соберите календарь: режим выбора и футер. Выбор живой — кликайте по дням, листайте месяцы стрелками, откройте выбор года кликом по заголовку.</p>
-    <div class="panel pg">
-      <div class="pg__controls" id="pg-controls"></div>
-      <div class="pg__stage" id="pg-stage"></div>
-    </div>
-    <p class="pg__code" id="pg-code"></p>
-  </section>
 
   <!-- USAGE -->
   <section class="section" data-screen-label="Usage">
@@ -284,15 +302,276 @@
     <span>Дизайн-система · DatePicker</span>
     <span>single / range / month · day / month / year · footer · min-max · Material в токенах ДС</span>
   </footer>
+
+            </div><!-- /docs-main -->
+            <nav class="docs-toc" id="docs-toc" aria-label="Содержание страницы"></nav>
+          </div><!-- /docs-layout -->
+        </div><!-- /pane-docs -->
+
+        <div class="tabpane" id="pane-constructor" role="tabpanel" aria-labelledby="tab-constructor" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Конструктор</h2>
+              <p class="desc">Соберите календарь: режим выбора и футер. Выбор живой — кликайте по дням, листайте месяцы стрелками, откройте выбор года кликом по заголовку.</p>
+              <div class="pg__controls" id="pg-controls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabpane" id="pane-code" role="tabpanel" aria-labelledby="tab-code" hidden>
+          <div class="docs-layout">
+            <div class="docs-main">
+              <h2>Код компонента</h2>
+              <p class="desc">Эталонная разметка, полный CSS компонента (styles/datepicker.css) и выжимка API для интеграции.</p>
+              <div class="segctrl segctrl--s code-switch" role="radiogroup" aria-label="Язык кода" data-segctrl>
+                <div class="segctrl__thumb"></div>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="true" data-lang="html"><span class="segctrl__label">HTML</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="css"><span class="segctrl__label">CSS</span></button>
+                <button type="button" class="segctrl__item" role="radio" aria-checked="false" data-lang="js"><span class="segctrl__label">JS</span></button>
+              </div>
+              <div class="code-panel code-view" data-view="html"><pre><code id="code-out-html"></code></pre></div>
+              <div class="code-panel code-view" data-view="css" hidden><pre><code id="code-out-css"></code></pre></div>
+              <div class="code-panel code-view" data-view="js" hidden><pre><code id="code-out-js"></code></pre></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabs-body -->
+    </div><!-- /app-pane-docs -->
+  </div><!-- /splitpane -->
 </main>
 
 <script src="../../scripts/icons-data.js"></script>
 <script src="../../scripts/ds-icons.js"></script>
 <script src="../../scripts/ds-datepicker.js"></script>
-<script src="../../scripts/datepicker.page.js"></script>
 <script src="../../scripts/ds-nav.js"></script>
-<script src="../../scripts/ds-toc.js"></script>
-<script src="../../scripts/pg-kit.js"></script>
+<script src="../../scripts/ds-splitter.js"></script>
+<script src="../../scripts/ds-tabs.js"></script>
 <script src="../../scripts/tbl-resize.js"></script>
+<script src="../../scripts/datepicker.page.js"></script>
+<script>window.DS_SPLIT_SWITCH_LABELS = { 'Кнопки Отменить / Применить': 'Показывать кнопки Отменить / Применить', 'Быстрое «Сегодня»': 'Показывать «Сегодня»' };</script>
+<script src="../../scripts/docs-split.js"></script>
+
+<!-- ===== исходники для вкладки «Код» (статично) ===== -->
+<script type="text/plain" id="src-code-html"><div class="dpk" role="dialog" aria-modal="false" aria-label="Выбор даты">
+  <div class="dpk__head">
+    <button class="dpk__caption" aria-haspopup="true"><span>Октябрь 2025</span><span class="dpk__cap-icon">…chevron-down…</span></button>
+    <div class="dpk__nav">
+      <button class="ibtn ibtn--neutral ibtn--s dpk__prev" aria-label="Назад">…chevron-left…</button>
+      <button class="ibtn ibtn--neutral ibtn--s dpk__next" aria-label="Вперёд">…chevron-right…</button>
+    </div>
+  </div>
+  <div class="dpk__weekdays" aria-hidden="true"><span class="dpk__weekday">Пн</span>…<span class="dpk__weekday">Вс</span></div>
+  <div class="dpk__grid" role="grid">
+    <button class="dpk__day dpk__day--outside" role="gridcell" aria-label="29 сентября 2025" tabindex="-1"><span class="dpk__daynum">29</span></button>
+    <button class="dpk__day dpk__day--today" role="gridcell" aria-label="15 октября 2025" aria-selected="false" tabindex="-1"><span class="dpk__daynum">15</span></button>
+    <button class="dpk__day dpk__day--selected" role="gridcell" aria-selected="true" tabindex="0"><span class="dpk__daynum">21</span></button>
+    <!-- диапазон: --range-start / --in-range / --range-end -->
+  </div>
+  <!-- опц. футер -->
+  <div class="dpk__foot">
+    <div class="dpk__foot-left"><button class="btn btn--transparent btn--xs dpk__today"><span class="btn__label">Сегодня</span></button></div>
+    <div class="dpk__foot-right">
+      <button class="btn btn--transparent btn--xs dpk__cancel"><span class="btn__label">Отменить</span></button>
+      <button class="btn btn--accent btn--xs dpk__ok"><span class="btn__label">Применить</span></button>
+    </div>
+  </div>
+</div>
+<!-- панель месяца/года: root + .dpk--panel, тело .dpk__panel(.--years) > .dpk__panel-cell(.--current/.--selected/.--disabled) --></script>
+<script type="text/plain" id="src-code-js">// Выжимка API (полный код — scripts/datepicker.page.js)
+// Календарь строит общий рантайм: window.DSDatePicker.makeCalendar(spec)
+const spec = {
+  today: new Date(2025, 9, 15),   // фикс. «сегодня» для стабильной документации
+  mode: 'single',                 // 'single' | 'range' | 'month' (view='month')
+  selected: new Date(2025, 9, 15),
+  rangeStart: new Date(2025, 9, 8), rangeEnd: new Date(2025, 9, 21),
+  min: null, max: null,           // ограничения доступности дней
+  live: true,                     // живой выбор
+  foot: false, quick: false,      // футер «Отменить/Применить» + «Сегодня»
+  inline: false,                  // docked — без тени, только рамка
+  view: 'day'                     // 'day' | 'month' | 'year'
+};
+// .dpk (role="dialog") + .dpk__head/.dpk__weekdays/.dpk__grid/.dpk__foot</script>
+<script type="text/plain" id="src-code-css">/* =========================================================================
+   DatePicker (Календарь) — всплывающая поверхность выбора даты/диапазона.
+   Поднимается полями InputDate / InputDateRange. Material-подход в токенах ДС.
+   Только семантические токены; собственных цветов/радиусов/теней нет.
+   Зависимости на экране: styles/icon-button.css (стрелки, ✕), styles/button.css (футер).
+   ========================================================================= */
+
+/* ---------- контейнер ---------- */
+.dpk {
+  --dpk-cell: 40px;
+  display: inline-flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: calc(var(--dpk-cell) * 7 + 24px);
+  padding: 12px;
+  background: var(--bg-popup);
+  border-radius: var(--radius-m);
+  box-shadow: var(--elevation-5);
+  color: var(--text-primary);
+  user-select: none;
+  flex: none;
+}
+/* встроенный (docked, без тени) — например, внутри модалки/панели */
+.dpk--inline { box-shadow: none; border: 1px solid var(--border-light); }
+
+/* ---------- шапка: заголовок + навигация ---------- */
+.dpk__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 40px;
+  padding: 0 2px 0 4px;
+}
+.dpk__caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 6px 0 8px;
+  min-width: 0;
+  max-width: 100%;
+  border: none;
+  border-radius: var(--radius-s);
+  background: transparent;
+  font: var(--type-body-s-strong);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color .12s;
+}
+.dpk__caption > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.dpk__caption:hover { background: var(--bgtable-row-hover); }
+.dpk__caption:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.dpk__cap-icon { display: inline-flex; color: var(--text-secondary); transition: transform .18s; }
+.dpk__cap-icon :is(svg,[data-icon]){ width: 18px; height: 18px; display: block; }
+.dpk--panel .dpk__cap-icon { transform: rotate(180deg); }
+.dpk__nav { display: inline-flex; gap: 2px; }
+/* в режиме выбора месяца/года стрелки листают блок (±1 год у месяцев, ±12 лет у годов) */
+
+/* ---------- дни недели ---------- */
+.dpk__weekdays { display: grid; grid-template-columns: repeat(7, var(--dpk-cell)); margin-top: 4px; }
+.dpk__weekday {
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font: var(--type-body-xs);
+  color: var(--text-inactive);
+}
+
+/* ---------- сетка дней ---------- */
+.dpk__grid { display: grid; grid-template-columns: repeat(7, var(--dpk-cell)); grid-auto-rows: var(--dpk-cell); }
+.dpk__day {
+  position: relative;
+  width: var(--dpk-cell);
+  height: var(--dpk-cell);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: var(--type-body-s);
+  color: var(--text-primary);
+}
+/* фон-полоса диапазона (позади кружка) */
+.dpk__day::before {
+  content: "";
+  position: absolute;
+  top: 2px; bottom: 2px; left: 0; right: 0;
+  background: transparent;
+  z-index: 0;
+}
+.dpk__day--in-range::before { background: var(--primary-bg); }
+.dpk__day--range-start::before { background: var(--primary-bg); left: 50%; }
+.dpk__day--range-end::before   { background: var(--primary-bg); right: 50%; }
+
+/* кружок числа */
+.dpk__daynum {
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+  transition: background-color .12s, box-shadow .12s, color .12s;
+}
+.dpk__day:not(.dpk__day--disabled):not([aria-disabled="true"]):not(.dpk__day--selected):not([aria-selected="true"]):not(.dpk__day--range-start):not(.dpk__day--range-end):hover .dpk__daynum {
+  background: var(--bgtable-row-hover);
+}
+.dpk__day:focus-visible { outline: none; }
+.dpk__day:focus-visible .dpk__daynum { outline: 2px solid var(--primary); outline-offset: 1px; }
+
+/* дни соседних месяцев */
+.dpk__day--outside .dpk__daynum { color: var(--text-inactive); }
+
+/* сегодня */
+.dpk__day--today .dpk__daynum { box-shadow: inset 0 0 0 1px var(--primary); color: var(--primary); font-weight: 600; }
+
+/* выбрано / концы диапазона — класс форс-состояния витрины; реальная ячейка
+   несёт aria-selected="true" (грид-паттерн, RulesAudit W1). */
+.dpk__day--selected .dpk__daynum,
+.dpk__day[aria-selected="true"] .dpk__daynum,
+.dpk__day--range-start .dpk__daynum,
+.dpk__day--range-end .dpk__daynum {
+  background: var(--primary);
+  color: var(--text-on-dark);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+/* недоступно */
+.dpk__day--disabled,
+.dpk__day[aria-disabled="true"] { cursor: default; }
+.dpk__day--disabled .dpk__daynum,
+.dpk__day[aria-disabled="true"] .dpk__daynum { color: var(--st-disabled); }
+.dpk__day--disabled::before,
+.dpk__day[aria-disabled="true"]::before { display: none; }
+
+/* ---------- панель выбора месяца / года ---------- */
+.dpk__panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 6px;
+  padding: 10px 4px 4px;
+}
+.dpk__panel--years { max-height: 236px; overflow-y: auto; overscroll-behavior: contain; }
+.dpk__panel-cell {
+  height: 40px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-pill);
+  font: var(--type-body-s);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  transition: background-color .12s, box-shadow .12s, color .12s;
+}
+.dpk__panel-cell:hover { background: var(--bgtable-row-hover); }
+.dpk__panel-cell:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.dpk__panel-cell--current { box-shadow: inset 0 0 0 1px var(--primary); color: var(--primary); }
+.dpk__panel-cell--selected { background: var(--primary); color: var(--text-on-dark); box-shadow: none; font-weight: 600; }
+.dpk__panel-cell--disabled { color: var(--st-disabled); cursor: default; }
+.dpk__panel-cell--disabled:hover { background: transparent; }
+
+/* ---------- футер ---------- */
+.dpk__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+.dpk__foot-left { display: inline-flex; align-items: center; gap: 8px; }
+.dpk__foot-right { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dpk__cap-icon, .dpk__daynum, .dpk__panel-cell { transition: none; }
+}</script>
 </body>
 </html>
