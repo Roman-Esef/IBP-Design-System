@@ -27,6 +27,7 @@
             { label: 'Avatar',       href: 'pages/atoms/Avatar.html' },
             { label: 'Badge',        href: 'pages/atoms/Badge.html' },
             { label: 'Button',       href: 'pages/atoms/Buttons.html' },
+            { label: 'Button Test',  href: 'pages/atoms/ButtonTest.html' },
             { label: 'Checkbox',     href: 'pages/atoms/Checkbox.html' },
             { label: 'Chip',         href: 'pages/atoms/Chip.html' },
             { label: 'Divider',      href: 'pages/atoms/Divider.html' },

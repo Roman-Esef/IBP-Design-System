@@ -13,6 +13,7 @@ purpose: Манифест спек компонентов. Читай нужну
 | Breadcrumbs | specs/Breadcrumbs.md | styles/breadcrumbs.css | link, context-menu, tooltip | 1.005 |
 | ButtonGroup | specs/ButtonGroup.md | styles/button-group.css | button | 1.003 |
 | Buttons | specs/Buttons.md | styles/button.css | spinner | 1.010 |
+| ButtonTest | specs/ButtonTest.md | styles/button.css | spinner | 1.011 |
 | Chart | specs/Chart.md | styles/chart.css | tooltip, alert, skeleton, segment-control, icon-button, button, table-cell | 1.000 |
 | Checkbox | specs/Checkbox.md | styles/checkbox.css | label-helper | 1.006 |
 | Chip | specs/Chip.md | styles/chip.css | label-helper, spinner | 1.009 |
